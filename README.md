@@ -10,6 +10,7 @@ Collection of ansible playbooks and roles.
 ## Roles
 
 * docker - Install docker for Ubuntu
+* nginx - Deploys Nginx proxy with Let's Encrypt certificates
 * clean - Remove any role
 
 ## Usage

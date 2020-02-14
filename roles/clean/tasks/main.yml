@@ -1,0 +1,13 @@
+- name: Remove nginx container
+  docker_container:
+    name: "{{ nginx_hostname }}"
+    state: absent
+  tags:
+  - nginx
+
+- name: Remove docker network
+  docker_network:
+    name: "{{ network_name }}"
+    state: absent
+  tags:
+  - docker

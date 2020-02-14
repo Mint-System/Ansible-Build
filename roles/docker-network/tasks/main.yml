@@ -1,0 +1,8 @@
+- name: Ensure docker deamon is running
+  service:
+    name: docker
+    state: started
+
+- name: Create docker network
+  docker_network:
+    name: "{{ network_name }}"

@@ -1,0 +1,16 @@
+- name: Start postgres container
+  docker_container:
+    name: "{{ postgres_hostname }}"
+    image: "{{ postgres_image }}"
+    env:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+    volumes:
+    - "{{ postgres_data_dir }}:/var/lib/postgresql/data"
+    networks:
+    - name: "{{ network_name }}"
+    log_driver: "{{ log_driver }}"
+    log_options:
+      max-size: "{{ log_max_size }}"
+      max-file: "{{ log_max_file }}"

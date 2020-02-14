@@ -1,0 +1,4 @@
+- name: Restart odoo container
+  docker_container:
+    name: "{{ odoo_hostname }}"
+    restart: true

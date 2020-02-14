@@ -1,0 +1,4 @@
+- name: Restart nginx container
+  docker_container:
+    name: "{{ nginx_hostname }}"
+    restart: true

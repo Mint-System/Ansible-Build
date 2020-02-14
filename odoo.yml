@@ -2,3 +2,7 @@
   become: true
   roles:
   - { role: docker, tags: ["docker"] }
+  - { role: docker-network, tags: ["docker-network"] }
+  - { role: postgres, tags: ["postgres"] }
+  - { role: odoo, tags: ["odoo"] }
+  - { role: nginx, tags: ["nginx"] }
