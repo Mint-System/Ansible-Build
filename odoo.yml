@@ -1,0 +1,4 @@
+- hosts: "{{ ehosts | default('odoo') }}"
+  become: true
+  roles:
+  - { role: docker, tags: ["docker"] }
