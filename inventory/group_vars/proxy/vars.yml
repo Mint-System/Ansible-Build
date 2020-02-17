@@ -1,6 +1,3 @@
-server_names:
-  - wiki.mint-system.ch
-  - odoo.mint-system.ch
 nginx_image: nginx:1.15-alpine
 nginx_hostname: proxy01
 nginx_data_dir: /usr/share/nginx
@@ -13,3 +10,7 @@ nginx_proxies:
     src_port: 443
     dest_hostname: odoo01
     dest_port: 8069
+  - src_hostname: cloud.mint-system.ch
+    src_port: 443
+    dest_hostname: nextcloud01
+    dest_port: 80

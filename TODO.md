@@ -2,7 +2,7 @@
 
 ## Nginx role
 
-- [ ] Remove server_names variable
+- [x] Remove server_names variable
 - [ ] Skip waiting for cert request if not certs are required
 
 ## Odoo role
@@ -14,6 +14,11 @@
 - [ ] Connect to ldap
 - [ ] Configure email
 
+## Nextcloud role
+
+- [ ] Connect to ldap
+- [ ] Configure email
+
 ## Postgres role
 
-- [ ] Enable multi db deployment https://dev.to/bgord/multiple-postgres-databases-in-a-single-docker-container-417l
+- [x] Enable multi db deployment https://dev.to/bgord/multiple-postgres-databases-in-a-single-docker-container-417l

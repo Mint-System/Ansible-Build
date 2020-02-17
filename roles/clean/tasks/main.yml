@@ -5,6 +5,20 @@
   tags:
   - nginx
 
+- name: Remove postgres container
+  docker_container:
+    name: "{{ postgres_hostname }}"
+    state: absent
+  tags:
+  - postgres
+
+- name: Remove nextcloud container
+  docker_container:
+    name: "{{ nextcloud_hostname }}"
+    state: absent
+  tags:
+  - nextcloud
+
 - name: Remove docker network
   docker_network:
     name: "{{ network_name }}"

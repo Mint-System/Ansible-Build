@@ -1,4 +1,0 @@
-- hosts: "{{ ehosts | default('odoo') }}"
-  become: true
-  roles:
-  - clean

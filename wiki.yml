@@ -6,3 +6,4 @@
   - { role: openldap, tags: ["openldap"] }
   - { role: postgres, tags: ["postgres"] }
   - { role: wiki, tags: ["wiki"] }
+  - { role: nextcloud, tags: ["nextcloud"] }

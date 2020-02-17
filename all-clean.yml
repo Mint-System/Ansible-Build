@@ -1,0 +1,4 @@
+- hosts: "{{ ehosts | default('all') }}"
+  become: true
+  roles:
+  - clean

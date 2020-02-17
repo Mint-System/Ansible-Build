@@ -5,20 +5,20 @@
 
 - name: Check if cert files exist
   stat:
-    path: "{{ certbot_data_dir }}/live/{{ item }}"
-  loop: "{{ server_names|flatten(levels=1) }}"
+    path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
+  loop: "{{ nginx_proxies }}"
   register: certbot_certs
 
 # - name: Debug certbot_certs
 #   debug:
-#     msg: "{{ certbot_certs.results | json_query('stat.exists') }}"
+#     var: certbot_certs
 
 - name: Copy nginx certbot conf
   template:
     src: templates/nginx-certbot.conf
-    dest: "{{ nginx_data_dir }}/{{ item.item }}.conf"
+    dest: "{{ nginx_data_dir }}/{{ item.item.src_hostname }}.conf"
   vars:
-    server_name: "{{ item.item }}"
+    server_name: "{{ item.item.src_hostname }}"
   loop: "{{ certbot_certs.results }}"
   when: not item.stat.exists
 
@@ -54,7 +54,7 @@
     volumes:
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
-    command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.item }}
+    command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.item.src_hostname }}
   loop: "{{ certbot_certs.results }}"
   when: not item.stat.exists
 
@@ -86,6 +86,7 @@
   with_items:
     - files/options-ssl-nginx.conf
     - files/ssl-dhparams.pem
+    - files/proxy-params.conf
 
 - name: Start nginx container
   docker_container:

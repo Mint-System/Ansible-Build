@@ -4,7 +4,7 @@ postgres_port_exposed: 5433
 postgres_data_dir: /usr/share/postgres02
 postgres_user: wiki
 postgres_password: "{{ vault_postgres_password }}"
-postgres_db: wiki
+postgres_multi_db: "wiki,nextcloud"
 
 wiki_image: requarks/wiki:2
 wiki_hostname: wiki01
@@ -14,3 +14,13 @@ wiki_postgres_port: "5432"
 wiki_postgres_user: wiki
 wiki_postgres_password: "{{ vault_postgres_password }}"
 wiki_postgres_db: wiki
+
+nextcloud_image: nextcloud:18-apache
+nextcloud_hostname: nextcloud01
+nextcloud_data_dir: /usr/share/nextcloud
+nextcloud_admin_user: admint
+nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"
+nextcloud_postgres_hostname: postgres02:5432
+nextcloud_postgres_user: wiki
+nextcloud_postgres_password: "{{ vault_postgres_password }}"
+nextcloud_postgres_db: nextcloud

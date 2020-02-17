@@ -1,3 +1,16 @@
+- name: Ensure postgres conf dir exists
+  file:
+    path: "{{ postgres_data_dir }}"
+    state: directory
+
+- name: Copy postgres init scripts
+  copy:
+    src: "{{ item }}"
+    dest: "{{ postgres_data_dir }}/pg_init_scripts/"
+  with_items:
+    - create-multiple-postgresql-databases.sh
+  notify: Restart postgres container
+
 - name: Start postgres container
   docker_container:
     name: "{{ postgres_hostname }}"
@@ -5,8 +18,9 @@
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_MULTIPLE_DATABASES: "{{ postgres_multi_db }}"
     volumes:
+      - "{{ postgres_data_dir }}/pg_init_scripts:/docker-entrypoint-initdb.d"
       - "{{ postgres_data_dir }}:/var/lib/postgresql/data"
     ports:
       - "{{ postgres_port_exposed }}:5432"

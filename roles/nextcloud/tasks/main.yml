@@ -1,0 +1,24 @@
+- name: Ensure nextcloud conf dir exists
+  file:
+    path: "{{ nextcloud_data_dir }}"
+    state: directory
+
+- name: Start nextcloud container
+  docker_container:
+    name: "{{ nextcloud_hostname }}"
+    image: "{{ nextcloud_image }}"
+    env:
+      NEXTCLOUD_ADMIN_USER: "{{ nextcloud_admin_user }}"
+      NEXTCLOUD_ADMIN_PASSSWORD: "{{ nextcloud_admin_password }}"
+      POSTGRES_HOST: "{{ nextcloud_postgres_hostname }}"
+      POSTGRES_USER: "{{ nextcloud_postgres_user }}"
+      POSTGRES_PASSWORD: "{{ nextcloud_postgres_password }}"
+      POSTGRES_DB: "{{ nextcloud_postgres_db }}"
+    volumes:
+      - "{{ nextcloud_data_dir }}:/var/www/html"
+    networks:
+      - name: "{{ network_name }}"
+    log_driver: "{{ log_driver }}"
+    log_options:
+      max-size: "{{ log_max_size }}"
+      max-file: "{{ log_max_file }}"
