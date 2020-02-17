@@ -1,0 +1,4 @@
+- name: Restart openldap container
+  docker_container:
+    name: "{{ openldap_hostname }}"
+    restart: true

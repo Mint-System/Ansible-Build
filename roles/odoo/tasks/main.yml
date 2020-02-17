@@ -4,9 +4,11 @@
     state: directory
 
 - name: Copy odoo conf
-  template: src={{ item.src }} dest={{ item.dest }}
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
   with_items:
-    - { src: 'templates/odoo.conf', dest: '{{ odoo_data_dir }}/odoo.conf' }
+    - { src: "templates/odoo.conf", dest: "{{ odoo_data_dir }}/odoo.conf" }
   notify: Restart odoo container
 
 - name: Start odoo container
@@ -17,13 +19,13 @@
       HOST: "{{ postgres_hostname }}"
       USER: "{{ postgres_user }}"
       PASSWORD: "{{ postgres_password }}"
-    ports:
-    - 8069:8069
+    # ports:
+    #  - "{{ odoo_port }}:8069"
     volumes:
-    - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
-    - "{{ odoo_data_dir }}/addons:/mnt/extra-addons"
+      - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
+      - "{{ odoo_data_dir }}/addons:/mnt/extra-addons"
     networks:
-    - name: "{{ network_name }}"
+      - name: "{{ network_name }}"
     log_driver: "{{ log_driver }}"
     log_options:
       max-size: "{{ log_max_size }}"
