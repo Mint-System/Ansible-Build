@@ -6,12 +6,17 @@ Collection of ansible playbooks and roles.
 ## Playbooks
 
 * odoo - Deploys odoo docker instance
+* wiki - Deploys wiki.js instance
+* proxy - Deploys nginx proxy instance
 
 ## Roles
 
 * docker - Install docker for Ubuntu
 * nginx - Deploys Nginx proxy with Let's Encrypt certificates
 * clean - Remove any role
+* wiki - Wiki.js container
+* postgres - Posgresql database
+* openldap - Openldap server
 
 ## Usage
 

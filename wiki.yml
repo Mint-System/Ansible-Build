@@ -1,7 +1,8 @@
-- hosts: "{{ ehosts | default('odoo') }}"
+- hosts: "{{ ehosts | default('wiki') }}"
   become: true
   roles:
   - { role: docker, tags: ["docker"] }
   - { role: docker-network, tags: ["docker-network"] }
+  - { role: openldap, tags: ["openldap"] }
   - { role: postgres, tags: ["postgres"] }
-  - { role: odoo, tags: ["odoo"] }
+  - { role: wiki, tags: ["wiki"] }

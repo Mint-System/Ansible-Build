@@ -1,0 +1,6 @@
+- hosts: "{{ ehosts | default('wiki') }}"
+  become: true
+  roles:
+  - { role: docker, tags: ["docker"] }
+  - { role: docker-network, tags: ["docker-network"] }
+  - { role: nginx, tags: ["nginx"] }

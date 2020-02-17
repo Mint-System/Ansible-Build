@@ -1,22 +1,3 @@
-server_name: odoo.mint-system.ch
-network_name: mint-system-net
-server_names:
-  - wiki.mint-system.ch
-  - odoo.mint-system.ch
-
-nginx_image: nginx:1.15-alpine
-nginx_hostname: proxy01
-nginx_data_dir: /usr/share/nginx
-nginx_proxies:
-  - src_hostname: wiki.mint-system.ch
-    src_port: 443
-    dest_hostname: odoo01
-    dest_port: 8069
-  - src_hostname: odoo.mint-system.ch
-    src_port: 443
-    dest_hostname: odoo01
-    dest_port: 8069
-
 certbot_image: certbot/certbot
 certbot_hostname: cert01
 certbot_data_dir: /usr/share/certbot
@@ -34,7 +15,13 @@ odoo_image: odoo:13
 odoo_hostname: odoo01
 odoo_port: 8069
 odoo_data_dir: /usr/share/odoo
+odoo_postgres_hostname: postgres01
+odoo_postgres_user: odoo
+odoo_postgres_password: "{{ vault_postgres_password }}"
 
-wiki_image: requarks/wiki:2
-wiki_hostname: wiki01
-wiki_data_dir: /usr/share/wiki
+openldap_image: osixia/openldap:1.3.0
+openldap_hostname: ldap01
+openldap_data_dir: /usr/share/openldap
+openldap_password: "{{ vault_openldap_password }}"
+openldap_domain: mint-system.ch
+openldap_organisation: "Mint System"

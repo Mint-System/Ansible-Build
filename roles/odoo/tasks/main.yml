@@ -16,9 +16,9 @@
     name: "{{ odoo_hostname }}"
     image: "{{ odoo_image }}"
     env:
-      HOST: "{{ postgres_hostname }}"
-      USER: "{{ postgres_user }}"
-      PASSWORD: "{{ postgres_password }}"
+      HOST: "{{ odoo_postgres_hostname }}"
+      USER: "{{ odoo_postgres_user }}"
+      PASSWORD: "{{ odoo_postgres_password }}"
     # ports:
     #  - "{{ odoo_port }}:8069"
     volumes:

@@ -1,0 +1,23 @@
+- name: Ensure openldap conf dir exists
+  file:
+    path: "{{ openldap_data_dir }}"
+    state: directory
+
+- name: Start openldap container
+  docker_container:
+    name: "{{ openldap_hostname }}"
+    image: "{{ openldap_image }}"
+    env:
+      LDAP_ORGANISATION: "{{ openldap_organisation }}"
+      LDAP_DOMAIN: "{{ openldap_domain }}"
+      LDAP_ADMIN_PASSWORD: "{{ openldap_password }}"
+    volumes:
+      - "{{ openldap_data_dir }}/ldap:/var/lib/ldap"
+      - "{{ openldap_data_dir }}/slapd.d:/etc/ldap/slapd.d"
+      - "{{ openldap_data_dir }}/ldif:/usr/share/openldap/ldif"
+    networks:
+      - name: "{{ network_name }}"
+    log_driver: "{{ log_driver }}"
+    log_options:
+      max-size: "{{ log_max_size }}"
+      max-file: "{{ log_max_file }}"

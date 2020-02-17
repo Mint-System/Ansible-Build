@@ -1,0 +1,16 @@
+postgres_image: postgres:10-alpine
+postgres_hostname: postgres02
+postgres_port_exposed: 5433
+postgres_data_dir: /usr/share/postgres02
+postgres_user: wiki
+postgres_password: "{{ vault_postgres_password }}"
+postgres_db: wiki
+
+wiki_image: requarks/wiki:2
+wiki_hostname: wiki01
+wiki_data_dir: /usr/share/wiki
+wiki_postgres_hostname: postgres02
+wiki_postgres_port: "5432"
+wiki_postgres_user: wiki
+wiki_postgres_password: "{{ vault_postgres_password }}"
+wiki_postgres_db: wiki
