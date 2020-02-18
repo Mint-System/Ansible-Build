@@ -5,19 +5,24 @@
 - [x] Remove server_names variable
 - [ ] Skip waiting for cert request if not certs are required
 
-## Odoo role
+## Backup
 
-- [ ] Ensure assets are persisted
+- [ ] Backup data folders to external system
 
-## Wiki role
+## All roles
+
+- [ ] Ensure all assets are persisted
+- [ ] Update documentation with persisted folder
+
+## Bookshelf role
 
 - [ ] Connect to ldap
-- [ ] Configure email
+- [x] Configure email
 
 ## Nextcloud role
 
 - [ ] Connect to ldap
-- [ ] Configure email
+- [x] Configure email
 
 ## Postgres role
 

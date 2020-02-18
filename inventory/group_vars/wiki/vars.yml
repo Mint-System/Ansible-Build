@@ -6,6 +6,14 @@ postgres_user: wiki
 postgres_password: "{{ vault_postgres_password }}"
 postgres_multi_db: "wiki,nextcloud"
 
+mysql_image: mysql:5
+mysql_hostname: mysql01
+mysql_data_dir: /usr/share/mysql01
+mysql_root_password: "{{ vault_mysql_root_password }}"
+mysql_database: bookstack
+mysql_user: bookstack
+mysql_password:  "{{ vault_mysql_password }}"
+
 wiki_image: requarks/wiki:2
 wiki_hostname: wiki01
 wiki_data_dir: /usr/share/wiki
@@ -24,3 +32,19 @@ nextcloud_postgres_hostname: postgres02:5432
 nextcloud_postgres_user: wiki
 nextcloud_postgres_password: "{{ vault_postgres_password }}"
 nextcloud_postgres_db: nextcloud
+
+bookstack_image: solidnerd/bookstack:0.27.5
+bookstack_hostname: book01
+bookstack_data_dir: /usr/share/bookstack
+bookstack_app_url: "https://wiki.mint-system.ch"
+bookstack_db_hostname: "mysql01:3306"
+bookstack_db_user: bookstack
+bookstack_db_password: "{{ vault_mysql_password }}"
+bookstack_db_database: bookstack
+bookstack_mail_driver: smtp
+bookstack_mail_hostname: mail.infomaniak.com
+bookstack_mail_port: "587"
+bookstack_mail_from: noreply@mint-system.ch
+bookstack_mail_username: bot@mint-system.ch
+bookstack_mail_password: "{{ vault_mail_password }}"
+bookstack_mail_encryption: tls

@@ -12,6 +12,27 @@
   tags:
   - postgres
 
+- name: Remove wiki container
+  docker_container:
+    name: "{{ wiki_hostname }}"
+    state: absent
+  tags:
+  - wiki
+
+- name: Remove mysql container
+  docker_container:
+    name: "{{ mysql_hostname }}"
+    state: absent
+  tags:
+  - mysql
+
+- name: Remove bookstack container
+  docker_container:
+    name: "{{ bookstack_hostname }}"
+    state: absent
+  tags:
+  - bookstack
+
 - name: Remove nextcloud container
   docker_container:
     name: "{{ nextcloud_hostname }}"

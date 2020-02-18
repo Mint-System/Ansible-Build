@@ -4,8 +4,8 @@ nginx_data_dir: /usr/share/nginx
 nginx_proxies:
   - src_hostname: wiki.mint-system.ch
     src_port: 443
-    dest_hostname: wiki01
-    dest_port: 3000
+    dest_hostname: book01
+    dest_port: 80
   - src_hostname: odoo.mint-system.ch
     src_port: 443
     dest_hostname: odoo01
