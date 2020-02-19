@@ -1,9 +1,15 @@
 # TODO
 
+## Security
+
+- [ ] SSL check 
+- [ ] Setup waf - docker nginx with modescurity and owasp crs https://hub.docker.com/r/owasp/modsecurity
+
 ## Nginx role
 
 - [x] Remove server_names variable
 - [ ] Skip waiting for cert request if not certs are required
+- [ ] Renew certs automatically
 
 ## Backup
 
