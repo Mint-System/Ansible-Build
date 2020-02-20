@@ -1,20 +1,15 @@
-certbot_image: certbot/certbot
-certbot_hostname: cert01
-certbot_data_dir: /usr/share/certbot
-certbot_email: info@mint-system.ch
-
 postgres_image: postgres:10-alpine
 postgres_hostname: postgres01
 postgres_port_exposed: 5432
-postgres_data_dir: /usr/share/postgres
+postgres_data_dir: /usr/share/postgres01
 postgres_user: odoo
 postgres_password: "{{ vault_postgres_password }}"
-postgres_db: odoo
+postgres_multi_db: odoo
 
 odoo_image: odoo:13
 odoo_hostname: odoo01
 odoo_port: 8069
-odoo_data_dir: /usr/share/odoo
+odoo_data_dir: /usr/share/odoo01
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: odoo
 odoo_postgres_password: "{{ vault_postgres_password }}"

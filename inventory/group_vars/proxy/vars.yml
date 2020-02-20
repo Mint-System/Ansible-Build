@@ -1,3 +1,8 @@
+certbot_image: certbot/certbot
+certbot_hostname: cert01
+certbot_data_dir: /usr/share/certbot
+certbot_email: info@mint-system.ch
+
 nginx_image: nginx:1.15-alpine
 nginx_hostname: proxy01
 nginx_data_dir: /usr/share/nginx
@@ -14,3 +19,6 @@ nginx_proxies:
     src_port: 443
     dest_hostname: nextcloud01
     dest_port: 80
+
+nginx_modescurity_url: "https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.zip"
+nginx_modeseurity_paranoia: 5

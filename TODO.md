@@ -1,8 +1,19 @@
 # TODO
 
+## Bugs
+
+- [ ] Odoo postgres playbook uses wiki group_vars
+- [x] Odoo fails to start if data folder is persisted `odoo docker PermissionError: [Errno 13] Permission denied: '/var/lib/odoo/sessions'` -> use volume
+
+## Container Management
+
+- [ ] Migrate postgres02 data folder
+- [ ] Manage all stores in volumes? filse to volumes and database to host?
+
 ## Security
 
-- [ ] SSL check 
+- [ ] Describe recovery scenario
+- [x] SSL check
 - [ ] Setup waf - docker nginx with modescurity and owasp crs https://hub.docker.com/r/owasp/modsecurity
 
 ## Nginx role
@@ -17,8 +28,8 @@
 
 ## All roles
 
-- [ ] Ensure all assets are persisted
-- [ ] Update documentation with persisted folder
+- [x] Ensure all assets are persisted
+- [x] Update documentation with persisted folder
 
 ## Bookshelf role
 

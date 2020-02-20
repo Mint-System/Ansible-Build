@@ -5,18 +5,21 @@ Collection of ansible playbooks and roles.
 
 ## Playbooks
 
-* odoo - Deploys odoo docker instance
-* wiki - Deploys wiki.js instance
-* proxy - Deploys nginx proxy instance
+* odoo - Deploys Odoo instance
+* wiki - Deploys Nextcloud and Bookstack instance
+* proxy - Deploys Nginx proxy instance
 
 ## Roles
 
-* docker - Install docker for Ubuntu
+* docker - Installs docker for Ubuntu
+* docker-network - Define internal docker network
 * nginx - Deploys Nginx proxy with Let's Encrypt certificates
 * clean - Remove any role
 * wiki - Wiki.js container
 * postgres - Posgresql database
 * openldap - Openldap server
+* mysql - MySQL database
+* bookstack - Bookstack Wiki
 
 ## Usage
 
@@ -96,4 +99,4 @@ Test ssh access.
 
 Lint the project using Ansible lint.
 
-`ansible-lint elk.yml elk-clean.yml`
+`ansible-lint odoo.yml all-clean.yml`

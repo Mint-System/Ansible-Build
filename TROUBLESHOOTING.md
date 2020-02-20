@@ -21,6 +21,7 @@ https://github.com/odoo/odoo/issues/27447
 ```
 docker exec -it odoo01 /bin/bash
 odoo -i base -d odoo --stop-after-init --db_host=$HOST -r $USER -w $PASSWORD
+docker restart odoo01
 ```
 
 ## Nextcloud login loop

@@ -1,3 +1,7 @@
+- name: Create a odoo volume
+  docker_volume:
+    name: odoo_data
+
 - name: Ensure odoo conf dir exists
   file:
     path: "{{ odoo_data_dir }}"
@@ -22,6 +26,7 @@
     # ports:
     #  - "{{ odoo_port }}:8069"
     volumes:
+      - odoo_data:/var/lib/odoo"
       - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
       - "{{ odoo_data_dir }}/addons:/mnt/extra-addons"
     networks:

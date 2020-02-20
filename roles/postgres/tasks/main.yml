@@ -21,7 +21,7 @@
       POSTGRES_MULTIPLE_DATABASES: "{{ postgres_multi_db }}"
     volumes:
       - "{{ postgres_data_dir }}/pg_init_scripts:/docker-entrypoint-initdb.d"
-      - "{{ postgres_data_dir }}:/var/lib/postgresql/data"
+      - "{{ postgres_data_dir }}/data:/var/lib/postgresql/data"
     ports:
       - "{{ postgres_port_exposed }}:5432"
     networks:
