@@ -10,6 +10,10 @@
 - [ ] Migrate postgres02 data folder
 - [ ] Manage all stores in volumes? filse to volumes and database to host?
 
+## Monitoring
+
+- [ ] Setup fluentd and grep docker logs for errors
+
 ## Security
 
 - [ ] Describe recovery scenario
