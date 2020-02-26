@@ -43,37 +43,37 @@ Make it executable.
 
 Update inventory with hosts.
 
-`vim ./inventory/hosts.yml`
+`vim ./inventory_odoo/hosts.yml`
 
 ### Deployment
 
 Test connection
 
-`ansible all -m ping -i inventory`
+`ansible all -m ping -i inventory_odoo`
 
 Deploy odoo stack
 
-`ansible-playbook -i inventory odoo.yml`
+`ansible-playbook -i inventory_odoo odoo.yml`
 
 Deploy role only
 
-`ansible-playbook -i inventory odoo.yml --tags docker`
+`ansible-playbook -i inventory_odoo odoo.yml --tags docker`
 
 Deploy role to localhost
 
-`ansible-playbook -i inventory odoo.yml --tags docker --extra-vars "ehosts=local"`
+`ansible-playbook -i inventory_odoo odoo.yml --tags docker --extra-vars "ehosts=local"`
 
 Deploy role to localhost with non-default user
 
-`ansible-playbook -i inventory docker.yml --tags docker --extra-vars "ehosts=local" -u username`
+`ansible-playbook -i inventory_odoo docker.yml --tags docker --extra-vars "ehosts=local" -u username`
 
 Clean odoo stak
 
-`ansible-playbook -i inventory odoo-clean.yml`
+`ansible-playbook -i inventory_odoo odoo-clean.yml`
 
 Clean role only
 
-`ansible-playbook -i inventory odoo-clean.yml --tags docker`
+`ansible-playbook -i inventory_odoo odoo-clean.yml --tags docker`
 
 ### Localhost
 

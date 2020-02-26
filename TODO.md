@@ -2,7 +2,7 @@
 
 ## Bugs
 
-- [ ] Odoo postgres playbook uses wiki group_vars
+- [x] Odoo postgres playbook uses wiki group_vars
 - [x] Odoo fails to start if data folder is persisted `odoo docker PermissionError: [Errno 13] Permission denied: '/var/lib/odoo/sessions'` -> use volume
 
 ## Container Management

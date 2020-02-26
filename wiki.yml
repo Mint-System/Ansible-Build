@@ -9,3 +9,4 @@
   - { role: wiki, tags: ["wiki"] }
   - { role: bookstack, tags: ["bookstack"] }
   - { role: nextcloud, tags: ["nextcloud"] }
+  - { role: debug, tags: ["debug"] }

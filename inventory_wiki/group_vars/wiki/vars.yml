@@ -1,10 +1,10 @@
-# postgres_image: postgres:10-alpine
-# postgres_hostname: postgres02
-# postgres_port_exposed: 5433
-# postgres_data_dir: /usr/share/postgres02
-# postgres_user: wiki
-# postgres_password: "{{ vault_postgres_password }}"
-# postgres_multi_db: "wiki,nextcloud"
+postgres_image: postgres:10-alpine
+postgres_hostname: postgres02
+postgres_port_exposed: 5433
+postgres_data_dir: /usr/share/postgres02
+postgres_user: wiki
+postgres_password: "{{ vault_postgres_password }}"
+postgres_multi_db: "wiki,nextcloud"
 
 mysql_image: mysql:5
 mysql_hostname: mysql01

@@ -1,0 +1,15 @@
+- name: Debug postgres_password
+  debug:
+    var: postgres_password
+
+- name: Debug postgres_hostname
+  debug:
+    var: postgres_hostname
+
+- name: Debug nginx_hostname
+  debug:
+    var: nginx_hostname
+
+- name: Debug bookstack_hostname
+  debug:
+    var: bookstack_hostname
