@@ -20,5 +20,9 @@ nginx_proxies:
     dest_hostname: nextcloud01
     dest_port: 80
 
-nginx_modescurity_url: "https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.zip"
-nginx_modeseurity_paranoia: 5
+modsecurity_image: owasp/modsecurity:3-nginx
+modsecurity_data_dir: /usr/share/modsecurity
+modsecurity_crs_url: "https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.gz"
+modsecurity_engine_mode: DetectionOnly
+modsecurity_http_allowed_methods: "GET HEAD POST OPTIONS PUT PATCH DELETE CHECKOUT COPY DELETE LOCK MERGE MKACTIVITY MKCOL MOVE PROPFIND PROPPATCH PUT UNLOCK"
+# modsecurity_remove_rules:

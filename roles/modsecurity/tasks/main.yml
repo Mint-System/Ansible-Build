@@ -1,0 +1,41 @@
+- name: Ensure modesecurity conf dir exists
+  file:
+    path: "{{ modsecurity_data_dir }}"
+    state: directory
+
+- name: Download modsecurity core rule set
+  get_url:
+    url: "{{ modsecurity_crs_url }}"
+    dest: /var/tmp/owasp-modsecurity-crs.tar.gz
+
+- name: Extract modsecurity core rule set
+  unarchive:
+    src: /var/tmp/owasp-modsecurity-crs.tar.gz
+    dest: /var/tmp
+    remote_src: yes
+    list_files: yes
+  register: archive_contents
+
+- name: Copy modesecurity core rule set to data dir
+  copy:
+    src: "/var/tmp/{{ archive_contents.files[0] }}"
+    dest: "{{ modsecurity_data_dir }}/crs"
+    remote_src: yes
+
+- name: Copy modsecurity templates
+  template:
+    src: "templates/{{ item }}"
+    dest: "{{ modsecurity_data_dir }}/{{ item }}"
+  with_items:
+    - crs-setup.conf
+    - modsecurity.conf
+    - RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
+  notify: Restart nginx container
+
+- name: Copy modesecurity files
+  copy:
+    src: "files/{{ item }}"
+    dest: "{{ modsecurity_data_dir }}/{{ item }}"
+  with_items:
+    - include.conf
+  notify: Restart nginx container
