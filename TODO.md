@@ -15,13 +15,15 @@
 
 - [ ] Ignore XSS rule for wiki
       https://wiki.mint-system.ch/books/infrastruktur/page/container
+      or increase score to 10
+      Ignore rule for this host
 - [ ] Check audit log and enforce engine
 - [ ] Describe backup/recover scenario
 
 ## Nginx role
 
-- [ ] Skip waiting for cert request if not certs are required
 - [ ] Renew certs automatically
+- [x] Skip waiting for cert request if not certs are required
 
 ## Backup
 

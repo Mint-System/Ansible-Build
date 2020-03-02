@@ -47,6 +47,10 @@ Update inventory with hosts.
 
 `vim ./inventory_odoo/hosts.yml`
 
+Install jmespath with pip.
+
+`pip3 install jmespath`
+
 ### Deployment
 
 Test connection
