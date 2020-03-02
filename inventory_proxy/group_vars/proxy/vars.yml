@@ -2,6 +2,7 @@ certbot_image: certbot/certbot
 certbot_hostname: cert01
 certbot_data_dir: /usr/share/certbot
 certbot_email: info@mint-system.ch
+certbot_stat_filter: "results[*] | [?stat.exists==`false`].item"
 
 nginx_image: nginx:1.15-alpine
 nginx_hostname: proxy01
@@ -24,5 +25,6 @@ modsecurity_image: owasp/modsecurity:3-nginx
 modsecurity_data_dir: /usr/share/modsecurity
 modsecurity_crs_url: "https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.gz"
 modsecurity_engine_mode: DetectionOnly
+modsecurity_default_action: "phase:1,deny,log"
 modsecurity_http_allowed_methods: "GET HEAD POST OPTIONS PUT PATCH DELETE CHECKOUT COPY DELETE LOCK MERGE MKACTIVITY MKCOL MOVE PROPFIND PROPPATCH PUT UNLOCK"
 # modsecurity_remove_rules:

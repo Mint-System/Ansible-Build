@@ -1,6 +1,21 @@
-- name: Debug postgres_password
+- name: Check if cert files exist
+  stat:
+    path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
+  loop: "{{ nginx_proxies }}"
+  register: certbot_certs
+
+# - name: Debug certbot_certs
+#   debug:
+#     msg: "{{ certbot_certs }}"
+
+- name: Debug certbot_certs
   debug:
-    var: postgres_password
+    msg: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`false`].item.src_hostname') | list }}"
+
+- name: Debug hi
+  debug:
+    msg: "hi"
+  when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Debug postgres_hostname
   debug:
