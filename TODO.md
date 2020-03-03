@@ -13,17 +13,11 @@
 
 ## Security
 
-- [ ] Ignore XSS rule for wiki
-      https://wiki.mint-system.ch/books/infrastruktur/page/container
-      or increase score to 10
-      Ignore rule for this host
-- [ ] Check audit log and enforce engine
 - [ ] Describe backup/recover scenario
 
 ## Nginx role
 
 - [ ] Renew certs automatically
-- [x] Skip waiting for cert request if not certs are required
 
 ## Backup
 
@@ -43,6 +37,12 @@
 
 # DONE
 
+- [x] Skip waiting for cert request if not certs are required
+- [x] Ignore XSS rule for wiki
+      https://wiki.mint-system.ch/books/infrastruktur/page/container
+      or increase score to 10
+      Ignore rule for this host
+- [x] Check audit log and enforce engine
 - [x] SSL check
 - [x] Setup waf - docker nginx with modescurity and owasp crs https://hub.docker.com/r/owasp/modsecurity
 - [x] Remove server_names variable

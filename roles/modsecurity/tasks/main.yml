@@ -30,6 +30,7 @@
     - crs-setup.conf
     - modsecurity.conf
     - RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
+    - REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf
   notify: Restart nginx container
 
 - name: Copy modesecurity files

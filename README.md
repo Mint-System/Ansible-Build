@@ -53,6 +53,10 @@ Install jmespath with pip.
 
 ### Deployment
 
+List inventory
+
+`ansible-inventory --list -y -i inventory_odoo`
+
 Test connection
 
 `ansible all -m ping -i inventory_odoo`

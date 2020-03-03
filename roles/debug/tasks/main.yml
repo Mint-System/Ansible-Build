@@ -1,30 +1,35 @@
-- name: Check if cert files exist
-  stat:
-    path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
-  loop: "{{ nginx_proxies }}"
-  register: certbot_certs
+- name: Debug modsecurity_exclude_rules_before_crs
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ modsecurity_exclude_rules_before_crs }}"
+
+# - name: Check if cert files exist
+#   stat:
+#     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
+#   loop: "{{ nginx_proxies }}"
+#   register: certbot_certs
 
 # - name: Debug certbot_certs
 #   debug:
 #     msg: "{{ certbot_certs }}"
 
-- name: Debug certbot_certs
-  debug:
-    msg: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`false`].item.src_hostname') | list }}"
+# - name: Debug certbot_certs
+#   debug:
+#     msg: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`false`].item.src_hostname') | list }}"
 
-- name: Debug hi
-  debug:
-    msg: "hi"
-  when: certbot_certs | json_query(certbot_stat_filter) | list
+# - name: Debug hi
+#   debug:
+#     msg: "hi"
+#   when: certbot_certs | json_query(certbot_stat_filter) | list
 
-- name: Debug postgres_hostname
-  debug:
-    var: postgres_hostname
+# - name: Debug postgres_hostname
+#   debug:
+#     var: postgres_hostname
 
-- name: Debug nginx_hostname
-  debug:
-    var: nginx_hostname
+# - name: Debug nginx_hostname
+#   debug:
+#     var: nginx_hostname
 
-- name: Debug bookstack_hostname
-  debug:
-    var: bookstack_hostname
+# - name: Debug bookstack_hostname
+#   debug:
+#     var: bookstack_hostname
