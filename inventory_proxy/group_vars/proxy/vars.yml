@@ -27,7 +27,7 @@ modsecurity_crs_url: "https://github.com/SpiderLabs/owasp-modsecurity-crs/archiv
 # Options: On, DetectionOnly
 modsecurity_engine_mode: "On"
 modsecurity_default_action: "phase:1,deny,log"
-modsecurity_http_allowed_methods: "GET HEAD POST OPTIONS PUT PATCH DELETE CHECKOUT COPY DELETE LOCK MERGE MKACTIVITY MKCOL MOVE PROPFIND PROPPATCH PUT UNLOCK"
+modsecurity_http_allowed_methods: "GET HEAD POST OPTIONS PUT PATCH DELETE CHECKOUT COPY DELETE LOCK MERGE MKACTIVITY MKCOL MOVE PROPFIND PROPPATCH PUT UNLOCK SEARCH REPORT"
 modsecurity_request_allowed_content_type: "application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|application/csp-report|application/xss-auditor-report|text/plain|image/png"
 modsecurity_exclude_rules_before_crs:
   - |
