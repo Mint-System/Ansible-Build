@@ -2,6 +2,10 @@
 
 ## Bugs
 
+## Odoo role
+
+- [ ] Setup new odoo server and migrate data
+
 ## Container Management
 
 - [ ] Migrate postgres02 `data` folder
@@ -25,7 +29,9 @@
 
 - [ ] Backup data folders to external system with restic and remote storage
 
-## All roles
+## Management
+
+- [ ] Document Ansible Deployment
 
 ## Bookshelf role
 

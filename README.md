@@ -14,7 +14,6 @@ Collection of ansible playbooks and roles.
 * docker-network - Defines internal Docker network
 * modescurity - Downloads and configures ModSecurity OWASP CRS
 * proxy - Deploys Nginx proxy with Let's Encrypt certificates
-* wiki - Wiki.js container
 * postgres - Posgresql database
 * openldap - Openldap server
 * mysql - MySQL database

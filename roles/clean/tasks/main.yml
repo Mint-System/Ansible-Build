@@ -12,13 +12,6 @@
   tags:
   - postgres
 
-- name: Remove wiki container
-  docker_container:
-    name: "{{ wiki_hostname }}"
-    state: absent
-  tags:
-  - wiki
-
 - name: Remove mysql container
   docker_container:
     name: "{{ mysql_hostname }}"

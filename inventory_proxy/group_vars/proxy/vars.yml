@@ -32,12 +32,12 @@ modsecurity_request_allowed_content_type: "application/x-www-form-urlencoded|mul
 modsecurity_exclude_rules_before_crs:
   - |
     # ModSecurity Rule Exclusion: Disable all SQLi and XSS rules for /books request uri
-    SecRule REQUEST_URI "@beginsWith /books" \
-        "id:1000,\
-        phase:1,\
-        pass,\
-        nolog,\
-        ctl:ruleRemoveById=941000-942999"
+    # SecRule REQUEST_URI "@beginsWith /books" \
+    #     "id:1000,\
+    #     phase:1,\
+    #     pass,\
+    #     nolog,\
+    #     ctl:ruleRemoveById=941000-942999"
   - |
     # ModSecurity Rule Exclusion: Disable selected XSS rules for /web/dataset/call_kw request uri
     SecRule REQUEST_URI "@beginsWith /web/dataset/call_kw" \
@@ -46,4 +46,13 @@ modsecurity_exclude_rules_before_crs:
         pass,\
         nolog,\
         ctl:ruleRemoveById=941100"
+  - |
+    # ModSecurity Rule Exclusion: Disable selected XSS rules for /images/drawio request uri
+    SecRule REQUEST_URI "@beginsWith /images/drawio" \
+        "id:1002,\
+        phase:1,\
+        pass,\
+        nolog,\
+        ctl:ruleRemoveById=941130,\
+        ctl:ruleRemoveById=941170"
 modsecurity_inbound_anomaly_score_threshold: 10
