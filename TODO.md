@@ -13,6 +13,7 @@
 
 ## Security
 
+- [ ] Remove vault files?
 - [ ] Describe backup/recover scenario
 
 ## Nginx role
