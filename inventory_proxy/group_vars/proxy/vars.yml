@@ -39,10 +39,11 @@ modsecurity_exclude_rules_before_crs:
         nolog,\
         ctl:ruleRemoveById=941000-942999"
   - |
-    # ModSecurity Rule Exclusion: Disable NoScript XSS InjectionChecker: HTML Injection for /web/dataset/call_kw request uri
+    # ModSecurity Rule Exclusion: Disable selected XSS rules for /web/dataset/call_kw request uri
     SecRule REQUEST_URI "@beginsWith /web/dataset/call_kw" \
         "id:1001,\
         phase:1,\
         pass,\
         nolog,\
-        ctl:ruleRemoveById=941160"
+        ctl:ruleRemoveById=941100"
+modsecurity_inbound_anomaly_score_threshold: 10

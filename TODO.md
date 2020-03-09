@@ -13,6 +13,7 @@
 
 ## Security
 
+- [ ] Fine tune the security rules -> Make sense of inbound and outbound, anomaly and paranoia, etc. https://www.modsecurity.org/CRS/Documentation/anomaly.html
 - [ ] Remove vault files?
 - [ ] Describe backup/recover scenario
 
