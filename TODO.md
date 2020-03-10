@@ -2,17 +2,22 @@
 
 ## Bugs
 
+- [ ] Postgres database creates new db -> remove multi db script
+- [ ] Cannot obtain new LetsEncrypt Certificates
+- [ ] Nginx role does not purge unused conf files -> ssl fail
+- [ ] ansible does not abort if certbot fails
 - [ ] Odoo and postgres cannot be installed at once
 
 ## Odoo role
 
-- [ ] Setup new odoo server and migrate data
+- [ ] Setup erp.mint-system.ch and odoo.mint-system.ch
+- [x] Setup new odoo server and migrate data
 - [ ] Filter dbs false
 
 ## Container Management
 
-- [ ] Migrate postgres02 `data` folder
-- [ ] Manage all stores in volumes? files to volumes and database to host?
+- [x] Migrate postgres02 `data` folder
+- [ ] Migrate data to docker volumes? https://docs.docker.com/storage/ Ansible config must be mounted
 
 ## Monitoring
 

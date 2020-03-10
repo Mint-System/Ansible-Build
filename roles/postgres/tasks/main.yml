@@ -1,7 +1,13 @@
+- name: Create a postgres volume
+  docker_volume:
+    name: "{{ postgres_volume_name }}"
+  when: postgres_volume_name is defined
+
 - name: Ensure postgres conf dir exists
   file:
     path: "{{ postgres_data_dir }}"
     state: directory
+  when: postgres_data_dir is defined
 
 - name: Copy postgres init scripts
   copy:
@@ -11,7 +17,7 @@
     - create-multiple-postgresql-databases.sh
   notify: Restart postgres container
 
-- name: Start postgres container
+- name: Start postgres container without volume
   docker_container:
     name: "{{ postgres_hostname }}"
     image: "{{ postgres_image }}"
@@ -30,3 +36,25 @@
     log_options:
       max-size: "{{ log_max_size }}"
       max-file: "{{ log_max_file }}"
+  when: postgres_volume_name is not defined
+
+- name: Start postgres container with volume
+  docker_container:
+    name: "{{ postgres_hostname }}"
+    image: "{{ postgres_image }}"
+    env:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_MULTIPLE_DATABASES: "{{ postgres_multi_db }}"
+    volumes:
+      - "{{ postgres_data_dir }}/pg_init_scripts:/docker-entrypoint-initdb.d"
+      - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
+    ports:
+      - "{{ postgres_port_exposed }}:5432"
+    networks:
+      - name: "{{ network_name }}"
+    log_driver: "{{ log_driver }}"
+    log_options:
+      max-size: "{{ log_max_size }}"
+      max-file: "{{ log_max_file }}"
+  when: postgres_volume_name is defined

@@ -3,10 +3,7 @@
   roles:
   - { role: docker, tags: ["docker"] }
   - { role: docker-network, tags: ["docker-network"] }
-  - { role: openldap, tags: ["openldap"] }
   - { role: postgres, tags: ["postgres"] }
   - { role: mysql, tags: ["mysql"] }
-  - { role: wiki, tags: ["wiki"] }
   - { role: bookstack, tags: ["bookstack"] }
   - { role: nextcloud, tags: ["nextcloud"] }
-  - { role: debug, tags: ["debug"] }
