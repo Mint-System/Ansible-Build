@@ -3,6 +3,5 @@
   roles:
   - { role: docker, tags: ["docker"] }
   - { role: docker-network, tags: ["docker-network"] }
-  - { role: nginx, tags: ["nginx"] }
   - { role: modsecurity, tags: ["modsecurity"] }
-  - { role: debug, tags: ["debug"] }
+  - { role: nginx, tags: ["nginx"] }

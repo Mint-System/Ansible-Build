@@ -31,13 +31,13 @@ modsecurity_http_allowed_methods: "GET HEAD POST OPTIONS PUT PATCH DELETE CHECKO
 modsecurity_request_allowed_content_type: "application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|application/csp-report|application/xss-auditor-report|text/plain|image/png"
 modsecurity_exclude_rules_before_crs:
   - |
-    # ModSecurity Rule Exclusion: Disable all SQLi and XSS rules for /books request uri
-    # SecRule REQUEST_URI "@beginsWith /books" \
-    #     "id:1000,\
-    #     phase:1,\
-    #     pass,\
-    #     nolog,\
-    #     ctl:ruleRemoveById=941000-942999"
+    # ModSecurity Rule Exclusion: Disable selected XSS rules for /books request uri
+    SecRule REQUEST_URI "@beginsWith /books" \
+        "id:1000,\
+        phase:1,\
+        pass,\
+        nolog,\
+        ctl:ruleRemoveById=941160" 
   - |
     # ModSecurity Rule Exclusion: Disable selected XSS rules for /web/dataset/call_kw request uri
     SecRule REQUEST_URI "@beginsWith /web/dataset/call_kw" \

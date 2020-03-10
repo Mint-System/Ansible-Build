@@ -5,4 +5,3 @@
   - { role: docker-network, tags: ["docker-network"] }
   - { role: postgres, tags: ["postgres"] }
   - { role: odoo, tags: ["odoo"] }
-  - { role: debug, tags: ["debug"] }

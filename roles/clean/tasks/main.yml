@@ -26,6 +26,13 @@
   tags:
   - bookstack
 
+- name: Remove odoo container
+  docker_container:
+    name: "{{ odoo_hostname }}"
+    state: absent
+  tags:
+  - odoo
+
 - name: Remove nextcloud container
   docker_container:
     name: "{{ nextcloud_hostname }}"
@@ -39,3 +46,10 @@
     state: absent
   tags:
   - docker
+
+- name: Remove openldap container
+  docker_container:
+    name: "{{ openldap_hostname }}"
+    state: absent
+  tags:
+  - openldap

@@ -10,17 +10,18 @@ Collection of ansible playbooks and roles.
 
 ## Roles
 
-* docker - Installs Docker for Ubuntu
-* docker-network - Defines internal Docker network
-* modescurity - Downloads and configures ModSecurity OWASP CRS
-* proxy - Deploys Nginx proxy with Let's Encrypt certificates
-* postgres - Posgresql database
-* openldap - Openldap server
-* mysql - MySQL database
-* bookstack - Bookstack Wiki
-* nextcloud - Deploy Nextcloud container
-* clean - Remove any role
-* debug - Debug Ansible playbooks
+* [docker](./roles/docker/README.md) - Installs Docker for Ubuntu
+* [docker-network](./roles/docker-network/README.md) - Defines internal Docker network
+* [postgres](./roles/postgres/README.md) - Deploys PostgreSQL database container
+* [openldap](./roles/openldap/README.md) - Openldap server
+* [odoo](./roles/odoo/README.md) - Deploy Odoo container
+* [debug](./roles/debug/README.md) - Debug Ansible variables
+* [modescurity](./roles/modescurity/README.md) - Downloads and configures ModSecurity with OWASP CRS
+* [nginx](./roles/nginx/README.md) - Deploys Nginx proxy with Let's Encrypt certificates and ModSecurity
+* [clean](./roles/clean/README.md) - Cleanup Ansible roles
+* [mysql](./roles/mysql/README.md) - Deploys MySQL database container
+* [bookstack](./roles/bookstack/README.md) - Deploys BookStack Docker container
+* [nextcloud](./roles/nextcloud/README.md) - Deploys Nextcloud container
 
 ## Usage
 

@@ -1,0 +1,32 @@
+certbot_image: certbot/certbot
+certbot_hostname: cert02
+certbot_data_dir: /usr/share/certbot02
+certbot_email: info@mint-system.ch
+certbot_stat_filter: "results[*] | [?stat.exists==`false`].item"
+
+nginx_image: nginx:1.15-alpine
+nginx_hostname: proxy02
+nginx_data_dir: /usr/share/nginx02
+nginx_proxies:
+  - src_hostname: hades.mint-system.com
+    src_port: 443
+    dest_hostname: odoo02
+    dest_port: 8069
+
+modsecurity_image: owasp/modsecurity:3-nginx
+modsecurity_data_dir: /usr/share/modsecurity01
+modsecurity_crs_url: "https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.gz"
+modsecurity_engine_mode: "On"
+modsecurity_default_action: "phase:1,deny,log"
+modsecurity_http_allowed_methods: "GET HEAD POST OPTIONS PUT PATCH DELETE"
+modsecurity_request_allowed_content_type: "application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|application/csp-report|application/xss-auditor-report|text/plain|image/png"
+modsecurity_exclude_rules_before_crs:
+  - |
+    # ModSecurity Rule Exclusion: Disable selected XSS rules for /web/dataset/call_kw request uri
+    SecRule REQUEST_URI "@beginsWith /web/dataset/call_kw" \
+        "id:1001,\
+        phase:1,\
+        pass,\
+        nolog,\
+        ctl:ruleRemoveById=941100"
+modsecurity_inbound_anomaly_score_threshold: 10

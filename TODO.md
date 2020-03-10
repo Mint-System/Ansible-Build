@@ -2,9 +2,12 @@
 
 ## Bugs
 
+- [ ] Odoo and postgres cannot be installed at once
+
 ## Odoo role
 
 - [ ] Setup new odoo server and migrate data
+- [ ] Filter dbs false
 
 ## Container Management
 
@@ -31,20 +34,14 @@
 
 ## Management
 
+- [ ] Lint Ansible roles
 - [ ] Document Ansible Deployment
-
-## Bookshelf role
-
-- [ ] Connect to ldap
-
-## Nextcloud role
-
-- [ ] Connect to ldap
-
-## Postgres role
+- [x] Document ansible roles
 
 # DONE
 
+- [-] Connect to ldap
+- [-] Connect to ldap
 - [x] Skip waiting for cert request if not certs are required
 - [x] Ignore XSS rule for wiki
       https://wiki.mint-system.ch/books/infrastruktur/page/container

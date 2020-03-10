@@ -1,6 +1,6 @@
 - name: Create a odoo volume
   docker_volume:
-    name: odoo_data
+    name: "{{ odoo_volume_name }}"
 
 - name: Ensure odoo conf dir exists
   file:
@@ -23,10 +23,8 @@
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
       PASSWORD: "{{ odoo_postgres_password }}"
-    # ports:
-    #  - "{{ odoo_port }}:8069"
     volumes:
-      - odoo_data:/var/lib/odoo"
+      - "{{ odoo_volume_name }}:/var/lib/odoo"
       - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
       - "{{ odoo_data_dir }}/addons:/mnt/extra-addons"
     networks:
