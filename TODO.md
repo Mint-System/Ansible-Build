@@ -2,21 +2,18 @@
 
 ## Bugs
 
-- [ ] Postgres database creates new db -> remove multi db script
-- [ ] Cannot obtain new LetsEncrypt Certificates
-- [ ] Nginx role does not purge unused conf files -> ssl fail
+- [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them
 - [ ] ansible does not abort if certbot fails
-- [ ] Odoo and postgres cannot be installed at once
+- [ ] Nginx cert works if containers are removed and nginx folder is purged.
 
 ## Odoo role
 
 - [ ] Setup erp.mint-system.ch and odoo.mint-system.ch
-- [x] Setup new odoo server and migrate data
 - [ ] Filter dbs false
+- [ ] Auto install base module
 
 ## Container Management
 
-- [x] Migrate postgres02 `data` folder
 - [ ] Migrate data to docker volumes? https://docs.docker.com/storage/ Ansible config must be mounted
 
 ## Monitoring
@@ -25,7 +22,6 @@
 
 ## Security
 
-- [ ] Fine tune the security rules -> Make sense of inbound and outbound, anomaly and paranoia, etc. https://www.modsecurity.org/CRS/Documentation/anomaly.html
 - [ ] Remove vault files?
 - [ ] Describe backup/recover scenario
 
@@ -40,11 +36,19 @@
 ## Management
 
 - [ ] Lint Ansible roles
-- [ ] Document Ansible Deployment
-- [x] Document ansible roles
+- [ ] Reduce config duplicates -> hades and apland are similar -> simple odoo installations
 
 # DONE
 
+- [-] Cannot obtain new LetsEncrypt Certificates
+- [x] Odoo and postgres cannot be installed at once
+- [x] Postgres database creates new db -> remove multi db script
+- [x] Setup new odoo server and migrate data
+- [x] Migrate postgres02 `data` folder
+- [x] Allow jpg upload https://github.com/Mint-System/Ansible-Playbooks/issues/1
+- [x] Fine tune the security rules -> Make sense of inbound and outbound, anomaly and paranoia, etc. https://www.modsecurity.org/CRS/Documentation/anomaly.html
+- [-] Document Ansible Deployment
+- [x] Document ansible roles
 - [-] Connect to ldap
 - [-] Connect to ldap
 - [x] Skip waiting for cert request if not certs are required

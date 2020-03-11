@@ -4,7 +4,7 @@ postgres_port_exposed: 5432
 postgres_data_dir: /usr/share/postgres01
 postgres_user: odoo
 postgres_password: "{{ vault_postgres_password }}"
-postgres_multi_db: odoo
+postgres_db: odoo
 
 odoo_image: odoo:13
 odoo_hostname: odoo01

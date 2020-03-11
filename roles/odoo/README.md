@@ -24,6 +24,8 @@ odoo_data_dir: /usr/share/odoo01
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: example
 odoo_postgres_password: "{{ vault_postgres_password }}"
+odoo_conf: |
+  list_db = False
 ````
 
 And include it in your playbook.

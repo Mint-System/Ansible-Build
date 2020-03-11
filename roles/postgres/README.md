@@ -22,7 +22,7 @@ postgres_port_exposed: 5432
 postgres_data_dir: /usr/share/postgres01
 postgres_user: example
 postgres_password: "{{ vault_postgres_password }}"
-postgres_multi_db: example,example2
+postgres_db: example
 ````
 
 And include it in your playbook.

@@ -12,6 +12,14 @@ nginx_proxies:
     src_port: 443
     dest_hostname: book01
     dest_port: 80
+  # - src_hostname: zeus.mint-system.com
+  #   src_port: 443
+  #   dest_hostname: odoo01
+  #   dest_port: 8069
+  # - src_hostname: erp.mint-system.ch
+  #   src_port: 443
+  #   dest_hostname: odoo01
+  #   dest_port: 8069
   - src_hostname: odoo.mint-system.ch
     src_port: 443
     dest_hostname: odoo01
@@ -28,7 +36,7 @@ modsecurity_crs_url: "https://github.com/SpiderLabs/owasp-modsecurity-crs/archiv
 modsecurity_engine_mode: "On"
 modsecurity_default_action: "phase:1,deny,log"
 modsecurity_http_allowed_methods: "GET HEAD POST OPTIONS PUT PATCH DELETE CHECKOUT COPY DELETE LOCK MERGE MKACTIVITY MKCOL MOVE PROPFIND PROPPATCH PUT UNLOCK SEARCH REPORT"
-modsecurity_request_allowed_content_type: "application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|application/csp-report|application/xss-auditor-report|text/plain|image/png"
+modsecurity_request_allowed_content_type: "application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|application/csp-report|application/xss-auditor-report|text/plain|image/png|image/jpg"
 modsecurity_exclude_rules_before_crs:
   - |
     # ModSecurity Rule Exclusion: Disable selected XSS rules for /books request uri
@@ -37,7 +45,11 @@ modsecurity_exclude_rules_before_crs:
         phase:1,\
         pass,\
         nolog,\
-        ctl:ruleRemoveById=941160" 
+        ctl:ruleRemoveById=932100,\
+        ctl:ruleRemoveById=941160,\
+        ctl:ruleRemoveById=932110,\
+        ctl:ruleRemoveById=932105,\
+        ctl:ruleRemoveById=932130"
   - |
     # ModSecurity Rule Exclusion: Disable selected XSS rules for /web/dataset/call_kw request uri
     SecRule REQUEST_URI "@beginsWith /web/dataset/call_kw" \

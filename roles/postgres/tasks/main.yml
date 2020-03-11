@@ -9,14 +9,6 @@
     state: directory
   when: postgres_data_dir is defined
 
-- name: Copy postgres init scripts
-  copy:
-    src: "{{ item }}"
-    dest: "{{ postgres_data_dir }}/pg_init_scripts/"
-  with_items:
-    - create-multiple-postgresql-databases.sh
-  notify: Restart postgres container
-
 - name: Start postgres container without volume
   docker_container:
     name: "{{ postgres_hostname }}"
@@ -24,9 +16,8 @@
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_MULTIPLE_DATABASES: "{{ postgres_multi_db }}"
+      POSTGRES_DB: "{{ postgres_db }}"
     volumes:
-      - "{{ postgres_data_dir }}/pg_init_scripts:/docker-entrypoint-initdb.d"
       - "{{ postgres_data_dir }}/data:/var/lib/postgresql/data"
     ports:
       - "{{ postgres_port_exposed }}:5432"
@@ -45,9 +36,8 @@
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_MULTIPLE_DATABASES: "{{ postgres_multi_db }}"
+      POSTGRES_DB: "{{ postgres_db }}"
     volumes:
-      - "{{ postgres_data_dir }}/pg_init_scripts:/docker-entrypoint-initdb.d"
       - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
     ports:
       - "{{ postgres_port_exposed }}:5432"

@@ -20,7 +20,8 @@ https://github.com/odoo/odoo/issues/27447
 
 ```
 docker exec -it odoo01 /bin/bash
-odoo -i base -d odoo --stop-after-init --db_host=$HOST -r $USER -w $PASSWORD
+export MODULES=base
+odoo -i $MODULES -d odoo --stop-after-init --db_host=$HOST -r $USER -w $PASSWORD --without-demo=all
 docker restart odoo01
 ```
 

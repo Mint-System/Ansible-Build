@@ -107,6 +107,43 @@ Test ssh access.
 
 ## Development
 
+### Quality
+
 Lint the project using Ansible lint.
 
 `ansible-lint odoo.yml all-clean.yml`
+
+### Config
+
+Whenever possible use env variables to configure the container.
+
+**Env Config**
+
+```yml
+    env:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+```
+
+### Data
+
+To persist data use Docker volumes.
+
+**Volume Name**
+
+Mount the folder without subfolder.
+
+```yml
+    volumes:
+      - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
+```
+
+For Ansible config files uses file mounts.
+
+**Data Dir**
+
+```yml
+    volumes:
+      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
+```
