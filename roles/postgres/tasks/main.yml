@@ -3,7 +3,7 @@
     name: "{{ postgres_volume_name }}"
   when: postgres_volume_name is defined
 
-- name: Ensure postgres conf dir exists
+- name: Ensure postgres data dir exists
   file:
     path: "{{ postgres_data_dir }}"
     state: directory

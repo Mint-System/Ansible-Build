@@ -1,4 +1,4 @@
-- name: Ensure modesecurity conf dir exists
+- name: Ensure modesecurity data dir exists
   file:
     path: "{{ modsecurity_data_dir }}"
     state: directory

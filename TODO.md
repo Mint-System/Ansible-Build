@@ -14,6 +14,7 @@
 
 ## Container Management
 
+- [ ] Migrate wiki data to volumes (postgres, mysql, nextcloud, bookstack)!
 - [ ] Migrate data to docker volumes? https://docs.docker.com/storage/ Ansible config must be mounted
 
 ## Monitoring
@@ -24,6 +25,7 @@
 
 - [ ] Remove vault files?
 - [ ] Describe backup/recover scenario
+- [ ] Setup docker keycloak for internal usage
 
 ## Nginx role
 
@@ -31,12 +33,12 @@
 
 ## Backup
 
-- [ ] Backup data folders to external system with restic and remote storage
+- [ ] Backup data folders to external system with restic and remote storage https://linuxize.com/post/how-to-setup-automatic-odoo-backup/
 
 ## Management
 
 - [ ] Lint Ansible roles
-- [ ] Reduce config duplicates -> hades and apland are similar -> simple odoo installations
+- [x] Reduce config duplicates -> hades and apland are similar -> simple odoo installations
 
 # DONE
 

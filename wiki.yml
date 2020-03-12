@@ -1,4 +1,4 @@
-- hosts: "{{ ehosts | default('wiki') }}"
+- hosts: "{{ ehosts | default('all') }}"
   become: true
   roles:
   - { role: docker, tags: ["docker"] }

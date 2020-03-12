@@ -1,0 +1,10 @@
+postgres_hostname: postgres04
+postgres_data_dir: /usr/share/postgres04
+postgres_volume_name: postgres_data04
+
+odoo_hostname: odoo03
+odoo_data_dir: /usr/share/odoo03
+odoo_volume_name: odoo_data03
+odoo_postgres_hostname: postgres04
+odoo_conf: |
+  list_db = False

@@ -1,4 +1,4 @@
-- name: Ensure bookstack conf dir exists
+- name: Ensure bookstack data dir exists
   file:
     path: "{{ bookstack_data_dir }}"
     state: directory

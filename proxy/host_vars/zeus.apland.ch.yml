@@ -1,0 +1,13 @@
+certbot_hostname: cert03
+certbot_data_dir: /usr/share/certbot03
+certbot_email: contact@apland.ch
+
+nginx_hostname: proxy03
+nginx_data_dir: /usr/share/nginx03
+nginx_proxies:
+  - src_hostname: erp.apland.ch
+    src_port: 443
+    dest_hostname: odoo03
+    dest_port: 8069
+
+modsecurity_data_dir: /usr/share/modsecurity03

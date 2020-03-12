@@ -2,7 +2,7 @@
   docker_volume:
     name: "{{ odoo_volume_name }}"
 
-- name: Ensure odoo conf dir exists
+- name: Ensure odoo data dir exists
   file:
     path: "{{ odoo_data_dir }}"
     state: directory

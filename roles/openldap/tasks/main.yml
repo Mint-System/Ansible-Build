@@ -1,4 +1,4 @@
-- name: Ensure openldap conf dir exists
+- name: Ensure openldap data dir exists
   file:
     path: "{{ openldap_data_dir }}"
     state: directory

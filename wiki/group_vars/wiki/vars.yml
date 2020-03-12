@@ -1,34 +1,23 @@
 postgres_image: postgres:10-alpine
-postgres_hostname: postgres02
 postgres_port_exposed: 5433
-postgres_data_dir: /usr/share/postgres02
 postgres_user: wiki
 postgres_password: "{{ vault_postgres_password }}"
 postgres_db: "nextcloud"
 
 mysql_image: mysql:5
-mysql_hostname: mysql01
-mysql_data_dir: /usr/share/mysql01
 mysql_root_password: "{{ vault_mysql_root_password }}"
 mysql_database: bookstack
 mysql_user: bookstack
 mysql_password:  "{{ vault_mysql_password }}"
 
 nextcloud_image: nextcloud:18-apache
-nextcloud_hostname: nextcloud01
-nextcloud_data_dir: /usr/share/nextcloud
 nextcloud_admin_user: admint
 nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"
-nextcloud_postgres_hostname: postgres02:5432
 nextcloud_postgres_user: wiki
 nextcloud_postgres_password: "{{ vault_postgres_password }}"
 nextcloud_postgres_db: nextcloud
 
 bookstack_image: solidnerd/bookstack:0.27.5
-bookstack_hostname: book01
-bookstack_data_dir: /usr/share/bookstack
-bookstack_app_url: "https://wiki.mint-system.ch"
-bookstack_db_hostname: "mysql01:3306"
 bookstack_db_user: bookstack
 bookstack_db_password: "{{ vault_mysql_password }}"
 bookstack_db_database: bookstack

@@ -1,4 +1,4 @@
-- name: Ensure nginx conf dir exists
+- name: Ensure nginx data dir exists
   file:
     path: "{{ nginx_data_dir }}"
     state: directory

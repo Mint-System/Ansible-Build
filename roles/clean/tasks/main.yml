@@ -1,9 +1,21 @@
+- name: Remove certbot container
+  docker_container:
+    name: "{{ certbot_hostname }}"
+    state: absent
+  tags:
+  - nginx
+
 - name: Remove nginx container
   docker_container:
     name: "{{ nginx_hostname }}"
     state: absent
   tags:
   - nginx
+
+- name: Remove nginx data dir
+  file:
+    path: "{{ nginx_data_dir }}"
+    state: absent
 
 - name: Remove postgres container
   docker_container:

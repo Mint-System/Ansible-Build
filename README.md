@@ -10,18 +10,18 @@ Collection of ansible playbooks and roles.
 
 ## Roles
 
-* [docker](./roles/docker/README.md) - Installs Docker for Ubuntu
-* [docker-network](./roles/docker-network/README.md) - Defines internal Docker network
-* [postgres](./roles/postgres/README.md) - Deploys PostgreSQL database container
-* [openldap](./roles/openldap/README.md) - Openldap server
-* [odoo](./roles/odoo/README.md) - Deploy Odoo container
-* [debug](./roles/debug/README.md) - Debug Ansible variables
-* [modescurity](./roles/modescurity/README.md) - Downloads and configures ModSecurity with OWASP CRS
-* [nginx](./roles/nginx/README.md) - Deploys Nginx proxy with Let's Encrypt certificates and ModSecurity
-* [clean](./roles/clean/README.md) - Cleanup Ansible roles
-* [mysql](./roles/mysql/README.md) - Deploys MySQL database container
-* [bookstack](./roles/bookstack/README.md) - Deploys BookStack Docker container
-* [nextcloud](./roles/nextcloud/README.md) - Deploys Nextcloud container
+* [docker](roles/docker/README.md) - Installs Docker for Ubuntu
+* [docker-network](roles/docker-network/README.md) - Defines internal Docker network
+* [postgres](roles/postgres/README.md) - Deploys PostgreSQL database container
+* [openldap](roles/openldap/README.md) - Openldap server
+* [odoo](roles/odoo/README.md) - Deploy Odoo container
+* [debug](roles/debug/README.md) - Debug Ansible variables
+* [modescurity](roles/modescurity/README.md) - Downloads and configures ModSecurity with OWASP CRS
+* [nginx](roles/nginx/README.md) - Deploys Nginx proxy with Let's Encrypt certificates and ModSecurity
+* [clean](roles/clean/README.md) - Cleanup Ansible roles
+* [mysql](roles/mysql/README.md) - Deploys MySQL database container
+* [bookstack](roles/bookstack/README.md) - Deploys BookStack Docker container
+* [nextcloud](roles/nextcloud/README.md) - Deploys Nextcloud container
 
 ## Usage
 
@@ -45,7 +45,7 @@ Make it executable.
 
 Update inventory with hosts.
 
-`vim ./inventory_odoo/hosts.yml`
+`vim odoo/hosts.yml`
 
 Install jmespath with pip.
 
@@ -55,35 +55,35 @@ Install jmespath with pip.
 
 List inventory
 
-`ansible-inventory --list -y -i inventory_odoo`
+`ansible-inventory --list -y -i odoo`
 
 Test connection
 
-`ansible all -m ping -i inventory_odoo`
+`ansible all -m ping -i odoo`
 
 Deploy odoo stack
 
-`ansible-playbook -i inventory_odoo odoo.yml`
+`ansible-playbook -i odoo odoo.yml`
 
 Deploy role only
 
-`ansible-playbook -i inventory_odoo odoo.yml --tags docker`
+`ansible-playbook -i odoo odoo.yml -t docker`
 
-Deploy role to localhost
+Deploy role to specific host
 
-`ansible-playbook -i inventory_odoo odoo.yml --tags docker --extra-vars "ehosts=local"`
+`ansible-playbook -i odoo odoo.yml -t docker -l host.example.com`
 
-Deploy role to localhost with non-default user
+Deploy role to specific group with non-default user
 
-`ansible-playbook -i inventory_odoo docker.yml --tags docker --extra-vars "ehosts=local" -u username`
+`ansible-playbook -i odoo docker.yml -t docker -l europe -u username`
 
 Clean odoo stak
 
-`ansible-playbook -i inventory_odoo odoo-clean.yml`
+`ansible-playbook -i odoo clean.yml`
 
 Clean role only
 
-`ansible-playbook -i inventory_odoo odoo-clean.yml --tags docker`
+`ansible-playbook -i odoo clean.yml -t docker`
 
 ### Localhost
 
@@ -111,7 +111,7 @@ Test ssh access.
 
 Lint the project using Ansible lint.
 
-`ansible-lint odoo.yml all-clean.yml`
+`ansible-lint odoo.yml clean.yml`
 
 ### Config
 

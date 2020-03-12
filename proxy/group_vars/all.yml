@@ -3,3 +3,5 @@ network_name: mint-system-net
 log_driver: "json-file"
 log_max_size: "10m"
 log_max_file: "3"
+
+ansible_python_interpreter: /usr/bin/python3

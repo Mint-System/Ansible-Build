@@ -1,0 +1,8 @@
+postgres_hostname: postgres03
+postgres_data_dir: /usr/share/postgres03
+postgres_volume_name: postgres_data03
+
+odoo_hostname: odoo02
+odoo_data_dir: /usr/share/odoo02
+odoo_volume_name: odoo_data02
+odoo_postgres_hostname: postgres03

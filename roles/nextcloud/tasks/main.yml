@@ -1,4 +1,4 @@
-- name: Ensure nextcloud conf dir exists
+- name: Ensure nextcloud data dir exists
   file:
     path: "{{ nextcloud_data_dir }}"
     state: directory
