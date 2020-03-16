@@ -1,0 +1,15 @@
+postgres_image: postgres:10-alpine
+postgres_port_exposed: 5434
+postgres_user: moodle
+postgres_password: "{{ vault_postgres_password }}"
+postgres_db: moodle
+
+moodle_image: venatorfox/moodle:MOODLE_38_STABLE
+moodle_admin_user: admin
+moodle_admin_password: "{{ vault_moodle_admin_password }}"
+moodle_db_type: pgsql
+moodle_db_host: postgres05
+moodle_db_user: moodle
+moodle_db_password: "{{ vault_postgres_password }}"
+moodle_db_name: moodle
+moodle_ssl: "true"

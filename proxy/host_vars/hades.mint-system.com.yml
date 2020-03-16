@@ -7,8 +7,8 @@ nginx_data_dir: /usr/share/nginx02
 nginx_proxies:
   - src_hostname: hades.mint-system.com
     src_port: 443
-    dest_hostname: odoo02
-    dest_port: 8069
+    dest_hostname: moodle01
+    dest_port: 80
   - src_hostname: odoo.mint-system.ch
     src_port: 443
     dest_hostname: odoo02

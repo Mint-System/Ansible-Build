@@ -1,0 +1,30 @@
+- name: Create a moodle volume
+  docker_volume:
+    name: "{{ moodle_volume_name }}"
+  when: moodle_volume_name is defined
+
+- name: Start moodle container
+  docker_container:
+    name: "{{ moodle_hostname }}"
+    image: "{{ moodle_image }}"
+    env:
+      MOODLECFG_SSLPROXY: "{{ moodle_ssl }}"
+      MOODLE_WWWROOT: "{{ moodle_url }}"
+      MOODLE_DBHOST: "{{ moodle_db_host }}"
+      MOODLE_DBNAME: "{{ moodle_db_name }}"
+      MOODLE_DBUSER: "{{ moodle_db_user }}"
+      MOODLE_DBPASS:  "{{ moodle_db_password }}"
+      MOODLE_FULLNAME: "{{ moodle_fullname }}"
+      MOODLE_SHORTNAME: "{{ moodle_shortname }}"
+      MOODLE_SUMMARY: "{{ moodle_summary }}"
+      MOODLE_ADMINUSER: "{{ moodle_admin_user }}"
+      MOODLE_ADMINPASS: "{{ moodle_admin_password }}"
+      MOODLE_ADMINEMAIL: "{{ moodle_admin_email }}"
+    volumes:
+      - "{{ moodle_volume_name }}:/var/moodledata"
+    networks:
+      - name: "{{ network_name }}"
+    log_driver: "{{ log_driver }}"
+    log_options:
+      max-size: "{{ log_max_size }}"
+      max-file: "{{ log_max_file }}"

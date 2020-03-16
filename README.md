@@ -7,6 +7,7 @@ Collection of ansible playbooks and roles.
 * odoo - Deploys Odoo instance
 * wiki - Deploys Nextcloud and Bookstack instance
 * proxy - Deploys Nginx proxy instance
+* moodle - Deploys Moodle instance
 
 ## Roles
 
@@ -22,6 +23,7 @@ Collection of ansible playbooks and roles.
 * [mysql](roles/mysql/README.md) - Deploys MySQL database container
 * [bookstack](roles/bookstack/README.md) - Deploys BookStack Docker container
 * [nextcloud](roles/nextcloud/README.md) - Deploys Nextcloud container
+* [moodle](roles/moodle/README.md) - Deploys Moodle container
 
 ## Usage
 

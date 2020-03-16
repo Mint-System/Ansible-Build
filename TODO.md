@@ -6,6 +6,7 @@
 
 ## Bugs
 
+- [ ] If docker is updates all hosts are stopped -> pin versions
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 
 ## Odoo role
@@ -38,6 +39,7 @@
 ## Management
 
 - [ ] Lint and document Ansible roles
+- [ ] Only run role if images is configured
 
 ## DNS
 

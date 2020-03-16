@@ -20,6 +20,7 @@ postgres_image: postgres:10-alpine
 postgres_hostname: postgres01
 postgres_port_exposed: 5432
 postgres_data_dir: /usr/share/postgres01
+postgres_volume_name: postgres_data01
 postgres_user: example
 postgres_password: "{{ vault_postgres_password }}"
 postgres_db: example

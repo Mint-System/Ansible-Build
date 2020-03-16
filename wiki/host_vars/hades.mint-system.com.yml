@@ -1,0 +1,10 @@
+postgres_hostname: postgres05
+postgres_volume_name: postgres_data05
+
+moodle_hostname: moodle01
+moodle_volume_name: moodle_data01
+moodle_url: "https://hades.mint-system.com"
+moodle_admin_email: janik.vonrotz@mint-system.ch
+moodle_fullname: "Schule Sisikon"
+moodle_shortname: "Sisi"
+moodle_summary: "This is the LMS for Schule Sisikon"

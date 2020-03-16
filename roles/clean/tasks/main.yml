@@ -45,6 +45,13 @@
   tags:
   - odoo
 
+- name: Remove moodle container
+  docker_container:
+    name: "{{ moodle_hostname }}"
+    state: absent
+  tags:
+  - moodle
+
 - name: Remove nextcloud container
   docker_container:
     name: "{{ nextcloud_hostname }}"
