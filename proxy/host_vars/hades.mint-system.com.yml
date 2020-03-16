@@ -17,5 +17,9 @@ nginx_proxies:
     src_port: 443
     dest_hostname: odoo02
     dest_port: 8069
+  - src_hostname: www.schule-sisikon.ch
+    src_port: 443
+    dest_hostname: odoo02
+    dest_port: 8069
 
 modsecurity_data_dir: /usr/share/modsecurity02

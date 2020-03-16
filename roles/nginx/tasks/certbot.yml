@@ -33,7 +33,7 @@
 
 - name: Wait for nginx container
   pause:
-    seconds: "5"
+    seconds: "3"
   when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Issue certificate with certbot command
@@ -51,5 +51,5 @@
 
 - name: Wait for certificate request
   pause:
-    seconds: "30"
+    seconds: "5"
   when: certbot_certs | json_query(certbot_stat_filter) | list
