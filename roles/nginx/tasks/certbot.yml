@@ -23,6 +23,8 @@
       - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+    networks:
+      - name: "{{ network_name }}"
     log_driver: "{{ log_driver }}"
     log_options:
       max-size: "{{ log_max_size }}"
@@ -41,11 +43,13 @@
     volumes:
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+    networks:
+      - name: "{{ network_name }}"
     command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.item.src_hostname }}
   loop: "{{ certbot_certs.results }}"
   when: not item.stat.exists
 
 - name: Wait for certificate request
   pause:
-    seconds: "5"
+    seconds: "30"
   when: certbot_certs | json_query(certbot_stat_filter) | list

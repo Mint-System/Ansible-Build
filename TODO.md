@@ -1,14 +1,15 @@
 # TODO
 
+## Update
+
+- [ ] Update nextcloud to 18.0.2 and document procedure
+
 ## Bugs
 
-- [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them
-- [ ] ansible does not abort if certbot fails
-- [ ] Nginx cert works if containers are removed and nginx folder is purged.
+- [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 
 ## Odoo role
 
-- [ ] Setup erp.mint-system.ch and odoo.mint-system.ch
 - [ ] Filter dbs false
 - [ ] Auto install base module
 
@@ -19,17 +20,16 @@
 
 ## Monitoring
 
-- [ ] Setup fluentd and grep docker logs for errors
+- [ ] Setup fluentd and grep docker logs for errors -> Install on hades
 
 ## Security
 
-- [ ] Remove vault files?
+- [ ] Remove vault files? -> not sure
 - [ ] Describe backup/recover scenario
-- [ ] Setup docker keycloak for internal usage
 
 ## Nginx role
 
-- [ ] Renew certs automatically
+- [ ] Renew certs automatically -> add cron job
 
 ## Backup
 
@@ -37,11 +37,26 @@
 
 ## Management
 
-- [ ] Lint Ansible roles
-- [x] Reduce config duplicates -> hades and apland are similar -> simple odoo installations
+- [ ] Lint and document Ansible roles
+
+## DNS
+
+- [ ] Transfer all zones to now zeit
+
+## New Roles
+
+- [ ] Monitoring with Elastic, kibana, beats and fluentd
+- [ ] Keycloak with user database and oauth integration
 
 # DONE
 
+- [x] Harden Nextcloud https://cloud.mint-system.ch/settings/admin/overview#version
+- [-] Setup erp and export to odoo.mint
+- [x] Nginx cannot start cerbot container when proxy config is not overwritten -> Add tmp container to docker network
+- [-] ansible does not abort if certbot fails
+- [x] Setup erp.mint-system.ch and odoo.mint-system.ch
+- [x] Reduce config duplicates -> hades and apland are similar -> simple odoo installations
+- [x] Nginx cert works if containers are removed and nginx folder is purged. RES: Increased time to 60 seconds
 - [-] Cannot obtain new LetsEncrypt Certificates
 - [x] Odoo and postgres cannot be installed at once
 - [x] Postgres database creates new db -> remove multi db script

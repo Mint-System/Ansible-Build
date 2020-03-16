@@ -31,6 +31,8 @@ nginx_proxies:
     src_port: 443
     dest_hostname: webserver
     dest_port: 80
+    options: |
+      add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
 ````
 
 And include it in your playbook.

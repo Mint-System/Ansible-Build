@@ -16,6 +16,7 @@
     src_port: "{{ item.src_port }}"
     dest_hostname: "{{ item.dest_hostname }}"
     dest_port: "{{ item.dest_port }}"
+    options: "{{ item.options | default('') }}"
   loop: "{{ nginx_proxies }}"
   notify: Restart nginx container
 

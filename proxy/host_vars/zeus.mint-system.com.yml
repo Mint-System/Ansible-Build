@@ -1,0 +1,29 @@
+certbot_hostname: cert01
+certbot_data_dir: /usr/share/certbot01
+certbot_email: info@mint-system.ch
+
+nginx_hostname: proxy01
+nginx_data_dir: /usr/share/nginx01
+nginx_proxies:
+  - src_hostname: wiki.mint-system.ch
+    src_port: 443
+    dest_hostname: book01
+    dest_port: 80
+  - src_hostname: erp.mint-system.ch
+    src_port: 443
+    dest_hostname: odoo01
+    dest_port: 8069
+  - src_hostname: cloud.mint-system.ch
+    src_port: 443
+    dest_hostname: nextcloud01
+    dest_port: 80
+    options: |
+      location /.well-known/carddav {
+        return 301 http://nextcloud01:80/nextcloud/remote.php/dav;
+      }
+      location /.well-known/caldav {
+        return 301 http://nextcloud01:80/nextcloud/remote.php/dav;
+      }
+      add_header Strict-Transport-Security "max-age=15552000; includeSubDomains" always;
+
+modsecurity_data_dir: /usr/share/modsecurity01
