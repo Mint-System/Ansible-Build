@@ -25,7 +25,7 @@
 
 ## Security
 
-- [ ] Remove vault files? -> not sure
+- [x] Remove vault files? -> not sure
 - [ ] Describe backup/recover scenario
 
 ## Nginx role
@@ -35,11 +35,16 @@
 ## Backup
 
 - [ ] Backup data folders to external system with restic and remote storage https://linuxize.com/post/how-to-setup-automatic-odoo-backup/
+- [x] Setup server
+- [x] Setup backup server
+- [ ] Setup client and integrate into existing playbook
+- [ ] Test recover scenario
 
 ## Management
 
 - [ ] Lint and document Ansible roles
 - [ ] Only run role if images is configured
+- [ ] Rename mint system network to mint-system.com (mint-system.com)
 
 ## DNS
 
