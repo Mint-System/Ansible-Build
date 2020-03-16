@@ -1,8 +1,0 @@
-postgres_hostname: postgres01
-postgres_data_dir: /usr/share/postgres01
-postgres_volume_name: postgres_data01
-
-odoo_hostname: odoo01
-odoo_data_dir: /usr/share/odoo01
-odoo_volume_name: odoo_data01
-odoo_postgres_hostname: postgres01

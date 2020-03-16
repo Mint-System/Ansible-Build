@@ -57,35 +57,35 @@ Install jmespath with pip.
 
 List inventory
 
-`ansible-inventory --list -y -i odoo`
+`ansible-inventory --list -y -i inventories/odoo`
 
 Test connection
 
-`ansible all -m ping -i odoo`
+`ansible all -m ping -i inventories/odoo`
 
 Deploy odoo stack
 
-`ansible-playbook -i odoo odoo.yml`
+`ansible-playbook -i inventories/odoo odoo.yml`
 
 Deploy role only
 
-`ansible-playbook -i odoo odoo.yml -t docker`
+`ansible-playbook -i inventories/odoo odoo.yml -t docker`
 
 Deploy role to specific host
 
-`ansible-playbook -i odoo odoo.yml -t docker -l host.example.com`
+`ansible-playbook -i inventories/odoo odoo.yml -t docker -l host.example.com`
 
 Deploy role to specific group with non-default user
 
-`ansible-playbook -i odoo docker.yml -t docker -l europe -u username`
+`ansible-playbook -i inventories/odoo docker.yml -t docker -l europe -u username`
 
 Clean odoo stak
 
-`ansible-playbook -i odoo clean.yml`
+`ansible-playbook -i inventories/odoo clean.yml`
 
 Clean role only
 
-`ansible-playbook -i odoo clean.yml -t docker`
+`ansible-playbook -i inventories/odoo clean.yml -t docker`
 
 ### Localhost
 
