@@ -24,11 +24,11 @@
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
     networks:
-      - name: "{{ network_name }}"
-    log_driver: "{{ log_driver }}"
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ log_max_size }}"
-      max-file: "{{ log_max_file }}"
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
   when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Wait for nginx container
@@ -44,7 +44,7 @@
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
     networks:
-      - name: "{{ network_name }}"
+      - name: "{{ docker_network_name }}"
     command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.item.src_hostname }}
   loop: "{{ certbot_certs.results }}"
   when: not item.stat.exists

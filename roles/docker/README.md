@@ -13,9 +13,9 @@ The Ansible Docker role has the following requirements:
 Configure all depending roles.
 
 ```yml
-log_driver: "json-file"
-log_max_size: "10m"
-log_max_file: "3"
+docker_log_driver: "json-file"
+docker_log_max_size: "10m"
+docker_log_max_file: "3"
 ```
 
 Include it in your playbook.

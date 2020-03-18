@@ -22,11 +22,11 @@
     ports:
       - "{{ postgres_port_exposed }}:5432"
     networks:
-      - name: "{{ network_name }}"
-    log_driver: "{{ log_driver }}"
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ log_max_size }}"
-      max-file: "{{ log_max_file }}"
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
   when: postgres_volume_name is not defined
 
 - name: Start postgres container with volume
@@ -42,9 +42,9 @@
     ports:
       - "{{ postgres_port_exposed }}:5432"
     networks:
-      - name: "{{ network_name }}"
-    log_driver: "{{ log_driver }}"
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ log_max_size }}"
-      max-file: "{{ log_max_file }}"
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
   when: postgres_volume_name is defined

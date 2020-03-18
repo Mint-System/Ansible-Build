@@ -1,26 +1,3 @@
-
-- name: Install htpasswd module
-  apt: 
-    name: python3-passlib
-    state: latest
-
-- name: Configure user access for restic server
-  htpasswd:
-    path: "{{ restic_server_backup_dir }}/.htpasswd"
-    name: "{{ restic_server_user }}"
-    password: "{{ restic_server_password }}"
-
-- name: Start restic server container
-  docker_container:
-    name: "{{ restic_server_hostname }}"
-    image: "{{ restic_server_image }}"
-    volumes:
-      - "{{ restic_server_backup_dir }}:/data"
-    ports:
-      - 80:80
-    networks:
-      - name: "{{ network_name }}"
-    log_driver: "{{ log_driver }}"
-    log_options:
-      max-size: "{{ log_max_size }}"
-      max-file: "{{ log_max_file }}"
+- name: Include docker tasks
+  include_tasks: docker.yml
+  when: restic_server_image is defined

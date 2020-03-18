@@ -42,11 +42,11 @@
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
     networks:
-      - name: "{{ network_name }}"
-    log_driver: "{{ log_driver }}"
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ log_max_size }}"
-      max-file: "{{ log_max_file }}"
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
   when: modsecurity_image is undefined
 
 - name: Start nginx container with modsecurity
@@ -64,9 +64,9 @@
       - "{{ modsecurity_data_dir }}/include.conf:/etc/modsecurity.d/include.conf"
       - "{{ modsecurity_data_dir }}/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf"
     networks:
-      - name: "{{ network_name }}"
-    log_driver: "{{ log_driver }}"
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ log_max_size }}"
-      max-file: "{{ log_max_file }}"
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
   when: modsecurity_image is defined

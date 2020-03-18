@@ -6,6 +6,7 @@
 
 ## Bugs
 
+- [ ] Restarting odoo docker forgets about it master passwords -> maybe setting admin_passwd helps
 - [ ] If docker is updated all hosts are stopped -> pin versions
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 

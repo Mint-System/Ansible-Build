@@ -10,8 +10,8 @@
     volumes:
       - "{{ mysql_data_dir }}:/var/lib/mysql"
     networks:
-      - name: "{{ network_name }}"
-    log_driver: "{{ log_driver }}"
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ log_max_size }}"
-      max-file: "{{ log_max_file }}"
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

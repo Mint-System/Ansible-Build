@@ -24,8 +24,8 @@
       - "{{ bookstack_data_dir }}/uploads:/var/www/bookstack/public/uploads"
       - "{{ bookstack_data_dir }}/storage:/var/www/bookstack/public/storage"
     networks:
-      - name: "{{ network_name }}"
-    log_driver: "{{ log_driver }}"
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ log_max_size }}"
-      max-file: "{{ log_max_file }}"
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
