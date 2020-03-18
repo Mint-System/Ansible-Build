@@ -3,6 +3,7 @@
     name: "{{ certbot_hostname }}"
     state: absent
   tags:
+  - never
   - nginx
 
 - name: Remove nginx container
@@ -10,6 +11,7 @@
     name: "{{ nginx_hostname }}"
     state: absent
   tags:
+  - never
   - nginx
 
 - name: Remove nginx data dir
@@ -22,13 +24,23 @@
     name: "{{ postgres_hostname }}"
     state: absent
   tags:
+  - never
   - postgres
+
+- name: Remove postgres volume
+  docker_volume:
+    name: "{{ postgres_volume_name }}"
+    state: absent
+  tags:
+  - never
+  - postgres-volume
 
 - name: Remove mysql container
   docker_container:
     name: "{{ mysql_hostname }}"
     state: absent
   tags:
+  - never
   - mysql
 
 - name: Remove bookstack container
@@ -36,6 +48,7 @@
     name: "{{ bookstack_hostname }}"
     state: absent
   tags:
+  - never
   - bookstack
 
 - name: Remove odoo container
@@ -43,13 +56,23 @@
     name: "{{ odoo_hostname }}"
     state: absent
   tags:
+  - never
   - odoo
+
+- name: Remove odoo volume
+  docker_volume:
+    name: "{{ odoo_volume_name }}"
+    state: absent
+  tags:
+  - never
+  - odoo-volume
 
 - name: Remove moodle container
   docker_container:
     name: "{{ moodle_hostname }}"
     state: absent
   tags:
+  - never
   - moodle
 
 - name: Remove nextcloud container
@@ -57,6 +80,7 @@
     name: "{{ nextcloud_hostname }}"
     state: absent
   tags:
+  - never
   - nextcloud
 
 - name: Remove docker network
@@ -64,6 +88,7 @@
     name: "{{ network_name }}"
     state: absent
   tags:
+  - never
   - docker
 
 - name: Remove openldap container
@@ -71,4 +96,5 @@
     name: "{{ openldap_hostname }}"
     state: absent
   tags:
+  - never
   - openldap

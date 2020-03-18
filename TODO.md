@@ -6,18 +6,22 @@
 
 ## Bugs
 
-- [ ] If docker is updates all hosts are stopped -> pin versions
+- [ ] If docker is updated all hosts are stopped -> pin versions
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 
 ## Odoo role
 
-- [ ] Filter dbs false
+- [ ] Setup forum for OpenEdu
+- [ ] Enable odoo apps installation from zip and tar.gz url -> Install report for apland
 - [ ] Auto install base module
+
+## Server
+
+- [ ] Install dotfiles on all server
 
 ## Container Management
 
 - [ ] Migrate wiki data to volumes (postgres, mysql, nextcloud, bookstack)!
-- [ ] Migrate data to docker volumes? https://docs.docker.com/storage/ Ansible config must be mounted
 
 ## Monitoring
 
@@ -25,7 +29,6 @@
 
 ## Security
 
-- [x] Remove vault files? -> not sure
 - [ ] Describe backup/recover scenario
 
 ## Nginx role
@@ -35,28 +38,35 @@
 ## Backup
 
 - [ ] Backup data folders to external system with restic and remote storage https://linuxize.com/post/how-to-setup-automatic-odoo-backup/
-- [x] Setup server
-- [x] Setup backup server
 - [ ] Setup client and integrate into existing playbook
 - [ ] Test recover scenario
 
 ## Management
 
 - [ ] Lint and document Ansible roles
-- [ ] Only run role if images is configured
+- [ ] Only run role if image is configured
 - [ ] Rename mint system network to mint-system.com (mint-system.com)
-
-## DNS
-
-- [ ] Transfer all zones to now zeit
 
 ## New Roles
 
-- [ ] Monitoring with Elastic, kibana, beats and fluentd
 - [ ] Keycloak with user database and oauth integration
+- [ ] Monitoring with Elastic, kibana, beats and fluentd
+
+## Maintenance
+
+- [ ] delete www database on odoo01
 
 # DONE
 
+- [x] Transfer all zones to now zeit
+- [x] Setup server
+- [x] Setup backup server
+- [x] Setup www redirect
+- [x] Remove vault files? -> not sure
+- [-] Migrate data to docker volumes? https://docs.docker.com/storage/ Ansible config must be mounted
+- [x] Filter dbs false
+- [x] Setup Website, E-Learning and OpenEdu and filter db based on hostname dbfilter = ^%d$
+- [-] If odoo is restarted, the db manager password is reseted -> not sure if true
 - [x] Harden Nextcloud https://cloud.mint-system.ch/settings/admin/overview#version
 - [-] Setup erp and export to odoo.mint
 - [x] Nginx cannot start cerbot container when proxy config is not overwritten -> Add tmp container to docker network

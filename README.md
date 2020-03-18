@@ -1,6 +1,6 @@
 # Ansible Playbooks
 
-Collection of ansible playbooks and roles.
+Collection of Ansible playbooks and roles.
 
 ## Playbooks
 
@@ -11,19 +11,19 @@ Collection of ansible playbooks and roles.
 
 ## Roles
 
-* [docker](roles/docker/README.md) - Installs Docker for Ubuntu
-* [docker-network](roles/docker-network/README.md) - Defines internal Docker network
-* [postgres](roles/postgres/README.md) - Deploys PostgreSQL database container
-* [openldap](roles/openldap/README.md) - Openldap server
+* [docker](roles/docker/README.md) - Install Docker for Ubuntu
+* [docker-network](roles/docker-network/README.md) - Define internal Docker network
+* [postgres](roles/postgres/README.md) - Deploy PostgreSQL database container
+* [openldap](roles/openldap/README.md) - Deploy OpenLDAP Docker container
 * [odoo](roles/odoo/README.md) - Deploy Odoo container
 * [debug](roles/debug/README.md) - Debug Ansible variables
-* [modescurity](roles/modescurity/README.md) - Downloads and configures ModSecurity with OWASP CRS
-* [nginx](roles/nginx/README.md) - Deploys Nginx proxy with Let's Encrypt certificates and ModSecurity
+* [modescurity](roles/modescurity/README.md) - Download and configure ModSecurity with OWASP CRS
+* [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Let's Encrypt certificates and ModSecurity
 * [clean](roles/clean/README.md) - Cleanup Ansible roles
-* [mysql](roles/mysql/README.md) - Deploys MySQL database container
-* [bookstack](roles/bookstack/README.md) - Deploys BookStack Docker container
-* [nextcloud](roles/nextcloud/README.md) - Deploys Nextcloud container
-* [moodle](roles/moodle/README.md) - Deploys Moodle container
+* [mysql](roles/mysql/README.md) - Deploy MySQL database container
+* [bookstack](roles/bookstack/README.md) - Deploy BookStack Docker container
+* [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container
+* [moodle](roles/moodle/README.md) - Deploy Moodle container
 
 ## Usage
 
@@ -79,9 +79,9 @@ Deploy role to specific group with non-default user
 
 `ansible-playbook -i inventories/odoo docker.yml -t docker -l europe -u username`
 
-Clean odoo stak
+Clean odoo stack
 
-`ansible-playbook -i inventories/odoo clean.yml`
+`ansible-playbook -i inventories/odoo clean.yml -t odoo,odoo-volume`
 
 Clean role only
 
