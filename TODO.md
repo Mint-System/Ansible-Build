@@ -4,6 +4,10 @@
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
 
+## Analytics
+
+- [ ] Integrate fathom snippet into meet.mint-system.ch
+
 ## Bugs
 
 - [ ] If docker is updated all hosts are stopped -> pin versions
@@ -49,7 +53,6 @@
 
 ## New Roles
 
-- [ ] fathom analytics on hera
 - [ ] Keycloak with user database and oauth integration
 - [ ] Monitoring with Elastic, kibana, beats and fluentd
 
@@ -59,6 +62,7 @@
 
 # DONE
 
+- [x] fathom analytics on hera
 - [x] Restarting odoo docker forgets about it master passwords -> maybe setting admin_passwd helps -> yes work -> set pw -> save config -> get hash -> store pw and hash in inventory
 - [x] Transfer all zones to now zeit
 - [x] Setup server

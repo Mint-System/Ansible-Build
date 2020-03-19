@@ -1,31 +1,3 @@
-- name: Ensure bookstack data dir exists
-  file:
-    path: "{{ bookstack_data_dir }}"
-    state: directory
-
-- name: Start bookstack container
-  docker_container:
-    name: "{{ bookstack_hostname }}"
-    image: "{{ bookstack_image }}"
-    env:
-      APP_URL: "{{ bookstack_app_url }}"
-      DB_HOST: "{{ bookstack_db_hostname }}"
-      DB_USERNAME: "{{ bookstack_db_user }}"
-      DB_PASSWORD: "{{ bookstack_db_password }}"
-      DB_DATABASE: "{{ bookstack_db_database }}"
-      MAIL_DRIVER: "{{ bookstack_mail_driver }}"
-      MAIL_HOST: "{{ bookstack_mail_hostname }}"
-      MAIL_PORT: "{{ bookstack_mail_port }}"
-      MAIL_FROM: "{{ bookstack_mail_from }}"
-      MAIL_USERNAME: "{{ bookstack_mail_username }}"
-      MAIL_PASSWORD: "{{ bookstack_mail_password }}"
-      MAIL_ENCRYPTION: "{{ bookstack_mail_encryption }}"
-    volumes:
-      - "{{ bookstack_data_dir }}/uploads:/var/www/bookstack/public/uploads"
-      - "{{ bookstack_data_dir }}/storage:/var/www/bookstack/public/storage"
-    networks:
-      - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
-    log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
+- name: Include docker tasks
+  include_tasks: docker.yml
+  when: bookstack_image is defined

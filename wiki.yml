@@ -1,9 +1,17 @@
 - hosts: "{{ ehosts | default('all') }}"
   become: true
   roles:
-  - { role: docker, tags: ["docker"] }
-  - { role: docker-network, tags: ["docker-network"] }
-  - { role: postgres, tags: ["postgres"] }
-  - { role: mysql, tags: ["mysql"] }
-  - { role: bookstack, tags: ["bookstack"] }
-  - { role: nextcloud, tags: ["nextcloud"] }
+  - role: docker
+    tags: docker
+  - role: docker-network
+    tags: docker-network
+  - role: postgres
+    tags: postgres
+  - role: mysql
+    tags: mysql
+  - role: bookstack
+    tags: bookstack
+  - role: nextcloud
+    tags: nextcloud
+  - role: fathom
+    tags: fathom

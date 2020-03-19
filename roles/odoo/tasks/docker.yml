@@ -1,0 +1,35 @@
+- name: Create a odoo volume
+  docker_volume:
+    name: "{{ odoo_volume_name }}"
+
+- name: Ensure odoo data dir exists
+  file:
+    path: "{{ odoo_data_dir }}"
+    state: directory
+
+- name: Copy odoo conf
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "templates/odoo.conf", dest: "{{ odoo_data_dir }}/odoo.conf" }
+  notify: Restart odoo container
+
+- name: Start odoo container
+  docker_container:
+    name: "{{ odoo_hostname }}"
+    image: "{{ odoo_image }}"
+    env:
+      HOST: "{{ odoo_postgres_hostname }}"
+      USER: "{{ odoo_postgres_user }}"
+      PASSWORD: "{{ odoo_postgres_password }}"
+    volumes:
+      - "{{ odoo_volume_name }}:/var/lib/odoo"
+      - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
+      - "{{ odoo_data_dir }}/addons:/mnt/extra-addons"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

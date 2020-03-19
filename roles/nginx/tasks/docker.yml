@@ -1,0 +1,72 @@
+- name: Ensure nginx data dir exists
+  file:
+    path: "{{ nginx_data_dir }}"
+    state: directory
+
+- name: Include docker certbot tasks
+  include_tasks: docker-certbot.yml
+  when: certbot_image is defined
+
+- name: Copy nginx proxy conf
+  template:
+    src: templates/nginx-proxy.conf
+    dest: "{{ nginx_data_dir }}/{{ item.src_hostname }}.conf"
+  vars:
+    src_hostname: "{{ item.src_hostname }}"
+    src_port: "{{ item.src_port }}"
+    dest_hostname: "{{ item.dest_hostname | default('') }}"
+    dest_port: "{{ item.dest_port | default('')  }}"
+    options: "{{ item.options | default('') }}"
+    redirect_hostname: "{{ item.redirect_hostname | default(false) }}"
+  loop: "{{ nginx_proxies }}"
+  notify: Restart nginx container
+
+- name: Copy nginx ssl param conf
+  copy:
+    src: "{{ item }}"
+    dest: "{{ certbot_data_dir }}/"
+  with_items:
+    - files/options-ssl-nginx.conf
+    - files/ssl-dhparams.pem
+    - files/proxy-params.conf
+
+- name: Start nginx container without modsecurity
+  docker_container:
+    name: "{{ nginx_hostname }}"
+    image: "{{ nginx_image }}"
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
+      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
+      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  when: modsecurity_image is undefined
+
+- name: Start nginx container with modsecurity
+  docker_container:
+    name: "{{ nginx_hostname }}"
+    image: "{{ modsecurity_image }}"
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
+      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
+      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+      - "{{ modsecurity_data_dir }}:/etc/modsecurity"
+      - "{{ modsecurity_data_dir }}/include.conf:/etc/modsecurity.d/include.conf"
+      - "{{ modsecurity_data_dir }}/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  when: modsecurity_image is defined

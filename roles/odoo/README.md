@@ -25,6 +25,7 @@ odoo_volume_name: odoo_data01
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: example
 odoo_postgres_password: "{{ vault_postgres_password }}"
+odoo_master_password_hash: "{{ vault_odoo_master_password_hash }}"
 odoo_conf: |
   dbfilter = ^%d$
 ````
