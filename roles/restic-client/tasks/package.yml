@@ -2,9 +2,10 @@
   apt: 
     name: "{{ restic_client_package }}"
 
-- name: Ensure a job that runs at 2 and 5 exists. Creates an entry like "0 5,2 * * ls -alh > /dev/null"
+- name: Register backup cron job
   cron:
     name: "check dirs"
     minute: "0"
-    hour: "5,2"
-    job: "ls -alh > /dev/null"
+    hour: "1"
+    job: ""
+# restic init -r rest:http://$RESTIC_CLIENT_USER:$RESTIC_CLIENT_PASSWORD@kronos.mint-system.com:8000/hades/

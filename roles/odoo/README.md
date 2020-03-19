@@ -35,8 +35,10 @@ And include it in your playbook.
 ```yml
 - hosts: odoo
   roles:
-  - { role: docker, tags: ["docker"] }
-  - { role: docker-network, tags: ["docker-network"] }
+  - role: docker
+    tags: docker
+  - role: docker-network
+    tags: docker-network
   - { role: postgres, tags: ["postgres"] }
   - { role: odoo, tags: ["odoo"] }
 ```

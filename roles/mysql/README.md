@@ -30,7 +30,9 @@ And include it in your playbook.
 ```yml
 - hosts: mysql
   roles:
-  - { role: docker, tags: ["docker"] }
-  - { role: docker-network, tags: ["docker-network"] }
+  - role: docker
+    tags: docker
+  - role: docker-network
+    tags: docker-network
   - { role: mysql, tags: ["mysql"] }
 ```

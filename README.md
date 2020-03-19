@@ -24,6 +24,7 @@ Collection of Ansible playbooks and roles.
 * [bookstack](roles/bookstack/README.md) - Deploy BookStack Docker container
 * [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container
 * [moodle](roles/moodle/README.md) - Deploy Moodle container
+* [restic-server](roles/restic-server/README.md) - Deploy Restic server container
 
 ## Usage
 

@@ -29,7 +29,9 @@ And include it in your playbook.
 ```yml
 - hosts: openldap
   roles:
-  - { role: docker, tags: ["docker"] }
-  - { role: docker-network, tags: ["docker-network"] }
+  - role: docker
+    tags: docker
+  - role: docker-network
+    tags: docker-network
   - { role: openldap, tags: ["openldap"] }
 ```

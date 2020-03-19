@@ -40,8 +40,10 @@ And include it in your playbook.
 ```yml
 - hosts: proxy
   roles:
-  - { role: docker, tags: ["docker"] }
-  - { role: docker-network, tags: ["docker-network"] }
+  - role: docker
+    tags: docker
+  - role: docker-network
+    tags: docker-network
   - { role: modsecurity, tags: ["modsecurity"] }
   - { role: nginx, tags: ["nginx"] }
 ```
