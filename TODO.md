@@ -6,7 +6,6 @@
 
 ## Bugs
 
-- [ ] Restarting odoo docker forgets about it master passwords -> maybe setting admin_passwd helps
 - [ ] If docker is updated all hosts are stopped -> pin versions
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 
@@ -50,6 +49,7 @@
 
 ## New Roles
 
+- [ ] fathom analytics on hera
 - [ ] Keycloak with user database and oauth integration
 - [ ] Monitoring with Elastic, kibana, beats and fluentd
 
@@ -59,6 +59,7 @@
 
 # DONE
 
+- [x] Restarting odoo docker forgets about it master passwords -> maybe setting admin_passwd helps -> yes work -> set pw -> save config -> get hash -> store pw and hash in inventory
 - [x] Transfer all zones to now zeit
 - [x] Setup server
 - [x] Setup backup server
