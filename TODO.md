@@ -7,10 +7,12 @@
 
 ## Analytics
 
+- [ ] integrate openedu.mint-system.ch, https://analytics.google.com
 - [ ] Integrate fathom snippet into meet.mint-system.ch
 
 ## Bugs
 
+- [ ] Enable proxy mode for odoo https://www.odoo.com/documentation/13.0/setup/deploy.html#https
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 
 ## Odoo role
@@ -18,9 +20,12 @@
 - [ ] Setup forum for OpenEdu
 - [ ] Enable odoo apps installation from zip and tar.gz url -> Install report for apland
 - [ ] Auto install base module
+- [ ] Activate mail for self registrations
+- [ ] Checkout mail gateway
 
 ## Server
 
+- [ ] Enable profile dotfiles: https://github.com/janikvonrotz/dotfiles
 - [ ] Install fzf on all server -> ansible download and extract binary
 
 ## Container Management
@@ -53,8 +58,8 @@
 
 ## New Roles
 
-- [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch
-- [ ] Monitoring with Elastic, kibana, beats and fluentd
+- [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
+- [ ] Monitoring with Elastic, kibana, beats, logger -> x-pack contains alerting! -> monitor all 
 
 ## Maintenance
 

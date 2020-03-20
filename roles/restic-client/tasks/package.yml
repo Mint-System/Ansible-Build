@@ -4,8 +4,9 @@
 
 - name: Register backup cron job
   cron:
-    name: "check dirs"
+    name: "Backup docker volume"
     minute: "0"
     hour: "1"
     job: ""
-# restic init -r rest:http://$RESTIC_CLIENT_USER:$RESTIC_CLIENT_PASSWORD@kronos.mint-system.com:8000/hades/
+
+restic init -r rest:http://$RESTIC_CLIENT_USER:$RESTIC_CLIENT_PASSWORD@kronos.mint-system.com:8080/hades/
