@@ -25,12 +25,14 @@ iam_users:
     ssh_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups: wheel,docker
     shell: /bin/bash
+iam_packages:
+  - vim=2:8.0.1453-1ubuntu1.1
 ````
 
 And include it in your playbook.
 
 ```yml
-- hosts: nextcloud
+- hosts: iam
   roles:
   - role: docker
     tags: docker

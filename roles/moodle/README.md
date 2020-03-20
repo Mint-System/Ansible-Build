@@ -38,7 +38,7 @@ moodle_summary: "This is the LMS for School of Example"
 And include it in your playbook.
 
 ```yml
-- hosts: nextcloud
+- hosts: moodle
   roles:
   - role: docker
     tags: docker

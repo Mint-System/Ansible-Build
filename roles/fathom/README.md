@@ -24,7 +24,7 @@ fathom_volume_name: fathom_data01
 And include it in your playbook.
 
 ```yml
-- hosts: mysql
+- hosts: fathom
   roles:
   - role: docker
     tags: docker

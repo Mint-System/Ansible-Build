@@ -1,0 +1,4 @@
+- name: Install required iam packages
+  apt:
+    name: "{{ item }}"
+  loop: "{{ iam_packages }}"

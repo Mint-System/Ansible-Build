@@ -27,7 +27,7 @@ restic_server_backup_dir: /path/to/volume
 And include it in your playbook.
 
 ```yml
-- hosts: postgres
+- hosts: restic-server
   roles:
   - role: docker
     tags: docker

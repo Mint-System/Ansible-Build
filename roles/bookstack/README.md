@@ -37,7 +37,7 @@ bookstack_mail_encryption: tls
 And include it in your playbook.
 
 ```yml
-- hosts: mysql
+- hosts: bookstack
   roles:
   - role: docker
     tags: docker

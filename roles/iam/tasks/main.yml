@@ -5,3 +5,8 @@
 - name: Include users tasks
   include_tasks: users.yml
   when: iam_users is defined
+
+- name: Include packages tasks
+  include_tasks: package.yml
+  when: iam_packages is defined
+  
