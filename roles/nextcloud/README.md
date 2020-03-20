@@ -37,6 +37,8 @@ And include it in your playbook.
     tags: docker
   - role: docker-network
     tags: docker-network
-  - { role: postgres, tags: ["postgres"] }
-  - { role: nextcloud, tags: ["nextcloud"] }
+  - role: postgres
+    tags: postgres
+  - role: nextcloud
+    tags: nextcloud
 ```

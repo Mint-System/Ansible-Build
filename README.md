@@ -4,8 +4,9 @@ Collection of Ansible playbooks and roles.
 
 ## Playbooks
 
+* setup - Setup server
 * odoo - Deploys Odoo instance
-* wiki - Deploys Nextcloud and Bookstack instance
+* wiki - Deploys Nextcloud, Fathom and Bookstack instance
 * proxy - Deploys Nginx proxy instance
 * moodle - Deploys Moodle instance
 
@@ -25,6 +26,7 @@ Collection of Ansible playbooks and roles.
 * [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container
 * [moodle](roles/moodle/README.md) - Deploy Moodle container
 * [restic-server](roles/restic-server/README.md) - Deploy Restic server container
+* [iam](roles/iam/README.md) - Configures users and groups
 
 ## Usage
 
@@ -133,7 +135,7 @@ Whenever possible use env variables to configure the container.
 
 To persist data use Docker volumes.
 
-**Volume Name**
+**Volume Mount**
 
 Mount the folder without subfolder.
 
@@ -142,9 +144,9 @@ Mount the folder without subfolder.
       - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
 ```
 
-For Ansible config files uses file mounts.
+For Ansible config files use file mounts.
 
-**Data Dir**
+**Bind Mount**
 
 ```yml
     volumes:

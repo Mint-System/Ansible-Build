@@ -1,4 +1,4 @@
-- hosts: "{{ ehosts | default('all') }}"
+- hosts: all
   become: true
   roles:
   - role: docker

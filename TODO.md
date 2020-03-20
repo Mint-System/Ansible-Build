@@ -3,6 +3,7 @@
 ## Update
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
+- [ ] Update ubuntu packages
 
 ## Analytics
 
@@ -10,7 +11,6 @@
 
 ## Bugs
 
-- [ ] If docker is updated all hosts are stopped -> pin versions
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 
 ## Odoo role
@@ -21,7 +21,7 @@
 
 ## Server
 
-- [ ] Install dotfiles on all server
+- [ ] Install fzf on all server -> ansible download and extract binary
 
 ## Container Management
 
@@ -62,6 +62,9 @@
 
 # DONE
 
+- [x] Remove root login
+- [x] Setup dedicated users and groups -> iam
+- [x] If docker is updated all hosts are stopped -> pin versions
 - [x] fathom analytics on hera
 - [x] Restarting odoo docker forgets about it master passwords -> maybe setting admin_passwd helps -> yes work -> set pw -> save config -> get hash -> store pw and hash in inventory
 - [x] Transfer all zones to now zeit

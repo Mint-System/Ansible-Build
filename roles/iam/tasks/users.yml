@@ -1,0 +1,15 @@
+- name: Add users
+  user:
+    name: "{{ item.username }}"
+    shell: "{{ item.shell }}"
+    groups: "{{ item.groups }}"
+    append: yes
+  loop: "{{ iam_users }}"
+
+- name: Set authorized key
+  authorized_key:
+    user: "{{ item.username }}"
+    state: present
+    key: "{{ item.ssh_key }}"
+  loop: "{{ iam_users }}"
+
