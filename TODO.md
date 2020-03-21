@@ -17,7 +17,6 @@
 
 ## Odoo role
 
-- [ ] Setup forum for OpenEdu
 - [ ] Enable odoo apps installation from zip and tar.gz url -> Install report for apland
 - [ ] Auto install base module
 - [ ] Activate mail for self registrations
@@ -63,10 +62,12 @@
 
 ## Maintenance
 
+- [ ] delete openedu database on odoo02
 - [ ] delete www database on odoo01
 
 # DONE
 
+- [-] Setup forum for OpenEdu
 - [x] Remove root login
 - [x] Setup dedicated users and groups -> iam
 - [x] If docker is updated all hosts are stopped -> pin versions
