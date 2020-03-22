@@ -1,5 +1,9 @@
 # TODO
 
+## Development
+
+- [ ] Deploy roles to localhost. Create host_vars localhost.yml und group_vars dev group. Start with odoo01 and proxy.
+
 ## Update
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
@@ -12,7 +16,7 @@
 
 ## Bugs
 
-- [ ] Enable proxy mode for odoo https://www.odoo.com/documentation/13.0/setup/deploy.html#https
+- [x] Enable proxy mode for odoo https://www.odoo.com/documentation/13.0/setup/deploy.html#https
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 
 ## Odoo role
@@ -29,7 +33,7 @@
 
 ## Container Management
 
-- [ ] Migrate wiki data to volumes (postgres, mysql, nextcloud, bookstack)!
+- [ ] Migrate wiki data to volumes (postgres, mysql, nextcloud, bookstack)! https://stackoverflow.com/questions/49888014/move-docker-bind-mount-to-volume
 
 ## Monitoring
 

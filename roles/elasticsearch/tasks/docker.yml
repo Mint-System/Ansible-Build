@@ -1,0 +1,69 @@
+- name: Set max map count
+  sysctl:
+    name: vm.max_map_count
+    value: "262144"
+    state: present
+
+- name: Create elasticsearch node volume
+  docker_volume:
+    name: "{{ item.volume_name }}"
+  when: item.volume_name is defined
+  loop: "{{ elasticsearch_nodes }}"
+
+- name: Ensure elasticsearch node data dir exists
+  file:
+    path: "{{ item.data_dir }}"
+    state: directory
+  when: item.data_dir is defined
+  loop: "{{ elasticsearch_nodes }}"
+
+- name: Start elasticsearch container nodes
+  docker_container:
+    name: "{{ item.hostname }}"
+    image: "{{ elasticsearch_image }}"
+    env:
+      node.name: "{{ item.hostname }}"
+      cluster.name: "{{ elasticsearch_cluster_name }}"
+      discovery.seed_hosts: "{{ item.seed_hosts }}"
+      cluster.initial_master_nodes: "{{ elasticsearch_masternodes }}"
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      xpack.security.enabled: "true"
+      xpack.monitoring.collection.enabled: "true"
+      ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
+    volumes:
+    - "{{ item.volume_name }}:/usr/share/elasticsearch/data"
+    ulimits:
+    - nofile:65535:65535
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  loop: "{{ elasticsearch_nodes }}"
+
+# - name: Check heartbeat template
+#   docker_container:
+#     name: "{{ heartbeat_hostname }}-run"
+#     image: "{{ heartbeat_image }}"
+#     detach: false
+#     cleanup: true
+#     command: >
+#       /bin/bash -c 'curl -s --user "elastic:{{ elastic_password }}" -X GET "{{ elasticsearch_hostname }}:9200/_cat/templates?v&s=name&pretty" | grep heartbeat'
+#     networks:
+#     - name: "{{ network_name }}"
+#   ignore_errors: yes
+#   changed_when: false
+#   register: check_heartbeat_template
+
+#   when: elasticsearch_hostname is defined and check_heartbeat_template.failed
+
+# Check if enabled https://www.elastic.co/guide/en/elasticsearch/reference/7.6/security-api-get-user.html
+# If not set password with bootrap user
+# POST /_security/user/jacknich/_password
+# {
+#   "password" : "s3cr3t"
+# }
+
+# maybe use run_once: true
