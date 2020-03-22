@@ -1,0 +1,3 @@
+- name: Include docker tasks
+  include_tasks: docker.yml
+  when: elasticsearch_image is defined

@@ -48,13 +48,11 @@ Make it executable.
 
 `chmod 600 .vault_pass`
 
-Update inventory with hosts.
-
-`vim odoo/hosts.yml`
-
 Install jmespath with pip.
 
 `pip3 install jmespath`
+
+Create an inventory and configure a role.
 
 ### Deployment
 
@@ -94,21 +92,24 @@ Clean role only
 
 Deploying to localhost requires local ssh access.
 
-Install ssh server.
+Install or enable ssh login.
 
-`sudo apt install openssh-server`
+Aptitude: `sudo apt install openssh-server`  
+Mac: `sudo systemsetup -setremotelogin on`
 
-Copy the public key.
+Copy the public ssh key.
 
 `echo $SSHKEY >> ~/.ssh/authorized_keys`
 
 Enable passwordless sudo login.
 
-`sudo /bin/bash -c "echo \"$USERNAME     ALL=(ALL) NOPASSWD:ALL\" >> /etc/sudoers"`
+`sudo /bin/bash -c "echo \"$USERNAME  ALL=(ALL) NOPASSWD:ALL\" >> /etc/sudoers"`  
+or  
+`sudo /bin/bash -c "echo \"$USER  ALL=(ALL)  NOPASSWD:ALL\" >> /etc/sudoers"`
 
 Test ssh access.
 
-`ssh $USERNAME@localhost`
+`ssh $USERNAME@localhost` or `ssh $USER@localhost`
 
 ## Development
 

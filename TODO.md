@@ -14,9 +14,13 @@
 - [ ] integrate openedu.mint-system.ch, https://analytics.google.com
 - [ ] Integrate fathom snippet into meet.mint-system.ch
 
+## Nextcloud
+
+- [ ] Create Ansible template for config.php
+
 ## Bugs
 
-- [x] Enable proxy mode for odoo https://www.odoo.com/documentation/13.0/setup/deploy.html#https
+- [ ] openeduca.ch not able to upload pngs
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
 
 ## Odoo role
@@ -56,13 +60,12 @@
 ## Management
 
 - [ ] Lint and document Ansible roles
-- [ ] Only run role if image is configured
 - [ ] Rename mint system network to mint-system.com (mint-system.com)
 
 ## New Roles
 
 - [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
-- [ ] Monitoring with Elastic, kibana, beats, logger -> x-pack contains alerting! -> monitor all 
+- [ ] Monitoring with Elastic, kibana, beats, logstash and use graphane or elastalert for alerting
 
 ## Maintenance
 
@@ -71,6 +74,8 @@
 
 # DONE
 
+- [x] Only run role if image is configured
+- [x] Enable proxy mode for odoo https://www.odoo.com/documentation/13.0/setup/deploy.html#https
 - [-] Setup forum for OpenEdu
 - [x] Remove root login
 - [x] Setup dedicated users and groups -> iam

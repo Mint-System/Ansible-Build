@@ -32,9 +32,10 @@
       xpack.monitoring.collection.enabled: "true"
       ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
     volumes:
-    - "{{ item.volume_name }}:/usr/share/elasticsearch/data"
+      - "{{ item.volume_name }}:/usr/share/elasticsearch/data"
     ulimits:
-    - nofile:65535:65535
+      - nofile:65535:65535
+      - memlock:-1:-1
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
