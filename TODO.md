@@ -53,9 +53,10 @@
 
 ## Backup
 
-- [ ] Backup data folders to external system with restic and remote storage https://linuxize.com/post/how-to-setup-automatic-odoo-backup/
 - [ ] Setup client and integrate into existing playbook
 - [ ] Test recover scenario
+- [ ] Check if backup rotation works
+- [ ] Create backup type for odoo backups
 
 ## Management
 
@@ -74,6 +75,7 @@
 
 # DONE
 
+- [x] Backup data folders to external system with restic and remote storage https://linuxize.com/post/how-to-setup-automatic-odoo-backup/
 - [x] Only run role if image is configured
 - [x] Enable proxy mode for odoo https://www.odoo.com/documentation/13.0/setup/deploy.html#https
 - [-] Setup forum for OpenEdu

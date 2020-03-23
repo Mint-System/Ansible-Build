@@ -21,18 +21,22 @@ restic_repo_password: "{{ vault_restic_repo_password }}"
 restic_backup_sets:
  - id: "odoo volume"
    type: docker-volume
-   volume: odoo01
+   volume: odoo_data01
    tags:
     - odoo01
     - postgres01
    hour: "1"
  - id: "postgres volume"
    type: docker-volume
-   volume: postgres01
+   volume: postgres_data01
    tags:
     - odoo01
     - postgres01
    hour: "1"
+restic_backup_rotation:
+  daily: 7
+  weekly: 4
+  monthly: 1
 ```
 
 And include it in your playbook.

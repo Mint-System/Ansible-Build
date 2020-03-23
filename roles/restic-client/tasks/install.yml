@@ -10,10 +10,6 @@
   ignore_errors: yes
   register: repo_initalized
 
-- name: Debug
-  debug:
-    var: repo_initalized
-
 - name: Init restic repository
   shell: restic init
   environment:
@@ -21,7 +17,7 @@
     RESTIC_REPOSITORY: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
   when: repo_initalized.failed
 
-- name: Ensure environment var exists
+- name: Ensure restic environment vars exists
   lineinfile:
     dest: "/etc/environment"
     state: present
@@ -33,10 +29,18 @@
     - key: RESTIC_REPOSITORY
       value: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
 
-- name: Register docker volume backup cron jobs
+- name: Register docker volume backup jobs
   cron:
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
-    job: "restic backup /var/lib/docker/volume{{ item.volume }}/_data/ --tag {{ item.tags | join(' --tag ')}}"
+    minute: "{{ item.minute }}"
+    job: ". /etc/environment; restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ --tag {{ item.tags | join(' --tag ')}}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "docker-volume"
+
+- name: Register backup rotation job
+  cron:
+    name: "Backup rotation job"
+    hour: "23"
+    minute: "0"
+    job: ". /etc/environment; restic forget --keep-daily {{ restic_backup_rotation.daily }} --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune"

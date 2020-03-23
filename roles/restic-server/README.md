@@ -21,7 +21,7 @@ restic_server_user: restic
 restic_server_password: "{{ vault_restic_server_password }}"
 restic_server_port: 8080
 restic_server_hostname: restic01
-restic_server_backup_dir: /path/to/volume
+restic_server_backup_dir: /path/to/mount
 ```
 
 And include it in your playbook.
