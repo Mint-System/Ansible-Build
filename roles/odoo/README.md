@@ -28,7 +28,7 @@ odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password_hash: "{{ vault_odoo_master_password_hash }}"
 odoo_conf: |
   dbfilter = ^%d$
-````
+```
 
 And include it in your playbook.
 

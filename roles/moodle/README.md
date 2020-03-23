@@ -33,7 +33,7 @@ moodle_url: "https://moodle.example.com"
 moodle_fullname: "School of Example"
 moodle_shortname: "ScEx"
 moodle_summary: "This is the LMS for School of Example"
-````
+```
 
 And include it in your playbook.
 

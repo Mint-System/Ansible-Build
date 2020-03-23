@@ -33,9 +33,9 @@
     - key: RESTIC_REPOSITORY
       value: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
 
-- name: Register docker volume backup jobs
+- name: Register docker volume backup cron jobs
   cron:
-    name: "Backup job {{ item.name }}"
+    name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     job: "restic backup /var/lib/docker/volume{{ item.volume }}/_data/ --tag {{ item.tags | join(' --tag ')}}"
   loop: "{{ restic_backup_sets }}"

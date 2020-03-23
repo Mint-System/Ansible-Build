@@ -19,7 +19,7 @@ Configure the role.
 fathom_image: usefathom/fathom:version-1.2.1
 fathom_hostname: fathom01
 fathom_volume_name: fathom_data01
-````
+```
 
 And include it in your playbook.
 

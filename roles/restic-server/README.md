@@ -1,6 +1,6 @@
 # Ansible Restic server role
 
-Deploys Restic server container
+Deploys Restic server container.
 
 ## Requires
 
@@ -22,7 +22,7 @@ restic_server_password: "{{ vault_restic_server_password }}"
 restic_server_port: 8080
 restic_server_hostname: restic01
 restic_server_backup_dir: /path/to/volume
-````
+```
 
 And include it in your playbook.
 

@@ -26,7 +26,7 @@ modsecurity_exclude_rules_before_crs:
         nolog,\
         ctl:ruleRemoveById=941100"
 modsecurity_inbound_anomaly_score_threshold: 10
-````
+```
 
 And include it in your playbook.
 

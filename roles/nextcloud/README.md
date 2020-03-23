@@ -26,7 +26,7 @@ nextcloud_postgres_hostname: postgres01:5432
 nextcloud_postgres_user: nextcloud
 nextcloud_postgres_password: "{{ vault_postgres_password }}"
 nextcloud_postgres_db: nextcloud
-````
+```
 
 And include it in your playbook.
 

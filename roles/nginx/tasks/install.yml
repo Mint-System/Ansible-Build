@@ -3,8 +3,8 @@
     path: "{{ nginx_data_dir }}"
     state: directory
 
-- name: Include docker certbot tasks
-  include_tasks: docker-certbot.yml
+- name: Include install certbot tasks
+  include_tasks: install-certbot.yml
   when: certbot_image is defined
 
 - name: Copy nginx proxy conf

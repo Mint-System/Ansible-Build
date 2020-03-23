@@ -24,7 +24,7 @@ postgres_volume_name: postgres_data01
 postgres_user: example
 postgres_password: "{{ vault_postgres_password }}"
 postgres_db: example
-````
+```
 
 And include it in your playbook.
 
@@ -35,5 +35,6 @@ And include it in your playbook.
     tags: docker
   - role: docker-network
     tags: docker-network
-  - { role: postgres, tags: ["postgres"] }
+  - role: postgres
+    tags: postgres
 ```

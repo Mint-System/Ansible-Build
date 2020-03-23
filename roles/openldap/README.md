@@ -22,7 +22,7 @@ openldap_data_dir: /usr/share/openldap
 openldap_password: "{{ vault_openldap_password }}"
 openldap_domain: example.com
 openldap_organisation: Example
-````
+```
 
 And include it in your playbook.
 

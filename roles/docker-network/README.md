@@ -16,7 +16,7 @@ Configure the role.
 
 ```yml
 docker_network_name: example-net
-````
+```
 
 And include it in your playbook.
 

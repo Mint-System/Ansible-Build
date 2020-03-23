@@ -32,7 +32,7 @@ bookstack_mail_from: noreply@mexample.com
 bookstack_mail_username: bot@example.com
 bookstack_mail_password: "{{ vault_mail_password }}"
 bookstack_mail_encryption: tls
-````
+```
 
 And include it in your playbook.
 

@@ -27,7 +27,7 @@ iam_users:
     shell: /bin/bash
 iam_packages:
   - vim=2:8.0.1453-1ubuntu1.1
-````
+```
 
 And include it in your playbook.
 

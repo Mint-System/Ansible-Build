@@ -23,7 +23,7 @@ mysql_root_password: "{{ vault_mysql_root_password }}"
 mysql_database: example
 mysql_user: example
 mysql_password:  "{{ vault_mysql_password }}"
-````
+```
 
 And include it in your playbook.
 

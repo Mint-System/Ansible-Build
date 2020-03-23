@@ -27,6 +27,8 @@ Collection of Ansible playbooks and roles.
 * [moodle](roles/moodle/README.md) - Deploy Moodle container
 * [restic-server](roles/restic-server/README.md) - Deploy Restic server container
 * [iam](roles/iam/README.md) - Configures users and groups
+* [restic-client](roles/restic-client/README.md) - Configure Restic client backup jobs
+* [elasticsearch](roles/elasticsearch/README.md) - Deploy ElasticSearch Docker cluster
 
 ## Usage
 
