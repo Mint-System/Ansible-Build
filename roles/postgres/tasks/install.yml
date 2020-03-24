@@ -13,8 +13,7 @@
   docker_container:
     name: "{{ postgres_hostname }}"
     image: "{{ postgres_image }}"
-    restart_policy: always
-    restart_retries: 1
+    restart_policy: unless-stopped
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
@@ -35,8 +34,7 @@
   docker_container:
     name: "{{ postgres_hostname }}"
     image: "{{ postgres_image }}"
-    restart_policy: always
-    restart_retries: 1
+    restart_policy: unless-stopped
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"

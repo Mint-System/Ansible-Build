@@ -21,8 +21,7 @@
   docker_container:
     name: "{{ item.hostname }}"
     image: "{{ elasticsearch_image }}"
-    restart_policy: always
-    restart_retries: 1
+    restart_policy: unless-stopped
     env:
       node.name: "{{ item.hostname }}"
       cluster.name: "{{ elasticsearch_cluster_name }}"

@@ -6,7 +6,7 @@ Installs Docker CE.
 
 The Ansible Docker role has the following requirements:
 
-* Operating system: Ubuntu
+* Distribution: Ubuntu or Debian
 
 ## Usage
 

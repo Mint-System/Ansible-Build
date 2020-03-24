@@ -2,8 +2,7 @@
   docker_container:
     name: "{{ mysql_hostname }}"
     image: "{{ mysql_image }}"
-    restart_policy: always
-    restart_retries: 1
+    restart_policy: unless-stopped
     env:
       MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
       MYSQL_DATABASE: "{{ mysql_database }}"

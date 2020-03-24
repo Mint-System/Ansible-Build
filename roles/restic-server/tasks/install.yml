@@ -1,7 +1,6 @@
 - name: Install htpasswd module
-  apt: 
-    name: python3-passlib
-    state: latest
+  apt:
+    name: python3-passlib=1.7.1-1
 
 - name: Configure user access for restic server
   htpasswd:
@@ -14,8 +13,7 @@
   docker_container:
     name: "{{ restic_server_hostname }}"
     image: "{{ restic_server_image }}"
-    restart_policy: always
-    restart_retries: 1
+    restart_policy: unless-stopped
     volumes:
       - "{{ restic_server_backup_dir }}:/data"
     ports:

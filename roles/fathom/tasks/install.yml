@@ -6,8 +6,7 @@
   docker_container:
     name: "{{ fathom_hostname }}"
     image: "{{ fathom_image }}"
-    restart_policy: always
-    restart_retries: 1
+    restart_policy: unless-stopped
     volumes:
       - "{{ fathom_volume_name }}:/app"
     networks:

@@ -7,8 +7,7 @@
   docker_container:
     name: "{{ nextcloud_hostname }}"
     image: "{{ nextcloud_image }}"
-    restart_policy: always
-    restart_retries: 1
+    restart_policy: unless-stopped
     env:
       NEXTCLOUD_ADMIN_USER: "{{ nextcloud_admin_user }}"
       NEXTCLOUD_ADMIN_PASSSWORD: "{{ nextcloud_admin_password }}"

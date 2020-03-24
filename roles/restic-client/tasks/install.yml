@@ -3,7 +3,7 @@
     name: "{{ restic_client_package }}"
 
 - name: Check if repo is initialized
-  shell: restic snapshots
+  command: restic snapshots
   environment:
     RESTIC_PASSWORD: "{{ restic_repo_password }}"
     RESTIC_REPOSITORY: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
@@ -12,7 +12,7 @@
   register: repo_initalized
 
 - name: Init restic repository
-  shell: restic init
+  command: restic init
   environment:
     RESTIC_PASSWORD: "{{ restic_repo_password }}"
     RESTIC_REPOSITORY: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
@@ -23,7 +23,7 @@
     dest: "/etc/environment"
     state: present
     regexp: "^{{ item.key }}="
-    line: "{{ item.key }}={{ item.value}}"
+    line: "{{ item.key }}={{ item.value }}"
   loop:
     - key: RESTIC_PASSWORD
       value: "{{ restic_repo_password }}"
@@ -35,7 +35,8 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment; restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ --tag {{ item.tags | join(' --tag ')}}"
+    job: ". /etc/environment; restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ \
+      --tag {{ item.tags | join(' --tag ') }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "docker-volume"
 
@@ -44,4 +45,5 @@
     name: "Backup rotation job"
     hour: "23"
     minute: "0"
-    job: ". /etc/environment; restic forget --keep-daily {{ restic_backup_rotation.daily }} --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune"
+    job: ". /etc/environment; restic forget --keep-daily {{ restic_backup_rotation.daily }} \
+      --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune"

@@ -1,3 +1,3 @@
 - name: Include install tasks
-  include_tasks: install.yml
-  when: docker_package is defined
+  include_tasks: install-debian-ubuntu.yml
+  when: docker_package is defined and (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')

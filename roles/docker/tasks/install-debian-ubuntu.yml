@@ -1,22 +1,20 @@
 - name: Install aptitude using apt
   apt:
-    name: aptitude
-    state: latest
+    name: aptitude=0.8.10-6ubuntu1
     update_cache: yes
     force_apt_get: yes
 
 - name: Install required system packages
   apt:
     name: "{{ item }}"
-    state: latest
   loop:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - software-properties-common
-    - python3-pip
-    - virtualenv
-    - python3-setuptools
+    - apt-transport-https=1.6.12
+    - ca-certificates=20180409
+    - curl=7.58.0-2ubuntu3.8
+    - software-properties-common=0.96.24.32.12
+    - python3-pip=9.0.1-2.3~ubuntu1.18.04.1
+    - virtualenv=15.1.0+ds-1.1
+    - python3-setuptools=39.0.1-2
 
 - name: Add Docker GPG apt Key
   apt_key:

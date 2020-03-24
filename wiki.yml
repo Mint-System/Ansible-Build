@@ -15,3 +15,5 @@
     tags: nextcloud
   - role: fathom
     tags: fathom
+  - role: moodle
+    tags: moodle
