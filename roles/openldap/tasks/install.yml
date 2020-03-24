@@ -7,6 +7,8 @@
   docker_container:
     name: "{{ openldap_hostname }}"
     image: "{{ openldap_image }}"
+    restart_policy: always
+    restart_retries: 1
     env:
       LDAP_ORGANISATION: "{{ openldap_organisation }}"
       LDAP_DOMAIN: "{{ openldap_domain }}"

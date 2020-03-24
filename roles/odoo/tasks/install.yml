@@ -19,6 +19,8 @@
   docker_container:
     name: "{{ odoo_hostname }}"
     image: "{{ odoo_image }}"
+    restart_policy: always
+    restart_retries: 1
     env:
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"

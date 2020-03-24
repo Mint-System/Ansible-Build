@@ -1,9 +1,5 @@
 # TODO
 
-## Development
-
-- [ ] Deploy roles to localhost. Create host_vars localhost.yml und group_vars dev group. Start with odoo01 and proxy.
-
 ## Update
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
@@ -11,7 +7,6 @@
 
 ## Analytics
 
-- [ ] integrate openedu.mint-system.ch, https://analytics.google.com
 - [ ] Integrate fathom snippet into meet.mint-system.ch
 
 ## Nextcloud
@@ -21,7 +16,7 @@
 ## Bugs
 
 - [ ] openeduca.ch not able to upload pngs
-- [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them 
+- [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them
 
 ## Odoo role
 
@@ -75,6 +70,9 @@
 
 # DONE
 
+- [x] Set restart policy always
+- [x] integrate openedu.mint-system.ch, https://analytics.google.com
+- [-] Deploy roles to localhost. Create host_vars localhost.yml und group_vars dev group. Start with odoo01 and proxy.
 - [x] Backup data folders to external system with restic and remote storage https://linuxize.com/post/how-to-setup-automatic-odoo-backup/
 - [x] Only run role if image is configured
 - [x] Enable proxy mode for odoo https://www.odoo.com/documentation/13.0/setup/deploy.html#https

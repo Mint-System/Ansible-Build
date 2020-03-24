@@ -7,6 +7,8 @@
   docker_container:
     name: "{{ bookstack_hostname }}"
     image: "{{ bookstack_image }}"
+    restart_policy: always
+    restart_retries: 1
     env:
       APP_URL: "{{ bookstack_app_url }}"
       DB_HOST: "{{ bookstack_db_hostname }}"

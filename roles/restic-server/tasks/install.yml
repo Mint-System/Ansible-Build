@@ -14,6 +14,8 @@
   docker_container:
     name: "{{ restic_server_hostname }}"
     image: "{{ restic_server_image }}"
+    restart_policy: always
+    restart_retries: 1
     volumes:
       - "{{ restic_server_backup_dir }}:/data"
     ports:

@@ -34,6 +34,8 @@
   docker_container:
     name: "{{ nginx_hostname }}"
     image: "{{ nginx_image }}"
+    restart_policy: always
+    restart_retries: 1
     ports:
       - 80:80
       - 443:443
@@ -53,6 +55,8 @@
   docker_container:
     name: "{{ nginx_hostname }}"
     image: "{{ modsecurity_image }}"
+    restart_policy: always
+    restart_retries: 1
     ports:
       - 80:80
       - 443:443
