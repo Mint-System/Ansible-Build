@@ -19,20 +19,22 @@ restic_client_password: "{{ vault_restic_client_password }}"
 restic_repo: restic.example.com:8080
 restic_repo_password: "{{ vault_restic_repo_password }}"
 restic_backup_sets:
- - id: "odoo volume"
-   type: docker-volume
-   volume: odoo_data01
-   tags:
-    - odoo01
-    - postgres01
-   hour: "1"
  - id: "postgres volume"
    type: docker-volume
    volume: postgres_data01
    tags:
-    - odoo01
+    - postgres
     - postgres01
    hour: "1"
+   minute: "0"
+- id: "bookstack data dir"
+  type: file
+  path: /usr/share/bookstack01
+  tags:
+    - bookstack
+    - bookstack01
+  hour: "1"
+  minute: "10"
 restic_backup_rotation:
   daily: 7
   weekly: 4

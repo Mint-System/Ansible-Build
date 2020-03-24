@@ -19,6 +19,7 @@ Configure the role.
 mysql_image: mysql:5
 mysql_hostname: mysql01
 mysql_data_dir: /usr/share/mysql01
+mysql_volume_name: mysql_data01
 mysql_root_password: "{{ vault_mysql_root_password }}"
 mysql_database: example
 mysql_user: example

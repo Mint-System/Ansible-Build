@@ -1,4 +1,15 @@
-- name: Start mysql container
+- name: Create mysql volume
+  docker_volume:
+    name: "{{ mysql_volume_name }}"
+  when: mysql_volume_name is defined
+
+- name: Ensure mysql data dir exists
+  file:
+    path: "{{ mysql_data_dir }}"
+    state: directory
+  when: mysql_data_dir is defined
+
+- name: Start mysql container with data dir
   docker_container:
     name: "{{ mysql_hostname }}"
     image: "{{ mysql_image }}"
@@ -16,3 +27,24 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+  when: mysql_volume_name is not defined
+
+- name: Start mysql container with container
+  docker_container:
+    name: "{{ mysql_hostname }}"
+    image: "{{ mysql_image }}"
+    restart_policy: unless-stopped
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+      MYSQL_DATABASE: "{{ mysql_database }}"
+      MYSQL_USER: "{{ mysql_user }}"
+      MYSQL_PASSWORD: "{{ mysql_password }}"
+    volumes:
+      - "{{ mysql_volume_name }}:/var/lib/mysql"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  when: mysql_volume_name is defined

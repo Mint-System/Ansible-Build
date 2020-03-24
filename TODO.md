@@ -30,14 +30,6 @@
 - [ ] Enable profile dotfiles: https://github.com/janikvonrotz/dotfiles
 - [ ] Install fzf on all server -> ansible download and extract binary
 
-## Container Management
-
-- [ ] Migrate wiki data to volumes (postgres, mysql, nextcloud, bookstack)! https://stackoverflow.com/questions/49888014/move-docker-bind-mount-to-volume
-  - [x] Nextcloud
-  - [-] BookStack volume mount not possible
-  - [ ] mysql
-  - [ ] postgres
-
 ## Monitoring
 
 - [ ] Setup fluentd and grep docker logs for errors -> Install on hades
@@ -52,14 +44,13 @@
 
 ## Backup
 
-- [ ] Setup client and integrate into existing playbook
+- [ ] Setup backup for all volumes on all hosts
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
 - [ ] Create backup type for odoo backups
 
 ## Management
 
-- [ ] Set alias for servers
 - [ ] Generate docs with ansible-doc
 - [ ] Rename mint system network to mint-system.com (mint-system.com)
 
@@ -70,6 +61,7 @@
 
 ## Maintenance
 
+- [ ] Delete postgres02_delete and mysql01_delete on zeus
 - [ ] Remove bookstack_delete folder on zeus
 - [ ] Remove nextcloud01 folder on zeus
 - [ ] delete openedu database on odoo02
@@ -77,6 +69,12 @@
 
 # DONE
 
+- [x] Set alias for servers
+- [x] Migrate wiki data to volumes (postgres, mysql, nextcloud, bookstack)! https://stackoverflow.com/questions/49888014/move-docker-bind-mount-to-volume
+  - [x] Nextcloud
+  - [-] BookStack volume mount not possible
+  - [x] mysql
+  - [x] postgres
 - [x] Lint and document Ansible roles
 - [x] Set restart policy always
 - [x] integrate openedu.mint-system.ch, https://analytics.google.com
