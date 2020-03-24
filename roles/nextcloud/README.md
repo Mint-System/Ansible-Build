@@ -19,7 +19,7 @@ Configure the role.
 ```yml
 nextcloud_image: nextcloud:18-apache
 nextcloud_hostname: nextcloud01
-nextcloud_data_dir: /usr/share/nextcloud01
+nextcloud_volume_name: nextcloud_data01
 nextcloud_admin_user: admin
 nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"
 nextcloud_postgres_hostname: postgres01:5432

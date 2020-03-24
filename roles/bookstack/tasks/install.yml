@@ -1,7 +1,13 @@
+- name: Create bookstack volume
+  docker_volume:
+    name: "{{ bookstack_volume_name }}"
+  when: bookstack_volume_name is defined
+
 - name: Ensure bookstack data dir exists
   file:
     path: "{{ bookstack_data_dir }}"
     state: directory
+  when: bookstack_data_dir is defined
 
 - name: Start bookstack container
   docker_container:
@@ -23,7 +29,7 @@
       MAIL_ENCRYPTION: "{{ bookstack_mail_encryption }}"
     volumes:
       - "{{ bookstack_data_dir }}/uploads:/var/www/bookstack/public/uploads"
-      - "{{ bookstack_data_dir }}/storage:/var/www/bookstack/public/storage"
+      - "{{ bookstack_data_dir }}/storage:/var/www/bookstack/storage/uploads"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

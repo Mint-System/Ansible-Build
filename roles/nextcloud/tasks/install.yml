@@ -1,7 +1,13 @@
+- name: Create nextcloud volume
+  docker_volume:
+    name: "{{ nextcloud_volume_name }}"
+  when: nextcloud_volume_name is defined
+
 - name: Ensure nextcloud data dir exists
   file:
     path: "{{ nextcloud_data_dir }}"
     state: directory
+  when: nextcloud_data_dir is defined
 
 - name: Start nextcloud container
   docker_container:
@@ -16,7 +22,7 @@
       POSTGRES_PASSWORD: "{{ nextcloud_postgres_password }}"
       POSTGRES_DB: "{{ nextcloud_postgres_db }}"
     volumes:
-      - "{{ nextcloud_data_dir }}:/var/www/html"
+      - "{{ nextcloud_volume_name }}:/var/www/html"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

@@ -33,6 +33,10 @@
 ## Container Management
 
 - [ ] Migrate wiki data to volumes (postgres, mysql, nextcloud, bookstack)! https://stackoverflow.com/questions/49888014/move-docker-bind-mount-to-volume
+  - [x] Nextcloud
+  - [-] BookStack volume mount not possible
+  - [ ] mysql
+  - [ ] postgres
 
 ## Monitoring
 
@@ -55,7 +59,8 @@
 
 ## Management
 
-- [ ] Lint and document Ansible roles
+- [ ] Set alias for servers
+- [ ] Generate docs with ansible-doc
 - [ ] Rename mint system network to mint-system.com (mint-system.com)
 
 ## New Roles
@@ -65,11 +70,14 @@
 
 ## Maintenance
 
+- [ ] Remove bookstack_delete folder on zeus
+- [ ] Remove nextcloud01 folder on zeus
 - [ ] delete openedu database on odoo02
 - [ ] delete www database on odoo01
 
 # DONE
 
+- [x] Lint and document Ansible roles
 - [x] Set restart policy always
 - [x] integrate openedu.mint-system.ch, https://analytics.google.com
 - [-] Deploy roles to localhost. Create host_vars localhost.yml und group_vars dev group. Start with odoo01 and proxy.

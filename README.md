@@ -90,29 +90,6 @@ Clean role only
 
 `ansible-playbook -i inventories/odoo clean.yml -t docker`
 
-### Localhost
-
-Deploying to localhost requires local ssh access.
-
-Install or enable ssh login.
-
-Aptitude: `sudo apt install openssh-server`  
-Mac: `sudo systemsetup -setremotelogin on`
-
-Copy the public ssh key.
-
-`echo $SSHKEY >> ~/.ssh/authorized_keys`
-
-Enable passwordless sudo login.
-
-`sudo /bin/bash -c "echo \"$USERNAME  ALL=(ALL) NOPASSWD:ALL\" >> /etc/sudoers"`  
-or  
-`sudo /bin/bash -c "echo \"$USER  ALL=(ALL)  NOPASSWD:ALL\" >> /etc/sudoers"`
-
-Test ssh access.
-
-`ssh $USERNAME@localhost` or `ssh $USER@localhost`
-
 ## Development
 
 ### Quality
@@ -155,3 +132,7 @@ For Ansible config files use file mounts.
     volumes:
       - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
 ```
+
+### Docs
+
+Every role folder must contain a `README.md` file.

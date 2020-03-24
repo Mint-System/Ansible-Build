@@ -40,6 +40,16 @@
   loop: "{{ restic_backup_sets }}"
   when: item.type == "docker-volume"
 
+- name: Register file backup jobs
+  cron:
+    name: "Backup job {{ item.id }}"
+    hour: "{{ item.hour }}"
+    minute: "{{ item.minute }}"
+    job: ". /etc/environment; restic backup {{ item.path }} \
+      --tag {{ item.tags | join(' --tag ') }}"
+  loop: "{{ restic_backup_sets }}"
+  when: item.type == "file"
+
 - name: Register backup rotation job
   cron:
     name: "Backup rotation job"
