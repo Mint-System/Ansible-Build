@@ -14,14 +14,26 @@
   file:
     path: "{{ item.data_dir }}"
     state: directory
-  when: item.data_dir is defined
   loop: "{{ elasticsearch_nodes }}"
 
-- name: Start elasticsearch container nodes
+- name: Copy ca keystore
+  copy:
+    src: elastic-stack-ca.p12
+    dest: "{{ item.data_dir }}/certs/"
+  loop: "{{ elasticsearch_nodes }}"
+
+- name: Copy node keystore
+  copy:
+    src: elastic-certificates.p12
+    dest: "{{ item.data_dir }}/certs/"
+  loop: "{{ elasticsearch_nodes }}"
+
+- name: Start elasticsearch container listener nodes
   docker_container:
     name: "{{ item.hostname }}"
     image: "{{ elasticsearch_image }}"
     restart_policy: unless-stopped
+    recreate: no
     env:
       node.name: "{{ item.hostname }}"
       cluster.name: "{{ elasticsearch_cluster_name }}"
@@ -29,11 +41,19 @@
       cluster.initial_master_nodes: "{{ elasticsearch_masternodes }}"
       bootstrap.memory_lock: "true"
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
-      xpack.security.enabled: "true"
-      xpack.monitoring.collection.enabled: "true"
       ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
+      xpack.security.enabled: "true"
+      xpack.security.transport.ssl.enabled: "true"
+      xpack.security.transport.ssl.verification_mode: certificate 
+      xpack.security.transport.ssl.keystore.path: certs/elastic-certificates.p12 
+      xpack.security.transport.ssl.truststore.path: certs/elastic-certificates.p12
+      xpack.monitoring.collection.enabled: "true"
     volumes:
       - "{{ item.volume_name }}:/usr/share/elasticsearch/data"
+      - "{{ item.data_dir }}/certs:/usr/share/elasticsearch/config/certs"
+    ports:
+      - 9200:9200
+      - 9300:9300
     ulimits:
       - nofile:65535:65535
       - memlock:-1:-1
@@ -44,28 +64,64 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
   loop: "{{ elasticsearch_nodes }}"
+  when: item.listener
 
-# - name: Check heartbeat template
-#   docker_container:
-#     name: "{{ heartbeat_hostname }}-run"
-#     image: "{{ heartbeat_image }}"
-#     detach: false
-#     cleanup: true
-#     command: >
-#       /bin/bash -c 'curl -s --user "elastic:{{ elastic_password }}" -X GET "{{ elasticsearch_hostname }}:9200/_cat/templates?v&s=name&pretty" | grep heartbeat'
-#     networks:
-#     - name: "{{ network_name }}"
-#   ignore_errors: yes
-#   changed_when: false
-#   register: check_heartbeat_template
+- name: Start elasticsearch container nodes
+  docker_container:
+    name: "{{ item.hostname }}"
+    image: "{{ elasticsearch_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env:
+      node.name: "{{ item.hostname }}"
+      cluster.name: "{{ elasticsearch_cluster_name }}"
+      discovery.seed_hosts: "{{ item.seed_hosts }}"
+      cluster.initial_master_nodes: "{{ elasticsearch_masternodes }}"
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
+      xpack.security.enabled: "true"
+      xpack.security.transport.ssl.enabled: "true"
+      xpack.security.transport.ssl.verification_mode: certificate 
+      xpack.security.transport.ssl.keystore.path: certs/elastic-certificates.p12 
+      xpack.security.transport.ssl.truststore.path: certs/elastic-certificates.p12
+      xpack.monitoring.collection.enabled: "true"
+    volumes:
+      - "{{ item.volume_name }}:/usr/share/elasticsearch/data"
+      - "{{ item.data_dir }}/certs:/usr/share/elasticsearch/config/certs"
+    ulimits:
+      - nofile:65535:65535
+      - memlock:-1:-1
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  loop: "{{ elasticsearch_nodes }}"
+  when: not item.listener
 
-#   when: elasticsearch_hostname is defined and check_heartbeat_template.failed
+- name: Test password for builtin users
+  uri:
+    url: http://localhost:9200/_xpack?pretty
+    user: "{{ item.name }}"
+    password: "{{ item.password }}"
+  ignore_errors: yes
+  changed_when: no
+  loop: "{{ elasticsearch_users }}"
+  register: request
 
-# Check if enabled https://www.elastic.co/guide/en/elasticsearch/reference/7.6/security-api-get-user.html
-# If not set password with bootrap user
-# POST /_security/user/jacknich/_password
-# {
-#   "password" : "s3cr3t"
-# }
+- name: request
+  debug:
+    var: request
 
-# maybe use run_once: true
+- name: Set password if authentication failed
+  uri:
+    url: "http://localhost:9200/_security/user/{{ item.item.name }}/_password"
+    user: elastic
+    password: "{{ elasticsearch_password }}"
+    method: POST
+    body_format: json
+    body: "{ \"password\": \"{{ item.item.password }}\" }"
+  loop: "{{ request.results }}"
+  when: item.failed

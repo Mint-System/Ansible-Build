@@ -11,7 +11,7 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-  with_items:
+  loop:
     - { src: "templates/odoo.conf", dest: "{{ odoo_data_dir }}/odoo.conf" }
   notify: Restart odoo container
 

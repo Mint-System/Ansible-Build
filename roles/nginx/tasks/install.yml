@@ -25,7 +25,7 @@
   copy:
     src: "{{ item }}"
     dest: "{{ certbot_data_dir }}/"
-  with_items:
+  loop:
     - files/options-ssl-nginx.conf
     - files/ssl-dhparams.pem
     - files/proxy-params.conf

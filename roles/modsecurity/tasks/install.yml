@@ -26,7 +26,7 @@
   template:
     src: "templates/{{ item }}"
     dest: "{{ modsecurity_data_dir }}/{{ item }}"
-  with_items:
+  loop:
     - crs-setup.conf
     - modsecurity.conf
     - RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
@@ -37,6 +37,6 @@
   copy:
     src: "files/{{ item }}"
     dest: "{{ modsecurity_data_dir }}/{{ item }}"
-  with_items:
+  loop:
     - include.conf
   notify: Restart nginx container

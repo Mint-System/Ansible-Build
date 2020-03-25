@@ -7,3 +7,5 @@
     tags: docker-network
   - role: elasticsearch
     tags: elasticsearch
+  - role: kibana
+    tags: kibana

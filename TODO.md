@@ -57,7 +57,11 @@
 ## New Roles
 
 - [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
-- [ ] Monitoring with Elastic, kibana, beats, logstash and use graphane or elastalert for alerting
+- [ ] Monitoring with 
+  - [x] Elastic, 
+  - [x] kibana, 
+  - [ ] beats, 
+  - [ ] logstash and use graphane or elastalert for alerting
 
 ## Maintenance
 

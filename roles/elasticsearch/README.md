@@ -24,10 +24,12 @@ elasticsearch_nodes:
     data_dir: /usr/share/elastic01
     volume_name: elastic_data01
     seed_hosts: "elastic02"
+    listener: yes
   - hostname: elastic02
     data_dir: /usr/share/elastic02
     volume_name: elastic_data02
     seed_hosts: "elastic01"
+    listener: no
 elasticsearch_password: "{{ vault_elasticsearch_password }}"
 elasticsearch_users:
   - name: kibana
@@ -39,7 +41,7 @@ elasticsearch_users:
 And include it in your playbook.
 
 ```yml
-- hosts: postgres
+- hosts: elasticsearch
   roles:
   - role: docker
     tags: docker
@@ -48,3 +50,25 @@ And include it in your playbook.
   - role: elasticsearch
     tags: elasticsearch
 ```
+
+## Development
+
+### Encrypting communications between nodes in a cluster
+edit
+
+Generate key material for node communication.
+
+```bash
+# Log into elastic container
+docker exec -it elastic01 /bin/bash
+# Create ca certificate without password
+elasticsearch-certutil ca
+# Create node certificate wihtout password
+elasticsearch-certutil  cert --ca elastic-stack-ca.p12
+# Copy these files into the files folder of the elasticsearch role
+# Encrypt files with Ansible vault
+ansible-vault encrypt roles/elasticsearch/files/elastic-certificates.p12
+ansible-vault encrypt roles/elasticsearch/files/elastic-stack-ca.p12
+```
+
+Source: [Elastic - Encrypting communications in Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-tls.html)

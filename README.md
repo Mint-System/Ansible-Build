@@ -6,9 +6,10 @@ Collection of Ansible playbooks and roles.
 
 * setup - Setup server
 * odoo - Deploys Odoo instance
-* wiki - Deploys Nextcloud, Fathom and Bookstack instance
+* wiki - Deploys Nextcloud, Fathom, Moodle and BookStack instance
 * proxy - Deploys Nginx proxy instance
-* moodle - Deploys Moodle instance
+* monitor - Deploys ELK cluster
+* backup - Deploys restic server and client
 
 ## Roles
 
@@ -29,6 +30,7 @@ Collection of Ansible playbooks and roles.
 * [iam](roles/iam/README.md) - Configures users and groups
 * [restic-client](roles/restic-client/README.md) - Configure Restic client backup jobs
 * [elasticsearch](roles/elasticsearch/README.md) - Deploy ElasticSearch Docker cluster
+* [kibana](roles/elasticsearch/README.md) - Deploy Kibana Docker container
 
 ## Usage
 
