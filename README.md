@@ -21,7 +21,7 @@ Collection of Ansible playbooks and roles.
 * [openldap](roles/openldap/README.md) - Deploy OpenLDAP Docker container
 * [odoo](roles/odoo/README.md) - Deploy Odoo container
 * [debug](roles/debug/README.md) - Debug Ansible variables
-* [modescurity](roles/modescurity/README.md) - Download and configure ModSecurity with OWASP CRS
+* [modsecurity](roles/modsecurity/README.md) - Download and configure ModSecurity with OWASP CRS
 * [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Let's Encrypt certificates and ModSecurity
 * [clean](roles/clean/README.md) - Cleanup Ansible roles
 * [mysql](roles/mysql/README.md) - Deploy MySQL database container
