@@ -1,5 +1,10 @@
 # TODO
 
+## Conference
+
+- [ ] BigBlueButton Ansible role
+- [ ] Upgrade Jitsi server
+
 ## Update
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
@@ -24,6 +29,10 @@
 - [ ] Auto install base module
 - [ ] Activate mail for self registrations
 - [ ] Checkout mail gateway
+
+## Proxy
+
+- [ ] Add caching options for odoo websites
 
 ## Server
 
@@ -51,6 +60,7 @@
 
 ## Management
 
+- [x] Add github action badge
 - [ ] Generate docs with ansible-doc
 - [ ] Rename mint system network to mint-system.com (mint-system.com)
 

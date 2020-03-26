@@ -1,5 +1,7 @@
 # Ansible Playbooks
 
+![Ansible Lint](https://github.com/Mint-System/Ansible-Playbooks/workflows/Ansible%20Lint/badge.svg)
+
 Collection of Ansible playbooks and roles.
 
 ## Playbooks
@@ -94,11 +96,13 @@ Clean role only
 
 ## Development
 
+Development Ressources.
+
 ### Quality
 
 Lint the project using Ansible lint.
 
-`ansible-lint odoo.yml clean.yml`
+`ansible-lint *.yml`
 
 ### Config
 
