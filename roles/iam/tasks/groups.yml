@@ -13,7 +13,7 @@
   when: iam_options.add_wheel_to_sudoers
 
 - name: Disallow root ssh access
-  lineinfile: 
+  lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: "^PermitRootLogin"
     line: "PermitRootLogin no"
