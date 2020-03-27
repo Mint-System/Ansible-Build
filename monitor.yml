@@ -9,3 +9,9 @@
     tags: elasticsearch
   - role: kibana
     tags: kibana
+  - role: logstash
+    tags: logstash
+  - role: modsecurity
+    tags: modsecurity
+  - role: nginx
+    tags: nginx

@@ -17,3 +17,7 @@
     tags: fathom
   - role: moodle
     tags: moodle
+  - role: modsecurity
+    tags: modsecurity
+  - role: nginx
+    tags: nginx

@@ -28,7 +28,7 @@
     dest: "{{ item.data_dir }}/certs/"
   loop: "{{ elasticsearch_nodes }}"
 
-- name: Start elasticsearch container listener nodes
+- name: Start elasticsearch container primary node
   docker_container:
     name: "{{ item.hostname }}"
     image: "{{ elasticsearch_image }}"
@@ -64,7 +64,8 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
   loop: "{{ elasticsearch_nodes }}"
-  when: item.listener
+  when: item.primary
+  register: start_elasticsearch_primary_node
 
 - name: Start elasticsearch container nodes
   docker_container:
@@ -99,7 +100,12 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
   loop: "{{ elasticsearch_nodes }}"
-  when: not item.listener
+  when: not item.primary
+
+- name: Wait for elasticsearch primary node container to boot
+  pause:
+    seconds: "60"
+  when: start_elasticsearch_primary_node.changed
 
 - name: Test password for builtin users
   uri:
@@ -110,10 +116,6 @@
   changed_when: no
   loop: "{{ elasticsearch_users }}"
   register: request
-
-- name: request
-  debug:
-    var: request
 
 - name: Set password if authentication failed
   uri:

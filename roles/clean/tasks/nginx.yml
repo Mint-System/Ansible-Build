@@ -1,0 +1,23 @@
+- name: Remove certbot container
+  docker_container:
+    name: "{{ certbot_hostname }}"
+    state: absent
+  when: certbot_hostname is defined
+  tags:
+  - never
+  - nginx
+
+# Do not remove certbot data dir
+
+- name: Remove nginx container
+  docker_container:
+    name: "{{ nginx_hostname }}"
+    state: absent
+  when: nginx_hostname is defined
+
+- name: Remove nginx data dir
+  file:
+    path: "{{ nginx_data_dir }}"
+    state: absent
+  when: nginx_data_dir is defined and 'nginx-data-dir' in ansible_run_tags
+

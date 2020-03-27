@@ -1,4 +1,17 @@
-- hosts: "{{ ehosts | default('all') }}"
+- hosts: all
   become: true
   roles:
-  - clean
+  - role: clean
+    tags:
+      - nginx
+      - kibana
+      - moodle
+      - odoo
+      - nextcloud
+      - bookstack
+      - logstash
+      - elasticsearch
+      - openldap
+      - mysql
+      - postgres
+      - docker-network

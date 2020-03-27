@@ -1,0 +1,24 @@
+- name: Ensure postgres data dir exists
+  file:
+    path: "{{ logstash_data_dir }}"
+    state: directory
+  when: logstash_data_dir is defined
+
+- name: Start logstash container
+  docker_container:
+    name: "{{ logstash_hostname }}"
+    image: "{{ logstash_image }}"
+    restart_policy: unless-stopped
+    env:
+      XPACK_MONITORING_ELASTICSEARCH_HOSTS: "http://{{ logstash_elasticsearch_hostname }}:9200"
+      XPACK_MONITORING_ELASTICSEARCH_USERNAME: "{{ logstash_elasticsearch_username }}"
+      XPACK_MONITORING_ELASTICSEARCH_PASSWORD: "{{ logstash_elasticsearch_password }}"
+      XPACK_MONITORING_ENABLED: "true"
+    volumes:
+      - "{{ logstash_data_dir }}/pipeline/:/usr/share/logstash/pipeline/"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

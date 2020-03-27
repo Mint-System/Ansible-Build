@@ -5,5 +5,7 @@
     tags: docker
   - role: docker-network
     tags: docker-network
-  - { role: modsecurity, tags: ["modsecurity"] }
-  - { role: nginx, tags: ["nginx"] }
+  - role: modsecurity
+    tags: modsecurity
+  - role: nginx
+    tags: nginx

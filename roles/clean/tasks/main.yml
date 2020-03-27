@@ -1,100 +1,18 @@
-- name: Remove certbot container
-  docker_container:
-    name: "{{ certbot_hostname }}"
-    state: absent
-  tags:
-  - never
-  - nginx
-
-- name: Remove nginx container
-  docker_container:
-    name: "{{ nginx_hostname }}"
-    state: absent
-  tags:
-  - never
-  - nginx
-
-- name: Remove nginx data dir
-  file:
-    path: "{{ nginx_data_dir }}"
-    state: absent
-
-- name: Remove postgres container
-  docker_container:
-    name: "{{ postgres_hostname }}"
-    state: absent
-  tags:
-  - never
-  - postgres
-
-- name: Remove postgres volume
-  docker_volume:
-    name: "{{ postgres_volume_name }}"
-    state: absent
-  tags:
-  - never
-  - postgres-volume
-
-- name: Remove mysql container
-  docker_container:
-    name: "{{ mysql_hostname }}"
-    state: absent
-  tags:
-  - never
-  - mysql
-
-- name: Remove bookstack container
-  docker_container:
-    name: "{{ bookstack_hostname }}"
-    state: absent
-  tags:
-  - never
-  - bookstack
-
-- name: Remove odoo container
-  docker_container:
-    name: "{{ odoo_hostname }}"
-    state: absent
-  tags:
-  - never
-  - odoo
-
-- name: Remove odoo volume
-  docker_volume:
-    name: "{{ odoo_volume_name }}"
-    state: absent
-  tags:
-  - never
-  - odoo-volume
-
-- name: Remove moodle container
-  docker_container:
-    name: "{{ moodle_hostname }}"
-    state: absent
-  tags:
-  - never
-  - moodle
-
-- name: Remove nextcloud container
-  docker_container:
-    name: "{{ nextcloud_hostname }}"
-    state: absent
-  tags:
-  - never
-  - nextcloud
-
-- name: Remove docker network
-  docker_network:
-    name: "{{ docker_network_name }}"
-    state: absent
-  tags:
-  - never
-  - docker
-
-- name: Remove openldap container
-  docker_container:
-    name: "{{ openldap_hostname }}"
-    state: absent
-  tags:
-  - never
-  - openldap
+- name: Include cleanup tasks
+  include_tasks: "{{ item }}.yml"
+  when: item in tasks
+  loop: "{{ ansible_run_tags }}"
+  vars:
+    tasks:
+      - nginx
+      - kibana
+      - moodle
+      - odoo
+      - nextcloud
+      - bookstack
+      - logstash
+      - elasticsearch
+      - openldap
+      - mysql
+      - postgres
+      - docker-network

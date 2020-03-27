@@ -1,0 +1,5 @@
+- name: Remove bookstack container
+  docker_container:
+    name: "{{ bookstack_hostname }}"
+    state: absent
+  when: bookstack_hostname is defined
