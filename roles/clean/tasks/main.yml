@@ -5,12 +5,14 @@
   vars:
     tasks:
       - nginx
+      - modsecurity
       - kibana
       - moodle
       - odoo
       - nextcloud
       - bookstack
       - logstash
+      - metricbeat
       - elasticsearch
       - openldap
       - mysql

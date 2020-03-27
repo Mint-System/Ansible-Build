@@ -1,0 +1,4 @@
+- name: Restart metricbeat container
+  docker_container:
+    name: "{{ metricbeat_hostname }}"
+    restart: true

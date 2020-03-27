@@ -4,6 +4,7 @@
   - role: clean
     tags:
       - nginx
+      - modsecurity
       - kibana
       - moodle
       - odoo
@@ -11,6 +12,7 @@
       - bookstack
       - logstash
       - elasticsearch
+      - metricbeat
       - openldap
       - mysql
       - postgres

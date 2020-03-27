@@ -13,5 +13,7 @@
     tags: logstash
   - role: modsecurity
     tags: modsecurity
+  - role: metricbeat
+    tags: metricbeat
   - role: nginx
     tags: nginx

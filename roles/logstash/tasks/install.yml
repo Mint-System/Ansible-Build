@@ -1,8 +1,14 @@
-- name: Ensure postgres data dir exists
+- name: Ensure logstash data dir exists
   file:
-    path: "{{ logstash_data_dir }}"
+    path: "{{ logstash_data_dir }}/pipeline"
     state: directory
   when: logstash_data_dir is defined
+
+- name: Copy logstash pipeline conf
+  template:
+    src: beats.conf
+    dest: "{{ logstash_data_dir }}/pipeline/"
+  notify: Restart logstash container
 
 - name: Start logstash container
   docker_container:
@@ -10,10 +16,10 @@
     image: "{{ logstash_image }}"
     restart_policy: unless-stopped
     env:
+      XPACK_MONITORING_ENABLED: "true"
       XPACK_MONITORING_ELASTICSEARCH_HOSTS: "http://{{ logstash_elasticsearch_hostname }}:9200"
       XPACK_MONITORING_ELASTICSEARCH_USERNAME: "{{ logstash_elasticsearch_username }}"
       XPACK_MONITORING_ELASTICSEARCH_PASSWORD: "{{ logstash_elasticsearch_password }}"
-      XPACK_MONITORING_ENABLED: "true"
     volumes:
       - "{{ logstash_data_dir }}/pipeline/:/usr/share/logstash/pipeline/"
     networks:
