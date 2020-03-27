@@ -1,0 +1,5 @@
+- name: Remove modsecurity data dir
+  file:
+    path: "{{ modsecurity_data_dir }}"
+    state: absent
+  when: modsecurity_data_dir is defined and 'modsecurity-data-dir' in ansible_run_tags

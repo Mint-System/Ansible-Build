@@ -41,6 +41,8 @@
 
 ## Monitoring
 
+
+- [ ] Disable rule sets for elastic -> performance is horrible
 - [ ] Monitoring with 
   - [x] Elastic, 
   - [x] kibana, 
@@ -49,6 +51,7 @@
 - [-] Setup fluentd and grep docker logs for errors -> Install on hades
 - [ ] Logstash cannot authenticate with the logstash_system user https://www.elastic.co/guide/en/logstash/current/ls-security.html
 - [ ] Enalbe monitoring of cluster https://www.elastic.co/guide/en/elasticsearch/reference/7.6/collecting-monitoring-data.html
+  - [ ] Output data to two clusters
 - [ ] Setup mail watcher for disk space, memory and cpu usage
 
 ## Security
