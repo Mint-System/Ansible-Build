@@ -1,0 +1,5 @@
+- name: Remove moodle container
+  docker_container:
+    name: "{{ moodle_hostname }}"
+    state: absent
+  when: moodle_hostname is defined

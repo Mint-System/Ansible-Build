@@ -1,0 +1,5 @@
+- name: Remove mysql container
+  docker_container:
+    name: "{{ mysql_hostname }}"
+    state: absent
+  when: mysql_hostname is defined

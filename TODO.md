@@ -41,10 +41,20 @@
 
 ## Monitoring
 
-- [ ] Setup fluentd and grep docker logs for errors -> Install on hades
+- [ ] Monitoring with 
+  - [x] Elastic, 
+  - [x] kibana, 
+  - [ ] beats, 
+  - [x] logstash
+- [-] Setup fluentd and grep docker logs for errors -> Install on hades
+- [ ] Logstash cannot authenticate with the logstash_system user https://www.elastic.co/guide/en/logstash/current/ls-security.html
+- [ ] Enalbe monitoring of cluster https://www.elastic.co/guide/en/elasticsearch/reference/7.6/collecting-monitoring-data.html
+- [ ] Setup mail watcher for disk space, memory and cpu usage
 
 ## Security
 
+- [ ] Setup hashicorp vault for managing server secrets
+- [ ] Scan ports
 - [ ] Describe backup/recover scenario
 
 ## Nginx role
@@ -67,11 +77,6 @@
 ## New Roles
 
 - [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
-- [ ] Monitoring with 
-  - [x] Elastic, 
-  - [x] kibana, 
-  - [ ] beats, 
-  - [ ] logstash and use graphane or elastalert for alerting
 
 ## Maintenance
 

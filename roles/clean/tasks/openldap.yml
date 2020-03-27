@@ -1,0 +1,5 @@
+- name: Remove openldap container
+  docker_container:
+    name: "{{ openldap_hostname }}"
+    state: absent
+  when: openldap_hostname is defined

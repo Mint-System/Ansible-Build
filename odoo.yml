@@ -5,5 +5,11 @@
     tags: docker
   - role: docker-network
     tags: docker-network
-  - { role: postgres, tags: ["postgres"] }
-  - { role: odoo, tags: ["odoo"] }
+  - role: postgres
+    tags: postgres
+  - role: odoo
+    tags: odoo
+  - role: modsecurity
+    tags: modsecurity
+  - role: nginx
+    tags: nginx

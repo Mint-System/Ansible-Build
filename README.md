@@ -4,15 +4,6 @@
 
 Collection of Ansible playbooks and roles.
 
-## Playbooks
-
-* setup - Setup server
-* odoo - Deploys Odoo instance
-* wiki - Deploys Nextcloud, Fathom, Moodle and BookStack instance
-* proxy - Deploys Nginx proxy instance
-* monitor - Deploys ELK cluster
-* backup - Deploys restic server and client
-
 ## Roles
 
 * [docker](roles/docker/README.md) - Install Docker for Ubuntu
@@ -33,6 +24,7 @@ Collection of Ansible playbooks and roles.
 * [restic-client](roles/restic-client/README.md) - Configure Restic client backup jobs
 * [elasticsearch](roles/elasticsearch/README.md) - Deploy ElasticSearch Docker cluster
 * [kibana](roles/elasticsearch/README.md) - Deploy Kibana Docker container
+* [logstash](roles/logstash/README.md) - Deploy Logstash Docker container
 
 ## Usage
 
@@ -70,13 +62,17 @@ Test connection
 
 `ansible all -m ping -i inventories/odoo`
 
+Deploy multiple inventories
+
+`ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy odoo.yml`
+
 Deploy odoo stack
 
 `ansible-playbook -i inventories/odoo odoo.yml`
 
 Deploy role only
 
-`ansible-playbook -i inventories/odoo odoo.yml -t docker`
+`ansible-playbook -i inventories/odoo odoo.yml -t postgres`
 
 Deploy role to specific host
 
@@ -88,11 +84,11 @@ Deploy role to specific group with non-default user
 
 Clean odoo stack
 
-`ansible-playbook -i inventories/odoo clean.yml -t odoo,odoo-volume`
+`ansible-playbook -i inventories/odoo clean.yml -t odoo,odoo-volume,odoo-data-dir,postgres,postgres-volume`
 
 Clean role only
 
-`ansible-playbook -i inventories/odoo clean.yml -t docker`
+`ansible-playbook -i inventories/odoo clean.yml -t docker-network`
 
 ## Development
 
