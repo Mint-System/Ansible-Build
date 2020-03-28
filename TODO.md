@@ -41,7 +41,6 @@
 
 ## Monitoring
 
-
 - [ ] Disable rule sets for elastic -> performance is horrible
 - [ ] Monitoring with 
   - [x] Elastic, 
@@ -79,6 +78,7 @@
 
 ## New Roles
 
+- [ ] Montor with Prometheus and Docker https://github.com/vegasbrianc/prometheus/
 - [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
 
 ## Maintenance
