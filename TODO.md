@@ -20,7 +20,8 @@
 
 ## Bugs
 
-- [ ] openeduca.ch not able to upload pngs
+- [x] Nextcloud file upload size increase
+- [ ] openeduca.ch not able to upload pngs -> increase file upload size
 - [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them
 
 ## Odoo role
