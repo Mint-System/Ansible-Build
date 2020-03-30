@@ -1,0 +1,8 @@
+- name: Remove node-exporter container
+  docker_container:
+    name: "{{ node_exporter_hostname }}"
+    state: absent
+  when: node_exporter_hostname is defined
+  tags:
+  - never
+  - node-exporter

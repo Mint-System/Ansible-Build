@@ -27,6 +27,7 @@ Collection of Ansible playbooks and roles.
 * [logstash](roles/logstash/README.md) - Deploy Logstash Docker container
 * [metricbeat](roles/metricbeat/README.md) - Deploy Metricbeat Docker container
 * [cadvisor](roles/cadvisor/README.md) - Deploy cAdvisor Docker container
+* [node-exporter](roles/node-exporter/README.md) - Deploy node-exporter Docker container
 
 ## Usage
 

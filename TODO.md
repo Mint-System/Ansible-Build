@@ -2,8 +2,10 @@
 
 ## Conference
 
+- [ ] Set jitsi config -> https://community.jitsi.org/t/30-participants-experience/23358/2
 - [ ] Change logo for jitsi and bbb
-- [ ] Upgrade Jitsi server
+- [ ] Upgrade Jitsi server to cx41
+- [ ] Deploy jitsi with Docker
 
 ## Update
 
@@ -81,6 +83,7 @@
 
 ## Ideas
 
+- [ ] Test roles with molecule
 - [ ] CI/CD that installs roles
 
 ## Maintenance

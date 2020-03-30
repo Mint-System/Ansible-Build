@@ -1,0 +1,15 @@
+- name: Start node-exporter container
+  docker_container:
+    name: "{{ node_exporter_hostname }}"
+    image: "{{ node_exporter_image }}"
+    restart_policy: unless-stopped
+    volumes:
+      - /:/hostfs
+    ports:
+      - 9100:9100
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
