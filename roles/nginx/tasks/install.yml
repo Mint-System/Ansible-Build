@@ -32,7 +32,7 @@
     managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
 
 - name: Remove unmanaged nginx conf files
-  file: 
+  file:
     path: "{{ nginx_data_dir }}/{{ item }}"
     state: "absent"
   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"
