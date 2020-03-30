@@ -30,7 +30,8 @@ And include it in your playbook.
     tags: docker
   - role: docker-network
     tags: docker-network
-  - { role: Fathom, tags: ["Fathom"] }
+  - role: fathom
+    tags: fathom
 ```
 
 Once deployed create a user.

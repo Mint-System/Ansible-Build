@@ -24,18 +24,20 @@ elasticsearch_nodes:
     data_dir: /usr/share/elastic01
     volume_name: elastic_data01
     seed_hosts: "elastic02"
-    listener: yes
+    primary: yes
   - hostname: elastic02
     data_dir: /usr/share/elastic02
     volume_name: elastic_data02
     seed_hosts: "elastic01"
-    listener: no
+    primary: no
 elasticsearch_password: "{{ vault_elasticsearch_password }}"
 elasticsearch_users:
   - name: kibana
     password: "{{ vault_elasticsearch_kibana_password }}"
   - name: beats_system
     password: "{{ vault_elasticsearch_beats_system_password }}"
+  - name: logstash_system
+    password:  "{{ vault_elasticsearch_logstash_password }}"
 ```
 
 And include it in your playbook.

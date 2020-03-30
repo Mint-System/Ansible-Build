@@ -2,7 +2,7 @@
 
 ## Conference
 
-- [ ] BigBlueButton Ansible role
+- [ ] Change logo for jitsi and bbb
 - [ ] Upgrade Jitsi server
 
 ## Update
@@ -16,16 +16,15 @@
 
 ## Nextcloud
 
-- [ ] Create Ansible template for config.php
+- [ ] Create Ansible template for config.php -> or update lines
 
 ## Bugs
 
-- [x] Nextcloud file upload size increase
 - [ ] openeduca.ch not able to upload pngs -> increase file upload size
-- [ ] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them
 
 ## Odoo role
 
+- [ ] Install openeduca blog system
 - [ ] Enable odoo apps installation from zip and tar.gz url -> Install report for apland
 - [ ] Auto install base module
 - [ ] Activate mail for self registrations
@@ -42,23 +41,20 @@
 
 ## Monitoring
 
-- [ ] Disable rule sets for elastic -> performance is horrible
-- [ ] Monitoring with 
-  - [x] Elastic, 
-  - [x] kibana, 
-  - [ ] beats, 
-  - [x] logstash
-- [-] Setup fluentd and grep docker logs for errors -> Install on hades
-- [ ] Logstash cannot authenticate with the logstash_system user https://www.elastic.co/guide/en/logstash/current/ls-security.html
-- [ ] Enalbe monitoring of cluster https://www.elastic.co/guide/en/elasticsearch/reference/7.6/collecting-monitoring-data.html
-  - [ ] Output data to two clusters
-- [ ] Setup mail watcher for disk space, memory and cpu usage
+- [x] Setup cAdvisor
+- [ ] Setup node-exporter
+- [ ] Setup prometheus
+- [ ] Setup grafana
+- [ ] Configure dashboard
+- [ ] Setup alertmanager (with Dashboard?)
+- [ ] Monitor proxy audit log
+
 
 ## Security
 
+- [ ] Protect access to cAdvisor
 - [ ] Setup hashicorp vault for managing server secrets
 - [ ] Scan ports
-- [ ] Describe backup/recover scenario
 
 ## Nginx role
 
@@ -70,17 +66,22 @@
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
 - [ ] Create backup type for odoo backups
+- [ ] Describe backup/recover scenario
 
 ## Management
 
-- [x] Add github action badge
 - [ ] Generate docs with ansible-doc
 - [ ] Rename mint system network to mint-system.com (mint-system.com)
 
 ## New Roles
 
+- [ ] Docker cleanup
 - [ ] Montor with Prometheus and Docker https://github.com/vegasbrianc/prometheus/
 - [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
+
+## Ideas
+
+- [ ] CI/CD that installs roles
 
 ## Maintenance
 
@@ -92,6 +93,21 @@
 
 # DONE
 
+- [x] BigBlueButton Ansible role
+- [x] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them
+- [x] Nextcloud file upload size increase
+- [-] Disable rule sets for elastic -> performance is horrible
+- [-] Monitoring with 
+  - [x] Elastic, 
+  - [x] kibana, 
+  - [-] beats, 
+  - [x] logstash
+- [-] Setup fluentd and grep docker logs for errors -> Install on hades
+- [-] Logstash cannot authenticate with the logstash_system user https://www.elastic.co/guide/en/logstash/current/ls-security.html
+- [-] Enalbe monitoring of cluster https://www.elastic.co/guide/en/elasticsearch/reference/7.6/collecting-monitoring-data.html
+  - [-] Output data to two clusters
+- [-] Setup mail watcher for disk space, memory and cpu usage
+- [x] Add github action badge
 - [x] Set alias for servers
 - [x] Migrate wiki data to volumes (postgres, mysql, nextcloud, bookstack)! https://stackoverflow.com/questions/49888014/move-docker-bind-mount-to-volume
   - [x] Nextcloud

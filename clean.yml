@@ -13,7 +13,9 @@
       - logstash
       - elasticsearch
       - metricbeat
+      - cadvisor
       - openldap
       - mysql
       - postgres
       - docker-network
+      - fathom
