@@ -25,6 +25,8 @@ Collection of Ansible playbooks and roles.
 * [elasticsearch](roles/elasticsearch/README.md) - Deploy ElasticSearch Docker cluster
 * [kibana](roles/elasticsearch/README.md) - Deploy Kibana Docker container
 * [logstash](roles/logstash/README.md) - Deploy Logstash Docker container
+* [metricbeat](roles/metricbeat/README.md) - Deploy Metricbeat Docker container
+* [cadvisor](roles/cadvisor/README.md) - Deploy cAdvisor Docker container
 
 ## Usage
 

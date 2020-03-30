@@ -33,6 +33,11 @@ nginx_proxies:
     dest_port: 80
     options: |
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
+    ssl: true
+  - src_hostname: example.com
+    src_port: 443
+    redirect_hostname: www.example.com
+    ssl: true
 ```
 
 And include it in your playbook.
@@ -47,3 +52,7 @@ And include it in your playbook.
   - { role: modsecurity, tags: ["modsecurity"] }
   - { role: nginx, tags: ["nginx"] }
 ```
+
+## Docs
+
+Supported source ports are: 80, 443, 8080 and 8443.

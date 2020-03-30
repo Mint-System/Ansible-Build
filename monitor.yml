@@ -15,5 +15,7 @@
     tags: modsecurity
   - role: metricbeat
     tags: metricbeat
+  - role: cadvisor
+    tags: cadvisor
   - role: nginx
     tags: nginx

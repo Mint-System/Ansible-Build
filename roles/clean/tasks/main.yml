@@ -13,6 +13,8 @@
       - bookstack
       - logstash
       - metricbeat
+      - cadvisor
+      - fathom
       - elasticsearch
       - openldap
       - mysql

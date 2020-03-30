@@ -102,7 +102,7 @@
   loop: "{{ elasticsearch_nodes }}"
   when: not item.primary
 
-- name: Wait for elasticsearch primary node container to boot
+- name: Wait for elasticsearch primary node container to boot # noqa 503
   pause:
     seconds: "60"
   when: start_elasticsearch_primary_node.changed

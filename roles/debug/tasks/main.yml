@@ -1,7 +1,29 @@
-- name: Debug modsecurity_exclude_rules_before_crs
-  debug:
-    msg: "{{ item }}"
-  loop: "{{ modsecurity_exclude_rules_before_crs }}"
+# - name: Register nginx conf files
+#   command: "ls -1 {{ nginx_data_dir }}"
+#   register: nginx_proxy_conf_files
+
+# - name: Debug
+#   debug:
+#     var: nginx_proxy_conf_files
+
+# - set_fact:
+#     managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
+
+# - name: Debug
+#   debug:
+#     var: managed_files
+
+# - name: Remove unmanaged nginx conf files
+#   file: 
+#     path: "{{ nginx_data_dir }}/{{ item }}"
+#     state: absent
+#   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"
+#   when: item not in (json_query(certbot_stat_filter) | list)
+
+# - name: Debug modsecurity_exclude_rules_before_crs
+#   debug:
+#     msg: "{{ item }}"
+#   loop: "{{ modsecurity_exclude_rules_before_crs }}"
 
 # - name: Check if cert files exist
 #   stat:

@@ -1,6 +1,8 @@
 - name: Check metricbeat setup
   command: >
-    /bin/bash -c 'curl -X GET "{{ metricbeat_elasticsearch_username }}:{{ metricbeat_elasticsearch_password }}@localhost:9200/_cat/templates?v&s=name&pretty" | grep metricbeat'
+    /bin/bash -c 'curl -X GET "{{ metricbeat_elasticsearch_username }}:
+    {{ metricbeat_elasticsearch_password }}@
+    localhost:9200/_cat/templates?v&s=name&pretty" | grep metricbeat'
   ignore_errors: yes
   changed_when: false
   when: metricbeat_setup
