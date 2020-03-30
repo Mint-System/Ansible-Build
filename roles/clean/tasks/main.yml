@@ -14,6 +14,7 @@
       - logstash
       - metricbeat
       - cadvisor
+      - node-exporter
       - fathom
       - elasticsearch
       - openldap

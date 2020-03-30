@@ -52,11 +52,10 @@
     name: "{{ nginx_hostname }}"
     image: "{{ nginx_image }}"
     restart_policy: unless-stopped
+    recreate: no
     ports:
       - 80:80
       - 443:443
-      - 8080:8080
-      - 8443:8443
     volumes:
       - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
@@ -74,11 +73,10 @@
     name: "{{ nginx_hostname }}"
     image: "{{ modsecurity_image }}"
     restart_policy: unless-stopped
+    recreate: no
     ports:
       - 80:80
       - 443:443
-      - 8080:8080
-      - 8443:8443
     volumes:
       - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"

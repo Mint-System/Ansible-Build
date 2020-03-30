@@ -20,7 +20,7 @@ Configure the role.
 certbot_image: certbot/certbot
 certbot_hostname: cert01
 certbot_data_dir: /usr/share/certbot01
-certbot_email: info@mexample.com
+certbot_email: info@example.com
 certbot_stat_filter: "results[*] | [?stat.exists==`false`].item"
 
 nginx_image: nginx:1.15-alpine
@@ -49,10 +49,12 @@ And include it in your playbook.
     tags: docker
   - role: docker-network
     tags: docker-network
-  - { role: modsecurity, tags: ["modsecurity"] }
-  - { role: nginx, tags: ["nginx"] }
+  - role: modsecurity
+    tags: modsecurity
+  - role: nginx
+    tags: nginx
 ```
 
 ## Docs
 
-Supported source ports are: 80, 443, 8080 and 8443.
+Supported source ports are: 80 and 443.

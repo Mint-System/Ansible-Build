@@ -17,5 +17,7 @@
     tags: metricbeat
   - role: cadvisor
     tags: cadvisor
+  - role: node-exporter
+    tags: node-exporter
   - role: nginx
     tags: nginx
