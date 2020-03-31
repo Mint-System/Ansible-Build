@@ -3,7 +3,6 @@
 ## Conference
 
 - [ ] Change logo for jitsi and bbb
-- [ ] Upgrade Jitsi server to cx41
 - [ ] Deploy jitsi with Docker
 
 ## Update
@@ -14,7 +13,6 @@
 ## Analytics
 
 - [ ] Integrate google dashboard in openeduca
-- [ ] Integrate fathom snippet into meet.mint-system.ch
 
 ## Nextcloud
 
@@ -22,22 +20,16 @@
 
 ## Bugs
 
-- [ ] openeduca.ch not able to upload pngs -> increase file upload size
+- [ ] openeduca.ch not able to upload pngs -> increase file upload size -> set global config
 
 ## Odoo role
 
 - [ ] Install openeduca blog system
 - [ ] Enable odoo apps installation from zip and tar.gz url -> Install report for apland
-- [ ] Auto install base module
-- [ ] Activate mail for self registrations
-- [ ] Checkout mail gateway
-
-## Proxy
-
-- [ ] Add caching options for odoo websites
 
 ## Server
 
+- [ ] User packages
 - [ ] Enable profile dotfiles: https://github.com/janikvonrotz/dotfiles
 - [ ] Install fzf on all server -> ansible download and extract binary
 
@@ -49,7 +41,6 @@
 - [ ] Setup alertmanager (with Dashboard?)
 - [ ] Monitor proxy audit log
 - [ ] Notify via Telegram
-
 
 ## Security
 
@@ -64,39 +55,44 @@
 
 ## Backup
 
-- [ ] Setup backup for all volumes on all hosts
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
 - [ ] Create backup type for odoo backups
-- [ ] Describe backup/recover scenario
-
-## Management
-
-- [ ] Generate docs with ansible-doc
-- [ ] Rename mint system network to mint-system.com (mint-system.com)
+- [ ] Document backup and recover scenario
 
 ## New Roles
 
-- [ ] Docker cleanup
-- [ ] Montor with Prometheus and Docker https://github.com/vegasbrianc/prometheus/
+- [ ] Docker cleanup, prune images
 - [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
-
-## Ideas
-
-- [ ] Manage prom exporter in Docker Swarm for enclosed networking -> https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html -> checkout overlay network https://docs.docker.com/network/overlay/
-- [ ] Test roles with molecule
-- [ ] CI/CD that installs roles
 
 ## Maintenance
 
+- [ ] Remove domain analytics.mint-system.ch
 - [ ] Delete postgres02_delete and mysql01_delete on zeus
 - [ ] Remove bookstack_delete folder on zeus
 - [ ] Remove nextcloud01 folder on zeus
 - [ ] delete openedu database on odoo02
 - [ ] delete www database on odoo01
 
+## Ideas
+
+- [ ] Project inventories hat configure everything
+- [ ] Manage prom exporter in Docker Swarm for enclosed networking -> https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html -> checkout overlay network https://docs.docker.com/network/overlay/
+- [ ] Test roles with molecule
+- [ ] CI/CD that installs roles
+
 # DONE
 
+- [-] Upgrade Jitsi server to cx41
+- [-] Integrate fathom snippet into meet.mint-system.ch
+- [-] Auto install base module
+- [-] Activate mail for self registrations
+- [-] Checkout mail gateway
+- [-] Add caching options for odoo websites
+- [-] Generate docs with ansible-doc
+- [x] Rename mint system network to mint-system.com (mint-system.com)
+- [x] Montor with Prometheus and Docker https://github.com/vegasbrianc/prometheus/
+- [x] Setup backup for all volumes on all hosts
 - [x] Set jitsi config -> https://community.jitsi.org/t/30-participants-experience/23358/2
 - [x] Setup cAdvisor
 - [x] Setup node-exporter
