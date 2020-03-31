@@ -1,0 +1,3 @@
+- name: Include install tasks
+  include_tasks: install.yml
+  when: grafana_image is defined

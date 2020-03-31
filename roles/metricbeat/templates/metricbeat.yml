@@ -44,7 +44,7 @@ metricbeat.modules:
     - node_stats
     - shard
   period: 60s
-  hosts: ["http://{{ metricbeat_elasticsearch_host }}:9200"]
+  hosts: ["http://{{ metricbeat_elasticsearch_hostname }}:9200"]
   username: "{{ metricbeat_elasticsearch_username }}"
   password: "{{ metricbeat_elasticsearch_password }}"
   xpack.enabled: true

@@ -1,0 +1,17 @@
+- name: Remove grafana container
+  docker_container:
+    name: "{{ grafana_hostname }}"
+    state: absent
+  when: grafana_hostname is defined
+
+- name: Remove grafana data dir
+  file:
+    path: "{{ grafana_data_dir }}"
+    state: absent
+  when: grafana_data_dir is defined and 'grafana-data-dir' in ansible_run_tags
+
+- name: Remove grafana volume
+  docker_volume:
+    name: "{{ grafana_volume_name }}"
+    state: absent
+  when: grafana_volume_name is defined and 'grafana-volume' in ansible_run_tags

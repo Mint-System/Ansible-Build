@@ -3,6 +3,3 @@
     name: "{{ fathom_hostname }}"
     state: absent
   when: fathom_hostname is defined
-  tags:
-  - never
-  - fathom

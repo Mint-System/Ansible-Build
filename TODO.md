@@ -2,7 +2,6 @@
 
 ## Conference
 
-- [ ] Set jitsi config -> https://community.jitsi.org/t/30-participants-experience/23358/2
 - [ ] Change logo for jitsi and bbb
 - [ ] Upgrade Jitsi server to cx41
 - [ ] Deploy jitsi with Docker
@@ -14,6 +13,7 @@
 
 ## Analytics
 
+- [ ] Integrate google dashboard in openeduca
 - [ ] Integrate fathom snippet into meet.mint-system.ch
 
 ## Nextcloud
@@ -43,10 +43,8 @@
 
 ## Monitoring
 
-- [x] Setup cAdvisor
-- [ ] Setup node-exporter
-- [ ] Setup prometheus
-- [ ] Setup grafana
+- [ ] Configure mail
+- [ ] Propertly provision prometheus datasource
 - [ ] Configure dashboard
 - [ ] Setup alertmanager (with Dashboard?)
 - [ ] Monitor proxy audit log
@@ -55,9 +53,10 @@
 
 ## Security
 
-- [ ] Protect access to cAdvisor
+- [ ] Setup user and run container with it for every role? 
+- [ ] Protect access to cAdvisor and node-exporter -> docker overlay network
 - [ ] Setup hashicorp vault for managing server secrets
-- [ ] Scan ports
+- [ ] Scan ports and block with fw
 
 ## Nginx role
 
@@ -98,6 +97,11 @@
 
 # DONE
 
+- [x] Set jitsi config -> https://community.jitsi.org/t/30-participants-experience/23358/2
+- [x] Setup cAdvisor
+- [x] Setup node-exporter
+- [x] Setup prometheus
+- [x] Setup grafana
 - [x] BigBlueButton Ansible role
 - [x] Nginx role does not purge unused conf files -> ssl fail -> create list of managed files read files wich are not in list and remove them
 - [x] Nextcloud file upload size increase

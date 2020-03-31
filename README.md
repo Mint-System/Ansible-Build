@@ -29,6 +29,7 @@ Collection of Ansible playbooks and roles.
 * [cadvisor](roles/cadvisor/README.md) - Deploy cAdvisor Docker container
 * [node-exporter](roles/node-exporter/README.md) - Deploy node-exporter Docker container
 * [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container
+* [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
 
 ## Usage
 

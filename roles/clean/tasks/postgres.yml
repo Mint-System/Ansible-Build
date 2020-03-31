@@ -3,9 +3,6 @@
     name: "{{ postgres_hostname }}"
     state: absent
   when: postgres_hostname is defined
-  tags:
-  - never
-  - postgres
 
 - name: Remove postgres volume
   docker_volume:

@@ -1,6 +1,11 @@
 scrape_configs:
+- job_name: prometheus
+  scrape_interval: 10s
+  static_configs:
+  - targets: 
+    - localhost:9090
 - job_name: cadvisor
-  scrape_interval: 60s
+  scrape_interval: 10s
   static_configs:
   - targets:
 {% for target in targets %}
@@ -9,7 +14,7 @@ scrape_configs:
 {% endif %}
 {% endfor %}
 - job_name: node-exporter
-  scrape_interval: 60s
+  scrape_interval: 10s
   static_configs:
   - targets:
 {% for target in targets %}

@@ -15,7 +15,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-docker_network_name: example-net
+docker_network_name: example.com
 ```
 
 And include it in your playbook.

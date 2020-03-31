@@ -18,7 +18,7 @@
       APP_URL: "{{ bookstack_app_url }}"
       DB_HOST: "{{ bookstack_db_hostname }}"
       DB_USERNAME: "{{ bookstack_db_user }}"
-      DB_PASSWORD: "{{ bookstack_db_password }}"
+      DB_PASSWORD: "{{ bookstack_db_password }}:3306"
       DB_DATABASE: "{{ bookstack_db_database }}"
       MAIL_DRIVER: "{{ bookstack_mail_driver }}"
       MAIL_HOST: "{{ bookstack_mail_hostname }}"
