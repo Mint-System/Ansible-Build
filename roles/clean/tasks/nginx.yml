@@ -3,9 +3,6 @@
     name: "{{ certbot_hostname }}"
     state: absent
   when: certbot_hostname is defined
-  tags:
-  - never
-  - nginx
 
 # Do not remove certbot data dir
 

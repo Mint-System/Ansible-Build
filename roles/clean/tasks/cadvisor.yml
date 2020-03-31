@@ -3,6 +3,3 @@
     name: "{{ cadvisor_hostname }}"
     state: absent
   when: cadvisor_hostname is defined
-  tags:
-  - never
-  - cadvisor

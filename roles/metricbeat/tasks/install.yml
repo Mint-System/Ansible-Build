@@ -18,7 +18,7 @@
       setup --index-management -E setup.kibana.host="{{ metricbeat_kibana_host }}:5601"
       -E setup.kibana.username="{{ metricbeat_kibana_username }}"
       -E setup.kibana.password="{{ metricbeat_kibana_password }}"
-      -E output.elasticsearch.hosts=["{{ metricbeat_elasticsearch_host }}:9200"]
+      -E output.elasticsearch.hosts=["{{ metricbeat_elasticsearch_hostname }}:9200"]
       -E output.elasticsearch.username="{{ metricbeat_elasticsearch_username }}"
       -E output.elasticsearch.password="{{ metricbeat_elasticsearch_password }}"
     networks:

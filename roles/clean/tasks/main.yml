@@ -16,6 +16,7 @@
       - cadvisor
       - node-exporter
       - prometheus
+      - grafana
       - fathom
       - elasticsearch
       - openldap

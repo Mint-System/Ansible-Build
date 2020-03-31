@@ -11,8 +11,6 @@
     tags: kibana
   - role: logstash
     tags: logstash
-  - role: modsecurity
-    tags: modsecurity
   - role: metricbeat
     tags: metricbeat
   - role: cadvisor
@@ -21,5 +19,9 @@
     tags: node-exporter
   - role: prometheus
     tags: prometheus
+  - role: grafana
+    tags: grafana
+  - role: modsecurity
+    tags: modsecurity
   - role: nginx
     tags: nginx

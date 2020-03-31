@@ -26,7 +26,7 @@ metricbeat_setup: true
 metricbeat_kibana_host: kibana01
 metricbeat_kibana_username: kibana
 metricbeat_kibana_password: "{{ vault_metricbeat_kibana_password }}"
-metricbeat_elasticsearch_host: elastic01
+metricbeat_elasticsearch_hostname: elastic01
 metricbeat_elasticsearch_username: elastic
 metricbeat_elasticsearch_password: "{{ vault_metricbeat_elasticsearch_password }}"
 metricbeat_logstash_hostname: logst01

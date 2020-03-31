@@ -3,9 +3,6 @@
     name: "{{ odoo_hostname }}"
     state: absent
   when: odoo_hostname is defined
-  tags:
-  - never
-  - odoo
 
 - name: Remove odoo volume
   docker_volume:
