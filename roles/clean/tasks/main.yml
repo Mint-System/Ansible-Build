@@ -15,6 +15,7 @@
       - metricbeat
       - cadvisor
       - node-exporter
+      - prometheus
       - fathom
       - elasticsearch
       - openldap

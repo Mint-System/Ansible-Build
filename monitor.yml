@@ -19,5 +19,7 @@
     tags: cadvisor
   - role: node-exporter
     tags: node-exporter
+  - role: prometheus
+    tags: prometheus
   - role: nginx
     tags: nginx

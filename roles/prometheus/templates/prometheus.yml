@@ -1,0 +1,19 @@
+scrape_configs:
+- job_name: cadvisor
+  scrape_interval: 60s
+  static_configs:
+  - targets:
+{% for target in targets %}
+{% if target.cadvisor_image is defined %}
+    - {{ target.ansible_host }}:{{ target.cadvisor_port | default('8080') }}
+{% endif %}
+{% endfor %}
+- job_name: node-exporter
+  scrape_interval: 60s
+  static_configs:
+  - targets:
+{% for target in targets %}
+{% if target.node_exporter_image is defined %}
+    - {{ target.ansible_host }}:{{ target.node_exporter_port | default('9100') }}
+{% endif %}
+{% endfor %}
