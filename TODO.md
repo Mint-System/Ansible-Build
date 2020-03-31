@@ -50,6 +50,7 @@
 - [ ] Configure dashboard
 - [ ] Setup alertmanager (with Dashboard?)
 - [ ] Monitor proxy audit log
+- [ ] Notify via Telegram
 
 
 ## Security
@@ -83,6 +84,7 @@
 
 ## Ideas
 
+- [ ] Manage prom exporter in Docker Swarm for enclosed networking -> https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html -> checkout overlay network https://docs.docker.com/network/overlay/
 - [ ] Test roles with molecule
 - [ ] CI/CD that installs roles
 

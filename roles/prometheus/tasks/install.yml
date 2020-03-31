@@ -1,0 +1,35 @@
+- name: Create prometheus volume
+  docker_volume:
+    name: "{{ prometheus_volume_name }}"
+  when: prometheus_volume_name is defined
+
+- name: Ensure prometheus data dir exists
+  file:
+    path: "{{ prometheus_data_dir }}"
+    state: directory
+  when: prometheus_data_dir is defined
+
+- name: Copy prometheus conf
+  template:
+    src: prometheus.yml
+    dest: "{{ prometheus_data_dir }}/"
+  vars:
+    targets: "{{ groups.exporter | map('extract', hostvars) | list }}"
+  notify: Restart prometheus container
+
+- name: Start prometheus container
+  docker_container:
+    name: "{{ prometheus_hostname }}"
+    image: "{{ prometheus_image }}"
+    restart_policy: unless-stopped
+    volumes:
+      - "{{ prometheus_volume_name }}:/prometheus"
+      - "{{ prometheus_data_dir }}/prometheus.yml:/etc/prometheus/prometheus.yml"
+    ports:
+      - "{{ prometheus_port | default('9090') }}:9090"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

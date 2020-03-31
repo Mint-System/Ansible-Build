@@ -28,6 +28,7 @@ Collection of Ansible playbooks and roles.
 * [metricbeat](roles/metricbeat/README.md) - Deploy Metricbeat Docker container
 * [cadvisor](roles/cadvisor/README.md) - Deploy cAdvisor Docker container
 * [node-exporter](roles/node-exporter/README.md) - Deploy node-exporter Docker container
+* [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container
 
 ## Usage
 
