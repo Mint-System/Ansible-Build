@@ -20,10 +20,13 @@
     name: "{{ odoo_hostname }}"
     image: "{{ odoo_image }}"
     restart_policy: unless-stopped
+    recreate: no
     env:
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
       PASSWORD: "{{ odoo_postgres_password }}"
+    ports:
+     - 127.0.0.1:8069:8069
     volumes:
       - "{{ odoo_volume_name }}:/var/lib/odoo"
       - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"

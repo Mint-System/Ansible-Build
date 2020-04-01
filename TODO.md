@@ -55,9 +55,9 @@
 
 ## Backup
 
+- [ ] Configure odoo backup for all installations
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
-- [ ] Create backup type for odoo backups
 - [ ] Document backup and recover scenario
 
 ## New Roles
@@ -67,6 +67,8 @@
 
 ## Maintenance
 
+- [ ] Delete all docker networks mint-system.net
+- [ ] Delete odoo database on apollo 
 - [ ] Remove domain analytics.mint-system.ch
 - [ ] Delete postgres02_delete and mysql01_delete on zeus
 - [ ] Remove bookstack_delete folder on zeus
@@ -76,6 +78,7 @@
 
 ## Ideas
 
+- [ ] Monitor websites with https://github.com/prometheus/blackbox_exporter/blob/master/README.md -> on every node install probe -> use proxy addresses
 - [ ] Project inventories hat configure everything
 - [ ] Manage prom exporter in Docker Swarm for enclosed networking -> https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html -> checkout overlay network https://docs.docker.com/network/overlay/
 - [ ] Test roles with molecule
@@ -83,6 +86,7 @@
 
 # DONE
 
+- [x] Create backup type for odoo backups
 - [-] Upgrade Jitsi server to cx41
 - [-] Integrate fathom snippet into meet.mint-system.ch
 - [-] Auto install base module
