@@ -19,7 +19,6 @@ Configure the role.
 ```yml
 odoo_image: odoo:13
 odoo_hostname: odoo01
-odoo_port: 8069
 odoo_data_dir: /usr/share/odoo01
 odoo_volume_name: odoo_data01
 odoo_postgres_hostname: postgres01
@@ -42,3 +41,7 @@ And include it in your playbook.
   - { role: postgres, tags: ["postgres"] }
   - { role: odoo, tags: ["odoo"] }
 ```
+
+## Docs
+
+Odoo container exposes port 8069 to localhost only for backup requests.

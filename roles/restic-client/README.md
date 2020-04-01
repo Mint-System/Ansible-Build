@@ -18,6 +18,7 @@ restic_client_user: restic
 restic_client_password: "{{ vault_restic_client_password }}"
 restic_repo: restic.example.com:8080
 restic_repo_password: "{{ vault_restic_repo_password }}"
+restic_odoo_master_password: "{{ vault_restic_odoo_master_password }}"
 restic_backup_sets:
  - id: "postgres volume"
    type: docker-volume
@@ -35,6 +36,14 @@ restic_backup_sets:
     - bookstack01
   hour: "1"
   minute: "10"
+- id: "odoo backup"
+  type: odoo-backup
+  database: odoo
+  tags:
+    - odoo
+    - odoo01
+  hour: "1"
+  minute: "30"
 restic_backup_rotation:
   daily: 7
   weekly: 4
@@ -49,3 +58,7 @@ And include it in your playbook.
   - role: restic-client
     tags: restic-client
 ```
+
+## Docs
+
+The odoo backup type connects to `http://localhost:8069` by default.

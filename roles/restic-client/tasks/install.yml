@@ -62,6 +62,31 @@
   loop: "{{ restic_backup_sets }}"
   when: item.type == "file"
 
+- name: Copy odoo backup script
+  copy:
+    src: odoo-backup
+    dest: /usr/local/bin/odoo-backup
+    mode: +x
+  when: restic_odoo_master_password is defined
+
+- name: Ensure restic environment vars exists
+  lineinfile:
+    dest: "/etc/environment"
+    state: present
+    regexp: "^ODOO_MASTER_PASSWORD="
+    line: "ODOO_MASTER_PASSWORD={{ restic_odoo_master_password }}"
+  when: restic_odoo_master_password is defined
+
+- name: Register odoo backup jobs
+  cron:
+    name: "Backup job {{ item.id }}"
+    hour: "{{ item.hour }}"
+    minute: "{{ item.minute }}"
+    job: ". /etc/environment; odoo-backup -d {{ item.database }}; restic backup /var/tmp/{{ item.database }}.zip \
+      --tag {{ item.tags | join(' --tag ') }}"
+  loop: "{{ restic_backup_sets }}"
+  when: item.type == "odoo-backup"
+
 - name: Register backup rotation job
   cron:
     name: "Backup rotation job"

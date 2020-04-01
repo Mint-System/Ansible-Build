@@ -32,3 +32,7 @@ And include it in your playbook.
   - role: node-exporter
     tags: node-exporter
 ```
+
+## Docs
+
+By default to node-exporter mounts the host filesystem to `/hostfs`.

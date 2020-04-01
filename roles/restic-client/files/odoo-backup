@@ -1,17 +1,64 @@
 #!/bin/bash
 
-# vars
-BACKUP_DIR=~/odoo_backups
-ODOO_DATABASE=db1
-ADMIN_PASSWORD=superadmin_passwd
+# Display Help
+Help() {
+    echo
+    echo "odoo-backup"
+    echo "###########"
+    echo
+    echo "Description: Backup odoo database."
+    echo "Syntax: odoo-backup [-p|d|o|h]"
+    echo "Example: odoo-backup -p secret -d odoo -o /tmp -h https://odoo.example.com"
+    echo "options:"
+    echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var."
+    echo "  -d    Database name."
+    echo "  -o    Output directory. Defaults to '/var/tmp'"
+    echo "  -h    Odoo host. Defaults to 'http://localhost:8069'"
+    echo
+}
 
-# create a backup directory
-mkdir -p ${BACKUP_DIR}
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
 
-# create a backup
+# Process params
+while getopts ":p:d:o:h:help:" opt; do
+  case $opt in
+    h) HOST="$OPTARG"
+    ;;
+    p) PASSWORD="$OPTARG"
+    ;;
+    d) DATABASE="$OPTARG"
+    ;;
+    o) DIR="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment variables
+: ${PASSWORD:=${ODOO_MASTER_PASSWORD}}
+: ${DIR:='/var/tmp'}
+: ${HOST:='http://localhost:8069'}
+
+# Verify variables
+[[ -z "$PASSWORD" ]] && { echo "Parameter -p|password is empty" ; exit 1; }
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
+[[ -z "$HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
+
+# Create backup
 curl -X POST \
-    -F "master_pwd=${ADMIN_PASSWORD}" \
-    -F "name=${ODOO_DATABASE}" \
+    -F "master_pwd=${PASSWORD}" \
+    -F "name=${DATABASE}" \
     -F "backup_format=zip" \
-    -o ${BACKUP_DIR}/${ODOO_DATABASE}.$(date +%F).zip \
-    http://localhost:8069/web/database/backup
+    -o ${DIR}/${DATABASE}.zip \
+    ${HOST}/web/database/backup
+
+# Notify if backup has finished
+if [[ $? -eq 0 ]]; then
+    echo "The Odoo backup has finished: ${DIR}/${DATABASE}.zip"
+fi
