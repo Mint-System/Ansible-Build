@@ -20,6 +20,7 @@
 
 ## Bugs
 
+- [ ] eCommerce Plugin installation breaks odoo
 - [ ] openeduca.ch not able to upload pngs -> increase file upload size -> set global config
 
 ## Odoo role
@@ -55,7 +56,9 @@
 
 ## Backup
 
-- [ ] Configure odoo backup for all installations
+- [ ] Extend odoo backup restore script with odoo backup and restore commands
+- [ ] Backup type sql dump (for mysql and postgres) -> expose dbs locally?
+- [ ] Verify odoo database before backup
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
@@ -67,7 +70,6 @@
 
 ## Maintenance
 
-- [ ] Delete all docker networks mint-system.net
 - [ ] Delete odoo database on apollo 
 - [ ] Remove domain analytics.mint-system.ch
 - [ ] Delete postgres02_delete and mysql01_delete on zeus
@@ -86,6 +88,8 @@
 
 # DONE
 
+- [x] Configure odoo backup for all installations
+- [x] Delete all docker networks mint-system.net
 - [x] Create backup type for odoo backups
 - [-] Upgrade Jitsi server to cx41
 - [-] Integrate fathom snippet into meet.mint-system.ch
