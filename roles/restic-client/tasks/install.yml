@@ -41,7 +41,7 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment; restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ \
+    job: ". /etc/environment && restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ \
       --tag {{ item.tags | join(' --tag ') }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "docker-volume"
@@ -57,7 +57,7 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment; restic backup {{ item.path }} \
+    job: ". /etc/environment && restic backup {{ item.path }} \
       --tag {{ item.tags | join(' --tag ') }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "file"
@@ -82,7 +82,7 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment; odoo-backup -d {{ item.database }}; restic backup /var/tmp/{{ item.database }}.zip \
+    job: ". /etc/environment && odoo-backup -d {{ item.database }} && restic backup /var/tmp/{{ item.database }}.zip \
       --tag {{ item.tags | join(' --tag ') }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "odoo-backup"
@@ -92,5 +92,5 @@
     name: "Backup rotation job"
     hour: "23"
     minute: "0"
-    job: ". /etc/environment; restic forget --keep-daily {{ restic_backup_rotation.daily }} \
+    job: ". /etc/environment && restic forget --keep-daily {{ restic_backup_rotation.daily }} \
       --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune"
