@@ -1,0 +1,31 @@
+- name: Download odoo app zip archive
+  get_url:
+    url: "{{ item.url }}"
+    dest: "/var/tmp/{{ item.name }}.zip"
+  loop: "{{ odoo_apps }}"
+
+- name: Extract odoo app zip archive
+  unarchive:
+    src: "/var/tmp/{{ item.name }}.zip"
+    dest: /var/tmp
+    remote_src: yes
+    list_files: yes
+  loop: "{{ odoo_apps }}"
+  register: archive_contents
+
+- name: Copy odoo app to addons dir if directory
+  copy:
+    src: "/var/tmp/{{ item.files[0] }}"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
+    remote_src: yes
+  when: item.files[0] is match(".*\/$")
+  loop: "{{ archive_contents.results }}"
+
+- name: Copy odoo app to addons dir if file
+  copy:
+    src: "/var/tmp/{{ item.item.name }}/"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
+    remote_src: yes
+  when: item.files[0] is not match(".*\/$")
+  loop: "{{ archive_contents.results }}"
+  notify: Restart odoo container

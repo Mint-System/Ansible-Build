@@ -4,6 +4,7 @@
 
 - [ ] Change logo for jitsi and bbb
 - [ ] Deploy jitsi with Docker
+- [ ] Install jibri and enable recording?
 
 ## Update
 
@@ -20,13 +21,12 @@
 
 ## Bugs
 
-- [ ] eCommerce Plugin installation breaks odoo
+- [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env
 - [ ] openeduca.ch not able to upload pngs -> increase file upload size -> set global config
 
 ## Odoo role
 
 - [ ] Install openeduca blog system
-- [ ] Enable odoo apps installation from zip and tar.gz url -> Install report for apland
 
 ## Server
 
@@ -58,7 +58,6 @@
 
 - [ ] Extend odoo backup restore script with odoo backup and restore commands
 - [ ] Backup type sql dump (for mysql and postgres) -> expose dbs locally?
-- [ ] Verify odoo database before backup
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
@@ -88,6 +87,8 @@
 
 # DONE
 
+- [-] Verify odoo database before backup
+- [x] Enable odoo apps installation from zip and tar.gz url -> Install report for apland
 - [x] Configure odoo backup for all installations
 - [x] Delete all docker networks mint-system.net
 - [x] Create backup type for odoo backups
