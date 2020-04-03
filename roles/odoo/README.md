@@ -45,3 +45,12 @@ And include it in your playbook.
 ## Docs
 
 Odoo container exposes port 8069 to localhost only for backup requests.
+
+### Install apps
+
+```bash
+MODULE=show_db_name
+DATABASE=odoo
+CONTAINER=odoo02
+docker exec -it $CONTAINER /bin/bash -c "odoo -i $MODULE -c /etc/odoo/odoo.conf -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init" && docker restart $CONTAINER
+```

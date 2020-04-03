@@ -15,6 +15,10 @@
     - { src: "templates/odoo.conf", dest: "{{ odoo_data_dir }}/odoo.conf" }
   notify: Restart odoo container
 
+- name: Include install apps tasks
+  include_tasks: install-apps.yml
+  when: odoo_apps is defined
+
 - name: Start odoo container
   docker_container:
     name: "{{ odoo_hostname }}"
