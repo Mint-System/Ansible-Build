@@ -45,6 +45,8 @@
 
 ## Security
 
+- [ ] Ignore ARGS:html for /books request api ,\
+        ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
 - [ ] Protect access to cAdvisor and node-exporter -> docker overlay network
 - [ ] Setup hashicorp vault for managing server secrets
