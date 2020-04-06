@@ -24,7 +24,7 @@ moodle_admin_email: admin@example.com
 moodle_admin_user: admin
 moodle_admin_password: "{{ vault_moodle_admin_password }}"
 moodle_db_type: pgsql
-moodle_db_host: postgres05
+moodle_db_hostname: postgres05
 moodle_db_user: moodle
 moodle_db_password: "{{ vault_postgres_password }}"
 moodle_db_name: moodle

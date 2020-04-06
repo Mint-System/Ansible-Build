@@ -16,6 +16,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
+# https://hub.docker.com/_/postgres
 postgres_image: postgres:10-alpine
 postgres_hostname: postgres01
 postgres_data_dir: /usr/share/postgres01

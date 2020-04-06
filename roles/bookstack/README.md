@@ -21,10 +21,10 @@ bookstack_image: solidnerd/bookstack:0.27.5
 bookstack_hostname: book01
 bookstack_data_dir: /usr/share/bookstack01
 bookstack_app_url: "https://wiki.example.com"
-bookstack_db_hostname: "mysql01:3306"
+bookstack_db_hostname: mysql01
 bookstack_db_user: bookstack
 bookstack_db_password: "{{ vault_mysql_password }}"
-bookstack_db_database: bookstack
+bookstack_db_name: bookstack
 bookstack_mail_driver: smtp
 bookstack_mail_hostname: mail.example.com
 bookstack_mail_port: "587"

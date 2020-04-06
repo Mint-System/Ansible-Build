@@ -13,7 +13,7 @@
     dest: "{{ nginx_data_dir }}/{{ item.src_hostname }}.conf"
   vars:
     src_hostname: "{{ item.src_hostname }}"
-    src_port: "{{ item.src_port }}"
+    src_port: "{{ item.src_port | default('') }}"
     dest_hostname: "{{ item.dest_hostname | default('') }}"
     dest_port: "{{ item.dest_port | default('')  }}"
     options: "{{ item.options | default('') }}"

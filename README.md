@@ -30,6 +30,7 @@ Collection of Ansible playbooks and roles.
 * [node-exporter](roles/node-exporter/README.md) - Deploy node-exporter Docker container
 * [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container
 * [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
+* [keycloack](roles/keycloack/README.md) - Deploy Keycloack Docker container
 
 ## Usage
 
@@ -140,6 +141,36 @@ For Ansible config files use file mounts.
       - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
 ```
 
-### Docs
+### Guidelines
 
 Every role folder must contain a `README.md` file.
+
+### Naming
+
+Template for role vars:
+
+```yml
+# Basics:
+# Url to Docker repsitory
+ROLENAME_image: URL
+ROLENAME_hostname: SHORTNAME + COUNTER
+ROLENAME_port:
+ROLENAME_volume_name: SHORTNAME_data + COUNTER
+ROLENAME_data_dir: /usr/share/SHORTNAME + COUNTER
+# Database connection:
+ROLENAME_db_type: mysql
+ROLENAME_db_user:
+ROLENAME_db_password: "{{ vault_ROLENAME_db_password }}"
+ROLENAME_db_hostname:
+ROLENAME_db_name:
+# Credentials user:
+ROLENAME_user:
+ROLENAME_password: "{{ vault_ROLENAME_password }}"
+# Credentials admin:
+ROLENAME_admin_user:
+ROLENAME_admin_password: "{{ vault_ROLENAME_admin_password }}"
+# Named database connection:
+ROLENAME_postgres_hostname:
+ROLENAME_postgres_user:
+ROLENAME_postgres_password: "{{ vault_ROLENAME_postgres_password }}"
+```

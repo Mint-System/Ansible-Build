@@ -11,7 +11,7 @@
     env:
       MOODLECFG_SSLPROXY: "{{ moodle_ssl }}"
       MOODLE_WWWROOT: "{{ moodle_url }}"
-      MOODLE_DBHOST: "{{ moodle_db_host }}"
+      MOODLE_DBHOST: "{{ moodle_db_hostname }}"
       MOODLE_DBNAME: "{{ moodle_db_name }}"
       MOODLE_DBUSER: "{{ moodle_db_user }}"
       MOODLE_DBPASS:  "{{ moodle_db_password }}"

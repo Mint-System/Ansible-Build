@@ -6,6 +6,7 @@
     tasks:
       - nginx
       - modsecurity
+      - keycloack
       - kibana
       - moodle
       - odoo
