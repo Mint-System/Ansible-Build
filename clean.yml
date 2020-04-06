@@ -5,6 +5,7 @@
     tags:
       - nginx
       - modsecurity
+      - keycloack
       - kibana
       - moodle
       - odoo

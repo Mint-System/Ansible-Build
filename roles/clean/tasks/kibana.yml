@@ -3,6 +3,3 @@
     name: "{{ kibana_hostname }}"
     state: absent
   when: kibana_hostname is defined
-  tags:
-  - never
-  - kibana

@@ -16,10 +16,10 @@
     restart_policy: unless-stopped
     env:
       APP_URL: "{{ bookstack_app_url }}"
-      DB_HOST: "{{ bookstack_db_hostname }}"
+      DB_HOST: "{{ bookstack_db_hostname }}:3306"
       DB_USERNAME: "{{ bookstack_db_user }}"
-      DB_PASSWORD: "{{ bookstack_db_password }}:3306"
-      DB_DATABASE: "{{ bookstack_db_database }}"
+      DB_PASSWORD: "{{ bookstack_db_password }}"
+      DB_DATABASE: "{{ bookstack_db_name }}"
       MAIL_DRIVER: "{{ bookstack_mail_driver }}"
       MAIL_HOST: "{{ bookstack_mail_hostname }}"
       MAIL_PORT: "{{ bookstack_mail_port }}"

@@ -4,12 +4,20 @@
 
 - [ ] Change logo for jitsi and bbb
 - [ ] Deploy jitsi with Docker
-- [ ] Install jibri and enable recording?
+- [-] Install jibri and enable recording?
 
 ## Update
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
 - [ ] Update ubuntu packages
+
+## Identity
+
+- [ ] Combine keycloack and nextcloud
+
+## Website
+
+- [ ] Do not create cert if redirect -> mintsystem.ch *.mintsystem.ch
 
 ## Analytics
 
@@ -17,6 +25,7 @@
 
 ## Nextcloud
 
+- [ ] Nextcloud Demo-Umgebung
 - [ ] Create Ansible template for config.php -> or update lines
 
 ## Bugs
@@ -45,6 +54,7 @@
 
 ## Security
 
+- [ ] Do not expose postgres port by default
 - [ ] Ignore ARGS:html for /books request api ,\
         ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
@@ -55,6 +65,7 @@
 ## Nginx role
 
 - [ ] Renew certs automatically -> add cron job
+- [ ] Do not create cert for redirect adresses
 
 ## Backup
 
@@ -67,7 +78,6 @@
 ## New Roles
 
 - [ ] Docker cleanup, prune images
-- [ ] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
 
 ## Maintenance
 
@@ -89,6 +99,7 @@
 
 # DONE
 
+- [x] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
 - [-] Verify odoo database before backup
 - [x] Enable odoo apps installation from zip and tar.gz url -> Install report for apland
 - [x] Configure odoo backup for all installations

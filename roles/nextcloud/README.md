@@ -22,7 +22,7 @@ nextcloud_hostname: nextcloud01
 nextcloud_volume_name: nextcloud_data01
 nextcloud_admin_user: admin
 nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"
-nextcloud_postgres_hostname: postgres01:5432
+nextcloud_postgres_hostname: postgres01
 nextcloud_postgres_user: nextcloud
 nextcloud_postgres_password: "{{ vault_postgres_password }}"
 nextcloud_postgres_db: nextcloud
