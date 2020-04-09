@@ -1,0 +1,30 @@
+- name: Create wordpress volume
+  docker_volume:
+    name: "{{ wordpress_volume_name }}"
+  when: wordpress_volume_name is defined
+
+- name: Ensure wordpress data dir exists
+  file:
+    path: "{{ wordpress_data_dir }}"
+    state: directory
+  when: wordpress_data_dir is defined
+
+- name: Start wordpress container
+  docker_container:
+    name: "{{ wordpress_hostname }}"
+    image: "{{ wordpress_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env:
+      GF_SECURITY_ADMIN_USER: "{{ wordpress_admin_user }}"
+      GF_SECURITY_ADMIN_PASSWORD: "{{ wordpress_admin_password }}"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - "{{ wordpress_volume_name }}:/wordpress"
+      - "{{ wordpress_data_dir }}/datasource.yml:/etc/wordpress/provisioning/datasource/datasource.yml"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
