@@ -1,0 +1,3 @@
+- name: Include install tasks
+  include_tasks: install.yml
+  when: wordpress_image is defined
