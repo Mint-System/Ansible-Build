@@ -1,0 +1,4 @@
+- name: Restart nextcloud container
+  docker_container:
+    name: "{{ nextcloud_hostname }}"
+    restart: true

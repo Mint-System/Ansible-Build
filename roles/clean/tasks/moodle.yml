@@ -1,4 +1,4 @@
-- name: Remove moodle container
+- name: "Remove moodle container {{ moodle_hostname }}"
   docker_container:
     name: "{{ moodle_hostname }}"
     state: absent

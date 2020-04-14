@@ -11,6 +11,11 @@
 - [ ] Update nextcloud to 18.0.2 and document procedure
 - [ ] Update ubuntu packages
 
+## Quality
+
+- [ ] Start container task must show hostname
+- [ ] Show container for clean tasks
+
 ## Identity
 
 - [ ] Combine keycloack and nextcloud
@@ -22,11 +27,6 @@
 ## Analytics
 
 - [ ] Integrate google dashboard in openeduca
-
-## Nextcloud
-
-- [ ] Nextcloud Demo-Umgebung
-- [ ] Create Ansible template for config.php -> or update lines
 
 ## Bugs
 
@@ -66,6 +66,11 @@
 
 - [ ] Renew certs automatically -> add cron job
 - [ ] Do not create cert for redirect adresses
+- [ ] Ping cname before adding config
+
+## Modsecurity
+
+- [ ] Centralize application profile exclusion rules
 
 ## Backup
 
@@ -99,6 +104,9 @@
 
 # DONE
 
+- [x] nextcloud02 hostname is mapped to wrong ip on hades -> restart proxy
+- [x] Nextcloud Demo-Umgebung
+- [x] Create Ansible template for config.php -> or update lines
 - [x] Keycloak with user database and oauth integration https://hub.docker.com/r/jboss/keycloak/ account.mint-system.ch with OICD
 - [-] Verify odoo database before backup
 - [x] Enable odoo apps installation from zip and tar.gz url -> Install report for apland

@@ -17,9 +17,10 @@ Configure the role.
 **vars.yml**
 
 ```yml
+# https://hub.docker.com/r/venatorfox/moodle/
+moodle_image: venatorfox/moodle:MOODLE_38_STABLE
 moodle_hostname: moodle01
 moodle_volume_name: moodle_data01
-moodle_image: venatorfox/moodle:MOODLE_38_STABLE
 moodle_admin_email: admin@example.com
 moodle_admin_user: admin
 moodle_admin_password: "{{ vault_moodle_admin_password }}"

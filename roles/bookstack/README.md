@@ -30,7 +30,7 @@ bookstack_mail_hostname: mail.example.com
 bookstack_mail_port: "587"
 bookstack_mail_from: noreply@mexample.com
 bookstack_mail_username: bot@example.com
-bookstack_mail_password: "{{ vault_mail_password }}"
+bookstack_mail_password: "{{ vault_bookstack_mail_password }}"
 bookstack_mail_encryption: tls
 ```
 
@@ -43,6 +43,8 @@ And include it in your playbook.
     tags: docker
   - role: docker-network
     tags: docker-network
-  - { role: mysql, tags: ["mysql"] }
-  - { role: bookstack, tags: ["bookstack"] }
+  - role: mysql
+    tags: mysql
+  - role: bookstack
+    tags: bookstack
 ```

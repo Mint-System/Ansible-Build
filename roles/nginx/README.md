@@ -58,3 +58,15 @@ And include it in your playbook.
 ## Docs
 
 Supported source ports are: 80 and 443.
+
+## Troublshooting
+
+### Connection refused
+
+Error log:
+
+```
+2020/04/10 09:01:33 [error] 6#6: *30 connect() failed (111: Connection refused) while connecting to upstream, client: 84.72.20.219, server: nextcloud.mint-system.ch, request: "GET / HTTP/1.1", upstream: "http://172.19.0.8:80/", host: "nextcloud.mint-system.ch"
+```
+
+Solution: Restart the Nginx Docker container.

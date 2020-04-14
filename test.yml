@@ -7,14 +7,10 @@
     tags: docker-network
   - role: postgres
     tags: postgres
-  - role: mysql
-    tags: mysql
-  - role: bookstack
-    tags: bookstack
   - role: nextcloud
     tags: nextcloud
-  - role: fathom
-    tags: fathom
+  - role: moodle
+    tags: moodle
   - role: modsecurity
     tags: modsecurity
   - role: nginx

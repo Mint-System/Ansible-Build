@@ -1,10 +1,10 @@
-- name: Remove nextcloud container
+- name: "Remove nextcloud container {{ nextcloud_hostname }}"
   docker_container:
     name: "{{ nextcloud_hostname }}"
     state: absent
   when: nextcloud_hostname is defined
 
-- name: Remove nextcloud volume
+- name: "Remove nextcloud volume {{ nextcloud_volume_name }}"
   docker_volume:
     name: "{{ nextcloud_volume_name }}"
     state: absent
