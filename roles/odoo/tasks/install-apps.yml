@@ -3,6 +3,14 @@
     url: "{{ item.url }}"
     dest: "/var/tmp/{{ item.name }}.zip"
   loop: "{{ odoo_apps }}"
+  when: item.url is defined
+
+- name: Copy odoo app zip archive
+  copy:
+    src: "{{ item.file }}"
+    dest: "/var/tmp/{{ item.name }}.zip"
+  loop: "{{ odoo_apps }}"
+  when: item.file is defined
 
 - name: Extract odoo app zip archive
   unarchive:
