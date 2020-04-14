@@ -54,3 +54,29 @@ DATABASE=odoo
 CONTAINER=odoo02
 docker exec -it $CONTAINER /bin/bash -c "odoo -i $MODULE -c /etc/odoo/odoo.conf -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init" && docker restart $CONTAINER
 ```
+
+## Troubleshooting
+
+### Odoo boot fails
+
+**Behavior**
+
+Odoo starts, but throws internal error.
+
+**Error**
+
+```
+2020-02-14 10:44:37,227 1 ERROR odoo odoo.modules.loading: Database odoo not initialized, you can force it with `-i base` 
+```
+
+**Reference**
+
+https://github.com/odoo/odoo/issues/27447
+
+*Workaround**
+
+```
+export MODULES=base
+docker exec -it odoo01 /bin/bash -c "odoo -i $MODULES -d odoo --stop-after-init --db_host=\$HOST -r \$USER -w \$PASSWORD --without-demo=all"
+docker restart odoo01
+```

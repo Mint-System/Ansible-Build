@@ -3,24 +3,28 @@
     name: "{{ nextcloud_volume_name }}"
   when: nextcloud_volume_name is defined
 
-- name: Ensure nextcloud data dir exists
-  file:
-    path: "{{ nextcloud_data_dir }}"
-    state: directory
-  when: nextcloud_data_dir is defined
-
-- name: Start nextcloud container
+- name: "Start nextcloud container {{ nextcloud_hostname }}"
   docker_container:
     name: "{{ nextcloud_hostname }}"
     image: "{{ nextcloud_image }}"
     restart_policy: unless-stopped
+    recreate: no
     env:
+      NEXTCLOUD_TRUSTED_DOMAINS: "{{ nextcloud_trusted_domains }}"
       NEXTCLOUD_ADMIN_USER: "{{ nextcloud_admin_user }}"
-      NEXTCLOUD_ADMIN_PASSSWORD: "{{ nextcloud_admin_password }}"
+      NEXTCLOUD_ADMIN_PASSWORD: "{{ nextcloud_admin_password }}"
       POSTGRES_HOST: "{{ nextcloud_postgres_hostname }}:5432"
       POSTGRES_USER: "{{ nextcloud_postgres_user }}"
       POSTGRES_PASSWORD: "{{ nextcloud_postgres_password }}"
       POSTGRES_DB: "{{ nextcloud_postgres_db }}"
+      SMTP_HOST: "{{ nextcloud_mail_hostname }}"
+      SMTP_SECURE: "{{ nextcloud_mail_encryption }}"
+      SMTP_PORT: "{{ nextcloud_mail_port }}"
+      SMTP_AUTHTYPE: "LOGIN"
+      SMTP_NAME: "{{ nextcloud_mail_username }}"
+      SMTP_PASSWORD: "{{ nextcloud_mail_password }}"
+      MAIL_FROM_ADDRESS: "{{ nextcloud_mail_from }}"
+      MAIL_DOMAIN: "{{ nextcloud_mail_username.split('@')[1] }}"
     volumes:
       - "{{ nextcloud_volume_name }}:/var/www/html"
     networks:
@@ -29,3 +33,17 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+  register: start_nextcloud_container
+
+- name: Wait for nextcloud container  # noqa 503
+  pause:
+    seconds: "3"
+  when: start_nextcloud_container.changed
+
+- name: Upate nextcloud config
+  blockinfile:
+    path: "/var/lib/docker/volumes/{{ nextcloud_volume_name }}/_data/config/config.php"
+    insertafter: "installed"
+    block: |
+        'overwriteprotocol' => 'https',
+  notify: Restart nextcloud container

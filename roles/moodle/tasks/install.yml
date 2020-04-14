@@ -3,11 +3,12 @@
     name: "{{ moodle_volume_name }}"
   when: moodle_volume_name is defined
 
-- name: Start moodle container
+- name: "Start moodle container {{ moodle_hostname }}"
   docker_container:
     name: "{{ moodle_hostname }}"
     image: "{{ moodle_image }}"
     restart_policy: unless-stopped
+    recreate: yes
     env:
       MOODLECFG_SSLPROXY: "{{ moodle_ssl }}"
       MOODLE_WWWROOT: "{{ moodle_url }}"
