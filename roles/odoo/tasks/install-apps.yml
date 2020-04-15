@@ -28,6 +28,7 @@
     remote_src: yes
   when: item.files[0] is match(".*\/$")
   loop: "{{ archive_contents.results }}"
+  notify: Restart odoo container
 
 - name: Copy odoo app to addons dir if file
   copy:
