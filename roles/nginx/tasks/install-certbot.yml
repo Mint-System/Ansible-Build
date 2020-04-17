@@ -53,3 +53,20 @@
   pause:
     seconds: "10"
   when: certbot_certs | json_query(certbot_stat_filter) | list
+
+- name: Remove certbot container
+  docker_container:
+    name: "{{ certbot_hostname }}"
+    state: absent
+
+- name: Copy renew certs script
+  template:
+    src: renew-certs
+    dest: "{{ certbot_data_dir }}/"
+    mode: +x
+
+- name: Register renew certs job
+  cron:
+    name: "Renew certs for {{ nginx_hostname }}"
+    special_time: "weekly"
+    job: ". {{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }}"
