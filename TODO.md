@@ -1,28 +1,27 @@
 # TODO
 
+## Business
+
+- [ ] Setup eliasarnold.mint-system.ch on a separate instance
+
 ## Conference
 
 - [ ] Change logo for jitsi and bbb
-- [ ] Deploy jitsi with Docker
-- [-] Install jibri and enable recording?
 
 ## Update
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
 - [ ] Update ubuntu packages
+- [ ] Update Odoo and apps
 
 ## Quality
 
-- [ ] Start container task must show hostname
+- [ ] Start container task must show hostname -> only one task is shown for multiple targets
 - [ ] Show container for clean tasks
 
 ## Identity
 
 - [ ] Combine keycloack and nextcloud
-
-## Website
-
-- [ ] Do not create cert if redirect -> mintsystem.ch *.mintsystem.ch
 
 ## Analytics
 
@@ -31,16 +30,14 @@
 ## Bugs
 
 - [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env
-- [ ] openeduca.ch not able to upload pngs -> increase file upload size -> set global config
 
-## Odoo role
+## Odoo
 
 - [ ] Install openeduca blog system
 
 ## Server
 
-- [ ] User packages
-- [ ] Enable profile dotfiles: https://github.com/janikvonrotz/dotfiles
+- [ ] User scoped packages
 - [ ] Install fzf on all server -> ansible download and extract binary
 
 ## Monitoring
@@ -49,28 +46,23 @@
 - [ ] Propertly provision prometheus datasource
 - [ ] Configure dashboard
 - [ ] Setup alertmanager (with Dashboard?)
-- [ ] Monitor proxy audit log
 - [ ] Notify via Telegram
 
 ## Security
 
+- [ ] Enable modsecurity for grafana dashboard
 - [ ] Do not expose postgres port by default
 - [ ] Ignore ARGS:html for /books request api ,\
         ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
 - [ ] Protect access to cAdvisor and node-exporter -> docker overlay network
-- [ ] Setup hashicorp vault for managing server secrets
-- [ ] Scan ports and block with fw
+- [ ] Scan ports and block with firewall
 
 ## Nginx role
 
 - [ ] Renew certs automatically -> add cron job
 - [ ] Do not create cert for redirect adresses
 - [ ] Ping cname before adding config
-
-## Modsecurity
-
-- [ ] Centralize application profile exclusion rules
 
 ## Backup
 
@@ -79,10 +71,6 @@
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
-
-## New Roles
-
-- [ ] Docker cleanup, prune images
 
 ## Maintenance
 
@@ -94,16 +82,25 @@
 - [ ] delete openedu database on odoo02
 - [ ] delete www database on odoo01
 
-## Ideas
+## Backlog
 
+- [ ] Deploy jitsi with Docker
+- [ ] Enable profile dotfiles: https://github.com/janikvonrotz/dotfiles
+- [ ] Monitor proxy audit log
+- [ ] Setup hashicorp vault for managing server secrets
+- [ ] New roleDocker cleanup, prune images
 - [ ] Monitor websites with https://github.com/prometheus/blackbox_exporter/blob/master/README.md -> on every node install probe -> use proxy addresses
-- [ ] Project inventories hat configure everything
 - [ ] Manage prom exporter in Docker Swarm for enclosed networking -> https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html -> checkout overlay network https://docs.docker.com/network/overlay/
 - [ ] Test roles with molecule
 - [ ] CI/CD that installs roles
 
 # DONE
 
+- [-] openeduca.ch not able to upload pngs -> increase file upload size -> set global config
+- [x] Deploy cpu und threading conf
+- [x] Centralize application profile exclusion rules
+- [-] Project inventories to configure everything
+- [-] Install jibri and enable recording?
 - [x] nextcloud02 hostname is mapped to wrong ip on hades -> restart proxy
 - [x] Nextcloud Demo-Umgebung
 - [x] Create Ansible template for config.php -> or update lines
