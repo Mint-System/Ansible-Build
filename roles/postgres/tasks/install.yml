@@ -3,35 +3,7 @@
     name: "{{ postgres_volume_name }}"
   when: postgres_volume_name is defined
 
-- name: Ensure postgres data dir exists
-  file:
-    path: "{{ postgres_data_dir }}"
-    state: directory
-  when: postgres_data_dir is defined
-
-- name: "Start postgres container {{ postgres_hostname }} with data dir"
-  docker_container:
-    name: "{{ postgres_hostname }}"
-    image: "{{ postgres_image }}"
-    restart_policy: unless-stopped
-    recreate: yes
-    env:
-      POSTGRES_USER: "{{ postgres_user }}"
-      POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_DB: "{{ postgres_db }}"
-    volumes:
-      - "{{ postgres_data_dir }}:/var/lib/postgresql/data"
-    ports:
-      - "{{ postgres_port | default('5432') }}:5432"
-    networks:
-      - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
-    log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
-  when: postgres_volume_name is not defined
-
-- name: "Start postgres container {{ postgres_hostname }} with volume"
+- name: "Start postgres container {{ postgres_hostname }}"
   docker_container:
     name: "{{ postgres_hostname }}"
     image: "{{ postgres_image }}"
