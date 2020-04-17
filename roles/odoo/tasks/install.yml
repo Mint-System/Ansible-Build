@@ -30,7 +30,7 @@
       USER: "{{ odoo_postgres_user }}"
       PASSWORD: "{{ odoo_postgres_password }}"
     ports:
-     - 127.0.0.1:8069:8069
+     - "{{ odoo_port | default('127.0.0.1:8069') }}:8069"
     volumes:
       - "{{ odoo_volume_name }}:/var/lib/odoo"
       - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"

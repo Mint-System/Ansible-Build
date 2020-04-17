@@ -1,3 +1,8 @@
+- name: Ensure odoo addon dir exists
+  file:
+    path: "{{ odoo_data_dir }}/addons"
+    state: directory
+
 - name: Download odoo app zip archive
   get_url:
     url: "{{ item.url }}"

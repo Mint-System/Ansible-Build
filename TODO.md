@@ -2,7 +2,7 @@
 
 ## Business
 
-- [ ] Setup eliasarnold.mint-system.ch on a separate instance
+- [ ] Have a look at Odoo studio
 
 ## Conference
 
@@ -51,8 +51,8 @@
 ## Security
 
 - [ ] Enable modsecurity for grafana dashboard
-- [ ] Do not expose postgres port by default
-- [ ] Ignore ARGS:html for /books request api ,\
+- [ ] Do not expose postgres port by default -> redeploy container
+- [ ] Ignore ARGS:html for /books request api 
         ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
 - [ ] Protect access to cAdvisor and node-exporter -> docker overlay network
@@ -75,10 +75,6 @@
 ## Maintenance
 
 - [ ] Delete odoo database on apollo 
-- [ ] Remove domain analytics.mint-system.ch
-- [ ] Delete postgres02_delete and mysql01_delete on zeus
-- [ ] Remove bookstack_delete folder on zeus
-- [ ] Remove nextcloud01 folder on zeus
 - [ ] delete openedu database on odoo02
 - [ ] delete www database on odoo01
 
@@ -96,6 +92,12 @@
 
 # DONE
 
+- [x] Remove bookstack_delete folder on zeus
+- [x] Remove nextcloud01 folder on zeus
+- [x] Delete postgres02_delete and mysql01_delete on zeus
+- [x] Remove domain analytics.mint-system.ch
+- [x] Delete mysql01 and mysql01_delete folder
+- [x] Setup eliasarnold.mint-system.ch on a separate instance
 - [-] openeduca.ch not able to upload pngs -> increase file upload size -> set global config
 - [x] Deploy cpu und threading conf
 - [x] Centralize application profile exclusion rules
