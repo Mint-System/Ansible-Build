@@ -96,9 +96,7 @@ Clean role only
 
 `ansible-playbook -i inventories/odoo clean.yml -t docker-network`
 
-## Development
-
-Development Ressources.
+## Docs
 
 ### Quality
 
@@ -144,6 +142,8 @@ For Ansible config files use file mounts.
 ### Guidelines
 
 Every role folder must contain a `README.md` file.
+
+Mark fixme comments with `# FIXME: <your text>`.
 
 ### Naming
 

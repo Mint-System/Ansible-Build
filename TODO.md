@@ -13,6 +13,7 @@
 - [ ] Update nextcloud to 18.0.2 and document procedure
 - [ ] Update ubuntu packages
 - [ ] Update Odoo and apps
+- [ ] Update Bookstack to 0.29
 
 ## Quality
 
@@ -92,6 +93,7 @@
 
 # DONE
 
+- [x] SAML Keycloack login
 - [x] Remove bookstack_delete folder on zeus
 - [x] Remove nextcloud01 folder on zeus
 - [x] Delete postgres02_delete and mysql01_delete on zeus
