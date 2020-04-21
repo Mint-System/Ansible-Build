@@ -1,4 +1,4 @@
-- name: Remove prometheus container
+- name: "Remove prometheus container {{ prometheus_hostname }}"
   docker_container:
     name: "{{ prometheus_hostname }}"
     state: absent

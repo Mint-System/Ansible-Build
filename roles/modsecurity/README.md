@@ -33,5 +33,6 @@ And include it in your playbook.
 ```yml
 - hosts: proxy
   roles:
-  - { role: modsecurity, tags: ["modsecurity"] }
+  - role: modsecurity
+    tags: modsecurity
 ```

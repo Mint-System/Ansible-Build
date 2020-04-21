@@ -17,7 +17,7 @@
     targets: "{{ groups.exporter | map('extract', hostvars) | list }}"
   notify: Restart prometheus container
 
-- name: Start prometheus container
+- name: "Start prometheus container {{ prometheus_hostname }}"
   docker_container:
     name: "{{ prometheus_hostname }}"
     image: "{{ prometheus_image }}"

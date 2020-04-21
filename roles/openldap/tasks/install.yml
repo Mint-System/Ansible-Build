@@ -3,7 +3,7 @@
     path: "{{ openldap_data_dir }}"
     state: directory
 
-- name: Start openldap container
+- name: "Start openldap container {{ openldap_hostname }}"
   docker_container:
     name: "{{ openldap_hostname }}"
     image: "{{ openldap_image }}"

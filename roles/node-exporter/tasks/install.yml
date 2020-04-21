@@ -1,4 +1,4 @@
-- name: Start node-exporter container
+- name: "Start node-exporter container {{ node_exporter_hostname }}"
   docker_container:
     name: "{{ node_exporter_hostname }}"
     image: "{{ node_exporter_image }}"

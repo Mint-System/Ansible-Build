@@ -2,7 +2,7 @@
   docker_volume:
     name: "{{ fathom_volume_name }}"
 
-- name: Start fathom container
+- name: "Start fathom container {{ fathom_hostname }}"
   docker_container:
     name: "{{ fathom_hostname }}"
     image: "{{ fathom_image }}"

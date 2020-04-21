@@ -1,4 +1,4 @@
-- name: Remove openldap container
+- name: "Remove openldap container {{ openldap_hostname }}"
   docker_container:
     name: "{{ openldap_hostname }}"
     state: absent

@@ -1,4 +1,4 @@
-- name: Remove cadvisor container
+- name: "Remove cadvisor container {{ cadvisor_hostname }}"
   docker_container:
     name: "{{ cadvisor_hostname }}"
     state: absent

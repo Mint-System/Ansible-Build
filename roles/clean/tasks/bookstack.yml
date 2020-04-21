@@ -1,4 +1,4 @@
-- name: Remove bookstack container
+- name: "Remove bookstack container {{ bookstack_hostname }}"
   docker_container:
     name: "{{ bookstack_hostname }}"
     state: absent

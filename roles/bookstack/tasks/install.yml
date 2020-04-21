@@ -9,7 +9,7 @@
     state: directory
   when: bookstack_data_dir is defined
 
-- name: Start bookstack container
+- name: "Start bookstack container {{ bookstack_hostname }}"
   docker_container:
     name: "{{ bookstack_hostname }}"
     image: "{{ bookstack_image }}"

@@ -9,7 +9,7 @@
     crypt_scheme: ldap_sha1
     password: "{{ restic_server_password }}"
 
-- name: Start restic server container
+- name: "Start restic server container {{ restic_server_hostname }}"
   docker_container:
     name: "{{ restic_server_hostname }}"
     image: "{{ restic_server_image }}"

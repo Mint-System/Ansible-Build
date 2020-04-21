@@ -1,4 +1,4 @@
-- name: Remove mysql container
+- name: "Remove mysql container {{ mysql_hostname }}"
   docker_container:
     name: "{{ mysql_hostname }}"
     state: absent

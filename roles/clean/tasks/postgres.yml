@@ -4,7 +4,7 @@
     state: absent
   when: postgres_hostname is defined
 
-- name: "Remove postgres volume {{ postgres_volume_name }}"
+- name: Remove postgres volume
   docker_volume:
     name: "{{ postgres_volume_name }}"
     state: absent

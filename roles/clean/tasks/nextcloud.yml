@@ -4,7 +4,7 @@
     state: absent
   when: nextcloud_hostname is defined
 
-- name: "Remove nextcloud volume {{ nextcloud_volume_name }}"
+- name: Remove nextcloud volume
   docker_volume:
     name: "{{ nextcloud_volume_name }}"
     state: absent

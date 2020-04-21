@@ -1,4 +1,4 @@
-- name: Remove metricbeat container
+- name: "Remove metricbeat container {{ metricbeat_hostname }}"
   docker_container:
     name: "{{ metricbeat_hostname }}"
     state: absent

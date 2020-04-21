@@ -1,4 +1,4 @@
-- name: Remove keycloack container
+- name: "Remove keycloack container {{ keycloack_hostname }}"
   docker_container:
     name: "{{ keycloack_hostname }}"
     state: absent

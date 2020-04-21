@@ -28,7 +28,7 @@
     dest: "{{ item.data_dir }}/certs/"
   loop: "{{ elasticsearch_nodes }}"
 
-- name: Start elasticsearch container primary node
+- name: "Start elasticsearch container {{ item.hostname }}"
   docker_container:
     name: "{{ item.hostname }}"
     image: "{{ elasticsearch_image }}"
@@ -67,7 +67,7 @@
   when: item.primary
   register: start_elasticsearch_primary_node
 
-- name: Start elasticsearch container nodes
+- name: "Start elasticsearch container {{ item.hostname }}"
   docker_container:
     name: "{{ item.hostname }}"
     image: "{{ elasticsearch_image }}"

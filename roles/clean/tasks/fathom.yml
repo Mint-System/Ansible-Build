@@ -1,4 +1,4 @@
-- name: Remove fathom container
+- name: "Remove fathom container {{ fathom_hostname }}"
   docker_container:
     name: "{{ fathom_hostname }}"
     state: absent

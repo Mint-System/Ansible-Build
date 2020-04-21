@@ -1,4 +1,4 @@
-- name: Remove certbot container
+- name: "Remove certbot container {{ certbot_hostname }}"
   docker_container:
     name: "{{ certbot_hostname }}"
     state: absent
@@ -6,7 +6,7 @@
 
 # Do not remove certbot data dir
 
-- name: Remove nginx container
+- name: "Remove nginx container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
     state: absent

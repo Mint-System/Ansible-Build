@@ -1,4 +1,4 @@
-- name: Remove node-exporter container
+- name: "Remove node-exporter container {{ node_exporter_hostname }}"
   docker_container:
     name: "{{ node_exporter_hostname }}"
     state: absent

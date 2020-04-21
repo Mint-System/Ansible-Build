@@ -9,7 +9,7 @@
     state: directory
   when: wordpress_data_dir is defined
 
-- name: Start wordpress container
+- name: "Start wordpress container {{ wordpress_hostname }}"
   docker_container:
     name: "{{ wordpress_hostname }}"
     image: "{{ wordpress_image }}"

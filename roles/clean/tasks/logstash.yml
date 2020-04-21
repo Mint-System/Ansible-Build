@@ -1,4 +1,4 @@
-- name: Remove logstash container
+- name: "Remove logstash container {{ logstash_hostname }}"
   docker_container:
     name: "{{ logstash_hostname }}"
     state: absent
