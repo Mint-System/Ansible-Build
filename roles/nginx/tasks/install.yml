@@ -47,7 +47,7 @@
     - files/ssl-dhparams.pem
     - files/proxy-params.conf
 
-- name: Start nginx container without modsecurity
+- name: "Start nginx container {{ nginx_hostname }} without modsecurity"
   docker_container:
     name: "{{ nginx_hostname }}"
     image: "{{ nginx_image }}"
@@ -68,7 +68,7 @@
       max-file: "{{ docker_log_max_file }}"
   when: modsecurity_image is undefined
 
-- name: Start nginx container with modsecurity
+- name: "Start nginx container {{ nginx_hostname }} with modsecurity"
   docker_container:
     name: "{{ nginx_hostname }}"
     image: "{{ modsecurity_image }}"

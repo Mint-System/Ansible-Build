@@ -13,7 +13,7 @@
   loop: "{{ certbot_certs.results }}"
   when: not item.stat.exists
 
-- name: Start nginx container
+- name: "Start nginx container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
     image: "{{ nginx_image }}"
@@ -54,7 +54,7 @@
     seconds: "10"
   when: certbot_certs | json_query(certbot_stat_filter) | list
 
-- name: Remove certbot container
+- name: "Remove certbot container {{ certbot_hostname }}"
   docker_container:
     name: "{{ certbot_hostname }}"
     state: absent

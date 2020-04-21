@@ -15,7 +15,7 @@
     dest: "{{ grafana_data_dir }}/"
   notify: Restart grafana container
 
-- name: Start grafana container
+- name: "Start grafana container {{ grafana_hostname }}"
   docker_container:
     name: "{{ grafana_hostname }}"
     image: "{{ grafana_image }}"

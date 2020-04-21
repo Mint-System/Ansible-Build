@@ -1,4 +1,4 @@
-- name: Remove grafana container
+- name: "Remove grafana container {{ grafana_hostname }}"
   docker_container:
     name: "{{ grafana_hostname }}"
     state: absent

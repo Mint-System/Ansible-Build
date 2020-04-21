@@ -15,11 +15,6 @@
 - [ ] Update Odoo and apps
 - [ ] Update Bookstack to 0.29
 
-## Quality
-
-- [ ] Start container task must show hostname -> only one task is shown for multiple targets
-- [ ] Show container for clean tasks
-
 ## Identity
 
 - [ ] Combine keycloack and nextcloud
@@ -30,7 +25,7 @@
 
 ## Bugs
 
-- [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env
+- [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild?
 
 ## Odoo
 
@@ -47,6 +42,7 @@
 - [ ] Propertly provision prometheus datasource
 - [ ] Configure dashboard
 - [ ] Setup alertmanager (with Dashboard?)
+- [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
 - [ ] Notify via Telegram
 
 ## Security
@@ -61,13 +57,12 @@
 
 ## Nginx role
 
-- [ ] Renew certs automatically -> add cron job
+- [ ] Check cert renewal
 - [ ] Do not create cert for redirect adresses
 - [ ] Ping cname before adding config
 
 ## Backup
 
-- [ ] Extend odoo backup restore script with odoo backup and restore commands
 - [ ] Backup type sql dump (for mysql and postgres) -> expose dbs locally?
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
@@ -81,6 +76,8 @@
 
 ## Backlog
 
+- [ ] Extend odoo backup restore script with odoo backup and restore commands
+- [ ] pgadmin4 docker container serve under /pgadmin -> locations path /pgadmin
 - [ ] Deploy jitsi with Docker
 - [ ] Enable profile dotfiles: https://github.com/janikvonrotz/dotfiles
 - [ ] Monitor proxy audit log
@@ -93,6 +90,9 @@
 
 # DONE
 
+- [x] Renew certs automatically -> add cron job
+- [x] Start container task must show hostname -> only one task is shown for multiple targets
+- [x] Show container for clean tasks
 - [x] SAML Keycloack login
 - [x] Remove bookstack_delete folder on zeus
 - [x] Remove nextcloud01 folder on zeus

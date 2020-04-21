@@ -10,7 +10,7 @@
     dest: "{{ logstash_data_dir }}/pipeline/"
   notify: Restart logstash container
 
-- name: Start logstash container
+- name: "Start logstash container {{ logstash_hostname }}"
   docker_container:
     name: "{{ logstash_hostname }}"
     image: "{{ logstash_image }}"

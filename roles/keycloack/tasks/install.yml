@@ -1,4 +1,4 @@
-- name: Start keycloack container
+- name: "Start keycloack container {{ keycloack_hostname }}"
   docker_container:
     name: "{{ keycloack_hostname }}"
     image: "{{ keycloack_image }}"

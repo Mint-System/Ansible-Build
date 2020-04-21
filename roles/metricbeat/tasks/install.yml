@@ -41,7 +41,7 @@
     dest: "{{ metricbeat_data_dir }}/"
   notify: Restart metricbeat container
 
-- name: Start metricbeat container
+- name: "Start metricbeat container {{ metricbeat_hostname }}"
   docker_container:
     name: "{{ metricbeat_hostname }}"
     image: "{{ metricbeat_image }}"

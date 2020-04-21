@@ -1,4 +1,4 @@
-- name: Start kibana container
+- name: "Start kibana container {{ kibana_hostname }}"
   docker_container:
     name: "{{ kibana_hostname }}"
     image: "{{ kibana_image }}"

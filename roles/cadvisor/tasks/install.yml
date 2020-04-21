@@ -1,4 +1,4 @@
-- name: Start cadvisor container
+- name: "Start cadvisor container {{ cadvisor_hostname }}"
   docker_container:
     name: "{{ cadvisor_hostname }}"
     image: "{{ cadvisor_image }}"

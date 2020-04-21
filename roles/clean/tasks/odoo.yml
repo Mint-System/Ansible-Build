@@ -1,4 +1,4 @@
-- name: Remove odoo container
+- name: "Remove odoo container {{ odoo_hostname }}"
   docker_container:
     name: "{{ odoo_hostname }}"
     state: absent
@@ -9,7 +9,6 @@
     name: "{{ odoo_volume_name }}"
     state: absent
   when: odoo_volume_name is defined and 'odoo-volume' in ansible_run_tags
-
 
 - name: Remove odoo data dir
   file:

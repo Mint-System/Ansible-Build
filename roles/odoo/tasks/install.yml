@@ -19,7 +19,7 @@
   include_tasks: install-apps.yml
   when: odoo_apps is defined
 
-- name: Start odoo container
+- name: "Start odoo container {{ odoo_hostname }}"
   docker_container:
     name: "{{ odoo_hostname }}"
     image: "{{ odoo_image }}"
