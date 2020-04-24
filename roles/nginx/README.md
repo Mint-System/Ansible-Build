@@ -38,6 +38,17 @@ nginx_proxies:
     src_port: 443
     redirect_hostname: www.example.com
     ssl: true
+  - src_hostname: login.example.com
+    src_port: 443
+    ssl: true
+    locations:
+      - path: /
+        dest_hostname: authserver
+        dest_port: 8080
+        options: |
+          proxy_buffer_size 128k;
+          proxy_buffers 4 256k;
+          proxy_busy_buffers_size 256k;
 ```
 
 And include it in your playbook.

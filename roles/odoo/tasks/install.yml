@@ -1,4 +1,4 @@
-- name: Create a odoo volume
+- name: Create odoo volume
   docker_volume:
     name: "{{ odoo_volume_name }}"
 
