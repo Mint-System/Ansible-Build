@@ -3,6 +3,8 @@
 ## Business
 
 - [ ] Have a look at Odoo studio
+- [ ] eLearning
+- [ ] Prepare monday
 
 ## Conference
 
@@ -12,12 +14,17 @@
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
 - [ ] Update ubuntu packages
-- [ ] Update Odoo and apps
+- [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
 
 ## Identity
 
-- [ ] Combine keycloack and nextcloud
+- [ ] Odoo OAuth Login Enable for:
+  - [ ] erp.mint-system.ch
+  - [ ] odoo.mint-system.ch
+  - [ ] erp.apland.ch
+  - [ ] www.mint-system.ch
+- [ ] Enable SAML for cloud.mint-system.ch
 
 ## Analytics
 
@@ -25,11 +32,9 @@
 
 ## Bugs
 
+- [ ] Odoo long polling port is wrong
+- [ ] Backup cannot target odoo04
 - [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild?
-
-## Odoo
-
-- [ ] Install openeduca blog system
 
 ## Server
 
@@ -68,12 +73,6 @@
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
 
-## Maintenance
-
-- [ ] Delete odoo database on apollo 
-- [ ] delete openedu database on odoo02
-- [ ] delete www database on odoo01
-
 ## Backlog
 
 - [ ] Extend odoo backup restore script with odoo backup and restore commands
@@ -90,6 +89,16 @@
 
 # DONE
 
+- [-] Install openeduca blog system
+- [x] Do not delete odoo dabase -> odoo has problems -> update env?
+- [x] Cannot install odoo.mint-system.ch
+- [x] Could not delete odoo on odoo02 database
+- [x] odoo02 has wrong long polling port
+- [x] Combine keycloack and nextcloud
+- [x] Setup mail provider for Keycloack self portal
+- [x] Delete odoo database on apollo and filestore
+- [x] delete openedu database on odoo02 and filestore
+- [x] delete www database on odoo01 and filestore
 - [x] Renew certs automatically -> add cron job
 - [x] Start container task must show hostname -> only one task is shown for multiple targets
 - [x] Show container for clean tasks
