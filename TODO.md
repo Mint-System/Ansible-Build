@@ -33,6 +33,7 @@
 
 ## Bugs
 
+- [ ] restic client password leak
 - [ ] max_cron_threads = 2 check
 - [ ] OAuth not working on mobile browsers
 - [ ] Odoo long polling does not work
@@ -71,13 +72,16 @@
 
 ## Backup
 
-- [ ] Backup type sql dump (for mysql and postgres) -> expose dbs locally?
+- [ ] Create docker-mysql-backup job
+- [ ] Check mysql and postgres backup jobs
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
 
 ## Backlog
 
+- [ ] Add icons to odoo apps with mint theme
+- [ ] Odoo package registry with npm and github registry
 - [ ] Extend odoo backup restore script with odoo backup and restore commands
 - [ ] pgadmin4 docker container serve under /pgadmin -> locations path /pgadmin
 - [ ] Deploy jitsi with Docker
@@ -92,6 +96,7 @@
 
 # DONE
 
+- [x] Backup type sql dump (for mysql and postgres); multiple databases yes; backup non odoo dbs
 - [-] Install openeduca blog system
 - [x] Do not delete odoo dabase -> odoo has problems -> update env?
 - [x] Cannot install odoo.mint-system.ch

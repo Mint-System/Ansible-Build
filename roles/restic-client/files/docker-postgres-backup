@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# Exit script if command fails
+set -e
+
+# Display Help
+Help() {
+    echo
+    echo "docker-postgres-backup"
+    echo "######################"
+    echo
+    echo "Description: Backup docker postgres database."
+    echo "Syntax: docker-postgres-backup [-d|-o|-c|help]"
+    echo "Example: docker-postgres-backup -d postgres,odoo -o /tmp -c postgres01"
+    echo "options:"
+    echo "  -d    Comma-separated list of database names."
+    echo "  -o    Output directory. Defaults to '/var/tmp'"
+    echo "  -c    Docker container. Defaults to 'postgres'"
+    echo "  help  Show docker-postgres-backup manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c:d:o:help:" opt; do
+  case $opt in
+    c) CONTAINER="$OPTARG"
+    ;;
+    d) DATABASES="$OPTARG"
+    ;;
+    o) DIR="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${DIR:='/var/tmp'}
+: ${CONTAINER:='postgres'}
+
+# Verify variables
+[[ -z "$DATABASES" ]] && { echo "Parameter -d|databases is empty" ; exit 1; }
+[[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+
+# Split database param values
+DATABASE_LIST=($(echo $DATABASES | tr "," "\n"))
+
+# Create backup folder
+mkdir -p ${DIR}/${CONTAINER}
+
+# Cleanup backup folder
+rm -rf ${DIR}/${CONTAINER}/*
+
+# Create dump with docker for each database
+for DATABASE in "${DATABASE_LIST[@]}"
+do
+    echo "Run Docker Postgres backup for $DATABASE"
+    docker exec $CONTAINER /bin/bash -c "pg_dump -U \$POSTGRES_USER \
+        $DATABASE" > ${DIR}/${CONTAINER}/${DATABASE}.sql
+done
+
+# Notify if backup has finished
+echo "The Docker Postgres backup has finished: ${DIR}/${CONTAINER}/{${DATABASES}}.sql"

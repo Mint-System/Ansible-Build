@@ -69,6 +69,12 @@
     mode: +x
   when: restic_odoo_master_password is defined
 
+- name: Copy docker postgres backup script
+  copy:
+    src: docker-postgres-backup
+    dest: /usr/local/bin/docker-postgres-backup
+    mode: +x
+  
 - name: Ensure restic environment vars exists
   lineinfile:
     dest: "/etc/environment"
@@ -82,10 +88,21 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment && odoo-backup -d {{ item.database }} && restic backup /var/tmp/{{ item.database }}.zip \
+    job: ". /etc/environment && odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} \
+      && restic backup /var/tmp/{{ item.database }}.zip \
       --tag {{ item.tags | join(' --tag ') }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "odoo-backup"
+
+- name: Register docker postgres backup jobs
+  cron:
+    name: "Backup job {{ item.id }}"
+    hour: "{{ item.hour }}"
+    minute: "{{ item.minute }}"
+    job: ". /etc/environment && docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} && \
+      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}"
+  loop: "{{ restic_backup_sets }}"
+  when: item.type == "postgres-dump"
 
 - name: Register backup rotation job
   cron:
