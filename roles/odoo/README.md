@@ -28,6 +28,11 @@ odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password_hash: "{{ vault_odoo_master_password_hash }}"
 odoo_conf: |
   dbfilter = ^%d$
+odoo_apps:
+  - name: show_db_name
+    url: https://github.com/Mint-System/Odoo-App-Show-DB-Name/archive/v1.0.0.zip
+  - name: web_enterprise
+    file: web_enterprise-13.0+e.20200414.zip
 ```
 
 And include it in your playbook.
