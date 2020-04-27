@@ -24,6 +24,7 @@
   - [ ] odoo.mint-system.ch
   - [ ] erp.apland.ch
   - [ ] www.mint-system.ch
+- [ ] Create login account for mint system
 - [ ] Enable SAML for cloud.mint-system.ch
 
 ## Analytics
@@ -32,7 +33,9 @@
 
 ## Bugs
 
-- [ ] Odoo long polling port is wrong
+- [ ] max_cron_threads = 2 check
+- [ ] OAuth not working on mobile browsers
+- [ ] Odoo long polling does not work
 - [ ] Backup cannot target odoo04
 - [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild?
 
