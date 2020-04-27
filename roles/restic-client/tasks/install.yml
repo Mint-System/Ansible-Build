@@ -74,7 +74,7 @@
     src: docker-postgres-backup
     dest: /usr/local/bin/docker-postgres-backup
     mode: +x
-  
+
 - name: Ensure restic environment vars exists
   lineinfile:
     dest: "/etc/environment"
