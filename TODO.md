@@ -4,7 +4,6 @@
 
 - [ ] Have a look at Odoo studio
 - [ ] eLearning
-- [ ] Prepare monday
 
 ## Conference
 
@@ -37,8 +36,6 @@
 - [ ] restic client password leak
 - [ ] max_cron_threads = 2 check
 - [ ] OAuth not working on mobile browsers
-- [ ] Odoo long polling does not work
-- [ ] Backup cannot target odoo04
 - [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild?
 
 ## Server
@@ -73,7 +70,6 @@
 
 ## Backup
 
-- [ ] Create docker-mysql-backup job
 - [ ] Check mysql and postgres backup jobs
 - [ ] Test recover scenario
 - [ ] Check if backup rotation works
@@ -97,6 +93,10 @@
 
 # DONE
 
+- [x] Prepare monday
+- [-] Create docker-mysql-backup job
+- [-] Odoo long polling does not work
+- [-] Backup cannot target odoo04
 - [x] Backup type sql dump (for mysql and postgres); multiple databases yes; backup non odoo dbs
 - [-] Install openeduca blog system
 - [x] Do not delete odoo dabase -> odoo has problems -> update env?

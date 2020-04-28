@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# Exit script if command fails
+set -e
+
+# Display Help
+Help() {
+    echo
+    echo "docker-mysql-backup"
+    echo "######################"
+    echo
+    echo "Description: Backup docker mysql database."
+    echo "Syntax: docker-mysql-backup [-d|-o|-c|help]"
+    echo "Example: docker-mysql-backup -d mysql,odoo -o /tmp -c mysql01"
+    echo "options:"
+    echo "  -d    Comma-separated list of database names."
+    echo "  -o    Output directory. Defaults to '/var/tmp'"
+    echo "  -c    Docker container. Defaults to 'mysql'"
+    echo "  help  Show docker-mysql-backup manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c:d:o:help:" opt; do
+  case $opt in
+    c) CONTAINER="$OPTARG"
+    ;;
+    d) DATABASES="$OPTARG"
+    ;;
+    o) DIR="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${DIR:='/var/tmp'}
+: ${CONTAINER:='mysql'}
+
+# Verify variables
+[[ -z "$DATABASES" ]] && { echo "Parameter -d|databases is empty" ; exit 1; }
+[[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+
+# Split database param values
+DATABASE_LIST=($(echo $DATABASES | tr "," "\n"))
+
+# Create backup folder
+mkdir -p ${DIR}/${CONTAINER}
+
+# Cleanup backup folder
+rm -rf ${DIR}/${CONTAINER}/*
+
+# Create dump with docker for each database
+for DATABASE in "${DATABASE_LIST[@]}"
+do
+    echo "Run Docker mysql backup for $DATABASE"
+    docker exec $CONTAINER /bin/bash -c "mysqldump -u\$MYSQL_USER -p\$MYSQL_PASSWORD \
+        $DATABASE" > ${DIR}/${CONTAINER}/${DATABASE}.sql
+done
+
+# Notify if backup has finished
+echo "The Docker mysql backup has finished: ${DIR}/${CONTAINER}/{${DATABASES}}.sql"
