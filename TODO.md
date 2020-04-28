@@ -33,6 +33,7 @@
 
 ## Bugs
 
+- [ ] Keycloack db dump is empty
 - [ ] restic client password leak
 - [ ] max_cron_threads = 2 check
 - [ ] OAuth not working on mobile browsers
