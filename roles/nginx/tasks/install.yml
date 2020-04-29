@@ -74,7 +74,7 @@
     name: "{{ nginx_hostname }}"
     image: "{{ modsecurity_image }}"
     restart_policy: unless-stopped
-    recreate: yes
+    recreate: no
     ports:
       - 80:80
       - 443:443

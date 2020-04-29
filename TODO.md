@@ -18,13 +18,15 @@
 
 ## Identity
 
+- [ ] Rebuilt SAML and OAuth config
 - [ ] Odoo OAuth Login Enable for:
   - [ ] erp.mint-system.ch
   - [ ] odoo.mint-system.ch
   - [ ] erp.apland.ch
   - [ ] www.mint-system.ch
-- [ ] Create login account for mint system
+- [ ] Create login account for mint system user
 - [ ] Enable SAML for cloud.mint-system.ch
+- [ ] Protect client: https://stackoverflow.com/questions/54305880/how-can-i-restrict-client-access-to-only-one-group-of-users-in-keycloak -> enable -Dkeycloak.profile.feature.scripts=enabled
 
 ## Analytics
 
@@ -32,7 +34,6 @@
 
 ## Bugs
 
-- [ ] Keycloack db dump is empty
 - [ ] restic client password leak
 - [ ] max_cron_threads = 2 check
 - [ ] OAuth not working on mobile browsers
@@ -93,6 +94,8 @@
 
 # DONE
 
+- [x] Rename keycloak db
+- [x] Keycloak db dump is empty -> not saving anything
 - [x] Prepare monday
 - [-] Create docker-mysql-backup job
 - [-] Odoo long polling does not work
@@ -103,15 +106,15 @@
 - [x] Cannot install odoo.mint-system.ch
 - [x] Could not delete odoo on odoo02 database
 - [x] odoo02 has wrong long polling port
-- [x] Combine keycloack and nextcloud
-- [x] Setup mail provider for Keycloack self portal
+- [x] Combine keycloak and nextcloud
+- [x] Setup mail provider for Keycloak self portal
 - [x] Delete odoo database on apollo and filestore
 - [x] delete openedu database on odoo02 and filestore
 - [x] delete www database on odoo01 and filestore
 - [x] Renew certs automatically -> add cron job
 - [x] Start container task must show hostname -> only one task is shown for multiple targets
 - [x] Show container for clean tasks
-- [x] SAML Keycloack login
+- [x] SAML Keycloak login
 - [x] Remove bookstack_delete folder on zeus
 - [x] Remove nextcloud01 folder on zeus
 - [x] Delete postgres02_delete and mysql01_delete on zeus

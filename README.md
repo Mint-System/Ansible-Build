@@ -30,7 +30,7 @@ Collection of Ansible playbooks and roles.
 * [node-exporter](roles/node-exporter/README.md) - Deploy node-exporter Docker container
 * [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container
 * [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
-* [keycloack](roles/keycloack/README.md) - Deploy Keycloack Docker container
+* [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
 
 ## Usage
 

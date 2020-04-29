@@ -1,0 +1,4 @@
+- name: Restart keycloak container
+  docker_container:
+    name: "{{ keycloak_hostname }}"
+    restart: true
