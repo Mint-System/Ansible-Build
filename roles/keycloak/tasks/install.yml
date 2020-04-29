@@ -1,0 +1,21 @@
+- name: "Start keycloak container {{ keycloak_hostname }}"
+  docker_container:
+    name: "{{ keycloak_hostname }}"
+    image: "{{ keycloak_image }}"
+    restart_policy: unless-stopped
+    recreate: yes
+    env:
+      KEYCLOAK_USER: "{{ keycloak_user }}"
+      KEYCLOAK_PASSWORD: "{{ keycloak_password }}"
+      DB_VENDOR: "{{ keycloak_db_type }}"
+      DB_ADDR: "{{ keycloak_db_hostname }}"
+      DB_USER: "{{ keycloak_db_user }}"
+      DB_PASSWORD: "{{ keycloak_db_password }}"
+      PROXY_ADDRESS_FORWARDING: "true"
+    command: "-Dkeycloak.profile.feature.upload_scripts=enabled"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

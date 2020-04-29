@@ -11,5 +11,3 @@
     tags: nginx
   - role: postgres
     tags: postgres
-  - role: keycloack
-    tags: keycloack

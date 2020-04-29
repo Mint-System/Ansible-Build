@@ -8,7 +8,7 @@
     name: "{{ moodle_hostname }}"
     image: "{{ moodle_image }}"
     restart_policy: unless-stopped
-    recreate: yes
+    recreate: no
     env:
       MOODLECFG_SSLPROXY: "{{ moodle_ssl }}"
       MOODLE_WWWROOT: "{{ moodle_url }}"

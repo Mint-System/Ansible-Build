@@ -1,0 +1,5 @@
+- name: "Remove keycloak container {{ keycloak_hostname }}"
+  docker_container:
+    name: "{{ keycloak_hostname }}"
+    state: absent
+  when: keycloak_hostname is defined
