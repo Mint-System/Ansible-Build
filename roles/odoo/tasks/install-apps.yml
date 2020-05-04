@@ -51,3 +51,10 @@
   when: item.files[0] is not match(".*\/$")
   loop: "{{ archive_contents.results }}"
   notify: Restart odoo container
+
+- name: Ensure auto install is disabled
+  replace:
+    path:  "{{ odoo_data_dir }}/addons/{{ item.name }}/__manifest__.py"
+    regexp: "'auto_install': True,"
+    replace: "'auto_install': False,"
+  loop: "{{ odoo_apps }}"
