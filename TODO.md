@@ -9,6 +9,11 @@
 
 - [ ] Change logo for jitsi and bbb
 
+## Odoo
+
+- [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot
+- [ ] Remove obsolete odoo apps
+
 ## Update
 
 - [ ] Update nextcloud to 18.0.2 and document procedure
@@ -18,15 +23,15 @@
 
 ## Identity
 
-- [ ] Rebuilt SAML and OAuth config
+- [x] Rebuilt SAML and OAuth config
 - [ ] Odoo OAuth Login Enable for:
   - [ ] erp.mint-system.ch
   - [ ] odoo.mint-system.ch
   - [ ] erp.apland.ch
-  - [ ] www.mint-system.ch
-- [ ] Create login account for mint system user
+  - [x] www.mint-system.ch
+- [ ] Create login account for mint system user admint
 - [ ] Enable SAML for cloud.mint-system.ch
-- [ ] Protect client: https://stackoverflow.com/questions/54305880/how-can-i-restrict-client-access-to-only-one-group-of-users-in-keycloak -> enable -Dkeycloak.profile.feature.scripts=enabled
+- [x] Protect client: https://stackoverflow.com/questions/54305880/how-can-i-restrict-client-access-to-only-one-group-of-users-in-keycloak -> enable -Dkeycloak.profile.feature.scripts=enabled
 
 ## Analytics
 
