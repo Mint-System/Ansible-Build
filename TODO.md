@@ -11,8 +11,7 @@
 
 ## Odoo
 
-- [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot
-- [ ] Remove obsolete odoo apps
+- [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
 
 ## Update
 
@@ -23,31 +22,24 @@
 
 ## Identity
 
-- [x] Rebuilt SAML and OAuth config
 - [ ] Odoo OAuth Login Enable for:
   - [ ] erp.mint-system.ch
-  - [ ] odoo.mint-system.ch
-  - [ ] erp.apland.ch
+  - [x] erp.apland.ch
   - [x] www.mint-system.ch
-- [ ] Create login account for mint system user admint
+  - [x] odoo.mint-system.ch
 - [ ] Enable SAML for cloud.mint-system.ch
-- [x] Protect client: https://stackoverflow.com/questions/54305880/how-can-i-restrict-client-access-to-only-one-group-of-users-in-keycloak -> enable -Dkeycloak.profile.feature.scripts=enabled
-
-## Analytics
-
-- [ ] Integrate google dashboard in openeduca
 
 ## Bugs
 
+- [ ] sql dump backup job does not work
 - [ ] restic client password leak
-- [ ] max_cron_threads = 2 check
-- [ ] OAuth not working on mobile browsers
+- [ ] OAuth not working on mobile browsers -> same for odoo.com
 - [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild?
 
 ## Server
 
 - [ ] User scoped packages
-- [ ] Install fzf on all server -> ansible download and extract binary
+- [ ] Install fzf and bat on all server -> ansible download and extract binary
 
 ## Monitoring
 
@@ -56,17 +48,14 @@
 - [ ] Configure dashboard
 - [ ] Setup alertmanager (with Dashboard?)
 - [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
-- [ ] Notify via Telegram
 
 ## Security
 
-- [ ] Enable modsecurity for grafana dashboard
 - [ ] Do not expose postgres port by default -> redeploy container
 - [ ] Ignore ARGS:html for /books request api 
         ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
 - [ ] Protect access to cAdvisor and node-exporter -> docker overlay network
-- [ ] Scan ports and block with firewall
 
 ## Nginx role
 
@@ -81,8 +70,11 @@
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
 
-## Backlog
+# BACKLOG
 
+- [ ] Scan ports and block with firewall
+- [ ] Monitoring Notify via Telegram
+- [ ] Remove obsolete odoo apps
 - [ ] Add icons to odoo apps with mint theme
 - [ ] Odoo package registry with npm and github registry
 - [ ] Extend odoo backup restore script with odoo backup and restore commands
@@ -99,6 +91,12 @@
 
 # DONE
 
+- [x] Enable modsecurity for grafana dashboard
+- [-] max_cron_threads = 2 check -> not working for docker
+- [-] Integrate google dashboard in openeduca
+- [x] Protect client: https://stackoverflow.com/questions/54305880/how-can-i-restrict-client-access-to-only-one-group-of-users-in-keycloak -> enable -Dkeycloak.profile.feature.scripts=enabled
+- [x] Create login account for mint system user admint
+- [x] Rebuilt SAML and OAuth config
 - [x] Rename keycloak db
 - [x] Keycloak db dump is empty -> not saving anything
 - [x] Prepare monday

@@ -32,7 +32,7 @@ odoo_apps:
   - name: show_db_name
     url: https://github.com/Mint-System/Odoo-App-Show-DB-Name/archive/v1.0.0.zip
   - name: web_enterprise
-    file: web_enterprise-13.0+e.20200414.zip
+    file: web_enterprise-13.0.1.0.zip
   - name: theme_clean
     includes:
     - theme_clean
