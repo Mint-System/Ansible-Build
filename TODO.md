@@ -11,6 +11,7 @@
 
 ## Odoo
 
+- [ ] Add docker-odoo-install cli
 - [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
 
 ## Update
@@ -31,7 +32,7 @@
 
 ## Bugs
 
-- [ ] sql dump backup job does not work
+- [ ] sql dump backup job does not work -> maybe @weekly changes behavior
 - [ ] restic client password leak
 - [ ] OAuth not working on mobile browsers -> same for odoo.com
 - [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild?
@@ -59,7 +60,6 @@
 
 ## Nginx role
 
-- [ ] Check cert renewal
 - [ ] Do not create cert for redirect adresses
 - [ ] Ping cname before adding config
 
@@ -91,6 +91,7 @@
 
 # DONE
 
+- [x] Check cert renewal
 - [x] Enable modsecurity for grafana dashboard
 - [-] max_cron_threads = 2 check -> not working for docker
 - [-] Integrate google dashboard in openeduca
