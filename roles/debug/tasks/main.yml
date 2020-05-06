@@ -1,12 +1,13 @@
+
 # - name: Debug
 #   debug:
 #     var: groups
 
 # |fetchlistfromdict(groups.servers)
 
-- name: Debug
-  debug:
-    var: (groups.exporter | map('extract', hostvars) | map(attribute='ansible_host') | list)
+# - name: Debug
+#   debug:
+#     var: (groups.exporter | map('extract', hostvars) | map(attribute='ansible_host') | list)
     
     # (hostvars | dict2items | json_query('[*].value') | json_query('[?group_names[0]==`exporter`]') | select('ansible_host'))
 
@@ -14,7 +15,6 @@
   # [?ansible_host==`zeus.mint-system.com`]
   # | json_query('[?ansible_host==`zeus.mint-system.com`]')
   #
-
 
 # - name: Register nginx conf files
 #   command: "ls -1 {{ nginx_data_dir }}"

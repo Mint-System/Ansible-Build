@@ -70,3 +70,19 @@
     name: "Renew certs for {{ nginx_hostname }}"
     special_time: "weekly"
     job: ". {{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }}"
+
+- name: Register certbot conf files
+  command: "ls -1 {{ certbot_data_dir }}/renewal"
+  changed_when: no
+  register: certbot_conf_files
+
+- name: Create managed file list from proxy list
+  set_fact:
+    managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
+
+- name: Remove unmanaged certbot conf files
+  file:
+    path: "{{ certbot_data_dir }}/renewal/{{ item }}"
+    state: "absent"
+  loop: "{{ certbot_conf_files.stdout_lines }}"
+  when: item not in managed_files
