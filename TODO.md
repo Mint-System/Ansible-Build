@@ -23,6 +23,7 @@
 
 ## Identity
 
+- [ ] Enable Password reset for realm
 - [ ] Odoo OAuth Login Enable for:
   - [ ] erp.mint-system.ch
   - [x] erp.apland.ch
