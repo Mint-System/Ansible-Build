@@ -35,9 +35,12 @@ nginx_proxies:
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
     ssl: true
   - src_hostname: example.com
-    src_port: 443
     redirect_hostname: www.example.com
-    ssl: true
+  - src_hostname: example.org
+    redirect_hostname: www.example.com
+    server_names:
+      - example.org
+      - www.example.org
   - src_hostname: login.example.com
     src_port: 443
     ssl: true
