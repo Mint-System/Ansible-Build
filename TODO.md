@@ -1,13 +1,10 @@
 # TODO
 
-## Business
 
-- [ ] Have a look at Odoo studio
-- [ ] eLearning
+## Corporate Identity
 
-## Conference
-
-- [ ] Change logo for jitsi and bbb
+- [ ] Change logo and color for jitsi and bbb
+- [ ] Change logo and color erp
 
 ## Odoo
 
@@ -59,10 +56,9 @@
 - [ ] Setup user and run container with it for every role? 
 - [ ] Protect access to cAdvisor and node-exporter -> docker overlay network
 
-## Nginx role
+## DNS
 
-- [ ] Do not create cert for redirect adresses
-- [ ] Ping cname before adding config
+- [ ] Cleanup records for mint-system.ch
 
 ## Backup
 
@@ -73,6 +69,7 @@
 
 # BACKLOG
 
+- [ ] Remove index.php for Nextcloud from url
 - [ ] Scan ports and block with firewall
 - [ ] Monitoring Notify via Telegram
 - [ ] Remove obsolete odoo apps
@@ -92,6 +89,9 @@
 
 # DONE
 
+- [-] Ping cname before adding config
+- [x] Do not create cert for redirect adresses
+- [x] Change logo and color for wiki and cloud
 - [x] Check cert renewal
 - [x] Enable modsecurity for grafana dashboard
 - [-] max_cron_threads = 2 check -> not working for docker
