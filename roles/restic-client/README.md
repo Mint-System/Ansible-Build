@@ -54,6 +54,7 @@ restic_backup_sets:
     - postgres01
   hour: "1"
   minute: "50"
+  disabled: true
 restic_backup_rotation:
   daily: 7
   weekly: 4
