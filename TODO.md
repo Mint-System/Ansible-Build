@@ -1,13 +1,16 @@
 # TODO
 
-
 ## Corporate Identity
 
 - [ ] Change logo and color for jitsi and bbb
-- [ ] Change logo and color erp
 
 ## Odoo
 
+- [ ] Configure incoming email
+  - [x] erp.mint-system.ch (mint-system.ch)
+  - [x] odoo.mint-system.ch
+  - [ ] erp.apland.ch
+  - [ ] Demo?
 - [ ] Add docker-odoo-install cli
 - [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
 
@@ -30,6 +33,7 @@
 
 ## Bugs
 
+- [ ] Oauth cookie bypass
 - [ ] sql dump backup job does not work -> maybe @weekly changes behavior
 - [ ] restic client password leak
 - [ ] OAuth not working on mobile browsers -> same for odoo.com
@@ -37,7 +41,7 @@
 
 ## Server
 
-- [ ] User scoped packages
+- [ ] User scoped packages, zsh
 - [ ] Install fzf and bat on all server -> ansible download and extract binary
 
 ## Monitoring
@@ -58,7 +62,7 @@
 
 ## DNS
 
-- [ ] Cleanup records for mint-system.ch
+- [ ] Cleanup records for mint-system.ch -> set all as ALIAS
 
 ## Backup
 
@@ -67,9 +71,13 @@
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
 
+## Maintenance
+
+- [ ] Delete blatthirsch database
+
 # BACKLOG
 
-- [ ] Remove index.php for Nextcloud from url
+- [ ] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch
 - [ ] Scan ports and block with firewall
 - [ ] Monitoring Notify via Telegram
 - [ ] Remove obsolete odoo apps
@@ -89,6 +97,8 @@
 
 # DONE
 
+- [x] Blatthirsch ersetzen mit steinbock -> Referenz, remove db
+- [-] Change logo and color erp
 - [-] Ping cname before adding config
 - [x] Do not create cert for redirect adresses
 - [x] Change logo and color for wiki and cloud

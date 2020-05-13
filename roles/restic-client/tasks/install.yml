@@ -43,6 +43,7 @@
     minute: "{{ item.minute }}"
     job: ". /etc/environment && restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ \
       --tag {{ item.tags | join(' --tag ') }}"
+    disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "docker-volume"
 
@@ -59,6 +60,7 @@
     minute: "{{ item.minute }}"
     job: ". /etc/environment && restic backup {{ item.path }} \
       --tag {{ item.tags | join(' --tag ') }}"
+    disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "file"
 
@@ -88,6 +90,7 @@
     job: ". /etc/environment && odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} \
       && restic backup /var/tmp/{{ item.database }}.zip \
       --tag {{ item.tags | join(' --tag ') }}"
+    disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "odoo-backup"
 
@@ -98,6 +101,7 @@
     minute: "{{ item.minute }}"
     job: "docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} && \
       restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}"
+    disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "postgres-dump"
 
@@ -108,6 +112,7 @@
     minute: "{{ item.minute }}"
     job: "docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} && \
       restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}"
+    disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "mysql-dump"
 
@@ -118,3 +123,4 @@
     minute: "0"
     job: ". /etc/environment && restic forget --keep-daily {{ restic_backup_rotation.daily }} \
       --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune"
+    disabled: "{{ item.disabled | default(false) }}"
