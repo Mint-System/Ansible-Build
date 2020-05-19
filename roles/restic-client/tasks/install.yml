@@ -71,6 +71,7 @@
     mode: +x
   loop:
     - odoo-backup
+    - odoo-restore
     - docker-postgres-backup
     - docker-mysql-backup
 
