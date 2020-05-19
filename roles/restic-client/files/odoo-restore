@@ -6,18 +6,18 @@ set -e
 # Display Help
 Help() {
   echo
-  echo "odoo-backup"
-  echo "###########"
+  echo "odoo-restore"
+  echo "############"
   echo
-  echo "Description: Backup odoo database."
-  echo "Syntax: odoo-backup [-p|-d|-o|-h|help]"
-  echo "Example: odoo-backup -p secret -d odoo -o /tmp -h https://odoo.example.com"
+  echo "Description: Restore odoo database."
+  echo "Syntax: odoo-restore [-p|-d|-f|-h|help]"
+  echo "Example: odoo-restore -p secret -d odoo -f /tmp/odoo.zip -h https://odoo.example.org"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var."
   echo "  -d    Database name."
-  echo "  -o    Output directory. Defaults to '/var/tmp'"
+  echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'"
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'"
-  echo "  help  Show odoo-backup manual."
+  echo "  help  Show odoo-restore manual."
   echo
 }
 
@@ -28,7 +28,7 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":p:d:o:h:help:" opt; do
+while getopts ":p:d:f:h:help:" opt; do
   case $opt in
     h) HOST="$OPTARG"
     ;;
@@ -36,7 +36,7 @@ while getopts ":p:d:o:h:help:" opt; do
     ;;
     d) DATABASE="$OPTARG"
     ;;
-    o) DIR="$OPTARG"
+    f) FILE="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
@@ -46,28 +46,29 @@ done
 
 # Fallback to environment vars and default values
 : ${PASSWORD:=${ODOO_MASTER_PASSWORD}}
-: ${DIR:='/var/tmp'}
+: ${FILE:='/var/tmp/odoo.zip'}
 : ${HOST:='http://localhost:8069'}
 
 # Verify variables
 [[ -z "$PASSWORD" ]] && { echo "Parameter -p|password is empty" ; exit 1; }
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
+[[ -z "$FILE" ]] && { echo "Parameter -f|file is empty" ; exit 1; }
 [[ -z "$HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
 
-# Ensure output directory exists
-mkdir -p $DIR
+# Validate zip file
+unzip -t $FILE
 
-# Request backup with curl
-curl -X POST \
+# Start restore
+echo "Requesting restore for Odoo database $DATABASE ..."
+
+# Request restore with curl
+curl \
+  --silent \
   -F "master_pwd=${PASSWORD}" \
   -F "name=${DATABASE}" \
-  -F "backup_format=zip" \
-  -o ${DIR}/${DATABASE}.zip \
-  ${HOST}/web/database/backup
+  -F backup_file=@$FILE \
+  -F 'copy=true' \
+  ${HOST}/web/database/restore | grep 'Redirecting...'
 
-# Validate zip file
-unzip -t "${DIR}/${DATABASE}.zip"
-
-# Notify if backup has finished
-echo "The Odoo backup has finished: ${DIR}/${DATABASE}.zip"
+# Notify if restore has finished
+echo "The restore for Odoo database $DATABASE has finished."
