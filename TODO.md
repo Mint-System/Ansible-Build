@@ -33,6 +33,7 @@
 
 ## Bugs
 
+- [ ] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch
 - [ ] Oauth cookie bypass
 - [ ] sql dump backup job does not work -> maybe @weekly changes behavior
 - [ ] restic client password leak
@@ -77,7 +78,7 @@
 
 # BACKLOG
 
-- [ ] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch
+- [ ] Add odoo app disable option like with the cron jobs
 - [ ] Scan ports and block with firewall
 - [ ] Monitoring Notify via Telegram
 - [ ] Remove obsolete odoo apps
