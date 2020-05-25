@@ -6,12 +6,7 @@
 
 ## Odoo
 
-- [ ] Configure incoming email
-  - [x] erp.mint-system.ch (mint-system.ch)
-  - [x] odoo.mint-system.ch
-  - [ ] erp.apland.ch
-  - [ ] Demo?
-- [ ] Add docker-odoo-install cli
+- [ ] OAuth access for existing users (not portal users) -> update guides
 - [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
 
 ## Update
@@ -23,17 +18,11 @@
 
 ## Identity
 
-- [ ] Enable Password reset for realm
-- [ ] Odoo OAuth Login Enable for:
-  - [ ] erp.mint-system.ch
-  - [x] erp.apland.ch
-  - [x] www.mint-system.ch
-  - [x] odoo.mint-system.ch
 - [ ] Enable SAML for cloud.mint-system.ch
 
 ## Bugs
 
-- [ ] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch
+- [ ] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch; recreate did not help
 - [ ] Oauth cookie bypass
 - [ ] sql dump backup job does not work -> maybe @weekly changes behavior
 - [ ] restic client password leak
@@ -61,14 +50,10 @@
 - [ ] Setup user and run container with it for every role? 
 - [ ] Protect access to cAdvisor and node-exporter -> docker overlay network
 
-## DNS
-
-- [ ] Cleanup records for mint-system.ch -> set all as ALIAS
-
 ## Backup
 
 - [ ] Check mysql and postgres backup jobs
-- [ ] Test recover scenario
+- [ ] Test recover scenario; restore from zip works!
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
 
@@ -98,6 +83,19 @@
 
 # DONE
 
+- [x] Enable Password reset for realm -> enable option in real settings login
+- [x] Odoo OAuth Login Enable for:
+  - [x] erp.mint-system.ch
+  - [x] erp.apland.ch
+  - [x] www.mint-system.ch
+  - [x] odoo.mint-system.ch
+- [x] Add odoo scripts role with odoo-backup, odoo-restore and docker-odoo-install
+- [x] Cleanup records for mint-system.ch -> set all as ALIAS
+- [x] Configure incoming email
+  - [x] erp.mint-system.ch (mint-system.ch)
+  - [x] odoo.mint-system.ch
+  - [x] erp.apland.ch
+  - [x] Demo?
 - [x] Blatthirsch ersetzen mit steinbock -> Referenz, remove db
 - [-] Change logo and color erp
 - [-] Ping cname before adding config

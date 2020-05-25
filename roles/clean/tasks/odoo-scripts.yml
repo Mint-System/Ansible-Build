@@ -1,0 +1,8 @@
+- name: Remove odoo scripts
+  file:
+    path: "/usr/local/bin/{{ item }}"
+    state: absent
+  loop:
+    - odoo-backup
+    - odoo-restore
+    - docker-odoo-install

@@ -1,0 +1,9 @@
+- name: Copy odoo scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - odoo-backup
+    - odoo-restore
+    - docker-odoo-install

@@ -9,6 +9,7 @@
       - kibana
       - moodle
       - odoo
+      - odoo-scripts
       - nextcloud
       - bookstack
       - logstash

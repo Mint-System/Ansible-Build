@@ -9,6 +9,8 @@
     tags: postgres
   - role: odoo
     tags: odoo
+  - role: odoo-scripts
+    tags: odoo-scripts
   - role: modsecurity
     tags: modsecurity
   - role: nginx

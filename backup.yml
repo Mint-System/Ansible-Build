@@ -9,3 +9,5 @@
     tags: restic-server
   - role: restic-client
     tags: restic-client
+  - role: odoo-scripts
+    tags: odoo-scripts
