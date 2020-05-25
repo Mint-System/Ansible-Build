@@ -28,7 +28,7 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":p:d:o:h:help:" opt; do
+while getopts ":p: :d: :o: :h:" opt; do
   case $opt in
     h) HOST="$OPTARG"
     ;;
@@ -45,12 +45,11 @@ while getopts ":p:d:o:h:help:" opt; do
 done
 
 # Fallback to environment vars and default values
-: ${PASSWORD:=${ODOO_MASTER_PASSWORD}}
+: ${PASSWORD:=${ODOO_MASTER_PASSWORD:='admin'}}
 : ${DIR:='/var/tmp'}
 : ${HOST:='http://localhost:8069'}
 
 # Verify variables
-[[ -z "$PASSWORD" ]] && { echo "Parameter -p|password is empty" ; exit 1; }
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 [[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
 [[ -z "$HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
@@ -67,7 +66,7 @@ curl -X POST \
   ${HOST}/web/database/backup
 
 # Validate zip file
-unzip -t "${DIR}/${DATABASE}.zip"
+unzip -q -t "${DIR}/${DATABASE}.zip"
 
 # Notify if backup has finished
 echo "The Odoo backup has finished: ${DIR}/${DATABASE}.zip"

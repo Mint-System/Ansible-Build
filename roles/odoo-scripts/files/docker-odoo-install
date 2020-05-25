@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# Exit script if command fails
+set -e
+
+# Display Help
+Help() {
+    echo
+    echo "docker-odoo-install"
+    echo "###################"
+    echo
+    echo "Description: Install Odoo database in Docker container."
+    echo "Syntax: docker-odoo-install [-p|-d|-o|-h|help]"
+    echo "Example: docker-odoo-install -d erp -m hr_timesheet -c odoo01"
+    echo "options:"
+    echo "  -d    Database name. Defaults to 'odoo'"
+    echo "  -m    List of odoo modules. Defaults to 'base,web,website'"
+    echo "  -c    Docker container. Defaults to 'odoo'"
+    echo "  -x    Dev option. Defaults to 'all'"
+    echo "  help  Show docker-odoo-install manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":d:m:c:x:help:" opt; do
+  case $opt in
+    m) MODULES="$OPTARG"
+    ;;
+    c) CONTAINER="$OPTARG"
+    ;;
+    d) DATABASE="$OPTARG"
+    ;;
+    x) DEV="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${DATABASE:='odoo'}
+: ${MODULES:='base,web,website'}
+: ${CONTAINER:='odoo'}
+: ${DEV:='all'}
+
+# Verify variables
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$MODULES" ]] && { echo "Parameter -m|modules is empty" ; exit 1; }
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$CONTAINER" ]] && { echo "Parameter -x|dev is empty" ; exit 1; }
+
+# Install with Docker exec
+docker exec -it $CONTAINER bin/bash -c "odoo -i $MODULES -c /etc/odoo/odoo.conf -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD --dev=$DEV --without-demo=all --stop-after-init" && docker restart $CONTAINER
+
+# Notify if installation has finished
+echo "The Odoo installation for $CONTAINER has finished."
