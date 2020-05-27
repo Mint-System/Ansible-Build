@@ -6,23 +6,22 @@
 
 ## Odoo
 
+- [ ] Install etherpad https://github.com/ether/etherpad-lite/blob/develop/doc/docker.md or use pad.odoo.com
 - [ ] OAuth access for existing users (not portal users) -> update guides
 - [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
 
 ## Update
 
-- [ ] Update nextcloud to 18.0.2 and document procedure
 - [ ] Update ubuntu packages
 - [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
 
 ## Identity
 
-- [ ] Enable SAML for cloud.mint-system.ch
+- [ ] Enable SAML for cloud.mint-system.ch and fix SAML for nextcloud demo!?
 
 ## Bugs
 
-- [ ] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch; recreate did not help
 - [ ] Oauth cookie bypass
 - [ ] sql dump backup job does not work -> maybe @weekly changes behavior
 - [ ] restic client password leak
@@ -83,6 +82,8 @@
 
 # DONE
 
+- [x] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch; recreate did not help -> updated nextcloud container and it vanished
+- [x] Update nextcloud to 18.0.4 and document procedure -> simply bump container and nextcloud will detect that there is an old config and upate accordingly.
 - [x] Enable Password reset for realm -> enable option in real settings login
 - [x] Odoo OAuth Login Enable for:
   - [x] erp.mint-system.ch
