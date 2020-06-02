@@ -9,6 +9,8 @@
     tags: postgres
   - role: nextcloud
     tags: nextcloud
+  - role: collabora-code
+    tags: collabora-code
   - role: moodle
     tags: moodle
   - role: modsecurity

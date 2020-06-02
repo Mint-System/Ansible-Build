@@ -11,6 +11,7 @@
       - moodle
       - odoo
       - nextcloud
+      - collabora-code
       - bookstack
       - logstash
       - metricbeat

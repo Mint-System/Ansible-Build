@@ -19,6 +19,7 @@ Collection of Ansible playbooks and roles.
 * [mysql](roles/mysql/README.md) - Deploy MySQL database container
 * [bookstack](roles/bookstack/README.md) - Deploy BookStack Docker container
 * [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container
+* [colabora-code](roles/colabora-code/README.md) - Deploy Nextcloud container
 * [moodle](roles/moodle/README.md) - Deploy Moodle container
 * [restic-server](roles/restic-server/README.md) - Deploy Restic server container
 * [iam](roles/iam/README.md) - Configures users and groups
