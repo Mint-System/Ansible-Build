@@ -1,0 +1,15 @@
+- name: "Start collabora-code container {{ collabora_code_hostname }}"
+  docker_container:
+    name: "{{ collabora_code_hostname }}"
+    image: "{{ collabora_code_image }}"
+    restart_policy: unless-stopped
+    env:
+      extra_params: "--o:ssl.enable=false"
+    ports:
+      - "{{ collabora_code_port | default('9980') }}:9980"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

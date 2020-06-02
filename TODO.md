@@ -25,7 +25,7 @@
 - [ ] Oauth cookie bypass
 - [ ] sql dump backup job does not work -> maybe @weekly changes behavior
 - [ ] restic client password leak
-- [ ] OAuth not working on mobile browsers -> same for odoo.com
+- [ ] OAuth not working on mobile browsers -> same for odoo.com, worked on safari on ios pinned page
 - [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild?
 
 ## Server
@@ -43,7 +43,6 @@
 
 ## Security
 
-- [ ] Do not expose postgres port by default -> redeploy container
 - [ ] Ignore ARGS:html for /books request api 
         ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
@@ -58,6 +57,7 @@
 
 ## Maintenance
 
+- [ ] remove studio odoo apps in erp.mint-system.ch
 - [ ] Delete blatthirsch database
 
 # BACKLOG
@@ -74,7 +74,7 @@
 - [ ] Enable profile dotfiles: https://github.com/janikvonrotz/dotfiles
 - [ ] Monitor proxy audit log
 - [ ] Setup hashicorp vault for managing server secrets
-- [ ] New roleDocker cleanup, prune images
+- [ ] New role Docker cleanup, prune images
 - [ ] Monitor websites with https://github.com/prometheus/blackbox_exporter/blob/master/README.md -> on every node install probe -> use proxy addresses
 - [ ] Manage prom exporter in Docker Swarm for enclosed networking -> https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html -> checkout overlay network https://docs.docker.com/network/overlay/
 - [ ] Test roles with molecule
@@ -82,6 +82,8 @@
 
 # DONE
 
+- [x] New collabora code role
+- [x] Do not expose postgres port by default -> redeploy container
 - [x] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch; recreate did not help -> updated nextcloud container and it vanished
 - [x] Update nextcloud to 18.0.4 and document procedure -> simply bump container and nextcloud will detect that there is an old config and upate accordingly.
 - [x] Enable Password reset for realm -> enable option in real settings login
