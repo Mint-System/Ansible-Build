@@ -35,9 +35,8 @@
 
 ## Monitoring
 
-- [ ] Configure mail
-- [ ] Propertly provision prometheus datasource
-- [ ] Configure dashboard
+- [ ] Configure oauth with keycloak -> https://community.grafana.com/t/grafana-generic-oauth-with-keycloak/9692
+- [ ] Configure dashboards
 - [ ] Setup alertmanager (with Dashboard?)
 - [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
 
@@ -54,6 +53,7 @@
 - [ ] Test recover scenario; restore from zip works!
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
+- [ ] Backup keycloak realms
 
 ## Maintenance
 
@@ -62,6 +62,7 @@
 
 # BACKLOG
 
+- [ ] Configure only selected owasp crs range for configs
 - [ ] Add odoo app disable option like with the cron jobs
 - [ ] Scan ports and block with firewall
 - [ ] Monitoring Notify via Telegram
@@ -82,6 +83,9 @@
 
 # DONE
 
+- [x] Persist dashboards
+- [x] Configure mail with env var
+- [x] Propertly provision prometheus datasource -> not working
 - [x] New collabora code role
 - [x] Do not expose postgres port by default -> redeploy container
 - [x] Remove index.php for Nextcloud from url -> redeploy like nextcloud.mint-system.ch; recreate did not help -> updated nextcloud container and it vanished

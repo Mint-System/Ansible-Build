@@ -5,3 +5,4 @@ datasources:
     type: prometheus
     access: proxy
     url: http://{{ grafana_prometheus_hostname }}:9090
+    basicAuth: false
