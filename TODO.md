@@ -23,15 +23,14 @@
 ## Bugs
 
 - [ ] Oauth cookie bypass
-- [ ] sql dump backup job does not work -> maybe @weekly changes behavior
 - [ ] restic client password leak
 - [ ] OAuth not working on mobile browsers -> same for odoo.com, worked on safari on ios pinned page
 - [ ] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild?
 
 ## Server
 
-- [ ] User scoped packages, zsh
-- [ ] Install fzf and bat on all server -> ansible download and extract binary
+- [ ] User scoped packages, zsh, oh-my-zsh https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml
+- [ ] Install fzf and bat on all server -> ansible download and extract binary -> debian 9+ and ubuntu 19 supported
 
 ## Monitoring
 
@@ -50,7 +49,7 @@
 ## Backup
 
 - [ ] Check mysql and postgres backup jobs
-- [ ] Test recover scenario; restore from zip works!
+- [ ] Test recover scenario; restore from zip works! -> check sql files -> nextcloud02
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
 - [ ] Backup keycloak realms
@@ -62,6 +61,8 @@
 
 # BACKLOG
 
+- [ ] Remove /etc/environment call for all cron jobs (shouldn't be loaded by default?)
+- [ ] Log backups state with logger
 - [ ] Configure only selected owasp crs range for configs
 - [ ] Add odoo app disable option like with the cron jobs
 - [ ] Scan ports and block with firewall
@@ -83,6 +84,7 @@
 
 # DONE
 
+- [x] sql dump backup job does not work -> maybe @weekly changes behavior
 - [x] Persist dashboards
 - [x] Configure mail with env var
 - [x] Propertly provision prometheus datasource -> not working

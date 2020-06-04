@@ -98,7 +98,7 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: "docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} && \
+    job: ". /etc/environment && docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} && \
       restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
@@ -109,7 +109,7 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: "docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} && \
+    job: ". /etc/environment && docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} && \
       restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
