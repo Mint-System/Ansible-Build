@@ -24,6 +24,11 @@ grafana_volume_name: grafana_data01
 grafana_admin_user: admin
 grafana_admin_password: "{{ vault_grafana_admin_password }}"
 grafana_prometheus_hostname: prom01
+grafana_mail_hostname: mail.example.com:587
+grafana_mail_from: noreply@example.com
+grafana_mail_from_name: Grafana
+grafana_mail_username: bot@example.com
+grafana_mail_password: "{{ vault_grafana_mail_password }}"
 ```
 
 And include it in your playbook.
