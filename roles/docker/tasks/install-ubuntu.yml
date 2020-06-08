@@ -9,11 +9,19 @@
     name: "{{ item }}"
   loop: "{{ docker_packages }}"
 
-- name: Pin system package version
+- name: Pin system package
   dpkg_selections:
     name: "{{ item.split('=')[0] }}"
     selection: hold
   loop: "{{ docker_packages }}"
+  when: "'=' in item"
+
+- name: Unpin system package
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: install
+  loop: "{{ docker_packages }}"
+  when: "'=' not in item"
 
 - name: Add Docker GPG apt Key
   apt_key:
@@ -34,6 +42,13 @@
   dpkg_selections:
     name: "{{ docker_package.split('=')[0] }}"
     selection: hold
+  when: "'=' in docker_package"
+
+- name: Unpin docker-ce version
+  dpkg_selections:
+    name: "{{ docker_package }}"
+    selection: hold
+  when: "'=' not in docker_package"
 
 - name: Install Docker Module for Python
   pip:

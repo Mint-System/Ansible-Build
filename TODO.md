@@ -12,7 +12,7 @@
 
 ## Update
 
-- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually
+- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified
 - [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
 
