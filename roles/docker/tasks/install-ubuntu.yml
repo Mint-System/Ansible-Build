@@ -9,6 +9,12 @@
     name: "{{ item }}"
   loop: "{{ docker_packages }}"
 
+- name: Pin system package version
+  dpkg_selections:
+    name: "{{ item.split('=')[0] }}"
+    selection: hold
+  loop: "{{ docker_packages }}"
+
 - name: Add Docker GPG apt Key
   apt_key:
     url: "{{ docker_apt_key_url }}"
@@ -23,6 +29,11 @@
   apt:
     update_cache: yes
     name: "{{ docker_package }}"
+
+- name: Pin docker-ce version
+  dpkg_selections:
+    name: "{{ docker_package.split('=')[0] }}"
+    selection: hold
 
 - name: Install Docker Module for Python
   pip:

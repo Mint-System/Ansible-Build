@@ -12,7 +12,7 @@
 
 ## Update
 
-- [ ] Update ubuntu packages
+- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually
 - [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
 
@@ -29,6 +29,7 @@
 
 ## Server
 
+- [ ] Install odoo-scripts on localhost
 - [ ] User scoped packages, zsh, oh-my-zsh https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml
 - [ ] Install fzf and bat on all server -> ansible download and extract binary -> debian 9+ and ubuntu 19 supported
 

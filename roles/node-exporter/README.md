@@ -1,4 +1,4 @@
-# Ansible node-exporter role
+# Ansible Node Exporter role
 
 Deploys node-exporter container.
 

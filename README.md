@@ -33,6 +33,7 @@ Collection of Ansible playbooks and roles.
 * [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container
 * [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
 * [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
+* [update](roles/update/README.md) - Install system and package updates
 
 ## Usage
 
