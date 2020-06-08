@@ -3,8 +3,16 @@
     name: "{{ item }}"
   loop: "{{ iam_packages }}"
 
-- name: Pin package version
+- name: Pin package
   dpkg_selections:
     name: "{{ item.split('=')[0] }}"
     selection: hold
   loop: "{{ iam_packages }}"
+  when: "'=' in item"
+
+- name: Unpin package
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: install
+  loop: "{{ iam_packages }}"
+  when: "'=' not in item"
