@@ -1,0 +1,19 @@
+- name: Update apt-get repo and cache
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Upgrade all packages
+  apt:
+    upgrade: dist
+
+- name: check if reboot is required
+  stat: 
+    path: /var/run/reboot-required
+  register: reboot_required
+
+- name: Reboot system if required
+  reboot:
+    msg: Rebooting to complete system upgrade
+    reboot_timeout: 120
+  when: reboot_required.stat.exists

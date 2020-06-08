@@ -2,3 +2,9 @@
   apt:
     name: "{{ item }}"
   loop: "{{ iam_packages }}"
+
+- name: Pin package version
+  dpkg_selections:
+    name: "{{ item.split('=')[0] }}"
+    selection: hold
+  loop: "{{ iam_packages }}"
