@@ -19,9 +19,12 @@
 ## Identity
 
 - [ ] Enable SAML for cloud.mint-system.ch and fix SAML for nextcloud demo!?
+- [ ] oAuth for openeduca.ch and schule-sisikon.ch
+- [ ] Allow all kind of redirect uris for odoo.mint-system.ch realm
 
 ## Bugs
 
+- [ ] cert renewal cron job not working
 - [ ] Oauth cookie bypass
 - [ ] restic client password leak
 - [ ] OAuth not working on mobile browsers -> same for odoo.com, worked on safari on ios pinned page
@@ -49,7 +52,6 @@
 
 ## Backup
 
-- [ ] Check mysql and postgres backup jobs
 - [ ] Test recover scenario; restore from zip works! -> check sql files -> nextcloud02
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
@@ -58,7 +60,7 @@
 ## Maintenance
 
 - [ ] remove studio odoo apps in erp.mint-system.ch
-- [ ] Delete blatthirsch database
+- [ ] Delete blatthirsch database -> cleanup script for unmanged dbs?
 
 # BACKLOG
 
@@ -85,6 +87,7 @@
 
 # DONE
 
+- [x] Check mysql and postgres backup jobs
 - [x] sql dump backup job does not work -> maybe @weekly changes behavior
 - [x] Persist dashboards
 - [x] Configure mail with env var
@@ -108,7 +111,7 @@
   - [x] Demo?
 - [x] Blatthirsch ersetzen mit steinbock -> Referenz, remove db
 - [-] Change logo and color erp
-- [-] Ping cname before adding config
+- [x] Ping cname before adding config -> or check if dns entry exists
 - [x] Do not create cert for redirect adresses
 - [x] Change logo and color for wiki and cloud
 - [x] Check cert renewal

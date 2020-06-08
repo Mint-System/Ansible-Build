@@ -59,6 +59,10 @@ Install jmespath with pip.
 
 `pip3 install jmespath`
 
+Install dnspython with pip.
+
+`pip3 install dnspython`
+
 Create an inventory and configure a role.
 
 ### Deployment
