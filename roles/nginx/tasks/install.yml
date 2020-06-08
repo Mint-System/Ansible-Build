@@ -3,6 +3,18 @@
     path: "{{ nginx_data_dir }}"
     state: directory
 
+- name: Dig DNS CNAME record
+  debug: 
+    msg: "{{ lookup('dig', item.src_hostname, 'qtype=CNAME') }}"
+  register: dig
+  loop: "{{ nginx_proxies }}"
+
+- name: Fail if DNS record points to alias.zeit.co.
+  fail:
+    msg: DNS record points to default alias.
+  when: item.msg == 'alias.zeit.co.'
+  loop: "{{ dig.results }}"
+
 - name: Include install certbot tasks
   include_tasks: install-certbot.yml
   when: certbot_image is defined
