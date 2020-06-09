@@ -1,0 +1,49 @@
+# http://docs.bigbluebutton.org/greenlight/gl-install.html
+
+- name: Get BigBlueButton API secret
+  shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
+  register: bigbluebutton_api_secret
+  changed_when: false
+
+- name: "Start greenlight container {{ greenlight_hostname }}"
+  docker_container:
+    name: "{{ greenlight_hostname }}"
+    image: "{{ greenlight_image }}"
+    restart_policy: unless-stopped
+    env:
+      SECRET_KEY_BASE: "{{ vault_greenlight_secret_key_base }}"
+      BIGBLUEBUTTON_ENDPOINT: "{{ bigbluebutton_api_url }}"
+      BIGBLUEBUTTON_SECRET: "{{ bigbluebutton_api_secret.stdout }}"
+      SAFE_HOSTS: "{{ greenlight_safe_hosts }}"
+      DB_ADAPTER: "{{ greenlight_db_adapter }}"
+      DB_HOST: "{{ greenlight_db_host }}"
+      DB_PORT: "{{ greenlight_db_port }}"
+      DB_NAME: "{{ greenlight_db_name }}"
+      DB_USERNAME: "{{ greenlight_db_username }}"
+      DB_PASSWORD: "{{ greenlight_db_password }}"
+      SMTP_SERVER: "{{ greenlight_smtp_server }}"
+      SMTP_PORT: "{{ greenlight_smtp_port }}"
+      SMTP_DOMAIN: "{{ greenlight_smtp_domain }}"
+      SMTP_USERNAME: "{{ greenlight_smtp_username }}"
+      SMTP_PASSWORD: "{{ greenlight_smtp_password }}"
+      SMTP_AUTH: "{{ greenlight_smtp_auth }}"
+      SMTP_STARTTLS_AUTO: "true"
+      SMTP_SENDER: "{{ greenlight_smtp_sender }}"
+      DEFAULT_REGISTRATION: "{{ greenlight_default_registration }}"
+      ALLOW_GREENLIGHT_ACCOUNTS: "{{ greenlight_allow_greenlight_accounts }}"
+      ROOM_FEATURES: "{{ greenlight_room_features }}"
+      ALLOW_MAIL_NOTIFICATIONS: "{{ greenlight_allow_mail_notifications }}"
+    ports:
+      - "{{ greenlight_port | default('127.0.0.1:5000') }}:80"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+
+- name: Copy greenlight nginx conf
+  copy:
+    src: greenlight.nginx
+    dest: /etc/bigbluebutton/nginx/greenlight.nginx
+  notify: Restart BigBlueButton services

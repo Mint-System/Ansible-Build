@@ -1,0 +1,9 @@
+- name: Restart BigBlueButton services
+  command: bbb-conf --restart
+  notify: Check BigBlueButton services
+
+- name: Check BigBlueButton services
+  command: bbb-conf --status | grep inactive
+  register: bigbluebutton_status
+  failed_when: bigbluebutton_status.rc != 0
+  changed_when: false

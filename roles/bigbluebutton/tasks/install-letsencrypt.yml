@@ -1,0 +1,34 @@
+# http://docs.bigbluebutton.org/2.2/install.html#using-lets-encrypt
+
+- name: Create nginx SSL certificates directory
+  file:
+    state: directory
+    path: /etc/nginx/ssl
+    owner: root
+    group: root
+
+- name: Create dhparam SSL file
+  command: openssl dhparam -dsaparam  -out /etc/nginx/ssl/dhp-4096.pem 4096
+  args:
+    creates: /etc/nginx/ssl/dhp-4096.pem
+
+- name: Create letsencrypt certificates with certbot
+  command: "certbot --webroo --email {{ bigbluebutton_certbot_email }} --agree-tos t -w /var/www/bigbluebutton-default/ -d {{ bigbluebutton_hostname }} certonly "
+  args:
+    creates: "/etc/letsencrypt/live/{{ bigbluebutton_hostname }}/fullchain.pem"
+
+- name: Cron job to renew letsencrypt certficiates
+  cron:
+    name: "Renew letsencrypt certificates"
+    minute: "30"
+    hour: "2"
+    weekday: "1"
+    job: "/usr/bin/certbot renew >> /var/log/le-renew.log"
+
+- name: Cron job to restart nginx
+  cron:
+    name: "Restart nginx"
+    minute: "35"
+    hour: "2"
+    weekday: "1"
+    job: "/bin/systemctl reload nginx"

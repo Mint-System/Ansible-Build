@@ -1,0 +1,130 @@
+# http://docs.bigbluebutton.org/2.2/install.html#pre-installation-checks
+
+- name: Install BigBluebutton required packages
+  apt:
+    name:
+      - language-pack-en
+      - software-properties-common
+      - openjdk-8-jre
+      - certbot
+    state: present
+
+- name: Update locale (ensure LANG=en_US.UTF-8)
+  lineinfile: 
+    dest: /etc/default/locale
+    regexp: ^LANG
+    line: 'LANG=en_US.UTF-8'
+
+- name: Update locale (ensure LC_ALL is absent)
+  lineinfile: 
+    dest: /etc/default/locale
+    regexp: ^LC_ALL
+    state: absent
+
+# http://docs.bigbluebutton.org/2.2/troubleshooting#404-error-when-loading-the-client
+
+- name: correct java version selected
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
+# http://docs.bigbluebutton.org/2.2/install.html#1-update-your-server
+
+- name: Check multiverse apt repositories are present
+  apt_repository: 
+    repo: "{{ item }}"
+    state: present
+  loop:
+    - 'deb http://archive.ubuntu.com/ubuntu xenial multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu xenial multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu xenial-updates multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu xenial-updates multiverse'
+
+- name: Check supplemental PPA repos are present
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  loop:
+    - 'ppa:bigbluebutton/support'
+    - 'ppa:rmescandon/yq'
+    - 'ppa:libreoffice/ppa'
+
+- name: Check MongoDB apt key is present
+  apt_key:
+    url: "https://www.mongodb.org/static/pgp/server-3.4.asc"
+    state: present
+
+- name: Check MongoDB repo is present
+  apt_repository: 
+    repo: "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse"
+    state: present
+
+- name: Check NodeJS apt key is present
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+
+- name: Check NodeJS repo is present
+  apt_repository: 
+    repo: "deb https://deb.nodesource.com/node_8.x xenial main"
+    state: present
+
+# http://docs.bigbluebutton.org/2.2/install.html#2-install-apt-get-key-for-bigbluebutton-repository
+
+- name: Check BigBlueButton apt key is present
+  apt_key:
+    url: https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc
+    state: present
+
+- name: Check BigBlueButton repo is present
+  apt_repository: 
+    repo: "deb {{ bigbluebutton_apt_repo_url }} bigbluebutton-xenial main"
+    state: present
+  register: bigbluebutton_repo_is_present
+
+- name: Update apt-get repo and cache
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+    cache_valid_time: 3600
+  when: bigbluebutton_repo_is_present.changed
+
+# http://docs.bigbluebutton.org/2.2/install.html#4--install-bigbluebutton
+
+- name: Install bigbluebutton and dependencies
+  apt:
+    name:
+      - bigbluebutton
+      - bbb-html5
+      - mongodb-org
+      - nodejs
+      - dnsutils
+    state: present
+
+# https://docs.bigbluebutton.org/2.2/customize.html#make-the-html5-client-default
+
+- name: Make the HTML5 client default for attendees join
+  replace:
+    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
+    regexp: 'attendeesJoinViaHTML5Client=false'
+    replace: 'attendeesJoinViaHTML5Client=true'
+    backup: yes
+
+- name: Make the HTML5 client default for moderators join
+  replace:
+    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
+    regexp: 'moderatorsJoinViaHTML5Client=false'
+    replace: 'moderatorsJoinViaHTML5Client=true'
+    backup: yes
+  
+# http://docs.bigbluebutton.org/2.2/install.html#assign-a-hostname
+
+- name: Get BigBlueButton API url
+  shell: "bbb-conf --secret | grep {{ bigbluebutton_hostname }}"
+  register: bigbluebutton_api_status
+  changed_when: false
+
+- name: Set BigBlueButton server name
+  command: bbb-conf --setip "{{ bigbluebutton_hostname }}"
+  when: bigbluebutton_api_status.rc != 0
+  notify: Restart BigBlueButton services

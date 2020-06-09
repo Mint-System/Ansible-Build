@@ -1,0 +1,25 @@
+- name: Include install tasks
+  include: install-ubuntu1604.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url != ""
+  tags:
+    - bigbluebutton
+    - bigbluebutton-core
+
+- name: Include letsencrypt install tasks
+  include: install-letsencrypt.yml
+  tags:
+    - bigbluebutton
+    - bigbluebutton-letsencrypt
+
+- name: Include enable https tasks
+  include: enable-https.yml
+  tags:
+    - bigbluebutton
+    - bigbluebutton-https
+
+- name: Include greenligh install tasks
+  include: install-greenlight.yml
+  when: greenlight_image is defined
+  tags:
+    - bigbluebutton
+    - bigbluebutton-greenlight
