@@ -41,7 +41,7 @@
     regexp: 'jnlpFile=http:'
     replace: 'jnlpFile=https:'
     backup: yes
-  
+
 - name: Update ws for wss on kurento media server
   replace:
     path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml

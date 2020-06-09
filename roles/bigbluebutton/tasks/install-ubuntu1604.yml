@@ -10,13 +10,13 @@
     state: present
 
 - name: Update locale (ensure LANG=en_US.UTF-8)
-  lineinfile: 
+  lineinfile:
     dest: /etc/default/locale
     regexp: ^LANG
     line: 'LANG=en_US.UTF-8'
 
 - name: Update locale (ensure LC_ALL is absent)
-  lineinfile: 
+  lineinfile:
     dest: /etc/default/locale
     regexp: ^LC_ALL
     state: absent
@@ -31,7 +31,7 @@
 # http://docs.bigbluebutton.org/2.2/install.html#1-update-your-server
 
 - name: Check multiverse apt repositories are present
-  apt_repository: 
+  apt_repository:
     repo: "{{ item }}"
     state: present
   loop:
@@ -55,7 +55,7 @@
     state: present
 
 - name: Check MongoDB repo is present
-  apt_repository: 
+  apt_repository:
     repo: "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse"
     state: present
 
@@ -65,7 +65,7 @@
     state: present
 
 - name: Check NodeJS repo is present
-  apt_repository: 
+  apt_repository:
     repo: "deb https://deb.nodesource.com/node_8.x xenial main"
     state: present
 
@@ -76,8 +76,8 @@
     url: https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc
     state: present
 
-- name: Check BigBlueButton repo is present
-  apt_repository: 
+- name: Check BigBlueButton repo is present # noqa 503
+  apt_repository:
     repo: "deb {{ bigbluebutton_apt_repo_url }} bigbluebutton-xenial main"
     state: present
   register: bigbluebutton_repo_is_present
@@ -116,7 +116,7 @@
     regexp: 'moderatorsJoinViaHTML5Client=false'
     replace: 'moderatorsJoinViaHTML5Client=true'
     backup: yes
-  
+
 # http://docs.bigbluebutton.org/2.2/install.html#assign-a-hostname
 
 - name: Get BigBlueButton API url

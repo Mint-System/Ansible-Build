@@ -1,6 +1,6 @@
 - name: Include install tasks
   include: install-ubuntu1604.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url != ""
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url
   tags:
     - bigbluebutton
     - bigbluebutton-core

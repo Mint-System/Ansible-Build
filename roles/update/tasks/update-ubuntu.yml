@@ -9,7 +9,7 @@
     upgrade: dist
 
 - name: check if reboot is required
-  stat: 
+  stat:
     path: /var/run/reboot-required
   register: reboot_required
 

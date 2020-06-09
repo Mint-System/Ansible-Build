@@ -1,6 +1,6 @@
 # http://docs.bigbluebutton.org/greenlight/gl-install.html
 
-- name: Get BigBlueButton API secret
+- name: Get BigBlueButton API secret # noqa 306
   shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
   register: bigbluebutton_api_secret
   changed_when: false
