@@ -71,7 +71,7 @@
     minute: "0"
     hour: "0"
     weekday: "0"
-    job: ". {{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }}"
+    job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }} && logger \"Renewed certs for {{ nginx_hostname }}\" -i -t CRON"
 
 - name: Register certbot conf files
   command: "ls -1 {{ certbot_data_dir }}/renewal"

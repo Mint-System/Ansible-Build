@@ -20,7 +20,7 @@
 
 ## Bugs
 
-- [ ] cert renewal cron job not working
+- [ ] Remove /etc/environment call for all cron jobs (shouldn't it be loaded by default?) -> run scripts with >> /var/log/cron.log 2>&1 and * * * * * then append logger
 - [ ] Oauth cookie bypass
 - [ ] restic client password leak
 - [ ] OAuth not working on mobile browsers -> same for odoo.com, worked on safari on ios pinned page
@@ -34,9 +34,7 @@
 
 ## Monitoring
 
-- [ ] Configure oauth with keycloak -> https://community.grafana.com/t/grafana-generic-oauth-with-keycloak/9692
-- [ ] Configure dashboards
-- [ ] Setup alertmanager (with Dashboard?)
+- [ ] Test disk full alert
 - [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
 
 ## Security
@@ -60,7 +58,7 @@
 
 # BACKLOG
 
-- [ ] Remove /etc/environment call for all cron jobs (shouldn't be loaded by default?)
+- [ ] Configure oauth with keycloak for grafana -> https://community.grafana.com/t/grafana-generic-oauth-with-keycloak/9692
 - [ ] Log backups state with logger
 - [ ] Configure only selected owasp crs range for configs
 - [ ] Add odoo app disable option like with the cron jobs
@@ -83,6 +81,9 @@
 
 # DONE
 
+- [x] cert renewal cron job not working -> remove the .
+- [x] Configure dashboards
+- [x] Setup alertmanager (with Dashboard?)
 - [x] Password rest -> email verfication feature is broken -> redirect error
 - [x] Enable /b redirect
 - [-] Change logo and color for jitsi and bbb
