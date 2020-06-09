@@ -4,7 +4,7 @@
     state: directory
 
 - name: Dig DNS CNAME record
-  debug: 
+  debug:
     msg: "{{ lookup('dig', item.src_hostname, 'qtype=CNAME') }}"
   register: dig
   loop: "{{ nginx_proxies }}"

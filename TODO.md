@@ -1,9 +1,5 @@
 # TODO
 
-## Corporate Identity
-
-- [ ] Change logo and color for jitsi and bbb
-
 ## Odoo
 
 - [ ] Install etherpad https://github.com/ether/etherpad-lite/blob/develop/doc/docker.md or use pad.odoo.com
@@ -12,7 +8,7 @@
 
 ## Update
 
-- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified
+- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified -> update servers
 - [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
 
@@ -87,6 +83,9 @@
 
 # DONE
 
+- [x] Password rest -> email verfication feature is broken -> redirect error
+- [x] Enable /b redirect
+- [-] Change logo and color for jitsi and bbb
 - [x] Check mysql and postgres backup jobs
 - [x] sql dump backup job does not work -> maybe @weekly changes behavior
 - [x] Persist dashboards
