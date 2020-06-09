@@ -76,13 +76,13 @@
     url: https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc
     state: present
 
-- name: Check BigBlueButton repo is present # noqa 503
+- name: Check BigBlueButton repo is present
   apt_repository:
     repo: "deb {{ bigbluebutton_apt_repo_url }} bigbluebutton-xenial main"
     state: present
   register: bigbluebutton_repo_is_present
 
-- name: Update apt-get repo and cache
+- name: Update apt-get repo and cache # noqa 503
   apt:
     update_cache: yes
     force_apt_get: yes
@@ -119,7 +119,7 @@
 
 # http://docs.bigbluebutton.org/2.2/install.html#assign-a-hostname
 
-- name: Get BigBlueButton API url
+- name: Get BigBlueButton API url # noqa 306
   shell: "bbb-conf --secret | grep {{ bigbluebutton_hostname }}"
   register: bigbluebutton_api_status
   changed_when: false
