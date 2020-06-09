@@ -35,7 +35,7 @@
       max-file: "{{ docker_log_max_file }}"
   register: start_nextcloud_container
 
-- name: Wait for nextcloud container  # noqa 503
+- name: Wait for nextcloud container # noqa 503
   pause:
     seconds: "3"
   when: start_nextcloud_container.changed
