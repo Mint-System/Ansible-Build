@@ -4,7 +4,7 @@
 set -e
 
 # Run the renew command in certbot container
-docker run -it --rm --name {{ certbot_hostname }}-tmp \
+docker run --rm --name {{ certbot_hostname }}-tmp \
 -v "{{ certbot_data_dir }}/:/etc/letsencrypt/" \
 -v "{{ certbot_data_dir }}/www/:/var/www/certbot/" \
 {{ certbot_image }} \
