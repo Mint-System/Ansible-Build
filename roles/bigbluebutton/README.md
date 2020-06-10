@@ -45,6 +45,8 @@ greenlight_default_registration: open
 greenlight_allow_greenlight_accounts: "true"
 greenlight_room_features: mute-on-join,require-moderator-approval,anyone-can-start,all-join-moderator
 greenlight_allow_mail_notifications: "true"
+greenlight_admin_email: admin@example.com
+greenlight_admin_password: "{{ vault_greenlight_admin_password }}"
 ```
 
 And include it in your playbook.
