@@ -23,7 +23,7 @@
     minute: "30"
     hour: "2"
     weekday: "1"
-    job: "/usr/bin/certbot renew >> /var/log/le-renew.log"
+    job: "certbot renew >> /var/log/le-renew.log"
 
 - name: Cron job to restart nginx
   cron:

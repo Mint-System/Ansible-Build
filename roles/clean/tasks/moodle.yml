@@ -3,3 +3,9 @@
     name: "{{ moodle_hostname }}"
     state: absent
   when: moodle_hostname is defined
+
+- name: Remove moodle volume
+  docker_volume:
+    name: "{{ moodle_volume_name }}"
+    state: absent
+  when: moodle_volume_name is defined and 'moodle-volume' in ansible_run_tags

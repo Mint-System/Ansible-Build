@@ -12,18 +12,16 @@
 
 ## Update
 
-- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified -> update servers
+- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified -> update servers -> start with kronos
 - [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
 
 ## Identity
 
-- [ ] oAuth for openeduca.ch and schule-sisikon.ch -> with existing users
 - [ ] Allow all kind of redirect uris for odoo.mint-system.ch realm
 
 ## Bugs
 
-- [ ] Remove /etc/environment call for all cron jobs (shouldn't it be loaded by default?) -> run scripts with >> /var/log/cron.log 2>&1 and * * * * * then append logger
 - [ ] Oauth cookie bypass
 - [ ] restic client password leak
 - [ ] OAuth not working on mobile browsers -> same for odoo.com, worked on safari on ios pinned page
@@ -31,7 +29,6 @@
 
 ## Server
 
-- [ ] Install odoo-scripts on localhost
 - [ ] User scoped packages, zsh, oh-my-zsh https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml
 - [ ] Install fzf and bat on all server -> ansible download and extract binary -> debian 9+ and ubuntu 19 supported
 
@@ -49,6 +46,7 @@
 
 ## Backup
 
+- [ ] Test PATH update for crontab
 - [ ] Test recover scenario; restore from zip works! -> check sql files -> nextcloud02
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
@@ -67,12 +65,10 @@
 - [ ] Add odoo app disable option like with the cron jobs
 - [ ] Scan ports and block with firewall
 - [ ] Monitoring Notify via Telegram
-- [ ] Remove obsolete odoo apps
+- [ ] Remove obsolete odoo apps -> pruge unapplied module folds
 - [ ] Add icons to odoo apps with mint theme
 - [ ] Odoo package registry with npm and github registry
-- [ ] Extend odoo backup restore script with odoo backup and restore commands
 - [ ] pgadmin4 docker container serve under /pgadmin -> locations path /pgadmin
-- [ ] Deploy jitsi with Docker
 - [ ] Enable profile dotfiles: https://github.com/janikvonrotz/dotfiles
 - [ ] Monitor proxy audit log
 - [ ] Setup hashicorp vault for managing server secrets
@@ -84,6 +80,11 @@
 
 # DONE
 
+- [x] Install odoo-scripts on localhost
+- [x] Remove /etc/environment call for all cron jobs (shouldn't it be loaded by default?) -> run scripts with >> /var/log/cron.log 2>&1 and * * * * * then append logger
+- [x] Extend odoo backup restore script with odoo backup and restore commands
+- [-] Deploy jitsi with Docker
+- [-] oAuth for openeduca.ch and schule-sisikon.ch -> with existing users
 - [-] Greenlight persists recordings -> use bbb-records
 - [x] Configure admin user and logo
 - [x] Enable SAML for cloud.mint-system.ch and fix SAML for nextcloud demo!? -> https://docs.axway.com/bundle/APIManager_762_APIMgmtGuide_allOS_en_HTML5/page/Content/APIManagementGuideTopics/APIManager_SSO/c_saml_trouble.htm#invalid_requester_in_keycloak_page

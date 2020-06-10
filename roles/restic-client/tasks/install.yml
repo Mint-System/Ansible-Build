@@ -41,8 +41,9 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment && restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ \
-      --tag {{ item.tags | join(' --tag ') }}"
+    job: "restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ \
+      --tag {{ item.tags | join(' --tag ') }} && \
+      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "docker-volume"
@@ -58,8 +59,9 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment && restic backup {{ item.path }} \
-      --tag {{ item.tags | join(' --tag ') }}"
+    job: "restic backup {{ item.path }} \
+      --tag {{ item.tags | join(' --tag ') }} && \
+      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "file"
@@ -81,14 +83,21 @@
     line: "ODOO_MASTER_PASSWORD={{ restic_odoo_master_password }}"
   when: restic_odoo_master_password is defined
 
+- name: Add /usr/local/bin to cron PATH
+  cron:
+    name: PATH
+    env: yes
+    job: $PATH;/usr/local/bin
+
 - name: Register odoo backup jobs
   cron:
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment && odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} \
+    job: "odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} \
       && restic backup /var/tmp/{{ item.database }}.zip \
-      --tag {{ item.tags | join(' --tag ') }}"
+      --tag {{ item.tags | join(' --tag ') }} && \
+      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "odoo-backup"
@@ -98,8 +107,9 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment && docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} && \
-      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}"
+    job: "docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} && \
+      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} && \
+      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "postgres-dump"
@@ -109,8 +119,9 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ item.minute }}"
-    job: ". /etc/environment && docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} && \
-      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}"
+    job: "docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} && \
+      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} && \
+      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "mysql-dump"
@@ -120,6 +131,7 @@
     name: "Backup rotation job"
     hour: "23"
     minute: "0"
-    job: ". /etc/environment && restic forget --keep-daily {{ restic_backup_rotation.daily }} \
-      --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune"
+    job: "restic forget --keep-daily {{ restic_backup_rotation.daily }} \
+      --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune && \
+      logger \"Backup rotation job completed\" -i -t CRON"
     disabled: "{{ item.disabled | default(false) }}"
