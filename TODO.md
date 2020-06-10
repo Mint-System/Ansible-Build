@@ -1,5 +1,9 @@
 # TODO
 
+## BigBlueButton
+
+- [ ] TURN Server bereitsellen
+
 ## Odoo
 
 - [ ] Install etherpad https://github.com/ether/etherpad-lite/blob/develop/doc/docker.md or use pad.odoo.com
@@ -14,8 +18,7 @@
 
 ## Identity
 
-- [ ] Enable SAML for cloud.mint-system.ch and fix SAML for nextcloud demo!?
-- [ ] oAuth for openeduca.ch and schule-sisikon.ch
+- [ ] oAuth for openeduca.ch and schule-sisikon.ch -> with existing users
 - [ ] Allow all kind of redirect uris for odoo.mint-system.ch realm
 
 ## Bugs
@@ -81,6 +84,9 @@
 
 # DONE
 
+- [-] Greenlight persists recordings -> use bbb-records
+- [x] Configure admin user and logo
+- [x] Enable SAML for cloud.mint-system.ch and fix SAML for nextcloud demo!? -> https://docs.axway.com/bundle/APIManager_762_APIMgmtGuide_allOS_en_HTML5/page/Content/APIManagementGuideTopics/APIManager_SSO/c_saml_trouble.htm#invalid_requester_in_keycloak_page
 - [x] cert renewal cron job not working -> remove the .
 - [x] Configure dashboards
 - [x] Setup alertmanager (with Dashboard?)
