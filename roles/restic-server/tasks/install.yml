@@ -1,7 +1,3 @@
-- name: Install htpasswd module
-  apt:
-    name: python3-passlib=1.7.1-1
-
 - name: Configure user access for restic server
   htpasswd:
     path: "{{ restic_server_backup_dir }}/.htpasswd"

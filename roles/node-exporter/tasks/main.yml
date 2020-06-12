@@ -1,3 +1,7 @@
 - name: Include install tasks
   include_tasks: install.yml
   when: node_exporter_image is defined
+
+- name: Include install proxy tasks
+  include_tasks: install-proxy.yml
+  when: node_exporter_nginx_data_dir is defined

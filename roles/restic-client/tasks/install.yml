@@ -1,6 +1,19 @@
+- name: Unpin restic version
+  dpkg_selections:
+    name: "{{ restic_client_package }}"
+    selection: hold
+  when: "'=' not in restic_client_package"
+
 - name: Install restic
   apt:
     name: "{{ restic_client_package }}"
+
+- name: Pin restic version
+  dpkg_selections:
+    name: "{{ restic_client_package.split('=')[0] }}"
+    selection: hold
+  when: "'=' in restic_client_package"
+
 
 - name: Check if repo is initialized
   command: restic snapshots

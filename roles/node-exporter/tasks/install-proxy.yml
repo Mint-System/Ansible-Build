@@ -1,0 +1,10 @@
+- name: Configure user access for node-exporter
+  htpasswd:
+    path: "{{ node_exporter_nginx_data_dir }}/node-exporter.htpasswd"
+    name: "{{ node_exporter_proxy_basic_auth_username }}"
+    password: "{{ node_exporter_proxy_basic_auth_password }}"
+
+- name: Copy nginx node-exporter conf
+  template:
+    src: templates/node-exporter.nginx
+    dest: "{{ node_exporter_nginx_data_dir }}/node-exporter.nginx"

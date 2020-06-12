@@ -13,3 +13,5 @@
     key: "{{ item.ssh_key }}"
   loop: "{{ iam_users }}"
 
+- name: Include install oh-my-zsh tasks
+  include_tasks: install-oh-my-zsh.yml
