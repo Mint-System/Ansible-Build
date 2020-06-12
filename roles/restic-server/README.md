@@ -4,10 +4,14 @@ Deploys Restic server container.
 
 ## Requires
 
-The Ansible PostgreSQL role requires the following roles:
+The Ansible Restic server role requires the following roles:
 
 * docker
 * docker-network
+
+And these packages:
+
+* python3-passlib
 
 ## Usage
 

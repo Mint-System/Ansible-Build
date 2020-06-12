@@ -25,7 +25,7 @@
     dest: "{{ nginx_data_dir }}/{{ item.src_hostname }}.conf"
   vars:
     src_hostname: "{{ item.src_hostname }}"
-    src_port: "{{ item.src_port | default('') }}"
+    src_port: "{{ item.src_port | default('443') }}"
     dest_hostname: "{{ item.dest_hostname | default('') }}"
     dest_port: "{{ item.dest_port | default('')  }}"
     options: "{{ item.options | default('') }}"
@@ -37,7 +37,7 @@
   notify: Restart nginx container
 
 - name: Register nginx conf files
-  command: "ls -1 {{ nginx_data_dir }}"
+  shell: "ls -1 {{ nginx_data_dir }}/*.conf"
   changed_when: no
   register: nginx_proxy_conf_files
 

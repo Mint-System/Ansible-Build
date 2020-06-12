@@ -3,6 +3,8 @@
 ## BigBlueButton
 
 - [ ] TURN Server bereitsellen
+- [ ] Install bbb exporter https://github.com/greenstatic/bigbluebutton-exporter
+- [ ] Configure nginx role -> map the *.nginx files and include them in the config
 
 ## Odoo
 
@@ -29,20 +31,21 @@
 
 ## Server
 
-- [ ] User scoped packages, zsh, oh-my-zsh https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml
-- [ ] Install fzf and bat on all server -> ansible download and extract binary -> debian 9+ and ubuntu 19 supported
+- [ ] install fzf
+- [ ] Add package uninstall option! -> remove bat -> change config format with name and state
 
 ## Monitoring
 
 - [ ] Test disk full alert
 - [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
+- [ ] Setup nextcloud exporter https://github.com/xperimental/nextcloud-exporter
 
 ## Security
 
 - [ ] Ignore ARGS:html for /books request api 
         ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
-- [ ] Protect access to cAdvisor and node-exporter -> docker overlay network
+- [ ] Protect access to cAdvisor and node-exporter -> docker overlay network -> setup proxy with basic auth: https://bigbluebutton-exporter.greenstatic.dev/installation/bigbluebutton_exporter/
 
 ## Backup
 
@@ -59,6 +62,7 @@
 
 # BACKLOG
 
+- [ ] Unifiy how packages are installed -> include install.yml from central apt role
 - [ ] Configure oauth with keycloak for grafana -> https://community.grafana.com/t/grafana-generic-oauth-with-keycloak/9692
 - [ ] Log backups state with logger
 - [ ] Configure only selected owasp crs range for configs
@@ -80,6 +84,10 @@
 
 # DONE
 
+- [x] User scoped packages, zsh, oh-my-zsh https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml -> not possible as apt installs everything system wide -> add an option for default user shell
+- [x] Install fzf on all server -> ansible download and extract binary -> debian 9+ and ubuntu 19 supported -> add intall-fzf and install-oh-my-zsh scripts. Then run them in user context with become_user option.
+- [x] Install bat and zsh on all servers
+- [x] Add license and code of conduct
 - [x] Install odoo-scripts on localhost
 - [x] Remove /etc/environment call for all cron jobs (shouldn't it be loaded by default?) -> run scripts with >> /var/log/cron.log 2>&1 and * * * * * then append logger
 - [x] Extend odoo backup restore script with odoo backup and restore commands

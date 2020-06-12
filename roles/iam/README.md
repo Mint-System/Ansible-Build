@@ -26,7 +26,9 @@ iam_users:
     groups: wheel,docker
     shell: /bin/bash
 iam_packages:
-  - vim=2:8.0.1453-1ubuntu1.1
+  - name: vim=2:8.0.1453-1ubuntu1.1
+  - name: bacula-console-qt
+    state: absent
 ```
 
 And include it in your playbook.

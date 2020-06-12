@@ -1,0 +1,6 @@
+location /node-exporter/ {
+    auth_basic "{{ node_exporter_proxy_basic_auth_username }}";
+    auth_basic_user_file /etc/nginx/conf.d/node-exporter.htpasswd;
+    proxy_pass http://{{ node_exporter_hostname }}:9100/;
+    include /etc/letsencrypt/proxy-params.conf;
+}

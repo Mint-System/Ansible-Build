@@ -4,6 +4,13 @@
     update_cache: yes
     force_apt_get: yes
 
+- name: Unpin system package
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: install
+  loop: "{{ docker_packages }}"
+  when: "'=' not in item"
+
 - name: Install required system packages
   apt:
     name: "{{ item }}"
@@ -16,13 +23,6 @@
   loop: "{{ docker_packages }}"
   when: "'=' in item"
 
-- name: Unpin system package
-  dpkg_selections:
-    name: "{{ item }}"
-    selection: install
-  loop: "{{ docker_packages }}"
-  when: "'=' not in item"
-
 - name: Add Docker GPG apt Key
   apt_key:
     url: "{{ docker_apt_key_url }}"
@@ -32,6 +32,12 @@
   apt_repository:
     repo: "{{ docker_apt_repo }}"
     state: present
+
+- name: Unpin docker-ce version
+  dpkg_selections:
+    name: "{{ docker_package }}"
+    selection: hold
+  when: "'=' not in docker_package"
 
 - name: Update apt and install docker-ce
   apt:
@@ -43,12 +49,6 @@
     name: "{{ docker_package.split('=')[0] }}"
     selection: hold
   when: "'=' in docker_package"
-
-- name: Unpin docker-ce version
-  dpkg_selections:
-    name: "{{ docker_package }}"
-    selection: hold
-  when: "'=' not in docker_package"
 
 - name: Install Docker Module for Python
   pip:
