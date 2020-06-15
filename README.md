@@ -88,6 +88,10 @@ Deploy role only
 
 `ansible-playbook -i inventories/odoo odoo.yml -t postgres`
 
+Deploy without dependencies
+
+`ansible-playbook -i inventories/odoo odoo.yml --skip-tags dependencies`
+
 Deploy role to specific host
 
 `ansible-playbook -i inventories/odoo odoo.yml -t docker -l host.example.com`

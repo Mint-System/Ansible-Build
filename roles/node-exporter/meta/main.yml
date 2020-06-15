@@ -1,0 +1,13 @@
+dependencies:
+  - role: docker
+    tags:
+      - docker
+      - dependencies
+  - role: docker-network
+    tags:
+      - docker-network
+      - dependencies
+  - role: nginx
+    tags:
+      - nginx
+      - dependencies

@@ -1,0 +1,25 @@
+- name: Ensure nginx data dir exists
+  file:
+    path: "{{ cadvisor_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: "Fail if package {{ cadvisor_requires_package }} is not installed"
+  fail:
+    msg: "Package {{ cadvisor_requires_package }} is not installed!"
+  when: cadvisor_requires_package not in ansible_facts.packages
+
+- name: Configure user access for cadvisor
+  htpasswd:
+    path: "{{ cadvisor_nginx_data_dir }}/cadvisor.htpasswd"
+    name: "{{ cadvisor_proxy_basic_auth_username }}"
+    password: "{{ cadvisor_proxy_basic_auth_password }}"
+
+- name: Copy nginx cadvisor conf
+  template:
+    src: templates/cadvisor.nginx
+    dest: "{{ cadvisor_nginx_data_dir }}/cadvisor.nginx"
+  notify: Restart nginx container

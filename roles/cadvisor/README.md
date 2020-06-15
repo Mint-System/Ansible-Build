@@ -2,13 +2,6 @@
 
 Deploys cAdvisor container.
 
-## Requires
-
-The Ansible cAdvisor role requires the following roles:
-
-* docker
-* docker-network
-
 ## Usage
 
 Configure the role.
@@ -19,6 +12,17 @@ Configure the role.
 cadvisor_hostname: cadvisor01
 cadvisor_image: gcr.io/google-containers/cadvisor:v0.34.0
 cadvisor_port: 8081
+cadvisor_nginx_data_dir: /usr/share/nginx01
+```
+
+Ensure the nginx proxy includes the cadvisor config:
+
+```yml
+nginx_proxies:
+  - src_hostname: server.example.com
+    ssl: true
+    options: |
+      include /etc/nginx/conf.d/*.nginx;
 ```
 
 And include it in your playbook.
@@ -26,11 +30,6 @@ And include it in your playbook.
 ```yml
 - hosts: cAdvisor
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
   - role: cadvisor
     tags: cadvisor
 ```
-

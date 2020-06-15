@@ -1,10 +1,6 @@
 - hosts: all
   become: true
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
   - role: elasticsearch
     tags: elasticsearch
   - role: kibana
@@ -21,7 +17,3 @@
     tags: prometheus
   - role: grafana
     tags: grafana
-  - role: modsecurity
-    tags: modsecurity
-  - role: nginx
-    tags: nginx
