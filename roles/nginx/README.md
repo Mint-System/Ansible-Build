@@ -16,6 +16,7 @@ certbot_email: info@example.com
 nginx_image: nginx:1.15-alpine
 nginx_hostname: proxy01
 nginx_data_dir: /usr/share/nginx01
+nginx_https_port: 8443
 nginx_proxies:
   - src_hostname: www.example.com
     dest_hostname: webserver
@@ -31,7 +32,6 @@ nginx_proxies:
       - example.org
       - www.example.org
   - src_hostname: login.example.com
-    src_port: 8443
     ssl: true
     locations:
       - path: /

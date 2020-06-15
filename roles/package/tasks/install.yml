@@ -1,19 +1,19 @@
-- name: Unpin package
+- name: Unpin packages
   dpkg_selections:
     name: "{{ item.name }}"
     selection: install
-  loop: "{{ iam_packages }}"
+  loop: "{{ packages }}"
   when: "'=' not in item.name"
 
-- name: Install required iam packages
+- name: Install required packages
   apt:
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
-  loop: "{{ iam_packages }}"
+  loop: "{{ packages }}"
 
-- name: Pin package
+- name: Pin packages
   dpkg_selections:
     name: "{{ item.name.split('=')[0] }}"
     selection: hold
-  loop: "{{ iam_packages }}"
+  loop: "{{ packages }}"
   when: "'=' in item.name"

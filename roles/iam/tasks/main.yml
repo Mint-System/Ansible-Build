@@ -1,7 +1,3 @@
-- name: Include install tasks
-  include_tasks: install.yml
-  when: iam_packages is defined
-
 - name: Include groups tasks
   include_tasks: groups.yml
   when: iam_groups is defined

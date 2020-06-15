@@ -2,12 +2,6 @@
 
 Configures users and groups.
 
-## Requires
-
-The Ansible IAM role requires the following roles:
-
-* docker
-
 ## Usage
 
 Configure the role.
@@ -25,10 +19,6 @@ iam_users:
     ssh_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups: wheel,docker
     shell: /bin/bash
-iam_packages:
-  - name: vim=2:8.0.1453-1ubuntu1.1
-  - name: bacula-console-qt
-    state: absent
 ```
 
 And include it in your playbook.
@@ -36,8 +26,6 @@ And include it in your playbook.
 ```yml
 - hosts: iam
   roles:
-  - role: docker
-    tags: docker
   - role: iam
     tags: iam
 ```

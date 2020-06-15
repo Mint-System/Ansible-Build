@@ -1,8 +1,8 @@
 - hosts: all
   become: true
   roles:
-  - role: docker
-    tags: docker
+  - role: package
+    tags: package
   - role: iam
     tags: iam
   - role: update
