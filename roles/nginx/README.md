@@ -1,14 +1,6 @@
 # Ansible Nginx role
 
-Deploys Nginx proxy with Let's Encrypt certificates and ModSecurity
-
-## Requires
-
-The Ansible Nginx role requires the following roles:
-
-* docker
-* docker-network
-* modsecurity
+Deploys Nginx proxy with Let's Encrypt certificates and ModSecurity.
 
 ## Usage
 
@@ -21,8 +13,6 @@ certbot_image: certbot/certbot
 certbot_hostname: cert01
 certbot_data_dir: /usr/share/certbot01
 certbot_email: info@example.com
-certbot_stat_filter: "results[*] | [?stat.exists==`false`].item"
-
 nginx_image: nginx:1.15-alpine
 nginx_hostname: proxy01
 nginx_data_dir: /usr/share/nginx01
@@ -58,12 +48,6 @@ And include it in your playbook.
 ```yml
 - hosts: proxy
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: modsecurity
-    tags: modsecurity
   - role: nginx
     tags: nginx
 ```

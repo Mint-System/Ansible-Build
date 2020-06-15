@@ -1,5 +1,17 @@
 # TODO
 
+## Project
+
+- [ ] Configure meta/main.yml dependencies for all projects! See cadvisor and update playbooks
+  - [x] node-exporter
+  - [x] cadvisor
+  - [x] restic-server
+  - [x] nginx
+  - [x] modsecurity
+  - [ ] prometheus
+  - [ ] restic-client
+  - [ ] ...
+
 ## BigBlueButton
 
 - [ ] TURN Server bereitsellen
@@ -36,6 +48,7 @@
 
 ## Monitoring
 
+- [ ] Convert all scaper connections to https! Recreate all containers and ensure port is not exposed. Resetup grafana and prometheus.
 - [ ] Test disk full alert
 - [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
 - [ ] Setup nextcloud exporter https://github.com/xperimental/nextcloud-exporter
@@ -45,7 +58,7 @@
 - [ ] Ignore ARGS:html for /books request api 
         ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
-- [ ] Protect access to cAdvisor and node-exporter -> docker overlay network -> setup proxy with basic auth: https://bigbluebutton-exporter.greenstatic.dev/installation/bigbluebutton_exporter/
+- [ ] Protect access to cAdvisor and node-exporter -> docker overlay network -> setup proxy with basic auth: https://bigbluebutton-exporter.greenstatic.dev/installation/bigbluebutton_exporter/ -> switch to this method!
 
 ## Backup
 
@@ -62,6 +75,8 @@
 
 # BACKLOG
 
+- [ ] Generate ansible documentation -> ansible-doc?
+- [ ] See meta role https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-dependencies
 - [ ] Unifiy how packages are installed -> include install.yml from central apt role
 - [ ] Configure oauth with keycloak for grafana -> https://community.grafana.com/t/grafana-generic-oauth-with-keycloak/9692
 - [ ] Log backups state with logger

@@ -31,7 +31,7 @@ modsecurity_inbound_anomaly_score_threshold: 10
 And include it in your playbook.
 
 ```yml
-- hosts: proxy
+- hosts: modsecurity
   roles:
   - role: modsecurity
     tags: modsecurity

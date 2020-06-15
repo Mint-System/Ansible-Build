@@ -1,13 +1,7 @@
 - hosts: all
   become: true
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
   - role: modsecurity
     tags: modsecurity
   - role: nginx
     tags: nginx
-  - role: postgres
-    tags: postgres

@@ -9,7 +9,8 @@ The Ansible Prometheus role requires the following roles:
 * docker
 * docker-network
 * cadvisor and/or node-exporter
-* inventory group *exporter*
+
+And the inventory group *exporter*.
 
 ## Usage
 
@@ -22,6 +23,10 @@ prometheus_image: prom/prometheus:v2.17.1
 prometheus_hostname: prom01
 prometheus_volume_name: prom_data01
 prometheus_data_dir: /usr/share/prom01
+prometheus_node_exporter_basic_auth_username: node-exporter
+prometheus_node_exporter_basic_auth_password: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
+prometheus_cadvisor_basic_auth_username: cadvisor
+prometheus_cadvisor_basic_auth_password: "{{ vault_prometheus_cadvisor_basic_auth_password }}"
 ```
 
 And include it in your playbook.
@@ -33,14 +38,10 @@ And include it in your playbook.
     tags: docker
   - role: docker-network
     tags: docker-network
-  - role: cadvisor
-    tags: cadvisor
-  - role: node-exporter
-    tags: node-exporter
   - role: prometheus
     tags: prometheus
 ```
 
 # Docs
 
-The Prometheus role extracts all hosts from the inventory group *exporter* and uses them as targets. Only if the exporter host has an node-exporter or cadvisor image configured it will be used as target.
+The Prometheus role extracts all hosts from the inventory group *exporter* and uses them as targets. Only if the exporter host has an node-exporter or cadvisor container configured it will be used as target.

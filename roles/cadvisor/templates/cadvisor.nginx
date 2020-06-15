@@ -1,0 +1,6 @@
+location /cadvisor/ {
+    auth_basic "{{ cadvisor_proxy_basic_auth_username }}";
+    auth_basic_user_file /etc/nginx/conf.d/cadvisor.htpasswd;
+    proxy_pass http://{{ cadvisor_hostname }}:8080/;
+    include /etc/letsencrypt/proxy-params.conf;
+}

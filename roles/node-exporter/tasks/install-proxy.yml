@@ -1,3 +1,17 @@
+- name: Ensure nginx data dir exists
+  file:
+    path: "{{ node_exporter_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: "Fail if package {{ node_exporter_requires_package }} is not installed"
+  fail:
+    msg: "Package {{ node_exporter_requires_package }} is not installed!"
+  when: node_exporter_requires_package not in ansible_facts.packages
+
 - name: Configure user access for node-exporter
   htpasswd:
     path: "{{ node_exporter_nginx_data_dir }}/node-exporter.htpasswd"
@@ -8,3 +22,4 @@
   template:
     src: templates/node-exporter.nginx
     dest: "{{ node_exporter_nginx_data_dir }}/node-exporter.nginx"
+  notify: Restart nginx container
