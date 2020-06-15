@@ -13,8 +13,6 @@
   template:
     src: prometheus.yml
     dest: "{{ prometheus_data_dir }}/"
-  vars:
-    targets: "{{ groups.exporter | map('extract', hostvars) | list }}"
   notify: Restart prometheus container
 
 - name: "Start prometheus container {{ prometheus_hostname }}"

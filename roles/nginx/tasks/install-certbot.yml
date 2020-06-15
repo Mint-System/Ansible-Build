@@ -3,6 +3,7 @@
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
   loop: "{{ nginx_proxies }}"
   register: certbot_certs
+  when: item.ssl is defined
 
 - name: Copy nginx certbot conf
   template:
@@ -11,7 +12,7 @@
   vars:
     server_name: "{{ item.item.src_hostname }}"
   loop: "{{ certbot_certs.results }}"
-  when: not item.stat.exists
+  when: item.stat is defined and not item.stat.exists
 
 - name: "Start nginx container {{ nginx_hostname }}"
   docker_container:
@@ -47,7 +48,7 @@
       - name: "{{ docker_network_name }}"
     command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.item.src_hostname }}
   loop: "{{ certbot_certs.results }}"
-  when: not item.stat.exists
+  when: item.stat is defined and not item.stat.exists
 
 - name: Wait for certificate request
   pause:
@@ -64,6 +65,7 @@
     src: renew-certs
     dest: "{{ certbot_data_dir }}/"
     mode: +x
+  when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Register renew certs job
   cron:
@@ -72,11 +74,13 @@
     hour: "0"
     weekday: "0"
     job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }} && logger \"Renewed certs for {{ nginx_hostname }}\" -i -t CRON"
+  when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Register certbot conf files
   command: "ls -1 {{ certbot_data_dir }}/renewal"
   changed_when: no
   register: certbot_conf_files
+  when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Create managed file list from proxy list
   set_fact:
@@ -87,4 +91,4 @@
     path: "{{ certbot_data_dir }}/renewal/{{ item }}"
     state: "absent"
   loop: "{{ certbot_conf_files.stdout_lines }}"
-  when: item not in managed_files
+  when: certbot_conf_files.stdout_lines is defined and item not in managed_files

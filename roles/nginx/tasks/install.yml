@@ -25,7 +25,6 @@
     dest: "{{ nginx_data_dir }}/{{ item.src_hostname }}.conf"
   vars:
     src_hostname: "{{ item.src_hostname }}"
-    src_port: "{{ item.src_port | default('443') }}"
     dest_hostname: "{{ item.dest_hostname | default('') }}"
     dest_port: "{{ item.dest_port | default('')  }}"
     options: "{{ item.options | default('') }}"
@@ -66,10 +65,10 @@
     name: "{{ nginx_hostname }}"
     image: "{{ nginx_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: yes
     ports:
-      - 80:80
-      - 443:443
+      - "{{ nginx_http_port }}:{{ nginx_http_port }}"
+      - "{{ nginx_https_port }}:{{ nginx_https_port }}"
     volumes:
       - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
@@ -89,8 +88,8 @@
     restart_policy: unless-stopped
     recreate: no
     ports:
-      - 80:80
-      - 443:443
+      - "{{ nginx_http_port }}:{{ nginx_http_port }}"
+      - "{{ nginx_https_port }}:{{ nginx_https_port }}"
     volumes:
       - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"

@@ -3,7 +3,7 @@
     name: "{{ keycloak_hostname }}"
     image: "{{ keycloak_image }}"
     restart_policy: unless-stopped
-    recreate: yes
+    recreate: no
     env:
       KEYCLOAK_USER: "{{ keycloak_user }}"
       KEYCLOAK_PASSWORD: "{{ keycloak_password }}"

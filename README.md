@@ -35,6 +35,7 @@ Collection of Ansible playbooks and roles.
 * [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
 * [update](roles/update/README.md) - Install system and package updates
 * [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight.
+* [package](roles/package/README.md) - Install and pin packages.
 
 ## Usage
 

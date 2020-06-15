@@ -3,6 +3,7 @@
     name: "{{ cadvisor_hostname }}"
     image: "{{ cadvisor_image }}"
     restart_policy: unless-stopped
+    recreate: no
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro

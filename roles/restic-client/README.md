@@ -2,10 +2,6 @@
 
 Configures Restic client backup jobs.
 
-## Requires
-
-Docker volumes to backup.
-
 ## Usage
 
 Configure the role.
@@ -13,7 +9,6 @@ Configure the role.
 **vars.yml**
 
 ```yml
-restic_client_package: "restic=0.8.3+ds-1"
 restic_client_user: restic
 restic_client_password: "{{ vault_restic_client_password }}"
 restic_repo: restic.example.com:8080
@@ -69,7 +64,3 @@ And include it in your playbook.
   - role: restic-client
     tags: restic-client
 ```
-
-## Docs
-
-The odoo backup type connects to `http://localhost:8069` by default.

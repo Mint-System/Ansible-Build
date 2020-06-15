@@ -8,9 +8,30 @@
   - [x] restic-server
   - [x] nginx
   - [x] modsecurity
-  - [ ] prometheus
-  - [ ] restic-client
+  - [x] iam
+  - [x] package
+  - [x] restic-client
+  - [x] prometheus
+  - [ ] bigbluebutton
+  - [ ] odoo
+  - [ ] postgres
+  - [ ] moodle
+  - [ ] mysql
+  - [ ] bookstack
+  - [ ] elasticsearch
+  - [ ] fathom
+  - [ ] grafana
+  - [ ] keycloak
+  - [ ] elasticsearch
+  - [ ] logstash
+  - [ ] metricbeat
+  - [ ] kibana
+  - [ ] openldap
+  - [ ] wordpress
+  - [ ] collabora-code
+  - [ ] nextcloudß
   - [ ] ...
+- [ ] Setup defaults/main.yml for all `| default()` tags
 
 ## BigBlueButton
 
@@ -48,7 +69,6 @@
 
 ## Monitoring
 
-- [ ] Convert all scaper connections to https! Recreate all containers and ensure port is not exposed. Resetup grafana and prometheus.
 - [ ] Test disk full alert
 - [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
 - [ ] Setup nextcloud exporter https://github.com/xperimental/nextcloud-exporter
@@ -58,7 +78,6 @@
 - [ ] Ignore ARGS:html for /books request api 
         ctl:ruleRemoveTargetById=932100-932999;!ARGS:html
 - [ ] Setup user and run container with it for every role? 
-- [ ] Protect access to cAdvisor and node-exporter -> docker overlay network -> setup proxy with basic auth: https://bigbluebutton-exporter.greenstatic.dev/installation/bigbluebutton_exporter/ -> switch to this method!
 
 ## Backup
 
@@ -75,6 +94,7 @@
 
 # BACKLOG
 
+- [ ] Prometheus scaper confige -> automate from Ansible group exporter
 - [ ] Generate ansible documentation -> ansible-doc?
 - [ ] See meta role https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-dependencies
 - [ ] Unifiy how packages are installed -> include install.yml from central apt role
@@ -99,6 +119,8 @@
 
 # DONE
 
+- [x] Protect access to cAdvisor and node-exporter -> docker overlay network -> setup proxy with basic auth: https://bigbluebutton-exporter.greenstatic.dev/installation/bigbluebutton_exporter/ -> switch to this method!
+- [x] Convert all scaper connections to https! Recreate all containers and ensure port is not exposed. Resetup grafana and prometheus. -> eris and hera not done yet -> no proxy config
 - [x] User scoped packages, zsh, oh-my-zsh https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml -> not possible as apt installs everything system wide -> add an option for default user shell
 - [x] Install fzf on all server -> ansible download and extract binary -> debian 9+ and ubuntu 19 supported -> add intall-fzf and install-oh-my-zsh scripts. Then run them in user context with become_user option.
 - [x] Install bat and zsh on all servers
