@@ -1,38 +1,5 @@
 # TODO
 
-## Project
-
-- [ ] Configure meta/main.yml dependencies for all projects! See cadvisor and update playbooks
-  - [x] node-exporter
-  - [x] cadvisor
-  - [x] restic-server
-  - [x] nginx
-  - [x] modsecurity
-  - [x] iam
-  - [x] package
-  - [x] restic-client
-  - [x] prometheus
-  - [ ] bigbluebutton
-  - [x] odoo
-  - [ ] postgres
-  - [ ] moodle
-  - [ ] mysql
-  - [ ] bookstack
-  - [ ] elasticsearch
-  - [ ] fathom
-  - [ ] grafana
-  - [ ] keycloak
-  - [ ] elasticsearch
-  - [ ] logstash
-  - [ ] metricbeat
-  - [ ] kibana
-  - [ ] openldap
-  - [ ] wordpress
-  - [ ] collabora-code
-  - [ ] nextcloud
-  - [ ] ...
-- [ ] Setup defaults/main.yml for all `| default()` tags
-
 ## BigBlueButton
 
 - [ ] TURN Server bereitsellen
@@ -121,6 +88,36 @@
 
 # DONE
 
+- [x] Configure meta/main.yml dependencies for all projects! See cadvisor and update playbooks
+  - [x] node-exporter
+  - [x] cadvisor
+  - [x] restic-server
+  - [x] nginx
+  - [x] modsecurity
+  - [x] iam
+  - [x] package
+  - [x] restic-client
+  - [x] prometheus
+  - [x] bigbluebutton
+  - [x] odoo
+  - [x] postgres
+  - [x] moodle
+  - [x] mysql
+  - [x] bookstack
+  - [x] elasticsearch
+  - [x] fathom
+  - [x] grafana
+  - [x] keycloak
+  - [x] logstash
+  - [x] metricbeat
+  - [x] kibana
+  - [x] openldap
+  - [x] wordpress
+  - [x] collabora-code
+  - [x] nextcloud
+  - [x] docker-network
+  - [x] ...
+- [x] Setup defaults/main.yml for all `| default()` tags
 - [x] Protect access to cAdvisor and node-exporter -> docker overlay network -> setup proxy with basic auth: https://bigbluebutton-exporter.greenstatic.dev/installation/bigbluebutton_exporter/ -> switch to this method!
 - [x] Convert all scaper connections to https! Recreate all containers and ensure port is not exposed. Resetup grafana and prometheus. -> eris and hera not done yet -> no proxy config
 - [x] User scoped packages, zsh, oh-my-zsh https://github.com/veggiemonk/ansible-ohmyzsh/blob/master/tasks/main.yml -> not possible as apt installs everything system wide -> add an option for default user shell

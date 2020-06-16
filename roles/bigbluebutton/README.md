@@ -2,14 +2,6 @@
 
 Installs BigBlueButton with https and greenlight.
 
-## Requires
-
-The Ansible BigBlueButton role requires the following roles:
-
-* docker
-* docker-network
-* postgres
-
 ## Usage
 
 Configure the role.
@@ -54,13 +46,13 @@ And include it in your playbook.
 ```yml
 - hosts: bigbluebutton
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: postgres
-    tags: postgres
   - role: bigbluebutton
+    tags:
+    - biglbuebutton
+    - biglbuebutton-core
+    - biglbuebutton-letsencrypt
+    - biglbuebutton-https
+    - biglbuebutton-greenlight
 ```
 
 The following tags are available:

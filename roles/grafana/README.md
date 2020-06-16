@@ -2,14 +2,6 @@
 
 Deploys Grafana container.
 
-## Requires
-
-The Ansible Grafana role requires the following roles:
-
-* docker
-* docker-network
-* prometheus
-
 ## Usage
 
 Configure the role.
@@ -36,12 +28,6 @@ And include it in your playbook.
 ```yml
 - hosts: prometheus
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: prometheus
-    tags: prometheus
   - role: grafana
     tags: grafana
 ```

@@ -2,16 +2,6 @@
 
 Deploys Metricbeat Docker container.
 
-## Requires
-
-The Ansible Metricbeat role requires the following roles:
-
-* docker
-* docker-network
-* elasticsearch
-* kibana
-* logstash
-
 ## Usage
 
 Configure the role.
@@ -37,16 +27,6 @@ And include it in your playbook.
 ```yml
 - hosts: metricbeat
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: elasticsearch
-    tags: elasticsearch
-  - role: kibana
-    tags: kibana
-  - role: logstash
-    tags: logstash
   - role: metricbeat
     tags: metricbeat
 ```

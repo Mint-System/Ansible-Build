@@ -24,7 +24,7 @@
       - "{{ prometheus_volume_name }}:/prometheus"
       - "{{ prometheus_data_dir }}/prometheus.yml:/etc/prometheus/prometheus.yml"
     ports:
-      - "{{ prometheus_port | default('9090') }}:9090"
+      - "{{ prometheus_port }}:9090"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

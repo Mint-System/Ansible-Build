@@ -1,19 +1,9 @@
 - hosts: all
   become: true
   roles:
-  - role: elasticsearch
-    tags: elasticsearch
-  - role: kibana
-    tags: kibana
-  - role: logstash
-    tags: logstash
-  - role: metricbeat
-    tags: metricbeat
   - role: cadvisor
     tags: cadvisor
   - role: node-exporter
     tags: node-exporter
-  - role: prometheus
-    tags: prometheus
   - role: grafana
     tags: grafana

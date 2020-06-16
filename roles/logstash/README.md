@@ -2,14 +2,6 @@
 
 Deploys Logstash Docker container.
 
-## Requires
-
-The Ansible Logstash role requires the following roles:
-
-* docker
-* docker-network
-* elasticsearch
-
 ## Usage
 
 Configure the role.
@@ -28,14 +20,8 @@ logstash_elasticsearch_password: "{{ vault_logstash_elasticsearch_password }}"
 And include it in your playbook.
 
 ```yml
-- hosts: kibana
+- hosts: logstash
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: elasticsearch
-    tags: elasticsearch
   - role: logstash
     tags: logstash
 ```

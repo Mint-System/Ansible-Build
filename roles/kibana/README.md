@@ -2,14 +2,6 @@
 
 Deploys Kibana Docker container.
 
-## Requires
-
-The Ansible Kibana role requires the following roles:
-
-* docker
-* docker-network
-* elasticsearch
-
 ## Usage
 
 Configure the role.
@@ -30,12 +22,6 @@ And include it in your playbook.
 ```yml
 - hosts: kibana
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: elasticsearch
-    tags: elasticsearch
   - role: kibana
     tags: kibana
 ```

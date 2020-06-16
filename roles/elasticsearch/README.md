@@ -2,13 +2,6 @@
 
 Deploys ElasticSearch Docker cluster.
 
-## Requires
-
-The Ansible ElasticSearch role requires the following roles:
-
-* docker
-* docker-network
-
 ## Usage
 
 Configure the role.
@@ -45,10 +38,6 @@ And include it in your playbook.
 ```yml
 - hosts: elasticsearch
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
   - role: elasticsearch
     tags: elasticsearch
 ```

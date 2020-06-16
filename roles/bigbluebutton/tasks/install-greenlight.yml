@@ -34,7 +34,7 @@
       ROOM_FEATURES: "{{ greenlight_room_features }}"
       ALLOW_MAIL_NOTIFICATIONS: "{{ greenlight_allow_mail_notifications }}"
     ports:
-      - "{{ greenlight_port | default('127.0.0.1:5000') }}:80"
+      - "{{ greenlight_port }}:80"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
