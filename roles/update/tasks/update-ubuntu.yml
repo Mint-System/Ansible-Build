@@ -18,3 +18,10 @@
     msg: Rebooting to complete system upgrade
     reboot_timeout: 120
   when: reboot_required.stat.exists
+
+- name: Get all installed and updated packages
+  shell: grep -E "$(date --iso-8601).+ (install|upgrade) " /var/log/dpkg.log | cut -d " " -f 3-5
+  register: installed_updated_packages
+  
+- name: Show installed and updated packages
+  debug: msg="{{ installed_updated_packages.stdout_lines }}"

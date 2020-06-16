@@ -1,3 +1,3 @@
 - name: Include install tasks
   include_tasks: install.yml
-  when: restic_client_package is defined
+  when: restic_repo is defined

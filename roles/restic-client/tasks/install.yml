@@ -92,7 +92,7 @@
   cron:
     name: PATH
     env: yes
-    job: $PATH;/usr/local/bin
+    job: /bin:/usr/bin:/usr/local/bin
 
 - name: Register odoo backup jobs
   cron:

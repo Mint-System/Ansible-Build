@@ -15,7 +15,14 @@
 
 ## Update
 
-- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified -> update servers -> start with kronos
+- [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified -> update servers -> start with kronos -> boot still hangs -> might be acpi options from grub? -> manuell reboot also does not work -> once reboot has been reseted it works!
+  - [ ] hades
+  - [ ] zeus -> ensure backup for realm exists!
+  - [x] kronos
+  - [x] atlas
+  - [x] apollo
+  - [x] eris
+  - [x] hera
 - [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
 
@@ -50,7 +57,7 @@
 
 ## Backup
 
-- [ ] Test PATH update for crontab
+- [ ] check backups
 - [ ] Test recover scenario; restore from zip works! -> check sql files -> nextcloud02
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
@@ -88,6 +95,7 @@
 
 # DONE
 
+- [x] Test PATH update for crontab -> did not work! -> fixed -> all paths were required
 - [x] Configure meta/main.yml dependencies for all projects! See cadvisor and update playbooks
   - [x] node-exporter
   - [x] cadvisor
