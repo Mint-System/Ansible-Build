@@ -13,7 +13,7 @@
   - [x] restic-client
   - [x] prometheus
   - [ ] bigbluebutton
-  - [ ] odoo
+  - [x] odoo
   - [ ] postgres
   - [ ] moodle
   - [ ] mysql
@@ -29,7 +29,7 @@
   - [ ] openldap
   - [ ] wordpress
   - [ ] collabora-code
-  - [ ] nextcloudß
+  - [ ] nextcloud
   - [ ] ...
 - [ ] Setup defaults/main.yml for all `| default()` tags
 
@@ -44,6 +44,7 @@
 - [ ] Install etherpad https://github.com/ether/etherpad-lite/blob/develop/doc/docker.md or use pad.odoo.com
 - [ ] OAuth access for existing users (not portal users) -> update guides
 - [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
+- [ ] Update to Odoo 13.2?
 
 ## Update
 
@@ -54,6 +55,7 @@
 ## Identity
 
 - [ ] Allow all kind of redirect uris for odoo.mint-system.ch realm
+  - [ ] Remove demo clients from odoo.mint-system.ch client
 
 ## Bugs
 

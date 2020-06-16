@@ -48,12 +48,17 @@
       - name: "{{ docker_network_name }}"
     command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.item.src_hostname }}
   loop: "{{ certbot_certs.results }}"
+  register: certbot_issue_certificate
   when: item.stat is defined and not item.stat.exists
 
 - name: Wait for certificate request
   pause:
     seconds: "10"
   when: certbot_certs | json_query(certbot_stat_filter) | list
+
+- name: debug
+  debug:
+    var: certbot_issue_certificate
 
 - name: "Remove certbot container {{ certbot_hostname }}"
   docker_container:
