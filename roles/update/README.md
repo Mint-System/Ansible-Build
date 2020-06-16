@@ -16,7 +16,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-update: yes
+update: true
 ```
 
 And include it in your playbook.
