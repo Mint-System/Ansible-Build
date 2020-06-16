@@ -1,14 +1,6 @@
 - hosts: all
   become: true
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: postgres
-    tags: postgres
-  - role: mysql
-    tags: mysql
   - role: bookstack
     tags: bookstack
   - role: nextcloud
@@ -22,3 +14,9 @@
   - role: nginx
     tags: nginx
   - role: bigbluebutton
+    tags:
+    - biglbuebutton
+    - biglbuebutton-core
+    - biglbuebutton-letsencrypt
+    - biglbuebutton-https
+    - biglbuebutton-greenlight

@@ -2,14 +2,6 @@
 
 Deploys Moodle Docker container.
 
-## Requires
-
-The Ansible Moodle role requires the following roles:
-
-* docker
-* docker-network
-* postgres
-
 ## Usage
 
 Configure the role.
@@ -41,10 +33,6 @@ And include it in your playbook.
 ```yml
 - hosts: moodle
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - { role: postgres, tags: ["postgres"] }
-  - { role: moodle, tags: ["moodle"] }
+  - role: moodle
+    tags: moodle
 ```

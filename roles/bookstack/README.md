@@ -2,14 +2,6 @@
 
 Deploys BookStack Docker container.
 
-## Requires
-
-The Ansible BookStack role requires the following roles:
-
-* docker
-* docker-network
-* mysql
-
 ## Usage
 
 Configure the role.
@@ -39,12 +31,6 @@ And include it in your playbook.
 ```yml
 - hosts: bookstack
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: mysql
-    tags: mysql
   - role: bookstack
     tags: bookstack
 ```

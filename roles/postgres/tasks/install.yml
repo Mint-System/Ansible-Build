@@ -16,7 +16,7 @@
     volumes:
       - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
     ports:
-      - "{{ postgres_port | default('127.0.0.1:5432') }}:5432"
+      - "{{ postgres_port }}:5432"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

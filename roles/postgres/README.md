@@ -2,13 +2,6 @@
 
 Deploys PostgreSQL database container
 
-## Requires
-
-The Ansible PostgreSQL role requires the following roles:
-
-* docker
-* docker-network
-
 ## Usage
 
 Configure the role.
@@ -31,10 +24,6 @@ And include it in your playbook.
 ```yml
 - hosts: postgres
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
   - role: postgres
     tags: postgres
 ```

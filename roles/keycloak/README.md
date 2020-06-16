@@ -2,14 +2,6 @@
 
 Deploys Keycloak container.
 
-## Requires
-
-The Ansible Keycloak role requires the following roles:
-
-* docker
-* docker-network
-* postgres
-
 ## Usage
 
 Configure the role.
@@ -31,14 +23,8 @@ keycloak_db_password: "{{ vault_keycloak_db_password }}"
 And include it in your playbook.
 
 ```yml
-- hosts: prometheus
+- hosts: keycloak
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
-  - role: postgres
-    tags: postgres
   - role: keycloak
     tags: keycloak
 ```

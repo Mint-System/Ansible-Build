@@ -1,13 +1,7 @@
-- hosts: "{{ ehosts | default('all') }}"
+- hosts: all
   become: true
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
   - role: restic-server
     tags: restic-server
   - role: restic-client
     tags: restic-client
-  - role: odoo-scripts
-    tags: odoo-scripts

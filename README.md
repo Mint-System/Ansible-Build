@@ -21,9 +21,9 @@ Collection of Ansible playbooks and roles.
 * [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container
 * [colabora-code](roles/colabora-code/README.md) - Deploy Nextcloud container
 * [moodle](roles/moodle/README.md) - Deploy Moodle container
-* [restic-server](roles/restic-server/README.md) - Deploy Restic server container
 * [iam](roles/iam/README.md) - Configures users and groups
 * [restic-client](roles/restic-client/README.md) - Configure Restic client backup jobs
+* [restic-server](roles/restic-server/README.md) - Deploy Restic server container
 * [elasticsearch](roles/elasticsearch/README.md) - Deploy ElasticSearch Docker cluster
 * [kibana](roles/elasticsearch/README.md) - Deploy Kibana Docker container
 * [logstash](roles/logstash/README.md) - Deploy Logstash Docker container

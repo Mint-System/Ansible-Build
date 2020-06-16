@@ -6,7 +6,7 @@
     env:
       extra_params: "--o:ssl.enable=false"
     ports:
-      - "{{ collabora_code_port | default('9980') }}:9980"
+      - "{{ collabora_code_port }}:9980"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
