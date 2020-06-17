@@ -15,11 +15,22 @@ packages:
     state: absent
 ```
 
-And include it in your playbook.
+Include it in your playbook.
 
 ```yml
 - hosts: package
   roles:
-  - role: packages
+  - role: package
     tags: package
+```
+
+Or include it in another role.
+
+```yml
+- name: Install required docker packages
+  include_role:
+    name: package
+  vars:
+    packages:
+      - "{{ docker_package }}"
 ```

@@ -1,0 +1,11 @@
+- name: "Remove wordpress container {{ wordpress_hostname }}"
+  docker_container:
+    name: "{{ wordpress_hostname }}"
+    state: absent
+  when: wordpress_hostname is defined
+
+- name: "Remove wordpress volume {{ wordpress_volume_name }}"
+  docker_volume:
+    name: "{{ wordpress_volume_name }}"
+    state: absent
+  when: wordpress_volume_name is defined and 'wordpress-volume' in ansible_run_tags

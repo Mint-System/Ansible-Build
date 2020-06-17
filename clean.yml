@@ -3,25 +3,4 @@
   roles:
   - role: clean
     tags:
-      - nginx
-      - modsecurity
-      - keycloak
-      - kibana
-      - moodle
-      - odoo
-      - odoo-scripts
-      - nextcloud
-      - collabora-code
-      - bookstack
-      - logstash
-      - elasticsearch
-      - metricbeat
-      - cadvisor
-      - node-exporter
-      - prometheus
-      - grafana
-      - openldap
-      - mysql
-      - postgres
-      - docker-network
-      - fathom
+      - always

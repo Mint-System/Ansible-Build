@@ -20,3 +20,5 @@
     - biglbuebutton-letsencrypt
     - biglbuebutton-https
     - biglbuebutton-greenlight
+  - role: wordpress
+    tags: wordpress

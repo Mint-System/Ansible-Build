@@ -15,6 +15,12 @@
   when: item.msg == 'alias.zeit.co.'
   loop: "{{ dig.results }}"
 
+- name: Fail if DNS record points to cname.vercel-dns.com.
+  fail:
+    msg: DNS record points to default alias.
+  when: item.msg == 'cname.vercel-dns.com.'
+  loop: "{{ dig.results }}"
+
 - name: Include install certbot tasks
   include_tasks: install-certbot.yml
   when: certbot_image is defined
@@ -65,7 +71,7 @@
     name: "{{ nginx_hostname }}"
     image: "{{ nginx_image }}"
     restart_policy: unless-stopped
-    recreate: yes
+    recreate: no
     ports:
       - "{{ nginx_http_port }}:{{ nginx_http_port }}"
       - "{{ nginx_https_port }}:{{ nginx_https_port }}"

@@ -190,4 +190,13 @@ ROLENAME_admin_password: "{{ vault_ROLENAME_admin_password }}"
 ROLENAME_postgres_hostname:
 ROLENAME_postgres_user:
 ROLENAME_postgres_password: "{{ vault_ROLENAME_postgres_password }}"
+# SMTP
+ROLENAME_smtp_hostname:
+ROLENAME_smtp_auth:
+ROLENAME_smtp_secure:
+ROLENAME_smtp_port:
+ROLENAME_smtp_domain:
+ROLENAME_smtp_from:
+ROLENAME_smtp_username:
+ROLENAME_smtp_password:
 ```

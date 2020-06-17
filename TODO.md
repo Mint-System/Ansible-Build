@@ -6,6 +6,10 @@
 - [ ] Install bbb exporter https://github.com/greenstatic/bigbluebutton-exporter
 - [ ] Configure nginx role -> map the *.nginx files and include them in the config
 
+## Wordpress
+
+- [ ] Configure sendmail
+
 ## Odoo
 
 - [ ] Install etherpad https://github.com/ether/etherpad-lite/blob/develop/doc/docker.md or use pad.odoo.com
@@ -23,8 +27,10 @@
   - [x] apollo
   - [x] eris
   - [x] hera
+- [ ] Package upgrader -> if versions do not match, unpin package
 - [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
+- [ ] upgrade nginx images -> basic group -> nginx 1.19
 
 ## Identity
 
@@ -95,6 +101,7 @@
 
 # DONE
 
+- [x] Docker packages use package role to install its packages -> include role and override packages
 - [x] Test PATH update for crontab -> did not work! -> fixed -> all paths were required
 - [x] Configure meta/main.yml dependencies for all projects! See cadvisor and update playbooks
   - [x] node-exporter

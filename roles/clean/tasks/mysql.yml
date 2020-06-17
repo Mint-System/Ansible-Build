@@ -3,3 +3,9 @@
     name: "{{ mysql_hostname }}"
     state: absent
   when: mysql_hostname is defined
+
+- name: "Remove mysql volume {{ mysql_volume_name }}"
+  docker_volume:
+    name: "{{ mysql_volume_name }}"
+    state: absent
+  when: mysql_volume_name is defined and 'mysql-volume' in ansible_run_tags
