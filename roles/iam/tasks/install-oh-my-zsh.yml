@@ -5,7 +5,7 @@
     version: master
   become_user: "{{ item.username }}"
   become: true
-  when: item.shell == '/bin/zsh'
+  when: item.shell == '/bin/zsh' and inventory_hostname_short in item.hosts
   loop: "{{ iam_users }}"
 
 - name: Install oh-my-zsh for user"
@@ -14,5 +14,5 @@
     creates: "/home/{{ item.username }}/.zshrc"
   become_user: "{{ item.username }}"
   become: true
-  when: item.shell == '/bin/zsh'
+  when: item.shell == '/bin/zsh' and inventory_hostname_short in item.hosts
   loop: "{{ iam_users }}"

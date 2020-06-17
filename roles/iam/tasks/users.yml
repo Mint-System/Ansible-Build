@@ -5,6 +5,7 @@
     groups: "{{ item.groups }}"
     append: yes
   loop: "{{ iam_users }}"
+  when: inventory_hostname_short in item.hosts
 
 - name: Set authorized key
   authorized_key:
@@ -12,6 +13,7 @@
     state: present
     key: "{{ item.ssh_key }}"
   loop: "{{ iam_users }}"
+  when: inventory_hostname_short in item.hosts
 
 - name: Include install oh-my-zsh tasks
   include_tasks: install-oh-my-zsh.yml
