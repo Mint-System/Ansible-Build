@@ -3,12 +3,6 @@
     name: "{{ wordpress_volume_name }}"
   when: wordpress_volume_name is defined
 
-- name: Ensure wordpress data dir exists
-  file:
-    path: "{{ wordpress_data_dir }}"
-    state: directory
-  when: wordpress_data_dir is defined
-
 - name: "Start wordpress container {{ wordpress_hostname }}"
   docker_container:
     name: "{{ wordpress_hostname }}"
@@ -16,15 +10,44 @@
     restart_policy: unless-stopped
     recreate: no
     env:
-      GF_SECURITY_ADMIN_USER: "{{ wordpress_admin_user }}"
-      GF_SECURITY_ADMIN_PASSWORD: "{{ wordpress_admin_password }}"
-      GF_USERS_ALLOW_SIGN_UP: "false"
+      WORDPRESS_DB_HOST: "{{ wordpress_db_hostname }}"
+      WORDPRESS_DB_USER: "{{ wordpress_db_user}}"
+      WORDPRESS_DB_PASSWORD: "{{ wordpress_db_password }}"
+      WORDPRESS_DB_NAME: "{{ wordpress_db_name }}"
+      WORDPRESS_SMTP_HOST: "{{ wordpress_smtp_hostname }}"
+      WORDPRESS_SMTP_PORT: "{{ wordpress_smtp_port }}"
+      WORDPRESS_SMTP_SECURE: "{{ wordpress_smtp_secure }}"
+      WORDPRESS_SMTP_USERNAME: "{{ wordpress_smtp_username }}"
+      WORDPRESS_SMTP_PASSWORD: "{{ wordpress_smtp_password }}"
+      WORDPRESS_SMTP_FROM: "{{ wordpress_smtp_from }}"
+      WORDPRESS_SMTP_FROM_NAME: "{{ wordpress_smtp_from }}"
+      WORDPRESS_SMTP_AUTH: "true"
     volumes:
-      - "{{ wordpress_volume_name }}:/wordpress"
-      - "{{ wordpress_data_dir }}/datasource.yml:/etc/wordpress/provisioning/datasource/datasource.yml"
+      - "{{ wordpress_volume_name }}:/var/www/html"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+
+# - name: Upate wordpress config
+#   blockinfile:
+#     path: "/var/lib/docker/volumes/{{ wordpress_volume_name }}/_data/wp-mail.php"
+#     insertafter: "$pop3->quit();"
+#     marker: "// {mark} ANSIBLE MANAGED BLOCK"
+#     block: |
+#         /* SMTP Settings */
+#         add_action( 'phpmailer_init', 'send_smtp_email' );
+#         function send_smtp_email( $phpmailer ) {
+#             $phpmailer->isSMTP();
+#             $phpmailer->Host       = getenv('WORDPRESS_SMTP_HOST');
+#             $phpmailer->SMTPAuth   = getenv('WORDPRESS_SMTP_AUTH');
+#             $phpmailer->Port       = getenv('WORDPRESS_SMTP_PORT');
+#             $phpmailer->SMTPSecure = getenv('WORDPRESS_SMTP_SECURE');
+#             $phpmailer->Username   = getenv('WORDPRESS_SMTP_USERNAME');
+#             $phpmailer->Password   = getenv('WORDPRESS_SMTP_PASSWORD');
+#             $phpmailer->From       = getenv('WORDPRESS_SMTP_FROM');
+#             $phpmailer->FromName   = getenv('WORDPRESS_SMTP_FROM_NAME');
+#         }
+#   notify: Restart wordpress container

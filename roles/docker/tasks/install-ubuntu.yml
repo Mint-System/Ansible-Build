@@ -1,27 +1,8 @@
-- name: Install aptitude using apt
-  apt:
-    name: "{{ docker_aptitude_package }}"
-    update_cache: yes
-    force_apt_get: yes
-
-- name: Unpin docker packages
-  dpkg_selections:
-    name: "{{ item }}"
-    selection: install
-  loop: "{{ docker_packages }}"
-  when: "'=' not in item"
-
 - name: Install required docker packages
-  apt:
-    name: "{{ item }}"
-  loop: "{{ docker_packages }}"
-
-- name: Pin docker packages
-  dpkg_selections:
-    name: "{{ item.split('=')[0] }}"
-    selection: hold
-  loop: "{{ docker_packages }}"
-  when: "'=' in item"
+  include_role:
+    name: package
+  vars:
+    packages: "{{ docker_packages }}"
 
 - name: Add Docker GPG apt Key
   apt_key:
@@ -33,22 +14,12 @@
     repo: "{{ docker_apt_repo }}"
     state: present
 
-- name: Unpin docker-ce version
-  dpkg_selections:
-    name: "{{ docker_package }}"
-    selection: hold
-  when: "'=' not in docker_package"
-
-- name: Update apt and install docker-ce
-  apt:
-    update_cache: yes
-    name: "{{ docker_package }}"
-
-- name: Pin docker-ce version
-  dpkg_selections:
-    name: "{{ docker_package.split('=')[0] }}"
-    selection: hold
-  when: "'=' in docker_package"
+- name: Install required docker packages
+  include_role:
+    name: package
+  vars:
+    packages:
+      - "{{ docker_package }}"
 
 - name: Install Docker Module for Python
   pip:

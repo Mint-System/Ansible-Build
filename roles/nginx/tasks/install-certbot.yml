@@ -56,10 +56,6 @@
     seconds: "10"
   when: certbot_certs | json_query(certbot_stat_filter) | list
 
-- name: debug
-  debug:
-    var: certbot_issue_certificate
-
 - name: "Remove certbot container {{ certbot_hostname }}"
   docker_container:
     name: "{{ certbot_hostname }}"
