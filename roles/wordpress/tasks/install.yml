@@ -11,7 +11,7 @@
     recreate: no
     env:
       WORDPRESS_DB_HOST: "{{ wordpress_db_hostname }}"
-      WORDPRESS_DB_USER: "{{ wordpress_db_user}}"
+      WORDPRESS_DB_USER: "{{ wordpress_db_user }}"
       WORDPRESS_DB_PASSWORD: "{{ wordpress_db_password }}"
       WORDPRESS_DB_NAME: "{{ wordpress_db_name }}"
       WORDPRESS_SMTP_HOST: "{{ wordpress_smtp_hostname }}"
