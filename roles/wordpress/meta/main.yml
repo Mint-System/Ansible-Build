@@ -2,12 +2,12 @@ dependencies: # noqa 701
   - role: docker
     tags:
       - docker
-      - dependencies
+      - depends
   - role: docker-network
     tags:
       - docker-network
-      - dependencies
+      - depends
   - role: mysql
     tags:
       - mysql
-      - dependencies
+      - depends

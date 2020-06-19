@@ -3,5 +3,7 @@
   roles:
   - role: odoo
     tags: odoo
+  - role: odoo-apps
+    tags: odoo-apps
   - role: odoo-scripts
     tags: odoo-scripts

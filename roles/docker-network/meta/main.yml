@@ -2,4 +2,4 @@ dependencies: # noqa 701
   - role: docker
     tags:
       - docker
-      - dependencies
+      - depends

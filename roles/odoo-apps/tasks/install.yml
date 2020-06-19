@@ -1,0 +1,60 @@
+- name: Ensure odoo addon dir exists
+  file:
+    path: "{{ odoo_data_dir }}/addons"
+    state: directory
+
+- name: Download odoo app zip archive
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
+  loop: "{{ odoo_apps }}"
+  when: item.url is defined
+
+- name: Copy odoo app zip archive
+  copy:
+    src: "{{ item.file }}"
+    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
+  loop: "{{ odoo_apps }}"
+  when: item.file is defined
+
+- name: Extract odoo app zip archive
+  unarchive:
+    src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
+    dest: "{{ odoo_apps_tmp_dir }}"
+    remote_src: yes
+    list_files: yes
+  loop: "{{ odoo_apps }}"
+  register: archive_contents
+
+- name: Copy odoo app to addons dir for each includes attribute
+  copy:
+    src: "{{ odoo_apps_tmp_dir }}/{{ item.1 }}/"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.1 }}"
+    remote_src: yes
+  loop: "{{ odoo_apps | subelements('includes', skip_missing=True) }}"
+  notify: Restart odoo container
+
+- name: Copy odoo app to addons dir if archive entry is directory
+  copy:
+    src: "{{ odoo_apps_tmp_dir }}/{{ item.files[0] }}"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
+    remote_src: yes
+  when: item.files[0] is match(".*\/$")
+  loop: "{{ archive_contents.results }}"
+  notify: Restart odoo container
+
+- name: Copy odoo app to addons dir if archive entry is file
+  copy:
+    src: "{{ odoo_apps_tmp_dir }}/{{ item.item.name }}/"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
+    remote_src: yes
+  when: item.files[0] is not match(".*\/$")
+  loop: "{{ archive_contents.results }}"
+  notify: Restart odoo container
+
+- name: Ensure auto install is disabled
+  replace:
+    path:  "{{ odoo_data_dir }}/addons/{{ item.name }}/__manifest__.py"
+    regexp: "'auto_install': True,"
+    replace: "'auto_install': False,"
+  loop: "{{ odoo_apps }}"
