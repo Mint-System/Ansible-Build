@@ -2,3 +2,5 @@
   roles:
   - role: odoo-scripts
     tags: odoo-scripts
+  - role: odoo-apps
+    tags: odoo-apps

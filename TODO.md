@@ -3,7 +3,6 @@
 ## BigBlueButton
 
 - [ ] TURN Server bereitsellen
-- [ ] Install bbb exporter https://github.com/greenstatic/bigbluebutton-exporter
 - [ ] Configure nginx role -> map the *.nginx files and include them in the config
 
 ## Wordpress
@@ -16,21 +15,23 @@
 - [ ] OAuth access for existing users (not portal users) -> update guides
 - [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
 - [ ] Update to Odoo 13.2?
+- [ ] Check odoo apps dependencies before copying
+- [ ] Update Odoo and apps -> show db names 1.0.1
 
 ## Update
 
 - [ ] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified -> update servers -> start with kronos -> boot still hangs -> might be acpi options from grub? -> manuell reboot also does not work -> once reboot has been reseted it works!
   - [ ] hades
   - [ ] zeus -> ensure backup for realm exists!
+  - [x] hermes
   - [x] kronos
   - [x] atlas
   - [x] apollo
   - [x] eris
   - [x] hera
 - [ ] Package upgrader -> if versions do not match, unpin package
-- [ ] Update Odoo and apps -> show db names 1.0.1
 - [ ] Update Bookstack to 0.29
-- [ ] upgrade nginx images -> basic group -> nginx 1.19
+- [ ] upgrade nginx images -> basic group -> nginx 1.19 -> all others
 
 ## Identity
 
@@ -56,8 +57,6 @@
 ## Monitoring
 
 - [ ] Test disk full alert
-- [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
-- [ ] Setup nextcloud exporter https://github.com/xperimental/nextcloud-exporter
 
 ## Security
 
@@ -67,7 +66,6 @@
 
 ## Backup
 
-- [ ] check backups
 - [ ] Test recover scenario; restore from zip works! -> check sql files -> nextcloud02
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
@@ -80,6 +78,7 @@
 
 # BACKLOG
 
+- [ ] Mail dev für Mail-Tests Odoo
 - [ ] Prometheus scaper confige -> automate from Ansible group exporter
 - [ ] Generate ansible documentation -> ansible-doc?
 - [ ] See meta role https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-dependencies
@@ -102,9 +101,13 @@
 - [ ] Manage prom exporter in Docker Swarm for enclosed networking -> https://docs.ansible.com/ansible/latest/modules/docker_swarm_module.html -> checkout overlay network https://docs.docker.com/network/overlay/
 - [ ] Test roles with molecule
 - [ ] CI/CD that installs roles
+- [ ] Install bbb exporter https://github.com/greenstatic/bigbluebutton-exporter
+- [ ] Setup blackbox exporter https://github.com/prometheus/blackbox_exporter
+- [ ] Setup nextcloud exporter https://github.com/xperimental/nextcloud-exporter
 
 # DONE
 
+- [x] check backups
 - [x] Docker packages use package role to install its packages -> include role and override packages
 - [x] Test PATH update for crontab -> did not work! -> fixed -> all paths were required
 - [x] Configure meta/main.yml dependencies for all projects! See cadvisor and update playbooks

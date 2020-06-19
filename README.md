@@ -110,9 +110,9 @@ Clean role only
 
 `ansible-playbook -i inventories/odoo clean.yml -t docker-network`
 
-Install odoo-scripts locally
+Install odoo-scripts and odoo-apps locally
 
-`ansible-playbook localhost.yml`
+`anp -i inventories/odoo localhost.yml --skip-tags depends`
 
 ## Docs
 
