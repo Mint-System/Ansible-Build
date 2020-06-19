@@ -49,6 +49,10 @@
 - [ ] install fzf
 - [ ] Add package uninstall option! -> remove bat -> change config format with name and state
 
+## Nextcloud
+
+- [ ] Configure backup jobs
+
 ## Monitoring
 
 - [ ] Test disk full alert

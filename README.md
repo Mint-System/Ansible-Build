@@ -36,6 +36,7 @@ Collection of Ansible playbooks and roles.
 * [update](roles/update/README.md) - Install system and package updates
 * [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight.
 * [package](roles/package/README.md) - Install and pin packages.
+* [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps.
 
 ## Usage
 
@@ -91,7 +92,7 @@ Deploy role only
 
 Deploy without dependencies
 
-`ansible-playbook -i inventories/odoo odoo.yml --skip-tags dependencies`
+`ansible-playbook -i inventories/odoo odoo.yml --skip-tags depends`
 
 Deploy role to specific host
 
