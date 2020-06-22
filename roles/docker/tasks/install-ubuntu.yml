@@ -24,3 +24,9 @@
 - name: Install Docker Module for Python
   pip:
     name: "{{ docker_pip_package }}"
+
+- name: Add /usr/local/bin to cron PATH
+  cron:
+    name: PATH
+    env: yes
+    job: /bin:/usr/bin:/usr/local/bin

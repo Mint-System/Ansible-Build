@@ -10,14 +10,14 @@ Help() {
   echo "############"
   echo
   echo "Description: Restore odoo database."
-  echo "Syntax: odoo-restore [-p|-n|-f|-h|-d|help]"
-  echo "Example: odoo-restore -p secret -n odoo -f /tmp/odoo.zip -h https://odoo.example.org"
+  echo "Syntax: odoo-restore [-p|-d|-f|-h|-r|help]"
+  echo "Example: odoo-restore -p secret -d odoo -f /tmp/odoo.zip -h https://odoo.example.org"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var."
-  echo "  -n    Database name."
+  echo "  -d    Database name."
   echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'"
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'"
-  echo "  -d    Delete existing database."  
+  echo "  -r    Replace existing database."  
   echo "  help  Show odoo-restore manual."
   echo
 }
@@ -29,18 +29,18 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Initialise option flag with a false value
-DELETE='false'
+REPLACE='false'
 
 # Process params
-while getopts ":d :p: :n: :f: :h:" opt; do
+while getopts ":r :p: :d: :f: :h:" opt; do
   case $opt in
-    d) DELETE='true'
+    r) REPLACE='true'
     ;;
     h) HOST="$OPTARG"
     ;;
     p) PASSWORD="$OPTARG"
     ;;
-    n) DATABASE="$OPTARG"
+    d) DATABASE="$OPTARG"
     ;;
     f) FILE="$OPTARG"
     ;;
@@ -63,14 +63,14 @@ done
 # Validate zip file
 unzip -q -t $FILE
 
-if $DELETE ; then
+if $REPLACE ; then
   echo "Deleting Odoo database $DATABASE ..."
 
   curl \
     --silent \
     -F "master_pwd=${PASSWORD}" \
     -F "name=${DATABASE}" \
-    ${HOST}/web/database/drop | grep -q 'Internal Server Error'
+    ${HOST}/web/database/drop | grep -s 'Internal Server Error|Redirecting...'
 fi
 
 # Start restore
