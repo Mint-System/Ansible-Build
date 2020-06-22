@@ -5,10 +5,6 @@
 - [ ] TURN Server bereitsellen
 - [ ] Configure nginx role -> map the *.nginx files and include them in the config
 
-## Wordpress
-
-- [ ] Configure sendmail
-
 ## Odoo
 
 - [ ] Install etherpad https://github.com/ether/etherpad-lite/blob/develop/doc/docker.md or use pad.odoo.com
@@ -16,7 +12,6 @@
 - [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
 - [ ] Update to Odoo 13.2?
 - [ ] Check odoo apps dependencies before copying
-- [ ] Update Odoo and apps -> show db names 1.0.1
 
 ## Update
 
@@ -49,10 +44,6 @@
 
 - [ ] install fzf
 - [ ] Add package uninstall option! -> remove bat -> change config format with name and state
-
-## Nextcloud
-
-- [ ] Configure backup jobs
 
 ## Monitoring
 
@@ -107,6 +98,9 @@
 
 # DONE
 
+- [x] Configure backup jobs
+- [x] Update Odoo and apps -> show db names 1.0.1
+- [-] Configure sendmail
 - [x] check backups
 - [x] Docker packages use package role to install its packages -> include role and override packages
 - [x] Test PATH update for crontab -> did not work! -> fixed -> all paths were required
