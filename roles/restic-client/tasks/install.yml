@@ -88,12 +88,6 @@
     line: "ODOO_MASTER_PASSWORD={{ restic_odoo_master_password }}"
   when: restic_odoo_master_password is defined
 
-- name: Add /usr/local/bin to cron PATH
-  cron:
-    name: PATH
-    env: yes
-    job: /bin:/usr/bin:/usr/local/bin
-
 - name: Register odoo backup jobs
   cron:
     name: "Backup job {{ item.id }}"

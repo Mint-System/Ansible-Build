@@ -47,3 +47,9 @@
     block: |
         'overwriteprotocol' => 'https',
   notify: Restart nextcloud container
+
+- name: Cron job to run nextcloud backgrounds jobs
+  cron:
+    name: "Run nextcloud backgrounds jobs"
+    minute: "*/5"
+    job: "docker exec -u www-data {{ nextcloud_hostname }} php -f /var/www/html/cron.php"
