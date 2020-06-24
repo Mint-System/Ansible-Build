@@ -18,7 +18,7 @@
 
 - name: Install versioned packages
   yum:
-    name: "{{ item.name }}-{{ item.version}}"
+    name: "{{ item.name }}-{{ item.version }}"
     state: present
   loop: "{{ packages }}"
   when: item.version is defined

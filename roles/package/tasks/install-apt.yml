@@ -20,7 +20,7 @@
 
 - name: Install versioned packages
   apt:
-    name: "{{ item.name }}={{ item.version}}"
+    name: "{{ item.name }}={{ item.version }}"
     state: present
   loop: "{{ packages }}"
   when: item.version is defined
