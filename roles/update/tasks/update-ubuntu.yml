@@ -6,8 +6,7 @@
 
 - name: Upgrade all packages
   apt:
-    name: "*"
-    state: latest
+    upgrade: safe
 
 - name: Check if reboot is required
   stat:
@@ -26,5 +25,5 @@
   changed_when: false
 
 - name: Show installed and updated packages
-  debug: 
+  debug:
     msg: "{{ installed_updated_packages.stdout_lines }}"

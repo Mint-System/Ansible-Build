@@ -2,7 +2,7 @@
   yum:
     update_cache: yes
 
-- name: Upgrade all packages
+- name: Upgrade all packages # noqa 403
   yum:
     name: "*"
     state: latest
@@ -26,5 +26,5 @@
   changed_when: false
 
 - name: Show installed and updated packages
-  debug: 
+  debug:
     msg: "{{ installed_updated_packages.stdout_lines }}"
