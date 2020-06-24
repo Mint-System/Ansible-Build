@@ -1,3 +1,21 @@
-- name: Include install tasks
-  include_tasks: install.yml
-  when: packages is defined
+- name: Show distribution
+  debug:
+    msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+
+- name: Add /usr/local/bin to cron PATH
+  cron:
+    name: PATH
+    env: yes
+    job: /bin:/usr/bin:/usr/local/bin
+
+- name: Include apt install tasks
+  include_tasks: install-apt.yml
+  when: packages is defined and ansible_distribution == 'Ubuntu'
+
+- name: Include yum install tasks
+  include_tasks: install-yum.yml
+  when: packages is defined and ansible_distribution == 'CentOS' and ansible_python_interpreter == '/usr/bin/python2'
+
+- name: Include dnf install tasks
+  include_tasks: install-dnf.yml
+  when: packages is defined and ansible_distribution == 'CentOS' and ansible_python_interpreter == '/usr/bin/python3'

@@ -9,17 +9,25 @@
     name: "{{ item.name }}"
     selection: install
   loop: "{{ packages }}"
-  when: "'=' not in item.name"
+  when: item.version is not defined
 
-- name: Install required packages
+- name: Install latest packages
   apt:
     name: "{{ item.name }}"
-    state: "{{ item.state | default('present') }}"
+    state: present
   loop: "{{ packages }}"
+  when: item.version is not defined
+
+- name: Install versioned packages
+  apt:
+    name: "{{ item.name }}={{ item.version}}"
+    state: present
+  loop: "{{ packages }}"
+  when: item.version is defined
 
 - name: Pin packages
   dpkg_selections:
-    name: "{{ item.name.split('=')[0] }}"
+    name: "{{ item.name }}"
     selection: hold
   loop: "{{ packages }}"
-  when: "'=' in item.name"
+  when: item.version is defined
