@@ -1,15 +1,9 @@
-- name: Install required docker packages
-  include_role:
-    name: package
-  vars:
-    packages: "{{ docker_packages }}"
-
 - name: Add Docker GPG apt Key
   apt_key:
     url: "{{ docker_apt_key_url }}"
     state: present
 
-- name: Add Docker Repository
+- name: Add Docker repo
   apt_repository:
     repo: "{{ docker_apt_repo }}"
     state: present
@@ -18,15 +12,8 @@
   include_role:
     name: package
   vars:
-    packages:
-      - "{{ docker_package }}"
+    packages: "{{ docker_packages }}"
 
 - name: Install Docker Module for Python
   pip:
     name: "{{ docker_pip_package }}"
-
-- name: Add /usr/local/bin to cron PATH
-  cron:
-    name: PATH
-    env: yes
-    job: /bin:/usr/bin:/usr/local/bin

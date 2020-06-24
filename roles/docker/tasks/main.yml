@@ -1,3 +1,7 @@
-- name: Include install tasks
+- name: Include Ubuntu install tasks
   include_tasks: install-ubuntu.yml
-  when: docker_package is defined and (ansible_distribution == 'Ubuntu')
+  when: docker_packages is defined and (ansible_distribution == 'Ubuntu')
+
+- name: Include CentOS install tasks
+  include_tasks: install-centos.yml
+  when: docker_packages is defined and (ansible_distribution == 'CentOS')

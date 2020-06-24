@@ -1,11 +1,9 @@
-- name: Update apt-get repo and cache
-  apt:
+- name: Update yum cache
+  yum:
     update_cache: yes
-    force_apt_get: yes
-    cache_valid_time: 3600
 
 - name: Upgrade all packages
-  apt:
+  yum:
     name: "*"
     state: latest
 
@@ -21,7 +19,9 @@
   when: reboot_required.stat.exists
 
 - name: Get all installed and updated packages # noqa 306
-  shell: grep -E "$(date --iso-8601).+ (install|upgrade) " /var/log/dpkg.log | cut -d " " -f 3-5
+  shell: rpm -qa --last | grep "$(date +%a\ %b\ %d)" | cut -f 1 -d " "
+  args:
+    warn: false
   register: installed_updated_packages
   changed_when: false
 

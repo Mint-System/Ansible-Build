@@ -1,0 +1,13 @@
+- name: Install latest packages
+  dnf:
+    name: "{{ item.name }}"
+    state: present
+  loop: "{{ packages }}"
+  when: item.version is not defined
+
+- name: Install versioned packages
+  dnf:
+    name: "{{ item.name }}-{{ item.version}}"
+    state: present
+  loop: "{{ packages }}"
+  when: item.version is defined

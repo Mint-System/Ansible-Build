@@ -10,9 +10,9 @@ Configure the role.
 
 ```yml
 packages:
-  - name: vim=2:8.0.1453-1ubuntu1.1
-  - name: bacula-console-qt
-    state: absent
+  - name: zsh
+  - name: vim
+    version: 2:8.0.1453-1ubuntu1.3
 ```
 
 Include it in your playbook.

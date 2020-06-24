@@ -14,12 +14,14 @@
 
 ## Update
 
+- [ ] Check if package latest update method works for Ubuntu
 - [ ] Package upgrader -> if versions do not match, unpin package
 - [ ] Update Bookstack to 0.29
 - [ ] upgrade nginx images -> basic group -> nginx 1.19 -> all others
 
 ## Bugs
 
+- [ ] Configure CentOS package pinning and system updates
 - [ ] Oauth cookie bypass
 - [ ] restic client password leak
 - [ ] OAuth not working on mobile browsers -> same for odoo.com, worked on safari on ios pinned page
@@ -78,6 +80,7 @@
 
 # DONE
 
+- [x] Configure CentOS package pinning and system updates
 - [x] See meta role https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-dependencies
 - [x] Unifiy how packages are installed -> include install.yml from central apt role
 - [x] Log backups state with logger

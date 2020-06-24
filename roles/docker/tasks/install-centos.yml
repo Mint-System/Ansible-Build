@@ -1,0 +1,29 @@
+- name: Add Docker repo
+  get_url:
+    url: "{{ docker_yum_url }}"
+    dest: /etc/yum.repos.d/docer-ce.repo
+
+- name: "Enable Docker {{ docker_yum_repo }} repo"
+  ini_file:
+    dest: /etc/yum.repos.d/docer-ce.repo
+    section: "{{ docker_yum_repo }}"
+    option: enabled
+    value: "0"
+
+- name: Install required docker packages
+  include_role:
+    name: package
+  vars:
+    packages: "{{ docker_packages }}"
+
+- name: Install Docker Module for Python3
+  pip:
+    name: "{{ docker_pip_package }}"
+    executable: pip3
+    virtualenv_site_packages: true
+
+- name: Start docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
