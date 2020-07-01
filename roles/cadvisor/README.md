@@ -10,6 +10,7 @@ Configure the role.
 
 ```yml
 cadvisor_hostname: cadvisor01
+cadvisor_description: docker monitoring for server1
 cadvisor_image: gcr.io/google-containers/cadvisor:v0.34.0
 cadvisor_port: 8081
 cadvisor_nginx_data_dir: /usr/share/nginx01

@@ -1,0 +1,7 @@
+
+
+docker exec odoo02 bin/bash -c "\"self.env['ir.module.module'].search([('name', '=', 'web_enterprise')]).button_immediate_uninstall()\" | odoo shell -d steibock-ag --db_host=\$HOST -r \$USER -w \$PASSWORD" && docker restart odoo02
+
+
+"self.env['ir.module.module'].search([('name', '=', 'web_enterprise')]).button_immediate_uninstall()" | 
+odoo shell -d steibock-ag --db_host=$HOST -r $USER -w $PASSWORD && docker restart odoo02

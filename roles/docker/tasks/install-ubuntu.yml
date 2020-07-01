@@ -14,6 +14,7 @@
   vars:
     packages: "{{ docker_packages }}"
 
-- name: Install Docker Module for Python
+- name: Install python modules
   pip:
-    name: "{{ docker_pip_package }}"
+    name: "{{ item.name }}"
+  loop: "{{ docker_pip_packages }}"

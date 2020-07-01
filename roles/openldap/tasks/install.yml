@@ -6,6 +6,8 @@
 - name: "Start openldap container {{ openldap_hostname }}"
   docker_container:
     name: "{{ openldap_hostname }}"
+    labels:
+      description: "{{ openldap_description }}"
     image: "{{ openldap_image }}"
     restart_policy: unless-stopped
     env:

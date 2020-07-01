@@ -31,6 +31,8 @@
 - name: "Start elasticsearch container {{ item.hostname }}"
   docker_container:
     name: "{{ item.hostname }}"
+    labels:
+      description: "{{ item.description }}"
     image: "{{ elasticsearch_image }}"
     restart_policy: unless-stopped
     recreate: no
@@ -70,6 +72,8 @@
 - name: "Start elasticsearch container {{ item.hostname }}"
   docker_container:
     name: "{{ item.hostname }}"
+    labels:
+      description: "{{ item.description }}"
     image: "{{ elasticsearch_image }}"
     restart_policy: unless-stopped
     recreate: no

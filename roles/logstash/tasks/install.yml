@@ -13,6 +13,8 @@
 - name: "Start logstash container {{ logstash_hostname }}"
   docker_container:
     name: "{{ logstash_hostname }}"
+    labels:
+      description: "{{ logstash_description }}"
     image: "{{ logstash_image }}"
     restart_policy: unless-stopped
     env:

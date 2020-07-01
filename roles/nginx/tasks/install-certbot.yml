@@ -17,6 +17,8 @@
 - name: "Start nginx container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
+    labels:
+      description: "{{ nginx_description }}"
     image: "{{ nginx_image }}"
     ports:
       - 80:80
@@ -39,7 +41,7 @@
 
 - name: Issue certificate with certbot command
   docker_container:
-    name: "{{ certbot_hostname }}"
+    name: "{{ item.item.src_hostname }}"
     image: "{{ certbot_image }}"
     volumes:
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
@@ -56,10 +58,11 @@
     seconds: "10"
   when: certbot_certs | json_query(certbot_stat_filter) | list
 
-- name: "Remove certbot container {{ certbot_hostname }}"
+- name: "Remove certbot container"
   docker_container:
-    name: "{{ certbot_hostname }}"
+    name: "{{ item.item.src_hostname }}"
     state: absent
+  loop: "{{ certbot_certs.results }}"
 
 - name: Copy renew certs script
   template:

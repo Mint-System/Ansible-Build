@@ -11,6 +11,8 @@
 - name: Run metricbeat setup
   docker_container:
     name: "{{ metricbeat_hostname }}"
+    labels:
+      description: "{{ metricbeat_description }}"
     image: "{{ metricbeat_image }}"
     detach: false
     cleanup: true
@@ -44,6 +46,8 @@
 - name: "Start metricbeat container {{ metricbeat_hostname }}"
   docker_container:
     name: "{{ metricbeat_hostname }}"
+    labels:
+      description: "{{ metricbeat_description }}"
     image: "{{ metricbeat_image }}"
     user: root
     env:

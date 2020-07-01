@@ -21,6 +21,8 @@
 - name: "Start grafana container {{ grafana_hostname }}"
   docker_container:
     name: "{{ grafana_hostname }}"
+    labels:
+      description: "{{ grafana_description }}"
     image: "{{ grafana_image }}"
     restart_policy: unless-stopped
     recreate: no

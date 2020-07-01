@@ -69,6 +69,8 @@
 - name: "Start nginx container {{ nginx_hostname }} without modsecurity"
   docker_container:
     name: "{{ nginx_hostname }}"
+    labels:
+      description: "{{ nginx_description }}"
     image: "{{ nginx_image }}"
     restart_policy: unless-stopped
     recreate: no
@@ -90,6 +92,8 @@
 - name: "Start nginx container {{ nginx_hostname }} with modsecurity"
   docker_container:
     name: "{{ nginx_hostname }}"
+    labels:
+      description: "{{ nginx_description }}"
     image: "{{ modsecurity_image }}"
     restart_policy: unless-stopped
     recreate: no

@@ -1,1 +1,2 @@
 node_exporter_requires_package: python3-passlib
+node_exporter_description: Node Exporter

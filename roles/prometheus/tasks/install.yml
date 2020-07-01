@@ -18,6 +18,8 @@
 - name: "Start prometheus container {{ prometheus_hostname }}"
   docker_container:
     name: "{{ prometheus_hostname }}"
+    labels:
+      description: "{{ prometheus_description }}"
     image: "{{ prometheus_image }}"
     restart_policy: unless-stopped
     volumes:

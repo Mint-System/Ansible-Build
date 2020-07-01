@@ -6,6 +6,8 @@
 - name: "Start moodle container {{ moodle_hostname }}"
   docker_container:
     name: "{{ moodle_hostname }}"
+    labels:
+      description: "{{ moodle_description }}"
     image: "{{ moodle_image }}"
     restart_policy: unless-stopped
     recreate: no
@@ -22,6 +24,9 @@
       MOODLE_ADMINUSER: "{{ moodle_admin_user }}"
       MOODLE_ADMINPASS: "{{ moodle_admin_password }}"
       MOODLE_ADMINEMAIL: "{{ moodle_admin_email }}"
+      PHPFPM_UPLOAD_MAX_FILESIZE: "{{ moodle_max_upload_size }}"
+      NGINX_MAX_BODY_SIZE: "{{ moodle_max_upload_size }}"
+      PHPFPM_POST_MAX_SIZE: "{{ moodle_max_upload_size }}"
     volumes:
       - "{{ moodle_volume_name }}:/var/moodledata"
     networks:

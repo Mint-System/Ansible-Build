@@ -12,6 +12,8 @@
 - name: "Start bookstack container {{ bookstack_hostname }}"
   docker_container:
     name: "{{ bookstack_hostname }}"
+    labels:
+      description: "{{ bookstack_description }}"
     image: "{{ bookstack_image }}"
     restart_policy: unless-stopped
     env:
