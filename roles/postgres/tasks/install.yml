@@ -6,6 +6,8 @@
 - name: "Start postgres container {{ postgres_hostname }}"
   docker_container:
     name: "{{ postgres_hostname }}"
+    labels:
+      description: "{{ postgres_description }}"
     image: "{{ postgres_image }}"
     restart_policy: unless-stopped
     recreate: no

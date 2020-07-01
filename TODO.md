@@ -21,6 +21,7 @@
 
 ## Bugs
 
+- [ ] Cannot issue multiple certificates
 - [ ] Configure CentOS package pinning and system updates
 - [ ] Oauth cookie bypass
 - [ ] restic client password leak
@@ -45,6 +46,7 @@
 - [ ] Test recover scenario; restore from zip works! -> check sql files -> nextcloud02
 - [ ] Check if backup rotation works
 - [ ] Document backup and recover scenario
+- [ ] Automatically enable backup -> when creating docker volume -> autoregister a backup job for volumes. -> new module docker-volume and include the a task from restic-client.
 
 ## Maintenance
 
@@ -80,6 +82,7 @@
 
 # DONE
 
+- [x] python3-passlib is only available for centos8! -> workaround added
 - [x] Configure CentOS package pinning and system updates
 - [x] See meta role https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-dependencies
 - [x] Unifiy how packages are installed -> include install.yml from central apt role

@@ -1,6 +1,8 @@
 - name: "Start keycloak container {{ keycloak_hostname }}"
   docker_container:
     name: "{{ keycloak_hostname }}"
+    labels:
+      description: "{{ keycloak_description }}"
     image: "{{ keycloak_image }}"
     restart_policy: unless-stopped
     recreate: no

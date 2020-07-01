@@ -8,6 +8,8 @@
 - name: "Start greenlight container {{ greenlight_hostname }}"
   docker_container:
     name: "{{ greenlight_hostname }}"
+    labels:
+      description: "{{ greenlight_description }}"
     image: "{{ greenlight_image }}"
     restart_policy: unless-stopped
     env:

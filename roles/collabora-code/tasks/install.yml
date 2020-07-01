@@ -1,6 +1,8 @@
 - name: "Start collabora-code container {{ collabora_code_hostname }}"
   docker_container:
     name: "{{ collabora_code_hostname }}"
+    labels:
+      description: "{{ collabora_code_description }}"
     image: "{{ collabora_code_image }}"
     restart_policy: unless-stopped
     env:

@@ -3,3 +3,9 @@
     name: "{{ cadvisor_hostname }}"
     state: absent
   when: cadvisor_hostname is defined
+
+- name: Remove cadvisor data dir
+  file:
+    path: "{{ cadvisor_data_dir }}"
+    state: absent
+  when: cadvisor_data_dir is defined and 'cadvisor-data-dir' in ansible_run_tags

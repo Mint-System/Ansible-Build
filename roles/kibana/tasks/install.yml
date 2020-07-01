@@ -1,6 +1,8 @@
 - name: "Start kibana container {{ kibana_hostname }}"
   docker_container:
     name: "{{ kibana_hostname }}"
+    labels:
+      description: "{{ kibana_description }}"
     image: "{{ kibana_image }}"
     restart_policy: unless-stopped
     env:

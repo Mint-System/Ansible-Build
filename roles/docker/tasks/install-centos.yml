@@ -18,9 +18,10 @@
 
 - name: Install Docker Module for Python3
   pip:
-    name: "{{ docker_pip_package }}"
+    name: "{{ item.name }}"
     executable: pip3
     virtualenv_site_packages: true
+  loop: "{{ docker_pip_packages }}"
 
 - name: Start docker service
   service:

@@ -17,6 +17,8 @@
 - name: "Start restic server container {{ restic_server_hostname }}"
   docker_container:
     name: "{{ restic_server_hostname }}"
+    labels:
+      description: "{{ restic_server_description }}"
     image: "{{ restic_server_image }}"
     restart_policy: unless-stopped
     volumes:

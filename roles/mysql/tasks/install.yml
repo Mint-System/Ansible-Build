@@ -6,6 +6,8 @@
 - name: "Start mysql container {{ mysql_hostname }}"
   docker_container:
     name: "{{ mysql_hostname }}"
+    labels:
+      description: "{{ mysql_description }}"
     image: "{{ mysql_image }}"
     restart_policy: unless-stopped
     env:

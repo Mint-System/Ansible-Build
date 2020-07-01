@@ -5,6 +5,8 @@
 - name: "Start fathom container {{ fathom_hostname }}"
   docker_container:
     name: "{{ fathom_hostname }}"
+    labels:
+      description: "{{ fathom_description }}"
     image: "{{ fathom_image }}"
     restart_policy: unless-stopped
     volumes:

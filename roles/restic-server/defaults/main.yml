@@ -1,1 +1,2 @@
 restic_server_requires_package: python3-passlib
+restic_server_description: Restic server

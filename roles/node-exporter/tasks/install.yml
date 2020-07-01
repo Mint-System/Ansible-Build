@@ -1,6 +1,8 @@
 - name: "Start node-exporter container {{ node_exporter_hostname }}"
   docker_container:
     name: "{{ node_exporter_hostname }}"
+    labels:
+      description: "{{ node_exporter_description }}"
     image: "{{ node_exporter_image }}"
     restart_policy: unless-stopped
     recreate: no
