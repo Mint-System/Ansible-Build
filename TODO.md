@@ -9,6 +9,12 @@
 
 - [ ] OAuth access for existing users (not portal users) -> update guides
 - [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
+  - [x] web_enterprise-13.0.1.0.zip
+  - [x] web_mobile-13.0.1.0
+  - [x] mail_enterprise-13.0.0.0
+  - [x] web_grid-13.0.0.1
+  - [x] timesheet_grid-13.0.1.0
+  - [x] web_gantt-13.0.2.0
 - [ ] Update to Odoo 13.2?
 - [ ] Check odoo apps dependencies before copying
 
