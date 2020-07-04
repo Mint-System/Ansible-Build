@@ -8,13 +8,6 @@
 ## Odoo
 
 - [ ] OAuth access for existing users (not portal users) -> update guides
-- [ ] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
-  - [x] web_enterprise-13.0.1.0.zip
-  - [x] web_mobile-13.0.1.0
-  - [x] mail_enterprise-13.0.0.0
-  - [x] web_grid-13.0.0.1
-  - [x] timesheet_grid-13.0.1.0
-  - [x] web_gantt-13.0.2.0
 - [ ] Update to Odoo 13.2?
 - [ ] Check odoo apps dependencies before copying
 
@@ -88,6 +81,17 @@
 
 # DONE
 
+- [x] Create app bundles for odoo
+- [x] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
+  - [x] web_enterprise-13.0.1.0.zip
+  - [x] web_mobile-13.0.1.0
+  - [x] mail_enterprise-13.0.0.0
+  - [x] web_grid-13.0.0.1
+  - [x] timesheet_grid-13.0.1.0
+  - [x] web_gantt-13.0.2.0
+  - [x] mrp_maintenance-13.0.1.0
+  - [x] quality_mrp-13.0.1.0.zip
+  - [x] quality_mrp_workorder-13.0.1.0.zip
 - [x] python3-passlib is only available for centos8! -> workaround added
 - [x] Configure CentOS package pinning and system updates
 - [x] See meta role https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-dependencies
