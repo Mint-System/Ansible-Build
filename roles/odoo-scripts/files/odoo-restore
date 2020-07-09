@@ -70,7 +70,7 @@ if $REPLACE ; then
     --silent \
     -F "master_pwd=${PASSWORD}" \
     -F "name=${DATABASE}" \
-    ${HOST}/web/database/drop | grep -s 'Internal Server Error|Redirecting...'
+    ${HOST}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
 fi
 
 # Start restore
