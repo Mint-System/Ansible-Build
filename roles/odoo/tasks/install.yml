@@ -27,6 +27,7 @@
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
       PASSWORD: "{{ odoo_postgres_password }}"
+      TZ: "{{ odoo_timezone }}"
     ports:
      - "{{ odoo_port }}:8069"
     volumes:

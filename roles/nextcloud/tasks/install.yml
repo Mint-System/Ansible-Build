@@ -27,6 +27,7 @@
       SMTP_PASSWORD: "{{ nextcloud_mail_password }}"
       MAIL_FROM_ADDRESS: "{{ nextcloud_mail_from }}"
       MAIL_DOMAIN: "{{ nextcloud_mail_username.split('@')[1] }}"
+      TZ: "{{ nextcloud_timezone }}"
     volumes:
       - "{{ nextcloud_volume_name }}:/var/www/html"
     networks:
