@@ -25,6 +25,7 @@
 - [ ] Oauth cookie bypass
 - [ ] restic client password leak
 - [ ] OAuth not working on mobile browsers -> same for odoo.com, worked on safari on ios pinned page
+- [ ] If odoo server is restarted it might change ip and therefore won't be reachable by nginx
 
 ## Server
 
@@ -81,33 +82,3 @@
 
 # DONE
 
-- [x] Create app bundles for odoo
-- [x] Disable autoinstall 'auto_install': False, (True) -> Fix Ansible task to not reboot -> disable in modules?
-  - [x] web_enterprise-13.0.1.0.zip
-  - [x] web_mobile-13.0.1.0
-  - [x] mail_enterprise-13.0.0.0
-  - [x] web_grid-13.0.0.1
-  - [x] timesheet_grid-13.0.1.0
-  - [x] web_gantt-13.0.2.0
-  - [x] mrp_maintenance-13.0.1.0
-  - [x] quality_mrp-13.0.1.0.zip
-  - [x] quality_mrp_workorder-13.0.1.0.zip
-- [x] python3-passlib is only available for centos8! -> workaround added
-- [x] Configure CentOS package pinning and system updates
-- [x] See meta role https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-dependencies
-- [x] Unifiy how packages are installed -> include install.yml from central apt role
-- [x] Log backups state with logger
-- [-] Monitoring Notify via Telegram
-- [-] Backup keycloak realms -> db backup is fine
-- [x] eCommerce Plugin installation breaks odoo -> maybe english support -> no -> it worked in local env -> rebuild? -> works
-- [x] Allow all kind of redirect uris for odoo.mint-system.ch realm
-  - [x] Remove demo clients from odoo.mint-system.ch client
-- [x] Update ubuntu packages -> patch management with Ansible -> check if first reboot also does not work manually -> pin versions ony if version is specified -> update servers -> start with kronos -> boot still hangs -> might be acpi options from grub? -> manuell reboot also does not work -> once reboot has been reseted it works!
-  - [x] hades
-  - [x] zeus -> ensure backup for realm exists!
-  - [x] hermes
-  - [x] kronos
-  - [x] atlas
-  - [x] apollo
-  - [x] eris
-  - [x] hera
