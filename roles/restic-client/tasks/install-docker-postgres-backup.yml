@@ -1,0 +1,19 @@
+- name: Copy backup scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - docker-postgres-backup
+
+- name: Register docker postgres backup jobs
+  cron:
+    name: "Backup job {{ item.id }}"
+    hour: "{{ item.hour }}"
+    minute: "{{ item.minute }}"
+    job: "docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} && \
+      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} && \
+      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
+    disabled: "{{ item.disabled | default(false) }}"
+  loop: "{{ restic_backup_sets }}"
+  when: item.type == "postgres-dump"
