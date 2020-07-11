@@ -40,21 +40,6 @@
     - key: RESTIC_REPOSITORY
       value: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
 
-- name: Include docker volume backup tasks
-  include: install-docker-volume-backup.yml
-
-- name: Include file backup tasks
-  include: install-file-backup.yml
-
-- name: Include odoo backup tasks
-  include: install-odoo-backup.yml
-
-- name: Include docker postgres backup tasks
-  include: install-docker-postgres-backup.yml
-
-- name: Include docker mysql backup tasks
-  include: install-docker-mysql-backup.yml
-
 - name: Register backup rotation job
   cron:
     name: "Backup rotation job"

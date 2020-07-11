@@ -10,7 +10,7 @@
   cron:
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
-    minute: "{{ item.minute }}"
+    minute: "{{ 59 |random(seed=item.id) }}"
     job: "odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} \
       && restic backup /var/tmp/{{ item.database }}.zip \
       --tag {{ item.tags | join(' --tag ') }} && \

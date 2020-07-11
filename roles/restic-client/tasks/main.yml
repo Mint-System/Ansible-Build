@@ -1,3 +1,23 @@
 - name: Include install tasks
   include_tasks: install.yml
   when: restic_repo is defined
+
+- name: Include docker volume backup tasks
+  include: install-docker-volume-backup.yml
+  when: restic_backup_sets is defined
+
+- name: Include file backup tasks
+  include: install-file-backup.yml
+  when: restic_backup_sets is defined
+
+- name: Include odoo backup tasks
+  include: install-odoo-backup.yml
+  when: restic_backup_sets is defined
+
+- name: Include docker postgres backup tasks
+  include: install-docker-postgres-backup.yml
+  when: restic_backup_sets is defined
+
+- name: Include docker mysql backup tasks
+  include: install-docker-mysql-backup.yml
+  when: restic_backup_sets is defined

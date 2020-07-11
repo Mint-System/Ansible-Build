@@ -31,6 +31,7 @@ odoo_apps:
     - theme_common
     - website_animate
     url: https://apps.odoo.com/loempia/download/theme_clean/13.0.1.1.zip?deps
+odoo_backup_sets: # See restic_backup_sets var in role restic-client
 ```
 
 And include it in your playbook.
