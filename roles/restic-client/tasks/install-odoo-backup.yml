@@ -1,0 +1,20 @@
+- name: Ensure restic environment vars exists
+  lineinfile:
+    dest: "/etc/environment"
+    state: present
+    regexp: "^ODOO_MASTER_PASSWORD="
+    line: "ODOO_MASTER_PASSWORD={{ restic_odoo_master_password }}"
+  when: restic_odoo_master_password is defined
+
+- name: Register odoo backup jobs
+  cron:
+    name: "Backup job {{ item.id }}"
+    hour: "{{ item.hour }}"
+    minute: "{{ item.minute }}"
+    job: "odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} \
+      && restic backup /var/tmp/{{ item.database }}.zip \
+      --tag {{ item.tags | join(' --tag ') }} && \
+      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
+    disabled: "{{ item.disabled | default(false) }}"
+  loop: "{{ restic_backup_sets }}"
+  when: item.type == "odoo-backup"

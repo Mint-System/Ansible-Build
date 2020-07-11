@@ -1,11 +1,11 @@
 - name: Add Docker repo
   get_url:
     url: "{{ docker_yum_url }}"
-    dest: /etc/yum.repos.d/docer-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
 
 - name: "Enable Docker {{ docker_yum_repo }} repo"
   ini_file:
-    dest: /etc/yum.repos.d/docer-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
     section: "{{ docker_yum_repo }}"
     option: enabled
     value: "0"

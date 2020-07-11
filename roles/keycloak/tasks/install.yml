@@ -14,6 +14,7 @@
       DB_USER: "{{ keycloak_db_user }}"
       DB_PASSWORD: "{{ keycloak_db_password }}"
       PROXY_ADDRESS_FORWARDING: "true"
+      TZ: "{{ keycloak_timezone }}"
     command: "-Dkeycloak.profile.feature.upload_scripts=enabled"
     networks:
       - name: "{{ docker_network_name }}"
