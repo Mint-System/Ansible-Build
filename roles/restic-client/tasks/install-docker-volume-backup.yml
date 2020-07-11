@@ -8,7 +8,7 @@
   cron:
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
-    minute: "{{ item.minute }}"
+    minute: "{{ 59 |random(seed=item.id) }}"
     job: "restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ \
       --tag {{ item.tags | join(' --tag ') }} && \
       logger \"Backup job {{ item.id }} completed\" -i -t CRON"
