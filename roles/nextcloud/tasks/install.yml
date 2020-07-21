@@ -40,7 +40,7 @@
 
 - name: Wait for nextcloud container # noqa 503
   pause:
-    seconds: "3"
+    seconds: "10"
   when: start_nextcloud_container.changed
 
 - name: Upate nextcloud config
