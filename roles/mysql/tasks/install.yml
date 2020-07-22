@@ -24,3 +24,11 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
   when: mysql_volume_name is defined
+
+- name: Copy backup scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - docker-mysql-backup

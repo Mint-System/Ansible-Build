@@ -40,3 +40,11 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+
+- name: Ensure odoo master password is in environment
+  lineinfile:
+    dest: "/etc/environment"
+    state: present
+    regexp: "^ODOO_MASTER_PASSWORD="
+    line: "ODOO_MASTER_PASSWORD={{ odoo_master_password }}"
+  when: odoo_master_password is defined

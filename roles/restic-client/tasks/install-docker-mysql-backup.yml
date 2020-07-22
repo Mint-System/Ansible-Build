@@ -1,11 +1,3 @@
-- name: Copy backup scripts
-  copy:
-    src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    mode: +x
-  loop:
-    - docker-mysql-backup
-
 - name: Register docker mysql backup jobs
   cron:
     name: "Backup job {{ item.id }}"
