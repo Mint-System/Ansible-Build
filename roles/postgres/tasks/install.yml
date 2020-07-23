@@ -34,3 +34,17 @@
     mode: +x
   loop:
     - docker-postgres-backup
+
+- name: Include docker postgres backup from restic-client role
+  include_role:
+    name: restic-client
+  vars: 
+    restic_backup_sets:
+      - id: "postgres dump {{ postgres_hostname }}"
+        type: postgres-dump
+        container: "{{ postgres_hostname }}"
+        tags:
+          - postgres
+          - "{{ postgres_hostname }}"
+        hour: "1"
+  when: postgres_restic_backup

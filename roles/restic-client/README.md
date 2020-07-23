@@ -21,7 +21,6 @@ restic_backup_sets:
     - postgres
     - postgres01
    hour: "1"
-   minute: "0"
 - id: "bookstack data dir"
   type: file
   path: /usr/share/bookstack01
@@ -29,7 +28,6 @@ restic_backup_sets:
     - bookstack
     - bookstack01
   hour: "1"
-  minute: "10"
 - id: "odoo backup"
   type: odoo-backup
   host: http://localhost:8070
@@ -38,7 +36,6 @@ restic_backup_sets:
     - odoo
     - odoo01
   hour: "1"
-  minute: "30"
 - id: "postgres dump postgres06"
   type: postgres-dump
   container: postgres01
@@ -47,7 +44,6 @@ restic_backup_sets:
     - postgres
     - postgres01
   hour: "1"
-  minute: "50"
   disabled: true
 restic_backup_rotation:
   daily: 7
