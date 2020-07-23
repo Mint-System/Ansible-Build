@@ -17,6 +17,7 @@ postgres_port: 127.0.0.1:5433
 postgres_user: example
 postgres_password: "{{ vault_postgres_password }}"
 postgres_db: example
+postgres_restic_backup: true
 ```
 
 And include it in your playbook.

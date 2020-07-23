@@ -44,7 +44,7 @@
   cron:
     name: "Backup rotation job"
     hour: "23"
-    minute: "{{ 59 |random(seed=nginx_hostname) }}"
+    minute: "{{ 59 |random(seed=restic_repo) }}"
     job: "restic forget --keep-daily {{ restic_backup_rotation.daily }} \
       --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune && \
       logger \"Backup rotation job completed\" -i -t CRON"
