@@ -38,7 +38,7 @@
 - name: Include docker postgres backup from restic-client role
   include_role:
     name: restic-client
-  vars: 
+  vars:
     restic_backup_sets:
       - id: "postgres dump {{ postgres_hostname }}"
         type: postgres-dump
