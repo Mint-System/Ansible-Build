@@ -46,7 +46,7 @@ done
 
 # Fallback to environment vars and default values
 : ${DATABASE:='odoo'}
-: ${MODULES:='base,web,website'}
+: ${MODULES:='base,web'}
 : ${CONTAINER:='odoo'}
 : ${DEV:='all'}
 
