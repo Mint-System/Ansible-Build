@@ -15,12 +15,23 @@
     - { src: "templates/odoo.conf", dest: "{{ odoo_data_dir }}/odoo.conf" }
   notify: Restart odoo container
 
+- name: Pull odoo image
+  docker_image:
+    name: "{{ odoo_image }}"
+    source: pull
+    force_source: yes
+  register: pull_odoo_image
+
+- name: Tag odoo image
+  command: "docker tag {{ odoo_image[12:24] }} odoo:{{ odoo_image[12:24] }}"
+  when: pull_odoo_image.image.RepoTags | length == 0 
+
 - name: "Start odoo container {{ odoo_hostname }}"
   docker_container:
     name: "{{ odoo_hostname }}"
     labels:
       description: "{{ odoo_description }}"
-    image: "{{ odoo_image }}"
+    image: "odoo:{{ odoo_image }}"
     restart_policy: unless-stopped
     recreate: no
     env:
