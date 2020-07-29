@@ -34,8 +34,7 @@
 # - name: Debug
 #   debug:
 #     var: (groups.exporter | map('extract', hostvars) | map(attribute='ansible_host') | list)
-    
-    # (hostvars | dict2items | json_query('[*].value') | json_query('[?group_names[0]==`exporter`]') | select('ansible_host'))
+# (hostvars | dict2items | json_query('[*].value') | json_query('[?group_names[0]==`exporter`]') | select('ansible_host'))
 
 # groups
   # [?ansible_host==`zeus.mint-system.com`]

@@ -24,7 +24,7 @@
 
 - name: Tag odoo image
   command: "docker tag {{ odoo_image[12:24] }} odoo:{{ odoo_image[12:24] }}"
-  when: pull_odoo_image.image.RepoTags | length == 0 
+  when: pull_odoo_image.image.RepoTags | length == 0
 
 - name: "Start odoo container {{ odoo_hostname }}"
   docker_container:
@@ -63,6 +63,6 @@
 - name: Include odoo backup from restic-client role
   include_role:
     name: restic-client
-  vars: 
+  vars:
     restic_backup_sets: "{{ odoo_backup_sets }}"
   when: odoo_backup_sets
