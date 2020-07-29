@@ -1,5 +1,7 @@
 - hosts: localhost
   roles:
+  - role: debug
+    tags: debug
   - role: odoo-scripts
     tags: odoo-scripts
   - role: odoo-apps

@@ -1,3 +1,18 @@
+# - name: set Digests
+#   set_fact:
+#     odoo_image: odoo@sha256:d4960fde390072f14b197f45775770b7cafc43d3afea60882766ce7d2004aa00
+
+# - name: Pull odoo image
+#   docker_image:
+#     name: "{{ odoo_image }}"
+#     source: pull
+#     force_source: yes
+#   register: pull_odoo_image
+
+# - name: Tag odoo image
+#   command: "docker tag {{ odoo_image[7:19] }} odoo:{{ odoo_image[7:19] }}"
+#   when: pull_odoo_image.image.RepoTags | length == 0 
+
 # - name: Dig DNS CNAME record
 #   debug: 
 #     msg: "{{ lookup('dig', item.src_hostname, 'qtype=CNAME') }}"
