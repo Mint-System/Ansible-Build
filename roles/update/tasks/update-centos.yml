@@ -29,7 +29,7 @@
   when: reboot_required.stat.exists
 
 - name: Get all installed and updated packages # noqa 306
-  shell: rpm -qa --last | grep "$(date +%a\ %b\ %d)" | cut -f 1 -d " "
+  shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "
   args:
     warn: false
   register: installed_updated_packages
