@@ -58,6 +58,10 @@ Make it executable.
 
 `chmod 600 .vault_pass`
 
+Create a log file and own it.
+
+`sudo touch /var/log/ansible.log && sudo chown $USER: /var/log/ansible.log`
+
 Install jmespath with pip.
 
 `pip3 install jmespath`
