@@ -12,7 +12,7 @@ Configure the role.
 modsecurity_image: owasp/modsecurity:3-nginx
 modsecurity_data_dir: /usr/share/modsecurity
 modsecurity_crs_url: "https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.gz"
-modsecurity_engine_mode: "On"
+modsecurity_engine_mode: "On" # Options: On,DetectionOnly
 modsecurity_default_action: "phase:1,deny,log"
 modsecurity_http_allowed_methods: "GET HEAD POST OPTIONS PUT PATCH DELETE"
 modsecurity_request_allowed_content_type: "application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|application/csp-report|application/xss-auditor-report|text/plain|image/png"
