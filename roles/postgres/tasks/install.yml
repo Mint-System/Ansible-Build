@@ -40,4 +40,4 @@
     name: restic-client
   vars:
     restic_backup_sets: "{{ postgres_backup_sets }}"
-  when: postgres_backup_sets
+  when: postgres_backup_sets is defined

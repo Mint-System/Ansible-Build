@@ -23,15 +23,16 @@
   register: pull_odoo_image
 
 - name: Tag odoo image
-  command: "docker tag {{ odoo_image[12:24] }} odoo:{{ odoo_image[12:24] }}"
+  command: "docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ pull_odoo_image.image.Id[7:19] }}"
   when: pull_odoo_image.image.RepoTags | length == 0
 
+# FIXME: Allow normal tags to select image
 - name: "Start odoo container {{ odoo_hostname }}"
   docker_container:
     name: "{{ odoo_hostname }}"
     labels:
       description: "{{ odoo_description }}"
-    image: "odoo:{{ odoo_image }}"
+    image: "odoo:{{ pull_odoo_image.image.Id[7:19] }}"
     restart_policy: unless-stopped
     recreate: no
     env:

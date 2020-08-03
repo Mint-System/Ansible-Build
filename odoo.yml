@@ -1,8 +1,6 @@
 - hosts: all
   become: true
   roles:
-  - role: odoo
-    tags: odoo
   - role: odoo-apps
     tags: odoo-apps
   - role: odoo-scripts
