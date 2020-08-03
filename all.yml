@@ -11,10 +11,6 @@
     tags: fathom
   - role: keycloak
     tags: keycloak
-  - role: modsecurity
-    tags: modsecurity
-  - role: nginx
-    tags: nginx
   - role: bigbluebutton
     tags:
     - biglbuebutton
@@ -26,3 +22,9 @@
     tags: wordpress
   - role: pgadmin
     tags: pgadmin
+  - role: moodle
+    tags: moodle
+  - role: modsecurity
+    tags: modsecurity
+  - role: nginx
+    tags: nginx

@@ -38,4 +38,4 @@
     name: restic-client
   vars:
     restic_backup_sets: "{{ mysql_backup_sets }}"
-  when: mysql_backup_sets
+  when: mysql_backup_sets is defined
