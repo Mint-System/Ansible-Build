@@ -1,0 +1,11 @@
+- name: "Remove pgadmin container {{ pgadmin_hostname }}"
+  docker_container:
+    name: "{{ pgadmin_hostname }}"
+    state: absent
+  when: pgadmin_hostname is defined
+
+- name: Remove pgadmin volume
+  docker_volume:
+    name: "{{ pgadmin_volume_name }}"
+    state: absent
+  when: pgadmin_volume_name is defined and 'pgadmin-volume' in ansible_run_tags
