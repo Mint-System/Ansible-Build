@@ -7,13 +7,14 @@ set -e
 Help() {
     echo
     echo "docker-mysql-backup"
-    echo "######################"
+    echo "###################"
     echo
     echo "Description: Backup docker mysql database."
     echo "Syntax: docker-mysql-backup [-d|-o|-c|help]"
     echo "Example: docker-mysql-backup -d mysql,odoo -o /tmp -c mysql01"
     echo "options:"
     echo "  -d    Comma-separated list of database names."
+    echo "  -a    Backup all databases"
     echo "  -o    Output directory. Defaults to '/var/tmp'"
     echo "  -c    Docker container. Defaults to 'mysql'"
     echo "  help  Show docker-mysql-backup manual."
@@ -27,8 +28,10 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":c:d:o:help:" opt; do
+while getopts ":a :c: :d: :o:" opt; do
   case $opt in
+    a) ALL='true'
+    ;;
     c) CONTAINER="$OPTARG"
     ;;
     d) DATABASES="$OPTARG"
@@ -46,12 +49,23 @@ done
 : ${CONTAINER:='mysql'}
 
 # Verify variables
-[[ -z "$DATABASES" ]] && { echo "Parameter -d|databases is empty" ; exit 1; }
+[[ -z "$DATABASES" ]] && [[ -z "$ALL" ]] && { echo "Parameter -d or -a|databases or all must be set" ; exit 1; }
 [[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
-# Split database param values
-DATABASE_LIST=($(echo $DATABASES | tr "," "\n"))
+if $ALL ; then
+  # Get all databases from docker container
+  DATABASE_LIST=($(docker exec $CONTAINER /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD \
+    -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
+  # Concate database list
+  printf -v DATABASES '%s,' "${DATABASE_LIST[@]}"
+  DATABASES="${DATABASES%,}"
+fi
+
+if [[ ! -z $DATABASES ]] ; then
+  # Split database param values
+  DATABASE_LIST=($(echo $DATABASES | tr "," "\n"))
+fi
 
 # Create backup folder
 mkdir -p ${DIR}/${CONTAINER}
@@ -63,7 +77,7 @@ rm -rf ${DIR}/${CONTAINER}/*
 for DATABASE in "${DATABASE_LIST[@]}"
 do
     echo "Run Docker mysql backup for $DATABASE"
-    docker exec $CONTAINER /bin/bash -c "mysqldump -u\$MYSQL_USER -p\$MYSQL_PASSWORD \
+    docker exec $CONTAINER /bin/bash -c "mysqldump -p\$MYSQL_ROOT_PASSWORD \
         $DATABASE" > ${DIR}/${CONTAINER}/${DATABASE}.sql
 done
 

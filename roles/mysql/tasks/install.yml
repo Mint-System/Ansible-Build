@@ -32,3 +32,10 @@
     mode: +x
   loop:
     - docker-mysql-backup
+
+- name: Include docker mysql backup from restic-client role
+  include_role:
+    name: restic-client
+  vars:
+    restic_backup_sets: "{{ mysql_backup_sets }}"
+  when: mysql_backup_sets
