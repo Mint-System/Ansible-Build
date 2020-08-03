@@ -34,6 +34,7 @@
     state: present
     regexp: "^{{ item.key }}="
     line: "{{ item.key }}={{ item.value }}"
+  no_log: true
   loop:
     - key: RESTIC_PASSWORD
       value: "{{ restic_repo_password }}"
