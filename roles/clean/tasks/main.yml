@@ -27,3 +27,4 @@
       - docker-network
       - odoo-scripts
       - wordpress
+      - pgadmin

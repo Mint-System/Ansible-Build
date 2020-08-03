@@ -37,6 +37,7 @@ Collection of Ansible playbooks and roles.
 * [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight.
 * [package](roles/package/README.md) - Install and pin packages.
 * [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps.
+* [pgadmin](roles/pgadmin/README.md) - Install pgADmin container.
 
 ## Usage
 

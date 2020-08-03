@@ -1,0 +1,4 @@
+- name: Restart pgadmin container
+  docker_container:
+    name: "{{ pgadmin_hostname }}"
+    restart: true
