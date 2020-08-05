@@ -80,11 +80,10 @@
     job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }} && logger \"Renewed certs for {{ nginx_hostname }}\" -i -t CRON"
   when: certbot_certs | json_query(certbot_stat_filter) | list
 
-- name: Register certbot conf files
-  command: "ls -1 {{ certbot_data_dir }}/renewal"
+- name: Register certbot conf files # noqa 306
+  shell: "ls -1 {{ certbot_data_dir }}/renewal/*.conf | xargs -n 1 basename"
   changed_when: no
   register: certbot_conf_files
-  when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Create managed file list from proxy list
   set_fact:
