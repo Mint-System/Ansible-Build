@@ -41,8 +41,8 @@
   loop: "{{ nginx_proxies }}"
   notify: Restart nginx container
 
-- name: Register nginx conf files
-  shell: "ls -1 {{ nginx_data_dir }}/*.conf"
+- name: Register nginx conf files # noqa 306
+  shell: "ls -1 {{ nginx_data_dir }}/*.conf | xargs -n 1 basename"
   changed_when: no
   register: nginx_proxy_conf_files
 
