@@ -1,6 +1,14 @@
-- name: Create nextcloud volume
-  docker_volume:
-    name: "{{ nextcloud_volume_name }}"
+# - name: Create nextcloud volume
+#   docker_volume:
+#     name: "{{ nextcloud_volume_name }}"
+#   when: nextcloud_volume_name is defined
+
+- name: Include docker volume role
+  include_role:
+    name: docker-volume
+  vars:
+    docker_volume_name: "{{ nextcloud_volume_name }}"
+    docker_volume_backup_sets: "{{ nextcloud_volume_backup_sets | default([]) }}"
   when: nextcloud_volume_name is defined
 
 - name: "Start nextcloud container {{ nextcloud_hostname }}"

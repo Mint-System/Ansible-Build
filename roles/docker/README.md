@@ -1,6 +1,6 @@
 # Ansible Docker role
 
-Installs Docker CE.
+Installs Docker for Ubuntu and CentOS.
 
 ## Requires
 

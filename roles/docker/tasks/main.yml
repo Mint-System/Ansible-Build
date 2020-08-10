@@ -5,3 +5,8 @@
 - name: Include CentOS install tasks
   include_tasks: install-centos.yml
   when: docker_packages is defined and (ansible_distribution == 'CentOS')
+
+- name: Ensure docker deamon is running
+  service:
+    name: docker
+    state: started
