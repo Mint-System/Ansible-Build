@@ -6,8 +6,9 @@ Collection of Ansible playbooks and roles.
 
 ## Roles
 
-* [docker](roles/docker/README.md) - Install Docker for Ubuntu
-* [docker-network](roles/docker-network/README.md) - Define internal Docker network
+* [docker](roles/docker/README.md) - Install Docker for Ubuntu and CentOS
+* [docker-network](roles/docker-network/README.md) - Configure Docker network
+* [docker-volume](roles/docker-volume/README.md) - Configure Docker volume
 * [postgres](roles/postgres/README.md) - Deploy PostgreSQL database container
 * [openldap](roles/openldap/README.md) - Deploy OpenLDAP Docker container
 * [odoo](roles/odoo/README.md) - Deploy Odoo container

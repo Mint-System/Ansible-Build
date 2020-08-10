@@ -1,0 +1,10 @@
+- name: Create docker volume
+  docker_volume:
+    name: "{{ docker_volume_name }}"
+
+- name: Include docker volume backup from restic-client role
+  include_role:
+    name: restic-client
+  vars:
+    restic_backup_sets: "{{ docker_volume_backup_sets }}"
+  when: docker_volume_backup_sets is defined

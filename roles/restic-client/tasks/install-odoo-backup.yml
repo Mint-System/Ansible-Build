@@ -1,3 +1,9 @@
+- name: Verify odoo backup command exists
+  shell: "ls $(which odoo-backup)"
+  changed_when: false
+  loop: "{{ restic_backup_sets }}"
+  when: item.type == "odoo-backup"
+
 - name: Register odoo backup jobs
   cron:
     name: "Backup job {{ item.id }}"

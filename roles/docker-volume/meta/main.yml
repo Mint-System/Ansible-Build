@@ -1,5 +1,5 @@
 dependencies: # noqa 701
-  - role: odoo-scripts
+  - role: docker
     tags:
-      - odoo-scripts
+      - docker
       - depends
