@@ -28,3 +28,4 @@
       - odoo-scripts
       - wordpress
       - pgadmin
+      - restic-client

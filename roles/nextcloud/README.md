@@ -13,6 +13,7 @@ Configure the role.
 nextcloud_image: nextcloud:18-apache
 nextcloud_hostname: nextcloud01
 nextcloud_volume_name: nextcloud_data01
+nextcloud_volume_backup_sets: # See restic_backup_sets var in role restic-client
 nextcloud_trusted_domains: nextcloud.example.com
 nextcloud_admin_user: admin
 nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"

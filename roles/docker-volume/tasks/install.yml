@@ -2,6 +2,14 @@
   docker_volume:
     name: "{{ docker_volume_name }}"
 
+- name: Copy backup scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - docker-volume-backup
+
 - name: Include docker volume backup from restic-client role
   include_role:
     name: restic-client
