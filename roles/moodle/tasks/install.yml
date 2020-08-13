@@ -1,6 +1,9 @@
-- name: Create a moodle volume
-  docker_volume:
-    name: "{{ moodle_volume_name }}"
+- name: Include docker volume role
+  include_role:
+    name: docker-volume
+  vars:
+    docker_volume_name: "{{ moodle_volume_name }}"
+    docker_volume_backup_sets: "{{ moodle_volume_backup_sets | default([]) }}"
   when: moodle_volume_name is defined
 
 - name: "Start moodle container {{ moodle_hostname }}"

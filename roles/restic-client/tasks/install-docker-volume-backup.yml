@@ -1,16 +1,16 @@
-- name: Verify docker volume exists
-  command: "docker volume inspect {{ item.volume }}"
-  changed_when: false
-  loop: "{{ restic_backup_sets }}"
-  when: item.type == "docker-volume"
+# - name: Verify docker volume exists
+#   command: "docker volume inspect {{ item.volume }}"
+#   changed_when: false
+#   loop: "{{ restic_backup_sets }}"
+#   when: item.type == "docker-volume"
 
 - name: Register docker volume backup jobs
   cron:
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "restic backup /var/lib/docker/volumes/{{ item.volume }}/_data/ \
-      --tag {{ item.tags | join(' --tag ') }} && \
+    job: "docker-volume-backup -c {{ item.container }} -a && \
+      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} && \
       logger \"Backup job {{ item.id }} completed\" -i -t CRON"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"

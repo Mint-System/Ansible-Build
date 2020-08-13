@@ -13,6 +13,7 @@ Configure the role.
 moodle_image: venatorfox/moodle:MOODLE_38_STABLE
 moodle_hostname: moodle01
 moodle_volume_name: moodle_data01
+moodle_volume_backup_sets: # See restic_backup_sets var in role restic-client
 moodle_admin_email: admin@example.com
 moodle_admin_user: admin
 moodle_admin_password: "{{ vault_moodle_admin_password }}"

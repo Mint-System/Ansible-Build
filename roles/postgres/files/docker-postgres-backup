@@ -10,13 +10,13 @@ Help() {
   echo "######################"
   echo
   echo "Description: Backup docker postgres database."
-  echo "Syntax: docker-postgres-backup [-d|-o|-c|help]"
+  echo "Syntax: docker-postgres-backup [-d|-a|-o|-c|help]"
   echo "Example: docker-postgres-backup -d postgres,odoo -o /tmp -c postgres01"
   echo "options:"
   echo "  -d    Comma-separated list of database names."
   echo "  -a    Backup all databases"
-  echo "  -o    Output directory. Defaults to '/var/tmp'"
-  echo "  -c    Docker container. Defaults to 'postgres'"
+  echo "  -o    Output directory. Defaults to '/var/tmp'."
+  echo "  -c    Docker container. Defaults to 'postgres'."
   echo "  help  Show docker-postgres-backup manual."
   echo
 }
