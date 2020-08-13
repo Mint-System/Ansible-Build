@@ -1,0 +1,31 @@
+- name: Update zypper cache
+  zypper_repository:
+    runrefresh: true 
+    repo: "*"
+
+- name: Upgrade all packages # noqa 403
+  zypper:
+    name: "*"
+    state: latest
+
+- name: Check if reboot is required
+  stat:
+    path: /boot/do_purge_kernels 
+  register: reboot_required
+
+- name: Reboot system if required
+  reboot:
+    msg: Rebooting to complete system upgrade
+    reboot_timeout: 120
+  when: reboot_required.stat.exists
+
+- name: Get all installed and updated packages # noqa 306
+  shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "
+  args:
+    warn: false
+  register: installed_updated_packages
+  changed_when: false
+
+- name: Show installed and updated packages
+  debug:
+    msg: "{{ installed_updated_packages.stdout_lines }}"

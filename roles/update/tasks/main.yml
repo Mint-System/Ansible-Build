@@ -5,3 +5,7 @@
 - name: Include CentOS update tasks
   include_tasks: update-centos.yml
   when: update and ansible_distribution == 'CentOS'
+
+- name: Include SLES update tasks
+  include_tasks: update-sles.yml
+  when: update and ansible_distribution == 'SLES'
