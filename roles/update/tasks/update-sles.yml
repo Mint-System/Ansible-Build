@@ -1,6 +1,6 @@
 - name: Update zypper cache
   zypper_repository:
-    runrefresh: true 
+    runrefresh: true
     repo: "*"
 
 - name: Upgrade all packages # noqa 403
@@ -10,7 +10,7 @@
 
 - name: Check if reboot is required
   stat:
-    path: /boot/do_purge_kernels 
+    path: /boot/do_purge_kernels
   register: reboot_required
 
 - name: Reboot system if required

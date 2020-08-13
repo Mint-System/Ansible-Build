@@ -1,6 +1,6 @@
 - name: debug
   debug:
-    var: hostvars[inventory_hostname] 
+    var: hostvars[inventory_hostname]
 
 # - name: set Digests
 #   set_fact:
