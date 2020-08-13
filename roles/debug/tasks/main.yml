@@ -1,3 +1,7 @@
+- name: debug
+  debug:
+    var: hostvars[inventory_hostname] 
+
 # - name: set Digests
 #   set_fact:
 #     odoo_image: odoo@sha256:d4960fde390072f14b197f45775770b7cafc43d3afea60882766ce7d2004aa00

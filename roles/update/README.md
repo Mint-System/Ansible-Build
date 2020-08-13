@@ -6,8 +6,9 @@ Install system and package updates.
 
 The Ansible Update role supports os of type:
 
-* ubuntu1604
-* ubuntu1804
+* Ubuntu 
+* CentOS
+* SLES 
 
 ## Usage
 
