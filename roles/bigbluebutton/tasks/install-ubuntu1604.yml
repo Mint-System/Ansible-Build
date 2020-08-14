@@ -84,8 +84,8 @@
 
 - name: Update apt-get repo and cache # noqa 503
   apt:
-    update_cache: yes
-    force_apt_get: yes
+    update_cache: true
+    force_apt_get: true
     cache_valid_time: 3600
   when: bigbluebutton_repo_is_present.changed
 
@@ -108,20 +108,21 @@
     path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
     regexp: 'attendeesJoinViaHTML5Client=false'
     replace: 'attendeesJoinViaHTML5Client=true'
-    backup: yes
+    backup: true
 
 - name: Make the HTML5 client default for moderators join
   replace:
     path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
     regexp: 'moderatorsJoinViaHTML5Client=false'
     replace: 'moderatorsJoinViaHTML5Client=true'
-    backup: yes
+    backup: true
 
 # http://docs.bigbluebutton.org/2.2/install.html#assign-a-hostname
 
 - name: Get BigBlueButton API url # noqa 306
   shell: "bbb-conf --secret | grep {{ bigbluebutton_hostname }}"
   register: bigbluebutton_api_status
+  ignore_errors: true
   changed_when: false
 
 - name: Set BigBlueButton server name

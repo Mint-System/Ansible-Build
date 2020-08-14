@@ -22,7 +22,7 @@ greenlight_secret_key_base: "{{ vault_greenlight_secret_key_base }}"
 greenlight_safe_hosts: bbb.example.com
 greenlight_db_adapter: postgresql
 greenlight_db_host: postgres01
-greenlight_db_port: "5432"
+greenlight_db_port: "5434"
 greenlight_db_name: greenlight
 greenlight_db_username: greenlight
 greenlight_db_password: "{{ vault_greenlight_db_password }}"
