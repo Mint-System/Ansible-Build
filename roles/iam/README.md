@@ -18,7 +18,10 @@ iam_users:
   - username: admin
     ssh_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups: wheel,docker
-    shell: /bin/bash
+    shell: /bin/zsh
+        hosts:
+          - server1
+          - server2
 ```
 
 And include it in your playbook.
