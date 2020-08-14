@@ -1,0 +1,41 @@
+# https://docs.bigbluebutton.org/2.2/setup-turn-server.html#required-software
+
+- name: Install coturn
+  apt:
+    name: coturn
+    state: present
+
+# https://docs.bigbluebutton.org/2.2/setup-turn-server.html#generating-tls-certificates
+
+- name: Create letsencrypt certificates with certbot
+  command: "certbot --webroot --email {{ bigbluebutton_certbot_email }} --agree-tos -w /var/www/bigbluebutton-default/ -d {{ coturn_hostname }} certonly"
+  args:
+    creates: "/etc/letsencrypt/live/{{ coturn_hostname }}/fullchain.pem"
+
+# https://docs.bigbluebutton.org/2.2/setup-turn-server.html#configure-coturn
+
+- name: Copy coturn config-file
+  template:
+    src: turnserver.conf
+    dest: /etc/turnserver.conf
+
+# https://docs.bigbluebutton.org/2.2/setup-turn-server.html#configure-log-rotation
+
+- name: Enable logrotate for coturn
+  template:
+    src: logrotate
+    dest: /etc/logrotate.d/coturn
+
+# https://docs.bigbluebutton.org/2.2/setup-turn-server.html#configure-coturn
+
+- name: Enable coturn server in defaults
+  lineinfile:
+    path: /etc/default/coturn
+    regexp: 'TURNSERVER_ENABLED'
+    line: 'TURNSERVER_ENABLED=1'
+
+- name: Enable coturn
+  service:
+    name: coturn
+    enabled: true
+    state: started
