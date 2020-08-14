@@ -15,7 +15,8 @@ Collection of Ansible playbooks and roles.
 * [odoo-scripts](roles/odoo-scripts/README.md) - Install Odoo scripts
 * [debug](roles/debug/README.md) - Debug Ansible variables
 * [modsecurity](roles/modsecurity/README.md) - Download and configure ModSecurity with OWASP CRS
-* [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Let's Encrypt certificates and ModSecurity
+* [certbot](roles/certbot/README.md) - Deploy Let's Encrypt certificates with Certbot.
+* [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Certbot and ModSecurity.
 * [clean](roles/clean/README.md) - Cleanup Ansible roles
 * [mysql](roles/mysql/README.md) - Deploy MySQL database container
 * [bookstack](roles/bookstack/README.md) - Deploy BookStack Docker container

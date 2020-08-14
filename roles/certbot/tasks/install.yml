@@ -1,3 +1,26 @@
+- name: Ensure nginx data dir exists
+  file:
+    path: "{{ nginx_data_dir }}"
+    state: directory
+
+- name: Dig DNS CNAME record
+  debug:
+    msg: "{{ lookup('dig', item.src_hostname, 'qtype=CNAME') }}"
+  register: dig
+  loop: "{{ nginx_proxies }}"
+
+- name: Fail if DNS record points to alias.zeit.co.
+  fail:
+    msg: DNS record points to default alias.
+  when: item.msg == 'alias.zeit.co.'
+  loop: "{{ dig.results }}"
+
+- name: Fail if DNS record points to cname.vercel-dns.com.
+  fail:
+    msg: DNS record points to default alias.
+  when: item.msg == 'cname.vercel-dns.com.'
+  loop: "{{ dig.results }}"
+  
 - name: Check if cert files exist
   stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
@@ -82,7 +105,8 @@
 
 - name: Register certbot conf files # noqa 306
   shell: "ls -1 {{ certbot_data_dir }}/renewal/*.conf | xargs -n 1 basename"
-  changed_when: no
+  changed_when: false
+  ignore_errors: true
   register: certbot_conf_files
 
 - name: Create managed file list from proxy list

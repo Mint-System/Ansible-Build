@@ -4,6 +4,7 @@
   loop: "{{ ansible_run_tags }}"
   vars:
     tasks:
+      - certbot
       - nginx
       - modsecurity
       - keycloak
