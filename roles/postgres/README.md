@@ -13,7 +13,8 @@ Configure the role.
 postgres_image: postgres:10-alpine
 postgres_hostname: postgres01
 postgres_volume_name: postgres_data01
-postgres_port: 127.0.0.1:5433
+postgres_ports:
+  - 127.0.0.1:5433:5432
 postgres_user: example
 postgres_password: "{{ vault_postgres_password }}"
 postgres_db: example
