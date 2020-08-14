@@ -17,8 +17,7 @@
       POSTGRES_DB: "{{ postgres_db }}"
     volumes:
       - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
-    ports:
-      - "{{ postgres_port }}:5432"
+    ports: "{{ postgres_ports | default([]) }}"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
