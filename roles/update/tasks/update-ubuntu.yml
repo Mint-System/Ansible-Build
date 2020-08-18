@@ -27,7 +27,7 @@
   reboot:
     msg: Rebooting to complete system upgrade
     reboot_timeout: 120
-  when: reboot_required.stat.exists
+  when: reboot_required.stat.exists and reboot_allowed
 
 - name: Get all installed and updated packages # noqa 306
   shell: grep -E "$(date --iso-8601).+ (install|upgrade) " /var/log/dpkg.log | cut -d " " -f 3-5

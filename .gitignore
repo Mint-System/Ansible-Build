@@ -1,3 +1,5 @@
 .vault_pass
 default.vim
 .DS_Store
+*.swp
+run.sh
