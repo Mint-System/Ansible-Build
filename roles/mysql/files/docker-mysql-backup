@@ -16,7 +16,7 @@ Help() {
     echo "  -d    Comma-separated list of database names."
     echo "  -a    Backup all databases"
     echo "  -o    Output directory. Defaults to '/var/tmp'"
-    echo "  -c    Docker container. Defaults to 'mysql'"
+    echo "  -c    Docker container name. Defaults to 'mysql'"
     echo "  help  Show docker-mysql-backup manual."
     echo
 }
