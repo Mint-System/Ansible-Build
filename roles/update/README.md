@@ -18,6 +18,7 @@ Configure the role.
 
 ```yml
 update: true
+reboot_allowed: true
 ```
 
 And include it in your playbook.
