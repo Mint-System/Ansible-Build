@@ -21,6 +21,16 @@ grafana_mail_from: noreply@example.com
 grafana_mail_from_name: Grafana
 grafana_mail_username: bot@example.com
 grafana_mail_password: "{{ vault_grafana_mail_password }}"
+grafana_server_domain: "monitor.example.com"
+grafana_server_root_url: "https://monitor.example.com"
+grafana_generic_oauth_enabled: "true"
+grafana_generic_oauth_name: "Login Example"
+grafana_generic_oauth_sign_up: "true"
+grafana_generic_oauth_client_id: "monitor.example.com"
+grafana_generic_oauth_client_secret: "{{ vault_grafana_generic_oauth_client_secret }}"
+grafana_generic_oauth_auth_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/auth"
+grafana_generic_oauth_token_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/token"
+grafana_generic_oauth_api_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/userinfo"
 ```
 
 And include it in your playbook.
