@@ -20,7 +20,7 @@
     msg: DNS record points to default alias.
   when: item.msg == 'cname.vercel-dns.com.'
   loop: "{{ dig.results }}"
- 
+
 - name: Check if cert files exist
   stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
