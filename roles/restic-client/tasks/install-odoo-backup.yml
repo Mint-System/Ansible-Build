@@ -14,5 +14,6 @@
       --tag {{ item.tags | join(' --tag ') }} && \
       logger \"Backup job {{ item.id }} completed\" -i -t CRON"
     disabled: "{{ item.disabled | default(false) }}"
+    state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "odoo-backup"

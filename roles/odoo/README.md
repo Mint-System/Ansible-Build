@@ -11,7 +11,7 @@ Configure the role.
 ```yml
 odoo_image: odoo:13
 odoo_hostname: odoo01
-odoo_port: 8069
+odoo_port: 8070
 odoo_data_dir: /usr/share/odoo01
 odoo_volume_name: odoo_data01
 odoo_postgres_hostname: postgres01
