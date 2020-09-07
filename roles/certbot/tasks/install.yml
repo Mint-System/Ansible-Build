@@ -111,7 +111,7 @@
 
 - name: Create managed file list from proxy list
   set_fact:
-    managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
+    managed_files: "{{ nginx_proxies | selectattr('ssl', 'defined') | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
 
 - name: Remove unmanaged certbot conf files
   file:
