@@ -92,7 +92,7 @@
     src: renew-certs
     dest: "{{ certbot_data_dir }}/"
     mode: +x
-  when: certbot_certs | json_query(certbot_stat_filter) | list
+  #when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Register renew certs job
   cron:
@@ -100,8 +100,8 @@
     minute: "{{ 59 |random(seed=nginx_hostname) }}"
     hour: "0"
     weekday: "0"
-    job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }} && logger \"Renewed certs for {{ nginx_hostname }}\" -i -t CRON"
-  when: certbot_certs | json_query(certbot_stat_filter) | list
+    job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?"
+  #when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Register certbot conf files # noqa 306
   shell: "ls -1 {{ certbot_data_dir }}/renewal/*.conf | xargs -n 1 basename"

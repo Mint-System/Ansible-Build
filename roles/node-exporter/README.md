@@ -1,6 +1,6 @@
 # Ansible Node Exporter role
 
-Deploys node-exporter container.
+Deploys node-exporter container and install custom metric script.
 
 ## Usage
 
@@ -11,7 +11,9 @@ Configure the role.
 ```yml
 node_exporter_image: prom/node-exporter:v0.18.1
 node_exporter_hostname: node01
+node_exporter_description: Host metric for server1 # default: Node Exporter
 node_exporter_nginx_data_dir: /usr/share/nginx01
+node_exporter_requires_package: python2-passlib # default: python3-passlib
 ```
 
 Ensure the nginx proxy includes the node-exporter config:

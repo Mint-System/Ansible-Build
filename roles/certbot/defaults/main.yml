@@ -1,0 +1,1 @@
+certbot_stat_filter: "results[*] | [?stat.exists==`false`].item"

@@ -28,7 +28,7 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":d:m:c:x:help:" opt; do
+while getopts ":d :m: :c: :x:" opt; do
   case $opt in
     m) MODULES="$OPTARG"
     ;;

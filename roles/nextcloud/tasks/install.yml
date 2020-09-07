@@ -58,4 +58,4 @@
   cron:
     name: "Run nextcloud background jobs"
     minute: "*/5"
-    job: "docker exec -u www-data {{ nextcloud_hostname }} php -f /var/www/html/cron.php"
+    job: "docker exec -u www-data {{ nextcloud_hostname }} php -f /var/www/html/cron.php; write-node-exporter-metric -c 'Run nextcloud background jobs' -v $?"
