@@ -1,4 +1,3 @@
-certbot_stat_filter: "results[*] | [?stat.exists==`false`].item"
 nginx_http_port: 80
 nginx_https_port: 443
 nginx_description: Nginx

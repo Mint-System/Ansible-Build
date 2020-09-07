@@ -4,8 +4,8 @@
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} && \
-      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} && \
-      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
+      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}; \
+      write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "mysql-dump" and item.databases is defined
@@ -16,8 +16,8 @@
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "docker-mysql-backup -c {{ item.container }} -a && \
-      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} && \
-      logger \"Backup job {{ item.id }} completed\" -i -t CRON"
+      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}; \
+      write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "mysql-dump" and item.databases is undefined
