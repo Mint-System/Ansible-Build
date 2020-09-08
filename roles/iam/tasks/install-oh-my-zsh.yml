@@ -16,3 +16,10 @@
   become: true
   when: item.shell == '/bin/zsh' and inventory_hostname_short in item.hosts
   loop: "{{ iam_users }}"
+
+- name: Insert zsh runtime configuration.
+  blockinfile:
+    path: "/home/{{ item.username }}/.zshrc"
+    block: "{{ item.zshrc }}"
+  when: item.shell == '/bin/zsh' and inventory_hostname_short in item.hosts and item.zshrc is defined
+  loop: "{{ iam_users }}"

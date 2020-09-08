@@ -19,9 +19,11 @@ iam_users:
     ssh_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups: wheel,docker
     shell: /bin/zsh
-        hosts:
-          - server1
-          - server2
+    zshrc: |
+      PROMPT="$fg[cyan]%}$USER@%{$fg[blue]%}%m ${PROMPT}"
+    hosts:
+      - server1
+      - server2
 ```
 
 And include it in your playbook.
