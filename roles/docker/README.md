@@ -52,5 +52,10 @@ Include it in your playbook.
 - hosts: docker
   roles:
   - role: docker
-    tags: docker
 ```
+
+The following tags are available:
+
+* docker
+* docker-ubuntu
+* docker-centos

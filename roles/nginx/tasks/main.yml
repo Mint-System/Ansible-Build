@@ -1,3 +1,12 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include nginx config tasks
+  include: nginx-config.yml
+  when: nginx_data_dir is defined
+  tags:
+    - nginx-config
+    - nginx
+
+- name: Include nginx tasks
+  include: nginx.yml
   when: nginx_image is defined
+  tags:
+    - nginx

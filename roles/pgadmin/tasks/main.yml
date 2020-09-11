@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include pgadmin tasks
+  include_tasks: pgadmin.yml
   when: pgadmin_image is defined
+  tags:
+    - pgadmin

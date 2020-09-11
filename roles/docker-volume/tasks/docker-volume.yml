@@ -10,7 +10,7 @@
   loop:
     - docker-volume-backup
 
-- name: Include docker volume backup from restic-client role
+- name: Include docker volume backup from restic client role
   include_role:
     name: restic-client
   vars:

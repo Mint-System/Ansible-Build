@@ -11,6 +11,7 @@ Configure the role.
 ```yml
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:10-alpine
+postgres_description: Database for website  # default: PostgreSQL
 postgres_hostname: postgres01
 postgres_volume_name: postgres_data01
 postgres_ports:
@@ -27,5 +28,4 @@ And include it in your playbook.
 - hosts: postgres
   roles:
   - role: postgres
-    tags: postgres
 ```

@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include kibana tasks
+  include_tasks: kibana.yml
   when: kibana_image is defined
+  tags:
+   - kibana

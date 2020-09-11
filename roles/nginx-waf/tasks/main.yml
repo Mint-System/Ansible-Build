@@ -1,0 +1,5 @@
+- name: Include nginx-waf tasks
+  include: nginx-waf.yml
+  when: nginx_waf_image is defined
+  tags:
+    - nginx-waf

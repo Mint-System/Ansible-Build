@@ -6,4 +6,4 @@
   - role: iam
     tags: iam
   - role: update
-    tags: update,never
+    tags: update

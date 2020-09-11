@@ -1,0 +1,30 @@
+- name: Include nginx role and apply nginx-config tasks
+  include_role:
+    name: nginx
+    tasks_from: nginx-config
+
+- name: "Start nginx-waf container {{ nginx_waf_hostname }}"
+  docker_container:
+    name: "{{ nginx_waf_hostname }}"
+    labels:
+      description: "{{ nginx_waf_description }}"
+    image: "{{ nginx_waf_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    ports:
+      - "{{ nginx_waf_http_port }}:80"
+      - "{{ nginx_waf_https_port }}:443"
+    volumes:
+      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
+      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
+      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+      - "{{ modsecurity_data_dir }}:/etc/modsecurity"
+      - "{{ modsecurity_data_dir }}/include.conf:/etc/modsecurity.d/include.conf"
+      - "{{ modsecurity_data_dir }}/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  when: modsecurity_image is defined

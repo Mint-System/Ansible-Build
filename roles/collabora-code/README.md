@@ -20,5 +20,4 @@ And include it in your playbook.
 - hosts: nextcloud
   roles:
   - role: collabora-code
-    tags: collabora-code
 ```

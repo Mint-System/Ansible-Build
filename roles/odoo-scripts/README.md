@@ -10,5 +10,4 @@ Include the role in your playbook.
 - hosts: odoo
   roles:
   - role: odoo-scripts
-    tags: odoo-scripts
 ```

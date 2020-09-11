@@ -30,5 +30,4 @@ And include it in your playbook.
 - hosts: wordpress
   roles:
   - role: wordpress
-    tags: wordpress
 ```

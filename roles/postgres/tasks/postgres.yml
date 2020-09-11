@@ -34,7 +34,7 @@
   loop:
     - docker-postgres-backup
 
-- name: Include docker posgres backup from restic-client role
+- name: Include docker postgres backup from restic client role
   include_role:
     name: restic-client
   vars:

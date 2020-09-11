@@ -47,18 +47,12 @@ And include it in your playbook.
 - hosts: bigbluebutton
   roles:
   - role: bigbluebutton
-    tags:
-    - biglbuebutton
-    - biglbuebutton-core
-    - biglbuebutton-letsencrypt
-    - biglbuebutton-https
-    - biglbuebutton-greenlight
 ```
 
 The following tags are available:
 
 * biglbuebutton
-* biglbuebutton-core
+* biglbuebutton-ubuntu1604
 * biglbuebutton-letsencrypt
 * biglbuebutton-https
 * biglbuebutton-greenlight

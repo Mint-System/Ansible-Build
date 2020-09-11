@@ -1,0 +1,3 @@
+nginx_waf_description: Nginx WAF
+nginx_waf_http_port: 80
+nginx_waf_https_port: 443

@@ -32,5 +32,4 @@ And include it in your playbook.
 - hosts: iam
   roles:
   - role: iam
-    tags: iam
 ```

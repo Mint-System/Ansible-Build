@@ -32,5 +32,9 @@ And include it in your playbook.
 - hosts: cAdvisor
   roles:
   - role: cadvisor
-    tags: cadvisor
 ```
+
+The following tags are available:
+
+* cadvisor
+* cadvisor-nginx-config

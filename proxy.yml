@@ -5,3 +5,5 @@
     tags: modsecurity
   - role: nginx
     tags: nginx
+  - role: nginx-waf
+    tags: nginx-waf

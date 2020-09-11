@@ -1,26 +1,26 @@
-- name: Include install tasks
+- name: Include bigbluebutton-ubuntu1604 tasks
   include: install-ubuntu1604.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url
   tags:
     - bigbluebutton
-    - bigbluebutton-core
+    - bigbluebutton-ubuntu1604
 
-- name: Include letsencrypt install tasks
-  include: install-letsencrypt.yml
+- name: Include bigbluebutton letsencrypt tasks
+  include: bigbluebutton-letsencrypt.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url
   tags:
     - bigbluebutton
     - bigbluebutton-letsencrypt
 
-- name: Include enable https tasks
-  include: enable-https.yml
+- name: Include bigbluebutton https tasks
+  include: bigbluebutton-https.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url
   tags:
     - bigbluebutton
     - bigbluebutton-https
 
-- name: Include greenligh install tasks
-  include: install-greenlight.yml
+- name: Include bigbluebutton greenlight tasks
+  include: bigbluebutton-greenlight.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url
   tags:
     - bigbluebutton

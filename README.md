@@ -15,7 +15,7 @@ Collection of Ansible playbooks and roles.
 * [odoo-scripts](roles/odoo-scripts/README.md) - Install Odoo scripts
 * [debug](roles/debug/README.md) - Debug Ansible variables
 * [modsecurity](roles/modsecurity/README.md) - Download and configure ModSecurity with OWASP CRS
-* [certbot](roles/certbot/README.md) - Deploy Let's Encrypt certificates with Certbot.
+* [certbot](roles/certbot/README.md) - Deploy Let's Encrypt certificates.
 * [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Certbot and ModSecurity.
 * [clean](roles/clean/README.md) - Cleanup Ansible roles
 * [mysql](roles/mysql/README.md) - Deploy MySQL database container
@@ -36,10 +36,11 @@ Collection of Ansible playbooks and roles.
 * [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
 * [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
 * [update](roles/update/README.md) - Install system and package updates
-* [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight.
-* [package](roles/package/README.md) - Install and pin packages.
-* [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps.
-* [pgadmin](roles/pgadmin/README.md) - Install pgADmin container.
+* [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
+* [package](roles/package/README.md) - Install and pin packages
+* [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps
+* [pgadmin](roles/pgadmin/README.md) - Install pgADmin container
+* [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set
 
 ## Usage
 
@@ -207,4 +208,42 @@ ROLENAME_smtp_domain:
 ROLENAME_smtp_from:
 ROLENAME_smtp_username:
 ROLENAME_smtp_password:
+```
+
+Role names must be lower case and may contain a `-`.
+
+### Role and Tags
+
+Roles can have multiple tags.
+
+**example one tag**
+
+To define a Postgres role, you would:
+* Create role `postges`
+* Assign the tag `postgres`
+* Create a task file `postgres.yml`
+
+**example multiple tags**
+
+To define a Nginx role with a config tag, you would:
+* Create role `nginx`
+* Assign the tags `nginx` and `nginx-config`
+* Create the task files `nginx.yml` and `nginx-config.yml`
+
+In the `main.yml` you would include the tasks as followed:
+
+
+```yml
+- name: Include nginx config tasks
+  include_tasks: nginx-config.yml
+  when: nginx_data_dir is defined
+  tags:
+    - nginx
+    - nginx-config
+
+- name: Include nginx tasks
+  include_tasks: nginx.yml
+  when: nginx_image is defined
+  tags:
+    - nginx
 ```

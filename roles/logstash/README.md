@@ -23,5 +23,4 @@ And include it in your playbook.
 - hosts: logstash
   roles:
   - role: logstash
-    tags: logstash
 ```

@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include docker volume tasks
+  include_tasks: docker-volume.yml
   when: docker_volume_name is defined
+  tags:
+    - docker-volume

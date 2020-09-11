@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include openldap tasks
+  include_tasks: openldap.yml
   when: openldap_image is defined
+  tags:
+    - openldap

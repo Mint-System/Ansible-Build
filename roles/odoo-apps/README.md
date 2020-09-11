@@ -29,5 +29,4 @@ And include it in your playbook.
 - hosts: odoo-apps
   roles:
   - role: odoo-apps
-    tags: odoo-apps
 ```

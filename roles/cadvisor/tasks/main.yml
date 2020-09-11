@@ -1,7 +1,12 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include cadvisor tasks
+  include_tasks: cadvisor.yml
   when: cadvisor_image is defined
+  tags:
+    - cadvisor
 
-- name: Include install proxy tasks
-  include_tasks: install-proxy.yml
+- name: Include cadvisor nginx config tasks
+  include_tasks: cadvisor-nginx-config.yml
   when: cadvisor_nginx_data_dir is defined
+  tags:
+    - cadvisor
+    - cadvisor-nginx-config

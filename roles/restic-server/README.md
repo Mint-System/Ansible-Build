@@ -22,10 +22,5 @@ And include it in your playbook.
 ```yml
 - hosts: restic-server
   roles:
-  - role: docker
-    tags: docker
-  - role: docker-network
-    tags: docker-network
   - role: restic-server
-    tags: restic-server
 ```

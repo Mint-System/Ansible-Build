@@ -1,2 +1,4 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include odoo scripts tasks
+  include_tasks: odoo-scripts.yml
+  tags:
+    - odoo-scripts

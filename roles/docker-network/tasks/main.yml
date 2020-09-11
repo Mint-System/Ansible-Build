@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include docker network tasks
+  include_tasks: docker-network.yml
   when: docker_network_name is defined
+  tags:
+    - docker-network
