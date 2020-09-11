@@ -1,0 +1,5 @@
+- name: Include maintenance tasks
+  include_tasks: maintenance.yml
+  when: maintenance
+  tags:
+   - maintenance

@@ -1,0 +1,11 @@
+- name: Prune docker images
+  docker_prune:
+    containers: yes
+    images: yes
+    images_filters:
+       dangling: false
+  register: prune_docker_images
+
+- name: Show image space reclaimed
+  debug:
+    msg: "Removed {{ prune_docker_images.images | length }} image layers and reclaimed {{ prune_docker_images.images_space_reclaimed|filesizeformat }} space."
