@@ -27,5 +27,4 @@ And include it in your playbook.
 - hosts: update
   roles:
   - role: update
-    tags: update
 ```

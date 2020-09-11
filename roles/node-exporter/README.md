@@ -32,8 +32,12 @@ And include it in your playbook.
 - hosts: node-exporter
   roles:
   - role: node-exporter
-    tags: node-exporter
 ```
+
+The following tags are available:
+
+* node-exporter
+* node-exporter-nginx-config
 
 ## Docs
 

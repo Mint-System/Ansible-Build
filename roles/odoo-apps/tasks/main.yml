@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include odoo apps tasks
+  include_tasks: odoo-apps.yml
   when: odoo_apps is defined
+  tags:
+    - odoo-apps

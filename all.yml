@@ -27,7 +27,6 @@
   - role: modsecurity
     tags: modsecurity
   - role: nginx
-    tags: nginx
   - role: cadvisor
     tags: cadvisor
   - role: node-exporter

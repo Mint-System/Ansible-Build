@@ -25,5 +25,4 @@ And include it in your playbook.
 - hosts: mysql
   roles:
   - role: mysql
-    tags: mysql
 ```

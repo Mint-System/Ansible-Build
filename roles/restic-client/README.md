@@ -57,5 +57,4 @@ And include it in your playbook.
 - hosts: restic-client
   roles:
   - role: restic-client
-    tags: restic-client
 ```

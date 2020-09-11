@@ -12,7 +12,8 @@ Configure the role.
 nginx_image: nginx:1.15-alpine
 nginx_hostname: proxy01
 nginx_data_dir: /usr/share/nginx01
-nginx_https_port: 8443
+nginx_https_port: 8080 # default: 80
+nginx_https_port: 8443 # default: 443
 nginx_proxies:
   - src_hostname: www.example.com
     dest_hostname: webserver
@@ -45,5 +46,9 @@ And include it in your playbook.
 - hosts: nginx
   roles:
   - role: nginx
-    tags: nginx
 ```
+
+The following tags are available:
+
+* nginx
+* nginx-config

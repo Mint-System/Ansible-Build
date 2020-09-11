@@ -29,5 +29,4 @@ And include it in your playbook.
 - hosts: odoo
   roles:
   - role: odoo
-    tags: odoo
 ```

@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include mysql tasks
+  include_tasks: mysql.yml
   when: mysql_image is defined
+  tags:
+   - mysql

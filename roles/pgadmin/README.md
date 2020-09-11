@@ -23,5 +23,4 @@ And include it in your playbook.
 - hosts: pgadmin
   roles:
   - role: pgadmin
-    tags: pgadmin
 ```

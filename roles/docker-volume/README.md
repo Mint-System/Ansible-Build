@@ -19,5 +19,4 @@ And include it in your playbook.
 - hosts: docker-volume
   roles:
   - role: docker-volume
-    tags: docker-volume
 ```

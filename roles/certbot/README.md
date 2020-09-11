@@ -1,6 +1,6 @@
 # Ansible Certbot role
 
-Deploys Let's Encrypt certificates with Certbot.
+Deploys Let's Encrypt certificates.
 
 ## Usage
 
@@ -25,5 +25,4 @@ And include it in your playbook.
 - hosts: certbot
   roles:
   - role: certbot
-    tags: certbot
 ```

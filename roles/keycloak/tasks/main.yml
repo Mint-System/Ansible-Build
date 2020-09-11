@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include keycloak tasks
+  include_tasks: keycloak.yml
   when: keycloak_image is defined
+  tags:
+   - keycloak

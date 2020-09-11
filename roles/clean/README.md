@@ -9,5 +9,5 @@ Include it in your playbook.
 ```yml
 - hosts: clean
   roles:
-  - { role: clean, tags: ["clean"] }
+  - role: clean
 ```

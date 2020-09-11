@@ -1,12 +1,19 @@
-- name: Include Ubuntu install tasks
-  include_tasks: install-ubuntu.yml
+- name: Include docker ubuntu tasks
+  include_tasks: docker-ubuntu.yml
   when: docker_packages is defined and (ansible_distribution == 'Ubuntu')
+  tags:
+    - docker
+    - docker-ubuntu
 
-- name: Include CentOS install tasks
-  include_tasks: install-centos.yml
+- name: Include docker centos tasks
+  include_tasks: docker-centos.yml
   when: docker_packages is defined and (ansible_distribution == 'CentOS')
+  tags:
+    - docker
+    - docker-ubuntu
 
-- name: Ensure docker deamon is running
-  service:
-    name: docker
-    state: started
+- name: Include docker tasks
+  include_tasks: docker.yml
+  when: docker_packages is defined
+  tags:
+    - docker

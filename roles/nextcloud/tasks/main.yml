@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include nextcloud tasks
+  include_tasks: nextcloud.yml
   when: nextcloud_image is defined
+  tags:
+    - nextcloud

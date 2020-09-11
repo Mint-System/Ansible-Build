@@ -61,9 +61,10 @@
     line: "ODOO_MASTER_PASSWORD={{ odoo_master_password }}"
   when: odoo_master_password is defined
 
-- name: Include odoo backup from restic-client role
+- name: Include odoo backup from restic client role
   include_role:
     name: restic-client
+    tasks_from: restic-client-odoo-backup
   vars:
     restic_backup_sets: "{{ odoo_backup_sets }}"
   when: odoo_backup_sets

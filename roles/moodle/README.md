@@ -35,5 +35,4 @@ And include it in your playbook.
 - hosts: moodle
   roles:
   - role: moodle
-    tags: moodle
 ```

@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include restic server tasks
+  include_tasks: restic-server.yml
   when: restic_server_image is defined
+  tags:
+    - restic-server

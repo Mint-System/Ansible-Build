@@ -39,5 +39,4 @@ And include it in your playbook.
 - hosts: prometheus
   roles:
   - role: grafana
-    tags: grafana
 ```

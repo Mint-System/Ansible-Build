@@ -32,5 +32,4 @@ And include it in your playbook.
 - hosts: bookstack
   roles:
   - role: bookstack
-    tags: bookstack
 ```

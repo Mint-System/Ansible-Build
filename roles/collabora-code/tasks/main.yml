@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include collabora code tasks
+  include_tasks: collabora-code.yml
   when: collabora_code_image is defined
+  tags:
+    - collabora-code

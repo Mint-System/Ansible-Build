@@ -11,6 +11,8 @@ Configure the role.
 ```yml
 # https://hub.docker.com/r/jboss/keycloak
 keycloak_image: jboss/keycloak:9.0.2
+keycloak_description: Login Example Company # default: Keycloak
+keycloak_timezone: Europe/Paris # default: Europe/Berlin
 keycloak_hostname: login01
 keycloak_user: admin
 keycloak_password: "{{ vault_keycloak_password }}"
@@ -26,5 +28,4 @@ And include it in your playbook.
 - hosts: keycloak
   roles:
   - role: keycloak
-    tags: keycloak
 ```

@@ -35,5 +35,4 @@ And include it in your playbook.
 - hosts: nextcloud
   roles:
   - role: nextcloud
-    tags: nextcloud
 ```

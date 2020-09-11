@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include modsecurity tasks
+  include_tasks: modsecurity.yml
   when: modsecurity_image is defined
+  tags:
+   - modsecurity

@@ -33,7 +33,7 @@
   loop:
     - docker-mysql-backup
 
-- name: Include docker mysql backup from restic-client role
+- name: Include docker mysql backup from restic client role
   include_role:
     name: restic-client
   vars:

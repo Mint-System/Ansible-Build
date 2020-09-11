@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include prometheus tasks
+  include_tasks: prometheus.yml
   when: prometheus_image is defined
+  tags:
+    - prometheus

@@ -1,0 +1,104 @@
+- name: debug
+  debug:
+    var: hostvars[inventory_hostname]
+
+# - name: set Digests
+#   set_fact:
+#     odoo_image: odoo@sha256:d4960fde390072f14b197f45775770b7cafc43d3afea60882766ce7d2004aa00
+
+# - name: Pull odoo image
+#   docker_image:
+#     name: "{{ odoo_image }}"
+#     source: pull
+#     force_source: yes
+#   register: pull_odoo_image
+
+# - name: Tag odoo image
+#   command: "docker tag {{ odoo_image[7:19] }} odoo:{{ odoo_image[7:19] }}"
+#   when: pull_odoo_image.image.RepoTags | length == 0 
+
+# - name: Dig DNS CNAME record
+#   debug: 
+#     msg: "{{ lookup('dig', item.src_hostname, 'qtype=CNAME') }}"
+#   register: dig
+#   loop: "{{ nginx_proxies }}"
+
+# - name: Fail if DNS record points to alias.zeit.co.
+#   fail:
+#     msg: DNS record points to default alias.
+#   when: item.msg == 'alias.zeit.co.'
+#   loop: "{{ dig.results }}"
+
+# - name: Debug
+#   debug:
+#     var: groups
+
+# |fetchlistfromdict(groups.servers)
+
+# - name: Debug
+#   debug:
+#     var: (groups.exporter | map('extract', hostvars) | map(attribute='ansible_host') | list)
+# (hostvars | dict2items | json_query('[*].value') | json_query('[?group_names[0]==`exporter`]') | select('ansible_host'))
+
+# groups
+  # [?ansible_host==`zeus.mint-system.com`]
+  # | json_query('[?ansible_host==`zeus.mint-system.com`]')
+  #
+
+# - name: Register nginx conf files
+#   command: "ls -1 {{ nginx_data_dir }}"
+#   register: nginx_proxy_conf_files
+
+# - name: Debug
+#   debug:
+#     var: nginx_proxy_conf_files
+
+# - set_fact:
+#     managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
+
+# - name: Debug
+#   debug:
+#     var: managed_files
+
+# - name: Remove unmanaged nginx conf files
+#   file: 
+#     path: "{{ nginx_data_dir }}/{{ item }}"
+#     state: absent
+#   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"
+#   when: item not in (json_query(certbot_stat_filter) | list)
+
+# - name: Debug modsecurity_exclude_rules_before_crs
+#   debug:
+#     msg: "{{ item }}"
+#   loop: "{{ modsecurity_exclude_rules_before_crs }}"
+
+# - name: Check if cert files exist
+#   stat:
+#     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
+#   loop: "{{ nginx_proxies }}"
+#   register: certbot_certs
+
+# - name: Debug certbot_certs
+#   debug:
+#     msg: "{{ certbot_certs }}"
+
+# - name: Debug certbot_certs
+#   debug:
+#     msg: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`false`].item.src_hostname') | list }}"
+
+# - name: Debug hi
+#   debug:
+#     msg: "hi"
+#   when: certbot_certs | json_query(certbot_stat_filter) | list
+
+# - name: Debug postgres_hostname
+#   debug:
+#     var: postgres_hostname
+
+# - name: Debug nginx_hostname
+#   debug:
+#     var: nginx_hostname
+
+# - name: Debug bookstack_hostname
+#   debug:
+#     var: bookstack_hostname

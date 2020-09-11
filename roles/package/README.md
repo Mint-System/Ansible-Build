@@ -21,7 +21,6 @@ Include it in your playbook.
 - hosts: package
   roles:
   - role: package
-    tags: package
 ```
 
 Or include it in another role.

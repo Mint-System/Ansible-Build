@@ -39,7 +39,6 @@ And include it in your playbook.
 - hosts: elasticsearch
   roles:
   - role: elasticsearch
-    tags: elasticsearch
 ```
 
 ## Development

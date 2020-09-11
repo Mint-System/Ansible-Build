@@ -23,5 +23,4 @@ And include it in your playbook.
 - hosts: kibana
   roles:
   - role: kibana
-    tags: kibana
 ```

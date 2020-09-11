@@ -1,7 +1,11 @@
 - name: Include groups tasks
   include_tasks: groups.yml
   when: iam_groups is defined
+  tags:
+    - iam
 
 - name: Include users tasks
   include_tasks: users.yml
   when: iam_users is defined
+  tags:
+    - iam

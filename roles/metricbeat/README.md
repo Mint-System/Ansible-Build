@@ -28,5 +28,4 @@ And include it in your playbook.
 - hosts: metricbeat
   roles:
   - role: metricbeat
-    tags: metricbeat
 ```

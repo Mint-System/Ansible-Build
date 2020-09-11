@@ -34,5 +34,4 @@ And include it in your playbook.
 - hosts: modsecurity
   roles:
   - role: modsecurity
-    tags: modsecurity
 ```

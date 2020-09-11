@@ -18,5 +18,4 @@ And include it in your playbook.
 - hosts: docker-network
   roles:
   - role: docker-network
-    tags: docker-network
 ```

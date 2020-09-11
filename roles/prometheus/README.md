@@ -45,5 +45,4 @@ And include it in your playbook.
 - hosts: prometheus
   roles:
   - role: prometheus
-    tags: prometheus
 ```

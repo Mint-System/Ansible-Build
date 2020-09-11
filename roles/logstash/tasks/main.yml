@@ -1,3 +1,5 @@
-- name: Include install tasks
-  include_tasks: install.yml
+- name: Include logstash tasks
+  include_tasks: logstash.yml
   when: logstash_image is defined
+  tags:
+   - logstash
