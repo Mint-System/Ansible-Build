@@ -6,4 +6,8 @@
   - role: iam
     tags: iam
   - role: update
-    tags: update
+    tags:
+      - update
+      - never
+  - role: maintenance
+    tags: maintenance
