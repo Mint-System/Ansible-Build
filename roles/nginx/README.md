@@ -31,13 +31,15 @@ nginx_proxies:
   - src_hostname: login.example.com
     ssl: true
     locations:
-      - path: /
+      - path: /auth
         dest_hostname: authserver
         dest_port: 8080
         options: |
           proxy_buffer_size 128k;
           proxy_buffers 4 256k;
           proxy_busy_buffers_size 256k;
+  - src_hostname: old.example.com
+    redirect_url: https://www.example.com/new
 ```
 
 And include it in your playbook.
