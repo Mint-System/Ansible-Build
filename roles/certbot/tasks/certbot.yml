@@ -37,6 +37,17 @@
   loop: "{{ certbot_certs.results }}"
   when: item.stat is defined and not item.stat.exists
 
+- name: "Get infos on nginx container {{ nginx_hostname }}"
+  docker_container_info:
+    name: mydata
+  register: nginx_container
+
+- name: "Restart container {{ nginx_hostname }}"
+  docker_container:
+    name: "{{ nginx_hostname }}"
+    restart: yes
+  when: nginx_container.exists and (certbot_certs | json_query(certbot_stat_filter) | list)
+
 - name: "Start nginx container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
@@ -55,12 +66,12 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
-  when: certbot_certs | json_query(certbot_stat_filter) | list
+  when: not nginx_container.exists and (certbot_certs | json_query(certbot_stat_filter) | list)
 
 - name: Wait for nginx container
   pause:
     seconds: "3"
-  when: certbot_certs | json_query(certbot_stat_filter) | list
+  when: not nginx_container.exists and (certbot_certs | json_query(certbot_stat_filter) | list)
 
 - name: Issue certificate with certbot command
   docker_container:
@@ -92,7 +103,6 @@
     src: renew-certs
     dest: "{{ certbot_data_dir }}/"
     mode: +x
-  #when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Register renew certs job
   cron:
@@ -101,7 +111,6 @@
     hour: "0"
     weekday: "0"
     job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?"
-  #when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: Register certbot conf files # noqa 306
   shell: "ls -1 {{ certbot_data_dir }}/renewal/*.conf | xargs -n 1 basename"
