@@ -1,6 +1,6 @@
 - name: Ensure nginx data dir exists
   file:
-    path: "{{ nginx_data_dir }}"
+    path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
 - name: Dig DNS CNAME record
@@ -28,10 +28,17 @@
   register: certbot_certs
   when: item.ssl is defined
 
+- name: Copy nginx conf files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ nginx_data_dir }}/"
+  loop:
+    - files/default.conf
+
 - name: Copy nginx certbot conf
   template:
     src: templates/nginx-certbot.conf
-    dest: "{{ nginx_data_dir }}/{{ item.item.src_hostname }}.conf"
+    dest: "{{ nginx_data_dir }}/proxies/{{ item.item.src_hostname }}.conf"
   vars:
     server_name: "{{ item.item.src_hostname }}"
   loop: "{{ certbot_certs.results }}"
@@ -57,7 +64,8 @@
     ports:
       - 80:80
     volumes:
-      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
+      - "{{ nginx_data_dir }}/proxies:/etc/nginx/conf.d/proxies/:ro"
+      - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
     networks:
@@ -89,7 +97,7 @@
 
 - name: Wait for certificate request
   pause:
-    seconds: "10"
+    seconds: "5"
   when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: "Remove certbot container"
@@ -128,3 +136,12 @@
     state: "absent"
   loop: "{{ certbot_conf_files.stdout_lines }}"
   when: certbot_conf_files.stdout_lines is defined and item not in managed_files
+
+- name: Copy nginx ssl conf files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ certbot_data_dir }}/"
+  loop:
+    - files/options-ssl-nginx.conf
+    - files/ssl-dhparams.pem
+    - files/proxy-params.conf

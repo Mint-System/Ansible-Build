@@ -19,18 +19,15 @@
     password: "{{ node_exporter_proxy_basic_auth_password }}"
   when: ansible_distribution != 'CentOS'
 
-# FIXME: Use python2 to create the htpasswd as passlib is not available for CentoOS 7 python3
 - name: Configure user access for node-exporter
   htpasswd:
     path: "{{ node_exporter_nginx_data_dir }}/node-exporter.htpasswd"
     name: "{{ node_exporter_proxy_basic_auth_username }}"
-    password: "{{ node_exporter_proxy_basic_auth_password }}"
-  vars:
-    ansible_python_interpreter: "/usr/bin/python2"
+    password: "{{ node_exporter_proxy_basic_auth_password }}"    
   when: ansible_distribution == 'CentOS'
 
 - name: Copy nginx node-exporter conf
   template:
     src: templates/node-exporter.nginx
     dest: "{{ node_exporter_nginx_data_dir }}/node-exporter.nginx"
-  notify: Restart nginx container
+  #notify: Restart nginx container
