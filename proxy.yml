@@ -1,8 +1,6 @@
 - hosts: all
   become: true
   roles:
-  - role: modsecurity
-    tags: modsecurity
   - role: nginx
     tags: nginx
   - role: nginx-waf

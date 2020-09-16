@@ -1,4 +1,4 @@
-- name: "Start nginx container {{ nginx_hostname }} without modsecurity"
+- name: "Start nginx container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
     labels:
@@ -7,42 +7,16 @@
     restart_policy: unless-stopped
     recreate: no
     ports:
-      - "{{ nginx_http_port }}:{{ nginx_http_port }}"
-      - "{{ nginx_https_port }}:{{ nginx_https_port }}"
-    volumes:
-      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
-      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
-      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
-    networks:
-      - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
-    log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
-  when: modsecurity_image is undefined
-
-- name: "Start nginx container {{ nginx_hostname }} with modsecurity"
-  docker_container:
-    name: "{{ nginx_hostname }}"
-    labels:
-      description: "{{ nginx_description }}"
-    image: "{{ modsecurity_image }}"
-    restart_policy: unless-stopped
-    recreate: no
-    ports:
       - "{{ nginx_http_port }}:80"
       - "{{ nginx_https_port }}:443"
     volumes:
-      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
+      - "{{ nginx_data_dir }}/proxies:/etc/nginx/conf.d/proxies/:ro"
+      - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
-      - "{{ modsecurity_data_dir }}:/etc/modsecurity"
-      - "{{ modsecurity_data_dir }}/include.conf:/etc/modsecurity.d/include.conf"
-      - "{{ modsecurity_data_dir }}/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
-  when: modsecurity_image is defined

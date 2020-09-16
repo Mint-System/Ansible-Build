@@ -15,16 +15,16 @@
       - "{{ nginx_waf_http_port }}:80"
       - "{{ nginx_waf_https_port }}:443"
     volumes:
-      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
+      - "{{ nginx_data_dir }}/proxies:/etc/nginx/conf.d/proxies/:ro"
+      - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
-      - "{{ modsecurity_data_dir }}:/etc/modsecurity"
-      - "{{ modsecurity_data_dir }}/include.conf:/etc/modsecurity.d/include.conf"
-      - "{{ modsecurity_data_dir }}/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf"
+    env:
+      MODSEC_RULE_ENGINE: "{{ nginx_waf_modsec_rule_engine }}"
+      ANOMALY_INBOUND: "{{ nginx_waf_anomaly_inbound }}"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
-  when: modsecurity_image is defined

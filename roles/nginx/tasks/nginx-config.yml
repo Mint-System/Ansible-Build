@@ -1,12 +1,12 @@
 - name: Ensure nginx data dir exists
   file:
-    path: "{{ nginx_data_dir }}"
+    path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
 - name: Copy nginx conf
   template:
     src: templates/nginx-proxy.conf
-    dest: "{{ nginx_data_dir }}/{{ item.src_hostname }}.conf"
+    dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname }}.conf"
   vars:
     src_hostname: "{{ item.src_hostname }}"
     dest_hostname: "{{ item.dest_hostname | default('') }}"
@@ -21,7 +21,7 @@
   notify: Restart nginx container
 
 - name: Register nginx conf files # noqa 306
-  shell: "ls -1 {{ nginx_data_dir }}/*.conf | xargs -n 1 basename"
+  shell: "ls -1 {{ nginx_data_dir }}/proxies/*.conf | xargs -n 1 basename"
   changed_when: no
   register: nginx_proxy_conf_files
 
@@ -31,16 +31,7 @@
 
 - name: Remove unmanaged nginx conf files
   file:
-    path: "{{ nginx_data_dir }}/{{ item }}"
+    path: "{{ nginx_data_dir }}/proxies/{{ item }}"
     state: "absent"
   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"
   when: item not in managed_files
-
-- name: Copy nginx ssl param conf
-  copy:
-    src: "{{ item }}"
-    dest: "{{ certbot_data_dir }}/"
-  loop:
-    - files/options-ssl-nginx.conf
-    - files/ssl-dhparams.pem
-    - files/proxy-params.conf

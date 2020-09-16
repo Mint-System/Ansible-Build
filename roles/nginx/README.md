@@ -1,6 +1,6 @@
 # Ansible Nginx role
 
-Deploys Nginx proxy with Certbot and ModSecurity.
+Deploys Nginx proxy with Certbot.
 
 ## Usage
 

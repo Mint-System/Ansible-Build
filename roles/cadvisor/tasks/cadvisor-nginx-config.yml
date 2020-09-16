@@ -19,18 +19,15 @@
     password: "{{ cadvisor_proxy_basic_auth_password }}"
   when: ansible_distribution != 'CentOS'
 
-# FIXME: Use python2 to create the htpasswd as passlib is not available for CentoOS 7 python3
 - name: Configure user access for cadvisor
   htpasswd:
     path: "{{ cadvisor_nginx_data_dir }}/cadvisor.htpasswd"
     name: "{{ cadvisor_proxy_basic_auth_username }}"
     password: "{{ cadvisor_proxy_basic_auth_password }}"
-  vars:
-    ansible_python_interpreter: "/usr/bin/python2"
   when: ansible_distribution == 'CentOS'
 
 - name: Copy nginx cadvisor conf
   template:
     src: templates/cadvisor.nginx
     dest: "{{ cadvisor_nginx_data_dir }}/cadvisor.nginx"
-  notify: Restart nginx container
+  #notify: Restart nginx container

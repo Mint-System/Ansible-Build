@@ -12,7 +12,7 @@ Configure the role.
 node_exporter_image: prom/node-exporter:v0.18.1
 node_exporter_hostname: node01
 node_exporter_description: Host metric for server1 # default: Node Exporter
-node_exporter_nginx_data_dir: /usr/share/nginx01
+node_exporter_nginx_data_dir: /usr/share/nginx01/proxies
 node_exporter_requires_package: python2-passlib # default: python3-passlib
 ```
 
@@ -23,7 +23,8 @@ nginx_proxies:
   - src_hostname: server.example.com
     ssl: true
     options: |
-      include /etc/nginx/conf.d/*.nginx;
+      include /etc/nginx/conf.d/proxies/node-exporter.nginx;
+      include /etc/nginx/conf.d/proxies/cadvisor.nginx;
 ```
 
 And include it in your playbook.
