@@ -31,6 +31,8 @@
       MAIL_FROM_ADDRESS: "{{ nextcloud_mail_from }}"
       MAIL_DOMAIN: "{{ nextcloud_mail_username.split('@')[1] }}"
       TZ: "{{ nextcloud_timezone }}"
+      OVERWRITEPROTOCOL: "https"
+      OVERWRITEHOST: "{{ nextcloud_trusted_domains }}"
     volumes:
       - "{{ nextcloud_volume_name }}:/var/www/html"
     networks:
@@ -45,14 +47,6 @@
   pause:
     seconds: "10"
   when: start_nextcloud_container.changed
-
-- name: Upate nextcloud config
-  blockinfile:
-    path: "/var/lib/docker/volumes/{{ nextcloud_volume_name }}/_data/config/config.php"
-    insertafter: "installed"
-    block: |
-        'overwriteprotocol' => 'https',
-  notify: Restart nextcloud container
 
 - name: Cron job to run nextcloud background jobs
   cron:
