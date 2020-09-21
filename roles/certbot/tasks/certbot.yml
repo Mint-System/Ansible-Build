@@ -78,7 +78,7 @@
 
 - name: Wait for nginx container
   pause:
-    seconds: "3"
+    seconds: "5"
   when: not nginx_container.exists and (certbot_certs | json_query(certbot_stat_filter) | list)
 
 - name: Issue certificate with certbot command
@@ -97,7 +97,7 @@
 
 - name: Wait for certificate request
   pause:
-    seconds: "5"
+    seconds: "10"
   when: certbot_certs | json_query(certbot_stat_filter) | list
 
 - name: "Remove certbot container"
