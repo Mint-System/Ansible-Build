@@ -45,14 +45,13 @@ done
 [[ -z "$VALUE" ]] && { echo "Parameter -v|value is empty" ; exit 1; }
 
 if [ "$TYPE" == "cron_job" ]; then
-    echo "Write metric node_cron_job_exit_code for code \"$CODE\"."
+    echo "Write metric node_cron_job_exit_code for code \"$CODE\" with value $VALUE."
     ID=$(echo $CODE | shasum | cut -c1-5)
 
     cat << EOF >> /var/tmp/node_cron_job_exit_code.$ID.prom.$$
 # HELP node_cron_job_exit_code Last exit code of cron job.
 # TYPE node_cron_job_exit_code counter
-node_cron_job_exit_code{code="$CODE"} 0
+node_cron_job_exit_code{code="$CODE"} $VALUE
 EOF
     mv /var/tmp/node_cron_job_exit_code.$ID.prom.$$ /var/tmp/node_cron_job_exit_code.$ID.prom
 fi
-
