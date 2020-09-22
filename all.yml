@@ -11,13 +11,6 @@
     tags: fathom
   - role: keycloak
     tags: keycloak
-  - role: bigbluebutton
-    tags:
-    - biglbuebutton
-    - biglbuebutton-core
-    - biglbuebutton-letsencrypt
-    - biglbuebutton-https
-    - biglbuebutton-greenlight
   - role: wordpress
     tags: wordpress
   - role: pgadmin

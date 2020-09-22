@@ -170,7 +170,7 @@ For Ansible config files use file mounts.
 
 Every role folder must contain a `README.md` file.
 
-Mark fixme comments with `# FIXME: <your text>`.
+Mark fix-me-comments with `# FIXME: <your text>`.
 
 ### Naming
 

@@ -9,5 +9,5 @@ dependencies: # noqa 701
       - depends
   - role: postgres
     tags:
-      - posgres
+      - postgres
       - depends

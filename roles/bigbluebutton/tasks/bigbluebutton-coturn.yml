@@ -1,0 +1,7 @@
+# https://docs.bigbluebutton.org/2.2/setup-turn-server.html#configure-bigbluebutton-to-use-the-coturn-server
+
+- name: Copy bigbluebutton turn stun servers conf
+  template:
+    src: templates/turn-stun-servers.xml
+    dest: /usr/share/bbb-web/WEB-INF/classes/spring/turn-stun-servers.xml
+  notify: Restart BigBlueButton services

@@ -1,5 +1,5 @@
-- name: Include bigbluebutton-ubuntu1604 tasks
-  include: install-ubuntu1604.yml
+- name: Include bigbluebutton ubuntu1604 tasks
+  include: bigbluebutton-ubuntu1604.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url
   tags:
     - bigbluebutton
@@ -25,3 +25,11 @@
   tags:
     - bigbluebutton
     - bigbluebutton-greenlight
+
+- name: Include bigbluebutton coturn tasks
+  include: bigbluebutton-coturn.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_coturn_domain
+  tags:
+    - bigbluebutton
+    - bigbluebutton-coturn
+    
