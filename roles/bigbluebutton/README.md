@@ -14,6 +14,7 @@ bigbluebutton_hostname: bbb.example.com
 bigbluebutton_api_url: http://bbb.example.com/bigbluebutton/
 bigbluebutton_external_ip: 116.203.41.151
 bigbluebutton_certbot_email: info@example.com
+bigbluebutton_coturn_domain: turn.example.com
 
 # https://hub.docker.com/r/bigbluebutton/greenlight
 greenlight_image: bigbluebutton/greenlight:release-2.6.4
@@ -56,3 +57,4 @@ The following tags are available:
 * biglbuebutton-letsencrypt
 * biglbuebutton-https
 * biglbuebutton-greenlight
+* biglbuebutton-coturn

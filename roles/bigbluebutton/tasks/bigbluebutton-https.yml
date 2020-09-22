@@ -3,8 +3,8 @@
 - name: Update http for https on nginx
   replace:
     path: /opt/freeswitch/conf/sip_profiles/external.xml
-    regexp: '<param name="ws-binding"  value=":5066"/>'
-    replace: '<param name="wss-binding"  value="{{ bigbluebutton_external_ip }}:7443"/>'
+    regexp: '<param name="ws-binding" value=":5066"/>'
+    replace: '<param name="wss-binding" value="{{ bigbluebutton_external_ip }}:7443"/>'
     backup: true
 
 - name: Update http for https on nginx

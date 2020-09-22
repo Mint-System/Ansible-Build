@@ -1,0 +1,13 @@
+- hosts: all
+  become: true
+  roles:
+    - role: bigbluebutton
+      tags:
+        - biglbuebutton
+        - biglbuebutton-core
+        - biglbuebutton-letsencrypt
+        - biglbuebutton-https
+        - biglbuebutton-greenlight
+        - biglbuebutton-coturn
+    - role: coturn
+      tags: coturn

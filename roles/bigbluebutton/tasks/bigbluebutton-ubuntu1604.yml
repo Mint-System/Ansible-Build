@@ -91,6 +91,7 @@
 
 # http://docs.bigbluebutton.org/2.2/install.html#4--install-bigbluebutton
 
+# FIXME: Configuration prompt on install
 - name: Install bigbluebutton and dependencies
   apt:
     name:
