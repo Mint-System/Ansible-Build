@@ -1,0 +1,4 @@
+- name: Include odoo enterprise tasks
+  include_tasks: odoo-enterprise.yml
+  tags:
+    - odoo-enterprise
