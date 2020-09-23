@@ -3,6 +3,10 @@
     path: "{{ odoo_data_dir }}/addons"
     state: directory
 
+- name: Remove duplicates from app list
+  set_fact:
+    odoo_apps: "{{ odoo_apps | unique }}"
+
 - name: Download odoo app zip archive
   get_url:
     url: "{{ item.url }}"
