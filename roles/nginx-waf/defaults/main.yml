@@ -2,5 +2,5 @@ nginx_waf_description: Nginx WAF
 nginx_waf_http_port: 80
 nginx_waf_https_port: 443
 nginx_waf_modsec_rule_engine: "On"
-nginx_waf_anomaly_inbound: "10"
+nginx_waf_anomaly_inbound: "5"
 nginx_waf_allowed_methods: "GET HEAD POST OPTIONS"
