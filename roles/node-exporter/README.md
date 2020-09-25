@@ -9,7 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-node_exporter_image: prom/node-exporter:v0.18.1
+node_exporter_image: prom/node-exporter:v1.0.1
 node_exporter_hostname: node01
 node_exporter_description: Host metric for server1 # default: Node Exporter
 node_exporter_nginx_data_dir: /usr/share/nginx01/proxies
