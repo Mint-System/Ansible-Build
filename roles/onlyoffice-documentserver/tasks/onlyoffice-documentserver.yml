@@ -1,0 +1,13 @@
+- name: "Start collabora-code container {{ onlyoffice_documentserver_hostname }}"
+  docker_container:
+    name: "{{ onlyoffice_documentserver_hostname }}"
+    labels:
+      description: "{{ onlyoffice_documentserver_description }}"
+    image: "{{ onlyoffice_documentserver_image }}"
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

@@ -1,0 +1,5 @@
+- name: Include onlyoffice documentserver tasks
+  include_tasks: onlyoffice-documentserver.yml
+  when: onlyoffice_documentserver_image is defined
+  tags:
+    - onlyoffice-documentserver
