@@ -3,21 +3,24 @@
 # Exit script if command fails
 set -e
 
+# Get script name
+SCRIPT=$(basename "$0")
+
 # Display Help
 Help() {
     echo
-    echo "docker-odoo-install"
+    echo "$SCRIPT"
     echo "###################"
     echo
     echo "Description: Install Odoo database in Docker container."
-    echo "Syntax: docker-odoo-install [-p|-d|-o|-h|help]"
-    echo "Example: docker-odoo-install -d erp -m hr_timesheet -c odoo01"
+    echo "Syntax: $SCRIPT [-p|-d|-o|-h|help]"
+    echo "Example: $SCRIPT -d erp -m hr_timesheet -c odoo01"
     echo "options:"
     echo "  -d    Database name. Defaults to 'odoo'"
     echo "  -m    List of odoo modules. Defaults to 'base,web,website'"
     echo "  -c    Docker container. Defaults to 'odoo'"
     echo "  -x    Dev option. Defaults to 'all'"
-    echo "  help  Show docker-odoo-install manual."
+    echo "  help  Show $SCRIPT manual."
     echo
 }
 
@@ -54,7 +57,7 @@ done
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 [[ -z "$MODULES" ]] && { echo "Parameter -m|modules is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
-[[ -z "$CONTAINER" ]] && { echo "Parameter -x|dev is empty" ; exit 1; }
+[[ -z "$DEV" ]] && { echo "Parameter -x|dev is empty" ; exit 1; }
 
 # Install with Docker exec
 docker exec -it $CONTAINER bin/bash -c "odoo -i $MODULES -c /etc/odoo/odoo.conf -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD --dev=$DEV --without-demo=all --stop-after-init" && docker restart $CONTAINER
