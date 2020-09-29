@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Exit script if command fails
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo "################"
+    echo
+    echo "Description: Manage Odoo users."
+    echo "Syntax: $SCRIPT [-d|-c|-a[enable,disable,list]|-i|help]"
+    echo "Example: $SCRIPT -d erp-dev -c odoo06 -a enable -id janikvonrot@mint-system.ch"
+    echo "options:"
+    echo "  -d    Database name. Defaults to 'odoo'"
+    echo "  -c    Docker container. Defaults to 'odoo'"
+    echo "  -a    Action to perform."
+    echo "  -i    User account login id."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":d:c:a:i:" opt; do
+  case $opt in
+    c) CONTAINER="$OPTARG"
+    ;;
+    d) DATABASE="$OPTARG"
+    ;;
+    a) ACTION="$OPTARG"
+    ;;
+    i) ID="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${DATABASE:='odoo'}
+: ${CONTAINER:='odoo'}
+
+# Verify variables
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$ACTION" ]] && { echo "Parameter -a|action is empty" ; exit 1; }
+
+if [[ $ACTION == 'enable' ]]; then
+    [[ -z "$ID" ]] && { echo "Parameter -i|id is empty" ; exit 1; }
+    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE public.res_users SET active=true WHERE login='$ID';\""
+    echo "Enabled user $ID on Odoo database $DATABASE."
+fi
+
+if [[ $ACTION == 'disable' ]]; then
+    [[ -z "$ID" ]] && { echo "Parameter -i|id is empty" ; exit 1; }
+    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE public.res_users SET active=false WHERE login='$ID';\""
+    echo "Disabled user $ID on Odoo database $DATABASE."
+fi
+
+if [[ $ACTION == 'list' ]]; then
+    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c 'SELECT login,active FROM public.res_users;'"
+fi

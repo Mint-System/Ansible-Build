@@ -7,3 +7,4 @@
     - odoo-backup
     - odoo-restore
     - docker-odoo-install
+    - docker-odoo-user

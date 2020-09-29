@@ -3,21 +3,24 @@
 # Exit script if command fails
 set -e
 
+# Get script name
+SCRIPT=$(basename "$0")
+
 # Display Help
 Help() {
   echo
-  echo "odoo-backup"
+  echo "$SCRIPT"
   echo "###########"
   echo
   echo "Description: Backup odoo database."
-  echo "Syntax: odoo-backup [-p|-d|-o|-h|help]"
-  echo "Example: odoo-backup -p secret -d odoo -o /tmp -h https://odoo.example.com"
+  echo "Syntax: $SCRIPT [-p|-d|-o|-h|help]"
+  echo "Example: $SCRIPT -p secret -d odoo -o /tmp -h https://odoo.example.com"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var."
   echo "  -d    Database name."
   echo "  -o    Output directory. Defaults to '/var/tmp'"
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'"
-  echo "  help  Show odoo-backup manual."
+  echo "  help  Show $SCRIPT manual."
   echo
 }
 
