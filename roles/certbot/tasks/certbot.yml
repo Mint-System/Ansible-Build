@@ -32,6 +32,10 @@
   set_fact:
     certbot_missing_certs: "{{ certbot_certs | json_query(certbot_stat_filter) | list }}"
 
+- name: Log missing certificates
+  debug:
+    var: certbot_missing_certs
+
 - name: Copy nginx conf files
   copy:
     src: "{{ item }}"
