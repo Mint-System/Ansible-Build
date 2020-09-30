@@ -9,7 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-nginx_image: nginx:1.15-alpine
+nginx_image: nginx:1.19.2-alpine
 nginx_hostname: proxy01
 nginx_data_dir: /usr/share/nginx01
 nginx_https_port: 8080 # default: 80

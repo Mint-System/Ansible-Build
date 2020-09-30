@@ -21,12 +21,16 @@
   when: item.msg == 'cname.vercel-dns.com.'
   loop: "{{ dig.results }}"
 
-- name: Check if cert files exist
+- name: Get list of certbot certs
   stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
   loop: "{{ nginx_proxies }}"
   register: certbot_certs
   when: item.ssl is defined
+
+- name: Create list of missing certs
+  set_fact:
+    certbot_missing_certs: "{{ certbot_certs | json_query(certbot_stat_filter) | list }}"
 
 - name: Copy nginx conf files
   copy:
@@ -38,24 +42,24 @@
 - name: Copy nginx certbot conf
   template:
     src: templates/nginx-certbot.conf
-    dest: "{{ nginx_data_dir }}/proxies/{{ item.item.src_hostname }}.conf"
+    dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname }}.conf"
   vars:
-    server_name: "{{ item.item.src_hostname }}"
-  loop: "{{ certbot_certs.results }}"
-  when: item.stat is defined and not item.stat.exists
+    server_name: "{{ item.src_hostname }}"
+  loop: "{{ certbot_missing_certs }}"
 
-- name: "Get infos on nginx container {{ nginx_hostname }}"
+- name: "Get infos on proxy container {{ nginx_hostname }}"
   docker_container_info:
-    name: mydata
+    name: "{{ nginx_hostname }}"
   register: nginx_container
 
 - name: "Restart container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
     restart: yes
-  when: nginx_container.exists and (certbot_certs | json_query(certbot_stat_filter) | list)
+    state: started
+  when: nginx_container.exists and certbot_missing_certs
 
-- name: "Start nginx container {{ nginx_hostname }}"
+- name: "Start proxy container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
     labels:
@@ -74,33 +78,31 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
-  when: not nginx_container.exists and (certbot_certs | json_query(certbot_stat_filter) | list)
+  when: not nginx_container.exists and certbot_missing_certs
 
-- name: Wait for nginx container
+- name: Wait for proxy container
   pause:
     seconds: "5"
-  when: not nginx_container.exists and (certbot_certs | json_query(certbot_stat_filter) | list)
+  when: certbot_missing_certs
 
-- name: Issue certificate with certbot command
+- name: Issue certificate with certbot
   docker_container:
-    name: "{{ item.item.src_hostname }}"
+    name: "{{ item.src_hostname }}"
     image: "{{ certbot_image }}"
     volumes:
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
-    networks:
-      - name: "{{ docker_network_name }}"
-    command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.item.src_hostname }}
-  loop: "{{ certbot_certs.results }}"
+    command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.src_hostname }}
+  loop: "{{ certbot_missing_certs }}"
   loop_control:
     pause: 5
-  when: item.stat is defined and not item.stat.exists
 
+# FIXME: Replace this task with auto_remove: true
 - name: "Remove certbot container"
   docker_container:
-    name: "{{ item.item.src_hostname }}"
+    name: "{{ item.src_hostname }}"
     state: absent
-  loop: "{{ certbot_certs.results }}"
+  loop: "{{ certbot_missing_certs }}"
 
 - name: Copy renew certs script
   template:
@@ -116,22 +118,29 @@
     weekday: "0"
     job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?"
 
-- name: Register certbot conf files # noqa 306
-  shell: "ls -1 {{ certbot_data_dir }}/renewal/*.conf | xargs -n 1 basename"
+- name: Register existing certbot certificates # noqa 306
+  shell: "ls -1 -d {{ certbot_data_dir }}/live/*/ | xargs -n 1 basename"
   changed_when: false
   ignore_errors: true
-  register: certbot_conf_files
+  register: certbot_managed_certs
 
-- name: Create managed file list from proxy list
+- name: Create managed certificate list from proxy list
   set_fact:
-    managed_files: "{{ nginx_proxies | selectattr('ssl', 'defined') | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
+    managed_certs: "{{ nginx_proxies | selectattr('ssl', 'defined') | map(attribute='src_hostname') | list }}"
 
-- name: Remove unmanaged certbot conf files
-  file:
-    path: "{{ certbot_data_dir }}/renewal/{{ item }}"
-    state: "absent"
-  loop: "{{ certbot_conf_files.stdout_lines }}"
-  when: certbot_conf_files.stdout_lines is defined and item not in managed_files
+- name: Remove unmanaged certificate with certbot
+  docker_container:
+    name: "{{ item }}"
+    image: "{{ certbot_image }}"
+    volumes:
+      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
+      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+    command: delete --cert-name {{ item }}
+    auto_remove: true
+  loop: "{{ certbot_managed_certs.stdout_lines }}"
+  when: item not in managed_certs
+  loop_control:
+    pause: 5
 
 - name: Copy nginx ssl conf files
   copy:
