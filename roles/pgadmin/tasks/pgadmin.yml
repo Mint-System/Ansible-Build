@@ -1,9 +1,13 @@
-- name: Create pgadmin volume
+- name: "Create {{ role_name }} volume"
   docker_volume:
     name: "{{ pgadmin_volume_name }}"
-  when: pgadmin_volume_name is defined
 
-- name: "Start pgadmin container {{ pgadmin_hostname }}"
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ pgadmin_data_dir }}"
+    state: directory
+
+- name: "Start {{ role_name }} container {{ pgadmin_hostname }}"
   docker_container:
     name: "{{ pgadmin_hostname }}"
     labels:
@@ -16,6 +20,7 @@
       PGADMIN_DEFAULT_PASSWORD: "{{ pgadmin_password }}"
     volumes:
       - "{{ pgadmin_volume_name }}:/var/lib/pgadmin"
+      - "{{ pgadmin_data_dir }}/pgpass:/pgpass"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
