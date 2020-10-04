@@ -1,13 +1,11 @@
 - name: Create prometheus volume
   docker_volume:
     name: "{{ prometheus_volume_name }}"
-  when: prometheus_volume_name is defined
 
 - name: Ensure prometheus data dir exists
   file:
     path: "{{ prometheus_data_dir }}"
     state: directory
-  when: prometheus_data_dir is defined
 
 - name: Copy prometheus conf
   template:
