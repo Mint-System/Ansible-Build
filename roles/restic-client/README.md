@@ -9,9 +9,9 @@ Configure the role.
 **vars.yml**
 
 ```yml
-restic_client_user: restic
+restic_client_user: restic-user # default: restic
 restic_client_password: "{{ vault_restic_client_password }}"
-restic_repo: "restic.example.com:8080//{{ inventory_hostname }}"
+restic_repo: "restic.example.com//{{ inventory_hostname }}"
 restic_repo_password: "{{ vault_restic_repo_password }}"
 restic_backup_sets:
  - id: "postgres volume"

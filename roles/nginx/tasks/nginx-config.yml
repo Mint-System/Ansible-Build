@@ -17,6 +17,7 @@
     ssl: "{{ item.ssl | default(false) }}"
     locations: "{{ item.locations | default(false) }}"
     server_names: "{{ item.server_names | default(false) }}"
+    redirect: "{{ item.redirect | default(true) }}"
   loop: "{{ nginx_proxies }}"
   notify: Restart nginx container
 

@@ -23,8 +23,6 @@
     restart_policy: unless-stopped
     volumes:
       - "{{ restic_server_backup_dir }}:/data"
-    ports:
-      - "{{ restic_server_port }}:8000"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

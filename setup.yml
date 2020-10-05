@@ -11,3 +11,5 @@
       - never
   - role: maintenance
     tags: maintenance
+  - role: ufw
+    tags: ufw
