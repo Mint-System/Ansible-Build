@@ -1,4 +1,4 @@
-- name: "Start collabora-code container {{ onlyoffice_documentserver_hostname }}"
+- name: "Start {{ role_name }} container {{ onlyoffice_documentserver_hostname }}"
   docker_container:
     name: "{{ onlyoffice_documentserver_hostname }}"
     labels:

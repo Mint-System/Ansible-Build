@@ -1,11 +1,11 @@
-- name: Include cadvisor tasks
-  include_tasks: cadvisor.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: cadvisor_image is defined
   tags:
     - cadvisor
 
-- name: Include cadvisor nginx config tasks
-  include_tasks: cadvisor-nginx-config.yml
+- name: "Include {{ role_name }} nginx config tasks"
+  include_tasks: "{{ role_name }}-nginx-config.yml"
   when: cadvisor_nginx_data_dir is defined
   tags:
     - cadvisor

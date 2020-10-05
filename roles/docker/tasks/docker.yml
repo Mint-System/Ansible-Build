@@ -1,4 +1,4 @@
-- name: Ensure docker deamon is running
+- name: "Ensure {{ role_name }} deamon is running"
   service:
     name: docker
     state: started

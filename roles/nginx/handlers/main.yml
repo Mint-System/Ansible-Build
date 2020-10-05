@@ -1,4 +1,4 @@
-- name: Restart nginx container
+- name: "Restart {{ role_name }} container"
   docker_container:
     name: "{{ nginx_hostname }}"
     restart: true

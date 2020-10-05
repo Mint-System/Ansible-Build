@@ -1,23 +1,23 @@
-- name: Include package tasks
-  include_tasks: package.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: packages is defined
   tags:
    - package
 
-- name: Include package apt tasks
-  include_tasks: package-apt.yml
+- name: "Include {{ role_name }} apt tasks"
+  include_tasks: "{{ role_name }}-apt.yml"
   when: packages is defined and ansible_distribution == 'Ubuntu'
   tags:
    - package
 
-- name: Include package yum tasks
-  include_tasks: package-yum.yml
+- name: "Include {{ role_name }} yum tasks"
+  include_tasks: "{{ role_name }}-yum.yml"
   when: packages is defined and ansible_distribution == 'CentOS' and ansible_python_interpreter == '/usr/bin/python2'
   tags:
    - package
 
-- name: Include package dnf tasks
-  include_tasks: package-dnf.yml
+- name: "Include {{ role_name }} dnf tasks"
+  include_tasks: "{{ role_name }}-dnf.yml"
   when: packages is defined and ansible_distribution == 'CentOS' and ansible_python_interpreter == '/usr/bin/python3'
   tags:
    - package

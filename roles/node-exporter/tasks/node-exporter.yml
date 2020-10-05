@@ -1,4 +1,4 @@
-- name: "Start node-exporter container {{ node_exporter_hostname }}"
+- name: "Start {{ role_name }} container {{ node_exporter_hostname }}"
   docker_container:
     name: "{{ node_exporter_hostname }}"
     labels:
@@ -16,7 +16,7 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
 
-- name: Copy node-exporter scripts
+- name: "Copy {{ role_name }} scripts"
   copy:
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item }}"

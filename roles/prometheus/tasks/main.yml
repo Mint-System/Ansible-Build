@@ -1,5 +1,5 @@
-- name: Include prometheus tasks
-  include_tasks: prometheus.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: prometheus_image is defined
   tags:
     - prometheus

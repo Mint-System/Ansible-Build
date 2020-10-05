@@ -1,14 +1,14 @@
-- name: Add Docker GPG apt Key
+- name: "Add {{ role_name }} gpg apt key"
   apt_key:
     url: "{{ docker_apt_key_url }}"
     state: present
 
-- name: Add Docker repo
+- name: "Add {{ role_name }} repo"
   apt_repository:
     repo: "{{ docker_apt_repo }}"
     state: present
 
-- name: Install required docker packages
+- name: "Install required {{ role_name }} packages"
   include_role:
     name: package
   vars:

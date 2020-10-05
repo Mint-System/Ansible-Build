@@ -1,16 +1,15 @@
-- name: Ensure logstash data dir exists
+- name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ logstash_data_dir }}/pipeline"
     state: directory
-  when: logstash_data_dir is defined
 
-- name: Copy logstash pipeline conf
+- name: "Copy {{ role_name }} pipeline conf"
   template:
     src: beats.conf
     dest: "{{ logstash_data_dir }}/pipeline/"
   notify: Restart logstash container
 
-- name: "Start logstash container {{ logstash_hostname }}"
+- name: "Start {{ role_name }} container {{ logstash_hostname }}"
   docker_container:
     name: "{{ logstash_hostname }}"
     labels:

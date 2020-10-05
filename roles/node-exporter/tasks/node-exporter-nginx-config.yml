@@ -12,22 +12,21 @@
     msg: "Package {{ node_exporter_requires_package }} is not installed!"
   when: node_exporter_requires_package not in ansible_facts.packages
 
-- name: Configure user access for node-exporter
+- name: "Configure user access for {{ role_name }}"
   htpasswd:
     path: "{{ node_exporter_nginx_data_dir }}/node-exporter.htpasswd"
     name: "{{ node_exporter_proxy_basic_auth_username }}"
     password: "{{ node_exporter_proxy_basic_auth_password }}"
   when: ansible_distribution != 'CentOS'
 
-- name: Configure user access for node-exporter
+- name: "Configure user access for {{ role_name }}"
   htpasswd:
     path: "{{ node_exporter_nginx_data_dir }}/node-exporter.htpasswd"
     name: "{{ node_exporter_proxy_basic_auth_username }}"
     password: "{{ node_exporter_proxy_basic_auth_password }}"
   when: ansible_distribution == 'CentOS'
 
-- name: Copy nginx node-exporter conf
+- name: "Copy nginx {{ role_name }} conf"
   template:
     src: templates/node-exporter.nginx
     dest: "{{ node_exporter_nginx_data_dir }}/node-exporter.nginx"
-  #notify: Restart nginx container

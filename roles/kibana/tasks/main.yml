@@ -1,5 +1,5 @@
-- name: Include kibana tasks
-  include_tasks: kibana.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: kibana_image is defined
   tags:
    - kibana

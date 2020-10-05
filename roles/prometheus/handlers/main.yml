@@ -1,4 +1,4 @@
-- name: Restart prometheus container
+- name: "Restart {{ role_name }} container"
   docker_container:
     name: "{{ prometheus_hostname }}"
     restart: true

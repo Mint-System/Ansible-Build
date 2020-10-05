@@ -1,4 +1,4 @@
-- name: "Start keycloak container {{ keycloak_hostname }}"
+- name: "Start {{ role_name }} container {{ keycloak_hostname }}"
   docker_container:
     name: "{{ keycloak_hostname }}"
     labels:

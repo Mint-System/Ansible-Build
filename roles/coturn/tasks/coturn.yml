@@ -1,4 +1,4 @@
-- name: "Start coturn container {{ coturn_hostname }}"
+- name: "Start {{ role_name }} container {{ coturn_hostname }}"
   docker_container:
     name: "{{ coturn_hostname }}"
     labels:

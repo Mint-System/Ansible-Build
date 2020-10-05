@@ -1,5 +1,5 @@
-- name: Include certbot tasks
-  include_tasks: certbot.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: certbot_image is defined
   tags:
     - certbot

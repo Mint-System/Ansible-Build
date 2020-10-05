@@ -1,19 +1,19 @@
-- name: Include Ubuntu update tasks
-  include_tasks: update-ubuntu.yml
+- name: "Include {{ role_name }} ubuntu tasks"
+  include_tasks: "{{ role_name }}-ubuntu.yml"
   when: update and ansible_distribution == 'Ubuntu'
   tags:
     - update
     - never
 
-- name: Include CentOS update tasks
-  include_tasks: update-centos.yml
+- name: "Include {{ role_name }} centos tasks"
+  include_tasks: "{{ role_name }}-centos.yml"
   when: update and ansible_distribution == 'CentOS'
   tags:
     - update
      - never
 
-- name: Include SLES update tasks
-  include_tasks: update-sles.yml
+- name: "Include {{ role_name }} sles tasks"
+  include_tasks: "{{ role_name }}-sles.yml"
   when: update and ansible_distribution == 'SLES'
   tags:
     - update

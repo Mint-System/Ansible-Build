@@ -21,7 +21,7 @@
   when: item.msg == 'cname.vercel-dns.com.'
   loop: "{{ dig.results }}"
 
-- name: Get list of certbot certs
+- name: "Get list of {{ role_name }} certs"
   stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
   loop: "{{ nginx_proxies }}"
@@ -43,7 +43,7 @@
   loop:
     - files/default.conf
 
-- name: Copy nginx certbot conf
+- name: "Copy nginx {{ role_name }} conf"
   template:
     src: templates/nginx-certbot.conf
     dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname }}.conf"
@@ -89,7 +89,7 @@
     seconds: "5"
   when: certbot_missing_certs
 
-- name: Issue certificate with certbot
+- name: "Issue certificate with {{ role_name }}"
   docker_container:
     name: "{{ item.src_hostname }}"
     image: "{{ certbot_image }}"
@@ -102,7 +102,7 @@
     pause: 5
 
 # FIXME: Replace this task with auto_remove: true
-- name: "Remove certbot container"
+- name: "Remove {{ role_name }} container"
   docker_container:
     name: "{{ item.src_hostname }}"
     state: absent
@@ -122,7 +122,7 @@
     weekday: "0"
     job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?"
 
-- name: Register existing certbot certificates # noqa 306
+- name: "Register existing {{ role_name }} certificates" # noqa 306
   shell: "ls -1 -d {{ certbot_data_dir }}/live/*/ | xargs -n 1 basename"
   changed_when: false
   ignore_errors: true
@@ -132,7 +132,7 @@
   set_fact:
     managed_certs: "{{ nginx_proxies | selectattr('ssl', 'defined') | map(attribute='src_hostname') | list }}"
 
-- name: Remove unmanaged certificate with certbot
+- name: "Remove unmanaged certificate with {{ role_name }}"
   docker_container:
     name: "{{ item }}"
     image: "{{ certbot_image }}"

@@ -1,8 +1,8 @@
-- name: Create postgres volume
+- name: "Create {{ role_name }} volume"
   docker_volume:
     name: "{{ postgres_volume_name }}"
 
-- name: "Start postgres container {{ postgres_hostname }}"
+- name: "Start {{ role_name }} container {{ postgres_hostname }}"
   docker_container:
     name: "{{ postgres_hostname }}"
     labels:
@@ -24,7 +24,7 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
 
-- name: Copy backup scripts
+- name: "Copy {{ role_name }} backup scripts"
   copy:
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
@@ -32,7 +32,7 @@
   loop:
     - docker-postgres-backup
 
-- name: Include docker postgres backup from restic client role
+- name: "Include docker {{ role_name }} backup from restic client role"
   include_role:
     name: restic-client
   vars:

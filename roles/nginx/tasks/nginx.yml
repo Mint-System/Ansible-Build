@@ -1,4 +1,4 @@
-- name: "Start nginx container {{ nginx_hostname }}"
+- name: "Start {{ role_name }} container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
     labels:

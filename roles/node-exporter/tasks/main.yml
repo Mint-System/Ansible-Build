@@ -1,11 +1,11 @@
-- name: Include node exporter tasks
-  include_tasks: node-exporter.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: node_exporter_image is defined
   tags:
     - node-exporter
 
-- name: Include node exporter nginx config tasks
-  include_tasks: node-exporter-nginx-config.yml
+- name: "Include {{ role_name }} nginx config tasks"
+  include_tasks: "{{ role_name }}-nginx-config.yml"
   when: node_exporter_nginx_data_dir is defined
   tags:
     - node-exporter

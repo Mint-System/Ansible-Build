@@ -1,5 +1,5 @@
-- name: Include maintenance tasks
-  include_tasks: maintenance.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: maintenance
   tags:
    - maintenance

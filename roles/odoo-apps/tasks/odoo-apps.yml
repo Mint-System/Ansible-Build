@@ -1,27 +1,27 @@
-- name: Ensure odoo addon dir exists
+- name: "Ensure odoo addon dir exists"
   file:
     path: "{{ odoo_data_dir }}/addons"
     state: directory
 
-- name: Remove duplicates from app list
+- name: "Remove duplicates from app list"
   set_fact:
     odoo_apps: "{{ odoo_apps | unique }}"
 
-- name: Download odoo app zip archive
+- name: "Download {{ role_name }} zip archives"
   get_url:
     url: "{{ item.url }}"
     dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
   loop: "{{ odoo_apps }}"
   when: item.url is defined
 
-- name: Copy odoo app zip archive
+- name: "Copy {{ role_name }} zip archives"
   copy:
     src: "{{ item.file }}"
     dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
   loop: "{{ odoo_apps }}"
   when: item.file is defined
 
-- name: Extract odoo app zip archive
+- name: "Extract {{ role_name }} zip archives"
   unarchive:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
     dest: "{{ odoo_apps_tmp_dir }}"
@@ -30,7 +30,7 @@
   loop: "{{ odoo_apps }}"
   register: archive_contents
 
-- name: Copy odoo app to addons dir for each includes attribute
+- name: "Copy {{ role_name }} to addons dir for each includes attribute"
   copy:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.1 }}/"
     dest: "{{ odoo_data_dir }}/addons/{{ item.1 }}"
@@ -38,7 +38,7 @@
   loop: "{{ odoo_apps | subelements('includes', skip_missing=True) }}"
   notify: Restart odoo container
 
-- name: Copy odoo app to addons dir if archive entry is directory
+- name: "Copy {{ role_name }} to addons dir if archive entry is directory"
   copy:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.files[0] }}"
     dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
@@ -47,7 +47,7 @@
   loop: "{{ archive_contents.results }}"
   notify: Restart odoo container
 
-- name: Copy odoo app to addons dir if archive entry is file
+- name: "Copy {{ role_name }} to addons dir if archive entry is file"
   copy:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.item.name }}/"
     dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"

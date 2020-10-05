@@ -1,4 +1,4 @@
-- name: Restart wordpress container
+- name: "Restart {{ role_name }} container"
   docker_container:
     name: "{{ wordpress_hostname }}"
     restart: true

@@ -1,4 +1,4 @@
-- name: Restart postgres container
+- name: "Restart {{ role_name }} container"
   docker_container:
     name: "{{ postgres_hostname }}"
     restart: true

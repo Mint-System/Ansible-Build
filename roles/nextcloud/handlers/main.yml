@@ -1,4 +1,4 @@
-- name: Restart nextcloud container
+- name: "Restart {{ role_name }} container"
   docker_container:
     name: "{{ nextcloud_hostname }}"
     restart: true

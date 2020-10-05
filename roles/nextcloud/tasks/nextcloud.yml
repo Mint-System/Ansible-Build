@@ -1,4 +1,4 @@
-- name: Include docker volume role
+- name: "Include docker volume role"
   include_role:
     name: docker-volume
   vars:
@@ -6,7 +6,7 @@
     docker_volume_backup_sets: "{{ nextcloud_volume_backup_sets | default([]) }}"
   when: nextcloud_volume_name is defined
 
-- name: "Start nextcloud container {{ nextcloud_hostname }}"
+- name: "Start {{ role_name }} container {{ nextcloud_hostname }}"
   docker_container:
     name: "{{ nextcloud_hostname }}"
     labels:
@@ -43,12 +43,12 @@
       max-file: "{{ docker_log_max_file }}"
   register: start_nextcloud_container
 
-- name: Wait for nextcloud container # noqa 503
+- name: "Wait for {{ role_name }} container" # noqa 503
   pause:
     seconds: "10"
   when: start_nextcloud_container.changed
 
-- name: Cron job to run nextcloud background jobs
+- name: "Cron job to run {{ role_name }} background jobs"
   cron:
     name: "Run nextcloud background jobs"
     minute: "*/5"

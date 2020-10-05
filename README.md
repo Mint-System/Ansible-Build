@@ -48,6 +48,7 @@ WIP:
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md)
 * [coturn](role/coturn/README.md)
 * [odoo-enterprise](role/odoo-enterprise/README.md)
+* [remark42](role/remark42/README.md)
 
 ## Usage
 
@@ -239,17 +240,16 @@ To define a Nginx role with a config tag, you would:
 
 In the `main.yml` you would include the tasks as followed:
 
-
 ```yml
-- name: Include nginx config tasks
-  include_tasks: nginx-config.yml
+- name: "Include {{ role_name }} config tasks"
+  include_tasks: "{{ role_name }}-config.yml"
   when: nginx_data_dir is defined
   tags:
     - nginx
     - nginx-config
 
-- name: Include nginx tasks
-  include_tasks: nginx.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: nginx_image is defined
   tags:
     - nginx
