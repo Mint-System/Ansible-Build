@@ -40,7 +40,8 @@ Collection of Ansible playbooks and roles.
 * [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps
 * [pgadmin](roles/pgadmin/README.md) - Install pgADmin container
 * [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set
-* [maintenance](role/maintenance/README.md) - Maintain operating system and disk space.
+* [maintenance](role/maintenance/README.md) - Maintain operating system and disk space
+* [commento](role/commento/README.md) - Deploy Commento container
 
 WIP:
 
@@ -48,7 +49,6 @@ WIP:
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md)
 * [coturn](role/coturn/README.md)
 * [odoo-enterprise](role/odoo-enterprise/README.md)
-* [remark42](role/remark42/README.md)
 
 ## Usage
 

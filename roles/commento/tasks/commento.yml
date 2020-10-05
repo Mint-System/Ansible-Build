@@ -1,0 +1,25 @@
+- name: "Start {{ role_name }} container {{ commento_hostname }}"
+  docker_container:
+    name: "{{ commento_hostname }}"
+    labels:
+      description: "{{ commento_description }}"
+    image: "{{ commento_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env:
+      COMMENTO_ORIGIN: "{{ commento_host }}"
+      COMMENTO_POSTGRES: "postgres://{{ commento_db_user }}:{{ commento_db_password }}@{{ commento_db_hostname }}:5432/commento?sslmode=disable"
+      COMMENTO_SMTP_HOST: "{{ commento_smtp_host }}"
+      COMMENTO_SMTP_PORT: "{{ commento_smtp_port }}"
+      COMMENTO_SMTP_USERNAME: "{{ commento_smtp_username }}"
+      COMMENTO_SMTP_PASSWORD: "{{ commento_smtp_password }}"
+      COMMENTO_SMTP_FROM_ADDRESS: "{{ commento_smtp_from }}"
+      COMMENTO_GITHUB_KEY: "{{ commento_github_key }}"
+      COMMENTO_GITHUB_SECRET: "{{ commento_github_secret }}"
+      COMMENTO_FORBID_NEW_OWNERS: "{{ commento_deny_signups }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

@@ -1,5 +1,5 @@
 - name: "Include {{ role_name }} tasks"
-  include: "{{ role_name }}f.yml"
+  include: "{{ role_name }}.yml"
   when: nginx_waf_image is defined
   tags:
     - nginx-waf
