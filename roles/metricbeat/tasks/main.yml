@@ -1,5 +1,5 @@
-- name: Include metricbeat tasks
-  include_tasks: metricbeat.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: metricbeat_image is defined
   tags:
    - metricbeat

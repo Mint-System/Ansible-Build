@@ -1,3 +1,5 @@
-- name: Include coturn tasks
-  include_tasks: coturn.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: coturn_image is defined
+  tags:
+    - coturn

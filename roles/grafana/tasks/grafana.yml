@@ -1,15 +1,13 @@
-- name: Create grafana volume
+- name: "Create {{ role_name }} volume"
   docker_volume:
     name: "{{ grafana_volume_name }}"
-  when: grafana_volume_name is defined
 
-- name: Ensure grafana data dir exists
+- name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ grafana_data_dir }}"
     state: directory
-  when: grafana_data_dir is defined
 
-- name: Copy grafana conf
+- name: "Copy {{ role_name }} conf"
   template:
     src: "templates/{{ item }}"
     dest: "{{ grafana_data_dir }}/{{ item }}"
@@ -18,7 +16,7 @@
     - dashboard.yml
   notify: Restart grafana container
 
-- name: "Start grafana container {{ grafana_hostname }}"
+- name: "Start {{ role_name }} container {{ grafana_hostname }}"
   docker_container:
     name: "{{ grafana_hostname }}"
     labels:

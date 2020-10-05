@@ -1,5 +1,5 @@
-- name: Include grafana tasks
-  include_tasks: grafana.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: grafana_image is defined
   tags:
     - grafana

@@ -1,4 +1,4 @@
-- name: Include odoo scripts tasks
-  include_tasks: odoo-scripts.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   tags:
     - odoo-scripts

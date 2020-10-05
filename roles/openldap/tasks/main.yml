@@ -1,5 +1,5 @@
-- name: Include openldap tasks
-  include_tasks: openldap.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: openldap_image is defined
   tags:
     - openldap

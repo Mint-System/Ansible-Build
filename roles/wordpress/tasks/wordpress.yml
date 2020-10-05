@@ -1,9 +1,8 @@
-- name: Create wordpress volume
+- name: "Create {{ role_name }} volume"
   docker_volume:
     name: "{{ wordpress_volume_name }}"
-  when: wordpress_volume_name is defined
 
-- name: "Start wordpress container {{ wordpress_hostname }}"
+- name: "Start {{ role_name }} container {{ wordpress_hostname }}"
   docker_container:
     name: "{{ wordpress_hostname }}"
     labels:

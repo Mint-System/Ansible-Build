@@ -1,4 +1,4 @@
-- name: "Start collabora-code container {{ collabora_code_hostname }}"
+- name: "Start {{ role_name }} container {{ collabora_code_hostname }}"
   docker_container:
     name: "{{ collabora_code_hostname }}"
     labels:

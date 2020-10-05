@@ -1,9 +1,8 @@
-- name: Create mysql volume
+- name: "Create {{ role_name }} volume"
   docker_volume:
     name: "{{ mysql_volume_name }}"
-  when: mysql_volume_name is defined
 
-- name: "Start mysql container {{ mysql_hostname }}"
+- name: "Start {{ role_name }} container {{ mysql_hostname }}"
   docker_container:
     name: "{{ mysql_hostname }}"
     labels:
@@ -33,7 +32,7 @@
   loop:
     - docker-mysql-backup
 
-- name: Include docker mysql backup from restic client role
+- name: "Include docker {{ role_name }} backup from restic client role"
   include_role:
     name: restic-client
   vars:

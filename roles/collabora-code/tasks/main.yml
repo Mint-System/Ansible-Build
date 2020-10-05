@@ -1,5 +1,5 @@
-- name: Include collabora code tasks
-  include_tasks: collabora-code.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: collabora_code_image is defined
   tags:
     - collabora-code

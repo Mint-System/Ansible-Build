@@ -1,19 +1,19 @@
-- name: Include docker ubuntu tasks
-  include_tasks: docker-ubuntu.yml
+- name: "Include {{ role_name }} ubuntu tasks"
+  include_tasks: "{{ role_name }}-ubuntu.yml"
   when: docker_packages is defined and (ansible_distribution == 'Ubuntu')
   tags:
     - docker
     - docker-ubuntu
 
-- name: Include docker centos tasks
-  include_tasks: docker-centos.yml
+- name: "Include {{ role_name }} centos tasks"
+  include_tasks: "{{ role_name }}-centos.yml"
   when: docker_packages is defined and (ansible_distribution == 'CentOS')
   tags:
     - docker
     - docker-ubuntu
 
-- name: Include docker tasks
-  include_tasks: docker.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: docker_packages is defined
   tags:
     - docker

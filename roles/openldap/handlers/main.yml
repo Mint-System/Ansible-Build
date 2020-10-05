@@ -1,4 +1,4 @@
-- name: Restart openldap container
+- name: "Restart {{ role_name }} container"
   docker_container:
     name: "{{ openldap_hostname }}"
     restart: true

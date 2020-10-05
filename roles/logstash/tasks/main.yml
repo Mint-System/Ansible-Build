@@ -1,5 +1,5 @@
-- name: Include logstash tasks
-  include_tasks: logstash.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: logstash_image is defined
   tags:
    - logstash

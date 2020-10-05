@@ -1,9 +1,9 @@
-- name: Ensure nginx data dir exists
+- name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
-- name: Copy nginx conf
+- name: "Copy {{ role_name }} conf"
   template:
     src: templates/nginx-proxy.conf
     dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname }}.conf"
@@ -20,7 +20,7 @@
   loop: "{{ nginx_proxies }}"
   notify: Restart nginx container
 
-- name: Register nginx conf files # noqa 306
+- name: "Register {{ role_name }} conf files" # noqa 306
   shell: "ls -1 {{ nginx_data_dir }}/proxies/*.conf | xargs -n 1 basename"
   changed_when: no
   register: nginx_proxy_conf_files
@@ -29,7 +29,7 @@
   set_fact:
     managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
 
-- name: Remove unmanaged nginx conf files
+- name: "Remove unmanaged {{ role_name }} conf files"
   file:
     path: "{{ nginx_data_dir }}/proxies/{{ item }}"
     state: "absent"

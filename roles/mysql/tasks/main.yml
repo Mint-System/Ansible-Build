@@ -1,5 +1,5 @@
-- name: Include mysql tasks
-  include_tasks: mysql.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: mysql_image is defined
   tags:
    - mysql

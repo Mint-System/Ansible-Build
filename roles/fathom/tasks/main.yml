@@ -1,5 +1,5 @@
-- name: Include fathom tasks
-  include_tasks: fathom.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: fathom_image is defined
   tags:
     - fathom

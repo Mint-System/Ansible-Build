@@ -1,5 +1,5 @@
-- name: Include onlyoffice documentserver tasks
-  include_tasks: onlyoffice-documentserver.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: onlyoffice_documentserver_image is defined
   tags:
     - onlyoffice-documentserver

@@ -1,5 +1,5 @@
-- name: Include docker volume tasks
-  include_tasks: docker-volume.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: docker_volume_name is defined
   tags:
     - docker-volume

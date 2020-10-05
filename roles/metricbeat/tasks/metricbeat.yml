@@ -1,4 +1,4 @@
-- name: Check metricbeat setup
+- name: "Check {{ role_name }} setup"
   command: >
     /bin/bash -c 'curl -X GET "{{ metricbeat_elasticsearch_username }}:
     {{ metricbeat_elasticsearch_password }}@
@@ -8,7 +8,7 @@
   when: metricbeat_setup
   register: check_metricbeat_setup
 
-- name: Run metricbeat setup
+- name: "Run {{ role_name }} setup"
   docker_container:
     name: "{{ metricbeat_hostname }}"
     labels:
@@ -31,19 +31,18 @@
       max-file: "{{ docker_log_max_file }}"
   when: metricbeat_setup and check_metricbeat_setup.failed
 
-- name: Ensure metricbeat data dir exists
+- name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ metricbeat_data_dir }}"
     state: directory
-  when: metricbeat_data_dir is defined
 
-- name: Copy metricbeat conf
+- name: "Copy {{ role_name }} conf"
   template:
     src: metricbeat.yml
     dest: "{{ metricbeat_data_dir }}/"
   notify: Restart metricbeat container
 
-- name: "Start metricbeat container {{ metricbeat_hostname }}"
+- name: "Start {{ role_name }} container {{ metricbeat_hostname }}"
   docker_container:
     name: "{{ metricbeat_hostname }}"
     labels:

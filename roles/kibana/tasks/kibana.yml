@@ -1,4 +1,4 @@
-- name: "Start kibana container {{ kibana_hostname }}"
+- name: "Start {{ role_name }} container {{ kibana_hostname }}"
   docker_container:
     name: "{{ kibana_hostname }}"
     labels:

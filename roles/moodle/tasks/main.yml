@@ -1,5 +1,5 @@
-- name: Include moodle tasks
-  include_tasks: moodle.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: moodle_image is defined
   tags:
    - moodle

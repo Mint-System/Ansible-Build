@@ -1,5 +1,5 @@
-- name: Include odoo apps tasks
-  include_tasks: odoo-apps.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: odoo_apps is defined
   tags:
     - odoo-apps

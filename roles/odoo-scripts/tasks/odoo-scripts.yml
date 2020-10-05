@@ -1,4 +1,4 @@
-- name: Copy odoo scripts
+- name: "Copy {{ role_name }}"
   copy:
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item }}"

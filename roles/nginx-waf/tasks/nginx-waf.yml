@@ -1,9 +1,9 @@
-- name: Include nginx role and apply nginx-config tasks
+- name: "Include nginx role and apply nginx-config tasks"
   include_role:
     name: nginx
     tasks_from: nginx-config
 
-- name: "Start nginx-waf container {{ nginx_waf_hostname }}"
+- name: "Start {{ role_name }} container {{ nginx_waf_hostname }}"
   docker_container:
     name: "{{ nginx_waf_hostname }}"
     labels:

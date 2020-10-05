@@ -1,12 +1,12 @@
-- name: Include nginx config tasks
-  include: nginx-config.yml
+- name: "Include {{ role_name }} config tasks"
+  include: "{{ role_name }}-config.yml"
   when: nginx_data_dir is defined
   tags:
     - nginx-config
     - nginx
 
-- name: Include nginx tasks
-  include: nginx.yml
+- name: "Include {{ role_name }} tasks"
+  include: "{{ role_name }}.yml"
   when: nginx_image is defined
   tags:
     - nginx

@@ -1,9 +1,9 @@
-- name: Ensure openldap data dir exists
+- name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ openldap_data_dir }}"
     state: directory
 
-- name: "Start openldap container {{ openldap_hostname }}"
+- name: "Start {{ role_name }} container {{ openldap_hostname }}"
   docker_container:
     name: "{{ openldap_hostname }}"
     labels:

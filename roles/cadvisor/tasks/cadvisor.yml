@@ -1,4 +1,4 @@
-- name: "Start cadvisor container {{ cadvisor_hostname }}"
+- name: "Start {{ role_name }} container {{ cadvisor_hostname }}"
   docker_container:
     name: "{{ cadvisor_hostname }}"
     labels:

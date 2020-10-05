@@ -1,19 +1,19 @@
-- name: Create prometheus volume
+- name: "Create {{ role_name }} volume"
   docker_volume:
     name: "{{ prometheus_volume_name }}"
 
-- name: Ensure prometheus data dir exists
+- name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ prometheus_data_dir }}"
     state: directory
 
-- name: Copy prometheus conf
+- name: "Copy {{ role_name }} conf"
   template:
     src: prometheus.yml
     dest: "{{ prometheus_data_dir }}/"
   notify: Restart prometheus container
 
-- name: "Start prometheus container {{ prometheus_hostname }}"
+- name: "Start {{ role_name }} container {{ prometheus_hostname }}"
   docker_container:
     name: "{{ prometheus_hostname }}"
     labels:

@@ -7,14 +7,14 @@
     msg: "Package {{ restic_server_requires_package }} is not installed!"
   when: restic_server_requires_package not in ansible_facts.packages
 
-- name: Configure user access for restic server
+- name: "Configure user access for {{ role_name }}"
   htpasswd:
     path: "{{ restic_server_backup_dir }}/.htpasswd"
     name: "{{ restic_server_user }}"
     crypt_scheme: ldap_sha1
     password: "{{ restic_server_password }}"
 
-- name: "Start restic server container {{ restic_server_hostname }}"
+- name: "Start {{ role_name }} container {{ restic_server_hostname }}"
   docker_container:
     name: "{{ restic_server_hostname }}"
     labels:

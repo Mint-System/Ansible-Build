@@ -1,5 +1,5 @@
-- name: Include restic server tasks
-  include_tasks: restic-server.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: restic_server_image is defined
   tags:
     - restic-server

@@ -1,4 +1,4 @@
-- name: Restart metricbeat container
+- name: "Restart {{ role_name }} container"
   docker_container:
     name: "{{ metricbeat_hostname }}"
     restart: true

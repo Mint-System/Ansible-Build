@@ -1,5 +1,5 @@
-- name: Include elasticsearch tasks
-  include_tasks: elasticsearch.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: elasticsearch_image is defined
   tags:
    - elasticsearch
