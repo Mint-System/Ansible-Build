@@ -2,12 +2,12 @@
   package_facts:
     manager: auto
 
-# FIXME: CentOS 7 package facts is always empty
-- name: "Fail if package {{ restic_client_requires_package }} is not installed"
+# FIXME: CentOS package gathering not working
+- name: Fail if package restic is not installed
   fail:
-    msg: "Package {{ restic_client_requires_package }} is not installed!"
-  when: restic_client_requires_package not in ansible_facts.packages and (ansible_distribution != 'CentOS')
-
+    msg: "Package restic not installed"
+  when: "'restic' not in ansible_facts.packages and (ansible_distribution != 'CentOS')"
+  
 - name: Check if repo is initialized
   command: restic snapshots
   environment:

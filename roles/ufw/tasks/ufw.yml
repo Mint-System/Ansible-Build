@@ -1,0 +1,29 @@
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: Fail if package ufw is not installed
+  fail:
+    msg: "Package ufw not installed"
+  when: "'ufw' not in ansible_facts.packages"
+  
+- name: Configure ufw rules
+  ufw: 
+    rule: "{{ item.rule }}"
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+  loop: "{{ ufw_rules[ufw_profile] }}"
+
+- name: Deny all other incoming traffic by default
+  ufw:
+    policy: deny
+    direction: incoming
+
+- name: Allow outgoing traffic by default
+  ufw:
+    policy: allow
+    direction: outgoing
+
+- name: "Enable {{ role_name }} service"
+  ufw:
+    state: "{{ ufw_state }}"

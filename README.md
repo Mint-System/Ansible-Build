@@ -44,7 +44,7 @@ Collection of Ansible playbooks and roles.
 
 WIP:
 
-* [iptables](role/iptables/README.md)
+* [ufw](role/ufw/README.md)
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md)
 * [coturn](role/coturn/README.md)
 * [odoo-enterprise](role/odoo-enterprise/README.md)
