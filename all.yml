@@ -25,3 +25,5 @@
     tags: node-exporter
   - role: grafana
     tags: grafana
+  - role: commento
+    tags: commento
