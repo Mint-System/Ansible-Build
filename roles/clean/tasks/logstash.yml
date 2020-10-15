@@ -2,10 +2,9 @@
   docker_container:
     name: "{{ logstash_hostname }}"
     state: absent
-  when: logstash_hostname is defined
 
 - name: Remove logstash data dir
   file:
     path: "{{ logstash_data_dir }}"
     state: absent
-  when: logstash_data_dir is defined and 'logstash-data-dir' in ansible_run_tags
+  when: '"logstash-data-dir" in ansible_run_tags'

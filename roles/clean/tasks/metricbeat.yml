@@ -2,10 +2,9 @@
   docker_container:
     name: "{{ metricbeat_hostname }}"
     state: absent
-  when: metricbeat_hostname is defined
 
 - name: Remove metricbeat data dir
   file:
     path: "{{ metricbeat_data_dir }}"
     state: absent
-  when: metricbeat_data_dir is defined and 'metricbeat-data-dir' in ansible_run_tags
+  when: '"metricbeat-data-dir" in ansible_run_tags'

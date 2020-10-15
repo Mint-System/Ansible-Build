@@ -2,4 +2,3 @@
   docker_container:
     name: "{{ collabora_code_hostname }}"
     state: absent
-  when: collabora_code_hostname is defined

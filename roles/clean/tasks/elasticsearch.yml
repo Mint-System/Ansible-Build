@@ -9,11 +9,11 @@
     name: "{{ item.volume_name }}"
     state: absent
   loop: "{{ elasticsearch_nodes }}"
-  when: ('elasticsearch-volume' in ansible_run_tags)
+  when: ("elasticsearch-volume" in ansible_run_tags)
 
 - name: "Remove elasticsearch data dir {{ item.data_dir }}"
   file:
     path: "{{ item.data_dir }}"
     state: absent
   loop: "{{ elasticsearch_nodes }}"
-  when: ('elasticsearch-data-dir' in ansible_run_tags)
+  when: ("elasticsearch-data-dir" in ansible_run_tags)
