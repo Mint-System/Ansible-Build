@@ -1,6 +1,6 @@
 # Ansible WordPress role
 
-Deploys WordPress container.
+Deploy WordPress container.
 
 ## Usage
 

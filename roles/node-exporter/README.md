@@ -1,6 +1,6 @@
 # Ansible Node Exporter role
 
-Deploys node-exporter container and install custom metric script.
+Deploy node-exporter container and install custom metric script.
 
 ## Usage
 

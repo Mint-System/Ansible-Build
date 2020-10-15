@@ -1,6 +1,6 @@
 # Ansible Nextcloud role
 
-Deploys Nextcloud Docker container.
+Deploy Nextcloud Docker container.
 
 ## Usage
 

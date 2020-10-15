@@ -1,6 +1,6 @@
 # Ansible Prometheus role
 
-Deploys Prometheus container.
+Deploy Prometheus container.
 
 And the inventory group *exporter*.
 

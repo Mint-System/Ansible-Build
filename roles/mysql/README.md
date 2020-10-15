@@ -1,6 +1,6 @@
 # Ansible MySQL role
 
-Deploys MySQL database container.
+Deploy MySQL database container.
 
 ## Usage
 

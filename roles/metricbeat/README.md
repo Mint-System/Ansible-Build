@@ -1,6 +1,6 @@
 # Ansible Metricbeat role
 
-Deploys Metricbeat Docker container.
+Deploy Metricbeat Docker container.
 
 ## Usage
 

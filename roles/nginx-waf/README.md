@@ -1,6 +1,6 @@
 # Ansible Nginx WAF role
 
-Deploys Nginx with ModSecurity and Core Rule Set.
+Deploy Nginx with ModSecurity and Core Rule Set.
 
 ## Requirements
 

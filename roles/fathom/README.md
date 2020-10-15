@@ -1,6 +1,6 @@
 # Ansible Fathom role
 
-Deploys Fathom container.
+Deploy Fathom container.
 
 ## Usage
 

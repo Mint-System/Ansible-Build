@@ -28,6 +28,7 @@ restic_backup_sets:
     - bookstack
     - bookstack01
   hour: "1"
+  disabled: absent
 - id: "odoo backup"
   type: odoo-backup
   host: http://localhost:8070
@@ -36,7 +37,7 @@ restic_backup_sets:
     - odoo
     - odoo01
   hour: "1"
-- id: "postgres dump postgres06"
+- id: "postgres dump odoo"
   type: postgres-dump
   container: postgres01
   databases: odoo
@@ -45,6 +46,13 @@ restic_backup_sets:
     - postgres01
   hour: "1"
   disabled: true
+- id: "postgres dump all"
+  type: postgres-dump
+  container: postgres01
+  tags:
+    - postgres
+    - postgres01
+  hour: "1"
 restic_backup_rotation:
   daily: 7
   weekly: 4

@@ -1,6 +1,6 @@
 # Ansible Grafana role
 
-Deploys Grafana container.
+Deploy Grafana container.
 
 ## Usage
 

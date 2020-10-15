@@ -1,6 +1,6 @@
 # Ansible BookStack role
 
-Deploys BookStack Docker container.
+Deploy BookStack container.
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # Ansible pgAdmin role
 
-Deploys pgAdmin database container
+Deploy pgAdmin container
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # Ansible Certbot role
 
-Deploys Let's Encrypt certificates.
+Deploy Let's Encrypt certificates.
 
 ## Usage
 

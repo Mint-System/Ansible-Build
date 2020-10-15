@@ -1,6 +1,6 @@
 # Ansible Kibana role
 
-Deploys Kibana Docker container.
+Deploy Kibana Docker container.
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # Ansible cAdvisor role
 
-Deploys cAdvisor container.
+Deploy cAdvisor container.
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # Ansible Restic server role
 
-Deploys Restic server container.
+Deploy Restic server container.
 
 ## Usage
 

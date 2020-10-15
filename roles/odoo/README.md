@@ -1,6 +1,6 @@
 # Ansible Odoo role
 
-Deploys Odoo Docker container.
+Deploy Odoo Docker container.
 
 ## Usage
 

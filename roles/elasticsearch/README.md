@@ -1,6 +1,6 @@
 # Ansible ElasticSearch role
 
-Deploys ElasticSearch Docker cluster.
+Deploy ElasticSearch Docker cluster.
 
 ## Usage
 

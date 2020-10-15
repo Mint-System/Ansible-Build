@@ -1,6 +1,6 @@
 # Ansible OpenLDAP role
 
-Deploys OpenLDAP Docker container.
+Deploy OpenLDAP Docker container.
 
 ## Usage
 

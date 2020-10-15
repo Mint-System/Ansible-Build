@@ -1,6 +1,6 @@
 # Ansible PostgreSQL role
 
-Deploys PostgreSQL database container
+Deploy PostgreSQL database container
 
 ## Usage
 
