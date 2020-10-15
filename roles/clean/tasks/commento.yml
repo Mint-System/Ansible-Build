@@ -1,0 +1,4 @@
+- name: "Remove commento container {{ commento_hostname }}"
+  docker_container:
+    name: "{{ commento_hostname }}"
+    state: absent

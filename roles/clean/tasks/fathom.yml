@@ -2,4 +2,3 @@
   docker_container:
     name: "{{ fathom_hostname }}"
     state: absent
-  when: fathom_hostname is defined

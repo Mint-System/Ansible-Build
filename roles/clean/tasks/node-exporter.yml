@@ -2,10 +2,9 @@
   docker_container:
     name: "{{ node_exporter_hostname }}"
     state: absent
-  when: node_exporter_hostname is defined
 
 - name: Remove node-exporter data dir
   file:
     path: "{{ node_exporter_data_dir }}"
     state: absent
-  when: node_exporter_data_dir is defined and 'node-exporter-data-dir' in ansible_run_tags
+  when: '"node-exporter-data-dir" in ansible_run_tags'

@@ -2,11 +2,10 @@
   docker_container:
     name: "{{ nginx_hostname }}"
     state: absent
-  when: nginx_hostname is defined
 
 - name: Remove nginx data dir
   file:
     path: "{{ nginx_data_dir }}"
     state: absent
-  when: nginx_data_dir is defined and 'nginx-data-dir' in ansible_run_tags
+  when: '"nginx-data-dir" in ansible_run_tags'
 

@@ -2,6 +2,5 @@
   docker_container:
     name: "{{ certbot_hostname }}"
     state: absent
-  when: certbot_hostname is defined
 
 # Do not remove certbot data dir

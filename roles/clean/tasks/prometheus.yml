@@ -2,16 +2,15 @@
   docker_container:
     name: "{{ prometheus_hostname }}"
     state: absent
-  when: prometheus_hostname is defined
 
 - name: Remove prometheus data dir
   file:
     path: "{{ prometheus_data_dir }}"
     state: absent
-  when: prometheus_data_dir is defined and 'prometheus-data-dir' in ansible_run_tags
+  when: '"prometheus-data-dir" in ansible_run_tags'
 
 - name: Remove prometheus volume
   docker_volume:
     name: "{{ prometheus_volume_name }}"
     state: absent
-  when: prometheus_volume_name is defined and 'prometheus-volume' in ansible_run_tags
+  when: '"prometheus-volume" in ansible_run_tags'
