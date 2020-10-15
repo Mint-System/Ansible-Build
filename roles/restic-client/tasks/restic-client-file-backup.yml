@@ -12,5 +12,6 @@
     job: "restic backup {{ item.path }} --tag {{ item.tags | join(' --tag ') }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
+    state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_sets }}"
   when: item.type == "file"
