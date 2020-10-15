@@ -7,7 +7,7 @@
   fail:
     msg: "Package restic not installed"
   when: "'restic' not in ansible_facts.packages and (ansible_distribution != 'CentOS')"
-  
+
 - name: Check if repo is initialized
   command: restic snapshots
   environment:

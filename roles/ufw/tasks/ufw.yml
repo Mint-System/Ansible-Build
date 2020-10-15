@@ -6,9 +6,9 @@
   fail:
     msg: "Package ufw not installed"
   when: "'ufw' not in ansible_facts.packages"
-  
+
 - name: Configure ufw rules
-  ufw: 
+  ufw:
     rule: "{{ item.rule }}"
     port: "{{ item.port }}"
     proto: "{{ item.proto }}"
