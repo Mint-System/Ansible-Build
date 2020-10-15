@@ -27,3 +27,5 @@
     tags: grafana
   - role: commento
     tags: commento
+  - role: remark42
+    tags: remark42

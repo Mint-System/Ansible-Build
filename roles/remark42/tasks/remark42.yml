@@ -1,0 +1,46 @@
+- name: "Include docker volume role"
+  include_role:
+    name: docker-volume
+  vars:
+    docker_volume_name: "{{ remark42_volume_name }}"
+    docker_volume_backup_sets: "{{ remark42_volume_backup_sets | default([]) }}"
+  when: remark42_volume_name is defined
+
+- name: "Start {{ role_name }} container {{ remark42_hostname }}"
+  docker_container:
+    name: "{{ remark42_hostname }}"
+    labels:
+      description: "{{ remark42_description }}"
+    image: "{{ remark42_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env:
+      REMARK_URL: "{{ remark42_url }}"
+      SECRET: "{{ remark42_secret }}"
+      ADMIN_PASSWD: "{{ remark42_secret }}"
+      SITE: "remark,{{ remark42_site }}"
+      AUTH_ANON: "{{ remark42_auth_anonymous }}"
+      AUTH_EMAIL_ENABLE: "{{ remark42_auth_email_enable }}"
+      AUTH_EMAIL_FROM: "{{ remark42_auth_email_from }}"
+      SMTP_HOST: "{{ remark42_smtp_host }}"
+      SMTP_PORT: "{{ remark42_smtp_port }}"
+      SMTP_USERNAME: "{{ remark42_smtp_username }}"
+      SMTP_PASSWORD: "{{ remark42_smtp_password }}"
+      SMTP_TLS: "true"
+      AUTH_GITHUB_CID: "{{ remark42_auth_github_key }}"
+      AUTH_GITHUB_CSEC: "{{ remark42_auth_github_secret }}"
+      ADMIN_SHARED_EMAIL: "{{ remark42_admin_shared_email }}"
+      ADMIN_SHARED_ID: "{{ remark42_admin_shared_id }}"
+      NOTIFY_TYPE: "email"
+      NOTIFY_EMAIL_FROM: "{{ remark42_notify_email_from }}"
+      NOTIFY_EMAIL_ADMIN: "true"
+      BACKUP_PATH: "/srv/var/backup"
+      DEBUG: "false"
+    volumes:
+      - "{{ remark42_volume_name }}:/srv/var"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
