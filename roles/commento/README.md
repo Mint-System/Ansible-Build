@@ -1,6 +1,6 @@
 # Ansible Commento role
 
-Deploys Commento container
+Deploy Commento container
 
 ## Usage
 

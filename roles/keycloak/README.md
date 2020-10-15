@@ -1,6 +1,6 @@
 # Ansible Keycloak role
 
-Deploys Keycloak container.
+Deploy Keycloak container.
 
 ## Usage
 

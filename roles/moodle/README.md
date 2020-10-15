@@ -1,6 +1,6 @@
 # Ansible Moodle role
 
-Deploys Moodle Docker container.
+Deploy Moodle Docker container.
 
 ## Usage
 

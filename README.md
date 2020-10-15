@@ -18,7 +18,7 @@ Collection of Ansible playbooks and roles.
 * [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Certbot.
 * [clean](roles/clean/README.md) - Cleanup Ansible roles
 * [mysql](roles/mysql/README.md) - Deploy MySQL database container
-* [bookstack](roles/bookstack/README.md) - Deploy BookStack Docker container
+* [bookstack](roles/bookstack/README.md) - Deploy BookStack container
 * [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container
 * [colabora-code](roles/colabora-code/README.md) - Deploy Nextcloud container
 * [moodle](roles/moodle/README.md) - Deploy Moodle container
@@ -30,7 +30,7 @@ Collection of Ansible playbooks and roles.
 * [logstash](roles/logstash/README.md) - Deploy Logstash Docker container
 * [metricbeat](roles/metricbeat/README.md) - Deploy Metricbeat Docker container
 * [cadvisor](roles/cadvisor/README.md) - Deploy cAdvisor Docker container
-* [node-exporter](roles/node-exporter/README.md) - Deploy node-exporter Docker container
+* [node-exporter](roles/node-exporter/README.md) - Deploy node-exporter container and install custom metric script
 * [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container
 * [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
 * [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
@@ -38,17 +38,18 @@ Collection of Ansible playbooks and roles.
 * [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
 * [package](roles/package/README.md) - Install and pin packages
 * [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps
-* [pgadmin](roles/pgadmin/README.md) - Install pgADmin container
 * [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set
 * [maintenance](role/maintenance/README.md) - Maintain operating system and disk space
 * [commento](role/commento/README.md) - Deploy Commento container
+* [ufw](role/ufw/README.md) - Configure UFW rules
 
 WIP:
 
-* [ufw](role/ufw/README.md)
-* [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md)
-* [coturn](role/coturn/README.md)
-* [odoo-enterprise](role/odoo-enterprise/README.md)
+* [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
+* [remark42](role/remark42/README.md) - Deploy Remark42 container
+* [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
+* [coturn](role/coturn/README.md) - Deploy Coturn container
+* [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
 
 ## Usage
 

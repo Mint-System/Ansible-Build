@@ -1,6 +1,6 @@
 # Ansible Collabora Code role
 
-Deploys Collabora Online Development Edition (CODE) container.
+Deploy Collabora Online Development Edition (CODE) container.
 
 ## Usage
 

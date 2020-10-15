@@ -1,6 +1,6 @@
 # Ansible Logstash role
 
-Deploys Logstash Docker container.
+Deploy Logstash Docker container.
 
 ## Usage
 

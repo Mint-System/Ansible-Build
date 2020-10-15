@@ -1,6 +1,6 @@
 # Ansible Odoo Enterprise role
 
-Clones Odoo Enterprise repository.
+Checkout the Odoo Enterprise git repository.
 
 ## Usage
 

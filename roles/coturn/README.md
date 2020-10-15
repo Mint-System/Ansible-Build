@@ -1,6 +1,6 @@
 # Ansible Coturn role
 
-Deploys Cotainer.
+Deploy Cotainer.
 
 ## Usage
 
