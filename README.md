@@ -45,8 +45,8 @@ Collection of Ansible playbooks and roles.
 
 WIP:
 
-* [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
 * [remark42](role/remark42/README.md) - Deploy Remark42 container
+* [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
 * [coturn](role/coturn/README.md) - Deploy Coturn container
 * [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository

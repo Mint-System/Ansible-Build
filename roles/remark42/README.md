@@ -26,6 +26,9 @@ remark42_smtp_host: mail.example.com
 remark42_smtp_port: "587"
 remark42_smtp_username: bot@example.com
 remark42_smtp_password: "{{ vault_remark42_smtp_password }}"
+remark42_admin_shared_email: admin@example.com
+remark42_admin_shared_id: github_XXX
+remark42_notify_email_from: noreply@example.com
 remark42_volume_backup_sets: # See restic_backup_sets var in role restic-client
 ```
 
