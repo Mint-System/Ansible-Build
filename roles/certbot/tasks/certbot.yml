@@ -34,7 +34,7 @@
 
 - name: Log missing certificates
   debug:
-    var: certbot_missing_certs
+    var: (certbot_missing_certs | map(attribute='src_hostname') | list)
 
 - name: Copy nginx conf files
   copy:
