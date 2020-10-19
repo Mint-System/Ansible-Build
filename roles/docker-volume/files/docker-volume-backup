@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Exit script if command fails
-set -e
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -eo pipefail
 
 # Display Help
 Help() {
@@ -76,7 +79,7 @@ rm -rf ${DIR}/${CONTAINER}/*
 for VOLUME in "${VOLUME_LIST[@]}"
 do
   echo "Run backup for Docker volume $VOLUME"
-  docker run --rm -v $VOLUME:/_data  -v ${DIR/./$(PWD)}/${CONTAINER}:/backup ubuntu tar cf /backup/$VOLUME.tar /_data
+  docker run --rm -v $VOLUME:/_data  -v ${DIR}/${CONTAINER}:/backup ubuntu tar cf /backup/$VOLUME.tar /_data
 done
 
 # Notify if backup has finished
