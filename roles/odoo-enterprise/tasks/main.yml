@@ -1,4 +1,5 @@
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
+  when: odoo_enterprise_repo is defined
   tags:
     - odoo-enterprise

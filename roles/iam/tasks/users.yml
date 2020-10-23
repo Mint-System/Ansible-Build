@@ -1,8 +1,8 @@
 - name: Add users
   user:
     name: "{{ item.username }}"
-    shell: "{{ item.shell }}"
-    groups: "{{ item.groups }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    groups: "{{ item.groups | default('') }}"
     append: yes
   loop: "{{ iam_users }}"
   when: inventory_hostname_short in item.hosts
@@ -11,9 +11,19 @@
   authorized_key:
     user: "{{ item.username }}"
     state: present
-    key: "{{ item.ssh_key }}"
+    key: "{{ item.ssh_public_key }}"
   loop: "{{ iam_users }}"
   when: inventory_hostname_short in item.hosts
+
+- name: Copy ssh private key
+  copy:
+    content: "{{ item.ssh_private_key }}"
+    dest: "/home/{{ item.username }}/.ssh/id_ed25519"
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0700"
+  loop: "{{ iam_users }}"
+  when: item.ssh_private_key is defined and inventory_hostname_short in item.hosts
 
 - name: Include install oh-my-zsh tasks
   include_tasks: install-oh-my-zsh.yml

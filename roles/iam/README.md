@@ -16,7 +16,7 @@ iam_groups:
   - wheel
 iam_users:
   - username: admin
-    ssh_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
+    ssh_public_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups: wheel,docker
     shell: /bin/zsh
     zshrc: |
@@ -24,6 +24,11 @@ iam_users:
     hosts:
       - server1
       - server2
+  - username: bot
+    ssh_public_key: "ssh-ed25519 ANzaC1yc2EA...KHgKLVcBaeKQ== bot@example.com"
+    ssh_private_key: "{{ vault_bot_ssh_private_key }}"
+    hosts:
+      - hermes
 ```
 
 And include it in your playbook.

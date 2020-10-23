@@ -1,0 +1,11 @@
+- name: "Create {{ role_name }} volume"
+  docker_volume:
+    name: "{{ odoo_volume_name }}"
+
+- name: Git checkout
+  git:
+    repo: "{{ odoo_enterprise_repo }}"
+    dest: "{{ odoo_data_dir }}/enterprise"
+    key_file: "{{ odoo_enterprise_key_file }}"
+    version: "{{ odoo_enterprise_commit }}"
+    accept_hostkey: yes
