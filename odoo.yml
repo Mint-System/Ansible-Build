@@ -7,3 +7,5 @@
     tags: odoo-apps
   - role: odoo-scripts
     tags: odoo-scripts
+  - role: odoo-enterprise
+    tags: odoo-enterprise

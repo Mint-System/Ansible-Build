@@ -4,7 +4,7 @@
 
 - name: "Ensure {{ role_name }} data dir exists"
   file:
-    path: "{{ odoo_data_dir }}"
+    path: "{{ odoo_data_dir }}/enterprise"
     state: directory
 
 - name: "Copy {{ role_name }} conf"
@@ -26,7 +26,6 @@
   command: "docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ pull_odoo_image.image.Id[7:19] }}"
   when: pull_odoo_image.image.RepoTags | length == 0
 
-# FIXME: Allow normal tags to select image
 - name: "Start {{ role_name }} container {{ odoo_hostname }}"
   docker_container:
     name: "{{ odoo_hostname }}"
@@ -44,7 +43,8 @@
     volumes:
       - "{{ odoo_volume_name }}:/var/lib/odoo"
       - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
-      - "{{ odoo_data_dir }}/addons:/mnt/extra-addons"
+      - "{{ odoo_data_dir }}/addons:/mnt/addons"
+      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
@@ -66,4 +66,4 @@
     tasks_from: restic-client-odoo-backup
   vars:
     restic_backup_sets: "{{ odoo_backup_sets }}"
-  when: odoo_backup_sets
+  when: odoo_backup_sets is defined

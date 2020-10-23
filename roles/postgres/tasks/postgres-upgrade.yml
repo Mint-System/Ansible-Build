@@ -1,0 +1,6 @@
+# https://hub.docker.com/r/tianon/postgres-upgrade/
+
+postgres_upgrade_old: 10
+postgres_upgrade_new: 12
+
+# determine currrent version

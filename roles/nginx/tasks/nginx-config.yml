@@ -3,6 +3,20 @@
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
+- name: "Get list of active {{ role_name }} certs"
+  stat:
+    path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
+  loop: "{{ nginx_proxies }}"
+  register: certbot_certs
+
+- name: Create array of active certs
+  set_fact:
+    certbot_active_certs: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`true`].item.src_hostname') | list }}"
+
+- name: debug
+  debug:
+    var: certbot_active_certs
+
 - name: "Copy {{ role_name }} conf"
   template:
     src: templates/nginx-proxy.conf
@@ -19,6 +33,7 @@
     server_names: "{{ item.server_names | default(false) }}"
     redirect: "{{ item.redirect | default(true) }}"
   loop: "{{ nginx_proxies }}"
+  when: "item.src_hostname in certbot_active_certs"
   notify: Restart nginx container
 
 - name: "Register {{ role_name }} conf files" # noqa 306

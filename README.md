@@ -42,14 +42,14 @@ Collection of Ansible playbooks and roles.
 * [maintenance](role/maintenance/README.md) - Maintain operating system and disk space
 * [commento](role/commento/README.md) - Deploy Commento container
 * [ufw](role/ufw/README.md) - Configure UFW rules
+* [remark42](role/remark42/README.md) - Deploy Remark42 container
+* [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
 
 WIP:
 
-* [remark42](role/remark42/README.md) - Deploy Remark42 container
 * [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
 * [coturn](role/coturn/README.md) - Deploy Coturn container
-* [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
 
 ## Usage
 
@@ -58,6 +58,12 @@ Clone this repository.
 `git clone https://github.com/Mint-System/Ansible-Playbooks.git && cd Ansible-Playbooks`
 
 ### Setup
+
+[Install Ansbile](https://docs.ansible.com/ansible/latest/installation_guide/index.html).
+
+Navigate to the playbook folder.
+
+`cd Ansible-Playbooks`
 
 Set a password to encry the Ansible vault.
 
@@ -77,11 +83,15 @@ Create a log file and own it.
 
 Install jmespath with pip.
 
-`pip3 install jmespath`
+`pip install jmespath`
 
 Install dnspython with pip.
 
-`pip3 install dnspython`
+`pip install dnspython`
+
+Install the ansible community package.
+
+`ansible-galaxy collection install community.general`
 
 Create an inventory and configure a role.
 

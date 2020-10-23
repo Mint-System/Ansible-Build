@@ -30,11 +30,11 @@
 
 - name: Create list of missing certs
   set_fact:
-    certbot_missing_certs: "{{ certbot_certs | json_query(certbot_stat_filter) | list }}"
+    certbot_missing_certs: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`false`].item.src_hostname') | list }}"
 
 - name: Log missing certificates
   debug:
-    var: (certbot_missing_certs | map(attribute='src_hostname') | list)
+    var: certbot_missing_certs
 
 - name: Copy nginx conf files
   copy:
@@ -46,9 +46,9 @@
 - name: "Copy nginx {{ role_name }} conf"
   template:
     src: templates/nginx-certbot.conf
-    dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname }}.conf"
+    dest: "{{ nginx_data_dir }}/proxies/{{ item }}.conf"
   vars:
-    server_name: "{{ item.src_hostname }}"
+    server_name: "{{ item }}"
   loop: "{{ certbot_missing_certs }}"
 
 - name: "Get infos on proxy container {{ nginx_hostname }}"
@@ -91,12 +91,12 @@
 
 - name: "Issue certificate with {{ role_name }}"
   docker_container:
-    name: "{{ item.src_hostname }}"
+    name: "{{ item }}"
     image: "{{ certbot_image }}"
     volumes:
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
-    command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item.src_hostname }}
+    command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
   loop: "{{ certbot_missing_certs }}"
   loop_control:
     pause: 5
@@ -104,7 +104,7 @@
 # FIXME: Replace this task with auto_remove: true
 - name: "Remove {{ role_name }} container"
   docker_container:
-    name: "{{ item.src_hostname }}"
+    name: "{{ item }}"
     state: absent
   loop: "{{ certbot_missing_certs }}"
 
