@@ -34,7 +34,7 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":d :m: :c: :x:" opt; do
+while getopts ":dm:c:x:" opt; do
   case $opt in
     m) MODULES="$OPTARG"
     ;;
@@ -49,12 +49,6 @@ while getopts ":d :m: :c: :x:" opt; do
     exit;;
   esac
 done
-
-# Fallback to environment vars and default values
-: ${DATABASE:='odoo'}
-: ${MODULES:='base,web'}
-: ${CONTAINER:='odoo'}
-: ${DEV:='all'}
 
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
