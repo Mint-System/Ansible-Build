@@ -99,7 +99,7 @@ Create an inventory and configure a role.
 
 List inventory
 
-`ansible-inventory --list -y -i inventories/odoo`
+`ansible-inventory --list -y -i inventories/setup | grep -E 'ansible_host'`
 
 Test connection
 
