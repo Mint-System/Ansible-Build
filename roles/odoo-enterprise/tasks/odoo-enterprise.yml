@@ -8,4 +8,10 @@
     dest: "{{ odoo_data_dir }}/enterprise"
     key_file: "{{ odoo_enterprise_key_file }}"
     version: "{{ odoo_enterprise_commit }}"
-    accept_hostkey: yes
+    accept_hostkey: true
+  ignore_errors: true
+
+- name: Ensure auto install is disabled
+  shell: |
+    find {{ odoo_data_dir }}/enterprise -type f -name '__manifest__.py' -exec sed -i $'s/\'auto_install\': True,/\'auto_install\': False,/g' {} +
+  changed_when: false
