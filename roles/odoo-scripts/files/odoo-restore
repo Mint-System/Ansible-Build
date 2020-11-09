@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Exit script if command fails
 # -u stops the script on unset variables

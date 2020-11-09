@@ -12,6 +12,5 @@
   ignore_errors: true
 
 - name: Ensure auto install is disabled
-  shell: |
-    find {{ odoo_data_dir }}/enterprise -type f -name '__manifest__.py' -exec sed -i $'s/\'auto_install\': True,/\'auto_install\': False,/g' {} +
+  script: "disable-auto-install {{ odoo_data_dir }}"
   changed_when: false

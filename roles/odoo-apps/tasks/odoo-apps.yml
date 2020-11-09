@@ -62,3 +62,19 @@
     regexp: "'auto_install': True,"
     replace: "'auto_install': False,"
   loop: "{{ odoo_apps }}"
+
+- name: "Register {{ role_name }} folders" # noqa 306
+  shell: "ls -1 {{ odoo_data_dir }}/addons/ | xargs -n 1 basename"
+  changed_when: no
+  register: existing_odoo_apps
+
+- name: Create managed folder list from odoo apps list
+  set_fact:
+    managed_folders: "{{ odoo_apps | map(attribute='name') | list }}"
+
+- name: "Remove unmanaged {{ role_name }} folder"
+  file:
+    path: "{{ odoo_data_dir }}/addons/{{ item }}"
+    state: "absent"
+  loop: "{{ existing_odoo_apps.stdout_lines }}"
+  when: item not in managed_folders
