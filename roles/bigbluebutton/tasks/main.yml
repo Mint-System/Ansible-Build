@@ -28,7 +28,7 @@
 
 - name: Include bigbluebutton coturn tasks
   include: bigbluebutton-coturn.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_coturn_domain
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_coturn_domain is defined
   tags:
     - bigbluebutton
     - bigbluebutton-coturn
