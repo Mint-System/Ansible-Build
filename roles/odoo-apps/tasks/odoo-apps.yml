@@ -64,7 +64,7 @@
   loop: "{{ odoo_apps }}"
 
 - name: "Register {{ role_name }} folders" # noqa 306
-  shell: "ls -1 {{ odoo_data_dir }}/addons/"
+  command: "ls -1 {{ odoo_data_dir }}/addons/"
   changed_when: no
   register: existing_odoo_apps
 
