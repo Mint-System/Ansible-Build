@@ -9,7 +9,9 @@
     key_file: "{{ odoo_enterprise_key_file }}"
     version: "{{ odoo_enterprise_commit }}"
     accept_hostkey: true
+    force: true
   ignore_errors: true
+  changed_when: false
 
 - name: Ensure auto install is disabled
   script: "disable-auto-install {{ odoo_data_dir }}"
