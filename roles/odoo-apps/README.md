@@ -15,12 +15,12 @@ odoo_apps:
     url: https://github.com/Mint-System/Odoo-App-Show-DB-Name/archive/v1.0.2.zip
   - name: web_enterprise
     file: web_enterprise-13.0.1.0.zip
-  - name: theme_clean
-    includes:
-    - theme_clean
-    - theme_common
-    - website_animate
-    url: https://apps.odoo.com/loempia/download/theme_clean/13.0.1.1.zip?deps
+  - name: theme_common
+    file: theme_common-14.0.0.1.1.zip
+  - name: theme_treehouse
+    file: theme_treehouse-14.0.2.0.0.zip
+    depends:
+      - theme_common
 ```
 
 And include it in your playbook.
