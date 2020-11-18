@@ -30,14 +30,6 @@
   loop: "{{ odoo_apps }}"
   register: archive_contents
 
-- name: "Copy {{ role_name }} to addons dir for each includes attribute"
-  copy:
-    src: "{{ odoo_apps_tmp_dir }}/{{ item.1 }}/"
-    dest: "{{ odoo_data_dir }}/addons/{{ item.1 }}"
-    remote_src: yes
-  loop: "{{ odoo_apps | subelements('includes', skip_missing=True) }}"
-  notify: Restart odoo container
-
 - name: "Copy {{ role_name }} to addons dir if archive entry is directory"
   copy:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.files[0] }}"
@@ -72,11 +64,9 @@
   set_fact:
     managed_folders: "{{ odoo_apps | map(attribute='name') | list }}"
 
-# FIXME: Managed apps list must include the include defintion
-
-# - name: "Remove unmanaged {{ role_name }} folder"
-#   file:
-#     path: "{{ odoo_data_dir }}/addons/{{ item }}"
-#     state: "absent"
-#   loop: "{{ existing_odoo_apps.stdout_lines }}"
-#   when: item not in managed_folders
+- name: "Remove unmanaged {{ role_name }} folder"
+  file:
+    path: "{{ odoo_data_dir }}/addons/{{ item }}"
+    state: "absent"
+  loop: "{{ existing_odoo_apps.stdout_lines }}"
+  when: item not in managed_folders
