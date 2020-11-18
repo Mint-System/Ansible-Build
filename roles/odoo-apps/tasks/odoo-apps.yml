@@ -72,9 +72,11 @@
   set_fact:
     managed_folders: "{{ odoo_apps | map(attribute='name') | list }}"
 
-- name: "Remove unmanaged {{ role_name }} folder"
-  file:
-    path: "{{ odoo_data_dir }}/addons/{{ item }}"
-    state: "absent"
-  loop: "{{ existing_odoo_apps.stdout_lines }}"
-  when: item not in managed_folders
+# FIXME: Managed apps list must include the include defintion
+
+# - name: "Remove unmanaged {{ role_name }} folder"
+#   file:
+#     path: "{{ odoo_data_dir }}/addons/{{ item }}"
+#     state: "absent"
+#   loop: "{{ existing_odoo_apps.stdout_lines }}"
+#   when: item not in managed_folders
