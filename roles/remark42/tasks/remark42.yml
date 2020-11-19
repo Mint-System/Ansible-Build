@@ -35,7 +35,7 @@
       NOTIFY_EMAIL_FROM: "{{ remark42_notify_email_from }}"
       NOTIFY_EMAIL_ADMIN: "true"
       BACKUP_PATH: "/srv/var/backup"
-      DEBUG: "false"
+      DEBUG: "true"
     volumes:
       - "{{ remark42_volume_name }}:/srv/var"
     networks:
