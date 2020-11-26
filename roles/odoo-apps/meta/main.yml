@@ -1,5 +1,0 @@
-dependencies: # noqa 701
-  - role: odoo
-    tags:
-      - odoo
-      - depends
