@@ -1,4 +1,11 @@
-# http://docs.bigbluebutton.org/2.2/install.html#using-lets-encrypt
+# https://docs.bigbluebutton.org/2.2/install.html#using-lets-encrypt
+
+- name: Install BigBluebutton required packages
+  apt:
+    name:
+      - software-properties-common
+      - certbot
+    state: present
 
 - name: Create nginx SSL certificates directory
   file:

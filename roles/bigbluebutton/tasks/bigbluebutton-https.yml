@@ -1,11 +1,11 @@
-# http://docs.bigbluebutton.org/2.2/install.html#configure-bigbluebutton-to-load-session-via-https
+# https://docs.bigbluebutton.org/2.2/install.html#configure-nginx-to-use-https
 
-- name: Update http for https on nginx
-  replace:
-    path: /opt/freeswitch/conf/sip_profiles/external.xml
-    regexp: '<param name="ws-binding" value=":5066"/>'
-    replace: '<param name="wss-binding" value="{{ bigbluebutton_external_ip }}:7443"/>'
-    backup: true
+# - name: Update http for https on nginx
+#   replace:
+#     path: /opt/freeswitch/conf/sip_profiles/external.xml
+#     regexp: '<param name="ws-binding" value=":5066"/>'
+#     replace: '<param name="wss-binding" value="{{ bigbluebutton_external_ip }}:7443"/>'
+#     backup: true
 
 - name: Update http for https on nginx
   replace:
@@ -14,12 +14,16 @@
     replace: 'https:'
     backup: true
 
+# https://docs.bigbluebutton.org/2.2/install.html#configure-freeswitch-for-using-ssl
+
 - name: Update SIP port on nginx
   replace:
     path: /etc/bigbluebutton/nginx/sip.nginx
     regexp: '5066'
     replace: '7443'
     backup: true
+
+# https://docs.bigbluebutton.org/2.2/install.html#configure-bigbluebutton-to-load-session-via-https
 
 - name: Update http for https on BigBlueButton webapp
   replace:
@@ -69,6 +73,8 @@
     regexp: 'playback_protocol: http$'
     replace: 'playback_protocol: https'
     backup: true
+
+# https://docs.bigbluebutton.org/2.2/install.html#using-lets-encrypt
 
 - name: Copy bigbluebutton nginx conf
   template:

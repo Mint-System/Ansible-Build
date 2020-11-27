@@ -4,9 +4,7 @@
   apt:
     name:
       - language-pack-en
-      - software-properties-common
       - openjdk-8-jre
-      - certbot
     state: present
 
 - name: Update locale (ensure LANG=en_US.UTF-8)
