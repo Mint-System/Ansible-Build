@@ -1,7 +1,3 @@
-- name: Show distribution
-  debug:
-    msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
-
 - name: Add bin folder to cron PATH
   cron:
     name: PATH

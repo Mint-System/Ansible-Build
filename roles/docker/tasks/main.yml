@@ -1,3 +1,7 @@
+- name: Show distribution
+  debug:
+    msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+
 - name: "Include {{ role_name }} ubuntu tasks"
   include_tasks: "{{ role_name }}-ubuntu.yml"
   when: docker_packages is defined and (ansible_distribution == 'Ubuntu')
@@ -10,7 +14,14 @@
   when: docker_packages is defined and (ansible_distribution == 'CentOS')
   tags:
     - docker
-    - docker-ubuntu
+    - docker-centos
+
+- name: "Include {{ role_name }} debian tasks"
+  include_tasks: "{{ role_name }}-debian.yml"
+  when: docker_packages is defined and (ansible_distribution == 'Debian')
+  tags:
+    - docker
+    - docker-debian
 
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
