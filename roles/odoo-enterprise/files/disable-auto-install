@@ -1,4 +1,4 @@
 #!/bin/zsh
-set -euo pipefail
+set -eu
 
 find $1/enterprise -type f -name __manifest__.py -exec sed -i $'s/\'auto_install\': True,/\'auto_install\': False,/g' {} +
