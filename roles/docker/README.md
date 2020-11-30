@@ -6,7 +6,7 @@ Installs Docker for Ubuntu and CentOS.
 
 The Ansible Docker role has the following requirements:
 
-* Distribution: Ubuntu or CentOS
+* Distribution: Ubuntu, Debian or CentOS
 
 ## Usage
 

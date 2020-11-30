@@ -1,3 +1,7 @@
+- name: Show distribution
+  debug:
+    msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
   when: packages is defined
@@ -7,6 +11,12 @@
 - name: "Include {{ role_name }} apt tasks"
   include_tasks: "{{ role_name }}-apt.yml"
   when: packages is defined and ansible_distribution == 'Ubuntu'
+  tags:
+   - package
+
+- name: "Include {{ role_name }} apt tasks"
+  include_tasks: "{{ role_name }}-apt.yml"
+  when: packages is defined and ansible_distribution == 'Debian'
   tags:
    - package
 
