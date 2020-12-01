@@ -13,3 +13,7 @@
     tags: maintenance
   - role: ufw
     tags: ufw
+  - role: restic-server
+    tags: restic-server
+  - role: restic-client
+    tags: restic-client

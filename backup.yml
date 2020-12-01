@@ -1,7 +1,0 @@
-- hosts: all
-  become: true
-  roles:
-  - role: restic-server
-    tags: restic-server
-  - role: restic-client
-    tags: restic-client

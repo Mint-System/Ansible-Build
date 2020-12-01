@@ -65,6 +65,8 @@ done
 [[ -z "$DATABASE" ]] && { echo "Parameter -n|database is empty" ; exit 1; }
 [[ -z "$FILE" ]] && { echo "Parameter -f|file is empty" ; exit 1; }
 [[ -z "$HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
+[[ -z "$HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
+[[ ! "$HOST" =~ "^http" ]]  && { echo "Parameter -h|host must start with http/s" ; exit 1; }
 
 # Validate zip file
 unzip -q -t $FILE
