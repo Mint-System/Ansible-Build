@@ -42,7 +42,7 @@ while getopts ":r :p: :d: :f: :h:" opt; do
   case $opt in
     r) REPLACE='true'
     ;;
-    h) HOST="$OPTARG"
+    h) ODOO_HOST="$OPTARG"
     ;;
     p) PASSWORD="$OPTARG"
     ;;
@@ -59,39 +59,38 @@ done
 # Fallback to environment vars and default values
 : ${PASSWORD:=${ODOO_MASTER_PASSWORD:='admin'}}
 : ${FILE:='/var/tmp/odoo.zip'}
-: ${HOST:='http://localhost:8069'}
+: ${ODOO_HOST:='http://localhost:8069'}
 
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -n|database is empty" ; exit 1; }
 [[ -z "$FILE" ]] && { echo "Parameter -f|file is empty" ; exit 1; }
-[[ -z "$HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
-[[ -z "$HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
-[[ ! "$HOST" =~ "^http" ]]  && { echo "Parameter -h|host must start with http/s" ; exit 1; }
+[[ -z "$ODOO_HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
+[[ ! "$ODOO_HOST" =~ "^http" ]]  && { echo "Parameter -h|host must start with http/s" ; exit 1; }
 
 # Validate zip file
 unzip -q -t $FILE
 
-if $REPLACE ; then
+if $REPLACE; then
   echo "Deleting Odoo database $DATABASE ..."
 
   curl \
     --silent \
     -F "master_pwd=${PASSWORD}" \
     -F "name=${DATABASE}" \
-    ${HOST}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
+    ${ODOO_HOST}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
 fi
 
 # Start restore
 echo "Requesting restore for Odoo database $DATABASE ..."
 
 # Request restore with curl
-curl \
-  --silent \
+CURL=$(curl \
   -F "master_pwd=${PASSWORD}" \
   -F "name=${DATABASE}" \
   -F backup_file=@$FILE \
   -F 'copy=true' \
-  ${HOST}/web/database/restore | grep -q 'Redirecting...'
+  ${ODOO_HOST}/web/database/restore)
+  
+echo $CURL | grep -q 'Redirecting...' || echo "The restore failed:"; echo $CURL | grep error; exit 1
 
-# Notify if restore has finished
 echo "The restore for Odoo database $DATABASE has finished."
