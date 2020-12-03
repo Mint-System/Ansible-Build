@@ -91,6 +91,6 @@ CURL=$(curl \
   -F 'copy=true' \
   ${ODOO_HOST}/web/database/restore)
   
-echo $CURL | grep -q 'Redirecting...' || echo "The restore failed:"; echo $CURL | grep error; exit 1
+(echo $CURL | grep -q 'Redirecting...') || (echo "The restore failed:"; echo $CURL | grep error; exit 1)
 
 echo "The restore for Odoo database $DATABASE has finished."
