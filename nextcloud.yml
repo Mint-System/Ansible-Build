@@ -3,3 +3,5 @@
   roles:
   - role: nextcloud
     tags: nextcloud
+  - role: onlyoffice-documentserver
+    tags: onlyoffice-documentserver
