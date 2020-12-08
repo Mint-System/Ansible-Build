@@ -50,6 +50,7 @@ WIP:
 * [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
 * [coturn](role/coturn/README.md) - Deploy Coturn container
+* [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
 
 ## Usage
 

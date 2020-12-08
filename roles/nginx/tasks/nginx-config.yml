@@ -13,10 +13,6 @@
   set_fact:
     certbot_active_certs: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`true`].item.src_hostname') | list }}"
 
-- name: debug
-  debug:
-    var: certbot_active_certs
-
 - name: "Copy {{ role_name }} conf"
   template:
     src: templates/nginx-proxy.conf
