@@ -44,11 +44,11 @@ Collection of Ansible playbooks and roles.
 * [ufw](role/ufw/README.md) - Configure UFW rules
 * [remark42](role/remark42/README.md) - Deploy Remark42 container
 * [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
+* [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
 
 WIP:
 
 * [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
-* [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
 * [coturn](role/coturn/README.md) - Deploy Coturn container
 * [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
 
