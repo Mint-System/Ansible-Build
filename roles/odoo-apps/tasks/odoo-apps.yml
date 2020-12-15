@@ -37,7 +37,7 @@
     remote_src: yes
   when: item.files[0] is match(".*\/$")
   loop: "{{ archive_contents.results }}"
-  notify: Restart odoo container
+#  notify: Restart odoo container
 
 - name: "Copy {{ role_name }} to addons dir if archive entry is file"
   copy:
@@ -46,7 +46,7 @@
     remote_src: yes
   when: item.files[0] is not match(".*\/$")
   loop: "{{ archive_contents.results }}"
-  notify: Restart odoo container
+ # notify: Restart odoo container
 
 - name: Ensure auto install is disabled
   replace:
@@ -69,4 +69,4 @@
     path: "{{ odoo_data_dir }}/addons/{{ item }}"
     state: "absent"
   loop: "{{ existing_odoo_apps.stdout_lines }}"
-  when: item not in managed_folders
+  when: item not in managed_folders and odoo_apps_remove_unmanaged_folders
