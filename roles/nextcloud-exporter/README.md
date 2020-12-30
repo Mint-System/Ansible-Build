@@ -1,6 +1,6 @@
 # Ansible Nextcloud Exporter role
 
-Deploy nextcloud-exporter container and install custom metric script.
+Deploy nextcloud-exporter container.
 
 ## Usage
 
