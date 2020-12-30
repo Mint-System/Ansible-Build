@@ -45,6 +45,7 @@ Collection of Ansible playbooks and roles.
 * [remark42](role/remark42/README.md) - Deploy Remark42 container
 * [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
+* [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy nextcloud-exporter container.
 
 WIP:
 
