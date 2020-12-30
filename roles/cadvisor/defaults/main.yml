@@ -1,2 +1,3 @@
 cadvisor_requires_package: python3-passlib
-cadvisor_description: Cadvisor
+cadvisor_description: cAdvisor
+cadvisor_proxy_basic_auth_username: cadvisor

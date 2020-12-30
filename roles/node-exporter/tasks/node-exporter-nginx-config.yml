@@ -17,14 +17,6 @@
     path: "{{ node_exporter_nginx_data_dir }}/node-exporter.htpasswd"
     name: "{{ node_exporter_proxy_basic_auth_username }}"
     password: "{{ node_exporter_proxy_basic_auth_password }}"
-  when: ansible_distribution != 'CentOS'
-
-- name: "Configure user access for {{ role_name }}"
-  htpasswd:
-    path: "{{ node_exporter_nginx_data_dir }}/node-exporter.htpasswd"
-    name: "{{ node_exporter_proxy_basic_auth_username }}"
-    password: "{{ node_exporter_proxy_basic_auth_password }}"
-  when: ansible_distribution == 'CentOS'
 
 - name: "Copy nginx {{ role_name }} conf"
   template:

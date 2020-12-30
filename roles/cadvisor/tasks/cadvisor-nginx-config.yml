@@ -17,14 +17,6 @@
     path: "{{ cadvisor_nginx_data_dir }}/cadvisor.htpasswd"
     name: "{{ cadvisor_proxy_basic_auth_username }}"
     password: "{{ cadvisor_proxy_basic_auth_password }}"
-  when: ansible_distribution != 'CentOS'
-
-- name: "Configure user access for {{ role_name }}"
-  htpasswd:
-    path: "{{ cadvisor_nginx_data_dir }}/cadvisor.htpasswd"
-    name: "{{ cadvisor_proxy_basic_auth_username }}"
-    password: "{{ cadvisor_proxy_basic_auth_password }}"
-  when: ansible_distribution == 'CentOS'
 
 - name: "Copy nginx {{ role_name }} conf"
   template:
