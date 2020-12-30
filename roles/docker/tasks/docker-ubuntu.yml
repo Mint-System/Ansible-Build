@@ -1,6 +1,6 @@
 - name: "Add {{ role_name }} gpg apt key"
   apt_key:
-    url: "{{ docker_apt_key_url }}"
+    url: "{{ docker_apt_url }}"
     state: present
 
 - name: "Add {{ role_name }} repo"

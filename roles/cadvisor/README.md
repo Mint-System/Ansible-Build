@@ -30,7 +30,7 @@ nginx_proxies:
 And include it in your playbook.
 
 ```yml
-- hosts: cAdvisor
+- hosts: cadvisor
   roles:
   - role: cadvisor
 ```
