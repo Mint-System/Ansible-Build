@@ -18,7 +18,7 @@ docker_log_driver: "json-file"
 docker_log_max_size: "10m"
 docker_log_max_file: "3"
 # apt package manager
-docker_apt_key_url: "https://download.docker.com/linux/ubuntu/gpg"
+docker_apt_url: "https://download.docker.com/linux/ubuntu/gpg"
 docker_apt_repo: "deb https://download.docker.com/linux/ubuntu xenial stable"
 docker_packages:
   - name: apt-transport-https

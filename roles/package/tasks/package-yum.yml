@@ -8,13 +8,6 @@
   yum:
     update_cache: yes
 
-- name: Unpin packages
-  yum_versionlock:
-    state: absent
-    package: "{{ item.name }}"
-  loop: "{{ packages }}"
-  when: item.version is not defined
-
 - name: Install latest packages
   yum:
     name: "{{ item.name }}"
@@ -26,12 +19,5 @@
   yum:
     name: "{{ item.name }}-{{ item.version }}"
     state: present
-  loop: "{{ packages }}"
-  when: item.version is defined
-
-- name: Pin packages
-  yum_versionlock:
-    state: present
-    package: "{{ item.name }}"
   loop: "{{ packages }}"
   when: item.version is defined
