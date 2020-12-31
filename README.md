@@ -61,7 +61,7 @@ Clone this repository.
 
 ### Setup
 
-[Install Ansbile](https://docs.ansible.com/ansible/latest/installation_guide/index.html).
+[Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/index.html).
 
 Navigate to the playbook folder.
 
