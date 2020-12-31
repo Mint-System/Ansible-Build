@@ -36,7 +36,7 @@ Collection of Ansible playbooks and roles.
 * [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
 * [update](roles/update/README.md) - Install system and package updates
 * [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
-* [package](roles/package/README.md) - Install and pin packages
+* [package](roles/package/README.md) - Set env vars and install packages
 * [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps
 * [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set
 * [maintenance](role/maintenance/README.md) - Maintain operating system and disk space
