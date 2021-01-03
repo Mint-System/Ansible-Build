@@ -1,0 +1,23 @@
+#!/bin/sh
+
+REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-playbooks
+
+SCRIPT="docker-odoo-install"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="docker-odoo-user"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="odoo-backup"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="odoo-restore"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
