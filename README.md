@@ -83,13 +83,9 @@ Create a log file and own it.
 
 `sudo touch /var/log/ansible.log && sudo chown $USER: /var/log/ansible.log`
 
-Install jmespath with pip.
+Install jmespath and dnspython with pip.
 
-`pip install jmespath`
-
-Install dnspython with pip.
-
-`pip install dnspython`
+`pip install jmespath dnspython`
 
 Install the ansible community package.
 
@@ -139,9 +135,13 @@ Clean role only
 
 `ansible-playbook -i inventories/odoo clean.yml -t docker-network`
 
+Clean dry run
+
+`ansible-playbook -i inventories/odoo odoo.yml -t odoo --check`
+
 Install odoo-scripts and odoo-apps locally
 
-`anp -i inventories/odoo localhost.yml --skip-tags depends`
+`ansible-playbook -i inventories/odoo localhost.yml --skip-tags depends`
 
 ## Docs
 

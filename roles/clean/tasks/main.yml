@@ -30,3 +30,4 @@
       - wordpress
       - pgadmin
       - restic-client
+      - commento
