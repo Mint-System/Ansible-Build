@@ -14,8 +14,8 @@ Collection of Ansible playbooks and roles.
 * [odoo](roles/odoo/README.md) - Deploy Odoo container
 * [odoo-scripts](roles/odoo-scripts/README.md) - Install Odoo scripts
 * [debug](roles/debug/README.md) - Debug Ansible variables
-* [certbot](roles/certbot/README.md) - Deploy Let's Encrypt certificates.
-* [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Certbot.
+* [certbot](roles/certbot/README.md) - Deploy Let's Encrypt certificates
+* [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Certbot
 * [clean](roles/clean/README.md) - Cleanup Ansible roles
 * [mysql](roles/mysql/README.md) - Deploy MySQL database container
 * [bookstack](roles/bookstack/README.md) - Deploy BookStack container
@@ -45,7 +45,7 @@ Collection of Ansible playbooks and roles.
 * [remark42](role/remark42/README.md) - Deploy Remark42 container
 * [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
-* [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy nextcloud-exporter container.
+* [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy nextcloud-exporter container
 
 WIP:
 
