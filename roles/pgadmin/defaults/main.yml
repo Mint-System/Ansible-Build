@@ -1,1 +1,2 @@
 pgadmin_description: pgAdmin
+pgadmin_data_dir: /usr/share/{{ pgadmin_hostname }}
