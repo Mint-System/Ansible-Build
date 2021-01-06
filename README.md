@@ -46,10 +46,10 @@ Collection of Ansible playbooks and roles.
 * [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
 * [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy nextcloud-exporter container
+* [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
 
 WIP:
 
-* [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
 * [coturn](role/coturn/README.md) - Deploy Coturn container
 * [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
 
