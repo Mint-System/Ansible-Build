@@ -1,7 +1,3 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
-    name: "{{ bookstack_volume_name }}"
-
 - name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ bookstack_data_dir }}"
