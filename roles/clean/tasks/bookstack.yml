@@ -2,3 +2,9 @@
   docker_container:
     name: "{{ bookstack_hostname }}"
     state: absent
+
+- name: Remove bookstack data dir
+  file:
+    path: "{{ bookstack_data_dir }}"
+    state: absent
+  when: '"bookstack-data-dir" in ansible_run_tags'
