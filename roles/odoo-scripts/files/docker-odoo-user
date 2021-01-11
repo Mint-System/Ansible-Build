@@ -13,7 +13,6 @@ SCRIPT=$(basename "$0")
 Help() {
     echo
     echo "$SCRIPT"
-    echo "################"
     echo
     echo "Description: Manage Odoo users."
     echo "Syntax: $SCRIPT [-d|-c|-a[enable,disable,list]|-i|help]"

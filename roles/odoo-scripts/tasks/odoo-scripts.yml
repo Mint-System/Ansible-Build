@@ -8,3 +8,4 @@
     - odoo-restore
     - docker-odoo-install
     - docker-odoo-user
+    - docker-odoo-list

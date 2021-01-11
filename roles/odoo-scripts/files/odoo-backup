@@ -13,7 +13,6 @@ SCRIPT=$(basename "$0")
 Help() {
   echo
   echo "$SCRIPT"
-  echo "###########"
   echo
   echo "Description: Backup odoo database."
   echo "Syntax: $SCRIPT [-p|-d|-o|-h|help]"
