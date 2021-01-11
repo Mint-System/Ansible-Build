@@ -13,7 +13,6 @@ SCRIPT=$(basename "$0")
 Help() {
     echo
     echo "$SCRIPT"
-    echo "###################"
     echo
     echo "Description: Install Odoo database in Docker container."
     echo "Syntax: $SCRIPT [-d|-m|-c|help]"

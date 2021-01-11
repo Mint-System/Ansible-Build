@@ -35,7 +35,6 @@ Collection of Ansible playbooks and roles.
 * [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
 * [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
 * [update](roles/update/README.md) - Install system and package updates
-* [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
 * [package](roles/package/README.md) - Set env vars and install packages
 * [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps
 * [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set
@@ -50,6 +49,7 @@ Collection of Ansible playbooks and roles.
 
 WIP:
 
+* [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
 * [coturn](role/coturn/README.md) - Deploy Coturn container
 * [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
 
@@ -107,7 +107,7 @@ Deploy multiple inventories
 
 `ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy odoo.yml`
 
-Deploy odoo stack
+Deploy Odoo stack
 
 `ansible-playbook -i inventories/odoo odoo.yml`
 
@@ -127,7 +127,7 @@ Deploy role to specific group with non-default user
 
 `ansible-playbook -i inventories/odoo docker.yml -t docker -l europe -u username`
 
-Clean odoo stack
+Clean Odoo stack
 
 `ansible-playbook -i inventories/odoo clean.yml -t odoo,odoo-volume,odoo-data-dir,postgres,postgres-volume`
 
@@ -142,6 +142,10 @@ Clean dry run
 Install odoo-scripts and odoo-apps locally
 
 `ansible-playbook -i inventories/odoo localhost.yml --skip-tags depends`
+
+List all Odoo databses.
+
+`ansible all -i inventories/odoo -a "docker-odoo-list -c {{ odoo_hostname }}"`
 
 ## Docs
 
