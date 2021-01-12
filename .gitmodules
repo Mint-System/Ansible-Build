@@ -1,3 +1,0 @@
-[submodule "inventories"]
-	path = inventories
-	url = git@gitlab.com:mint-system/ansible-inventories.git

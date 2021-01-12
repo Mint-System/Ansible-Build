@@ -1,74 +1,74 @@
+# https://docs.bigbluebutton.org/2.2/install.html#configure-freeswitch-for-using-ssl
+
+# - name: Update http for https on nginx
+#   replace:
+#     path: /etc/bigbluebutton/nginx/sip.nginx
+#     regexp: 'http:'
+#     replace: 'https:'
+
+# - name: Update SIP port on nginx
+#   replace:
+#     path: /etc/bigbluebutton/nginx/sip.nginx
+#     regexp: '5066'
+#     replace: '7443'
+
+- name: Apply freeswitch workaround
+  script: "apply-freeswitch-workaround {{ bigbluebutton_external_ip }}"
+  changed_when: false
+
 # http://docs.bigbluebutton.org/2.2/install.html#configure-bigbluebutton-to-load-session-via-https
-
-- name: Update http for https on nginx
-  replace:
-    path: /opt/freeswitch/conf/sip_profiles/external.xml
-    regexp: '<param name="ws-binding" value=":5066"/>'
-    replace: '<param name="wss-binding" value="{{ bigbluebutton_external_ip }}:7443"/>'
-    backup: true
-
-- name: Update http for https on nginx
-  replace:
-    path: /etc/bigbluebutton/nginx/sip.nginx
-    regexp: 'http:'
-    replace: 'https:'
-    backup: true
-
-- name: Update SIP port on nginx
-  replace:
-    path: /etc/bigbluebutton/nginx/sip.nginx
-    regexp: '5066'
-    replace: '7443'
-    backup: true
 
 - name: Update http for https on BigBlueButton webapp
   replace:
     path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
     regexp: 'bigbluebutton.web.serverURL=http:'
     replace: 'bigbluebutton.web.serverURL=https:'
-    backup: true
 
 - name: Update http for https on red5
   replace:
     path: /usr/share/red5/webapps/screenshare/WEB-INF/screenshare.properties
     regexp: 'jnlpUrl=http:'
     replace: 'jnlpUrl=https:'
-    backup: true
 
 - name: Update http for https on red5
   replace:
     path: /usr/share/red5/webapps/screenshare/WEB-INF/screenshare.properties
     regexp: 'jnlpFile=http:'
     replace: 'jnlpFile=https:'
-    backup: true
-
-- name: Update ws for wss on kurento media server
-  replace:
-    path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
-    regexp: 'ws://'
-    replace: 'wss://'
-    backup: true
-
-- name: Update http for https on kurento media server
-  replace:
-    path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
-    regexp: 'http://'
-    replace: 'https://'
-    backup: true
 
 - name: Update http for https on BigBlueButton client config
   replace:
     path: /var/www/bigbluebutton/client/conf/config.xml
     regexp: 'http://'
     replace: 'https://'
-    backup: true
+
+- name: Update ws for wss on kurento media server
+  replace:
+    path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
+    regexp: 'ws://'
+    replace: 'wss://'
+
+- name: Update http for https on kurento media server
+  replace:
+    path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
+    regexp: 'http://'
+    replace: 'https://'
 
 - name: Update http for https on BigBlueButton client config
   replace:
     path: /usr/local/bigbluebutton/core/scripts/bigbluebutton.yml
     regexp: 'playback_protocol: http$'
     replace: 'playback_protocol: https'
-    backup: true
+
+# https://github.com/bigbluebutton/bigbluebutton-api-php/issues/64
+
+- name: Update http for https on BigBlueButton webapp
+  replace:
+    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
+    regexp: 'allowRequestsWithoutSession=false'
+    replace: 'allowRequestsWithoutSession=true'
+
+# https://docs.bigbluebutton.org/2.2/install.html#using-lets-encrypt
 
 - name: Copy bigbluebutton nginx conf
   template:
