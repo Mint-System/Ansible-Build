@@ -1,10 +1,11 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Exit script if command fails
 # -u stops the script on unset variables
 # -e stops the script on errors
 # -o pipefail stops the script if a pipe fails
-set -eo pipefail
+set -e
+
 
 # Get script name
 SCRIPT=$(basename "$0")
@@ -84,11 +85,11 @@ echo "Requesting restore for Odoo database $DATABASE ..."
 
 # Request restore with curl
 CURL=$(curl \
-  -F "master_pwd=${PASSWORD}" \
-  -F "name=${DATABASE}" \
+  -F "master_pwd=$PASSWORD" \
+  -F "name=$DATABASE" \
   -F backup_file=@$FILE \
   -F 'copy=true' \
-  ${ODOO_HOST}/web/database/restore)
+  "$ODOO_HOST/web/database/restore")
   
 (echo $CURL | grep -q 'Redirecting...') || (echo "The restore failed:"; echo $CURL | grep error; exit 1)
 

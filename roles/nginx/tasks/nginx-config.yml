@@ -29,11 +29,11 @@
     server_names: "{{ item.server_names | default(false) }}"
     redirect: "{{ item.redirect | default(true) }}"
   loop: "{{ nginx_proxies }}"
-  when: "item.src_hostname in certbot_active_certs"
+  #when: "item.src_hostname in certbot_active_certs"
   notify: Restart nginx container
 
 - name: "Register {{ role_name }} conf files" # noqa 306
-  shell: "ls -1 {{ nginx_data_dir }}/proxies/*.conf | xargs -n 1 basename"
+  shell: "find {{ nginx_data_dir }}/proxies/ -type f -name '*.conf' -printf '%f\n'"
   changed_when: no
   register: nginx_proxy_conf_files
 
