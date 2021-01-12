@@ -44,11 +44,15 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
 
+# https://docs.bigbluebutton.org/greenlight/gl-install.html#4-configure-nginx-to-route-to-greenlight
+
 - name: Copy greenlight nginx conf
   copy:
     src: greenlight.nginx
     dest: /etc/bigbluebutton/nginx/greenlight.nginx
   notify: Restart BigBlueButton services
+
+# https://docs.bigbluebutton.org/greenlight/gl-admin.html#creating-an-administrator-account
 
 - name: Create greenlight admin user
   command: docker exec "{{ greenlight_hostname }}" \
