@@ -20,7 +20,6 @@ Collection of Ansible playbooks and roles.
 * [mysql](roles/mysql/README.md) - Deploy MySQL database container
 * [bookstack](roles/bookstack/README.md) - Deploy BookStack container
 * [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container
-* [colabora-code](roles/colabora-code/README.md) - Deploy Nextcloud container
 * [moodle](roles/moodle/README.md) - Deploy Moodle container
 * [iam](roles/iam/README.md) - Configures users and groups
 * [restic-client](roles/restic-client/README.md) - Configure Restic client backup jobs
@@ -30,7 +29,7 @@ Collection of Ansible playbooks and roles.
 * [logstash](roles/logstash/README.md) - Deploy Logstash Docker container
 * [metricbeat](roles/metricbeat/README.md) - Deploy Metricbeat Docker container
 * [cadvisor](roles/cadvisor/README.md) - Deploy cAdvisor Docker container
-* [node-exporter](roles/node-exporter/README.md) - Deploy node-exporter container and install custom metric script
+* [node-exporter](roles/node-exporter/README.md) - Deploy Node exporter container and install custom metric script
 * [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container
 * [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
 * [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
@@ -44,12 +43,13 @@ Collection of Ansible playbooks and roles.
 * [remark42](role/remark42/README.md) - Deploy Remark42 container
 * [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
 * [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
-* [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy nextcloud-exporter container
+* [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy Nextcloud exporter container
 * [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
+* [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
+* [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md) - Deploy BigBlueButton exporter container
 
 WIP:
 
-* [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
 * [coturn](role/coturn/README.md) - Deploy Coturn container
 * [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
 
