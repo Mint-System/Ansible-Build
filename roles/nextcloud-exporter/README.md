@@ -1,6 +1,6 @@
-# Ansible Nextcloud Exporter role
+# Ansible Nextcloud exporter role
 
-Deploy nextcloud-exporter container.
+Deploy Nextcloud exporter container.
 
 ## Usage
 

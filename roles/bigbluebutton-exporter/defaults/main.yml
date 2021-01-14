@@ -1,0 +1,3 @@
+bigbluebutton_exporter_requires_package: python3-passlib
+bigbluebutton_exporter_description: BigBlueButton exporter
+bigbluebutton_exporter_proxy_basic_auth_username: bigbluebutton-exporter
