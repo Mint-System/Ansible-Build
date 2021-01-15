@@ -64,7 +64,7 @@ FILENAME=$(basename -- "$FILE")
 : ${DATABASE:="${FILENAME%%.*}"}
 
 # Verify variables
-[[ "$ODOO_HOST" =~ "^http" ]]  || { echo "Parameter -h|host must start with 'http/s'" ; exit 1; }
+[[ "$ODOO_HOST" == http* ]]  || { echo "Parameter -h|host must start with 'http/s'" ; exit 1; }
 [[ "${FILENAME##*.}" != "zip" ]] && { echo "Parameter -f|filename must end with '.zip'" ; exit 1; }
 
 # Validate zip file
