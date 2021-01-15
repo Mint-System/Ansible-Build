@@ -1,19 +1,19 @@
-- name: "Include {{ role_name }} ubuntu tasks"
-  include_tasks: "{{ role_name }}-ubuntu.yml"
-  when: update and ansible_distribution == 'Ubuntu'
+- name: "Include {{ role_name }} apt tasks"
+  include_tasks: "{{ role_name }}-apt.yml"
+  when: update and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian')
   tags:
     - update
     - never
 
-- name: "Include {{ role_name }} centos tasks"
-  include_tasks: "{{ role_name }}-centos.yml"
+- name: "Include {{ role_name }} yum tasks"
+  include_tasks: "{{ role_name }}-yum.yml"
   when: update and ansible_distribution == 'CentOS'
   tags:
     - update
      - never
 
-- name: "Include {{ role_name }} sles tasks"
-  include_tasks: "{{ role_name }}-sles.yml"
+- name: "Include {{ role_name }} zypper tasks"
+  include_tasks: "{{ role_name }}-zypper.yml"
   when: update and ansible_distribution == 'SLES'
   tags:
     - update
