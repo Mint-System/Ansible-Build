@@ -1,0 +1,64 @@
+- name: "Remove greenlight container {{ greenlight_hostname }}"
+  docker_container:
+    name: "{{ greenlight_hostname }}"
+    state: absent
+
+- name: "Register bigbluebutton packages" # noqa 306
+  shell: "dpkg -l | grep bbb | cut -d' ' -f3"
+  changed_when: no
+  register: bbb_packages
+
+- name: Uninstall bigbluebutton
+  apt:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ bbb_packages.stdout_lines }}"
+
+- name: Uninstall bigbluebutton dependencies
+  apt:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - nginx
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes
+
+- name: "Remove bigbluebutton files and folders"
+  file:
+    path: "{{ item }}"
+    state: "absent"
+  loop:
+    - /etc/bigbluebutton/ # bigbluebutton
+    - /usr/local/bigbluebutton
+    - /usr/share/bbb-web
+    - /etc/red5/ # red5
+    - /var/lib/red5/
+    - /var/log/red5
+    - /var/cache/red5/
+    - /usr/share/red5/
+    - /etc/nginx # nginx
+    - /var/lib/nginx/
+    - /var/log/nginx/
+    - /var/www/
+    - /etc/rc0.d/K01nginx
+    - /etc/rc1.d/K01nginx
+    - /etc/rc2.d/S02nginx
+    - /etc/rc3.d/S02nginx
+    - /etc/rc4.d/S02nginx
+    - /etc/rc5.d/S02nginx
+    - /etc/rc6.d/K01nginx
+    - /etc/letsencrypt # letsencrypt
+    - /opt/freeswitch # freeswitch
+    - /usr/share/meteor # meteor
+
+- name: Remove cron job to renew letsencrypt certficiates
+  cron:
+    name: "Renew letsencrypt certificates"
+    state: "absent"
+
+- name: Remove cron job to restart nginx
+  cron:
+    name: "Restart nginx"
+    state: "absent"

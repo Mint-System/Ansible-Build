@@ -54,6 +54,10 @@
 
 # https://docs.bigbluebutton.org/greenlight/gl-admin.html#creating-an-administrator-account
 
+- name: Wait for greenlight container
+  pause:
+    seconds: "5"
+
 - name: Create greenlight admin user
   command: docker exec "{{ greenlight_hostname }}" \
     bundle exec rake user:create["admin","{{ greenlight_admin_email }}","{{ greenlight_admin_password }}","admin"]

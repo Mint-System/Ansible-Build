@@ -99,7 +99,6 @@
       - bbb-html5
       - mongodb-org
       - nodejs
-      - dnsutils
     state: present
 
 # https://docs.bigbluebutton.org/2.2/customize.html#make-the-html5-client-default

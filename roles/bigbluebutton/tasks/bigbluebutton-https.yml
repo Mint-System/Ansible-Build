@@ -1,16 +1,16 @@
 # https://docs.bigbluebutton.org/2.2/install.html#configure-freeswitch-for-using-ssl
 
-# - name: Update http for https on nginx
-#   replace:
-#     path: /etc/bigbluebutton/nginx/sip.nginx
-#     regexp: 'http:'
-#     replace: 'https:'
+- name: Update http for https on nginx
+  replace:
+    path: /etc/bigbluebutton/nginx/sip.nginx
+    regexp: 'http:'
+    replace: 'https:'
 
-# - name: Update SIP port on nginx
-#   replace:
-#     path: /etc/bigbluebutton/nginx/sip.nginx
-#     regexp: '5066'
-#     replace: '7443'
+- name: Update SIP port on nginx
+  replace:
+    path: /etc/bigbluebutton/nginx/sip.nginx
+    regexp: '5066'
+    replace: '7443'
 
 - name: Apply freeswitch workaround
   script: "apply-freeswitch-workaround {{ bigbluebutton_external_ip }}"
