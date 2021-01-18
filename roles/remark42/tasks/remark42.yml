@@ -13,7 +13,7 @@
       description: "{{ remark42_description }}"
     image: "{{ remark42_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: yes
     env:
       REMARK_URL: "{{ remark42_url }}"
       SECRET: "{{ remark42_secret }}"
@@ -35,7 +35,8 @@
       NOTIFY_EMAIL_FROM: "{{ remark42_notify_email_from }}"
       NOTIFY_EMAIL_ADMIN: "true"
       BACKUP_PATH: "/srv/var/backup"
-      DEBUG: "true"
+      AUTH_SAME_SITE: none
+      # DEBUG: "true"
     volumes:
       - "{{ remark42_volume_name }}:/srv/var"
     networks:
