@@ -7,3 +7,8 @@
   register: bigbluebutton_status
   failed_when: bigbluebutton_status.rc != 0
   changed_when: false
+
+- name: Restart Nginx service
+  service:
+    name: nginx
+    state: restarted

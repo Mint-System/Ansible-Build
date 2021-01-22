@@ -1,4 +1,5 @@
 # https://docs.bigbluebutton.org/2.2/setup-turn-server.html#configure-bigbluebutton-to-use-the-coturn-server
+# https://github.com/bigbluebutton/bbb-install/blob/master/bbb-install.sh#L1029
 
 - name: Copy bigbluebutton turn stun servers conf
   template:
