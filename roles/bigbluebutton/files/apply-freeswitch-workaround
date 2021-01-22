@@ -9,3 +9,5 @@ TARGET=/usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml
 
 xmlstarlet edit --inplace --update '//param[@name="ws-binding"]/@value' --value "$IP:5066" /opt/freeswitch/conf/sip_profiles/external.xml
 yq w -i $TARGET freeswitch.sip_ip "$IP"
+
+xmlstarlet edit --inplace --update '//X-PRE-PROCESS[@cmd="set" and starts-with(@data, "external_rtp_ip=")]/@data' --value "external_rtp_ip=$IP" /opt/freeswitch/conf/vars.xml

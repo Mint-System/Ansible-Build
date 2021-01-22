@@ -11,8 +11,7 @@ Configure the role.
 ```yml
 bigbluebutton_apt_repo_url: https://ubuntu.bigbluebutton.org/xenial-220/
 bigbluebutton_hostname: bbb.example.com
-bigbluebutton_api_url: http://bbb.example.com/bigbluebutton/
-bigbluebutton_external_ip: 116.203.41.151
+bigbluebutton_api_url: https://bbb.example.com/bigbluebutton/
 bigbluebutton_certbot_email: info@example.com
 bigbluebutton_coturn_domain: turn.example.com
 
