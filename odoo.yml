@@ -4,7 +4,9 @@
   - role: odoo
     tags: odoo
   - role: odoo-apps
-    tags: odoo-apps
+    tags: 
+      - odoo-apps
+      - odoo-patches
   - role: odoo-scripts
     tags: odoo-scripts
   - role: odoo-enterprise
