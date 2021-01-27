@@ -21,6 +21,9 @@ odoo_apps:
     file: theme_treehouse-14.0.2.0.0.zip
     depends:
       - theme_common
+odoo_patches:
+  - name: odoo14_delivery_patch
+    host: odoo01
 ```
 
 And include it in your playbook.
@@ -30,3 +33,8 @@ And include it in your playbook.
   roles:
   - role: odoo-apps
 ```
+
+The following tags are available:
+
+* odoo-apps
+* odoo-patches

@@ -3,3 +3,9 @@
   when: odoo_apps is defined
   tags:
     - odoo-apps
+
+- name: "Include odoo patch tasks"
+  include_tasks: odoo-patch.yml
+  when: odoo_patches is defined
+  tags:
+    - odoo-patches
