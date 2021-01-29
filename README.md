@@ -50,6 +50,7 @@ Collection of Ansible playbooks and roles.
 
 WIP:
 
+* [vercel](role/vercel/README.md) - Manage vercel domains and dns entries
 * [coturn](role/coturn/README.md) - Deploy Coturn container
 * [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
 

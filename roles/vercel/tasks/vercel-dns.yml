@@ -1,0 +1,77 @@
+- name: Get all vercel domains
+  uri:
+    url: "{{ vercel_api_url }}/v4/domains?teamId={{ vercel_team_id }}"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ vercel_token }}"
+    return_content: yes
+  register: vercel_domains
+
+- set_fact:
+    domains_exist: "{{ vercel_domains.json | json_query('domains[*].name') }}"
+
+- name: Fail if domain is not managed by vercel
+  fail:
+    msg: Domain is not managed by vercel
+  when: item.domain not in domains_exist
+  loop: "{{ vercel_dns }}"
+
+- name: Get all vercel dns records
+  uri:
+    url: "{{ vercel_api_url }}/v4/domains/{{ item }}/records?teamId={{ vercel_team_id }}"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ vercel_token }}"
+    return_content: yes
+  loop: "{{ domains_exist }}"
+  register: vercel_dns_records
+
+- set_fact:
+    record: "{{ item.1.name }}.{{ item.0.item }}-{{ item.1.type }}"
+  with_subelements:
+    - "{{ vercel_dns_records.results }}"
+    - json.records
+  register: vercel_dns_simple
+
+- name: Make a simple list
+  set_fact: 
+    vercel_dns_simple: "{{ vercel_dns_simple.results | map(attribute='ansible_facts.record') | list }}"
+
+- name: Ensure DNS entry exists
+  uri:
+    url: "{{ vercel_api_url }}/v2/domains/{{ item.0.domain }}/records?teamId={{ vercel_team_id }}"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ vercel_token }}"
+    body: "{{ item.1 | to_json }}" #'{ "name": "{{ item.1.name }}", "type": "{{ item.1.type }}", "value": "{{ item.1.value }}" }'
+  with_subelements:
+    - "{{ vercel_dns }}"
+    - records
+  when: ((item.1.name + "." + item.0.domain + "-" + item.1.type) not in vercel_dns_simple) and (item.1.state == 'present')
+  register: response
+
+- set_fact:
+    record: "{{ item.1.name }}.{{ item.0.domain }}-{{ item.1.type }}"
+  with_subelements:
+    - "{{ vercel_dns }}"
+    - records
+  when: item.1.state == 'absent'
+  register: vercel_dns_absent
+
+- name: Make a simple list
+  set_fact: 
+    vercel_dns_absent: "{{ vercel_dns_absent.results | selectattr('ansible_facts.record','defined') | map(attribute='ansible_facts.record') | list }}"
+
+- name: Ensure DNS entries to be removed
+  uri:
+    url: "{{ vercel_api_url }}/v2/domains/{{ item.0.item }}/records/{{ item.1.id }}?teamId={{ vercel_team_id }}"
+    method: DELETE
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{ vercel_token }}"
+  with_subelements:
+    - "{{ vercel_dns_records.results }}"
+    - json.records
+  when: (item.1.name + "." + item.0.item + "-" + item.1.type) in vercel_dns_absent
+  register: response

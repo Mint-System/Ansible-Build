@@ -1,0 +1,5 @@
+- name: "Include {{ role_name }} dns tasks"
+  include_tasks: "{{ role_name }}-dns.yml"
+  when: vercel_token is defined
+  tags:
+    - vercel
