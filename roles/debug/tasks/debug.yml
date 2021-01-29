@@ -102,3 +102,7 @@
 # - name: Debug bookstack_hostname
 #   debug:
 #     var: bookstack_hostname
+
+# - name: debug
+#   debug:
+#     msg: "{{ vercel_domains.json | json_query('domains[*].{name: name, id: id}') }}"
