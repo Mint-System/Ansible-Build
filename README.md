@@ -47,10 +47,10 @@ Collection of Ansible playbooks and roles.
 * [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
 * [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
 * [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md) - Deploy BigBlueButton exporter container
+* [vercel](role/vercel/README.md) - Manage vercel domain and dns entries
 
 WIP:
 
-* [vercel](role/vercel/README.md) - Manage vercel domains and dns entries
 * [coturn](role/coturn/README.md) - Deploy Coturn container
 * [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
 
