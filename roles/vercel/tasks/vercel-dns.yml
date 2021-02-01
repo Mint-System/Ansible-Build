@@ -44,12 +44,13 @@
     headers:
       Content-Type: "application/json"
       Authorization: "Bearer {{ vercel_token }}"
-    body: "{{ item.1 | to_json }}" #'{ "name": "{{ item.1.name }}", "type": "{{ item.1.type }}", "value": "{{ item.1.value }}" }'
+    body: "{{ item.1 | to_json }}"
   with_subelements:
     - "{{ vercel_dns }}"
     - records
   when: ((item.1.name + "." + item.0.domain + "-" + item.1.type) not in vercel_dns_simple) and (item.1.state == 'present')
   register: response
+  changed_when: response.status == 200
 
 - set_fact:
     record: "{{ item.1.name }}.{{ item.0.domain }}-{{ item.1.type }}"
@@ -75,3 +76,4 @@
     - json.records
   when: (item.1.name + "." + item.0.item + "-" + item.1.type) in vercel_dns_absent
   register: response
+  changed_when: response.status == 200
