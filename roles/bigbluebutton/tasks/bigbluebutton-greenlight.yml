@@ -55,7 +55,7 @@
 
 # https://docs.bigbluebutton.org/greenlight/gl-admin.html#creating-an-administrator-account
 
-- name: Wait for greenlight container
+- name: Wait for greenlight container # noqa 503
   pause:
     seconds: "5"
   when: start_greenlight_contaner.changed
