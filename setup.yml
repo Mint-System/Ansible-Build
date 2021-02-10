@@ -17,3 +17,5 @@
     tags: restic-server
   - role: restic-client
     tags: restic-client
+  - role: vercel
+    tags: vercel

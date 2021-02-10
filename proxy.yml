@@ -5,5 +5,3 @@
     tags: nginx
   - role: nginx-waf
     tags: nginx-waf
-  - role: vercel
-    tags: vercel
