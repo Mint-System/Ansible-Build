@@ -36,7 +36,7 @@
   register: vercel_dns_simple
 
 - name: Make a simple list
-  set_fact: 
+  set_fact:
     vercel_dns_simple: "{{ vercel_dns_simple.results | map(attribute='ansible_facts.record') | list }}"
 
 - name: Ensure DNS entry exists
@@ -64,7 +64,7 @@
   register: vercel_dns_absent
 
 - name: Make a simple list
-  set_fact: 
+  set_fact:
     vercel_dns_absent: "{{ vercel_dns_absent.results | selectattr('ansible_facts.record','defined') | map(attribute='ansible_facts.record') | list }}"
 
 - name: Ensure DNS entries to be removed
