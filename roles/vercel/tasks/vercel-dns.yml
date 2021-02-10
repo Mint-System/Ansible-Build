@@ -7,7 +7,8 @@
     return_content: yes
   register: vercel_domains
 
-- set_fact:
+- name: Set domains exist fact
+  set_fact:
     domains_exist: "{{ vercel_domains.json | json_query('domains[*].name') }}"
 
 - name: Fail if domain is not managed by vercel
@@ -26,7 +27,8 @@
   loop: "{{ domains_exist }}"
   register: vercel_dns_records
 
-- set_fact:
+- name: Set vercel dns simple fact
+  set_fact:
     record: "{{ item.1.name }}.{{ item.0.item }}-{{ item.1.type }}"
   with_subelements:
     - "{{ vercel_dns_records.results }}"
@@ -52,7 +54,8 @@
   register: response
   changed_when: response.status == 200
 
-- set_fact:
+- name: Set vercel dns absent fact
+  set_fact:
     record: "{{ item.1.name }}.{{ item.0.domain }}-{{ item.1.type }}"
   with_subelements:
     - "{{ vercel_dns }}"
