@@ -18,6 +18,11 @@ echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
 
+SCRIPT="odoo-user"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
+
 SCRIPT="odoo-backup"
 echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
