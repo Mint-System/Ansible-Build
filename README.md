@@ -48,6 +48,7 @@ Collection of Ansible playbooks and roles.
 * [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
 * [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md) - Deploy BigBlueButton exporter container
 * [vercel](role/vercel/README.md) - Manage vercel domain and dns entries
+* [locale](role/locale/README.md) - Set system locale
 
 WIP:
 

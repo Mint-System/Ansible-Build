@@ -1,6 +1,8 @@
 - hosts: all
   become: true
   roles:
+  - role: locale
+    tags: locale
   - role: package
     tags: package
   - role: iam
@@ -17,5 +19,3 @@
     tags: restic-server
   - role: restic-client
     tags: restic-client
-  - role: vercel
-    tags: vercel

@@ -89,10 +89,9 @@ curl -X POST \
   "$ODOO_HOST/web/database/backup"
 
 # Grep error if is html response
-if [[ $(file --mime-type -b "$FILEPATH") == 'text/html' ]]; then
+FILETYPE=$(file --mime-type -b "$FILEPATH")
+if [[ "$FILETYPE" == 'text/html' ]]; then
   grep error "$FILEPATH"
-else
-  exit 1
 fi
 
 # Validate zip file
