@@ -29,3 +29,5 @@
     tags: commento
   - role: remark42
     tags: remark42
+  - role: vercel
+    tags: vercel
