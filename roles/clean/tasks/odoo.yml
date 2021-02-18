@@ -3,13 +3,13 @@
     name: "{{ odoo_hostname }}"
     state: absent
 
-- name: Remove odoo volume
+- name: "Remove odoo volume {{ odoo_volume_name }}"
   docker_volume:
     name: "{{ odoo_volume_name }}"
     state: absent
   when: '"odoo-volume" in ansible_run_tags'
 
-- name: Remove odoo data dir
+- name: "Remove odoo data dir {{ odoo_data_dir }}"
   file:
     path: "{{ odoo_data_dir }}"
     state: absent
