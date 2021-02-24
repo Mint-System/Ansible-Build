@@ -77,7 +77,7 @@ if $REPLACE; then
     --silent \
     -F "master_pwd=${PASSWORD}" \
     -F "name=${DATABASE}" \
-    ${ODOO_HOST}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
+    ${ODOO_HOST%/}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
 fi
 
 # Start restore
@@ -89,7 +89,7 @@ CURL=$(curl \
   -F "name=$DATABASE" \
   -F backup_file=@$FILE \
   -F 'copy=true' \
-  "$ODOO_HOST/web/database/restore")
+  "${ODOO_HOST%/}/web/database/restore")
   
 (echo $CURL | grep -q 'Redirecting...') || (echo "The restore failed:"; echo $CURL | grep error; exit 1)
 
