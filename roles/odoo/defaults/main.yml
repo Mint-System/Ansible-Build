@@ -2,3 +2,4 @@ odoo_ports:
   - "127.0.0.1:8069:8069"
 odoo_description: Odoo
 odoo_timezone: Europe/Berlin
+odoo_data_dir: "/usr/share/{{ odoo_hostname }}"

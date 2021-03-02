@@ -11,7 +11,8 @@ Configure the role.
 ```yml
 bookstack_image: solidnerd/bookstack:0.27.5
 bookstack_hostname: book01
-bookstack_data_dir: /usr/share/bookstack01
+bookstack_description: Wiki # default: BookStack
+bookstack_data_dir: /usr/share/book # default: "/usr/share/{{ bookstack_hostname }}"
 bookstack_app_url: "https://wiki.example.com"
 bookstack_db_hostname: mysql01
 bookstack_db_user: bookstack

@@ -11,7 +11,8 @@ Configure the role.
 ```yml
 metricbeat_image: docker.elastic.co/beats/metricbeat:7.6.1
 metricbeat_hostname: metric01
-metricbeat_data_dir: /usr/share/metric01
+metricbeat_description: host metrics # default: Metricbeat
+metricbeat_data_dir: /usr/share/metric # default: "/usr/share/{{ metricbeat_hostname }}"
 metricbeat_setup: true
 metricbeat_kibana_host: kibana01
 metricbeat_kibana_username: kibana

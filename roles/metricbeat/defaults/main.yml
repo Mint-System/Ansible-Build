@@ -1,1 +1,2 @@
 metricbeat_description: Metricbeat
+metricbeat_data_dir: "/usr/share/{{ metricbeat_hostname }}"

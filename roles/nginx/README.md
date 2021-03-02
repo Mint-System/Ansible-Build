@@ -11,7 +11,7 @@ Configure the role.
 ```yml
 nginx_image: nginx:1.19.2-alpine
 nginx_hostname: proxy01
-nginx_data_dir: /usr/share/nginx01
+nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"
 nginx_https_port: 8080 # default: 80
 nginx_https_port: 8443 # default: 443
 nginx_proxies:
