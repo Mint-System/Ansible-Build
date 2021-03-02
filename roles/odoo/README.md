@@ -14,7 +14,7 @@ odoo_hostname: odoo01
 odoo_description: Odoo13:erp.example.com # default: Odoo
 odoo_ports:
  - "8069:8069" # default: "127.0.0.1:8069:8069"
-odoo_data_dir: /usr/share/odoo01
+odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_volume_name: odoo_data01
 odoo_timezone: Europe/Paris # default: Europe/Berlin
 odoo_postgres_hostname: postgres01

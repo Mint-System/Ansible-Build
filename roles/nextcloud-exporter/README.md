@@ -13,7 +13,7 @@ Configure the role.
 nextcloud_exporter_image: xperimental/nextcloud-exporter:latest
 nextcloud_exporter_hostname: nexport01
 nextcloud_exporter_description: Host metric for server1 # default: Nextcloud Exporter
-nextcloud_exporter_nginx_data_dir: /usr/share/nginx01/proxies
+nextcloud_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "/usr/share/{{ nginx_hostname }}/proxies"
 nextcloud_exporter_requires_package: python2-passlib # default: python3-passlib
 nextcloud_exporter_proxy_basic_auth_username: exporter # default: nextcloud-exporter
 nextcloud_exporter_proxy_basic_auth_password: "{{ vault_node_exporter_proxy_basic_auth_password }}"

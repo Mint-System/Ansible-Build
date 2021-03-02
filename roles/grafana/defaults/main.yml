@@ -1,1 +1,2 @@
 grafana_description: Grafana
+grafana_data_dir: "/usr/share/{{ grafana_hostname }}"

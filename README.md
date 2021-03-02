@@ -52,6 +52,7 @@ Collection of Ansible playbooks and roles.
 
 WIP:
 
+* [synapse](role/synapse/README.md) - Deploy Matrix Synapse container
 * [coturn](role/coturn/README.md) - Deploy Coturn container
 * [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
 

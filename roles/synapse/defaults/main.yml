@@ -1,0 +1,2 @@
+synapse_description: Synapse
+synapse_data_dir: "/usr/share/{{ synapse_hostname }}"

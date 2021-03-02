@@ -1,2 +1,3 @@
 odoo_apps_tmp_dir: /var/tmp
 odoo_apps_remove_unmanaged_folders: true
+odoo_data_dir: "/usr/share/{{ odoo_hostname }}"
