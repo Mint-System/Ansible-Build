@@ -17,10 +17,9 @@
       description: "{{ postgres_exporter_description }}"
     image: "{{ postgres_exporter_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: yes
     env:
-      DATA_SOURCE_NAME: >
-        "postgresql://{{ postgres_exporter_username }}:{{ postgres_exporter_password }}
+      DATA_SOURCE_NAME: "postgresql://{{ postgres_exporter_username }}:{{ postgres_exporter_password }}\
         @{{ postgres_exporter_server }}:5432/postgres?sslmode=disable"
       PG_EXPORTER_DISABLE_DEFAULT_METRICS: "true"
       PG_EXPORTER_EXTEND_QUERY_PATH: "/data/queries.yml"
