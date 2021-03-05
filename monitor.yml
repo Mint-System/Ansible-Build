@@ -9,3 +9,5 @@
     tags: bigbluebutton-exporter
   - role: grafana
     tags: grafana
+  - role: postgres-exporter
+    tags: postgres-exporter

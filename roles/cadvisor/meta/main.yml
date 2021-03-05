@@ -7,7 +7,3 @@ dependencies: # noqa 701
     tags:
       - docker-network
       - depends
-  - role: nginx
-    tags:
-      - nginx
-      - depends

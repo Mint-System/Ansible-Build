@@ -1,0 +1,24 @@
+- name: Ensure nginx data dir exists
+  file:
+    path: "{{ postgres_exporter_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: "Fail if package {{ postgres_exporter_requires_package }} is not installed"
+  fail:
+    msg: "Package {{ postgres_exporter_requires_package }} is not installed!"
+  when: postgres_exporter_requires_package not in ansible_facts.packages
+
+- name: "Configure user access for {{ role_name }}"
+  htpasswd:
+    path: "{{ postgres_exporter_nginx_data_dir }}/postgres-exporter.htpasswd"
+    name: "{{ postgres_exporter_proxy_basic_auth_username }}"
+    password: "{{ postgres_exporter_proxy_basic_auth_password }}"
+
+- name: "Copy nginx {{ role_name }} conf"
+  template:
+    src: templates/postgres-exporter.nginx
+    dest: "{{ postgres_exporter_nginx_data_dir }}/postgres-exporter.nginx"

@@ -6,55 +6,56 @@ Collection of Ansible playbooks and roles.
 
 ## Roles
 
-* [docker](roles/docker/README.md) - Install Docker for Ubuntu and CentOS
-* [docker-network](roles/docker-network/README.md) - Configure Docker network
-* [docker-volume](roles/docker-volume/README.md) - Configure Docker volume
-* [postgres](roles/postgres/README.md) - Deploy PostgreSQL database container
-* [openldap](roles/openldap/README.md) - Deploy OpenLDAP Docker container
-* [odoo](roles/odoo/README.md) - Deploy Odoo container
-* [odoo-scripts](roles/odoo-scripts/README.md) - Install Odoo scripts
-* [debug](roles/debug/README.md) - Debug Ansible variables
-* [certbot](roles/certbot/README.md) - Deploy Let's Encrypt certificates
-* [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Certbot
-* [clean](roles/clean/README.md) - Cleanup Ansible roles
-* [mysql](roles/mysql/README.md) - Deploy MySQL database container
-* [bookstack](roles/bookstack/README.md) - Deploy BookStack container
-* [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container
-* [moodle](roles/moodle/README.md) - Deploy Moodle container
-* [iam](roles/iam/README.md) - Configures users and groups
-* [restic-client](roles/restic-client/README.md) - Configure Restic client backup jobs
-* [restic-server](roles/restic-server/README.md) - Deploy Restic server container
-* [elasticsearch](roles/elasticsearch/README.md) - Deploy ElasticSearch Docker cluster
-* [kibana](roles/elasticsearch/README.md) - Deploy Kibana Docker container
-* [logstash](roles/logstash/README.md) - Deploy Logstash Docker container
-* [metricbeat](roles/metricbeat/README.md) - Deploy Metricbeat Docker container
-* [cadvisor](roles/cadvisor/README.md) - Deploy cAdvisor Docker container
-* [node-exporter](roles/node-exporter/README.md) - Deploy Node exporter container and install custom metric script
-* [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container
-* [grafana](roles/grafana/README.md) - Deploy Grafana Docker container
-* [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container
-* [update](roles/update/README.md) - Install system and package updates
-* [package](roles/package/README.md) - Set env vars and install packages
-* [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps
-* [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set
-* [maintenance](role/maintenance/README.md) - Maintain operating system and disk space
-* [commento](role/commento/README.md) - Deploy Commento container
-* [ufw](role/ufw/README.md) - Configure UFW rules
-* [remark42](role/remark42/README.md) - Deploy Remark42 container
-* [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository
-* [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container
-* [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy Nextcloud exporter container
-* [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container
-* [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight
-* [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md) - Deploy BigBlueButton exporter container
-* [vercel](role/vercel/README.md) - Manage vercel domain and dns entries
-* [locale](role/locale/README.md) - Set system locale
+* [docker](roles/docker/README.md) - Install Docker for Ubuntu and CentOS.
+* [docker-network](roles/docker-network/README.md) - Configure Docker network.
+* [docker-volume](roles/docker-volume/README.md) - Configure Docker volume.
+* [postgres](roles/postgres/README.md) - Deploy PostgreSQL database container.
+* [openldap](roles/openldap/README.md) - Deploy OpenLDAP Docker container.
+* [odoo](roles/odoo/README.md) - Deploy Odoo container.
+* [odoo-scripts](roles/odoo-scripts/README.md) - Install Odoo scripts.
+* [debug](roles/debug/README.md) - Debug Ansible variables.
+* [certbot](roles/certbot/README.md) - Deploy Let's Encrypt certificates.
+* [nginx](roles/nginx/README.md) - Deploy Nginx proxy with Certbot.
+* [clean](roles/clean/README.md) - Cleanup Ansible roles.
+* [mysql](roles/mysql/README.md) - Deploy MySQL database container.
+* [bookstack](roles/bookstack/README.md) - Deploy BookStack container.
+* [nextcloud](roles/nextcloud/README.md) - Deploy Nextcloud container.
+* [moodle](roles/moodle/README.md) - Deploy Moodle container.
+* [iam](roles/iam/README.md) - Configures users and groups.
+* [restic-client](roles/restic-client/README.md) - Configure Restic client backup jobs.
+* [restic-server](roles/restic-server/README.md) - Deploy Restic server container.
+* [elasticsearch](roles/elasticsearch/README.md) - Deploy ElasticSearch Docker cluster.
+* [kibana](roles/elasticsearch/README.md) - Deploy Kibana Docker container.
+* [logstash](roles/logstash/README.md) - Deploy Logstash Docker container.
+* [metricbeat](roles/metricbeat/README.md) - Deploy Metricbeat Docker container.
+* [cadvisor](roles/cadvisor/README.md) - Deploy cAdvisor Docker container.
+* [node-exporter](roles/node-exporter/README.md) - Deploy Node exporter container and install custom metric script.
+* [prometheus](roles/prometheus/README.md) - Deploy Prometheus Docker container.
+* [grafana](roles/grafana/README.md) - Deploy Grafana Docker container.
+* [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container.
+* [update](roles/update/README.md) - Install system and package updates.
+* [package](roles/package/README.md) - Set env vars and install packages.
+* [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps.
+* [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set.
+* [maintenance](role/maintenance/README.md) - Maintain operating system and disk space.
+* [commento](role/commento/README.md) - Deploy Commento container.
+* [ufw](role/ufw/README.md) - Configure UFW rules.
+* [remark42](role/remark42/README.md) - Deploy Remark42 container.
+* [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository.
+* [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container.
+* [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy Nextcloud exporter container.
+* [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container.
+* [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight.
+* [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md) - Deploy BigBlueButton exporter container.
+* [vercel](role/vercel/README.md) - Manage vercel domain and dns entries.
+* [locale](role/locale/README.md) - Set system locale.
+* [postgres-exporter](roles/postgres-exporter/README.md) - Deploy PostgreSQL exporter container.
 
 WIP:
 
-* [synapse](role/synapse/README.md) - Deploy Matrix Synapse container
-* [coturn](role/coturn/README.md) - Deploy Coturn container
-* [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container
+* [synapse](role/synapse/README.md) - Deploy Matrix Synapse container.
+* [coturn](role/coturn/README.md) - Deploy Coturn container.
+* [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container.
 
 ## Usage
 

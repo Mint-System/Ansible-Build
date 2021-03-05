@@ -6,7 +6,7 @@
 
 - name: "Include {{ role_name }} nginx config tasks"
   include_tasks: "{{ role_name }}-nginx-config.yml"
-  when: bigbluebutton_exporter_nginx_data_dir is defined
+  when: bigbluebutton_exporter_image is defined
   tags:
     - bigbluebutton-exporter
     - bigbluebutton-exporter-nginx-config

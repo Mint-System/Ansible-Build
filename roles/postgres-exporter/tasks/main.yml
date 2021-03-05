@@ -1,12 +1,12 @@
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
-  when: node_exporter_image is defined
+  when: postgres_exporter_image is defined
   tags:
-    - node-exporter
+    - postgres-exporter
 
 - name: "Include {{ role_name }} nginx config tasks"
   include_tasks: "{{ role_name }}-nginx-config.yml"
-  when: node_exporter_image is defined
+  when: postgres_exporter_image is defined
   tags:
-    - node-exporter
-    - node-exporter-nginx-config
+    - postgres-exporter
+    - postgres-exporter-nginx-config
