@@ -1,4 +1,4 @@
 nextcloud_exporter_requires_package: python3-passlib
 nextcloud_exporter_description: Nextcloud Exporter
-nextcloud_exporter_nginx_data_dir: "/usr/share/{{ nginx_hostname }}/proxies"
+nextcloud_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
 nextcloud_exporter_proxy_basic_auth_username: nextcloud-exporter

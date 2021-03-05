@@ -13,7 +13,7 @@ Configure the role.
 bigbluebutton_exporter_image: greenstatic/bigbluebutton-exporter:v0.6.0
 bigbluebutton_exporter_hostname: bbbexport01
 bigbluebutton_exporter_description: Host metric for server1 # default: BigBlueButton exporter
-bigbluebutton_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "/usr/share/{{ nginx_hostname }}/proxies"
+bigbluebutton_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 bigbluebutton_exporter_requires_package: python2-passlib # default: python3-passlib
 bigbluebutton_exporter_proxy_basic_auth_username: exporter # default: bigbluebutton-exporter
 bigbluebutton_exporter_proxy_basic_auth_password: "{{ vault_bigbluebutton_exporter_proxy_basic_auth_password }}"

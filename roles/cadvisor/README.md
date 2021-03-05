@@ -13,7 +13,7 @@ Configure the role.
 cadvisor_image: gcr.io/google-containers/cadvisor:v0.34.0
 cadvisor_hostname: cadvisor01
 cadvisor_description: docker monitoring for server1 # default: cAdvisor
-cadvisor_nginx_data_dir: /usr/share/nginx/proxies # default: "/usr/share/{{ nginx_hostname }}/proxies"
+cadvisor_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 node_exporter_requires_package: python2-passlib # default: python3-passlib
 cadvisor_proxy_basic_auth_username: exporter # default: cadvisor
 cadvisor_proxy_basic_auth_password: "{{ vault_cadvisor_proxy_basic_auth_password }}"
