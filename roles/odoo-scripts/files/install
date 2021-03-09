@@ -37,3 +37,8 @@ SCRIPT="docker-odoo-list"
 echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="parse-url"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
