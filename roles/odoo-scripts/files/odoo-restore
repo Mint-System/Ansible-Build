@@ -15,14 +15,14 @@ Help() {
   echo
   echo "$SCRIPT"
   echo
-  echo "Description: Restore odoo database."
+  echo "Description: Restore Odoo database."
   echo "Syntax: $SCRIPT [-p|-d|-f|-h|-r|help]"
   echo "Example: $SCRIPT -p secret -d odoo -f /tmp/odoo.zip -h https://odoo.example.org"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
   echo "  -d    Database name. Defaults to filename."
-  echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'"
-  echo "  -h    Odoo host. Defaults to 'http://localhost:8069'"
+  echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'."
+  echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
   echo "  -r    Replace existing database."  
   echo "  help  Show $SCRIPT manual."
   echo
@@ -40,19 +40,14 @@ REPLACE='false'
 # Process params
 while getopts ":r :p: :d: :f: :h:" opt; do
   case $opt in
-    r) REPLACE='true'
-    ;;
-    h) ODOO_HOST="$OPTARG"
-    ;;
-    p) PASSWORD="$OPTARG"
-    ;;
-    d) DATABASE="$OPTARG"
-    ;;
-    f) FILE="$OPTARG"
-    ;;
+    r) REPLACE='true';;
+    h) ODOO_HOST="$OPTARG";;
+    p) PASSWORD="$OPTARG";;
+    d) DATABASE="$OPTARG";;
+    f) FILE="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
-    ;;
+    exit;;
   esac
 done
 
@@ -84,13 +79,13 @@ fi
 echo "Requesting restore for Odoo database $DATABASE ..."
 
 # Request restore with curl
-CURL=$(curl \
+RESPONSE=$(curl \
   -F "master_pwd=$PASSWORD" \
   -F "name=$DATABASE" \
   -F backup_file=@$FILE \
   -F 'copy=true' \
   "${ODOO_HOST%/}/web/database/restore")
   
-(echo $CURL | grep -q 'Redirecting...') || (echo "The restore failed:"; echo $CURL | grep error; exit 1)
+echo "$RESPONSE" | grep 'error' && exit 1
 
 echo "The restore for Odoo database $DATABASE has finished."

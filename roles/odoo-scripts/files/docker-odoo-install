@@ -18,10 +18,9 @@ Help() {
     echo "Syntax: $SCRIPT [-d|-m|-c|help]"
     echo "Example: $SCRIPT -d erp -m hr_timesheet -c odoo01"
     echo "options:"
-    echo "  -d    Database name. Defaults to 'odoo'"
-    echo "  -m    List of odoo modules. Defaults to 'base,web,website'"
-    echo "  -c    Docker container. Defaults to 'odoo'"
-    #echo "  -x    Dev option. Defaults to 'all'"
+    echo "  -d    Database name. Defaults to 'odoo'."
+    echo "  -m    List of odoo modules. Defaults to 'base,web,website'."
+    echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -33,16 +32,11 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":d:m:c:x:" opt; do
+while getopts ":d:m:c:" opt; do
   case $opt in
-    m) MODULES="$OPTARG"
-    ;;
-    c) CONTAINER="$OPTARG"
-    ;;
-    d) DATABASE="$OPTARG"
-    ;;
-    #x) DEV="$OPTARG"
-    #;;
+    m) MODULES="$OPTARG";;
+    c) CONTAINER="$OPTARG";;
+    d) DATABASE="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
     exit;;
@@ -52,12 +46,10 @@ done
 # Fallback to environment vars and default values
 : ${DATABASE:='odoo'}
 : ${CONTAINER:='odoo'}
-#: ${DEV:='all'}
 
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
-#[[ -z "$DEV" ]] && { echo "Parameter -x|dev is empty" ; exit 1; }
 
 # Install with Docker exec
 if [ "$MODULES" != '' ]; then

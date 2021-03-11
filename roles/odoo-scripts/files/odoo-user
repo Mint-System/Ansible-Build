@@ -18,7 +18,7 @@ Help() {
     echo "Syntax: $SCRIPT [-d|-c|-a[enable,disable,list]|-i|help]"
     echo "Example: $SCRIPT -d erp-dev -a enable -id janikvonrot@mint-system.ch"
     echo "options:"
-    echo "  -d    Database name. Defaults to 'odoo'"
+    echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -a    Action to perform."
     echo "  -i    User account login id."
     echo "  help  Show $SCRIPT manual."
@@ -34,12 +34,9 @@ fi
 # Process params
 while getopts ":d:c:a:i:" opt; do
   case $opt in
-    d) PGDATABASE="$OPTARG"
-    ;;
-    a) ACTION="$OPTARG"
-    ;;
-    i) ID="$OPTARG"
-    ;;
+    d) PGDATABASE="$OPTARG";;
+    a) ACTION="$OPTARG";;
+    i) ID="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
     exit;;
