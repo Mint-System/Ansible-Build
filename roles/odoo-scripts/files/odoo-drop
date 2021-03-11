@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: Drop Odoo database."
+  echo "Syntax: $SCRIPT [-p|-d|-h|help]"
+  echo "Example: $SCRIPT -p secret -d odoo -h https://odoo.example.org"
+  echo "options:"
+  echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
+  echo "  -d    Database name."
+  echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
+  echo "  help  Show $SCRIPT manual."
+  echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":p: :d: :h:" opt; do
+  case $opt in
+    h) ODOO_HOST="$OPTARG";;
+    p) PASSWORD="$OPTARG";;
+    d) DATABASE="$OPTARG";;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${PASSWORD:=${ODOO_MASTER_PASSWORD:='admin'}}
+: ${ODOO_HOST:='http://localhost:8069'}
+
+# Verify variables
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+
+echo "Deleting Odoo database $DATABASE ..."
+
+# Request drop with curl
+RESPONSE=$(curl \
+  -F "master_pwd=${PASSWORD}" \
+  -F "name=${DATABASE}" \
+  "${ODOO_HOST%/}/web/database/drop")
+
+echo "$RESPONSE" | grep 'error' && exit 1
+
+echo "The deletion of Odoo database $DATABASE has finished."

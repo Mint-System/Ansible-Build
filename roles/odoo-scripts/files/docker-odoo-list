@@ -18,7 +18,7 @@ Help() {
     echo "Syntax: $SCRIPT [-c|help]"
     echo "Example: $SCRIPT -c odoo01"
     echo "options:"
-    echo "  -c    Docker container. Defaults to 'odoo'"
+    echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -32,8 +32,7 @@ fi
 # Process params
 while getopts ":c:" opt; do
   case $opt in
-    c) CONTAINER="$OPTARG"
-    ;;
+    c) CONTAINER="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
     exit;;
