@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: Write metric node_directory_size_bytes for Docker volumes."
+  echo "Syntax: $SCRIPT"
+  echo "Example: $SCRIPT"
+  echo "options:"
+  echo "  help  Show $SCRIPT manual."
+  echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+echo "Write metric node_directory_size_bytes for Docker volumes."
+
+cat << EOF >> /var/tmp/node_directory_size_bytes.prom.$$
+# HELP node_directory_size_bytes Disk space used by some directories
+# TYPE node_directory_size_bytes gauge
+EOF
+
+for dir in /var/lib/docker/volumes/*/
+do
+    du -s $dir --block-size=1 | sed -E 's;([0-9]*).*\s(\/.*\/([^/]*))\/$;node_directory_size_bytes{directory="\2",volume="\3"} \1;g' >> /var/tmp/node_directory_size_bytes.prom.$$
+done
+
+mv /var/tmp/node_directory_size_bytes.prom.$$ /var/tmp/node_directory_size_bytes.prom
