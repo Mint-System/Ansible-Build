@@ -1,7 +1,8 @@
-- name: Prune docker images and containers
+- name: Prune docker images, volumes and containers
   docker_prune:
-    containers: yes
-    images: yes
+    containers: true
+    images: true
+    volumes: true
     images_filters:
        dangling: false
   register: prune_docker
