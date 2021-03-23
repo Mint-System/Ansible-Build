@@ -97,16 +97,17 @@
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
     command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
+    auto_remove: true
   loop: "{{ certbot_missing_certs }}"
   loop_control:
     pause: 5
 
 # FIXME: Replace this task with auto_remove: true
-- name: "Remove {{ role_name }} container"
-  docker_container:
-    name: "{{ item }}"
-    state: absent
-  loop: "{{ certbot_missing_certs }}"
+# - name: "Remove {{ role_name }} container"
+#   docker_container:
+#     name: "{{ item }}"
+#     state: absent
+#   loop: "{{ certbot_missing_certs }}"
 
 - name: Copy renew certs script
   template:
