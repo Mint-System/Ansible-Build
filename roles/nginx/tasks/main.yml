@@ -1,6 +1,6 @@
 - name: "Include {{ role_name }} config tasks"
   include: "{{ role_name }}-config.yml"
-  when: nginx_data_dir is defined
+  when: nginx_hostname is defined
   tags:
     - nginx-config
     - nginx
