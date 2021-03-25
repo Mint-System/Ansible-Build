@@ -37,25 +37,25 @@ Collection of Ansible playbooks and roles.
 * [package](roles/package/README.md) - Set env vars and install packages.
 * [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps.
 * [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set.
-* [maintenance](role/maintenance/README.md) - Maintain operating system and disk space.
-* [commento](role/commento/README.md) - Deploy Commento container.
-* [ufw](role/ufw/README.md) - Configure UFW rules.
-* [remark42](role/remark42/README.md) - Deploy Remark42 container.
-* [odoo-enterprise](role/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository.
-* [onlyoffice-documentserver](role/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container.
+* [maintenance](roles/maintenance/README.md) - Maintain operating system and disk space.
+* [commento](roles/commento/README.md) - Deploy Commento container.
+* [ufw](roles/ufw/README.md) - Configure UFW rules.
+* [remark42](roles/remark42/README.md) - Deploy Remark42 container.
+* [odoo-enterprise](roles/odoo-enterprise/README.md) - Checkout the Odoo Enterprise git repository.
+* [onlyoffice-documentserver](roles/onlyoffice-documentserver/README.md) - Deploy OnlyOffice Document Server container.
 * [nextcloud-exporter](roles/nextcloud-exporter/README.md) - Deploy Nextcloud exporter container.
 * [pgadmin](roles/pgadmin/README.md) - Install pgAdmin container.
 * [bigbluebutton](roles/bigbluebutton/README.md) - Install BigBlueButton with https and greenlight.
 * [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md) - Deploy BigBlueButton exporter container.
-* [vercel](role/vercel/README.md) - Manage vercel domain and dns entries.
-* [locale](role/locale/README.md) - Set system locale.
+* [vercel](roles/vercel/README.md) - Manage vercel domain and dns entries.
+* [locale](roles/locale/README.md) - Set system locale.
 * [postgres-exporter](roles/postgres-exporter/README.md) - Deploy PostgreSQL exporter container.
 
 WIP:
 
-* [synapse](role/synapse/README.md) - Deploy Matrix Synapse container.
-* [coturn](role/coturn/README.md) - Deploy Coturn container.
-* [collabora-code](role/collabora-code/README.md) - Deploy Collabora Code container.
+* [synapse](roles/synapse/README.md) - Deploy Matrix Synapse container.
+* [coturn](roles/coturn/README.md) - Deploy Coturn container.
+* [collabora-code](roles/collabora-code/README.md) - Deploy Collabora Code container.
 
 ## Usage
 
