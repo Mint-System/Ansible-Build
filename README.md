@@ -61,7 +61,7 @@ WIP:
 
 Clone this repository.
 
-`git clone https://github.com/Mint-System/Ansible-Playbooks.git && cd Ansible-Playbooks`
+`git clone https://github.com/Mint-System/Ansible-Playbooks.git`
 
 ### Setup
 
@@ -71,7 +71,7 @@ Navigate to the playbook folder.
 
 `cd Ansible-Playbooks`
 
-Set a password to encry the Ansible vault.
+Set a password to encrypt the Ansible vault.
 
 `export VAULTPASSWORD=PASSWORD`
 
