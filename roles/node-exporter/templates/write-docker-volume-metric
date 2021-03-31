@@ -29,7 +29,7 @@ cat << EOF >> /var/tmp/node_directory_size_bytes.prom.$$
 # TYPE node_directory_size_bytes gauge
 EOF
 
-for dir in /var/lib/docker/volumes/*/
+for dir in {{ docker_data_dir }}/volumes/*/
 do
     du -s $dir --block-size=1 | sed -E 's;([0-9]*).*\s(\/.*\/([^/]*))\/$;node_directory_size_bytes{directory="\2",volume="\3"} \1;g' >> /var/tmp/node_directory_size_bytes.prom.$$
 done

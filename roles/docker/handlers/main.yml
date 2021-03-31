@@ -1,4 +1,4 @@
-- name: Restart docker service
+- name: "Restart {{ role_name }} service"
   service:
     name: docker
-    restart: true
+    state: restarted

@@ -1,0 +1,5 @@
+- name: Include {{ role_name }} tasks
+  include_tasks: "{{ role_name }}.yml"
+  when: fstab_mounts is defined
+  tags:
+    - fstab

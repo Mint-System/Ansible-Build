@@ -1,6 +1,8 @@
 - hosts: all
   become: true
   roles:
+  - role: fstab
+    tags: fstab
   - role: locale
     tags: locale
   - role: package

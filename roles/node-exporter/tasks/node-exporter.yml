@@ -16,13 +16,20 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
 
-- name: "Copy {{ role_name }} scripts"
+- name: "Copy {{ role_name }} file scripts"
   copy:
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
     mode: +x
   loop:
     - write-node-exporter-metric
+
+- name: "Copy {{ role_name }} templated scripts"
+  copy:
+    src: "templates/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
     - write-docker-volume-metric
 
 - name: "Cron job to run {{ role_name }} background jobs"
