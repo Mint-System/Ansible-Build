@@ -6,6 +6,12 @@ Collection of Ansible playbooks and roles.
 
 ## Roles
 
+Role dependency graph: 
+
+![](doc/ansible-roles.png)
+
+Role details:
+
 * [docker](roles/docker/README.md) - Install Docker for Ubuntu and CentOS.
 * [docker-network](roles/docker-network/README.md) - Configure Docker network.
 * [docker-volume](roles/docker-volume/README.md) - Configure Docker volume.
@@ -66,7 +72,9 @@ Clone this repository.
 
 ### Setup
 
-[Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/index.html).
+Install Ansible.
+
+[Ansible Documentation > Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/index.html)
 
 Navigate to the playbook folder.
 
@@ -88,15 +96,13 @@ Create a log file and own it.
 
 `sudo touch /var/log/ansible.log && sudo chown $USER: /var/log/ansible.log`
 
-Install jmespath and dnspython with pip.
+Install python and ansbile dependencies.
 
-`pip install jmespath dnspython`
-
-Install the ansible community package.
-
-`ansible-galaxy collection install community.general`
+`./task install-packages`
 
 Create an inventory and configure a role.
+
+[Ansbile Documentation > Build Your Inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)
 
 ### Deployment
 
