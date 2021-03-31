@@ -1,0 +1,49 @@
+#!/bin/bash
+
+function help() {
+echo
+echo "$1 <command> [options]"
+echo
+echo "commands:"
+echo
+column -t -s"|" ./task.md | tail -n +3
+echo
+}
+
+function venv-init() {
+    python3 -m venv venv
+    source venv/bin/activate
+}
+
+function activate-venv() {
+    source venv/bin/activate
+}
+
+function install-packages() {
+    sudo apt install graphviz
+    pip install -r requirements.txt
+    ansible-galaxy collection install community.general
+}
+
+function update-docs() {
+    python ./library/graph.py
+}
+
+case "$1" in
+    venv-init)
+        venv-init
+        ;;
+    activate-venv)
+        activate-venv
+        ;;
+    install-packages)
+        install-packages
+        ;;
+    update-docs)
+        update-docs
+        ;;
+    *)
+        help task
+        exit 1
+        ;;
+esac

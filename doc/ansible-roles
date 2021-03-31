@@ -1,0 +1,139 @@
+// Ansible Roles
+digraph {
+	1 [label=remark42]
+	2 [label=clean]
+	3 [label="odoo-apps"]
+	4 [label=docker]
+	5 [label=logstash]
+	6 [label=postgres]
+	7 [label="docker-volume"]
+	8 [label=synapse]
+	9 [label=locale]
+	10 [label="bigbluebutton-exporter"]
+	11 [label=pgadmin]
+	12 [label=maintenance]
+	13 [label=update]
+	14 [label=openldap]
+	15 [label="odoo-scripts"]
+	16 [label="onlyoffice-documentserver"]
+	17 [label=metricbeat]
+	18 [label=fstab]
+	19 [label=keycloak]
+	20 [label=iam]
+	21 [label=elasticsearch]
+	22 [label=ufw]
+	23 [label=debug]
+	24 [label=fathom]
+	25 [label=nginx]
+	26 [label=bigbluebutton]
+	27 [label=package]
+	28 [label="odoo-enterprise"]
+	29 [label="nextcloud-exporter"]
+	30 [label=commento]
+	31 [label="restic-client"]
+	32 [label=odoo]
+	33 [label=prometheus]
+	34 [label=bookstack]
+	35 [label="docker-network"]
+	36 [label=grafana]
+	37 [label="postgres-exporter"]
+	38 [label=mysql]
+	39 [label=kibana]
+	40 [label="nginx-waf"]
+	41 [label=cadvisor]
+	42 [label="node-exporter"]
+	43 [label=coturn]
+	44 [label=nextcloud]
+	45 [label=vercel]
+	46 [label="collabora-code"]
+	47 [label=moodle]
+	48 [label="restic-server"]
+	49 [label=wordpress]
+	50 [label=certbot]
+	1 -> 4
+	1 -> 35
+	5 -> 4
+	5 -> 35
+	5 -> 21
+	6 -> 4
+	6 -> 35
+	7 -> 4
+	8 -> 4
+	8 -> 35
+	10 -> 4
+	10 -> 35
+	11 -> 4
+	11 -> 35
+	12 -> 4
+	14 -> 4
+	14 -> 35
+	16 -> 4
+	16 -> 35
+	17 -> 4
+	17 -> 35
+	17 -> 21
+	17 -> 39
+	17 -> 5
+	19 -> 4
+	19 -> 35
+	19 -> 6
+	20 -> 4
+	21 -> 4
+	21 -> 35
+	24 -> 4
+	24 -> 35
+	25 -> 4
+	25 -> 35
+	25 -> 50
+	26 -> 4
+	26 -> 35
+	26 -> 6
+	28 -> 32
+	29 -> 4
+	29 -> 35
+	30 -> 4
+	30 -> 35
+	30 -> 6
+	32 -> 4
+	32 -> 35
+	32 -> 6
+	33 -> 4
+	33 -> 35
+	33 -> 25
+	34 -> 4
+	34 -> 35
+	34 -> 38
+	35 -> 4
+	36 -> 4
+	36 -> 35
+	36 -> 33
+	37 -> 4
+	37 -> 35
+	38 -> 4
+	38 -> 35
+	39 -> 4
+	39 -> 35
+	39 -> 21
+	41 -> 4
+	41 -> 35
+	42 -> 4
+	42 -> 35
+	43 -> 4
+	43 -> 35
+	44 -> 4
+	44 -> 35
+	44 -> 6
+	46 -> 4
+	46 -> 35
+	46 -> 44
+	47 -> 4
+	47 -> 35
+	47 -> 6
+	48 -> 4
+	48 -> 35
+	49 -> 4
+	49 -> 35
+	49 -> 38
+	50 -> 4
+	50 -> 35
+}
