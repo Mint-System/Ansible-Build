@@ -1,0 +1,3 @@
+- name: Mount and bind a volume
+  ansible.posix.mount: "{{ item }}"
+  loop: "{{ fstab_mounts }}"

@@ -50,6 +50,7 @@ Collection of Ansible playbooks and roles.
 * [vercel](roles/vercel/README.md) - Manage vercel domain and dns entries.
 * [locale](roles/locale/README.md) - Set system locale.
 * [postgres-exporter](roles/postgres-exporter/README.md) - Deploy PostgreSQL exporter container.
+* [fstab](roles/fstab/README.md) - Configure the fstab file.
 
 WIP:
 

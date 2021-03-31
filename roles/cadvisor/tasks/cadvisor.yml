@@ -10,7 +10,7 @@
       - /:/rootfs:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
+      - "{{ docker_data_dir }}:/var/lib/docker:ro"
       - /dev/disk/:/dev/disk:ro
     networks:
       - name: "{{ docker_network_name }}"

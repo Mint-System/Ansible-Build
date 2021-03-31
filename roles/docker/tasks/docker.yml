@@ -1,4 +1,23 @@
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ docker_data_dir }}"
+    state: directory
+
+- name: Create a symbolic link for default data dir
+  file:
+    src: "{{ docker_data_dir }}"
+    dest: /var/lib/docker
+    state: link
+  when: docker_data_dir != "/var/lib/docker"
+
+- name: "Copy docker deamon conf"
+  template:
+    src: "templates/deamon.json"
+    dest: "/etc/docker/daemon.json"
+  notify: "Restart {{ role_name }} service"
+
 - name: "Ensure {{ role_name }} deamon is running"
   service:
     name: docker
     state: started
+    enabled: true

@@ -13,6 +13,7 @@ The Ansible Docker role has the following requirements:
 Configure all depending roles.
 
 ```yml
+docker_data_dir: /mnt/server-disk2/docker # Defaults: /var/lib/docker
 docker_pip_package: docker==4.2.0
 docker_log_driver: "json-file"
 docker_log_max_size: "10m"
