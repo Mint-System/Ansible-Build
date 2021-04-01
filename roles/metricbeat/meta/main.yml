@@ -1,16 +1,4 @@
 dependencies: # noqa 701
-  - role: docker
-    tags:
-      - docker
-      - depends
-  - role: docker-network
-    tags:
-      - docker-network
-      - depends
-  - role: elasticsearch
-    tags:
-      - elasticsearch
-      - depends
   - role: kibana
     tags:
       - kibana
