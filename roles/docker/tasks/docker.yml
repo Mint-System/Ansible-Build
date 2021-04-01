@@ -3,14 +3,6 @@
     path: "{{ docker_data_dir }}"
     state: directory
 
-# FIXME: Remove symlink and check if ansible container can be pulled
-- name: Create a symbolic link for default data dir
-  file:
-    src: "{{ docker_data_dir }}"
-    dest: /var/lib/docker
-    state: link
-  when: docker_data_dir != "/var/lib/docker"
-
 - name: "Copy docker deamon conf"
   template:
     src: "templates/deamon.json"
