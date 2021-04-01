@@ -1,4 +1,4 @@
 - name: Include debug tasks
-  include_tasks: debug.yml
+- name: "Include {{ role_name }} tasks"
   tags:
     - debug
