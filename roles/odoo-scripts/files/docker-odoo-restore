@@ -1,0 +1,96 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Backup Odoo database from container."
+    echo "Syntax: $SCRIPT [-d|-c|-f\-r|help]"
+    echo "Example: $SCRIPT -d erp-dev -c odoo06 -f tmp/erp.zip -r"
+    echo "options:"
+    echo "  -d    Database name. Defaults to 'odoo'."
+    echo "  -c    Docker container. Defaults to 'odoo'."
+    echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'."
+    echo "  -r    Replace existing database."  
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Initialise option flag with a false value
+REPLACE='false'
+
+# Process params
+while getopts ":r :d: :c: :f:" opt; do
+    case $opt in
+        r) REPLACE='true';;
+        c) CONTAINER="$OPTARG";;
+        d) DATABASE="$OPTARG";;
+        f) FILE="$OPTARG";;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
+done
+
+# Fallback to environment vars and default values
+: ${DATABASE:='odoo'}
+: ${CONTAINER:='odoo'}
+: ${FILE:='/var/tmp/odoo.zip'}
+
+# Get file and directory name
+DIR=`dirname "$FILE"`
+FILE=`basename "$FILE"`
+
+# Start restore
+echo "Requesting restore for Odoo database $DATABASE ..."
+
+# Set alias
+docker_exec_bash="docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
+docker_exec_root_bash="docker exec  --user root -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
+
+# Unip archive
+cd $DIR
+unzip -q -o $FILE
+
+# Clear database
+if $REPLACE; then
+    echo "Deleting Odoo database $DATABASE ..."
+    # FIXME: Kill connection with -f (requires postgres >=13)
+    $docker_exec_bash 'PGPASSWORD="$PASSWORD" dropdb -h $HOST -U $USER $DATABASE'
+    $docker_exec_root_bash 'rm -rf /var/lib/odoo/filestore/$DATABASE'
+fi
+
+# Copy filestore and dump
+docker cp "$DIR/filestore" "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
+docker cp "$DIR/dump.sql" "$CONTAINER:/var/lib/odoo/"
+
+# Set file permissions
+$docker_exec_root_bash 'chown -R odoo:odoo /var/lib/odoo/filestore/$DATABASE'
+
+# Create database
+$docker_exec_bash 'PGPASSWORD="$PASSWORD" createdb -h $HOST -U $USER -T template0 $DATABASE'
+
+# Restore database
+$docker_exec_bash 'PGPASSWORD="$PASSWORD" psql -q -h $HOST -U $USER $DATABASE -f ~/dump.sql' 
+
+# Remove source files
+rm -rf dump.sql filestore
+
+# Notify if backup has finished
+echo "The restore for Odoo database $DATABASE has finished."

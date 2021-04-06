@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Backup Odoo database from container."
+    echo "Syntax: $SCRIPT [-d|-c|-o|help]"
+    echo "Example: $SCRIPT -d erp -c odoo06 -o tmp/erp.zip"
+    echo "options:"
+    echo "  -d    Database name. Defaults to 'odoo'."
+    echo "  -c    Docker container. Defaults to 'odoo'."
+    echo "  -o    Output directory with or without filename. Defaults to '/var/tmp'."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":d: :c: :o:" opt; do
+    case $opt in
+        c) CONTAINER="$OPTARG";;
+        d) DATABASE="$OPTARG";;
+        o) OUTPUT="$OPTARG";;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
+done
+
+# Fallback to environment vars and default values
+: ${DATABASE:='odoo'}
+: ${CONTAINER:='odoo'}
+: ${OUTPUT:='/var/tmp'}
+
+# Check if dir var is file or folder
+if [ "${OUTPUT: -4}" = ".zip" ];then
+    DIR=`dirname "$OUTPUT"`
+    FILE=`basename "$OUTPUT"`
+else
+    DIR=$OUTPUT
+fi
+
+# Ensure output directory exists
+mkdir -p $DIR
+
+# Ensure file name is set
+if [ -z "$FILE" ];then
+  FILE="$DATABASE.zip"
+fi
+
+# Set file path
+FILEPATH="${DIR}/${FILE}"
+
+echo "Backup database $DATABASE to $FILEPATH ..."
+
+# Set alias
+docker_exec_bash="docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
+
+# Copy filestore
+docker cp "$CONTAINER:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
+
+# Create pgpass file
+$docker_exec_bash 'echo "$HOST:5432:$DATABASE:$USER:$PASSWORD" > ~/.pgpass'
+$docker_exec_bash 'chmod 600 ~/.pgpass'
+
+# Dump database
+$docker_exec_bash 'pg_dump -h $HOST -U $USER $DATABASE' > "$DIR/dump.sql"
+
+# Zip everything
+cd ${DIR}
+rm -f ${FILE}
+zip -q -r ${FILE} dump.sql filestore
+
+# Remove source files
+rm -rf dump.sql filestore
+
+# Notify if backup has finished
+echo "The Odoo backup has finished: $FILEPATH"

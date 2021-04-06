@@ -9,3 +9,5 @@
     - docker-odoo-install
     - docker-odoo-user
     - docker-odoo-list
+    - docker-odoo-backup
+    - docker-odoo-restore
