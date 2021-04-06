@@ -10,6 +10,13 @@ column -t -s"|" ./task.md | tail -n +3
 echo
 }
 
+function generate-passwordfile() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    export VAULTPASSWORD=$1
+    echo "$VAULTPASSWORD" > .vault_pass
+    chmod 600 .vault_pass
+}
+
 function venv-init() {
     python3 -m venv venv
     source venv/bin/activate
@@ -20,27 +27,39 @@ function activate-venv() {
 }
 
 function install-packages() {
+    activate-venv
     sudo apt install graphviz
     pip install -r requirements.txt
     ansible-galaxy collection install community.general
 }
 
 function update-docs() {
+    activate-venv
     python ./library/graph.py
 }
 
 case "$1" in
-    venv-init)
+    init)
+        sudo touch /var/log/ansible.log
+        sudo chown $USER: /var/log/ansible.log
         venv-init
         ;;
-    activate-venv)
+    generate-passwordfile)
+        generate-passwordfile $2
+        ;;
+    install-ansible)
         activate-venv
+        pip install ansible
         ;;
     install-packages)
         install-packages
         ;;
     update-docs)
         update-docs
+        ;;
+    lint)
+        activate-venv
+        ansible-lint *.yml
         ;;
     *)
         help task

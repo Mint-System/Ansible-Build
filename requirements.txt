@@ -1,3 +1,4 @@
 jmespath
 dnspython
 graphviz
+ansible-lint
