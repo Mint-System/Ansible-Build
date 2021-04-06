@@ -58,38 +58,46 @@ DIR=`dirname "$FILE"`
 FILE=`basename "$FILE"`
 
 # Start restore
-echo "Requesting restore for Odoo database $DATABASE ..."
+echo "Requesting restore for Odoo database from $FILE to $DATABASE ..."
 
 # Set alias
 docker_exec_bash="docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
 docker_exec_root_bash="docker exec  --user root -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
 
 # Unip archive
+echo "Uzip archive"
 cd $DIR
 unzip -q -o $FILE
 
 # Clear database
 if $REPLACE; then
-    echo "Deleting Odoo database $DATABASE ..."
     # FIXME: Kill connection with -f (requires postgres >=13)
+    echo -e "\e[1A\e[KDrop database $DATABASE."
     $docker_exec_bash 'PGPASSWORD="$PASSWORD" dropdb -h $HOST -U $USER $DATABASE'
+
+    echo -e "\e[1A\e[KDelete filestore $DATABASE."
     $docker_exec_root_bash 'rm -rf /var/lib/odoo/filestore/$DATABASE'
 fi
 
 # Copy filestore and dump
+echo -e "\e[1A\e[KCopy filestore and dump."
 docker cp "$DIR/filestore" "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
 docker cp "$DIR/dump.sql" "$CONTAINER:/var/lib/odoo/"
 
-# Set file permissions
+# Set filestore ownership
+echo -e "\e[1A\e[KSet filestore ownership."
 $docker_exec_root_bash 'chown -R odoo:odoo /var/lib/odoo/filestore/$DATABASE'
 
 # Create database
+echo -e "\e[1A\e[KCreate database $DATABASE."
 $docker_exec_bash 'PGPASSWORD="$PASSWORD" createdb -h $HOST -U $USER -T template0 $DATABASE'
 
 # Restore database
+echo -e "\e[1A\e[Restore database from  $DATABASE."
 $docker_exec_bash 'PGPASSWORD="$PASSWORD" psql -q -h $HOST -U $USER $DATABASE -f ~/dump.sql' 
 
 # Remove source files
+echo -e "\e[1A\e[KCleanup source files."
 rm -rf dump.sql filestore
 
 # Notify if backup has finished
