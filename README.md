@@ -70,6 +70,10 @@ Clone this repository.
 
 `git clone https://github.com/Mint-System/Ansible-Playbooks.git`
 
+Set this the task alias.
+
+`alias task=./task`
+
 ### Setup
 
 Install Ansible.
@@ -80,25 +84,17 @@ Navigate to the playbook folder.
 
 `cd Ansible-Playbooks`
 
-Set a password to encrypt the Ansible vault.
+Generate a password file for Ansible vault.
 
-`export VAULTPASSWORD=PASSWORD`
+`task generate-passwordfile $PASSWORD`
 
-Create a password file.
+Initialize and install Ansible.
 
-`echo "$VAULTPASSWORD" > .vault_pass`
+`task init; task install-ansible`
 
-Make it executable.
+Install Python and Ansible dependencies.
 
-`chmod 600 .vault_pass`
-
-Create a log file and own it.
-
-`sudo touch /var/log/ansible.log && sudo chown $USER: /var/log/ansible.log`
-
-Install python and ansbile dependencies.
-
-`./task install-packages`
+`task install-packages`
 
 Create an inventory and configure a role.
 
@@ -164,7 +160,7 @@ List all Odoo databses.
 
 Lint the project using Ansible lint.
 
-`ansible-lint *.yml`
+`task lint`
 
 ### Config
 
