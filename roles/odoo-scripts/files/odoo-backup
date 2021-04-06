@@ -20,7 +20,7 @@ Help() {
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var."
   echo "  -d    Database name."
-  echo "  -o    Output directory with or without name. Defaults to '/var/tmp'."
+  echo "  -o    Output directory with or without filename. Defaults to '/var/tmp'."
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
   echo "  help  Show $SCRIPT manual."
   echo
