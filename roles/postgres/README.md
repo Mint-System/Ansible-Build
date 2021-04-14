@@ -11,9 +11,9 @@ Configure the role.
 ```yml
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:10-alpine
-postgres_description: Database for website  # default: PostgreSQL
+postgres_description: Database for website # default: PostgreSQL
 postgres_hostname: postgres01
-postgres_volume_name: postgres_data01
+postgres_volume_name: postgres_data01 # default: "{{ postgres_hostname}}"
 postgres_ports:
   - 127.0.0.1:5433:5432 # default: []
 postgres_user: example

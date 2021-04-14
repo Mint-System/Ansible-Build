@@ -29,7 +29,6 @@
     server_names: "{{ item.server_names | default(false) }}"
     redirect: "{{ item.redirect | default(true) }}"
   loop: "{{ nginx_proxies }}"
-  #when: "item.src_hostname in certbot_active_certs"
   notify: Restart nginx container
 
 - name: "Register {{ role_name }} conf files" # noqa 306

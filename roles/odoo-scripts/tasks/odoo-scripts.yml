@@ -6,6 +6,8 @@
   loop:
     - odoo-backup
     - odoo-restore
+    - odoo-drop
+    - odoo-duplicate
     - docker-odoo-install
     - docker-odoo-user
     - docker-odoo-list

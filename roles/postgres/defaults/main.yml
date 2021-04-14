@@ -1,1 +1,2 @@
 postgres_description: PostgreSQL
+postgres_volume_name: "{{ postgres_hostname }}"
