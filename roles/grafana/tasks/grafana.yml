@@ -41,6 +41,7 @@
       GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: "{{ grafana_generic_oauth_sign_up }}"
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "{{ grafana_generic_oauth_client_id }}"
       GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "{{ grafana_generic_oauth_client_secret }}"
+      GF_AUTH_GENERIC_OAUTH_SCOPES: "{{ grafana_generic_oauth_scopes }}"
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: "{{ grafana_generic_oauth_auth_url }}"
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "{{ grafana_generic_oauth_token_url }}"
       GF_AUTH_GENERIC_OAUTH_API_URL: "{{ grafana_generic_oauth_api_url }}"

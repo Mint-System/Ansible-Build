@@ -29,6 +29,7 @@ grafana_generic_oauth_name: "Login Example"
 grafana_generic_oauth_sign_up: "true"
 grafana_generic_oauth_client_id: "monitor.example.com"
 grafana_generic_oauth_client_secret: "{{ vault_grafana_generic_oauth_client_secret }}"
+grafana_generic_oauth_scopes: email # default: profile
 grafana_generic_oauth_auth_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/auth"
 grafana_generic_oauth_token_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/token"
 grafana_generic_oauth_api_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/userinfo"
