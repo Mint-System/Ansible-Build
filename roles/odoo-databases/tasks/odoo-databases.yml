@@ -1,0 +1,9 @@
+- name: Get all postgres databases
+  shell: /usr/local/bin/docker-odoo-list -c "{{ odoo_hostname }}"
+  register: existing_databases
+
+- name: debug
+  debug:
+    msg: "docker-odoo-drop -c {{ odoo_hostname }} -d {{ item.name }}"
+  when: item.state == 'absent' and item.name in existing_databases.stdout_lines
+  loop: "{{ odoo_databases }}"
