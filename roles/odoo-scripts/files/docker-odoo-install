@@ -47,10 +47,6 @@ done
 : ${DATABASE:='odoo'}
 : ${CONTAINER:='odoo'}
 
-# Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
-
 # Install with Docker exec
 if [ "$MODULES" != '' ]; then
   echo "Install $MODULES for database $DATABASE on container $CONAINER."

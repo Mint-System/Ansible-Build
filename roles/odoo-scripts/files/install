@@ -18,6 +18,11 @@ echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
 
+SCRIPT="docker-odoo-drop"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
+
 SCRIPT="docker-odoo-restore"
 echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
