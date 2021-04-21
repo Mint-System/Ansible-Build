@@ -13,79 +13,81 @@ digraph {
 	11 [label=pgadmin]
 	12 [label=maintenance]
 	13 [label=update]
-	14 [label=openldap]
-	15 [label="odoo-scripts"]
-	16 [label="onlyoffice-documentserver"]
-	17 [label=metricbeat]
-	18 [label=fstab]
-	19 [label=keycloak]
-	20 [label=iam]
-	21 [label=elasticsearch]
-	22 [label=ufw]
-	23 [label=debug]
-	24 [label=fathom]
-	25 [label=nginx]
-	26 [label=bigbluebutton]
-	27 [label=package]
-	28 [label="odoo-enterprise"]
-	29 [label="nextcloud-exporter"]
-	30 [label=commento]
-	31 [label="restic-client"]
-	32 [label=odoo]
-	33 [label=prometheus]
-	34 [label=bookstack]
-	35 [label="docker-network"]
-	36 [label=grafana]
-	37 [label="postgres-exporter"]
-	38 [label=mysql]
-	39 [label=kibana]
-	40 [label="nginx-waf"]
-	41 [label=cadvisor]
-	42 [label="node-exporter"]
-	43 [label=coturn]
-	44 [label=nextcloud]
-	45 [label=vercel]
-	46 [label="collabora-code"]
-	47 [label=moodle]
-	48 [label="restic-server"]
-	49 [label=wordpress]
-	50 [label=certbot]
-	1 -> 35
-	5 -> 21
-	6 -> 35
+	14 [label="odoo-databases"]
+	15 [label=openldap]
+	16 [label="odoo-scripts"]
+	17 [label="onlyoffice-documentserver"]
+	18 [label=metricbeat]
+	19 [label=fstab]
+	20 [label=keycloak]
+	21 [label=iam]
+	22 [label=elasticsearch]
+	23 [label=ufw]
+	24 [label=debug]
+	25 [label=fathom]
+	26 [label=nginx]
+	27 [label=bigbluebutton]
+	28 [label=package]
+	29 [label="odoo-enterprise"]
+	30 [label="nextcloud-exporter"]
+	31 [label=commento]
+	32 [label="restic-client"]
+	33 [label=odoo]
+	34 [label=prometheus]
+	35 [label=bookstack]
+	36 [label="docker-network"]
+	37 [label=grafana]
+	38 [label="postgres-exporter"]
+	39 [label=mysql]
+	40 [label=kibana]
+	41 [label="nginx-waf"]
+	42 [label=cadvisor]
+	43 [label="node-exporter"]
+	44 [label=coturn]
+	45 [label=nextcloud]
+	46 [label=vercel]
+	47 [label="collabora-code"]
+	48 [label=moodle]
+	49 [label="restic-server"]
+	50 [label=wordpress]
+	51 [label=certbot]
+	1 -> 36
+	5 -> 22
+	6 -> 36
 	7 -> 4
-	8 -> 35
-	10 -> 35
-	11 -> 35
+	8 -> 36
+	10 -> 36
+	11 -> 36
 	12 -> 4
-	14 -> 35
-	16 -> 35
-	17 -> 39
-	17 -> 5
-	19 -> 6
-	20 -> 4
-	21 -> 35
-	24 -> 35
-	25 -> 50
-	26 -> 6
-	28 -> 32
-	29 -> 35
-	30 -> 6
-	32 -> 6
-	33 -> 35
-	34 -> 38
-	35 -> 4
-	36 -> 33
-	37 -> 35
-	38 -> 35
-	39 -> 21
-	41 -> 35
-	42 -> 35
-	43 -> 35
-	44 -> 6
-	46 -> 44
-	47 -> 6
-	48 -> 35
-	49 -> 38
-	50 -> 35
+	14 -> 16
+	15 -> 36
+	17 -> 36
+	18 -> 40
+	18 -> 5
+	20 -> 6
+	21 -> 4
+	22 -> 36
+	25 -> 36
+	26 -> 51
+	27 -> 6
+	29 -> 33
+	30 -> 36
+	31 -> 6
+	33 -> 6
+	34 -> 36
+	35 -> 39
+	36 -> 4
+	37 -> 34
+	38 -> 36
+	39 -> 36
+	40 -> 22
+	42 -> 36
+	43 -> 36
+	44 -> 36
+	45 -> 6
+	47 -> 45
+	48 -> 6
+	49 -> 36
+	50 -> 39
+	51 -> 36
 }
