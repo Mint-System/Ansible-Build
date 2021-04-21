@@ -28,7 +28,7 @@ iam_users:
     ssh_public_key: "ssh-ed25519 ANzaC1yc2EA...KHgKLVcBaeKQ== bot@example.com"
     ssh_private_key: "{{ vault_bot_ssh_private_key }}"
     hosts:
-      - hermes
+      - server1
 ```
 
 And include it in your playbook.
