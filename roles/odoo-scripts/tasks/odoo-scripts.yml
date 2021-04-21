@@ -13,3 +13,4 @@
     - docker-odoo-list
     - docker-odoo-backup
     - docker-odoo-restore
+    - docker-odoo-drop
