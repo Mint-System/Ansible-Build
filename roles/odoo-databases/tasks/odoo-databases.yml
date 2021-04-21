@@ -1,4 +1,4 @@
-- name: Get all Odoo databases
+- name: Get all Odoo databases # noqa 306
   shell: /usr/local/bin/docker-odoo-list -c "{{ odoo_hostname }}"
   register: existing_databases
   changed_when: false
