@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Drop Odoo database in Docker container."
+    echo "Syntax: $SCRIPT [-d|-c|help]"
+    echo "Example: $SCRIPT -d erp -c odoo01"
+    echo "options:"
+    echo "  -d    Database name. Defaults to 'odoo'."
+    echo "  -c    Docker container. Defaults to 'odoo'."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":d: :c:" opt; do
+  case $opt in
+    c) CONTAINER="$OPTARG";;
+    d) DATABASE="$OPTARG";;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${DATABASE:='odoo'}
+: ${CONTAINER:='odoo'}
+
+# Kill open connnections
+QUERY="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$DATABASE';"
+COMMAND="psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
+docker exec $CONTAINER /bin/bash -c "$COMMAND"
+
+# Drop database
+QUERY="DROP DATABASE $DATABASE;"
+COMMAND="psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
+docker exec $CONTAINER /bin/bash -c "$COMMAND"
+
+# Remove filestore
+docker exec $CONTAINER rm -rf "/var/lib/odoo/filestore/$DATABASE"
+
+# Notify of removeal
+echo "The Odoo database $DATABASE has been removed."
