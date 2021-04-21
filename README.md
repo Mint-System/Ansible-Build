@@ -76,10 +76,6 @@ Set this the task alias.
 
 ### Setup
 
-Install Ansible.
-
-[Ansible Documentation > Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/index.html)
-
 Navigate to the playbook folder.
 
 `cd Ansible-Playbooks`
