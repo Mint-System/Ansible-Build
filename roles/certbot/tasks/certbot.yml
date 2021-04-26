@@ -100,14 +100,7 @@
     auto_remove: true
   loop: "{{ certbot_missing_certs }}"
   loop_control:
-    pause: 5
-
-# FIXME: Replace this task with auto_remove: true
-# - name: "Remove {{ role_name }} container"
-#   docker_container:
-#     name: "{{ item }}"
-#     state: absent
-#   loop: "{{ certbot_missing_certs }}"
+    pause: 7
 
 - name: Copy renew certs script
   template:
@@ -146,6 +139,13 @@
   when: item not in managed_certs
   loop_control:
     pause: 5
+
+- name: Remove unmanaged certificate live folder
+  file: 
+    path: "{{ certbot_data_dir }}/live/{{ item }}"
+    state: absent
+  loop: "{{ certbot_managed_certs.stdout_lines }}"
+  when: item not in managed_certs
 
 - name: Copy nginx ssl conf files
   copy:

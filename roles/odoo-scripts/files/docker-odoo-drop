@@ -51,7 +51,7 @@ COMMAND="psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
 docker exec $CONTAINER /bin/bash -c "$COMMAND"
 
 # Drop database
-QUERY="DROP DATABASE $DATABASE;"
+QUERY="DROP DATABASE \\\"$DATABASE\\\";" # Escape quotes twice
 COMMAND="psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
 docker exec $CONTAINER /bin/bash -c "$COMMAND"
 
