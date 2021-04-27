@@ -3,6 +3,14 @@
     name: nginx
     tasks_from: nginx-config
 
+- name: "Copy rule tuning conf"
+  template:
+    src: "templates/{{ item }}"
+    dest: "{{ nginx_data_dir }}/{{ item }}"
+  loop:
+    - REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf
+    - RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
+
 - name: "Start {{ role_name }} container {{ nginx_waf_hostname }}"
   docker_container:
     name: "{{ nginx_waf_hostname }}"
@@ -10,7 +18,7 @@
       description: "{{ nginx_waf_description }}"
     image: "{{ nginx_waf_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: yes
     ports:
       - "{{ nginx_waf_http_port }}:80"
       - "{{ nginx_waf_https_port }}:443"
@@ -19,6 +27,8 @@
       - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+      - "{{ nginx_data_dir }}/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf:/etc/modsecurity.d/owasp-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf"
+      - "{{ nginx_data_dir }}/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf:/etc/modsecurity.d/owasp-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf"
     env:
       PROXY: "1"
       MODSEC_RULE_ENGINE: "{{ nginx_waf_modsec_rule_engine }}"
