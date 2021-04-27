@@ -1,0 +1,2686 @@
+---NXFnZcxI---A--
+[27/Apr/2021:15:48:58 +0000] 161953853837.144115 84.75.180.227 46296 172.17.0.7 443
+---NXFnZcxI---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 37be3d48-4580-4501-8e52-baacb59eb049
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---NXFnZcxI---D--
+
+---NXFnZcxI---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:48:59 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---NXFnZcxI---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953853837.144115"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953853837.144115"] [ref ""]
+
+---NXFnZcxI---I--
+
+---NXFnZcxI---J--
+
+---NXFnZcxI---Z--
+
+---WpIVcG1x---A--
+[27/Apr/2021:15:49:28 +0000] 161953856818.749582 84.75.180.227 46296 172.17.0.7 443
+---WpIVcG1x---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 16e88980-47f7-42db-86bd-d57ac295b32c
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---WpIVcG1x---D--
+
+---WpIVcG1x---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:49:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---WpIVcG1x---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953856818.749582"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953856818.749582"] [ref ""]
+
+---WpIVcG1x---I--
+
+---WpIVcG1x---J--
+
+---WpIVcG1x---Z--
+
+---ZZixZJFT---A--
+[27/Apr/2021:15:49:57 +0000] 161953859785.423696 210.13.127.39 36734 172.17.0.7 443
+---ZZixZJFT---B--
+GET /api/v1/user?site=janikvonrotz.ch HTTP/1.1
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36
+content-type: application/json
+sec-ch-ua-mobile: ?0
+DNT: 1
+x-xsrf-token: 
+Accept-Language: en-US,en;q=0.9
+accept: application/json
+sec-ch-ua: "Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"
+Connection: keep-alive
+Sec-Fetch-Mode: cors
+Host: comment.apland.ch
+Sec-Fetch-Dest: empty
+Referer: https://comment.apland.ch/web/iframe.html?host=https%3A%2F%2Fcomment.apland.ch&site_id=janikvonrotz.ch&theme=light&url=https%3A%2F%2Fjanikvonrotz.ch%2F2020%2F01%2F29%2Fapollo-graphql-server-and-client-sorting%2F
+Accept-Encoding: gzip, deflate, br
+Cookie: ssm_au=CwSTv3tBi3jacvXT74wq0kKBcftkKe25n1LUQaM3IDmdYWfWNFQIqv2DhCM7Gu0RcBmcSL8KC269vpEfCxN3avR7sw9B2cN
+X-Forwarded-For: 10.27.180.30
+
+---ZZixZJFT---D--
+
+---ZZixZJFT---E--
+Unauthorized\x0a
+
+---ZZixZJFT---F--
+HTTP/1.1 401
+Vary: Origin
+App-Version: master-89a4677-20210117-16:39:50
+Author: umputun
+App-Name: remark42
+Content-Length: 13
+Connection: keep-alive
+X-Content-Type-Options: nosniff
+Content-Type: text/plain; charset=utf-8
+Date: Tue, 27 Apr 2021 15:49:57 GMT
+Server: nginx
+X-Rate-Limit-Duration: 1
+X-Rate-Limit-Limit: 10.00
+X-Rate-Limit-Request-Forwarded-For: 10.27.180.30, 210.13.127.39
+X-Rate-Limit-Request-Remote-Addr: 210.13.127.39
+
+---ZZixZJFT---H--
+
+---ZZixZJFT---I--
+
+---ZZixZJFT---J--
+
+---ZZixZJFT---Z--
+
+---fhGn23XP---A--
+[27/Apr/2021:15:49:58 +0000] 161953859815.801020 84.75.180.227 46296 172.17.0.7 443
+---fhGn23XP---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: d4d3e14d-a3fb-4354-88fc-4bb837ddbc00
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---fhGn23XP---D--
+
+---fhGn23XP---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:49:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---fhGn23XP---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953859815.801020"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953859815.801020"] [ref ""]
+
+---fhGn23XP---I--
+
+---fhGn23XP---J--
+
+---fhGn23XP---Z--
+
+---akC9L8Pr---A--
+[27/Apr/2021:15:50:28 +0000] 16195386288.623979 84.75.180.227 46296 172.17.0.7 443
+---akC9L8Pr---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: c86272aa-6233-4a65-b228-5dcf04ce3f90
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---akC9L8Pr---D--
+
+---akC9L8Pr---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:50:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---akC9L8Pr---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "16195386288.623979"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "16195386288.623979"] [ref ""]
+
+---akC9L8Pr---I--
+
+---akC9L8Pr---J--
+
+---akC9L8Pr---Z--
+
+---xgLZwKUV---A--
+[27/Apr/2021:15:50:58 +0000] 161953865836.092887 84.75.180.227 46296 172.17.0.7 443
+---xgLZwKUV---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 6897f475-774e-4795-b99e-1e40873928f4
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---xgLZwKUV---D--
+
+---xgLZwKUV---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:50:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---xgLZwKUV---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953865836.092887"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953865836.092887"] [ref ""]
+
+---xgLZwKUV---I--
+
+---xgLZwKUV---J--
+
+---xgLZwKUV---Z--
+
+---rCQRWfsB---A--
+[27/Apr/2021:15:51:28 +0000] 161953868891.938465 84.75.180.227 46296 172.17.0.7 443
+---rCQRWfsB---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: e124c6fb-9021-4eca-8d09-141459833ecc
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---rCQRWfsB---D--
+
+---rCQRWfsB---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:51:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---rCQRWfsB---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953868891.938465"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953868891.938465"] [ref ""]
+
+---rCQRWfsB---I--
+
+---rCQRWfsB---J--
+
+---rCQRWfsB---Z--
+
+---L8wNBSmj---A--
+[27/Apr/2021:15:51:58 +0000] 161953871896.261368 84.75.180.227 46296 172.17.0.7 443
+---L8wNBSmj---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: f20dd25f-1bdb-4c37-ac84-bc0bbc4cee73
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---L8wNBSmj---D--
+
+---L8wNBSmj---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:51:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---L8wNBSmj---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953871896.261368"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953871896.261368"] [ref ""]
+
+---L8wNBSmj---I--
+
+---L8wNBSmj---J--
+
+---L8wNBSmj---Z--
+
+---CwqX4GNz---A--
+[27/Apr/2021:15:52:28 +0000] 161953874844.447106 84.75.180.227 46452 172.17.0.7 443
+---CwqX4GNz---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: da2e08ad-a073-4a4b-a492-c83daf48735f
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---CwqX4GNz---D--
+
+---CwqX4GNz---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:52:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---CwqX4GNz---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953874844.447106"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953874844.447106"] [ref ""]
+
+---CwqX4GNz---I--
+
+---CwqX4GNz---J--
+
+---CwqX4GNz---Z--
+
+---wgXqy1Lp---A--
+[27/Apr/2021:15:52:58 +0000] 161953877827.943082 84.75.180.227 46296 172.17.0.7 443
+---wgXqy1Lp---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 7c19b534-1af2-4ad0-83ad-d97ccfba93f3
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---wgXqy1Lp---D--
+
+---wgXqy1Lp---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:52:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---wgXqy1Lp---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953877827.943082"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953877827.943082"] [ref ""]
+
+---wgXqy1Lp---I--
+
+---wgXqy1Lp---J--
+
+---wgXqy1Lp---Z--
+
+---CmEgR7pk---A--
+[27/Apr/2021:15:53:28 +0000] 161953880888.124090 84.75.180.227 46296 172.17.0.7 443
+---CmEgR7pk---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: e54b7f98-1a8f-43e5-8345-7a1a763b4c93
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---CmEgR7pk---D--
+
+---CmEgR7pk---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:53:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---CmEgR7pk---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953880888.124090"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953880888.124090"] [ref ""]
+
+---CmEgR7pk---I--
+
+---CmEgR7pk---J--
+
+---CmEgR7pk---Z--
+
+---Dm7NCr6M---A--
+[27/Apr/2021:15:53:58 +0000] 161953883897.308230 84.75.180.227 46296 172.17.0.7 443
+---Dm7NCr6M---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 9cfe4773-c342-48bb-8fbf-712e5a7c1b2f
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---Dm7NCr6M---D--
+
+---Dm7NCr6M---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:53:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---Dm7NCr6M---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953883897.308230"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953883897.308230"] [ref ""]
+
+---Dm7NCr6M---I--
+
+---Dm7NCr6M---J--
+
+---Dm7NCr6M---Z--
+
+---mxuoBFo5---A--
+[27/Apr/2021:15:54:28 +0000] 161953886879.131001 84.75.180.227 46296 172.17.0.7 443
+---mxuoBFo5---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 31b2cdbd-4bad-45f3-843e-dbe700b8ba0c
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---mxuoBFo5---D--
+
+---mxuoBFo5---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:54:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---mxuoBFo5---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953886879.131001"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953886879.131001"] [ref ""]
+
+---mxuoBFo5---I--
+
+---mxuoBFo5---J--
+
+---mxuoBFo5---Z--
+
+---tJvrIGeS---A--
+[27/Apr/2021:15:54:58 +0000] 161953889889.221461 84.75.180.227 46296 172.17.0.7 443
+---tJvrIGeS---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 80250f37-9db1-4fc5-b157-516b71917754
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---tJvrIGeS---D--
+
+---tJvrIGeS---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:54:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---tJvrIGeS---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953889889.221461"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953889889.221461"] [ref ""]
+
+---tJvrIGeS---I--
+
+---tJvrIGeS---J--
+
+---tJvrIGeS---Z--
+
+---0t8QywAB---A--
+[27/Apr/2021:15:55:28 +0000] 161953892849.775883 84.75.180.227 46296 172.17.0.7 443
+---0t8QywAB---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 56a43fe4-828d-47c7-98a2-2c137a9c8635
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---0t8QywAB---D--
+
+---0t8QywAB---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:55:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---0t8QywAB---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953892849.775883"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953892849.775883"] [ref ""]
+
+---0t8QywAB---I--
+
+---0t8QywAB---J--
+
+---0t8QywAB---Z--
+
+---iIWs7bEt---A--
+[27/Apr/2021:15:55:58 +0000] 161953895846.511851 84.75.180.227 46296 172.17.0.7 443
+---iIWs7bEt---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 1ac37567-bc7c-4719-ae61-236e3639f3e2
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---iIWs7bEt---D--
+
+---iIWs7bEt---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:55:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---iIWs7bEt---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953895846.511851"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953895846.511851"] [ref ""]
+
+---iIWs7bEt---I--
+
+---iIWs7bEt---J--
+
+---iIWs7bEt---Z--
+
+---Y6ihLUmC---A--
+[27/Apr/2021:15:56:28 +0000] 161953898898.353750 84.75.180.227 46296 172.17.0.7 443
+---Y6ihLUmC---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 70163733-e176-4605-bb3c-0a824bac889f
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---Y6ihLUmC---D--
+
+---Y6ihLUmC---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:56:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---Y6ihLUmC---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953898898.353750"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953898898.353750"] [ref ""]
+
+---Y6ihLUmC---I--
+
+---Y6ihLUmC---J--
+
+---Y6ihLUmC---Z--
+
+---lh13xgWw---A--
+[27/Apr/2021:15:56:58 +0000] 161953901844.987354 84.75.180.227 46296 172.17.0.7 443
+---lh13xgWw---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 0cf97124-1494-4625-a28e-4fe247979459
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---lh13xgWw---D--
+
+---lh13xgWw---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:56:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---lh13xgWw---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953901844.987354"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953901844.987354"] [ref ""]
+
+---lh13xgWw---I--
+
+---lh13xgWw---J--
+
+---lh13xgWw---Z--
+
+---XcMVYWeE---A--
+[27/Apr/2021:15:57:28 +0000] 161953904893.220811 84.75.180.227 46296 172.17.0.7 443
+---XcMVYWeE---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: bd49313f-c09d-4be7-a8c6-e50de5e3737e
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---XcMVYWeE---D--
+
+---XcMVYWeE---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:57:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---XcMVYWeE---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953904893.220811"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953904893.220811"] [ref ""]
+
+---XcMVYWeE---I--
+
+---XcMVYWeE---J--
+
+---XcMVYWeE---Z--
+
+---mB6umLlI---A--
+[27/Apr/2021:15:57:58 +0000] 161953907893.274882 84.75.180.227 46296 172.17.0.7 443
+---mB6umLlI---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: be2bbac0-a441-42f6-890f-d5e5d7134fac
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---mB6umLlI---D--
+
+---mB6umLlI---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:57:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---mB6umLlI---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953907893.274882"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953907893.274882"] [ref ""]
+
+---mB6umLlI---I--
+
+---mB6umLlI---J--
+
+---mB6umLlI---Z--
+
+---RTzlvlxg---A--
+[27/Apr/2021:15:58:28 +0000] 161953910860.568994 84.75.180.227 46296 172.17.0.7 443
+---RTzlvlxg---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: a507ec7d-dd5c-425d-b44a-2e7967053c7b
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---RTzlvlxg---D--
+
+---RTzlvlxg---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:58:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---RTzlvlxg---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953910860.568994"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953910860.568994"] [ref ""]
+
+---RTzlvlxg---I--
+
+---RTzlvlxg---J--
+
+---RTzlvlxg---Z--
+
+---SziNdEJA---A--
+[27/Apr/2021:15:58:58 +0000] 161953913861.527472 84.75.180.227 46296 172.17.0.7 443
+---SziNdEJA---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 3ca17f38-b1c4-482d-9bee-2c8302790953
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---SziNdEJA---D--
+
+---SziNdEJA---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:58:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---SziNdEJA---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953913861.527472"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953913861.527472"] [ref ""]
+
+---SziNdEJA---I--
+
+---SziNdEJA---J--
+
+---SziNdEJA---Z--
+
+---odfNAHZu---A--
+[27/Apr/2021:15:59:28 +0000] 16195391681.545732 84.75.180.227 46296 172.17.0.7 443
+---odfNAHZu---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: acca9a6d-1b7f-48c4-9fc4-628fd1a8c048
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---odfNAHZu---D--
+
+---odfNAHZu---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:59:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---odfNAHZu---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "16195391681.545732"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "16195391681.545732"] [ref ""]
+
+---odfNAHZu---I--
+
+---odfNAHZu---J--
+
+---odfNAHZu---Z--
+
+---SgoEzaUQ---A--
+[27/Apr/2021:15:59:58 +0000] 161953919879.630378 84.75.180.227 46296 172.17.0.7 443
+---SgoEzaUQ---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: e1eafb0d-c8a3-4c83-89e2-2f565a873b32
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---SgoEzaUQ---D--
+
+---SgoEzaUQ---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 15:59:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---SgoEzaUQ---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953919879.630378"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953919879.630378"] [ref ""]
+
+---SgoEzaUQ---I--
+
+---SgoEzaUQ---J--
+
+---SgoEzaUQ---Z--
+
+---1T9vC5bc---A--
+[27/Apr/2021:16:00:07 +0000] 161953920719.302695 165.225.20.164 28479 172.17.0.7 443
+---1T9vC5bc---B--
+GET /api/v1/user?site=janikvonrotz.ch HTTP/1.1
+Host: comment.apland.ch
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0
+x-xsrf-token: 
+DNT: 1
+Accept: application/json
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://comment.apland.ch/web/iframe.html?host=https%3A%2F%2Fcomment.apland.ch&site_id=janikvonrotz.ch&theme=light&url=https%3A%2F%2Fjanikvonrotz.ch%2F2020%2F04%2F30%2Frole-based-access-control-for-multiple-keycloak-clients%2F
+content-type: application/json
+Connection: keep-alive
+
+---1T9vC5bc---D--
+
+---1T9vC5bc---E--
+Unauthorized\x0a
+
+---1T9vC5bc---F--
+HTTP/1.1 401
+Vary: Origin
+App-Version: master-89a4677-20210117-16:39:50
+Author: umputun
+App-Name: remark42
+Content-Length: 13
+Connection: keep-alive
+X-Content-Type-Options: nosniff
+Content-Type: text/plain; charset=utf-8
+Date: Tue, 27 Apr 2021 16:00:07 GMT
+Server: nginx
+X-Rate-Limit-Duration: 1
+X-Rate-Limit-Limit: 10.00
+X-Rate-Limit-Request-Forwarded-For: 165.225.20.164
+X-Rate-Limit-Request-Remote-Addr: 165.225.20.164
+
+---1T9vC5bc---H--
+
+---1T9vC5bc---I--
+
+---1T9vC5bc---J--
+
+---1T9vC5bc---Z--
+
+---2JyfVFpK---A--
+[27/Apr/2021:16:00:28 +0000] 161953922817.171352 84.75.180.227 46296 172.17.0.7 443
+---2JyfVFpK---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: ac2421de-e437-49bf-96c5-9232afd68de9
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---2JyfVFpK---D--
+
+---2JyfVFpK---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:00:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---2JyfVFpK---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953922817.171352"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953922817.171352"] [ref ""]
+
+---2JyfVFpK---I--
+
+---2JyfVFpK---J--
+
+---2JyfVFpK---Z--
+
+---tSf1jEvA---A--
+[27/Apr/2021:16:00:58 +0000] 161953925882.826819 84.75.180.227 46296 172.17.0.7 443
+---tSf1jEvA---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: e180fe07-3d82-400c-8ac6-07b1b95fe690
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---tSf1jEvA---D--
+
+---tSf1jEvA---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:00:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---tSf1jEvA---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953925882.826819"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953925882.826819"] [ref ""]
+
+---tSf1jEvA---I--
+
+---tSf1jEvA---J--
+
+---tSf1jEvA---Z--
+
+---uiMtGrIF---A--
+[27/Apr/2021:16:01:28 +0000] 161953928873.642444 84.75.180.227 46296 172.17.0.7 443
+---uiMtGrIF---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: d2abffd9-aeb7-4771-a103-5b451be9c9f8
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---uiMtGrIF---D--
+
+---uiMtGrIF---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:01:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---uiMtGrIF---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953928873.642444"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953928873.642444"] [ref ""]
+
+---uiMtGrIF---I--
+
+---uiMtGrIF---J--
+
+---uiMtGrIF---Z--
+
+---IRAVUk7W---A--
+[27/Apr/2021:16:01:58 +0000] 161953931855.835638 84.75.180.227 46296 172.17.0.7 443
+---IRAVUk7W---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: e3bcea6d-3bd4-40d9-9257-35233a6d0302
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---IRAVUk7W---D--
+
+---IRAVUk7W---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:01:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---IRAVUk7W---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953931855.835638"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953931855.835638"] [ref ""]
+
+---IRAVUk7W---I--
+
+---IRAVUk7W---J--
+
+---IRAVUk7W---Z--
+
+---35BXLyrC---A--
+[27/Apr/2021:16:02:28 +0000] 16195393481.944716 131.176.243.9 56997 172.17.0.7 443
+---35BXLyrC---B--
+GET /api/v1/user?site=janikvonrotz.ch HTTP/1.1
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36
+content-type: application/json
+sec-ch-ua-mobile: ?0
+x-xsrf-token: 
+Accept-Language: en-US,en;q=0.9,it;q=0.8
+accept: application/json
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"
+Sec-Fetch-Mode: cors
+Connection: keep-alive
+Host: comment.apland.ch
+Sec-Fetch-Dest: empty
+Referer: https://comment.apland.ch/web/iframe.html?host=https%3A%2F%2Fcomment.apland.ch&site_id=janikvonrotz.ch&theme=light&url=https%3A%2F%2Fjanikvonrotz.ch%2F2014%2F01%2F14%2Fexport-all-terms-from-managed-metadata-service%2F
+Accept-Encoding: gzip, deflate, br
+
+---35BXLyrC---D--
+
+---35BXLyrC---E--
+Unauthorized\x0a
+
+---35BXLyrC---F--
+HTTP/1.1 401
+Vary: Origin
+App-Version: master-89a4677-20210117-16:39:50
+Author: umputun
+App-Name: remark42
+Content-Length: 13
+Connection: keep-alive
+X-Content-Type-Options: nosniff
+Content-Type: text/plain; charset=utf-8
+Date: Tue, 27 Apr 2021 16:02:28 GMT
+Server: nginx
+X-Rate-Limit-Duration: 1
+X-Rate-Limit-Limit: 10.00
+X-Rate-Limit-Request-Forwarded-For: 131.176.243.9
+X-Rate-Limit-Request-Remote-Addr: 131.176.243.9
+
+---35BXLyrC---H--
+
+---35BXLyrC---I--
+
+---35BXLyrC---J--
+
+---35BXLyrC---Z--
+
+---QWD8k8Id---A--
+[27/Apr/2021:16:02:28 +0000] 161953934892.263063 84.75.180.227 46806 172.17.0.7 443
+---QWD8k8Id---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 98405112-e1ea-4e92-af7a-7d2199867fd1
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---QWD8k8Id---D--
+
+---QWD8k8Id---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:02:29 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---QWD8k8Id---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953934892.263063"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953934892.263063"] [ref ""]
+
+---QWD8k8Id---I--
+
+---QWD8k8Id---J--
+
+---QWD8k8Id---Z--
+
+---ocU4TmIm---A--
+[27/Apr/2021:16:02:58 +0000] 161953937885.180631 84.75.180.227 46296 172.17.0.7 443
+---ocU4TmIm---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 40f50178-1897-4329-853b-3a7439b73ce7
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---ocU4TmIm---D--
+
+---ocU4TmIm---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:02:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---ocU4TmIm---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953937885.180631"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953937885.180631"] [ref ""]
+
+---ocU4TmIm---I--
+
+---ocU4TmIm---J--
+
+---ocU4TmIm---Z--
+
+---CSHeCMBE---A--
+[27/Apr/2021:16:03:28 +0000] 161953940858.500645 84.75.180.227 46296 172.17.0.7 443
+---CSHeCMBE---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 7c6faa35-29bd-4bf4-a24e-661e30e853ae
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---CSHeCMBE---D--
+
+---CSHeCMBE---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:03:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---CSHeCMBE---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953940858.500645"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953940858.500645"] [ref ""]
+
+---CSHeCMBE---I--
+
+---CSHeCMBE---J--
+
+---CSHeCMBE---Z--
+
+---QMllLaxj---A--
+[27/Apr/2021:16:03:30 +0000] 16195394107.523296 65.198.218.132 58976 172.17.0.7 443
+---QMllLaxj---B--
+GET /api/v1/user?site=janikvonrotz.ch HTTP/1.1
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36
+content-type: application/json
+sec-ch-ua-mobile: ?0
+x-xsrf-token: 
+Accept-Language: en-US,en;q=0.9
+accept: application/json
+sec-ch-ua: "Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"
+Sec-Fetch-Mode: cors
+Connection: keep-alive
+Host: comment.apland.ch
+Sec-Fetch-Dest: empty
+Referer: https://comment.apland.ch/web/iframe.html?host=https%3A%2F%2Fcomment.apland.ch&site_id=janikvonrotz.ch&theme=light&url=https%3A%2F%2Fjanikvonrotz.ch%2F2020%2F09%2F07%2Fmonitor-cron-jobs-with-prometheus-grafana-and-node-exporter%2F
+Accept-Encoding: gzip, deflate, br
+
+---QMllLaxj---D--
+
+---QMllLaxj---E--
+Unauthorized\x0a
+
+---QMllLaxj---F--
+HTTP/1.1 401
+Vary: Origin
+App-Version: master-89a4677-20210117-16:39:50
+Author: umputun
+App-Name: remark42
+Content-Length: 13
+Connection: keep-alive
+X-Content-Type-Options: nosniff
+Content-Type: text/plain; charset=utf-8
+Date: Tue, 27 Apr 2021 16:03:30 GMT
+Server: nginx
+X-Rate-Limit-Duration: 1
+X-Rate-Limit-Limit: 10.00
+X-Rate-Limit-Request-Forwarded-For: 65.198.218.132
+X-Rate-Limit-Request-Remote-Addr: 65.198.218.132
+
+---QMllLaxj---H--
+
+---QMllLaxj---I--
+
+---QMllLaxj---J--
+
+---QMllLaxj---Z--
+
+---68poE5P3---A--
+[27/Apr/2021:16:03:58 +0000] 161953943813.741914 84.75.180.227 46296 172.17.0.7 443
+---68poE5P3---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 3df9d2cb-6bbc-4368-83a5-a3a76390ef38
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---68poE5P3---D--
+
+---68poE5P3---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:03:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---68poE5P3---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953943813.741914"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953943813.741914"] [ref ""]
+
+---68poE5P3---I--
+
+---68poE5P3---J--
+
+---68poE5P3---Z--
+
+---iu5BeNvo---A--
+[27/Apr/2021:16:04:28 +0000] 161953946821.465867 84.75.180.227 46296 172.17.0.7 443
+---iu5BeNvo---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 8b9f3e8d-8d28-4f15-b371-a2224f22ca0b
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---iu5BeNvo---D--
+
+---iu5BeNvo---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:04:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---iu5BeNvo---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953946821.465867"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953946821.465867"] [ref ""]
+
+---iu5BeNvo---I--
+
+---iu5BeNvo---J--
+
+---iu5BeNvo---Z--
+
+---oAT0XeCx---A--
+[27/Apr/2021:16:04:58 +0000] 161953949842.534672 84.75.180.227 46296 172.17.0.7 443
+---oAT0XeCx---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 296f7e72-1c64-424f-9157-15d7a47c7845
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---oAT0XeCx---D--
+
+---oAT0XeCx---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:04:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---oAT0XeCx---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953949842.534672"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953949842.534672"] [ref ""]
+
+---oAT0XeCx---I--
+
+---oAT0XeCx---J--
+
+---oAT0XeCx---Z--
+
+---0xgJVb1Z---A--
+[27/Apr/2021:16:05:28 +0000] 161953952830.259108 84.75.180.227 46296 172.17.0.7 443
+---0xgJVb1Z---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: e0061f51-96f0-4870-b96f-baf65ce7d8bc
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---0xgJVb1Z---D--
+
+---0xgJVb1Z---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:05:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---0xgJVb1Z---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953952830.259108"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953952830.259108"] [ref ""]
+
+---0xgJVb1Z---I--
+
+---0xgJVb1Z---J--
+
+---0xgJVb1Z---Z--
+
+---joOxunyc---A--
+[27/Apr/2021:16:05:58 +0000] 161953955814.121288 84.75.180.227 46296 172.17.0.7 443
+---joOxunyc---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 073880db-1cd1-49c2-bd5a-d03613cd5119
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---joOxunyc---D--
+
+---joOxunyc---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:05:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---joOxunyc---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953955814.121288"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953955814.121288"] [ref ""]
+
+---joOxunyc---I--
+
+---joOxunyc---J--
+
+---joOxunyc---Z--
+
+---f4lKPf8B---A--
+[27/Apr/2021:16:06:28 +0000] 161953958889.230307 84.75.180.227 46296 172.17.0.7 443
+---f4lKPf8B---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 09ee935b-5703-4beb-8221-50d084964d02
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---f4lKPf8B---D--
+
+---f4lKPf8B---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:06:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---f4lKPf8B---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953958889.230307"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953958889.230307"] [ref ""]
+
+---f4lKPf8B---I--
+
+---f4lKPf8B---J--
+
+---f4lKPf8B---Z--
+
+---pbCKDMHC---A--
+[27/Apr/2021:16:06:58 +0000] 161953961823.758430 84.75.180.227 46296 172.17.0.7 443
+---pbCKDMHC---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 59ae26bb-1cb3-4500-b620-e496103d2a6c
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---pbCKDMHC---D--
+
+---pbCKDMHC---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:06:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---pbCKDMHC---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953961823.758430"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953961823.758430"] [ref ""]
+
+---pbCKDMHC---I--
+
+---pbCKDMHC---J--
+
+---pbCKDMHC---Z--
+
+---IvTnWUND---A--
+[27/Apr/2021:16:07:28 +0000] 161953964817.892839 84.75.180.227 46946 172.17.0.7 443
+---IvTnWUND---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: c0cb9965-e307-47cb-afed-f8df4360c7cc
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---IvTnWUND---D--
+
+---IvTnWUND---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:07:29 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---IvTnWUND---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953964817.892839"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953964817.892839"] [ref ""]
+
+---IvTnWUND---I--
+
+---IvTnWUND---J--
+
+---IvTnWUND---Z--
+
+---HlBBW7lC---A--
+[27/Apr/2021:16:07:58 +0000] 161953967879.995955 84.75.180.227 46296 172.17.0.7 443
+---HlBBW7lC---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 918b4f93-05b2-48f4-b8db-20dfc38be994
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---HlBBW7lC---D--
+
+---HlBBW7lC---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:07:59 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---HlBBW7lC---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953967879.995955"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953967879.995955"] [ref ""]
+
+---HlBBW7lC---I--
+
+---HlBBW7lC---J--
+
+---HlBBW7lC---Z--
+
+---9UUZ9ckz---A--
+[27/Apr/2021:16:08:28 +0000] 161953970871.443628 84.75.180.227 46296 172.17.0.7 443
+---9UUZ9ckz---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: dba95471-8f96-4e05-afa3-a909351fdc89
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---9UUZ9ckz---D--
+
+---9UUZ9ckz---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:08:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---9UUZ9ckz---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953970871.443628"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953970871.443628"] [ref ""]
+
+---9UUZ9ckz---I--
+
+---9UUZ9ckz---J--
+
+---9UUZ9ckz---Z--
+
+---CuJNFZZX---A--
+[27/Apr/2021:16:08:58 +0000] 16195397389.556874 84.75.180.227 46296 172.17.0.7 443
+---CuJNFZZX---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 9a2e7e2a-d838-41e5-936a-d78b0986eb8f
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---CuJNFZZX---D--
+
+---CuJNFZZX---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:08:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---CuJNFZZX---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "16195397389.556874"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "16195397389.556874"] [ref ""]
+
+---CuJNFZZX---I--
+
+---CuJNFZZX---J--
+
+---CuJNFZZX---Z--
+
+---U3KzVhCm---A--
+[27/Apr/2021:16:09:28 +0000] 161953976837.382389 84.75.180.227 46296 172.17.0.7 443
+---U3KzVhCm---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: e9484545-fa85-457a-9b73-6a55472ba5cc
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---U3KzVhCm---D--
+
+---U3KzVhCm---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:09:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---U3KzVhCm---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953976837.382389"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953976837.382389"] [ref ""]
+
+---U3KzVhCm---I--
+
+---U3KzVhCm---J--
+
+---U3KzVhCm---Z--
+
+---QLvxTg7c---A--
+[27/Apr/2021:16:09:58 +0000] 161953979867.909121 84.75.180.227 46296 172.17.0.7 443
+---QLvxTg7c---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: fc8e0d93-88ba-4c8e-bf74-68bf4f7f5655
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---QLvxTg7c---D--
+
+---QLvxTg7c---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:09:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---QLvxTg7c---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953979867.909121"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953979867.909121"] [ref ""]
+
+---QLvxTg7c---I--
+
+---QLvxTg7c---J--
+
+---QLvxTg7c---Z--
+
+---BbBKBuHL---A--
+[27/Apr/2021:16:10:28 +0000] 161953982866.471048 84.75.180.227 46296 172.17.0.7 443
+---BbBKBuHL---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: db5e32ec-b8ce-4618-b8f4-ed72af71a253
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---BbBKBuHL---D--
+
+---BbBKBuHL---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:10:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---BbBKBuHL---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953982866.471048"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953982866.471048"] [ref ""]
+
+---BbBKBuHL---I--
+
+---BbBKBuHL---J--
+
+---BbBKBuHL---Z--
+
+---mZj18IYa---A--
+[27/Apr/2021:16:10:58 +0000] 161953985843.606455 84.75.180.227 46296 172.17.0.7 443
+---mZj18IYa---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 1745e450-e920-4cfb-8fda-46fa27fa8b10
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---mZj18IYa---D--
+
+---mZj18IYa---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:10:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---mZj18IYa---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953985843.606455"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953985843.606455"] [ref ""]
+
+---mZj18IYa---I--
+
+---mZj18IYa---J--
+
+---mZj18IYa---Z--
+
+---JrZpYmZz---A--
+[27/Apr/2021:16:11:28 +0000] 161953988811.355518 84.75.180.227 46296 172.17.0.7 443
+---JrZpYmZz---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: 1bc5b5db-1b54-49b8-8d7b-e5addf2437e2
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---JrZpYmZz---D--
+
+---JrZpYmZz---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:11:28 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---JrZpYmZz---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953988811.355518"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953988811.355518"] [ref ""]
+
+---JrZpYmZz---I--
+
+---JrZpYmZz---J--
+
+---JrZpYmZz---Z--
+
+---5VuYB1BK---A--
+[27/Apr/2021:16:11:58 +0000] 161953991823.820455 84.75.180.227 46296 172.17.0.7 443
+---5VuYB1BK---B--
+PROPFIND /remote.php/dav/files/janikvonrotz/ HTTP/1.1
+Content-Length: 105
+X-Request-ID: f961231a-cf27-48b1-832e-c043562a44c8
+Content-Type: text/xml; charset=utf-8
+Accept: */*
+Cookie: __Host-nc_sameSiteCookielax=true; __Host-nc_sameSiteCookiestrict=true; oc_sessionPassphrase=D3UNc5dnzJO0uq51f7wNvUIGAEk6aKW2DZr2y9VCwrZpjER4xNpuPxMxawKYvbIpjtiwkpAU%2BYAqboHuMYUCsNrkVG4VyE%2Bx%2F2WDuZ5U7EWr%2BtmQzEQgtM4%2B33LOTUbN; ocgxz9cuh8br=b67fb95588f05ec3e4733a6bb07628fc
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Linux) mirall/3.2.0git (Nextcloud, org.kde.Platform-5.11.0-7612-generic ClientArchitecture: x86_64 OsArchitecture: x86_64)
+Connection: Keep-Alive
+Depth: 0
+Authorization: Basic amFuaWt2b25yb3R6Ok02Z1VYSUVpTWFVNE1qZ25maXIzUG0wdHFkdGg4Qm93akJ0QkdTcXV6SDM5SUlLbEZHRHRremp1Zjl6QjRSNGYyVnhGckdXbg==
+Host: janikv.cloud
+Accept-Language: en-US,*
+
+---5VuYB1BK---D--
+
+---5VuYB1BK---F--
+HTTP/1.1 207
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: none
+Referrer-Policy: no-referrer
+X-Permitted-Cross-Domain-Policies: none
+Connection: keep-alive
+X-Powered-By: PHP/7.4.16
+Content-Encoding: gzip
+X-Content-Type-Options: nosniff
+Content-Type: application/xml; charset=utf-8
+DAV: 1, 3, extended-mkcol, access-control, calendarserver-principal-property-search, nc-calendar-search, nc-enable-birthday-calendar
+X-Download-Options: noopen
+Content-Length: 242
+Date: Tue, 27 Apr 2021 16:11:58 GMT
+Server: nginx
+X-XSS-Protection: 1; mode=block
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+Pragma: no-cache
+Content-Security-Policy: default-src 'none';
+Vary: Brief,Prefer
+
+---5VuYB1BK---H--
+ModSecurity: Warning. Matched "Operator `Rx' with parameter `(?:get|post|head|options|connect|put|delete|trace|track|patch|propfind|propatch|mkcol|copy|move|lock|unlock)\s+(?:\/|\w)[^\s]*(?:\s+http\/\d|[\r\n])' against variable `REQUEST_BODY' (Value: `<?xml version="1.0" ?>\x0a<d:propfind xmlns:d="DAV:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:pro (23 characters omitted)' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-921-PROTOCOL-ATTACK.conf"] [line "33"] [id "921110"] [rev ""] [msg "HTTP Request Smuggling Attack"] [data "Matched Data: propfind xmlns:d="dav:">\x0a found within REQUEST_BODY: <?xml version="1.0" ?>\x0a<d:propfind xmlns:d="dav:">\x0a  <d:prop>\x0a    <d:getetag/>\x0a  </d:prop>\x0a</d:propfind>\x0a"] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-protocol"] [tag "paranoia-level/1"] [tag "OWASP_CRS"] [tag "capec/1000/210/272/220/33"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953991823.820455"] [ref "o26,25v854,105t:urlDecodeUni,t:htmlEntityDecode,t:lowercase"]
+ModSecurity: Warning. Matched "Operator `Ge' with parameter `5' against variable `TX:ANOMALY_SCORE' (Value: `5' ) [file "/etc/modsecurity.d/owasp-crs/rules/REQUEST-949-BLOCKING-EVALUATION.conf"] [line "80"] [id "949110"] [rev ""] [msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] [data ""] [severity "2"] [ver "OWASP_CRS/3.3.0"] [maturity "0"] [accuracy "0"] [tag "application-multi"] [tag "language-multi"] [tag "platform-multi"] [tag "attack-generic"] [hostname "172.17.0.7"] [uri "/remote.php/dav/files/janikvonrotz/"] [unique_id "161953991823.820455"] [ref ""]
+
+---5VuYB1BK---I--
+
+---5VuYB1BK---J--
+
+---5VuYB1BK---Z--
+
