@@ -12,7 +12,16 @@
     url: "{{ item.url }}"
     dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
   loop: "{{ odoo_apps }}"
-  when: item.url is defined
+  when: item.url is defined and item.github_token is not defined
+
+- name: "Download {{ role_name }} zip archives"
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
+    headers:
+      Authorization: "token {{ item.github_token }}"
+  loop: "{{ odoo_apps }}"
+  when: item.url is defined and item.github_token is defined
 
 - name: "Copy {{ role_name }} zip archives"
   copy:
@@ -37,7 +46,6 @@
     remote_src: yes
   when: item.files[0] is match(".*\/$")
   loop: "{{ archive_contents.results }}"
-#  notify: Restart odoo container
 
 - name: "Copy {{ role_name }} to addons dir if archive entry is file"
   copy:
@@ -46,7 +54,6 @@
     remote_src: yes
   when: item.files[0] is not match(".*\/$")
   loop: "{{ archive_contents.results }}"
- # notify: Restart odoo container
 
 - name: Ensure auto install is disabled
   replace:

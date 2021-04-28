@@ -41,7 +41,7 @@ Role details:
 * [keycloak](roles/keycloak/README.md) - Deploy Keycloak Docker container.
 * [update](roles/update/README.md) - Install system and package updates.
 * [package](roles/package/README.md) - Set env vars and install packages.
-* [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps.
+* [odoo-apps](roles/odoo-apps/README.md) - Install Odoo apps from file, url, public or private GitHub repo.
 * [nginx-waf](roles/nginx-waf/README.md) - Deploy Nginx with ModSecurity and Core Rule Set.
 * [maintenance](roles/maintenance/README.md) - Maintain operating system and disk space.
 * [commento](roles/commento/README.md) - Deploy Commento container.
