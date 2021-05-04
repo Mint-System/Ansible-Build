@@ -22,6 +22,14 @@
     force_source: yes
   register: pull_odoo_image
 
+# Remove Odoo patches if a new image has been pulled
+- name: Remove patches
+  file: 
+    path: "/var/tmp/{{ item.name }}_installed"
+    state: absent
+  loop: "{{ odoo_patches }}"
+  when: pull_odoo_image.changed
+
 - name: "Tag {{ role_name }} image"
   command: "docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ pull_odoo_image.image.Id[7:19] }}"
   when: pull_odoo_image.image.RepoTags | length == 0
