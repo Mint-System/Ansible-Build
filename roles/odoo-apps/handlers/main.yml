@@ -1,0 +1,6 @@
+- name: Remove patches
+  file: 
+    path: "/var/tmp/{{ item.name }}_installed"
+    state: absent
+  loop: "{{ odoo_patches }}"
+  when: pull_odoo_image.changed
