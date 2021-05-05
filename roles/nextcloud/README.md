@@ -19,7 +19,7 @@ nextcloud_admin_user: admin
 nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"
 nextcloud_postgres_hostname: postgres01
 nextcloud_postgres_user: nextcloud
-nextcloud_postgres_password: "{{ vault_postgres_password }}"
+nextcloud_postgres_password: "{{ vault_nextcloud_postgres_password }}"
 nextcloud_postgres_db: nextcloud
 nextcloud_mail_hostname: mail.example.com
 nextcloud_mail_encryption: tls
@@ -27,6 +27,8 @@ nextcloud_mail_port: "587"
 nextcloud_mail_from: noreply@example.com
 nextcloud_mail_username: bot@example.com
 nextcloud_mail_password: "{{ vault_nextcloud_mail_password }}"
+nextcloud_redis_hostname: redis01
+nextcloud_redis_password: "{{ vault_nextcloud_redis_password }}"
 ```
 
 And include it in your playbook.
@@ -35,4 +37,20 @@ And include it in your playbook.
 - hosts: nextcloud
   roles:
   - role: nextcloud
+```
+
+## Docs
+
+### Add Redis config manually
+
+In case the Redis container is deployed after Nextcloud has been initated, the config below must be added to the `config.php` to enable Redis caching.
+
+```php
+'memcache.distributed' => '\OC\Memcache\Redis',
+'memcache.locking' => '\OC\Memcache\Redis',
+'redis' => [
+     'host' => 'nextcloud_redis_hostname',
+     'password' => 'nextcloud_redis_password',
+     'port' => 6379,
+],
 ```

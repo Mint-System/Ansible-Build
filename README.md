@@ -57,6 +57,7 @@ Role details:
 * [locale](roles/locale/README.md) - Set system locale.
 * [postgres-exporter](roles/postgres-exporter/README.md) - Deploy PostgreSQL exporter container.
 * [fstab](roles/fstab/README.md) - Configure the fstab file.
+* [redis](roles/redis/README.md) - Deploy Redis container.
 
 WIP:
 
