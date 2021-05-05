@@ -1,0 +1,21 @@
+- name: "Create {{ role_name }} volume"
+  docker_volume:
+    name: "{{ redis_volume_name }}"
+
+- name: "Start {{ role_name }} container {{ redis_hostname }}"
+  docker_container:
+    name: "{{ redis_hostname }}"
+    labels:
+      description: "{{ redis_description }}"
+    image: "{{ redis_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    command: "redis-server --requirepass {{ redis_password }}"
+    volumes:
+      - "{{ redis_volume_name }}:/data"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

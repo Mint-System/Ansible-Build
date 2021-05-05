@@ -1,0 +1,10 @@
+- name: "Remove postgres container {{ postgres_hostname }}"
+  docker_container:
+    name: "{{ postgres_hostname }}"
+    state: absent
+
+- name: Remove postgres volume
+  docker_volume:
+    name: "{{ postgres_volume_name }}"
+    state: absent
+  when: '"postgres-volume" in ansible_run_tags'
