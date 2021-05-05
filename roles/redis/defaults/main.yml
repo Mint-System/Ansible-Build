@@ -1,0 +1,2 @@
+redis_description: Redis
+redis_volume_name: "{{ redis_hostname }}"

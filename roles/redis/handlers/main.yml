@@ -1,0 +1,4 @@
+- name: "Restart {{ role_name }} container"
+  docker_container:
+    name: "{{ redis_hostname }}"
+    restart: true
