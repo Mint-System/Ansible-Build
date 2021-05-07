@@ -15,8 +15,6 @@ odoo_apps_remove_unmanaged_folders: false # default: true
 odoo_apps:
   - name: show_db_name
     url: https://github.com/Mint-System/Odoo-App-Show-DB-Name/archive/v1.0.2.zip
-  - name: web_enterprise
-    file: web_enterprise-13.0.1.0.zip
   - name: theme_common
     file: theme_common-14.0.0.1.1.zip
   - name: theme_treehouse
@@ -25,7 +23,7 @@ odoo_apps:
       - theme_common
   - name: demand_planner
     url: https://github.com/Mint-System/Demand-Planner/archive/refs/tags/v14.0.1.0.0.zip
-    github_token: "{{ vault_github_token_username }}"
+    github_token: "{{ vault_github_token }}"
 odoo_patches:
   - name: odoo14_delivery_patch
     host: odoo01
