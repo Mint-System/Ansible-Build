@@ -14,7 +14,7 @@
   loop: "{{ odoo_apps }}"
   when: item.url is defined and item.github_token is not defined
 
-- name: "Download {{ role_name }} zip archives"
+- name: "Download {{ role_name }} zip archives from GitHub"
   get_url:
     url: "{{ item.url }}"
     dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
