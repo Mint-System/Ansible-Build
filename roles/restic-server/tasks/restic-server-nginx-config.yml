@@ -1,0 +1,24 @@
+- name: Ensure nginx data dir exists
+  file:
+    path: "{{ restic_server_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: "Fail if package {{ restic_server_requires_package }} is not installed"
+  fail:
+    msg: "Package {{ restic_server_requires_package }} is not installed!"
+  when: restic_server_requires_package not in ansible_facts.packages
+
+- name: "Configure user access for {{ role_name }}"
+  htpasswd:
+    path: "{{ restic_server_nginx_data_dir }}/restic-server.htpasswd"
+    name: "{{ restic_server_proxy_basic_auth_username }}"
+    password: "{{ restic_server_proxy_basic_auth_password }}"
+
+- name: "Copy nginx {{ role_name }} conf"
+  template:
+    src: templates/restic-server.nginx
+    dest: "{{ restic_server_nginx_data_dir }}/restic-server.nginx"

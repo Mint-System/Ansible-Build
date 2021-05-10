@@ -20,7 +20,11 @@
     labels:
       description: "{{ restic_server_description }}"
     image: "{{ restic_server_image }}"
+    recreate: "true"
     restart_policy: unless-stopped
+    env:
+      OPTIONS: "--prometheus"
+      HOSTNAME: "{{ restic_server_hostname }}"
     volumes:
       - "{{ restic_server_backup_dir }}:/data"
     networks:

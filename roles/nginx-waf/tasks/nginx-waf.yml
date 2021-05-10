@@ -27,6 +27,7 @@
       - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+      - "{{ nginx_data_dir }}/mnt:/mnt:ro"
       - "{{ nginx_data_dir }}/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf:/etc/modsecurity.d/owasp-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf"
       - "{{ nginx_data_dir }}/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf:/etc/modsecurity.d/owasp-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf"
     env:

@@ -15,6 +15,10 @@ restic_server_user: restic
 restic_server_password: "{{ vault_restic_server_password }}"
 restic_server_hostname: restic01
 restic_server_backup_dir: /path/to/mount
+restic_server_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
+restic_server_requires_package: python2-passlib # default: python3-passlib
+restic_server_proxy_basic_auth_username: exporter # default: restic-server
+restic_server_proxy_basic_auth_password: "{{ vault_restic_server_proxy_basic_auth_password }}"
 ```
 
 And include it in your playbook.
