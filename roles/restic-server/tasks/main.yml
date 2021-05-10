@@ -3,3 +3,10 @@
   when: restic_server_image is defined
   tags:
     - restic-server
+
+- name: "Include {{ role_name }} nginx config tasks"
+  include_tasks: "{{ role_name }}-nginx-config.yml"
+  when: restic_server_image is defined
+  tags:
+    - restic-server
+    - restic-server-nginx-config

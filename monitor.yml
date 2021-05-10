@@ -5,6 +5,8 @@
     tags: cadvisor
   - role: node-exporter
     tags: node-exporter
+  - role: restic-server
+    tags: restic-server
   - role: bigbluebutton-exporter
     tags: bigbluebutton-exporter
   - role: grafana
