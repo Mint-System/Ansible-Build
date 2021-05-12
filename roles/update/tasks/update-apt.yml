@@ -4,16 +4,6 @@
     force_apt_get: yes
     cache_valid_time: 3600
 
-# - name: Count package updates
-#   shell: apt list --upgradeable  | wc -l
-#   args:
-#     warn: false
-#   register: upgradeable_package_count
-
-# - name: Show upgradeable package count
-#   debug:
-#     msg: "{{ upgradeable_package_count.stdout }} packages will be updated."
-
 - name: Upgrade all packages
   apt:
     upgrade: safe

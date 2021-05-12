@@ -2,16 +2,6 @@
   yum:
     update_cache: yes
 
-# - name: Count package updates
-#   shell: yum list updates | wc -l
-#   args:
-#     warn: false
-#   register: upgradeable_package_count
-
-# - name: Show upgradeable package count
-#   debug:
-#     msg: "{{ upgradeable_package_count.stdout }} packages will be updated."
-
 - name: Upgrade all packages # noqa 403
   yum:
     name: "*"
