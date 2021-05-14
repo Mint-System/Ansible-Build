@@ -5,6 +5,8 @@
     tags: redis
   - role: nextcloud
     tags: nextcloud
+  - role: nextcloud-apps
+    tags: nextcloud-apps
   - role: onlyoffice-documentserver
     tags: onlyoffice-documentserver
   - role: nextcloud-exporter

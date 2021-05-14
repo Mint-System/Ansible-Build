@@ -1,0 +1,96 @@
+- name: Read apps shipped with Nextcloud
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ app:list --shipped=true --no-warnings --output=json"
+  register: _result
+  changed_when: false
+
+- name: Parse occ command response as JSON
+  set_fact:
+    nextcloud_shipped_apps: "{{ _result.stdout | from_json }}"
+
+- name: Read external apps installed by the user
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ app:list --shipped=false --no-warnings --output=json"
+  register: _result
+  changed_when: false
+
+- name: Parse occ command response as JSON
+  set_fact:
+    nextcloud_installed_apps: "{{ _result.stdout | from_json }}"
+
+- name: List installed apps
+  debug:
+    var: nextcloud_installed_apps
+
+- name: List shipped apps
+  debug:
+    var: nextcloud_shipped_apps
+
+- name: List configured apps
+  debug:
+    var: nextcloud_apps
+
+# Note: Shipped apps cannot be removed
+- name: Remove unwanted apps
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ app:remove {{ item.name }}"
+  loop: "{{ nextcloud_apps }}"
+  register: result
+  failed_when: result.stdout is not search('removed') or result is failed
+  changed_when: result is not failed
+  when:
+    - item.name in (nextcloud_installed_apps.enabled
+      | combine(nextcloud_installed_apps.disabled))
+    - item.state | default('enabled') == 'absent'
+
+- name: Install apps
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ app:install {{ item.name }}"
+  loop: "{{ nextcloud_apps }}"
+  register: result
+  failed_when: result.stdout is not search('installed') or result is failed
+  changed_when: result is not failed
+  when:
+    - item.name not in (nextcloud_shipped_apps.enabled
+      | combine(nextcloud_shipped_apps.disabled))
+    - item.name not in (nextcloud_installed_apps.enabled
+      | combine(nextcloud_installed_apps.disabled))
+    - item.state | default('enabled') != 'absent'
+
+# Update list of available apps after installation and removal:
+- name: Re-read installed apps
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ app:list --shipped=false --no-warnings --output=json"
+  register: _result
+  changed_when: false
+
+- name: Parse occ command response as JSON
+  set_fact:
+    nextcloud_installed_apps: "{{ _result.stdout | from_json }}"
+
+- name: Enable apps
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ app:enable {{ item.name }}"
+  loop: "{{ nextcloud_apps }}"
+  when:
+    - (item.state | default('enabled')) == 'enabled'
+    - item.name not in (
+        nextcloud_installed_apps.enabled
+        | combine(nextcloud_shipped_apps.enabled)
+      )
+
+- name: Disable apps
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ app:disable {{ item.name }}"
+  loop: "{{ nextcloud_apps }}"
+  when:
+    - (item.state | default('enabled')) == 'disabled'
+    - item.name not in (
+        nextcloud_installed_apps.disabled
+        | combine(nextcloud_shipped_apps.disabled)
+      )
+
+- name: Update enabled apps
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ app:update {{ item.key }}"
+  loop: >-
+    {{
+      nextcloud_installed_apps.enabled
+      | combine(nextcloud_shipped_apps.enabled)
+      | dict2items
+    }}
+  register: result
+  failed_when: result.stdout is search('not installed') or result is failed
+  changed_when: result.stdout is search('updated') and result is not failed
