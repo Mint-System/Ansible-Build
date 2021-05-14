@@ -16,7 +16,7 @@
   vars:
     packages: "{{ docker_packages }}"
 
-- name: "Install {{ role_name }} Module for Python3"
+- name: "Install {{ role_name }} module for Python3"
   pip:
     name: "{{ item.name }}"
     executable: pip3
