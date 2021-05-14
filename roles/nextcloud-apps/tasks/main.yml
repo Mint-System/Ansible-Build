@@ -1,0 +1,5 @@
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: nextcloud_apps is defined
+  tags:
+    - nextcloud-apps
