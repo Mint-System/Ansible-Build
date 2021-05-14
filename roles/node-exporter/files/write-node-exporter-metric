@@ -8,7 +8,7 @@ Help() {
     echo
     echo "Description: Write node-exporter metric."
     echo "Syntax: write-node-exporter-metric [-n|-c|-v|help]"
-    echo "Example: write-node-exporter-metric -n cron_job -c \"Renew certs for proxy01\" -v 0"
+    echo "Example: write-node-exporter-metric -n cron_job -c \"Renew certs for nginx01\" -v 0"
     echo "options:"
     echo "  -n    Reference of custom metric type. Defaults to 'cron_job'"
     echo "  -c    Code for metric value."
