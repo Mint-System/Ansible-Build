@@ -100,7 +100,7 @@
     auto_remove: true
   loop: "{{ certbot_missing_certs }}"
   loop_control:
-    pause: 7
+    pause: 10
 
 - name: Copy renew certs script
   template:
