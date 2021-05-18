@@ -16,17 +16,17 @@
   set_fact:
     nextcloud_installed_apps: "{{ _result.stdout | from_json }}"
 
-- name: List installed apps
-  debug:
-    var: nextcloud_installed_apps
+# - name: List installed apps
+#   debug:
+#     var: nextcloud_installed_apps
 
-- name: List shipped apps
-  debug:
-    var: nextcloud_shipped_apps
+# - name: List shipped apps
+#   debug:
+#     var: nextcloud_shipped_apps
 
-- name: List configured apps
-  debug:
-    var: nextcloud_apps
+# - name: List configured apps
+#   debug:
+#     var: nextcloud_apps
 
 # Note: Shipped apps cannot be removed
 - name: Remove unwanted apps
