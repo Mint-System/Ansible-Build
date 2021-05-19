@@ -1,0 +1,17 @@
+- name: "Install required {{ role_name }} packages"
+  include_role:
+    name: package
+  vars:
+    packages: "{{ fail2ban_packages }}"
+
+- name: "Ensure {{ role_name }} deamon is running"
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: "Set {{ role_name }} local config"
+  template:
+    src: templates/jail.local
+    dest: /etc/fail2ban/jail.local
+  notify: "Restart {{ role_name }} service"

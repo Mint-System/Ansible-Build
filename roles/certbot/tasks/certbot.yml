@@ -97,10 +97,17 @@
       - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
     command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
-    auto_remove: true
+    # auto_remove: true
   loop: "{{ certbot_missing_certs }}"
   loop_control:
-    pause: 10
+    pause: 7
+  register: result
+  # failed_when: result.stdout is search('not installed') or result is failed
+  # changed_when: result.stdout is search('Congratulations') and result is not failed
+
+- name: debug
+  debug:
+    var: result
 
 - name: Copy renew certs script
   template:

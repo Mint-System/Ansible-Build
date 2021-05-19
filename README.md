@@ -26,6 +26,7 @@ Role details:
 | [docker-volume](roles/docker-volume/README.md)                         | Configure Docker volume.                                         |
 | [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
 | [elasticsearch](roles/elasticsearch/README.md)                         | Deploy ElasticSearch Docker cluster.                             |
+| [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
 | [fstab](roles/fstab/README.md)                                         | Configure the fstab file.                                        |
 | [grafana](roles/grafana/README.md)                                     | Deploy Grafana Docker container.                                 |
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
