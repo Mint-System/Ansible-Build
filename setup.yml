@@ -17,6 +17,8 @@
     tags: maintenance
   - role: ufw
     tags: ufw
+  - role: fail2ban
+    tags: fail2ban
   - role: restic-server
     tags: restic-server
   - role: restic-client

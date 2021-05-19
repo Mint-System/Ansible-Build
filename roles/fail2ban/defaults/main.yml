@@ -1,0 +1,5 @@
+fail2ban_packages:
+  - name: fail2ban
+fail2ban_enabled: false
+fail2ban_sshd_enabled: "true"
+fail2ban_bantime: "1d"
