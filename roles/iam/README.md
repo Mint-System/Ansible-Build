@@ -9,6 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
+iam_root_password: "{{ vault_iam_root_password }}"
 iam_options:
   add_wheel_to_sudoers: yes
   disallow_ssh_root_access: yes
