@@ -1,3 +1,9 @@
+- name: Update Root user's Password
+  user: 
+    name: root
+    password: "{{ iam_root_password | password_hash('sha512') }}"
+  when: iam_root_password is defined
+
 - name: Add users
   user:
     name: "{{ item.username }}"
