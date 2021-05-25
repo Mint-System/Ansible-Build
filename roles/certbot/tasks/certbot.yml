@@ -86,28 +86,19 @@
 
 - name: Wait for proxy container
   pause:
-    seconds: "5"
+    seconds: "3"
   when: certbot_missing_certs
 
 - name: "Issue certificate with {{ role_name }}"
-  docker_container:
-    name: "{{ item }}"
-    image: "{{ certbot_image }}"
-    volumes:
-      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
-      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
-    command: certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
-    # auto_remove: true
+  command: >-
+    docker run --rm --name {{ item }}
+    -v {{ certbot_data_dir }}/:/etc/letsencrypt/
+    -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
+    certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
   loop: "{{ certbot_missing_certs }}"
-  loop_control:
-    pause: 7
   register: result
-  # failed_when: result.stdout is search('not installed') or result is failed
-  # changed_when: result.stdout is search('Congratulations') and result is not failed
-
-- name: debug
-  debug:
-    var: result
+  failed_when: result.stdout is search('Some challenges have failed.') or result.failed
+  changed_when: result.stdout is search('Congratulations!') or not result.failed
 
 - name: Copy renew certs script
   template:
