@@ -13,7 +13,7 @@
       description: "{{ nextcloud_description }}"
     image: "{{ nextcloud_image }}"
     restart_policy: unless-stopped
-    recreate: yes
+    recreate: no
     env:
       NEXTCLOUD_TRUSTED_DOMAINS: "{{ nextcloud_trusted_domains }}"
       NEXTCLOUD_ADMIN_USER: "{{ nextcloud_admin_user }}"
@@ -47,8 +47,17 @@
 
 - name: "Wait for {{ role_name }} container" # noqa 503
   pause:
-    seconds: "10"
+    seconds: "30"
   when: start_nextcloud_container.changed
+
+# FIXME: Wait for server until installation is finished
+# - name: "Wait for {{ role_name }} container"
+#   command: "docker logs {{ nextcloud_hostname }}"
+#   register: result
+#   until: result.stdout.find("Nextcloud was successfully installed") != -1
+#   retries: 15
+#   delay: 3
+#   when: start_nextcloud_container.changed
 
 - name: "Cron job to run {{ role_name }} background jobs"
   cron:
