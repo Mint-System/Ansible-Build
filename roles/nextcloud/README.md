@@ -12,7 +12,7 @@ Configure the role.
 # https://hub.docker.com/_/nextcloud/
 nextcloud_image: nextcloud:19-apache
 nextcloud_hostname: nextcloud01
-nextcloud_volume_name: nextcloud_data01
+nextcloud_volume_name: nextcloud_data01 # default: "{{ nextcloud_hostname}}"
 nextcloud_volume_backup_sets: # See restic_backup_sets var in role restic-client
 nextcloud_trusted_domains: nextcloud.example.com
 nextcloud_admin_user: admin

@@ -1,2 +1,3 @@
 nextcloud_description: Nextcloud
 nextcloud_timezone: Europe/Berlin
+nextcloud_volume_name: "{{ nextcloud_hostname }}"
