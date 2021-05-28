@@ -7,10 +7,10 @@
     tags:
       - odoo-apps
       - odoo-patches
+      - odoo-pip-packages
   - role: odoo-scripts
     tags: odoo-scripts
   - role: odoo-databases
     tags: odoo-databases
   - role: odoo-enterprise
     tags: odoo-enterprise
-

@@ -27,6 +27,8 @@ odoo_apps:
 odoo_patches:
   - name: odoo14_delivery_patch
     host: odoo01
+odoo_pip_packages:
+  - name: python-jose
 ```
 
 And include it in your playbook.
