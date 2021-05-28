@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/onlyoffice/documentserver
-onlyoffice_documentserver_image: onlyoffice/documentserver:6.1
+onlyoffice_documentserver_image: onlyoffice/documentserver:6.3
 onlyoffice_documentserver_hostname: doc01
 onlyoffice_documentserver_description: Nexcloud OnlyOffice # default: OnlyOffice Document Server
 ```
