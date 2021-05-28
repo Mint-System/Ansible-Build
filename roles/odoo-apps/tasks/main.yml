@@ -9,3 +9,9 @@
   when: odoo_patches is defined
   tags:
     - odoo-patches
+
+- name: "Include odoo pip packages tasks"
+  include_tasks: odoo-pip-packages.yml
+  when: odoo_pip_packages is defined
+  tags:
+    - odoo-pip-packages
