@@ -45,7 +45,7 @@ Role details:
 | [nginx](roles/nginx/README.md)                                         | Deploy Nginx proxy with Certbot.                                 |
 | [node-exporter](roles/node-exporter/README.md)                         | Deploy Node exporter container and install custom metric script. |
 | [odoo-apps](roles/odoo-apps/README.md)                                 | Install Odoo apps from file, url, public or private GitHub repo. |
-| [odoo-data](roles/odoo-apps/README.md)                                 | Generate Odoo data modules.                                      |
+| [odoo-data](roles/odoo-data/README.md)                                 | Generate Odoo data modules.                                      |
 | [odoo-enterprise](roles/odoo-enterprise/README.md)                     | Checkout the Odoo Enterprise git repository.                     |
 | [odoo-scripts](roles/odoo-scripts/README.md)                           | Install Odoo scripts.                                            |
 | [odoo](roles/odoo/README.md)                                           | Deploy Odoo container.                                           |
