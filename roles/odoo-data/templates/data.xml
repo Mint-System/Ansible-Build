@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+  <record id="{{ item.id }}" model="{{ item.model }}">
+
+    {% for item in (item.fields | dict2items) %}
+    <field name="{{ item.key }}">{{ item.value }}</field>
+    {% endfor %}
+
+  </record>
+
+</odoo>

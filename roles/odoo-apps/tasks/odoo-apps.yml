@@ -76,4 +76,4 @@
     path: "{{ odoo_data_dir }}/addons/{{ item }}"
     state: "absent"
   loop: "{{ existing_odoo_apps.stdout_lines }}"
-  when: item not in managed_folders and odoo_apps_remove_unmanaged_folders
+  when: item is not search('_data') and item not in managed_folders and odoo_apps_remove_unmanaged_folders
