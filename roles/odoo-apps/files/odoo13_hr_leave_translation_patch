@@ -13,9 +13,9 @@ SCRIPT=$(basename "$0")
 PACKAGE_PATH="/usr/lib/python3/dist-packages/"
 
 # Custom configuration
-FILE_PATH="${PACKAGE_PATH}odoo/addons/delivery/__manifest__.py"
-FIND="'sale_stock', 'sale_management'"
-REPLACE="'sale_stock'"
+FILE_PATH="${PACKAGE_PATH}odoo/addons/hr_holidays/models/hr_leave.py"
+FIND="body=_('Your %s planned on %s has been accepted' % (holiday.holiday_status_id.display_name, holiday.date_from)),"
+REPLACE="body=_('Your %s planned on %s has been accepted') % (holiday.holiday_status_id.display_name, holiday.date_from),"
 
 # Get filename
 FILE=`basename "$FILE_PATH"`
