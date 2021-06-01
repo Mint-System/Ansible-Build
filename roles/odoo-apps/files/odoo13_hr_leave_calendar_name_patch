@@ -15,7 +15,7 @@ PACKAGE_PATH="/usr/lib/python3/dist-packages/"
 # Custom configuration
 FILE_PATH="${PACKAGE_PATH}odoo/addons/hr_holidays/models/hr_leave.py"
 FIND="'name': meeting_name,"
-REPLACE="'name': meeting_name.replace(' on Time Off', holiday.holiday_status_id.name),"
+REPLACE="'name': meeting_name.replace('on Time Off ', holiday.holiday_status_id.name),"
 
 # Get filename
 FILE=`basename "$FILE_PATH"`
