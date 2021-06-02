@@ -10,6 +10,7 @@ Configure the role.
 
 ```yml
 docker_network_name: example.com
+docker_network_driver: overlay # defaults: bridge
 ```
 
 And include it in your playbook.

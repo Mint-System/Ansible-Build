@@ -2,7 +2,7 @@
   get_url:
     url: "{{ item.url }}"
     dest: "/etc/yum.repos.d/{{ item.name }}.repo"
-  loop: "{{ package_yum_repos }}"
+  loop: "{{ yum_repos }}"
 
 - name: Update yum cache
   yum:

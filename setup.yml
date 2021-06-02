@@ -1,6 +1,8 @@
 - hosts: all
   become: true
   roles:
+  - role: docker-swarm
+    tags: docker-swarm
   - role: fstab
     tags: fstab
   - role: locale

@@ -9,8 +9,12 @@ Configure the role.
 **vars.yml**
 
 ```yml
+yum_repos:
+  - name: restic
+    url: https://copr.fedorainfracloud.org/coprs/copart/restic/repo/epel-7/copart-restic-epel-7.repo
 packages:
   - name: zsh
+  - name: restic
   - name: vim
     version: 2:8.0.1453-1ubuntu1.3
 ```
