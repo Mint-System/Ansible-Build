@@ -22,12 +22,12 @@
 
 - name: "Include {{ role_name }} yum tasks"
   include_tasks: "{{ role_name }}-yum.yml"
-  when: packages is defined and ansible_distribution == 'CentOS' and ansible_python_interpreter == '/usr/bin/python2'
+  when: packages is defined and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
   tags:
    - package
 
 - name: "Include {{ role_name }} dnf tasks"
   include_tasks: "{{ role_name }}-dnf.yml"
-  when: packages is defined and ansible_distribution == 'CentOS' and ansible_python_interpreter == '/usr/bin/python3'
+  when: packages is defined and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '8'
   tags:
    - package
