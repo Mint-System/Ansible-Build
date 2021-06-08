@@ -1,0 +1,4 @@
+- name: "Restart {{ role_name }} container"
+  docker_container:
+    name: "{{ simple_mail_forwarder_hostname }}"
+    restart: true
