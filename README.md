@@ -66,6 +66,7 @@ Role details:
 
 WIP:
 
+* [simple-mail-forwarder](roles/simple-mail-forwarder/README.md) - Deploy Simple Mail Forwarder container.
 * [synapse](roles/synapse/README.md) - Deploy Matrix Synapse container.
 * [coturn](roles/coturn/README.md) - Deploy Coturn container.
 * [collabora-code](roles/collabora-code/README.md) - Deploy Collabora Code container.
