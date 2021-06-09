@@ -9,6 +9,8 @@ Configure the role.
 **vars.yml**
 
 ```yml
+dnf_repos:
+  - name: epel-release
 yum_repos:
   - name: restic
     url: https://copr.fedorainfracloud.org/coprs/copart/restic/repo/epel-7/copart-restic-epel-7.repo
