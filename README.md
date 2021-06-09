@@ -60,13 +60,13 @@ Role details:
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
 | [restic-client](roles/restic-client/README.md)                         | Configure Restic client backup jobs.                             |
 | [restic-server](roles/restic-server/README.md)                         | Deploy Restic server container.                                  |
+| [simple-mail-forwarder](roles/simple-mail-forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
 | [ufw](roles/ufw/README.md)                                             | Configure UFW rules.                                             |
 | [update](roles/update/README.md)                                       | Install system and package updates.                              |
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |
 
 WIP:
 
-* [simple-mail-forwarder](roles/simple-mail-forwarder/README.md) - Deploy Simple Mail Forwarder container.
 * [synapse](roles/synapse/README.md) - Deploy Matrix Synapse container.
 * [coturn](roles/coturn/README.md) - Deploy Coturn container.
 * [collabora-code](roles/collabora-code/README.md) - Deploy Collabora Code container.

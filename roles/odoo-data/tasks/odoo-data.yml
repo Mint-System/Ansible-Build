@@ -13,5 +13,5 @@
 - name: Copy data file
   template:
     src: templates/data.xml
-    dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/data/{{ item.model}}.data.xml"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/data/{{ item.model }}.data.xml"
   loop: "{{ odoo_data }}"

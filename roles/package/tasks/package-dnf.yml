@@ -1,7 +1,7 @@
 - name: Enable dnf repos
   dnf:
     name: "{{ item.name }}"
-    state: latest
+    state: present
   loop: "{{ dnf_repos }}"
 
 - name: Install latest packages
