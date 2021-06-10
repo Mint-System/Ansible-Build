@@ -12,7 +12,7 @@ Configure the role.
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_data:
   - id: ir_mail_server_1
-    model_name: "Mail Server"
+    display_name: "Mail Server"
     model: ir.mail_server
     fields:
       name: Infomaniak Outgoing
