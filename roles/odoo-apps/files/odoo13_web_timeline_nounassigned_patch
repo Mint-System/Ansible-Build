@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Default configuration
+PACKAGE_PATH="/mnt/addons"
+
+# Custom configuration
+FILE_PATH="${PACKAGE_PATH}/web_timeline/static/src/js/timeline_renderer.js"
+FIND='groups.push({id: -1, content: _t("<b>UNASSIGNED<\/b>")});'
+
+# Get filename
+FILE=`basename "$FILE_PATH"`
+
+# Cop from docker
+docker cp "$1":"$FILE_PATH" .
+
+# Find and replace
+sed -i'' "s/$FIND//g" $FILE
+
+# Copy back to docker
+docker cp $FILE "$1":"$FILE_PATH"
+
+# Register patch installation
+echo "Patch $SCRIPT applied."
+touch "/var/tmp/$SCRIPT"
