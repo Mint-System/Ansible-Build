@@ -10,7 +10,7 @@ PACKAGE_PATH="/usr/lib/python3/dist-packages/"
 FILE_PATH="${PACKAGE_PATH}odoo/addons/hr_holidays/models/hr_leave.py"
 FIND="body=_('Your %s planned on %s has been refused') % (holiday.holiday_status_id.display_name, holiday.date_from),"
 IFS='' read -r -d '' REPLACE << EOM
-                    body=(_('Your %s planned on %s has been refused') % (holiday.holiday_status_id.display_name, holiday.date_from)) + _('<br/>Note: %s') % (holiday.report_note),
+                    body=(_('Your %s planned on %s has been refused') % (holiday.holiday_status_id.display_name, holiday.date_from)) + _('<br/>Note: %s') % (holiday.sudo().report_note),
 EOM
 
 # Get filename
