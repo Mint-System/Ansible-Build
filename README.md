@@ -24,6 +24,7 @@ Role details:
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
 | [docker-network](roles/docker-network/README.md)                       | Configure Docker network.                                        |
 | [docker-volume](roles/docker-volume/README.md)                         | Configure Docker volume.                                         |
+| [docker-swarm](roles/docker-swarm/README.md)                           | Configure Docker Swarm.                                          |
 | [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
 | [elasticsearch](roles/elasticsearch/README.md)                         | Deploy ElasticSearch Docker cluster.                             |
 | [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
@@ -61,6 +62,7 @@ Role details:
 | [restic-client](roles/restic-client/README.md)                         | Configure Restic client backup jobs.                             |
 | [restic-server](roles/restic-server/README.md)                         | Deploy Restic server container.                                  |
 | [simple-mail-forwarder](roles/simple-mail-forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
+| [s3cmd](roles/s3cmd/README.md)                                         | Install and configure s3cmd.                                     |
 | [ufw](roles/ufw/README.md)                                             | Configure UFW rules.                                             |
 | [update](roles/update/README.md)                                       | Install system and package updates.                              |
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |

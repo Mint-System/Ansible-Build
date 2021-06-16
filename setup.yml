@@ -25,3 +25,5 @@
     tags: restic-server
   - role: restic-client
     tags: restic-client
+  - role: s3cmd
+    tags: s3cmd

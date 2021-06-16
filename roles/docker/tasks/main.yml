@@ -28,3 +28,9 @@
   when: docker_packages is defined
   tags:
     - docker
+
+- name: "Include {{ role_name }} login tasks"
+  include_tasks: "{{ role_name }}-login.yml"
+  when: docker_login_username is defined
+  tags:
+    - docker

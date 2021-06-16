@@ -1,6 +1,6 @@
 # Ansible Docker Swarm role
 
-Configures a Docker Swarm.
+Configures Docker Swarm.
 
 ## Usage
 
@@ -9,7 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-docker_swarm:
+docker_swarm_enable: true # default: false
 ```
 
 And include it in your playbook.

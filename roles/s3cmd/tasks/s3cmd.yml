@@ -1,0 +1,12 @@
+- name: "Install required {{ role_name }} packages"
+  include_role:
+    name: package
+  vars:
+    packages:
+      - name: s3cmd
+
+- name: Add bucket credentials
+  template:
+    src: templates/.s3cfg
+    dest: ~/.s3cfg
+    mode: 600
