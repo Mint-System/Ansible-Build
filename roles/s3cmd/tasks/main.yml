@@ -1,0 +1,5 @@
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: s3cmd_host_base is defined
+  tags:
+    - s3cmd
