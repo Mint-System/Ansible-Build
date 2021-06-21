@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Default configuration
+PACKAGE_PATH="/usr/lib/python3/dist-packages/"
+
+# Custom configuration
+FILE_PATH="${PACKAGE_PATH}odoo/addons/hr_holidays/models/hr_leave.py"
+FIND="if not is_officer:"
+REPLACE="if not True:"
+
+# Get filename
+FILE=`basename "$FILE_PATH"`
+
+# Cop from docker
+docker cp "$1":"$FILE_PATH" .
+
+# Find and replace
+sed -i'' "s/$FIND/$REPLACE/g" $FILE
+
+# Copy back to docker
+docker cp $FILE "$1":"$FILE_PATH"
+
+# Register patch installation
+echo "Patch $SCRIPT applied."
+touch "/var/tmp/$SCRIPT"
