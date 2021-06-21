@@ -9,85 +9,95 @@ digraph {
 	7 [label="docker-volume"]
 	8 [label=synapse]
 	9 [label=locale]
-	10 [label="bigbluebutton-exporter"]
-	11 [label=pgadmin]
-	12 [label=maintenance]
-	13 [label=update]
-	14 [label="odoo-databases"]
-	15 [label=openldap]
-	16 [label="odoo-scripts"]
-	17 [label="onlyoffice-documentserver"]
-	18 [label=metricbeat]
-	19 [label=fstab]
-	20 [label=keycloak]
-	21 [label=iam]
-	22 [label=elasticsearch]
-	23 [label=ufw]
-	24 [label=debug]
-	25 [label=fathom]
-	26 [label=nginx]
-	27 [label=bigbluebutton]
-	28 [label=package]
-	29 [label="odoo-enterprise"]
-	30 [label="nextcloud-exporter"]
-	31 [label=commento]
-	32 [label="restic-client"]
-	33 [label=odoo]
-	34 [label=prometheus]
-	35 [label=bookstack]
-	36 [label="docker-network"]
-	37 [label=grafana]
-	38 [label="postgres-exporter"]
-	39 [label=mysql]
-	40 [label=kibana]
-	41 [label="nginx-waf"]
-	42 [label=cadvisor]
-	43 [label="node-exporter"]
-	44 [label=coturn]
-	45 [label=nextcloud]
-	46 [label=vercel]
-	47 [label="collabora-code"]
-	48 [label=moodle]
-	49 [label="restic-server"]
-	50 [label=wordpress]
-	51 [label=certbot]
-	1 -> 36
-	5 -> 22
-	6 -> 36
+	10 [label=redis]
+	11 [label="bigbluebutton-exporter"]
+	12 [label=pgadmin]
+	13 [label=maintenance]
+	14 [label=update]
+	15 [label="odoo-databases"]
+	16 [label="odoo-data"]
+	17 [label=openldap]
+	18 [label="odoo-scripts"]
+	19 [label=s3cmd]
+	20 [label="onlyoffice-documentserver"]
+	21 [label=metricbeat]
+	22 [label=fail2ban]
+	23 [label=fstab]
+	24 [label=keycloak]
+	25 [label=iam]
+	26 [label=elasticsearch]
+	27 [label=ufw]
+	28 [label="nextcloud-apps"]
+	29 [label=debug]
+	30 [label=fathom]
+	31 [label=nginx]
+	32 [label=bigbluebutton]
+	33 [label=package]
+	34 [label="odoo-enterprise"]
+	35 [label="nextcloud-exporter"]
+	36 [label=commento]
+	37 [label="restic-client"]
+	38 [label=odoo]
+	39 [label=prometheus]
+	40 [label=bookstack]
+	41 [label="docker-network"]
+	42 [label="docker-swarm"]
+	43 [label=grafana]
+	44 [label="postgres-exporter"]
+	45 [label=mysql]
+	46 [label=kibana]
+	47 [label="nginx-waf"]
+	48 [label=cadvisor]
+	49 [label="node-exporter"]
+	50 [label=coturn]
+	51 [label="simple-mail-forwarder"]
+	52 [label=nextcloud]
+	53 [label=vercel]
+	54 [label="collabora-code"]
+	55 [label=moodle]
+	56 [label="restic-server"]
+	57 [label=wordpress]
+	58 [label=certbot]
+	1 -> 41
+	5 -> 26
+	6 -> 41
 	7 -> 4
-	8 -> 36
-	10 -> 36
-	11 -> 36
-	12 -> 4
-	14 -> 16
-	15 -> 36
-	17 -> 36
-	18 -> 40
-	18 -> 5
-	20 -> 6
-	21 -> 4
-	22 -> 36
-	25 -> 36
-	26 -> 51
-	27 -> 6
-	29 -> 33
-	30 -> 36
-	31 -> 6
-	33 -> 6
-	34 -> 36
-	35 -> 39
-	36 -> 4
-	37 -> 34
-	38 -> 36
-	39 -> 36
-	40 -> 22
-	42 -> 36
-	43 -> 36
-	44 -> 36
-	45 -> 6
-	47 -> 45
-	48 -> 6
-	49 -> 36
-	50 -> 39
-	51 -> 36
+	8 -> 41
+	10 -> 41
+	11 -> 41
+	12 -> 41
+	13 -> 4
+	15 -> 18
+	17 -> 41
+	20 -> 41
+	21 -> 46
+	21 -> 5
+	24 -> 6
+	25 -> 4
+	26 -> 41
+	30 -> 41
+	31 -> 58
+	32 -> 6
+	34 -> 38
+	35 -> 41
+	36 -> 6
+	38 -> 6
+	39 -> 41
+	40 -> 45
+	41 -> 4
+	42 -> 4
+	43 -> 39
+	44 -> 41
+	45 -> 41
+	46 -> 26
+	48 -> 41
+	49 -> 41
+	50 -> 41
+	51 -> 41
+	52 -> 6
+	54 -> 52
+	55 -> 6
+	56 -> 41
+	57 -> 45
+	58 -> 41
 }
