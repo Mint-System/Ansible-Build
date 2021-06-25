@@ -1,0 +1,9 @@
+- name: Add missing indices
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ db:add-missing-indices"
+  register: result
+  changed_when: result.stdout is search('table updated successfully')
+
+- name: Add missing primary keys
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ db:add-missing-primary-keys"
+  register: result
+  changed_when: result.stdout is search('table updated successfully')
