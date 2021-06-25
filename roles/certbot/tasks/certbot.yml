@@ -139,7 +139,7 @@
     pause: 5
 
 - name: Remove unmanaged certificate live folder
-  file: 
+  file:
     path: "{{ certbot_data_dir }}/live/{{ item }}"
     state: absent
   loop: "{{ certbot_managed_certs.stdout_lines }}"

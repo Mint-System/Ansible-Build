@@ -1,5 +1,5 @@
 - name: Update Root user's Password
-  user: 
+  user:
     name: root
     password: "{{ iam_root_password | password_hash('sha512') }}"
   when: iam_root_password is defined
