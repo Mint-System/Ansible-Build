@@ -29,6 +29,7 @@ nextcloud_mail_username: bot@example.com
 nextcloud_mail_password: "{{ vault_nextcloud_mail_password }}"
 nextcloud_redis_hostname: redis01
 nextcloud_redis_password: "{{ vault_nextcloud_redis_password }}"
+nextcloud_integrity_check: true # default: false
 ```
 
 And include it in your playbook.
