@@ -1,3 +1,16 @@
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ coturn_data_dir }}"
+    state: directory
+
+- name: "Copy {{ role_name }} conf"
+  template:
+    src: "templates/{{ item }}"
+    dest: "{{ coturn_data_dir }}/{{ item }}"
+  loop:
+    - turnserver.conf
+  notify: "Restart {{ role_name }} container"
+
 - name: "Start {{ role_name }} container {{ coturn_hostname }}"
   docker_container:
     name: "{{ coturn_hostname }}"
@@ -6,6 +19,10 @@
     image: "{{ coturn_image }}"
     restart_policy: unless-stopped
     recreate: no
+    ports:
+      - 443:443
+      - 3478:3478
+      - 49160-49200:49160-49200/udp
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

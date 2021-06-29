@@ -101,22 +101,6 @@
       - nodejs
     state: present
 
-# https://docs.bigbluebutton.org/2.2/customize.html#make-the-html5-client-default
-
-- name: Make the HTML5 client default for attendees join
-  replace:
-    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
-    regexp: 'attendeesJoinViaHTML5Client=false'
-    replace: 'attendeesJoinViaHTML5Client=true'
-    backup: true
-
-- name: Make the HTML5 client default for moderators join
-  replace:
-    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
-    regexp: 'moderatorsJoinViaHTML5Client=false'
-    replace: 'moderatorsJoinViaHTML5Client=true'
-    backup: true
-
 # http://docs.bigbluebutton.org/2.2/install.html#assign-a-hostname
 
 - name: Get BigBlueButton API url # noqa 306

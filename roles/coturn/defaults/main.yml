@@ -1,1 +1,2 @@
 coturn_description: Coturn
+coturn_data_dir: "/usr/share/{{ coturn_hostname }}"

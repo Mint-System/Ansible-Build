@@ -1,5 +1,3 @@
-# http://docs.bigbluebutton.org/2.2/install.html#using-lets-encrypt
-
 - name: Create nginx SSL certificates directory
   file:
     state: directory
@@ -11,6 +9,8 @@
   command: openssl dhparam -dsaparam  -out /etc/nginx/ssl/dhp-4096.pem 4096
   args:
     creates: /etc/nginx/ssl/dhp-4096.pem
+
+# FIXME: Remove /etc/nginx/sites-enabled/default and restart nginx
 
 - name: Create letsencrypt certificates with certbot
   command: "certbot --webroot --email {{ bigbluebutton_certbot_email }} --agree-tos -w /var/www/bigbluebutton-default/ -d {{ bigbluebutton_hostname }} certonly"
