@@ -14,7 +14,7 @@
   loop:
     - datasource.yml
     - dashboard.yml
-  notify: Restart grafana container
+  notify: "Restart {{ role_name }} container"
 
 - name: "Start {{ role_name }} container {{ grafana_hostname }}"
   docker_container:

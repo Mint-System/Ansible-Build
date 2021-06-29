@@ -1,0 +1,4 @@
+- name: "Restart {{ role_name }} container"
+  docker_container:
+    name: "{{ coturn_hostname }}"
+    restart: true

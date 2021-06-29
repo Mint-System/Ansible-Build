@@ -2,12 +2,6 @@
   become: true
   roles:
     - role: bigbluebutton
-      tags:
-        - biglbuebutton
-        - biglbuebutton-core
-        - biglbuebutton-letsencrypt
-        - biglbuebutton-https
-        - biglbuebutton-greenlight
-        - biglbuebutton-coturn
+      tags: bigbluebutton-ubuntu1804
     - role: coturn
       tags: coturn

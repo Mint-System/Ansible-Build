@@ -1,6 +1,6 @@
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
-  when: restic_repo is defined
+  when: restic_repo is defined and restic_repo
   tags:
     - restic-client
 

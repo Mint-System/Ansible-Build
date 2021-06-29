@@ -52,7 +52,8 @@ And include it in your playbook.
 The following tags are available:
 
 * biglbuebutton
-* biglbuebutton-ubuntu1604
+* bigblbuebutton-ubuntu1604
+* bigblbuebutton-ubuntu1804
 * biglbuebutton-letsencrypt
 * biglbuebutton-https
 * biglbuebutton-greenlight

@@ -1,55 +1,10 @@
-# https://docs.bigbluebutton.org/2.2/install.html#configure-freeswitch-for-using-ssl
-
-# - name: Update http for https on nginx
-#   replace:
-#     path: /etc/bigbluebutton/nginx/sip.nginx
-#     regexp: 'http:'
-#     replace: 'https:'
-#   notify: Restart BigBlueButton services
-
-# - name: Update SIP port on nginx
-#   replace:
-#     path: /etc/bigbluebutton/nginx/sip.nginx
-#     regexp: '5066'
-#     replace: '7443'
-#   notify: Restart BigBlueButton services
-
-# https://docs.bigbluebutton.org/2.2/troubleshooting.html#freeswitch-using-default-stun-server
-
-- name: Apply freeswitch workaround
-  script: "apply-freeswitch-workaround {{ ansible_default_ipv4.address }}"
-  notify: Restart BigBlueButton services
-
-# http://docs.bigbluebutton.org/2.2/install.html#configure-bigbluebutton-to-load-session-via-https
-
 - name: Update http for https on BigBlueButton webapp
   replace:
     path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
     regexp: 'bigbluebutton.web.serverURL=http:'
     replace: 'bigbluebutton.web.serverURL=https:'
   notify: Restart BigBlueButton services
-
-- name: Update http for https on red5
-  replace:
-    path: /usr/share/red5/webapps/screenshare/WEB-INF/screenshare.properties
-    regexp: 'jnlpUrl=http:'
-    replace: 'jnlpUrl=https:'
-  notify: Restart BigBlueButton services
-
-- name: Update http for https on red5
-  replace:
-    path: /usr/share/red5/webapps/screenshare/WEB-INF/screenshare.properties
-    regexp: 'jnlpFile=http:'
-    replace: 'jnlpFile=https:'
-  notify: Restart BigBlueButton services
-
-- name: Update http for https on BigBlueButton client config
-  replace:
-    path: /var/www/bigbluebutton/client/conf/config.xml
-    regexp: 'http://'
-    replace: 'https://'
-  notify: Restart BigBlueButton services
-
+  
 - name: Update ws for wss on kurento media server
   replace:
     path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
@@ -70,21 +25,3 @@
     regexp: 'playback_protocol: http$'
     replace: 'playback_protocol: https'
   notify: Restart BigBlueButton services
-
-# https://github.com/bigbluebutton/bigbluebutton-api-php/issues/64
-
-- name: Update http for https on BigBlueButton webapp
-  replace:
-    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
-    regexp: 'allowRequestsWithoutSession=false'
-    replace: 'allowRequestsWithoutSession=true'
-  notify: Restart BigBlueButton services
-
-# https://docs.bigbluebutton.org/2.2/install.html#using-lets-encrypt
-# https://github.com/bigbluebutton/bbb-install/blob/master/bbb-install.sh#L874
-
-- name: Copy bigbluebutton nginx conf
-  template:
-    src: templates/bigbluebutton.nginx
-    dest: /etc/nginx/sites-available/bigbluebutton
-  notify: Restart Nginx service
