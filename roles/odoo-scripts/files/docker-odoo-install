@@ -16,11 +16,12 @@ Help() {
     echo
     echo "Description: Install Odoo database in Docker container."
     echo "Syntax: $SCRIPT [-d|-m|-c|help]"
-    echo "Example: $SCRIPT -d erp -m hr_timesheet -c odoo01"
+    echo "Example: $SCRIPT -d erp -m hr_timesheet -c odoo01 -w all"
     echo "options:"
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -m    List of odoo modules. Defaults to 'base,web,website'."
     echo "  -c    Docker container. Defaults to 'odoo'."
+    echo "  -w    Without demo data."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -32,11 +33,12 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":d:m:c:" opt; do
+while getopts ":d: :m: :c: :w:" opt; do
   case $opt in
     m) MODULES="$OPTARG";;
     c) CONTAINER="$OPTARG";;
     d) DATABASE="$OPTARG";;
+    w) WITHOUT_DEMO="--without-demo=$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
     exit;;
@@ -50,10 +52,10 @@ done
 # Install with Docker exec
 if [ "$MODULES" != '' ]; then
   echo "Install $MODULES for database $DATABASE on container $CONAINER."
-  docker exec -it $CONTAINER bin/bash -c "odoo -c /etc/odoo/odoo.conf -i $MODULES -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD --without-demo=all --stop-after-init --no-http" && docker restart $CONTAINER
+  docker exec -it $CONTAINER bin/bash -c "odoo -c /etc/odoo/odoo.conf -i $MODULES -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD $WITHOUT_DEMO --stop-after-init --no-http" && docker restart $CONTAINER
 else
   echo "Init database $DATABASE on container $CONAINER."
-  docker exec -it $CONTAINER bin/bash -c "odoo -c /etc/odoo/odoo.conf -i base -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD --without-demo=all --stop-after-init --no-http" && docker restart $CONTAINER
+  docker exec -it $CONTAINER bin/bash -c "odoo -c /etc/odoo/odoo.conf -i base -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD $WITHOUT_DEMO --stop-after-init --no-http" && docker restart $CONTAINER
 fi
 # Notify if installation has finished
 echo "The Odoo installation for $CONTAINER has finished."
