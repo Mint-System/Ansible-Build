@@ -4,7 +4,7 @@
     regexp: 'bigbluebutton.web.serverURL=http:'
     replace: 'bigbluebutton.web.serverURL=https:'
   notify: Restart BigBlueButton services
-  
+
 - name: Update ws for wss on kurento media server
   replace:
     path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
