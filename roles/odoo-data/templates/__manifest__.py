@@ -1,5 +1,5 @@
 {
-    'name': "{{ item.model_name }} Data",
+    'name': "{{ item.model }} Data",
 
     'summary': """
         Generated module to configure {{ item.model }}.
