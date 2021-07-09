@@ -9,6 +9,7 @@
     mode: +x
   loop:
     - docker-volume-backup
+    - docker-volume-restore
 
 - name: Include docker volume backup from restic client role
   include_role:
