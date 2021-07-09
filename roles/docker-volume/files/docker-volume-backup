@@ -55,7 +55,7 @@ done
 [[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
-if $ALL ; then
+if [ "$ALL" = "true" ]; then
   # Get all volumes from docker container
   VOLUME_LIST=($(docker inspect -f '{{ range .Mounts }}{{ .Name }} {{ end }}' $CONTAINER))
 
@@ -75,6 +75,9 @@ mkdir -p ${DIR}/${CONTAINER}
 # Cleanup backup folder
 rm -rf ${DIR}/${CONTAINER}/*
 
+# Warning
+echo "Make sure to stop the container $CONTAINER before creating a backup."
+
 # Create dump with docker for each database
 for VOLUME in "${VOLUME_LIST[@]}"
 do
@@ -83,4 +86,4 @@ do
 done
 
 # Notify if backup has finished
-echo "The Docker volume backup has finished: ${DIR}/${CONTAINER}/{${VOLUMES}}.tar"
+echo "The Docker volume backup has finished: ${DIR}/${CONTAINER}/{$VOLUMES}.tar"

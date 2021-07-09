@@ -12,3 +12,8 @@ SCRIPT="docker-volume-backup"
 echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/docker-volume/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="docker-volume-restore"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/docker-volume/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"

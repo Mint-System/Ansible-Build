@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -eo pipefail
+
+# Display Help
+Help() {
+  echo
+  echo "docker-volume-restore"
+  echo "####################"
+  echo
+  echo "Description: Restore docker volumes."
+  echo "Syntax: docker-volume-restore [-v|-f|help]"
+  echo "Example: docker-volume-restore -v postgres_data01 -f /tmp -c postgres01"
+  echo "options:"
+  echo "  -v    Volume name. Defaults to tar file name."
+  echo "  -f    Path to tar file."
+  echo "  help  Show docker-volume-restore manual."
+  echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":v :f:" opt; do
+  case $opt in
+    v) VOLUME="$OPTARG";;
+    f) FILE="$OPTARG";;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Verify variables
+[[ -z "$FILE" ]] && { echo "Parameter -f|file path is empty" ; exit 1; }
+
+# Fallback to environment vars and default values
+FILENAME=$(basename -- "$FILE")
+DIR=$(dirname "$FILE")
+: ${VOLUME:="${FILENAME%%.*}"}
+
+# Warning
+echo "Make sure to stop the attached containers before running the restore."
+
+# Restore dump for volume
+echo "Run restore $DIR/$FILENAME to Docker volume $VOLUME ..."
+docker run --rm -v $VOLUME:/_data -v ${DIR}:/restore ubuntu bash -c "cd /_data && tar xvf /restore/$VOLUME.tar --strip 1"
+
+# Notify if restore has finished
+echo "The Docker volume restore has finished."
