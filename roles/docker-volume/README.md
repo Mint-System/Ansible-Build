@@ -20,3 +20,11 @@ And include it in your playbook.
   roles:
   - role: docker-volume
 ```
+
+## Docs
+
+### Install without Ansible
+
+The installation script requires that you have sudo access to root.
+
+Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-playbooks/master/roles/docker-volume/files/install | sh` in your terminal.
