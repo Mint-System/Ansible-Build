@@ -2,11 +2,15 @@
 <odoo noupdate="1">
 
   <record id="{{ item.id }}" model="{{ item.model }}">
+  {% for item in (item.fields | dict2items) %}
 
-    {% for item in (item.fields | dict2items) %}
+    {% if item.value is mapping %}
+      <field name="{{ item.key }}" eval="{{ item.value.value }}"/>
+    {% else %}
     <field name="{{ item.key }}">{{ item.value }}</field>
-    {% endfor %}
+    {% endif %}
 
+  {% endfor %}
   </record>
 
 </odoo>
