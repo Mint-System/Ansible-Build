@@ -16,7 +16,7 @@
 - name: "Copy {{ role_name }} conf"
   template:
     src: templates/nginx-proxy.conf
-    dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname }}.conf"
+    dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname | replace('*.', 'wildcard.') }}.conf"
   vars:
     src_hostname: "{{ item.src_hostname }}"
     dest_hostname: "{{ item.dest_hostname | default('') }}"
@@ -38,7 +38,7 @@
 
 - name: Create managed file list from proxy list
   set_fact:
-    managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
+    managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('replace', '*.', 'wildcard.') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
 
 - name: "Remove unmanaged {{ role_name }} conf files"
   file:
