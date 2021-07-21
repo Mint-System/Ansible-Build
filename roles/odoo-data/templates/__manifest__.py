@@ -1,5 +1,5 @@
 {
-    'name': "{{ item.model }} Data",
+    'name': "{{ item.display_name }} Data",
 
     'summary': """
         Generated module to configure {{ item.model }}.
@@ -11,7 +11,7 @@
     'version': '14.0.1.0.0',
     'license': 'AGPL-3',
     
-    'depends': ['base'],
+    'depends': ['{{ depends }}'],
 
     'data': [
         'data/{{ item.model }}.data.xml',

@@ -8,10 +8,24 @@
   template:
     src: templates/__manifest__.py
     dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/__manifest__.py"
+  vars:
+    depends: "{{ item.depends | default('base') }}"
   loop: "{{ odoo_data }}"
 
 - name: Copy data file
   template:
     src: templates/data.xml
     dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/data/{{ item.model }}.data.xml"
+  loop: "{{ odoo_data }}"
+
+- name: "Ensure {{ role_name }} description dir exists"
+  file:
+    path: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/static/description/"
+    state: directory
+  loop: "{{ odoo_data }}"
+
+- name: Copy icon file
+  copy:
+    src: icon.png
+    dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/static/description/icon.png"
   loop: "{{ odoo_data }}"
