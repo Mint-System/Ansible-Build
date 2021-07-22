@@ -17,7 +17,8 @@ nginx_https_port: 8443 # default: 443
 nginx_proxies:
   - src_hostname: www.example.com
     dest_hostname: webserver
-    dest_port: 80
+    dest_replicas: 3 # default: 1
+    dest_port: 8080 # default: 80
     options: |
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
     ssl: true
@@ -34,7 +35,7 @@ nginx_proxies:
     locations:
       - path: /auth
         dest_hostname: authserver
-        dest_port: 8080
+        dest_port: 8080 # default: 80
         options: |
           proxy_buffer_size 128k;
           proxy_buffers 4 256k;
