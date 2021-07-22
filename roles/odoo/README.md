@@ -11,6 +11,7 @@ Configure the role.
 ```yml
 odoo_image: odoo:13
 odoo_hostname: odoo01
+odoo_replicas: 3 # default: 1
 odoo_description: Odoo13:erp.example.com # default: Odoo
 odoo_ports:
  - "8069:8069" # default: "127.0.0.1:8069:8069"

@@ -55,6 +55,34 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+  when: odoo_replicas == 1
+
+- name: "Start {{ role_name }} container {{ odoo_hostname }}"
+  docker_container:
+    name: "{{ odoo_hostname }}_{{ item }}"
+    labels:
+      description: "{{ odoo_description }}"
+    image: "odoo:{{ pull_odoo_image.image.Id[7:19] }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env:
+      HOST: "{{ odoo_postgres_hostname }}"
+      USER: "{{ odoo_postgres_user }}"
+      PASSWORD: "{{ odoo_postgres_password }}"
+      TZ: "{{ odoo_timezone }}"
+    volumes:
+      - "{{ odoo_volume_name }}:/var/lib/odoo"
+      - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
+      - "{{ odoo_data_dir }}/addons:/mnt/addons"
+      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  with_sequence: start=1 end={{ odoo_replicas }}
+  when: odoo_replicas > 1
 
 - name: "Ensure {{ role_name }} master password is in environment"
   lineinfile:
