@@ -14,7 +14,7 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: List alls Odoo databases in Docker container."
+    echo "Description: List all Odoo databases in Docker container."
     echo "Syntax: $SCRIPT [-c|help]"
     echo "Example: $SCRIPT -c odoo01"
     echo "options:"

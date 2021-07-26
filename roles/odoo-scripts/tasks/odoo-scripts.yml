@@ -14,3 +14,4 @@
     - docker-odoo-backup
     - docker-odoo-restore
     - docker-odoo-drop
+    - docker-odoo-clear-assets

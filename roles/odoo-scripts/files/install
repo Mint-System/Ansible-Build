@@ -67,3 +67,8 @@ SCRIPT="odoo-duplicate"
 echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="docker-odoo-clear-assets"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/odoo-scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
