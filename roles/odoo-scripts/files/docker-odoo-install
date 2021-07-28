@@ -19,7 +19,7 @@ Help() {
     echo "Example: $SCRIPT -d erp -m hr_timesheet -c odoo01 -w all"
     echo "options:"
     echo "  -d    Database name. Defaults to 'odoo'."
-    echo "  -m    List of odoo modules. Defaults to 'base,web,website'."
+    echo "  -m    List of odoo modules. Defaults to 'base'."
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -w    Without demo data."
     echo "  help  Show $SCRIPT manual."
@@ -57,5 +57,5 @@ else
   echo "Init database $DATABASE on container $CONAINER."
   docker exec -it $CONTAINER bin/bash -c "odoo -c /etc/odoo/odoo.conf -i base -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD $WITHOUT_DEMO --stop-after-init --no-http" && docker restart $CONTAINER
 fi
-# Notify if installation has finished
+
 echo "The Odoo installation for $CONTAINER has finished."
