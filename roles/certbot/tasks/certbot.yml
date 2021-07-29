@@ -94,7 +94,7 @@
     docker run --rm --name {{ item }}
     -v {{ certbot_data_dir }}/:/etc/letsencrypt/
     -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
-    certonly --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
+    certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
   loop: "{{ certbot_missing_certs }}"
   when: certbot_preferred_challenges == 'http'
   register: result
