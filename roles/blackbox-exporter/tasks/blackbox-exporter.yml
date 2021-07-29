@@ -1,0 +1,14 @@
+- name: "Start {{ role_name }} container {{ blackbox_exporter_hostname }}"
+  docker_container:
+    name: "{{ blackbox_exporter_hostname }}"
+    labels:
+      description: "{{ blackbox_exporter_description }}"
+    image: "{{ blackbox_exporter_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
