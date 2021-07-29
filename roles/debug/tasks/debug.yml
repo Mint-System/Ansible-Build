@@ -1,6 +1,10 @@
 - name: debug
   debug:
-    var: hostvars[inventory_hostname]
+    var: groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[*].src_hostname') | flatten
+
+# - name: debug
+#   debug:
+#     var: hostvars[inventory_hostname]
 
 # - name: set Digests
 #   set_fact:

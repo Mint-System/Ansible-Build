@@ -13,3 +13,7 @@
     tags: grafana
   - role: postgres-exporter
     tags: postgres-exporter
+  - role: blackbox-exporter
+    tags: blackbox-exporter
+  - role: prometheus
+    tags: prometheus

@@ -14,6 +14,7 @@ Role details:
 
 | Role                                                                   | Description                                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| [blackbox-exporter](roles/blackbox-exporter/README.md)                 | Deploy Blackbox exporter container.                              |
 | [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
 | [bookstack](roles/bookstack/README.md)                                 | Deploy BookStack container.                                      |
