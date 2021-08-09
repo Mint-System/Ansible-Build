@@ -1,6 +1,17 @@
+
 - name: debug
   debug:
-    var: groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[*].src_hostname') | flatten
+    msg: 
+    - "{{ ansible_memtotal_mb }}"
+    - "{{ ansible_processor_vcpus }}"
+    - "{{ (ansible_memtotal_mb * 0.25 * 1024) | round }}kB"
+    - "{{ (ansible_memtotal_mb * 0.75 * 1024) | round }}kB"
+    - "{{ (ansible_memtotal_mb * 0.062 * 1024) | round }}kB"
+    - "{{ (((ansible_memtotal_mb * 1024) - (ansible_memtotal_mb * 0.25 * 1024)) / (3 * postgres_max_connections)) | round }}kB"
+
+# - name: debug
+#   debug:
+#     var: groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[*].src_hostname') | flatten
 
 # - name: debug
 #   debug:
