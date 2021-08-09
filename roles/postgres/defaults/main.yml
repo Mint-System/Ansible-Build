@@ -1,2 +1,3 @@
 postgres_description: PostgreSQL
 postgres_volume_name: "{{ postgres_hostname }}"
+postgres_max_connections: 20
