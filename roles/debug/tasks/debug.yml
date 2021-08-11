@@ -1,7 +1,7 @@
 
 - name: debug
   debug:
-    msg: 
+    msg:
     - "{{ ansible_memtotal_mb }}"
     - "{{ ansible_processor_vcpus }}"
     - "{{ (ansible_memtotal_mb * 0.25 * 1024) | round }}kB"

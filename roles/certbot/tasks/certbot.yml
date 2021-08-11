@@ -104,7 +104,7 @@
 - name: "Issue certificate with {{ role_name }}"
   fail:
     msg: >-
-      Run this command manually: 
+      Run this command manually:
       docker run -it --name {{ item | replace('*.', 'wildcard') }}
       -v {{ certbot_data_dir }}/:/etc/letsencrypt/
       -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
