@@ -14,7 +14,7 @@ Help() {
   echo
   echo "Description: Restore docker volumes."
   echo "Syntax: docker-volume-restore [-v|-f|help]"
-  echo "Example: docker-volume-restore -v postgres_data01 -f /tmp -c postgres01"
+  echo "Example: docker-volume-restore -v postgres_data01 -f /var/tmp/postgres_data01.tar"
   echo "options:"
   echo "  -v    Volume name. Defaults to tar file name."
   echo "  -f    Path to tar file."
