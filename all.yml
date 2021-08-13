@@ -3,6 +3,8 @@
   roles:
   - role: debug
     tags: debug
+  - role: postgres
+    tags: postgres
   - role: bookstack
     tags: bookstack
   - role: nextcloud
