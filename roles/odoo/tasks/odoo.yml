@@ -1,6 +1,9 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
-    name: "{{ odoo_volume_name }}"
+- name: "Include docker volume role"
+  include_role:
+    name: docker-volume
+  vars:
+    docker_volume_name: "{{ odoo_volume_name }}"
+  when: odoo_volume_name is defined
 
 - name: "Ensure {{ role_name }} data dir exists"
   file:
