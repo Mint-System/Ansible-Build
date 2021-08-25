@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -eo pipefail
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: Restore docker postgres database."
+  echo "Syntax: $SCRIPT [-d|-f|-c|r|help]"
+  echo "Example: $SCRIPT -d odoo -f /tmp/dump.sql -c postgres01 -u oc_admin -p *****"
+  echo "options:"
+  echo "  -d    Name of database. Defaults to filename"
+  echo "  -f    Path to sql dump."
+  echo "  -c    Docker container name. Defaults to 'postgres'."
+  # echo "  -u    Optional database owner username."
+  # echo "  -p    Optional database owner password."
+  echo "  -r    Replace existing database."
+  echo "  help  Show $SCRIPT manual."
+  echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Initialise option flag with a false value
+DROP='false'
+CREATE='false'
+
+# Process params
+while getopts ":r :c: :d: :f: :u: :p:" opt; do
+  case $opt in
+    r) DROP='true'
+      CREATE='true'
+    ;;
+    c) CONTAINER="$OPTARG";;
+    d) DATABASE="$OPTARG";;
+    f) FILE="$OPTARG";;
+    # u) USERNAME="$OPTARG";;
+    # p) PASSWORD="$OPTARG";;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${CONTAINER:='postgres'}
+FILENAME=$(basename -- "$FILE")
+: ${DATABASE:="${FILENAME%%.*}"}
+
+# Verify variables
+[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+
+# Get postgres user
+POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")
+
+if $DROP; then
+  echo "Deleting Postgres database $DATABASE ..."
+  docker exec $CONTAINER dropdb -U $POSTGRES_USER $DATABASE
+fi
+
+if $CREATE; then
+  echo "Create Postgres database $DATABASE ..."
+  docker exec $CONTAINER createdb -U $POSTGRES_USER $DATABASE
+fi
+
+# Start restore 
+echo "Restore Postgres database $DATABASE from $FILE ..."
+cat $FILE | docker exec -i $CONTAINER psql -U $POSTGRES_USER
+docker exec $CONTAINER psql -U $POSTGRES_USER -d template1 -c "GRANT ALL PRIVILEGES ON DATABASE $DATABASE TO $POSTGRES_USER;"
+
+# Notify if backup has finished
+echo "The Docker Postgres restore has finished."

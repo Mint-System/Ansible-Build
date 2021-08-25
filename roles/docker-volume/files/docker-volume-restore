@@ -29,7 +29,7 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":v :f:" opt; do
+while getopts ":v: :f:" opt; do
   case $opt in
     v) VOLUME="$OPTARG";;
     f) FILE="$OPTARG";;
@@ -40,7 +40,7 @@ while getopts ":v :f:" opt; do
 done
 
 # Verify variables
-[[ -z "$FILE" ]] && { echo "Parameter -f|file path is empty" ; exit 1; }
+[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
 
 # Fallback to environment vars and default values
 FILENAME=$(basename -- "$FILE")
