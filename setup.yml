@@ -27,3 +27,5 @@
     tags: restic-client
   - role: s3cmd
     tags: s3cmd
+  - role: docker-compose
+    tags: docker-compose

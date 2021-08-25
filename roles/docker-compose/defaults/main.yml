@@ -1,0 +1,1 @@
+docker_compose_data_dir: "/usr/share/{{ docker_compose_project_name }}"

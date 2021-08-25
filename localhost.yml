@@ -1,6 +1,9 @@
 - hosts: localhost
+  connection: local
   roles:
   - role: odoo-scripts
     tags: odoo-scripts
   - role: odoo-apps
     tags: odoo-apps
+  - role: docker-compose
+    tags: docker-compose
