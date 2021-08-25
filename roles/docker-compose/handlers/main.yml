@@ -1,0 +1,4 @@
+- name: "Restart {{ role_name }} project"
+  docker_compose:
+    project_src: "{{ docker_compose_data_dir }}"
+    state: restarted

@@ -70,6 +70,7 @@ Role details:
 
 WIP:
 
+* [docker-compose](roles/docker-compose/README.md) - Deploy Docker Compose project.
 * [synapse](roles/synapse/README.md) - Deploy Matrix Synapse container.
 * [coturn](roles/coturn/README.md) - Deploy Coturn container.
 * [collabora-code](roles/collabora-code/README.md) - Deploy Collabora Code container.
