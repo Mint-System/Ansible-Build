@@ -20,3 +20,8 @@ And include it in your playbook.
   roles:
   - role: ufw
 ```
+
+## Docs
+
+Enable ufw manually.\
+`ufw enable`
