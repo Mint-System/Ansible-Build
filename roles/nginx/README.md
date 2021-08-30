@@ -32,6 +32,7 @@ nginx_proxies:
       - www.example.org
   - src_hostname: login.example.com
     ssl: true
+    monitor: true
     locations:
       - path: /auth
         dest_hostname: authserver
