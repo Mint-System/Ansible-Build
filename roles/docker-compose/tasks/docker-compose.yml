@@ -20,3 +20,4 @@
   args:
     chdir: "{{ docker_compose_data_dir }}"
   register: result
+  changed_when: "'up-to-date' not in result.stderr"

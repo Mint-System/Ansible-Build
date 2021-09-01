@@ -1,4 +1,5 @@
 - name: "Restart {{ role_name }} project"
-  docker_compose:
-    project_src: "{{ docker_compose_data_dir }}"
-    state: restarted
+  command:  "docker-compose -p {{ docker_compose_project_name }} restart"
+  args:
+    chdir: "{{ docker_compose_data_dir }}"
+  changed_when: true
