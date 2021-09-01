@@ -1,3 +1,15 @@
+#   register: ansible_jobs
+#   async: 120
+#   poll: 0
+
+# - name: Wait for extraction to finish
+#   async_status:
+#     jid: "{{ item.ansible_job_id }}"
+#   register: ansible_job
+#   until: ansible_job.finished
+#   delay: 5
+#   retries: 10
+#   loop: "{{ ansible_jobs.results }}"
 
 # - name: debug
 #   debug:
@@ -9,9 +21,9 @@
 #     - "{{ (ansible_memtotal_mb * 0.062 * 1024) | round }}kB"
 #     - "{{ (((ansible_memtotal_mb * 1024) - (ansible_memtotal_mb * 0.25 * 1024)) / (3 * postgres_max_connections)) | round }}kB"
 
-- name: debug
-  debug:
-    var: groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor==`true`].src_hostname') | flatten
+# - name: debug
+#   debug:
+#     var: groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor==`true`].src_hostname') | flatten
 
 # - name: debug
 #   debug:
