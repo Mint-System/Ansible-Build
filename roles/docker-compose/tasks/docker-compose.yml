@@ -12,19 +12,11 @@
 - name: "Copy {{ role_name }} config"
   template:
     src: docker-compose.yml
-    dest: "{{ docker_compose_data_dir }}/.env"
+    dest: "{{ docker_compose_data_dir }}/docker-compose.yml"
   notify: Restart {{ role_name }} project
 
 - name: "Start {{ role_name }} project"
-  docker_compose:
-    project_name: "{{ docker_compose_project_name }}"
-    project_src: "{{ docker_compose_data_dir }}"
+  command:  "docker-compose -p {{ docker_compose_project_name }} up -d"
+  args:
+    chdir: "{{ docker_compose_data_dir }}"
   register: result
-
-- debug:
-    var: output
-
-# - ansible.builtin.assert:
-#     that:
-#       - "web.flask_web_1.state.running"
-#       - "db.flask_db_1.state.running"
