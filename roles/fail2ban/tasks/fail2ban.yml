@@ -6,7 +6,7 @@
 
 - name: "Ensure {{ role_name }} deamon is running"
   service:
-    name: docker
+    name: fail2ban
     state: started
     enabled: true
 
