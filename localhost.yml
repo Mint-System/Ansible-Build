@@ -7,3 +7,5 @@
     tags: odoo-apps
   - role: docker-compose
     tags: docker-compose
+  - role: clean
+    tags: clean

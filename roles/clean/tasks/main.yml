@@ -32,3 +32,4 @@
       - restic-client
       - commento
       - bigbluebutton
+      - docker-compose

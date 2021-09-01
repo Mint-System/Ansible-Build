@@ -1,0 +1,5 @@
+- name: "Remove docker-compose project"
+  command:  "docker-compose -p {{ docker_compose_project_name }} down -v"
+  args:
+    chdir: "{{ docker_compose_data_dir }}"
+  register: result
