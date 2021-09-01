@@ -7,6 +7,20 @@
   set_fact:
     odoo_apps: "{{ odoo_apps | unique }}"
 
+- name: "Get odoo app dependencies"
+  set_fact:
+    odoo_app_dependencies: "{{ odoo_apps | json_query('[*].depends[]') }}"
+
+- name: "Get odoo app names"
+  set_fact:
+    odoo_app_names: "{{ odoo_apps | json_query('[*].name') }}"
+
+- name: Check odoo app dependencies
+  fail:
+    msg: "Missing odoo app {{ item }}" 
+  when: item not in odoo_app_names
+  loop: "{{ odoo_app_dependencies }}"
+
 - name: "Download {{ role_name }} zip archives"
   get_url:
     url: "{{ item.url }}"
@@ -67,13 +81,9 @@
   changed_when: no
   register: existing_odoo_apps
 
-- name: Create managed folder list from odoo apps list
-  set_fact:
-    managed_folders: "{{ odoo_apps | map(attribute='name') | list }}"
-
 - name: "Remove unmanaged {{ role_name }} folder"
   file:
     path: "{{ odoo_data_dir }}/addons/{{ item }}"
     state: "absent"
   loop: "{{ existing_odoo_apps.stdout_lines }}"
-  when: item is not search('_data') and item not in managed_folders and odoo_apps_remove_unmanaged_folders
+  when: item is not search('_data') and item not in odoo_app_names and odoo_apps_remove_unmanaged_folders
