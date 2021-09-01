@@ -3,3 +3,4 @@
   args:
     chdir: "{{ docker_compose_data_dir }}"
   register: result
+  changed_when: true

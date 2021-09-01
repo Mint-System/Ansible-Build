@@ -38,6 +38,13 @@ function update-docs() {
     python ./library/graph.py
 }
 
+function list-hosts() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+
+    activate-venv
+    ansible -i $1 all --list-hosts
+}
+
 case "$1" in
     init)
         sudo touch /var/log/ansible.log
@@ -56,6 +63,9 @@ case "$1" in
         ;;
     update-docs)
         update-docs
+        ;;
+    list-hosts)
+        list-hosts $2
         ;;
     lint)
         activate-venv

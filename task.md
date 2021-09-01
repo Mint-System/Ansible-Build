@@ -6,3 +6,4 @@
 | install-packages      |            | Install Python and Ansible dependencies.    |
 | lint                  |            | Lint Ansible roles and playbooks.           |
 | update-docs           |            | Update project docs.                        |
+| list-hosts            | [path]     | Lists all hosts of an inventory             |
