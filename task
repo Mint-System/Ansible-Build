@@ -10,32 +10,48 @@ column -t -s"|" ./task.md | tail -n +3
 echo
 }
 
+# Set env vars
+GIT_BRANCH=$(git symbolic-ref --short -q HEAD)
+
 function generate-passwordfile() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
     export VAULTPASSWORD=$1
     echo "$VAULTPASSWORD" > .vault_pass
     chmod 600 .vault_pass
+    echo "Password file .vault_pass created."
 }
 
-function venv-init() {
-    python3 -m venv venv
-    source venv/bin/activate
+function init-venv() {
+    if [ ! -d "venv$GIT_BRANCH" ]; then
+        echo "Create virtualenv venv$GIT_BRANCH."
+        python3 -m venv "venv$GIT_BRANCH"
+    fi
 }
 
 function activate-venv() {
-    source venv/bin/activate
+    echo "Source virtualenv venv$GIT_BRANCH."
+    source "venv$GIT_BRANCH/bin/activate"
 }
 
-function install-packages() {
+function install() {
+    echo "Setup Ansible log file."
+    sudo touch /var/log/ansible.log
+    sudo chown $USER: /var/log/ansible.log
+
+    init-venv
     activate-venv
+
+    echo "Install Ansible and Python dependencies."
     sudo apt install graphviz
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
+
     ansible-galaxy collection install community.general
 }
 
 function update-docs() {
+    echo "Update docs."
     activate-venv
-    python ./library/graph.py
+    python3 ./library/graph.py
 }
 
 function list-hosts() {
@@ -45,21 +61,31 @@ function list-hosts() {
     ansible -i $1 all --list-hosts
 }
 
+function version() {
+    printf "\npython:\n"
+    python --version
+    printf "\npip:\n"
+    pip --version
+
+    activate-venv
+    printf "\npython venv:\n"
+    python --version
+    printf "\npip venv:\n"
+    pip --version
+
+    printf "\nansible:\n"
+    ansible --version
+}
+
 case "$1" in
-    init)
-        sudo touch /var/log/ansible.log
-        sudo chown $USER: /var/log/ansible.log
-        venv-init
-        ;;
     generate-passwordfile)
         generate-passwordfile $2
         ;;
-    install-ansible)
-        activate-venv
-        pip install ansible
+    install)
+        install
         ;;
-    install-packages)
-        install-packages
+    version)
+        version
         ;;
     update-docs)
         update-docs
@@ -70,6 +96,9 @@ case "$1" in
     lint)
         activate-venv
         ansible-lint *.yml
+        ;;
+    source)
+        activate-venv
         ;;
     *)
         help task
