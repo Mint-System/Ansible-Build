@@ -75,13 +75,17 @@ WIP:
 * [coturn](roles/coturn/README.md) - Deploy Coturn container.
 * [collabora-code](roles/collabora-code/README.md) - Deploy Collabora Code container.
 
+## Requirements
+
+* Install python 3.8+ with [pyenv](https://github.com/pyenv/pyenv-installer)
+
 ## Usage
 
 Clone this repository.
 
 `git clone https://github.com/Mint-System/Ansible-Playbooks.git`
 
-Set this the task alias.
+Set this task alias.
 
 `alias task=./task`
 
@@ -95,23 +99,23 @@ Generate a password file for Ansible vault.
 
 `task generate-passwordfile $PASSWORD`
 
-Initialize and install Ansible.
+Install Ansible and Python dependencies.
 
-`task init; task install-ansible`
-
-Install Python and Ansible dependencies.
-
-`task install-packages`
+`task install`
 
 Create an inventory and configure a role.
 
 [Ansbile Documentation > Build Your Inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)
 
-### Deployment
+### Commands
 
-List inventory
+List hosts in inventory.
 
-`ansible-inventory --list -y -i inventories/setup | grep -E 'ansible_host'`
+`task list-hosts inventories/setup`
+
+Load virtualenv.
+
+`source task source`
 
 Test connection
 
@@ -176,10 +180,10 @@ Whenever possible use env variables to configure the container.
 **Env Config**
 
 ```yml
-    env:
-      POSTGRES_USER: "{{ postgres_user }}"
-      POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_DB: "{{ postgres_db }}"
+env:
+  POSTGRES_USER: "{{ postgres_user }}"
+  POSTGRES_PASSWORD: "{{ postgres_password }}"
+  POSTGRES_DB: "{{ postgres_db }}"
 ```
 
 ### Data
@@ -191,8 +195,8 @@ To persist data use Docker volumes.
 Mount the folder without subfolder.
 
 ```yml
-    volumes:
-      - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
+volumes:
+  - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
 ```
 
 For Ansible config files use file mounts.
@@ -200,8 +204,8 @@ For Ansible config files use file mounts.
 **Bind Mount**
 
 ```yml
-    volumes:
-      - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
+volumes:
+  - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
 ```
 
 ### Guidelines
