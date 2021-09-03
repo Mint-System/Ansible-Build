@@ -23,7 +23,7 @@ Role details:
 | [clean](roles/clean/README.md)                                         | Cleanup Ansible roles.                                           |
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
-| * [docker-compose](roles/docker-compose/README.md)                     | Deploy Docker Compose project.                                   |
+| [docker-compose](roles/docker-compose/README.md)                     | Deploy Docker Compose project.                                   |
 | [docker-network](roles/docker-network/README.md)                       | Configure Docker network.                                        |
 | [docker-volume](roles/docker-volume/README.md)                         | Configure Docker volume.                                         |
 | [docker-swarm](roles/docker-swarm/README.md)                           | Configure Docker Swarm.                                          |
