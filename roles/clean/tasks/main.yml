@@ -33,3 +33,4 @@
       - commento
       - bigbluebutton
       - docker-compose
+      - docker-swarm
