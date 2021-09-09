@@ -1,3 +1,21 @@
+- name: Check current docker-compose version
+  command: /usr/local/bin/docker-compose --version
+  register: docker_compose_vsn
+  changed_when: false
+  failed_when: false
+
+- set_fact:
+    docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
+  when:
+    - docker_compose_vsn.stdout != ""
+
+- name: "Install docker-compose {{ docker_compose_version }}"
+  get_url: 
+    url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    force: yes
+  when: docker_compose_current_version is not defined or docker_compose_current_version != docker_compose_version
+
 - name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ docker_compose_data_dir }}"
@@ -16,7 +34,7 @@
   notify: Restart {{ role_name }} project
 
 - name: "Start {{ role_name }} project"
-  command:  "docker-compose -p {{ docker_compose_project_name }} up -d"
+  command:  "/usr/local/bin/docker-compose -p {{ docker_compose_project_name }} up -d"
   args:
     chdir: "{{ docker_compose_data_dir }}"
   register: result

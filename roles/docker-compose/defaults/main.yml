@@ -1,1 +1,2 @@
 docker_compose_data_dir: "/usr/share/{{ docker_compose_project_name }}"
+docker_compose_version: "1.29.2"

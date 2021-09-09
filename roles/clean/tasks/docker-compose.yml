@@ -4,3 +4,15 @@
     chdir: "{{ docker_compose_data_dir }}"
   register: result
   changed_when: true
+
+- name: Remove docker-compose data dir
+  file:
+    path: "{{ docker_compose_data_dir }}"
+    state: absent
+  when: '"docker-compose-data-dir" in ansible_run_tags'
+
+- name: Remove docker-compose
+  file:
+    path: "/usr/local/bin/docker-compose"
+    state: absent
+  when: '"docker-compose-data-dir" in ansible_run_tags'
