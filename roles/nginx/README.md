@@ -12,8 +12,9 @@ Configure the role.
 nginx_image: nginx:1.19.2-alpine
 nginx_hostname: nginx01
 nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"
-nginx_https_port: 8080 # default: 80
-nginx_https_port: 8443 # default: 443
+postgres_ports:
+  - 8080:8080 # default: 80:80
+  - 8443:8443 # default: 443:443
 nginx_proxies:
   - src_hostname: www.example.com
     dest_hostname: webserver

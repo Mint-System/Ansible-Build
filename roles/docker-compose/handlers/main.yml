@@ -3,3 +3,4 @@
   args:
     chdir: "{{ docker_compose_data_dir }}"
   changed_when: true
+  when: docker_compose_definition is defined

@@ -18,7 +18,7 @@ docker_compose_dotenv: |
   POSTGRES_PASSWORD=frappe
   SITE_NAME=mysite.localhost
   SITES=mysite.localhost
-  DB_ROOT_USER=postgres
+  POSTGRES_USER=postgres
   ADMIN_PASSWORD=frappe
 docker_compose_definition: |
   version: '3'
@@ -59,6 +59,7 @@ docker_compose_definition: |
       volumes:
         - sites-vol:/home/frappe/frappe-bench/sites:rw
         - logs-vol:/home/frappe/frappe-bench/logs:rw
+        - assets-vol:/home/frappe/frappe-bench/sites/assets:rw
 
     frappe-socketio:
       container_name: frappe-socketio
@@ -156,7 +157,7 @@ docker_compose_definition: |
       ports:
         - "127.0.0.1:5432:5432"
       environment:
-        POSTGRES_USER: ${DB_ROOT_USER}
+        POSTGRES_USER: ${POSTGRES_USER}
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       volumes:
         - postgresql-vol:/var/lib/postgresql/data
@@ -171,7 +172,7 @@ docker_compose_definition: |
       environment:
         POSTGRES_HOST: ${POSTGRES_HOST}
         SITE_NAME: ${SITE_NAME}
-        DB_ROOT_USER: ${DB_ROOT_USER}
+        DB_ROOT_USER: ${POSTGRES_USER}
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         ADMIN_PASSWORD: ${ADMIN_PASSWORD}
         INSTALL_APPS: ${INSTALL_APPS}

@@ -1,4 +1,5 @@
-nginx_http_port: 80
-nginx_https_port: 443
+nginx_ports:
+  - 80:80
+  - 443:443
 nginx_description: Nginx
 nginx_data_dir: "/usr/share/{{ nginx_hostname }}"

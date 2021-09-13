@@ -32,6 +32,7 @@
     src: docker-compose.yml
     dest: "{{ docker_compose_data_dir }}/docker-compose.yml"
   notify: Restart {{ role_name }} project
+  when: docker_compose_definition is defined
 
 - name: "Start {{ role_name }} project"
   command:  "/usr/local/bin/docker-compose -p {{ docker_compose_project_name }} up -d"
@@ -39,3 +40,4 @@
     chdir: "{{ docker_compose_data_dir }}"
   register: result
   changed_when: "'up-to-date' not in result.stderr"
+  when: docker_compose_definition is defined
