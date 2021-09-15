@@ -2,8 +2,20 @@
   command: /usr/local/bin/docker-odoo-list -c "{{ odoo_hostname }}"
   register: existing_databases
   changed_when: false
+  when: odoo_replicas == 1
+
+- name: Get all Odoo databases on first replica
+  command: /usr/local/bin/docker-odoo-list -c "{{ odoo_hostname }}_1"
+  register: existing_databases
+  changed_when: false
+  when: odoo_replicas > 1
 
 - name: Drop disabled databases
   command: /usr/local/bin/docker-odoo-drop -c "{{ odoo_hostname }}" -d "{{ item.name }}"
-  when: item.state == 'absent' and item.name in existing_databases.stdout_lines
+  when: item.state == 'absent' and item.name in existing_databases.stdout_lines and odoo_replicas == 1
+  loop: "{{ odoo_databases }}" 
+
+- name: Drop disabled databases on first replica
+  command: /usr/local/bin/docker-odoo-drop -c "{{ odoo_hostname }}_1" -d "{{ item.name }}"
+  when: item.state == 'absent' and item.name in existing_databases.stdout_lines and odoo_replicas > 1
   loop: "{{ odoo_databases }}"
