@@ -71,7 +71,7 @@ echo "Backup database $DATABASE to $FILEPATH ..."
 
 # Copy filestore
 echo "Remove and copy filestore."
-rm -r "$DIR/filestore"
+rm -rf "$DIR/filestore"
 docker cp "$CONTAINER:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
 
 # Create pgpass file
@@ -85,13 +85,13 @@ docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c 'pg_dump -h $HOST -U $
 
 # Zip everything
 echo -e "\e[1A\e[KZip filestore and dump to $FILE."
-rm "$FILEPATH"
+rm -f "$FILEPATH"
 cd "$DIR"
 zip -q -r "$FILE" ./dump.sql ./filestore
 
 # Remove source files
 echo -e "\e[1A\e[KCleanup source files."
-rm -r dump.sql filestore
+rm -rf dump.sql filestore
 
 # Notify if backup has finished
 echo "The Odoo backup has finished: $FILEPATH"
