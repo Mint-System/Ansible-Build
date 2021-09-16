@@ -69,31 +69,29 @@ FILEPATH="${DIR}/${FILE}"
 
 echo "Backup database $DATABASE to $FILEPATH ..."
 
-# Set alias
-docker_exec_bash="docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
-
 # Copy filestore
-echo "Copy filestore."
+echo "Remove and copy filestore."
+rm -r "$DIR/filestore"
 docker cp "$CONTAINER:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
 
 # Create pgpass file
 echo -e "\e[1A\e[KCreate pgpass file."
-$docker_exec_bash 'echo "$HOST:5432:$DATABASE:$USER:$PASSWORD" > ~/.pgpass'
-$docker_exec_bash 'chmod 600 ~/.pgpass'
+docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c 'echo "$HOST:5432:$DATABASE:$USER:$PASSWORD" > ~/.pgpass'
+docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c 'chmod 600 ~/.pgpass'
 
 # Dump database
 echo -e "\e[1A\e[KDump database."
-$docker_exec_bash 'pg_dump -h $HOST -U $USER $DATABASE' > "$DIR/dump.sql"
+docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c 'pg_dump -h $HOST -U $USER $DATABASE' > "$DIR/dump.sql"
 
 # Zip everything
-echo -e "\e[1A\e[KZip filestore and dump."
-cd ${DIR}
-rm -f ${FILE}
-zip -q -r ${FILE} dump.sql filestore
+echo -e "\e[1A\e[KZip filestore and dump to $FILE."
+rm "$FILEPATH"
+cd "$DIR"
+zip -q -r "$FILE" ./dump.sql ./filestore
 
 # Remove source files
 echo -e "\e[1A\e[KCleanup source files."
-rm -rf dump.sql filestore
+rm -r dump.sql filestore
 
 # Notify if backup has finished
 echo "The Odoo backup has finished: $FILEPATH"
