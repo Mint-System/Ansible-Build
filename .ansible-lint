@@ -1,4 +1,4 @@
-warn_list:  # or 'skip_list' to silence them completely
+skip_list:
   - '201'  # Trailing whitespace
   - '502'  # All tasks should be named
   - '602'  # Don't compare to empty string
