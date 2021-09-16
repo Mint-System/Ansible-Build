@@ -49,9 +49,9 @@ function install() {
 }
 
 function update-docs() {
-    echo "Update docs."
     activate-venv
     python3 ./library/graph.py
+    echo "Update docs success."
 }
 
 function list-hosts() {
