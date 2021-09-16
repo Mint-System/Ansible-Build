@@ -37,6 +37,14 @@ restic_backup_sets:
     - odoo
     - odoo01
   hour: "1"
+- id: "docker odoo backup"
+  type: docker-odoo-backup
+  container: odoo02
+  database: odoo2
+  tags:
+    - odoo
+    - odoo02
+  hour: "2"
 - id: "postgres dump odoo"
   type: postgres-dump
   container: postgres01
