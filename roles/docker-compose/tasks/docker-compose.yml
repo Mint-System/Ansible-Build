@@ -4,13 +4,13 @@
   changed_when: false
   failed_when: false
 
-- set_fact:
+- name: Set current docker compose version
+  set_fact:
     docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
-  when:
-    - docker_compose_vsn.stdout != ""
+  when: docker_compose_vsn.stdout != ""
 
 - name: "Install docker-compose {{ docker_compose_version }}"
-  get_url: 
+  get_url:
     url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
     dest: /usr/local/bin/docker-compose
     force: yes
