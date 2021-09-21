@@ -109,60 +109,46 @@ Create an inventory and configure a role.
 
 ### Commands
 
-List hosts in inventory.
-
+List hosts in inventory.\
 `task list-hosts inventories/setup`
 
-Load virtualenv.
-
+Load virtualenv.\
 `source task source`
 
-Test connection
-
+Test connection.\
 `ansible all -m ping -i inventories/odoo`
 
-Deploy multiple inventories
-
+Deploy multiple inventories.\
 `ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy odoo.yml`
 
-Deploy Odoo stack
-
+Deploy Odoo stack.\
 `ansible-playbook -i inventories/odoo odoo.yml`
 
-Deploy role only
-
+Deploy role only.\
 `ansible-playbook -i inventories/odoo odoo.yml -t postgres`
 
-Deploy without dependencies
-
+Deploy without dependencies.\
 `ansible-playbook -i inventories/odoo odoo.yml --skip-tags depends`
 
-Deploy role to specific host
-
+Deploy role to specific host.\
 `ansible-playbook -i inventories/odoo odoo.yml -t docker -l host.example.com`
 
-Deploy role to specific group with non-default user
-
+Deploy role to specific group with non-default user.\
 `ansible-playbook -i inventories/odoo docker.yml -t docker -l europe -u username`
 
-Clean Odoo stack
-
+Clean Odoo stack.\
 `ansible-playbook -i inventories/odoo clean.yml -t odoo,odoo-volume,odoo-data-dir,postgres,postgres-volume`
 
-Clean role only
-
+Clean role only.\
 `ansible-playbook -i inventories/odoo clean.yml -t docker-network`
 
-Clean dry run
-
+Clean dry run.\
 `ansible-playbook -i inventories/odoo odoo.yml -t odoo --check`
 
-Install odoo-scripts and odoo-apps locally
-
+Install odoo-scripts and odoo-apps locally.\
 `ansible-playbook -i inventories/odoo localhost.yml --skip-tags depends`
 
-List all Odoo databses.
-
+List all Odoo databses.\
 `ansible all -i inventories/odoo -a "docker-odoo-list -c {{ odoo_hostname }}"`
 
 ## Docs

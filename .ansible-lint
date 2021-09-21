@@ -1,4 +1,5 @@
 skip_list:
-  - '201'  # Trailing whitespace
-  - '502'  # All tasks should be named
   - '602'  # Don't compare to empty string
+  - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern
+  - '208'  # File permissions unset or incorrect
+  - experimental  # all rules tagged as experimental
