@@ -1,5 +1,5 @@
-- name: Include keycloak tasks
-  include_tasks: keycloak.yml
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
   when: keycloak_image is defined
   tags:
    - keycloak
