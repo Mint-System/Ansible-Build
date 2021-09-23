@@ -4,6 +4,40 @@
 
 Collection of Ansible playbooks and roles.
 
+## Requirements
+
+* Install python 3.8+ with [pyenv](https://github.com/pyenv/pyenv-installer)
+
+## Usage
+
+Clone this repository.
+
+`git clone https://github.com/Mint-System/Ansible-Playbooks.git`
+
+Set this task alias.
+
+`alias task=./task`
+
+### Setup
+
+Navigate to the playbook folder.
+
+`cd Ansible-Playbooks`
+
+Generate a password file for Ansible vault.
+
+`task generate-passwordfile $PASSWORD`
+
+Install Ansible and Python dependencies.
+
+`task install`
+
+Create an inventory and configure a role.
+
+[Ansbile Documentation > Build Your Inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)
+
+## Docs
+
 ## Roles
 
 Role dependency graph: 
@@ -75,38 +109,6 @@ WIP:
 * [coturn](roles/coturn/README.md) - Deploy Coturn container.
 * [collabora-code](roles/collabora-code/README.md) - Deploy Collabora Code container.
 
-## Requirements
-
-* Install python 3.8+ with [pyenv](https://github.com/pyenv/pyenv-installer)
-
-## Usage
-
-Clone this repository.
-
-`git clone https://github.com/Mint-System/Ansible-Playbooks.git`
-
-Set this task alias.
-
-`alias task=./task`
-
-### Setup
-
-Navigate to the playbook folder.
-
-`cd Ansible-Playbooks`
-
-Generate a password file for Ansible vault.
-
-`task generate-passwordfile $PASSWORD`
-
-Install Ansible and Python dependencies.
-
-`task install`
-
-Create an inventory and configure a role.
-
-[Ansbile Documentation > Build Your Inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)
-
 ### Commands
 
 List hosts in inventory.\
@@ -151,15 +153,13 @@ Install odoo-scripts and odoo-apps locally.\
 List all Odoo databses.\
 `ansible all -i inventories/odoo -a "docker-odoo-list -c {{ odoo_hostname }}"`
 
-## Docs
-
 ### Quality
 
 Lint the project using Ansible lint.
 
 `task lint`
 
-### Config
+### Configuration
 
 Whenever possible use env variables to configure the container.
 
