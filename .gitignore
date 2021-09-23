@@ -4,3 +4,4 @@ default.vim
 *.swp
 run.sh
 venv*
+inventory
