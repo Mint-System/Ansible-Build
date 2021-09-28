@@ -19,6 +19,8 @@ packages:
   - name: restic
   - name: vim
     version: 2:8.0.1453-1ubuntu1.3
+packages_snap:
+  - name: ripgrep
 ```
 
 Include it in your playbook.
@@ -39,3 +41,11 @@ Or include it in another role.
     packages:
       - "{{ docker_package }}"
 ```
+
+## Docs
+
+This role supports the following package types:
+* apt
+* dns
+* yum
+* snap
