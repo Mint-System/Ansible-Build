@@ -13,11 +13,12 @@ The Ansible Docker role has the following requirements:
 Configure all depending roles.
 
 ```yml
-docker_data_dir: /mnt/server-disk2/docker # Defaults: /var/lib/docker
-docker_pip_package: docker==4.2.0
-docker_log_driver: "json-file"
-docker_log_max_size: "10m"
-docker_log_max_file: "3"
+docker_data_dir: /mnt/server-disk2/docker # defaults: /var/lib/docker
+docker_pip_packages:
+  - name: docker==4.2.0  # defaults: "docker"
+docker_log_driver: "local" # defaults: "json-file
+docker_log_max_size: "50m" # defaults: "10m"
+docker_log_max_file: "5" # defaults: "3"
 # apt package manager
 docker_apt_url: "https://download.docker.com/linux/ubuntu/gpg"
 docker_apt_repo: "deb https://download.docker.com/linux/ubuntu xenial stable"
@@ -63,3 +64,4 @@ The following tags are available:
 * docker
 * docker-ubuntu
 * docker-centos
+* docker-debian

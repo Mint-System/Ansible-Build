@@ -1,14 +1,14 @@
 - hosts: all
   become: true
   roles:
+  - role: package
+    tags: package
   - role: docker-swarm
     tags: docker-swarm
   - role: fstab
     tags: fstab
   - role: locale
     tags: locale
-  - role: package
-    tags: package
   - role: iam
     tags: iam
   - role: update

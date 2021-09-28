@@ -4,12 +4,13 @@
     password: "{{ iam_root_password | password_hash('sha512') }}"
   when: iam_root_password is defined
 
-- name: Add users
+- name: Setup users
   user:
     name: "{{ item.username }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups | default('') }}"
     append: yes
+    state: "{{ item.state | default('present') }}"
   loop: "{{ iam_users }}"
   when: inventory_hostname_short in item.hosts
 
@@ -19,7 +20,7 @@
     state: present
     key: "{{ item.ssh_public_key }}"
   loop: "{{ iam_users }}"
-  when: inventory_hostname_short in item.hosts
+  when: item.ssh_public_key is defined and inventory_hostname_short in item.hosts
 
 - name: Copy ssh private key
   copy:
@@ -30,6 +31,3 @@
     mode: "0700"
   loop: "{{ iam_users }}"
   when: item.ssh_private_key is defined and inventory_hostname_short in item.hosts
-
-- name: Include install oh-my-zsh tasks
-  include_tasks: install-oh-my-zsh.yml

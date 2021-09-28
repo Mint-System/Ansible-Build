@@ -1,16 +1,17 @@
 - name: Add groups
   group:
-    name: "{{ item }}"
+    name: "{{ item.name }}"
     state: present
   loop: "{{ iam_groups }}"
 
-- name: Allow wheel group to have passwordless sudo
+- name: "Allow {{ item.name }} group to have passwordless sudo"
   lineinfile:
     dest: /etc/sudoers
     state: present
-    regexp: '^%wheel'
-    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
-  when: iam_options.add_wheel_to_sudoers
+    regexp: "^%{{ item.name }}"
+    line: "%{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
+  when: item.add_group_to_sudoers
+  loop: "{{ iam_groups }}"
 
 - name: Disallow root ssh access
   lineinfile:
@@ -20,4 +21,4 @@
     state: present
     validate: "echo %s && /usr/sbin/sshd -t"
   notify: Restart ssh service
-  when: iam_options.disallow_ssh_root_access
+  when: iam_disallow_ssh_root_access
