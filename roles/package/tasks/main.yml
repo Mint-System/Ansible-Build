@@ -14,6 +14,12 @@
   tags:
    - package
 
+- name: "Include {{ role_name }} snap tasks"
+  include_tasks: "{{ role_name }}-snap.yml"
+  when: packages_snap is defined and ansible_distribution == 'Ubuntu'
+  tags:
+   - package
+
 - name: "Include {{ role_name }} apt tasks"
   include_tasks: "{{ role_name }}-apt.yml"
   when: packages is defined and ansible_distribution == 'Debian'
