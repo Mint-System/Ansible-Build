@@ -11,4 +11,4 @@ docker run --rm --name {{ certbot_hostname }}-tmp \
 -v "{{ certbot_data_dir }}/:/etc/letsencrypt/" \
 -v "{{ certbot_data_dir }}/www/:/var/www/certbot/" \
 {{ certbot_image }} \
-renew $1
+renew
