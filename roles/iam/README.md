@@ -10,11 +10,11 @@ Configure the role.
 
 ```yml
 iam_root_password: "{{ vault_iam_root_password }}"
-iam_options:
-  add_wheel_to_sudoers: yes
-  disallow_ssh_root_access: yes
+iam_disallow_ssh_root_access: yes
 iam_groups:
-  - wheel
+  - name: wheel
+    memberof: sudoers
+  - name: guests
 iam_users:
   - username: admin
     ssh_public_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
