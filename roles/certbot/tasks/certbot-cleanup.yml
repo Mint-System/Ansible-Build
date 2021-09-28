@@ -1,0 +1,39 @@
+- name: "Register existing {{ role_name }} certificates" # noqa 306
+  shell: "ls -1 -d {{ certbot_data_dir }}/live/*/ | xargs -n 1 basename"
+  changed_when: false
+  ignore_errors: true
+  register: certbot_managed_certs
+
+- name: Create managed certificate list from proxy list
+  set_fact:
+    managed_certs: "{{ nginx_proxies | selectattr('ssl', 'defined') | map(attribute='src_hostname') | map('replace', '*.', '') | list }}"
+
+- name: "Remove unmanaged certificate with {{ role_name }}"
+  docker_container:
+    name: "{{ item | replace('*.', 'wildcard') }}"
+    image: "{{ certbot_image }}"
+    volumes:
+      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
+      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+    command: delete --cert-name {{ item }}
+    auto_remove: true
+  loop: "{{ certbot_managed_certs.stdout_lines }}"
+  when: item not in managed_certs
+  loop_control:
+    pause: 5
+
+- name: Remove unmanaged certificate live folder
+  file:
+    path: "{{ certbot_data_dir }}/live/{{ item }}"
+    state: absent
+  loop: "{{ certbot_managed_certs.stdout_lines }}"
+  when: item not in managed_certs
+
+- name: Copy nginx ssl conf files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ certbot_data_dir }}/"
+  loop:
+    - files/options-ssl-nginx.conf
+    - files/ssl-dhparams.pem
+    - files/proxy-params.conf

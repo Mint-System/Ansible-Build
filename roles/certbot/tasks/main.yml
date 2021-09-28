@@ -1,5 +1,30 @@
+- name: "Include {{ role_name }} check tasks"
+  include_tasks: "{{ role_name }}-check.yml"
+  when: certbot_image is defined
+  tags:
+    - certbot
+
+- name: "Include {{ role_name }} wildcard tasks"
+  include_tasks: "{{ role_name }}-wildcard.yml"
+  when: certbot_image is defined
+  tags:
+    - certbot
+
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
+  when: certbot_image is defined
+  tags:
+    - certbot
+
+- name: "Include {{ role_name }} renew tasks"
+  include_tasks: "{{ role_name }}-renew.yml"
+  when: certbot_image is defined
+  tags:
+    - certbot
+
+
+- name: "Include {{ role_name }} cleanup tasks"
+  include_tasks: "{{ role_name }}-cleanup.yml"
   when: certbot_image is defined
   tags:
     - certbot

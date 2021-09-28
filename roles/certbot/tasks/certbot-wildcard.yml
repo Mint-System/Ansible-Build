@@ -1,0 +1,19 @@
+- name: Create list of wildcard certs
+  set_fact:
+    certbot_wildcard_certs: "{{ nginx_proxies | json_query('[?contains(src_hostname, `*`)].src_hostname') | list }}"
+
+- name: Log wildcard certificates
+  debug:
+    var: certbot_wildcard_certs
+
+- name: "Issue certificate with {{ role_name }} manually"
+  fail:
+    msg: >-
+      Run this command manually:
+      docker run -it --name {{ item | replace('*.', 'wildcard') }}
+      -v {{ certbot_data_dir }}/:/etc/letsencrypt/
+      -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
+      certonly --email {{ certbot_email }} --agree-tos -d {{ item }}
+      --preferred-challenges={{ certbot_preferred_challenges }} --manual
+  loop: "{{ certbot_wildcard_certs }}"
+  when: certbot_preferred_challenges == 'dns'
