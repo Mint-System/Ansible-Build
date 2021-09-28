@@ -5,3 +5,4 @@ default.vim
 run.sh
 venv*
 inventory
+inventories
