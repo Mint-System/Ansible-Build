@@ -1,24 +1,23 @@
-- name: Create or update a Keycloak client (with all the bells and whistles)
-  community.general.keycloak_client:
-    auth_client_id: admin-cli
-    auth_keycloak_url: https://auth.example.com/auth
-    auth_realm: master
-    auth_username: USERNAME
-    auth_password: PASSWORD
-    state: present
-    realm: master
-    client_id: test
-    id: d8b127a3-31f6-44c8-a7e4-4ab9a3e78d95
-    name: this_is_a_test
-    description: Description of this wonderful client
-    root_url: https://www.example.com/
-    admin_url: https://www.example.com/admin_url
-    base_url: basepath
-    enabled: True
-    client_authenticator_type: client-secret
-    secret: REALLYWELLKEPTSECRET
-    redirect_uris:
-      - https://www.example.com/*
-      - http://localhost:8888/
-    web_origins:
-      - https://www.example.com/*
+- name: "Create or update Keycloak client"
+  keycloak_client:
+    auth_client_id: "{{ item.auth_client_id | default('admin-cli') }}"
+    auth_keycloak_url: "{{ item.auth_keycloak_url }}"
+    auth_realm: "{{ item.auth_realm | default('master') }}"
+    auth_username: "{{ item.auth_username }}"
+    auth_password: "{{ item.auth_password }}"
+    state: "{{ item.state | default('present') }}"
+    realm: "{{ item.realm }}"
+    client_id: "{{ item.client_id }}"
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    enabled: "{{ item.enabled  | default(True) }}"
+    protocol: "{{ item.protocol  | default('openid-connect') }}"
+    client_authenticator_type: "{{ item.client_authenticator_type  | default('client-secret') }}"
+    standard_flow_enabled: "{{ item.standard_flow_enabled | default(True) }}"
+    implicit_flow_enabled: "{{ item.implicit_flow_enabled | default(False) }}"
+    direct_access_grants_enabled: "{{ item.direct_access_grants_enabled | default(False) }}"
+    root_url: "{{ item.root_url }}"
+    redirect_uris: "{{ item.redirect_uris }}"
+    base_url: "{{ item.base_url }}"
+    full_scope_allowed: "{{ item.full_scope_allowed  | default(False) }}"
+  loop: "{{ keycloak_clients }}"
