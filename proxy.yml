@@ -7,3 +7,5 @@
     tags: nginx-waf
   - role: simple-mail-forwarder
     tags: simple-mail-forwarder
+  - role: keycloak-client
+    tags: keycloak-client

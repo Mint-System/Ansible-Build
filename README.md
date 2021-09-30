@@ -68,6 +68,7 @@ Role details:
 | [grafana](roles/grafana/README.md)                                     | Deploy Grafana Docker container.                                 |
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
 | [keycloak](roles/keycloak/README.md)                                   | Deploy Keycloak Docker container.                                |
+| [keycloak-client](roles/keycloak-client/README.md)                     | Configure Keycloak client.                                       |
 | [kibana](roles/elasticsearch/README.md)                                | Deploy Kibana Docker container.                                  |
 | [locale](roles/locale/README.md)                                       | Set system locale.                                               |
 | [logstash](roles/logstash/README.md)                                   | Deploy Logstash Docker container.                                |
@@ -105,12 +106,12 @@ Role details:
 
 WIP:
 
-| Role                                               | Description                      |
-| -------------------------------------------------- | -------------------------------- |
-| [keycloak-client](roles/keycloak-client/README.md) | Configure Keycloak client.       |
-| [synapse](roles/synapse/README.md)                 | Deploy Matrix Synapse container. |
-| [coturn](roles/coturn/README.md)                   | Deploy Coturn container.         |
-| [collabora-code](roles/collabora-code/README.md)   | Deploy Collabora Code container. |
+| Role                                             | Description                      |
+| ------------------------------------------------ | -------------------------------- |
+| [wireguard](roles/wireguard/README.md)           | Setup wireguard mesh             |
+| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
+| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
+| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
 
 ### Commands
 

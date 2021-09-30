@@ -1,0 +1,109 @@
+- hosts: all
+  any_errors_fatal: true
+  gather_facts: yes
+  tasks:
+    - name: update packages
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      become: yes
+
+    - name: Allow SSH in UFW
+      ufw:
+        rule: allow
+        port: "{{ ansible_ssh_port }}"
+        proto: tcp
+      become: yes
+
+    - name: Set ufw logging
+      ufw:
+        logging: "on"
+      become: yes
+
+    - name: inter-node Wireguard UFW connectivity
+      ufw:
+        rule: allow
+        src: "{{ hostvars[item].wireguard_ip }}"
+      with_items: "{{ groups['all'] }}"
+      become: yes and item != inventory_hostname
+
+    - name: Reject everything and enable UFW
+      ufw:
+        state: enabled
+        policy: reject
+        log: yes
+      become: yes
+
+    - name: Install wireguard
+      apt:
+        name: wireguard
+        state: present
+      become: yes
+
+    - name: Generate Wireguard keypair
+      shell: wg genkey | tee /etc/wireguard/privatekey | wg pubkey | tee /etc/wireguard/publickey
+      args:
+        creates: /etc/wireguard/privatekey
+      become: yes
+
+    - name: register private key
+      shell: cat /etc/wireguard/privatekey
+      register: wireguard_private_key
+      changed_when: false
+      become: yes
+
+    - name: register public key
+      shell: cat /etc/wireguard/publickey
+      register: wireguard_public_key
+      changed_when: false
+      become: yes
+
+    - name: generate Preshared keyskeypair
+      shell: "wg genpsk > /etc/wireguard/psk-{{ item }}"
+      args:
+        creates: "/etc/wireguard/psk-{{ item }}"
+      when: inventory_hostname < item
+      with_items: "{{ groups['all'] }}"
+      become: yes
+
+    - name: register preshared key
+      shell: "cat /etc/wireguard/psk-{{ item }}"
+      register: wireguard_preshared_key
+      changed_when: false
+      when: inventory_hostname < item
+      with_items: "{{ groups['all'] }}"
+      become: yes
+
+    - name: massage preshared keys
+      set_fact: "wireguard_preshared_keys={{ wireguard_preshared_keys|default({}) | combine( {item.item: item.stdout} ) }}"
+      when: item.skipped is not defined
+      with_items: "{{ wireguard_preshared_key.results }}"
+      become: yes
+
+    - name: Setup wg0 device
+      template:
+        src: ./templates/systemd.netdev
+        dest: /etc/systemd/network/99-wg0.netdev
+        owner: root
+        group: systemd-network
+        mode: 0640
+      become: yes
+      notify: systemd network restart
+
+    - name: Setup wg0 network
+      template:
+        src: ./templates/systemd.network
+        dest: /etc/systemd/network/99-wg0.network
+        owner: root
+        group: systemd-network
+        mode: 0640
+      become: yes
+      notify: systemd network restart
+
+  handlers:
+    - name: systemd network restart
+      service:
+        name: systemd-networkd
+        state: restarted
+        enabled: yes
+      become: yes
