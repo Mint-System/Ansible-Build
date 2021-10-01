@@ -125,34 +125,34 @@ Test connection.\
 `ansible all -m ping -i inventories/odoo`
 
 Deploy multiple inventories.\
-`ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy odoo.yml`
+`ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy playbooks/odoo.yml`
 
 Deploy Odoo stack.\
-`ansible-playbook -i inventories/odoo odoo.yml`
+`ansible-playbook -i inventories/odoo playbooks/odoo.yml`
 
 Deploy role only.\
-`ansible-playbook -i inventories/odoo odoo.yml -t postgres`
+`ansible-playbook -i inventories/odoo playbooks/odoo.yml -t postgres`
 
 Deploy without dependencies.\
-`ansible-playbook -i inventories/odoo odoo.yml --skip-tags depends`
+`ansible-playbook -i inventories/odoo playbooks/odoo.yml --skip-tags depends`
 
 Deploy role to specific host.\
-`ansible-playbook -i inventories/odoo odoo.yml -t docker -l host.example.com`
+`ansible-playbook -i inventories/odoo playbooks/odoo.yml -t docker -l host.example.com`
 
 Deploy role to specific group with non-default user.\
-`ansible-playbook -i inventories/odoo docker.yml -t docker -l europe -u username`
+`ansible-playbook -i inventories/odoo playbooks/odoo.yml -t docker -l europe -u username`
 
 Clean Odoo stack.\
-`ansible-playbook -i inventories/odoo clean.yml -t odoo,odoo-volume,odoo-data-dir,postgres,postgres-volume`
+`ansible-playbook -i inventories/odoo playbooks/clean.yml -t odoo,odoo-volume,odoo-data-dir,postgres,postgres-volume`
 
 Clean role only.\
-`ansible-playbook -i inventories/odoo clean.yml -t docker-network`
+`ansible-playbook -i inventories/odoo playbooks/lean.yml -t docker-network`
 
 Clean dry run.\
-`ansible-playbook -i inventories/odoo odoo.yml -t odoo --check`
+`ansible-playbook -i inventories/odoo playbooks/odoo.yml -t odoo --check`
 
 Install odoo-scripts and odoo-apps locally.\
-`ansible-playbook -i inventories/odoo localhost.yml --skip-tags depends`
+`ansible-playbook -i inventories/odoo playbooks/localhost.yml --skip-tags depends`
 
 List all Odoo databses.\
 `ansible all -i inventories/odoo -a "docker-odoo-list -c {{ odoo_hostname }}"`
