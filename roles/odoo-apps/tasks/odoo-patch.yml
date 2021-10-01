@@ -7,3 +7,4 @@
   args:
     creates: "/var/tmp/{{ item.name }}_installed"
   loop: "{{ odoo_patches }}"
+  notify: Restart odoo container
