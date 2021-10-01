@@ -60,7 +60,8 @@
     remote_src: yes
   when: item.files[0] is match(".*\/$")
   loop: "{{ archive_contents.results }}"
-
+  notify: Restart odoo container
+  
 - name: "Copy {{ role_name }} to addons dir if archive entry is file"
   copy:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.item.name }}/"
@@ -68,6 +69,7 @@
     remote_src: yes
   when: item.files[0] is not match(".*\/$")
   loop: "{{ archive_contents.results }}"
+  notify: Restart odoo container
 
 - name: Ensure auto install is disabled
   replace:
