@@ -1,0 +1,4 @@
+[submodule "roles/bigbluebutton"]
+	path = roles/bigbluebutton
+	url = git@github.com:Mint-System/ansible-role-bigbluebutton.git
+	branch = bbb/2.3
