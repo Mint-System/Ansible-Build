@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Default configuration
+PACKAGE_PATH="/usr/lib/python3/dist-packages/"
+
+# Custom configuration
+FILE_PATH="${PACKAGE_PATH}odoo/addons/gio_payroll_custom/models/hr_employee.py"
+FIND="from odoo import api, fields, models, _"
+IFS='' read -r -d '' APPEND << EOM
+from odoo import api, fields, models, _
+
+
+class EmployeePublic(models.Model):
+    _inherit = 'hr.employee.public'
+
+    gio_children_training = fields.Integer(string="Anzahl Kinder im Studium")
+EOM
+
+# Get filename
+FILE=`basename "$FILE_PATH"`
+
+# Cop from docker
+docker cp "$1":"$FILE_PATH" .
+
+LINE=$(grep -n "$FIND" $FILE | cut -f1 -d:)
+
+# Find and append
+awk -v n="$LINE" -v s="$APPEND" 'NR-1 == n {print s} {print}' $FILE > $FILE.tmp && mv $FILE.tmp $FILE
+
+# Copy back to docker
+docker cp $FILE "$1":"$FILE_PATH"
+
+# Register patch installation
+echo "Patch $SCRIPT applied."
+touch "/var/tmp/$SCRIPT"
