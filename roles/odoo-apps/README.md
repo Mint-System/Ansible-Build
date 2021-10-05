@@ -10,6 +10,7 @@ Configure the role.
 
 ```yml
 odoo_hostname: odoo01
+odoo_replicas: 2 # default: 1
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_apps_tmp_dir: /tmp # default: /var/tmp
 odoo_apps_remove_unmanaged_folders: false # default: true
