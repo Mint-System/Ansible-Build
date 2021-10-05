@@ -3,7 +3,7 @@
     var: odoo_patches
 
 - name: Apply patches
-  script: "{{ item.name }} {{ item.host }}"
+  script: "{{ item.name }} {{ item.host | default(odoo_hostname) }}"
   args:
     creates: "/var/tmp/{{ item.name }}_installed"
   loop: "{{ odoo_patches }}"

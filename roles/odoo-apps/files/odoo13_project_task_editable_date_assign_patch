@@ -13,14 +13,14 @@ SCRIPT=$(basename "$0")
 PACKAGE_PATH="/usr/lib/python3/dist-packages/"
 
 # Custom configuration
-FILE_PATH="${PACKAGE_PATH}odoo/addons/delivery/__manifest__.py"
-FIND="'sale_stock', 'sale_management'"
-REPLACE="'sale_stock'"
+FILE_PATH="${PACKAGE_PATH}odoo/addons/project/models/project.py"
+FIND="date_assign = fields.Datetime(string='Assigning Date', index=True, copy=False, readonly=True)"
+REPLACE="date_assign = fields.Datetime(string='Assigning Date', index=True, copy=False, readonly=False)"
 
 # Get filename
 FILE=`basename "$FILE_PATH"`
 
-# Cop from docker
+# Copy from docker
 docker cp "$1":"$FILE_PATH" .
 
 # Find and replace

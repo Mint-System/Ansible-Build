@@ -27,7 +27,7 @@ odoo_apps:
     github_token: "{{ vault_github_token }}"
 odoo_patches:
   - name: odoo14_delivery_patch
-    host: odoo01
+    host: odoo03 # default: "{{ odoo_hostname }}"
 odoo_pip_packages:
   - name: python-jose
 ```
