@@ -9,9 +9,10 @@ Configure the role.
 **vars.yml**
 
 ```yml
+# https://hub.docker.com/_/mysql
 mysql_image: mysql:5
 mysql_hostname: mysql01
-mysql_volume_name: mysql_data01
+mysql_volume_name: mysql_data01 # default: "{{ mysql_hostname }}"
 mysql_root_password: "{{ vault_mysql_root_password }}"
 mysql_database: example
 mysql_user: example

@@ -1,1 +1,2 @@
 mysql_description: MySQL
+mysql_volume_name: "{{ mysql_hostname }}"
