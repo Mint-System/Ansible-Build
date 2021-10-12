@@ -1,1 +1,5 @@
 restic_client_user: restic
+restic_backup_rotation:
+  daily: 7
+  weekly: 4
+  monthly: 1

@@ -78,9 +78,9 @@ restic_backup_sets:
     - mysql01
   hour: "1"
 restic_backup_rotation:
-  daily: 7
-  weekly: 4
-  monthly: 1
+  daily: 7 # default: 7
+  weekly: 4 # default: 4
+  monthly: 1 # default: 1
 ```
 
 And include it in your playbook.
