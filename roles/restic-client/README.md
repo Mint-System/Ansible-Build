@@ -11,7 +11,7 @@ Configure the role.
 ```yml
 restic_client_user: restic-user # default: restic
 restic_client_password: "{{ vault_restic_client_password }}"
-restic_repo: "restic.example.com//{{ inventory_hostname }}"
+restic_repo: "restic.example.com/{{ inventory_hostname }}"
 restic_repo_password: "{{ vault_restic_repo_password }}"
 restic_backup_sets:
  - id: "postgres volume"
@@ -60,6 +60,22 @@ restic_backup_sets:
   tags:
     - postgres
     - postgres01
+  hour: "1"
+- id: "mysql dump wordpress"
+  type: mysql-dump
+  container: mysql01
+  databases: wordpress
+  tags:
+    - mysql
+    - mysql01
+  hour: "1"
+  disabled: true
+- id: "postgres dump all"
+  type: mysql-dump
+  container: mysql01
+  tags:
+    - mysql
+    - mysql01
   hour: "1"
 restic_backup_rotation:
   daily: 7
