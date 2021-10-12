@@ -9,7 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-ufw_state: enabled
+ufw_enabled: true # default false
 ufw_profile: bigbluebutton # default: default
 ```
 

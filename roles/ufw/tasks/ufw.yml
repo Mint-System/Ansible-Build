@@ -26,4 +26,4 @@
 
 - name: "Enable {{ role_name }} service"
   ufw:
-    state: "{{ ufw_state }}"
+    state: enabled
