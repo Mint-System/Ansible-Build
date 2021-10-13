@@ -1,6 +1,8 @@
 - hosts: all
   become: true
   roles:
+  - role: resolv
+    tags: resolv
   - role: package
     tags: package
   - role: docker-swarm

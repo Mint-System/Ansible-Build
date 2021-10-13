@@ -19,6 +19,8 @@ packages:
   - name: restic
   - name: vim
     version: 2:8.0.1453-1ubuntu1.3
+host_packages:
+  - name: cifs_utils
 packages_snap:
   - name: ripgrep
 ```
@@ -46,6 +48,6 @@ Or include it in another role.
 
 This role supports the following package types:
 * apt
-* dns
+* dnf
 * yum
 * snap

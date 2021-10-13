@@ -1,0 +1,28 @@
+# Ansible resolv role
+
+Manage resolv configuration.
+
+## Usage
+
+Configure the role.
+
+**vars.yml**
+
+```yml
+resolv_enabled: true # default: false
+resolv_name_servers:
+  - 1.1.1.1
+resolv_domain_name: test.example.com
+resolv_domain_search:
+  - ansible.com
+  - redhat.com
+  - cisco.com
+```
+
+And include it in your playbook.
+
+```yml
+- hosts: system
+  roles:
+  - role: system
+```

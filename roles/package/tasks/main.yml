@@ -2,6 +2,11 @@
   debug:
     msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
 
+- name: Combine group and host vars
+  set_fact:
+    packages: "{{ packages + host_packages }}"
+  when: host_packages is defined
+
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
   when: packages is defined

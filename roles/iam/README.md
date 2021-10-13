@@ -13,8 +13,9 @@ iam_root_password: "{{ vault_iam_root_password }}"
 iam_disallow_ssh_root_access: yes
 iam_groups:
   - name: wheel
-    memberof: sudoers
+    add_group_to_sudoers: true
   - name: guests
+    add_group_to_sudoers: false
 iam_users:
   - username: admin
     ssh_public_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
