@@ -51,4 +51,4 @@ echo "Delete these assets on $CONTAINER for $DATABASE:"
 docker exec $CONTAINER bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@localhost/$DATABASE -c \"select id,name from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
 docker exec $CONTAINER bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@localhost/$DATABASE -c \"delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
 
-echo "Restart the odoo container".
+echo "Restart the Odoo container".
