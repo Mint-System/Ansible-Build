@@ -1,8 +1,10 @@
+![logo](./logo.png)
+
 # Ansible Playbooks
 
 [![Ansible Lint](https://github.com/Mint-System/Ansible-Playbooks/workflows/Ansible%20Lint/badge.svg)](https://github.com/Mint-System/Ansible-Playbooks/actions?query=workflow%3A"Ansible+Lint")
 
-Collection of Ansible playbooks and roles.
+The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks and roles.
 
 ## Requirements
 
@@ -42,7 +44,7 @@ Create an inventory and configure a role.
 
 Role dependency graph:
 
-![](doc/ansible-roles.png)
+![](./doc/ansible-roles.png)
 
 Role details:
 

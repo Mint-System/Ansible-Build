@@ -1,0 +1,29 @@
+{
+  "name": "Ansible-Playbooks",
+  "version": "1.0.0",
+  "description": "The Mint System collection of Ansible playbooks and roles.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mint-System/Ansible-Playbooks.git"
+  },
+  "keywords": [
+    "ansible",
+    "playbooks",
+    "build",
+    "collection"
+  ],
+  "author": "Mint System",
+  "license": "GPL3",
+  "bugs": {
+    "url": "https://github.com/Mint-System/Ansible-Playbooks/issues"
+  },
+  "homepage": "https://github.com/Mint-System/Ansible-Playbooks#readme",
+  "devDependencies": {
+    "vuepress": "^1.8.2"
+  }
+}

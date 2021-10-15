@@ -6,3 +6,5 @@ run.sh
 venv*
 inventory
 inventories
+node_modules
+public
