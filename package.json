@@ -1,5 +1,5 @@
 {
-  "name": "Ansible-Playbooks",
+  "name": "ansible-playbooks",
   "version": "1.0.0",
   "description": "The Mint System collection of Ansible playbooks and roles.",
   "main": "index.js",
