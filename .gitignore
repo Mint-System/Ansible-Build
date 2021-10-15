@@ -7,4 +7,3 @@ venv*
 inventory
 inventories
 node_modules
-public
