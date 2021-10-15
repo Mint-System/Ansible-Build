@@ -4,7 +4,7 @@ module.exports = {
     themeConfig: {
         sidebar: 'auto',
         repo: 'mint-system/ansible-playbooks',
-        docsBranch: '14.0',
+        docsBranch: 'master',
         editLinks: true,
         nav: [
             { text: 'Home', link: '/' }
