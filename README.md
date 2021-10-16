@@ -50,22 +50,23 @@ Role details:
 
 | Role                                                                   | Description                                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| [blackbox-exporter](roles/blackbox-exporter/README.md)                 | Deploy Blackbox exporter container.                              |
 | [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
+| [blackbox-exporter](roles/blackbox-exporter/README.md)                 | Deploy Blackbox exporter container.                              |
 | [bookstack](roles/bookstack/README.md)                                 | Deploy BookStack container.                                      |
 | [cadvisor](roles/cadvisor/README.md)                                   | Deploy cAdvisor Docker container.                                |
 | [certbot](roles/certbot/README.md)                                     | Deploy Let's Encrypt certificates.                               |
 | [clean](roles/clean/README.md)                                         | Cleanup Ansible roles.                                           |
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
+| [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
 | [docker-compose](roles/docker-compose/README.md)                       | Deploy Docker Compose project.                                   |
 | [docker-network](roles/docker-network/README.md)                       | Configure Docker network.                                        |
-| [docker-volume](roles/docker-volume/README.md)                         | Configure Docker volume.                                         |
 | [docker-swarm](roles/docker-swarm/README.md)                           | Configure Docker Swarm.                                          |
-| [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
+| [docker-volume](roles/docker-volume/README.md)                         | Configure Docker volume.                                         |
 | [elasticsearch](roles/elasticsearch/README.md)                         | Deploy ElasticSearch Docker cluster.                             |
 | [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
+| [fathom](roles/fathom/README.md)                                       | Deploy Fathom container.                                         |
 | [fstab](roles/fstab/README.md)                                         | Configure the fstab file.                                        |
 | [grafana](roles/grafana/README.md)                                     | Deploy Grafana Docker container.                                 |
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
@@ -78,43 +79,47 @@ Role details:
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |
+| [nextcloud](roles/nextcloud/README.md)                                 | Deploy Nextcloud container.                                      |
 | [nextcloud-apps](roles/nextcloud-apps/README.md)                       | Install, update and remove Nextcloud apps.                       |
 | [nextcloud-exporter](roles/nextcloud-exporter/README.md)               | Deploy Nextcloud exporter container.                             |
-| [nextcloud](roles/nextcloud/README.md)                                 | Deploy Nextcloud container.                                      |
-| [nginx-waf](roles/nginx-waf/README.md)                                 | Deploy Nginx with ModSecurity and Core Rule Set.                 |
 | [nginx](roles/nginx/README.md)                                         | Deploy Nginx proxy with Certbot.                                 |
+| [nginx-waf](roles/nginx-waf/README.md)                                 | Deploy Nginx with ModSecurity and Core Rule Set.                 |
 | [node-exporter](roles/node-exporter/README.md)                         | Deploy Node exporter container and install custom metric script. |
+| [odoo](roles/odoo/README.md)                                           | Deploy Odoo container.                                           |
 | [odoo-apps](roles/odoo-apps/README.md)                                 | Install Odoo apps from file, url, public or private GitHub repo. |
 | [odoo-data](roles/odoo-data/README.md)                                 | Generate Odoo data modules.                                      |
+| [odoo-databases](roles/odoo-databases/README.md)                       | Configure Odoo databases.                                        |
 | [odoo-enterprise](roles/odoo-enterprise/README.md)                     | Checkout the Odoo Enterprise git repository.                     |
 | [odoo-scripts](roles/odoo-scripts/README.md)                           | Install Odoo scripts.                                            |
-| [odoo](roles/odoo/README.md)                                           | Deploy Odoo container.                                           |
 | [onlyoffice-documentserver](roles/onlyoffice-documentserver/README.md) | Deploy OnlyOffice Document Server container.                     |
 | [openldap](roles/openldap/README.md)                                   | Deploy OpenLDAP Docker container.                                |
 | [package](roles/package/README.md)                                     | Set env vars and install packages.                               |
 | [pgadmin](roles/pgadmin/README.md)                                     | Install pgAdmin container.                                       |
-| [postgres-exporter](roles/postgres-exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
 | [postgres](roles/postgres/README.md)                                   | Deploy PostgreSQL database container.                            |
+| [postgres-exporter](roles/postgres-exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
+| [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |
 | [restic-client](roles/restic-client/README.md)                         | Configure Restic client backup jobs.                             |
 | [restic-server](roles/restic-server/README.md)                         | Deploy Restic server container.                                  |
-| [simple-mail-forwarder](roles/simple-mail-forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
 | [s3cmd](roles/s3cmd/README.md)                                         | Install and configure s3cmd.                                     |
-| [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |
+| [simple-mail-forwarder](roles/simple-mail-forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
 | [ufw](roles/ufw/README.md)                                             | Configure UFW rules.                                             |
 | [update](roles/update/README.md)                                       | Install system and package updates.                              |
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |
+| [wordpress](roles/wordpress/README.md)                                 | Deploy WordPress container.                                      |
 
 WIP:
 
-| Role                                             | Description                      |
-| ------------------------------------------------ | -------------------------------- |
-| [wireguard](roles/wireguard/README.md)           | Setup wireguard mesh             |
-| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
-| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
-| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
+| Role                                             | Description                                     |
+| ------------------------------------------------ | ----------------------------------------------- |
+| [cargo](roles/cargo/README.md)                   | Setup Rust toolchain and cargo package manager. |
+| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container.                |
+| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.                        |
+| [innernet](roles/innernet/README.md)             | Setup WireGuard based internal network.         |
+| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container.                |
+| [wireguard](roles/wireguard/README.md)           | Setup wireguard mesh                            |
 
 ### Commands
 

@@ -1,4 +1,5 @@
 - hosts: localhost
+  become: true
   connection: local
   roles:
   - role: odoo-scripts
@@ -9,3 +10,7 @@
     tags: docker-compose
   - role: clean
     tags: clean
+  - role: package
+    tags: package
+  - role: cargo
+    tags: cargo

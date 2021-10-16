@@ -1,0 +1,24 @@
+- name: Download installer rustup
+  get_url:
+    url: https://static.rust-lang.org/rustup.sh
+    dest: "~/rustup.sh"
+    mode: "750"
+
+- name: Run installer rustup
+  command:
+    cmd: ./rustup.sh -y
+    chdir: "~"
+    creates: "/usr/local/bin/cargo"
+  environment:
+    CARGO_HOME: "/usr/local"
+
+- name: Register installed cargo crates
+  command: "cargo install --list"
+  register: installed_cargo_crates
+  changed_when: false
+
+- name: Install cargo packages
+  command:
+    cmd: "cargo install --git {{ item.git }} --tag {{ item.tag }} {{ item.name }}"
+  when: item.name not in installed_cargo_crates.stdout
+  loop: "{{ cargo_packages }}"
