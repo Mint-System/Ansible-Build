@@ -95,7 +95,7 @@ case "$1" in
         ;;
     lint)
         activate-venv
-        ansible-lint playbooks/*.yml
+        ansible-lint *.yml
         ;;
     source)
         activate-venv
