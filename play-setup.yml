@@ -5,6 +5,8 @@
     tags: resolv
   - role: package
     tags: package
+  - role: cargo
+    tags: cargo
   - role: docker-swarm
     tags: docker-swarm
   - role: fstab
@@ -31,3 +33,5 @@
     tags: s3cmd
   - role: docker-compose
     tags: docker-compose
+  - role: innernet-server
+    tags: innernet-server

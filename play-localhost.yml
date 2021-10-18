@@ -14,3 +14,5 @@
     tags: package
   - role: cargo
     tags: cargo
+  - role: innernet-client
+    tags: innernet-client

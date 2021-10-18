@@ -8,8 +8,14 @@
   apt:
     name: "{{ item.name }}"
     state: present
+  when: item.version is not defined and item.name is defined
   loop: "{{ packages }}"
-  when: item.version is not defined
+
+- name: Install latest deb packages
+  apt:
+    deb: "{{ item.deb }}"
+  when: item.deb is defined
+  loop: "{{ packages }}"
 
 - name: Install versioned packages
   apt:

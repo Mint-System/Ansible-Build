@@ -10,7 +10,8 @@ Configure the role.
 
 ```yml
 ufw_enabled: true # default false
-ufw_profile: bigbluebutton # default: default
+ufw_profiles:
+  - bigbluebutton # default: default
 ```
 
 And include it in your playbook.

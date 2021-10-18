@@ -1,0 +1,21 @@
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: "Fail if package is not installed"
+  fail:
+    msg: "Package {{ item }} is not installed!"
+  when: item not in ansible_facts.packages
+  loop:
+    - innernet
+
+- name: "Copy innernet client invitation file"
+  copy:
+    content: "{{ innernet_client_invitation_file }}"
+    dest: "/var/tmp/{{ ansible_host }}.yml"
+  when: innernet_client_invitation_file is defined
+
+- name: Install innernet client invitation file
+  command: 
+    cmd: "inn install /var/tmp/{{ ansible_host }}.yml --hosts-path /etc/hosts --default-name -d"
+  when: innernet_client_invitation_file is defined

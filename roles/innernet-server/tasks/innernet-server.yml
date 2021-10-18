@@ -1,0 +1,36 @@
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: "Fail if package is not installed"
+  fail:
+    msg: "Package {{ item }} is not installed!"
+  when: item not in ansible_facts.packages
+  loop:
+    - innernet
+    - innernet-server
+
+- name: Setup innernet server
+  command: 
+    cmd: "innernet-server new --network-name {{ innernet_server_network_name }} --network-cidr {{ innernet_server_network_cidr }} --auto-external-endpoint"
+    creates: "/etc/innernet-server/{{ innernet_server_network_name }}.conf"
+
+# - name: Setup innernet server cidrs
+#   command: 
+#     cmd: "innernet-server add-cidr --name {{ item.name }} --cidr {{ item.cidr }} --parent {{ item.parent }} --yes {{ innernet_server_network_name }}"
+#   loop: "{{ innernet_server_cidrs }}"
+
+- name: Setup innernet server peers
+  command: 
+    cmd: "innernet-server add-peer {{ innernet_server_network_name }} --name {{ item.name }} --cidr {{ item.cidr }} --auto-ip --admin true --save-config /var/tmp/{{ item.name }}.yml --invite-expires 14d --yes"
+    creates: "/var/tmp/{{ item.name }}.yml"
+  loop: "{{ innernet_server_peers }}"
+
+- name: Show inviation file
+  debug:
+    msg: "Run this command manually: ssh {{ ansible_host }} cat /var/tmp/{{ item.name }}.yml"
+  loop: "{{ innernet_server_peers }}"
+
+- name: Enable innernet server service
+  command: 
+    cmd: "systemctl enable --now innernet-server@{{ innernet_server_network_name }}"

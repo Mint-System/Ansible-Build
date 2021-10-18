@@ -112,14 +112,14 @@ Role details:
 
 WIP:
 
-| Role                                             | Description                                     |
-| ------------------------------------------------ | ----------------------------------------------- |
-| [cargo](roles/cargo/README.md)                   | Setup Rust toolchain and cargo package manager. |
-| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container.                |
-| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.                        |
-| [innernet](roles/innernet/README.md)             | Setup WireGuard based internal network.         |
-| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container.                |
-| [wireguard](roles/wireguard/README.md)           | Setup wireguard mesh                            |
+| Role                                               | Description                                     |
+| -------------------------------------------------- | ----------------------------------------------- |
+| [cargo](roles/cargo/README.md)                     | Setup Rust toolchain and cargo package manager. |
+| [collabora-code](roles/collabora-code/README.md)   | Deploy Collabora Code container.                |
+| [coturn](roles/coturn/README.md)                   | Deploy Coturn container.                        |
+| [innernet-server](roles/innernet-server/README.md) | Setup WireGuard based internal network.         |
+| [innernet-client](roles/innernet-client/README.md) | Setup WireGuard based internal network.         |
+| [synapse](roles/synapse/README.md)                 | Deploy Matrix Synapse container.                |
 
 ### Commands
 

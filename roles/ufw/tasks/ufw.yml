@@ -12,7 +12,7 @@
     rule: "{{ item.rule }}"
     port: "{{ item.port }}"
     proto: "{{ item.proto }}"
-  loop: "{{ ufw_rules[ufw_profile] }}"
+  loop: "{{ ufw_profiles | map('extract', ufw_rules) | flatten }}"
 
 - name: Deny all other incoming traffic by default
   ufw:
