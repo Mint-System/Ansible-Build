@@ -55,6 +55,7 @@ Role details:
 | [blackbox-exporter](roles/blackbox-exporter/README.md)                 | Deploy Blackbox exporter container.                              |
 | [bookstack](roles/bookstack/README.md)                                 | Deploy BookStack container.                                      |
 | [cadvisor](roles/cadvisor/README.md)                                   | Deploy cAdvisor Docker container.                                |
+| [cargo](roles/cargo/README.md)                                         | Setup Rust toolchain and cargo package manager.                  |
 | [certbot](roles/certbot/README.md)                                     | Deploy Let's Encrypt certificates.                               |
 | [clean](roles/clean/README.md)                                         | Cleanup Ansible roles.                                           |
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
@@ -112,14 +113,13 @@ Role details:
 
 WIP:
 
-| Role                                               | Description                                     |
-| -------------------------------------------------- | ----------------------------------------------- |
-| [cargo](roles/cargo/README.md)                     | Setup Rust toolchain and cargo package manager. |
-| [collabora-code](roles/collabora-code/README.md)   | Deploy Collabora Code container.                |
-| [coturn](roles/coturn/README.md)                   | Deploy Coturn container.                        |
-| [innernet-server](roles/innernet-server/README.md) | Setup WireGuard based internal network.         |
-| [innernet-client](roles/innernet-client/README.md) | Setup WireGuard based internal network.         |
-| [synapse](roles/synapse/README.md)                 | Deploy Matrix Synapse container.                |
+| Role                                               | Description                             |
+| -------------------------------------------------- | --------------------------------------- |
+| [collabora-code](roles/collabora-code/README.md)   | Deploy Collabora Code container.        |
+| [coturn](roles/coturn/README.md)                   | Deploy Coturn container.                |
+| [innernet-server](roles/innernet-server/README.md) | Setup WireGuard based internal network. |
+| [innernet-client](roles/innernet-client/README.md) | Setup WireGuard based internal network. |
+| [synapse](roles/synapse/README.md)                 | Deploy Matrix Synapse container.        |
 
 ### Commands
 
