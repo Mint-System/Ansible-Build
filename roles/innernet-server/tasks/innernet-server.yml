@@ -24,8 +24,10 @@
   loop: "{{ innernet_server_cidrs }}"
 
 - name: Setup innernet server peers
-  command: 
-    cmd: "innernet-server add-peer {{ innernet_server_network_name }} --name {{ item.name }} --cidr {{ item.cidr }} --auto-ip --admin true --save-config /var/tmp/{{ item.name }}.yml --invite-expires 14d --yes"
+  command:
+    cmd: >-
+      innernet-server add-peer {{ innernet_server_network_name }} --name {{ item.name }} --cidr {{ item.cidr }} 
+      --auto-ip --admin true --save-config /var/tmp/{{ item.name }}.yml --invite-expires 14d --yes
     creates: "/var/tmp/{{ item.name }}.yml"
   loop: "{{ innernet_server_peers }}"
 
