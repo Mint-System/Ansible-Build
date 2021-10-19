@@ -15,7 +15,13 @@
     dest: "/var/tmp/{{ ansible_host }}.yml"
   when: innernet_client_invitation_file is defined
 
+- name: "Check if interface is up"
+  command:
+    cmd: "innernet show"
+  register: innernet_status
+  changed_when: false
+
 - name: Install innernet client invitation file
   command: 
-    cmd: "inn install /var/tmp/{{ ansible_host }}.yml --hosts-path /etc/hosts --default-name -d"
-  when: innernet_client_invitation_file is defined
+    cmd: "innernet install /var/tmp/{{ ansible_host }}.yml --name {{ innernet_client_network_name }} --hosts-path /etc/hosts --delete-invite"
+  when: innernet_client_invitation_file is defined and innernet_client_network_name not in innernet_status.stdout
