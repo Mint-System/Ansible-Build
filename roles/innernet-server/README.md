@@ -9,6 +9,12 @@ Configure the role.
 **vars.yml**
 
 ```yml
+# https://github.com/tonarino/innernet
+packages:
+  - name: wireguard
+  - deb: https://github.com/tonarino/innernet/releases/download/v1.5.0/innernet_1.5.0_amd64.deb
+  - deb: https://github.com/tonarino/innernet/releases/download/v1.5.0/innernet-server_1.5.0_amd64.deb
+
 innernet_server_network_name: mintsystem
 innernet_server_network_cidr: 10.42.0.0/16
 innernet_server_cidrs:

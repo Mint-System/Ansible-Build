@@ -25,3 +25,7 @@
   command: 
     cmd: "innernet install /var/tmp/{{ ansible_host }}.yml --name {{ innernet_client_network_name }} --hosts-path /etc/hosts --delete-invite"
   when: innernet_client_invitation_file is defined and innernet_client_network_name not in innernet_status.stdout
+
+- name: Enable innernet service
+  systemd:
+    name: innerneter@{{ innernet_client_network_name }}"

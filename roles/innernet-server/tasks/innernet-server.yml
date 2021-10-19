@@ -35,5 +35,5 @@
   loop: "{{ innernet_server_peers }}"
 
 - name: Enable innernet server service
-  command: 
-    cmd: "systemctl enable --now innernet-server@{{ innernet_server_network_name }}"
+  systemd:
+    name: innernet-server@{{ innernet_server_network_name }}"

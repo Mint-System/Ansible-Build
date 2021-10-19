@@ -71,6 +71,8 @@ Role details:
 | [fstab](roles/fstab/README.md)                                         | Configure the fstab file.                                        |
 | [grafana](roles/grafana/README.md)                                     | Deploy Grafana Docker container.                                 |
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
+| [innernet-client](roles/innernet-client/README.md)                     | Setup WireGuard based internal network.                          |
+| [innernet-server](roles/innernet-server/README.md)                     | Setup WireGuard based internal network.                          |
 | [keycloak](roles/keycloak/README.md)                                   | Deploy Keycloak Docker container.                                |
 | [keycloak-client](roles/keycloak-client/README.md)                     | Configure Keycloak client.                                       |
 | [kibana](roles/elasticsearch/README.md)                                | Deploy Kibana Docker container.                                  |
@@ -113,13 +115,11 @@ Role details:
 
 WIP:
 
-| Role                                               | Description                             |
-| -------------------------------------------------- | --------------------------------------- |
-| [collabora-code](roles/collabora-code/README.md)   | Deploy Collabora Code container.        |
-| [coturn](roles/coturn/README.md)                   | Deploy Coturn container.                |
-| [innernet-server](roles/innernet-server/README.md) | Setup WireGuard based internal network. |
-| [innernet-client](roles/innernet-client/README.md) | Setup WireGuard based internal network. |
-| [synapse](roles/synapse/README.md)                 | Deploy Matrix Synapse container.        |
+| Role                                             | Description                      |
+| ------------------------------------------------ | -------------------------------- |
+| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
+| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
+| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
 
 ### Commands
 
