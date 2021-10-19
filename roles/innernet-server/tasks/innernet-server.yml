@@ -11,12 +11,12 @@
     - innernet-server
 
 - name: Setup innernet server
-  command: 
+  command:
     cmd: "innernet-server new --network-name {{ innernet_server_network_name }} --network-cidr {{ innernet_server_network_cidr }} --auto-external-endpoint"
     creates: "/etc/innernet-server/{{ innernet_server_network_name }}.conf"
 
 - name: Setup innernet server cidrs
-  command: 
+  command:
     cmd: "innernet-server add-cidr --name {{ item.name }} --cidr {{ item.cidr }} --parent {{ item.parent }} --yes {{ innernet_server_network_name }}"
   register: res
   changed_when: res.rc==0
@@ -26,7 +26,7 @@
 - name: Setup innernet server peers
   command:
     cmd: >-
-      innernet-server add-peer {{ innernet_server_network_name }} --name {{ item.name }} --cidr {{ item.cidr }} 
+      innernet-server add-peer {{ innernet_server_network_name }} --name {{ item.name }} --cidr {{ item.cidr }}
       --auto-ip --admin true --save-config /var/tmp/{{ item.name }}.yml --invite-expires 14d --yes
     creates: "/var/tmp/{{ item.name }}.yml"
   loop: "{{ innernet_server_peers }}"
