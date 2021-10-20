@@ -67,7 +67,7 @@ unzip -q -t $FILE
 if $REPLACE; then
   
   # Ask for confirmation
-  read REPLY\?"Please confirm the deletion of $DATABASE on $ODOO_HOST? (y/n)"
+  read -p "Please confirm the deletion of $DATABASE on $ODOO_HOST (y/n)? " REPLY
   if [[ $REPLY == y ]]; then
     echo "Deleting Odoo database $DATABASE ..."
 
