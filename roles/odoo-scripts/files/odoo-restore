@@ -65,13 +65,18 @@ FILENAME=$(basename -- "$FILE")
 unzip -q -t $FILE
 
 if $REPLACE; then
-  echo "Deleting Odoo database $DATABASE ..."
+  
+  # Ask for confirmation
+  read REPLY\?"Please confirm the deletion of $DATABASE on $ODOO_HOST? (y/n)"
+  if [[ $REPLY == y ]]; then
+    echo "Deleting Odoo database $DATABASE ..."
 
-  curl \
-    --silent \
-    -F "master_pwd=${PASSWORD}" \
-    -F "name=${DATABASE}" \
-    ${ODOO_HOST%/}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
+    curl \
+      --silent \
+      -F "master_pwd=${PASSWORD}" \
+      -F "name=${DATABASE}" \
+      ${ODOO_HOST%/}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
+  fi
 fi
 
 # Start restore

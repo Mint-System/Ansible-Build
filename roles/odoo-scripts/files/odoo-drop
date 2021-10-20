@@ -51,14 +51,20 @@ done
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
-echo "Deleting Odoo database $DATABASE ..."
+# Ask for confirmation
+read REPLY\?"Please confirm the deletion of $DATABASE on $ODOO_HOST? (y/n)"
+if [[ $REPLY == y ]]; then
 
-# Request drop with curl
-RESPONSE=$(curl \
-  -F "master_pwd=${PASSWORD}" \
-  -F "name=${DATABASE}" \
-  "${ODOO_HOST%/}/web/database/drop")
+  echo "Deleting Odoo database $DATABASE ..."
 
-echo "$RESPONSE" | grep 'error' && exit 1
+  # Request drop with curl
+  RESPONSE=$(curl \
+    -F "master_pwd=${PASSWORD}" \
+    -F "name=${DATABASE}" \
+    "${ODOO_HOST%/}/web/database/drop")
 
-echo "The deletion of Odoo database $DATABASE has finished."
+  echo "$RESPONSE" | grep 'error' && exit 1
+
+  echo "The deletion of Odoo database $DATABASE has finished."
+
+fi
