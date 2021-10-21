@@ -12,8 +12,10 @@
 
 - name: Setup innernet server
   command:
-    cmd: "innernet-server new --network-name {{ innernet_server_network_name }} --network-cidr {{ innernet_server_network_cidr }} --auto-external-endpoint --listen-port 51820"
-    creates: "/etc/innernet-server/{{ innernet_server_network_name }}.conf"
+    cmd: >-
+      "innernet-server new --network-name {{ innernet_server_network_name }} --network-cidr {{ innernet_server_network_cidr }}
+      --auto-external-endpoint --listen-port 51820"
+    creates: "/etc/innernet-server/{{ innernet_server_network_name }}.conf
 
 - name: Setup innernet server cidrs
   command:
