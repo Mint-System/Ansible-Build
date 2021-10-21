@@ -26,82 +26,88 @@ digraph {
 	24 [label=fstab]
 	25 [label=keycloak]
 	26 [label=iam]
-	27 [label=elasticsearch]
-	28 [label=ufw]
-	29 [label="nextcloud-apps"]
-	30 [label=debug]
-	31 [label=fathom]
-	32 [label=nginx]
-	33 [label=bigbluebutton]
-	34 [label=package]
-	35 [label="blackbox-exporter"]
-	36 [label="odoo-enterprise"]
-	37 [label="nextcloud-exporter"]
-	38 [label=commento]
-	39 [label="restic-client"]
-	40 [label=odoo]
-	41 [label=prometheus]
-	42 [label=bookstack]
-	43 [label="docker-network"]
-	44 [label="docker-swarm"]
-	45 [label=grafana]
-	46 [label="postgres-exporter"]
-	47 [label=mysql]
-	48 [label=kibana]
-	49 [label="nginx-waf"]
-	50 [label=cadvisor]
-	51 [label="node-exporter"]
-	52 [label=coturn]
-	53 [label="simple-mail-forwarder"]
-	54 [label=nextcloud]
-	55 [label=vercel]
-	56 [label="collabora-code"]
-	57 [label=moodle]
-	58 [label="restic-server"]
-	59 [label=wordpress]
-	60 [label=certbot]
-	1 -> 43
-	5 -> 43
-	6 -> 27
-	7 -> 43
+	27 [label="innernet-server"]
+	28 [label=cargo]
+	29 [label=elasticsearch]
+	30 [label=ufw]
+	31 [label="nextcloud-apps"]
+	32 [label=debug]
+	33 [label=fathom]
+	34 [label=resolv]
+	35 [label=nginx]
+	36 [label=bigbluebutton]
+	37 [label=package]
+	38 [label="blackbox-exporter"]
+	39 [label="odoo-enterprise"]
+	40 [label="nextcloud-exporter"]
+	41 [label=commento]
+	42 [label="restic-client"]
+	43 [label="keycloak-client"]
+	44 [label=odoo]
+	45 [label=prometheus]
+	46 [label=bookstack]
+	47 [label="docker-network"]
+	48 [label="docker-swarm"]
+	49 [label=grafana]
+	50 [label="postgres-exporter"]
+	51 [label=mysql]
+	52 [label=kibana]
+	53 [label="nginx-waf"]
+	54 [label=cadvisor]
+	55 [label="node-exporter"]
+	56 [label="innernet-client"]
+	57 [label=coturn]
+	58 [label="simple-mail-forwarder"]
+	59 [label=nextcloud]
+	60 [label=vercel]
+	61 [label="collabora-code"]
+	62 [label=moodle]
+	63 [label="restic-server"]
+	64 [label=wordpress]
+	65 [label=certbot]
+	1 -> 47
+	5 -> 47
+	6 -> 29
+	7 -> 47
 	8 -> 4
-	9 -> 43
-	11 -> 43
-	12 -> 43
-	13 -> 43
+	9 -> 47
+	11 -> 47
+	12 -> 47
+	13 -> 47
 	14 -> 4
 	16 -> 19
-	18 -> 43
-	21 -> 43
-	22 -> 48
+	18 -> 47
+	21 -> 47
+	22 -> 52
 	22 -> 6
 	25 -> 7
 	26 -> 4
-	27 -> 43
-	31 -> 43
-	32 -> 60
-	33 -> 7
-	35 -> 41
-	36 -> 40
-	37 -> 43
-	38 -> 7
-	40 -> 7
-	41 -> 43
-	42 -> 47
-	43 -> 4
-	44 -> 4
-	45 -> 41
-	46 -> 43
-	47 -> 43
-	48 -> 27
-	50 -> 43
-	51 -> 43
-	52 -> 43
-	53 -> 43
-	54 -> 7
-	56 -> 54
-	57 -> 7
-	58 -> 43
-	59 -> 47
-	60 -> 43
+	29 -> 47
+	33 -> 47
+	35 -> 65
+	36 -> 7
+	38 -> 45
+	39 -> 44
+	40 -> 47
+	41 -> 7
+	43 -> 25
+	44 -> 7
+	45 -> 47
+	46 -> 51
+	47 -> 4
+	48 -> 4
+	49 -> 45
+	50 -> 47
+	51 -> 47
+	52 -> 29
+	54 -> 47
+	55 -> 47
+	57 -> 47
+	58 -> 47
+	59 -> 7
+	61 -> 59
+	62 -> 7
+	63 -> 47
+	64 -> 51
+	65 -> 47
 }
