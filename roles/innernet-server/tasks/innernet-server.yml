@@ -12,7 +12,7 @@
 
 - name: Setup innernet server
   command:
-    cmd: "innernet-server new --network-name {{ innernet_server_network_name }} --network-cidr {{ innernet_server_network_cidr }} --auto-external-endpoint"
+    cmd: "innernet-server new --network-name {{ innernet_server_network_name }} --network-cidr {{ innernet_server_network_cidr }} --auto-external-endpoint --listen-port 51820"
     creates: "/etc/innernet-server/{{ innernet_server_network_name }}.conf"
 
 - name: Setup innernet server cidrs
@@ -26,8 +26,8 @@
 - name: Setup innernet server peers
   command:
     cmd: >-
-      innernet-server add-peer {{ innernet_server_network_name }} --name {{ item.name }} --cidr {{ item.cidr }}
-      --auto-ip --admin true --save-config /var/tmp/{{ item.name }}.yml --invite-expires 14d --yes
+      innernet-server add-peer --name {{ item.name }} --cidr {{ item.cidr }} --auto-ip --admin true
+      --save-config /var/tmp/{{ item.name }}.yml --invite-expires 14d --yes {{ innernet_server_network_name }}
     creates: "/var/tmp/{{ item.name }}.yml"
   loop: "{{ innernet_server_peers }}"
 
@@ -39,3 +39,4 @@
 - name: Enable innernet server service
   systemd:
     name: innernet-server@{{ innernet_server_network_name }}"
+    state: restarted

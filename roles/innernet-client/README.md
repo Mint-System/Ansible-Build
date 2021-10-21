@@ -14,10 +14,11 @@ packages:
   - name: wireguard
   - deb: https://github.com/tonarino/innernet/releases/download/v1.5.0/innernet_1.5.0_amd64.deb
 
-innernet_client_network_name: mintsystem
+innernet_client_network_name: mint-system
+innernet_client_peer_name: apollo
 innernet_client_invitation_file: |
   [interface]
-  network-name = "mintsystem"
+  network-name = "mint-system"
   address = "10.42.5.1/16"
   private-key = "AJPLsA43duTfZ6bHQtW5VAdcfDq4SoJOBXflM="
 

@@ -1,0 +1,16 @@
+- name: "Remove invitation file"
+  file:
+    path: "/var/tmp/{{ innernet_client_peer_name }}.yml"
+    state: absent
+
+- name: Disable innernet service
+  systemd:
+    name: innernet@{{ innernet_client_network_name }}"
+    state: stopped
+    enabled: false
+
+# FIXME cannot confirm deletion
+- name: Remove innernet client network
+  command:
+    cmd: "innernet uninstall {{ innernet_client_network_name }}"
+    removes: "/var/lib/innernet/{{ innernet_client_network_name }}.json"

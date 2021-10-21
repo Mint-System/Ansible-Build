@@ -34,3 +34,5 @@
       - bigbluebutton
       - docker-compose
       - docker-swarm
+      - innernet-client
+      - innernet-server

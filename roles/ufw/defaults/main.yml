@@ -34,12 +34,9 @@ ufw_rules:
     - rule: "allow"
       port: "51820"
       proto: "udp"
-    - rule: "deny"
+    - rule: "allow"
       port: "51820"
       proto: "tcp"
-    - rule: "deny"
-      port: "51821"
-      proto: "udp"
 ufw_profiles:
   - default
 ufw_enabled: false

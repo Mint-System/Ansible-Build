@@ -12,7 +12,7 @@
 - name: "Copy innernet client invitation file"
   copy:
     content: "{{ innernet_client_invitation_file }}"
-    dest: "/var/tmp/{{ ansible_host }}.yml"
+    dest: "/var/tmp/{{ innernet_client_peer_name }}.yml"
   when: innernet_client_invitation_file is defined
 
 - name: "Check if interface is up"
@@ -23,9 +23,10 @@
 
 - name: Install innernet client invitation file
   command:
-    cmd: "innernet install /var/tmp/{{ ansible_host }}.yml --name {{ innernet_client_network_name }} --hosts-path /etc/hosts --delete-invite"
+    cmd: "innernet install /var/tmp/{{ innernet_client_peer_name }}.yml --name {{ innernet_client_network_name }} --hosts-path /etc/hosts --delete-invite"
   when: innernet_client_invitation_file is defined and innernet_client_network_name not in innernet_status.stdout
 
 - name: Enable innernet service
   systemd:
-    name: innerneter@{{ innernet_client_network_name }}"
+    name: innernet@{{ innernet_client_network_name }}"
+    state: restarted

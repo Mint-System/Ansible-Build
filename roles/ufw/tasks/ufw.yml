@@ -7,6 +7,10 @@
     msg: "Package ufw not installed"
   when: "'ufw' not in ansible_facts.packages"
 
+- name: Reset ufw
+  ufw: 
+    state: reset
+
 - name: Configure ufw rules
   ufw:
     rule: "{{ item.rule }}"
