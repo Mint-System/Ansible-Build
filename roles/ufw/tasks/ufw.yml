@@ -8,7 +8,7 @@
   when: "'ufw' not in ansible_facts.packages"
 
 - name: Reset ufw
-  ufw: 
+  ufw:
     state: reset
 
 - name: Configure ufw rules
