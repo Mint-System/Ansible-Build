@@ -22,9 +22,9 @@ nginx_proxies:
     dest_port: 8080 # default: 80
     options: |
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
-    ssl: true
+    ssl: true # default: false
   - src_hostname: example.com
-    ssl: true
+    ssl: true # default: false
     redirect_hostname: www.example.com
   - src_hostname: example.org
     redirect_hostname: www.example.com
@@ -32,8 +32,8 @@ nginx_proxies:
       - example.org
       - www.example.org
   - src_hostname: login.example.com
-    ssl: true
-    monitor: true
+    ssl: true # default: false
+    monitor: true # default: false
     locations:
       - path: /auth
         dest_hostname: authserver
