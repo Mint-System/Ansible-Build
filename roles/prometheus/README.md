@@ -39,6 +39,8 @@ prometheus_scrape_configs:
     static_configs:
       - targets:
           - server.example.com
+prometheus_etc_hosts: # defaults: {}
+  "leto.mint-system.com": 10.42.5.2
 ```
 
 And include it in your playbook.

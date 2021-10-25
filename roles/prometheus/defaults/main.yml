@@ -1,3 +1,4 @@
 prometheus_port: 127.0.0.1:9090
 prometheus_description: Prometheus
 prometheus_data_dir: "/usr/share/{{ prometheus_hostname }}"
+prometheus_etc_hosts: {}

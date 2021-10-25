@@ -17,6 +17,9 @@ resolv_domain_search:
   - ansible.com
   - redhat.com
   - cisco.com
+resolv_hosts:
+  - name: leto.mint-system.com
+    ip: 10.42.5.1
 ```
 
 And include it in your playbook.
