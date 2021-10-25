@@ -5,3 +5,6 @@ odoo_timezone: Europe/Berlin
 odoo_data_dir: "/usr/share/{{ odoo_hostname }}"
 odoo_volume_name: "{{ odoo_hostname }}"
 odoo_replicas: 1
+odoo_conf_limit_request: 8192
+odoo_conf_limit_time_cpu: 600
+odoo_conf_limit_time_real: 1200

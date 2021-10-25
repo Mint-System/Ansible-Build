@@ -22,6 +22,9 @@ odoo_postgres_hostname: postgres01
 odoo_postgres_user: example
 odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password_hash: "{{ vault_odoo_master_password_hash }}"
+odoo_conf_limit_request: 4096 # default: 8192
+odoo_conf_limit_time_cpu: 300 # default: 600
+odoo_conf_limit_time_real: 600 # default: 1200
 odoo_conf: |
   dbfilter = ^%d$
 odoo_backup_sets: # See restic_backup_sets var in role restic-client
