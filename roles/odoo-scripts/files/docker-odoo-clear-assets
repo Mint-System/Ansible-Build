@@ -18,7 +18,7 @@ Help() {
   echo "Syntax: $SCRIPT [-c||help]"
   echo "Example: $SCRIPT -c postgres01 -d erp"
   echo "options:"
-  echo "  -c    Docker container. Defaults to 'db'."
+  echo "  -c    Docker database container. Defaults to 'db'."
   echo "  -d    Database name. Defaults to 'odoo'."
   echo "  help  Show $SCRIPT manual."
   echo
