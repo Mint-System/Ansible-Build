@@ -1,17 +1,22 @@
 - name: Get installed python packages
   command: "docker exec {{ odoo_hostname }} pip3 freeze"
-  register: _result
+  register: result
   changed_when: false
+  when: odoo_replicas == 1
 
-- name: Parse pip list
-  set_fact:
-    installed_pip_packages: "{{ _result.stdout }}"
+- name: Get installed python packages
+  command: "docker exec {{ odoo_hostname }}_{{ item }} pip3 freeze"
+  register: result
+  changed_when: false
+  with_sequence: start=1 end={{ odoo_replicas }}
+  when: odoo_replicas > 1
 
 - name: Install missing pip packages
   command: "docker exec {{ odoo_hostname }} pip3 install {{ item.name }}"
+  when: odoo_replicas == 1 and item.name not in result.stdout
   loop: "{{ odoo_pip_packages }}"
-  register: result
-  # failed_when: result is failed
-  # changed_when: result is not failed 
-  when:
-    - item.name not in installed_pip_packages
+
+- name: Install missing pip packages
+  command: "docker exec {{ item.1.cmd[2] }} pip3 install {{ item.0.name }}"
+  when: odoo_replicas > 1 and item.0.name not in item.1.stdout
+  loop: "{{ odoo_pip_packages | product(result.results) | list }}"

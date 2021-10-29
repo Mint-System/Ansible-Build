@@ -1,3 +1,23 @@
+- name: Get installed python packages
+  command: "docker exec {{ odoo_hostname }}_{{ item }} pip3 freeze"
+  register: result
+  changed_when: false
+  with_sequence: start=1 end={{ odoo_replicas }}
+  when: odoo_replicas > 1
+
+- name: debug
+  debug: 
+    var: result
+
+- name: with_nested -> loop
+  debug:
+    msg: "docker exec {{ item.1.cmd[2] }} pip3 install {{ item.0.name }}"
+  when: item.0.name not in item.1.stdout and odoo_replicas > 1
+  loop: "{{ odoo_pip_packages | product(result.results) | list }}"
+
+  #when: item.name not in installed_pip_packages and odoo_replicas == 1
+
+
 #   register: ansible_jobs
 #   async: 120
 #   poll: 0
