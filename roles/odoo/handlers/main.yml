@@ -1,2 +1,2 @@
 - name: "Restart {{ role_name }} container"
-  include_tasks: handlers/restart-odoo.yaml
+  include_tasks: handlers/restart-odoo.yml
