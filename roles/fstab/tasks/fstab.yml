@@ -4,6 +4,7 @@
     dest: "/root/.credentials"
     mode: 0600
   loop: "{{ fstab_credentials }}"
+  when: fstab_credentials is defined
 
 - name: Mount and bind a volume
   mount: "{{ item }}"
