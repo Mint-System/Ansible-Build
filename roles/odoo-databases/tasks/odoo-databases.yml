@@ -18,7 +18,7 @@
 
 - name: Drop disabled databases
   command: /usr/local/bin/docker-odoo-drop -c "{{ odoo_hostname }}" -d "{{ item.name }}"
-  when: odoo_replicas == 1 and item.state == 'absent' and item.name in existing_databases.stdout 
+  when: odoo_replicas == 1 and item.state == 'absent' and item.name in existing_databases.stdout
   loop: "{{ odoo_databases }}"
 
 - name: Drop disabled databases on first replica
