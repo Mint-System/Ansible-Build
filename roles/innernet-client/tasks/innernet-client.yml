@@ -24,6 +24,7 @@
 - name: Install innernet client invitation file
   command:
     cmd: "innernet install /var/tmp/{{ innernet_client_peer_name }}.yml --name {{ innernet_client_network_name }} --hosts-path /etc/hosts --delete-invite"
+  ignore_errors: true # FIXME: Cannot check if interface is down
   when: innernet_client_invitation_file is defined and innernet_client_network_name not in innernet_status.stdout
 
 - name: Enable innernet service
