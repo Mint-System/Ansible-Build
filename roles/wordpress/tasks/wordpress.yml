@@ -34,6 +34,7 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ wordpress_hostname }}|{{ role_name }}"
 
 # - name: Upate wordpress config
 #   blockinfile:

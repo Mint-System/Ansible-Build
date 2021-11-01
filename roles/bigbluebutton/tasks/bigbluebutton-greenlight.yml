@@ -43,6 +43,7 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ greenlight_hostname }}|{{ role_name }}"
   register: start_greenlight_contaner
 
 # https://docs.bigbluebutton.org/greenlight/gl-install.html#4-configure-nginx-to-route-to-greenlight

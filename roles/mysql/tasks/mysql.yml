@@ -22,6 +22,7 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ mysql_hostname }}|{{ role_name }}"
   when: mysql_volume_name is defined
 
 - name: Copy backup scripts

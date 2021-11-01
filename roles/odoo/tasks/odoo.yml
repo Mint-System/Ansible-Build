@@ -58,6 +58,7 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ odoo_hostname }}|{{ role_name }}"
   when: odoo_replicas == 1
 
 - name: "Start {{ role_name }} container {{ odoo_hostname }}"
@@ -84,6 +85,7 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ odoo_hostname }}|{{ role_name }}"
   with_sequence: start=1 end={{ odoo_replicas }}
   when: odoo_replicas > 1
 

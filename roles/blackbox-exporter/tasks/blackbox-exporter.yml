@@ -12,3 +12,4 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ blackbox_exporter_hostname }}|{{ role_name }}"

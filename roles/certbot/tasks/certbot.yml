@@ -64,6 +64,7 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ nginx_hostname }}|{{ role_name }}"
   when: not nginx_container.exists and certbot_missing_certs
 
 - name: Wait for proxy container

@@ -18,4 +18,25 @@ scrape_configs:
       __path__: /var/lib/docker/containers/*/*log
 
   pipeline_stages:
-  - docker: {}
+  - json:
+      expressions:
+        output: log
+        stream: stream
+        attrs:
+  - json:
+      expressions:
+        tag:
+      source: attrs
+  - regex:
+      expression: (?P<container_name>(?:[^|]*[^|])).(?P<image_name>(?:[^|]*[^|]))
+      source: tag
+  - timestamp:
+      format: RFC3339Nano
+      source: time
+  - labels:
+      #tag:
+      stream:
+      container_name:
+      image_name:
+  - output:
+      source: output

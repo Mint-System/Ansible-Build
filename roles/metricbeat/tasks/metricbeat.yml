@@ -29,6 +29,7 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ metricbeat_hostname }}|{{ role_name }}"
   when: metricbeat_setup and check_metricbeat_setup.failed
 
 - name: "Ensure {{ role_name }} data dir exists"
@@ -63,3 +64,4 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ metricbeat_hostname }}|{{ role_name }}"

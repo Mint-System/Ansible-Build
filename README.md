@@ -44,7 +44,7 @@ Create an inventory and configure a role.
 
 Role dependency graph:
 
-![](./doc/ansible-roles.png)
+[![](./doc/ansible-roles.png)](./doc/ansible-roles.png)
 
 Role details:
 

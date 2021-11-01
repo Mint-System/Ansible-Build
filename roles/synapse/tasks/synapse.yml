@@ -38,4 +38,5 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
+      tag: "{{ synapse_hostname }}|{{ role_name }}"
   when: synapse_volume_name is defined
