@@ -1,0 +1,31 @@
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ promtail_data_dir }}"
+    state: directory
+
+- name: "Copy {{ role_name }} config"
+  template:
+    src: "templates/{{ item }}"
+    dest: "{{ promtail_data_dir }}/{{ item }}"
+  loop:
+    - config.yml
+  notify: "Restart {{ role_name }} container"
+
+- name: "Start {{ role_name }} container {{ promtail_hostname }}"
+  docker_container:
+    name: "{{ promtail_hostname }}"
+    labels:
+      description: "{{ promtail_description }}"
+    image: "{{ promtail_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    volumes:
+      - "{{ docker_data_dir }}:/var/lib/docker:ro"
+      - "{{ promtail_data_dir }}:/etc/promtail"
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"

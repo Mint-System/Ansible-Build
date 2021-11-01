@@ -1,0 +1,3 @@
+promtail_description: Promtail
+promtail_loki_basic_auth_username: loki
+promtail_data_dir: "/usr/share/{{ promtail_hostname }}"

@@ -77,6 +77,7 @@ Role details:
 | [keycloak-client](roles/keycloak-client/README.md)                     | Configure Keycloak client.                                       |
 | [kibana](roles/elasticsearch/README.md)                                | Deploy Kibana Docker container.                                  |
 | [locale](roles/locale/README.md)                                       | Set system locale.                                               |
+| [loki](roles/loki/README.md)                                           | Deploy Loki container.                                           |
 | [logstash](roles/logstash/README.md)                                   | Deploy Logstash Docker container.                                |
 | [maintenance](roles/maintenance/README.md)                             | Maintain operating system and disk space.                        |
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
@@ -101,6 +102,7 @@ Role details:
 | [postgres](roles/postgres/README.md)                                   | Deploy PostgreSQL database container.                            |
 | [postgres-exporter](roles/postgres-exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
+| [promtail](roles/promtail/README.md)                                   | Deploy Promtail container.                                       |
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
 | [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |

@@ -1,0 +1,24 @@
+- name: Ensure nginx data dir exists
+  file:
+    path: "{{ loki_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: "Fail if package {{ loki_requires_package }} is not installed"
+  fail:
+    msg: "Package {{ loki_requires_package }} is not installed!"
+  when: loki_requires_package not in ansible_facts.packages
+
+- name: "Configure user access for {{ role_name }}"
+  htpasswd:
+    path: "{{ loki_nginx_data_dir }}/loki.htpasswd"
+    name: "{{ loki_proxy_basic_auth_username }}"
+    password: "{{ loki_proxy_basic_auth_password }}"
+
+- name: "Copy nginx {{ role_name }} conf"
+  template:
+    src: templates/loki.nginx
+    dest: "{{ loki_nginx_data_dir }}/loki.nginx"
