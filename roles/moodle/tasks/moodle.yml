@@ -29,6 +29,7 @@
       MOODLE_SMTP_USER: "{{ moodle_smtp_user }}"
       MOODLE_SMTP_PASSWORD: "{{ moodle_smtp_password }}"
       MOODLE_SMTP_PROTOCOL: "{{ moodle_smtp_protocol }}"
+      MYSQL_CLIENT_DATABASE_HOST: "{{ moodle_database_host }}"
       MYSQL_CLIENT_DATABASE_ROOT_PASSWORD: "{{ moodle_mysql_database_root_password }}"
       MYSQL_CLIENT_CREATE_DATABASE_NAME: "{{ moodle_database_name }}"
       MYSQL_CLIENT_CREATE_DATABASE_USER: "{{ moodle_database_user }}"
@@ -43,4 +44,4 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ moodle_hostname }}|{{ role_name }}"
-  when: moodle_database_type == mysqli
+  when: moodle_database_type == 'mysqli'
