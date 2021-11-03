@@ -17,14 +17,6 @@
 - name: Flush handlers
   meta: flush_handlers
 
-- name: "Build {{ role_name }} custom image"
-  docker_image:
-    name: wordpress:custom
-    build:
-      path: "/var/tmp/{{ wordpress_hostname }}"
-    source: build
-    state: present
-
 - name: "Start {{ role_name }} container {{ wordpress_hostname }}"
   docker_container:
     name: "{{ wordpress_hostname }}"

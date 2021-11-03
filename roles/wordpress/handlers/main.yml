@@ -2,3 +2,11 @@
   docker_container:
     name: "{{ wordpress_hostname }}"
     restart: true
+
+- name: "Build {{ role_name }} custom image"
+  docker_image:
+    name: wordpress:custom
+    build:
+      path: "/var/tmp/{{ wordpress_hostname }}"
+    source: build
+    state: present
