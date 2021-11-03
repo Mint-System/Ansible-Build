@@ -18,12 +18,6 @@ wordpress_db_hostname: mysql01
 wordpress_db_user: wordpress
 wordpress_db_password: "{{ vault_wordpress_db_password }}"
 wordpress_db_name: wordpress
-wordpress_smtp_secure: tls
-wordpress_smtp_hostname: mail.example.com
-wordpress_smtp_port: "587"
-wordpress_smtp_from: noreply@example.com
-wordpress_smtp_username: bot@example.com
-wordpress_smtp_password: "{{ vault_wordpress_smtp_password }}"
 ```
 
 And include it in your playbook.

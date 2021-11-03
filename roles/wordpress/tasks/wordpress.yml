@@ -5,12 +5,28 @@
     docker_volume_name: "{{ wordpress_volume_name }}"
   when: wordpress_volume_name is defined
 
+- name: "Copy {{ role_name }} Dockerfile conf"
+  template:
+    src: "templates/{{ item }}"
+    dest: "/var/tmp/{{ wordpress_hostname }}/{{ item }}"
+  loop:
+    - Dockerfile
+    - custom.ini
+
+- name: "Build {{ role_name }} custom image"
+  docker_image:
+    name: wordpress:custom
+    build:
+      path: "/var/tmp/{{ wordpress_hostname }}"
+      source: build
+    state: present
+
 - name: "Start {{ role_name }} container {{ wordpress_hostname }}"
   docker_container:
     name: "{{ wordpress_hostname }}"
     labels:
       description: "{{ wordpress_description }}"
-    image: "{{ wordpress_image }}"
+    image: wordpress:custom
     restart_policy: unless-stopped
     recreate: no
     env:
@@ -35,24 +51,3 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ wordpress_hostname }}|{{ role_name }}"
-
-# - name: Upate wordpress config
-#   blockinfile:
-#     path: "/var/lib/docker/volumes/{{ wordpress_volume_name }}/_data/wp-mail.php"
-#     insertafter: "$pop3->quit();"
-#     marker: "// {mark} ANSIBLE MANAGED BLOCK"
-#     block: |
-#         /* SMTP Settings */
-#         add_action( 'phpmailer_init', 'send_smtp_email' );
-#         function send_smtp_email( $phpmailer ) {
-#             $phpmailer->isSMTP();
-#             $phpmailer->Host       = getenv('WORDPRESS_SMTP_HOST');
-#             $phpmailer->SMTPAuth   = getenv('WORDPRESS_SMTP_AUTH');
-#             $phpmailer->Port       = getenv('WORDPRESS_SMTP_PORT');
-#             $phpmailer->SMTPSecure = getenv('WORDPRESS_SMTP_SECURE');
-#             $phpmailer->Username   = getenv('WORDPRESS_SMTP_USERNAME');
-#             $phpmailer->Password   = getenv('WORDPRESS_SMTP_PASSWORD');
-#             $phpmailer->From       = getenv('WORDPRESS_SMTP_FROM');
-#             $phpmailer->FromName   = getenv('WORDPRESS_SMTP_FROM_NAME');
-#         }
-#   notify: Restart wordpress container
