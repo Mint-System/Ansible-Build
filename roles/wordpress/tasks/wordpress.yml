@@ -12,6 +12,10 @@
   loop:
     - Dockerfile
     - custom.ini
+  notiy: "Build {{ role_name }} custom image"
+
+- name: Flush handlers
+  meta: flush_handlers
 
 - name: "Build {{ role_name }} custom image"
   docker_image:
