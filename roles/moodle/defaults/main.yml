@@ -1,5 +1,6 @@
 moodle_description: Moodle
 moodle_volume_name: "{{ moodle_hostname }}"
-moodle_database_type: mysql
+moodle_database_type: mysqli
+moodle_smtp_port: "587"
 moodle_smtp_protocol: tls
 moodle_php_max_upload_filesize: 32M
