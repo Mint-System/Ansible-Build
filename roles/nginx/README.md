@@ -42,6 +42,7 @@ nginx_proxies:
           proxy_buffer_size 128k;
           proxy_buffers 4 256k;
           proxy_busy_buffers_size 256k;
+          client_max_body_size 256M;
   - src_hostname: old.example.com
     redirect_url: https://www.example.com/new
 ```
