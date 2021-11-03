@@ -8,5 +8,8 @@
     name: wordpress:custom
     build:
       path: "/var/tmp/{{ wordpress_hostname }}"
+      pull: true
     source: build
+    force_source: true
+    force_tag: true
     state: present
