@@ -18,7 +18,7 @@
     name: wordpress:custom
     build:
       path: "/var/tmp/{{ wordpress_hostname }}"
-      source: build
+    source: build
     state: present
 
 - name: "Start {{ role_name }} container {{ wordpress_hostname }}"
