@@ -1,10 +1,10 @@
-- name: "Restart {{ role_name }} container"
+- name: "Restart odoo container"
   docker_container:
     name: "{{ odoo_hostname }}"
     restart: true
   when: odoo_replicas == 1
 
-- name: "Restart {{ role_name }} container"
+- name: "Restart odoo container"
   docker_container:
     name: "{{ odoo_hostname }}_{{ item }}"
     restart: true
