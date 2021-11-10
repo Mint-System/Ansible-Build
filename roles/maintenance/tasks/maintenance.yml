@@ -19,3 +19,25 @@
 - name: Show journal space reclaimed
   debug:
     msg: "{{ cleanup_journal.stderr }}"
+
+- name: "Find old files in /var/tmp"
+  find:
+    paths:
+      - "/var/tmp"
+    age: 7d
+    recurse: yes
+  register: old_files
+
+- name: Show old files
+  debug:
+    msg: "{{ old_files.files | map(attribute='path') | list }}"
+
+- name: Remove old directories
+  command:
+    cmd: find /var/tmp -type d -mtime +7 -exec rm -rf {} \; 
+  when: old_files.files
+
+- name: Remove old files
+  command:
+    cmd: find /var/tmp -type f -mtime +7 -exec rm -rf {} \; 
+  when: old_files.files

@@ -16,3 +16,5 @@
     tags: cargo
   - role: innernet-client
     tags: innernet-client
+  - role: maintenance
+    tags: maintenance
