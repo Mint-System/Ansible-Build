@@ -31,6 +31,7 @@ odoo_patches:
     host: odoo03 # default: "{{ odoo_hostname }}"
 odoo_pip_packages:
   - name: python-jose
+  - name: mock==3.0.5
 ```
 
 And include it in your playbook.

@@ -6,7 +6,7 @@
 
 - name: Get installed python packages
   command: "docker exec {{ odoo_hostname }}_{{ item }} pip3 freeze"
-  register: result
+  register: result_replicas
   changed_when: false
   with_sequence: start=1 end={{ odoo_replicas }}
   when: odoo_replicas > 1
@@ -19,4 +19,4 @@
 - name: Install missing pip packages
   command: "docker exec {{ item.1.cmd[2] }} pip3 install {{ item.0.name }}"
   when: odoo_replicas > 1 and item.0.name not in item.1.stdout
-  loop: "{{ odoo_pip_packages | product(result.results) | list }}"
+  loop: "{{ odoo_pip_packages | product(result_replicas.results) | list }}"
