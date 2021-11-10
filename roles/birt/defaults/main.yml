@@ -1,0 +1,2 @@
+birt_description: BIRT
+birt_data_dir: "/usr/share/{{ birt_hostname }}"

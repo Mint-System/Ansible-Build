@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Zeichensatz anpassen
+locale-gen de_CH
+
+# Zeitzone anpassen
+TZ=Europe/Zurich
+cp -f /usr/share/zoneinfo/$TZ /etc/localtime
+echo $TZ > /etc/timezone
+
+# Create user
+addgroup --gid 8050 hiroot
+echo | adduser --disabled-password --uid 8050 --gid 8050 hiroot
+
+# Install packages
+apt-get update
+apt-get install -yq nano wget zip
+
+# Install Java
+apt-get install -yq openjdk-7-jre-headless
+
+# Install Jetty
+unzip /tmp/jetty-distribution-9.2.17.v20160517.zip -d /opt
+mv -f /opt/jetty-distribution-9.2.17.v20160517 /opt/jetty
+( cd /opt/jetty && java -jar start.jar --add-to-startd=https )
+
+# Install BIRT runtime
+mkdir /opt/jetty/webapps/birt
+unzip /tmp/birt-runtime-4.5.0.war -d /opt/jetty/webapps/birt
+mv -f /tmp/web.xml /opt/jetty/webapps/birt/WEB-INF/
+
+# Install Postgres JDBC
+cp -f /tmp/postgresql-9.4.1208.jre7.jar /opt/jetty/webapps/birt/WEB-INF/lib/
+
+# Install AS400 JDBC
+cp -f /tmp/jt400.jar /opt/jetty/webapps/birt/WEB-INF/lib/
+
+# Install Data
+mkdir -p /data_init/reports
+mv -f /tmp/example.rptdesign /data_init/reports/
+
+# Adjust permissions
+chown -R hiroot:hiroot /opt/jetty
+
+# Copy init files
+mkdir -p /etc/service/jetty
+mv -f /tmp/run_jetty /etc/service/jetty/run

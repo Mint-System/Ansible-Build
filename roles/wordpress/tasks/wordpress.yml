@@ -5,6 +5,11 @@
     docker_volume_name: "{{ wordpress_volume_name }}"
   when: wordpress_volume_name is defined
 
+- name: "Ensure {{ role_name }} tmp dir exists"
+  file:
+    path: "/var/tmp/{{ wordpress_hostname }}"
+    state: directory
+
 - name: "Copy {{ role_name }} Dockerfile conf"
   template:
     src: "templates/{{ item }}"

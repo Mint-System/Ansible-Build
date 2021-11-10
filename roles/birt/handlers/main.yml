@@ -1,0 +1,15 @@
+- name: "Restart {{ role_name }} container"
+  docker_container:
+    name: "{{ birt_hostname }}"
+    restart: true
+
+- name: "Build {{ role_name }} custom image"
+  docker_image:
+    name: birt:custom
+    build:
+      path: "/var/tmp/{{ birt_hostname }}"
+      pull: true
+    source: build
+    force_source: true
+    force_tag: true
+    state: present

@@ -121,6 +121,7 @@ WIP:
 | ------------------------------------------------ | -------------------------------- |
 | [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
 | [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
+| [birt](roles/birt/README.md)                     | Deploy BIRT container.           |
 | [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
 
 ### Commands
