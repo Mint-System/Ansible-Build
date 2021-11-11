@@ -35,6 +35,31 @@ grafana_generic_oauth_token_url: "https://login.example.com/auth/realms/example.
 grafana_generic_oauth_api_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/userinfo"
 ```
 
+For livetrailing with loki use this nginx config:
+
+```yml
+nginx_http_options: |
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }
+nginx_proxies:
+  - src_hostname: monitor.example.com
+    dest_hostname: graf01
+    dest_port: 3000
+    ssl: true
+    monitor: true
+    options: |
+      include /etc/nginx/conf.d/proxies/loki.nginx;
+    locations:
+      - path: '~ /(api/datasources/proxy/\d+/loki/api/v1/tail)'
+        dest_hostname: graf01
+        dest_port: 3000
+        options: |
+          proxy_set_header Connection $connection_upgrade;
+          proxy_set_header Upgrade $http_upgrade;
+```
+
 And include it in your playbook.
 
 ```yml

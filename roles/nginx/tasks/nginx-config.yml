@@ -3,6 +3,11 @@
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
+- name: "Copy nginx default conf"
+  template:
+    src: templates/default.conf
+    dest: "{{ nginx_data_dir }}/default.conf"
+
 - name: "Get list of active {{ role_name }} certs"
   stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
