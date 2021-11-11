@@ -6,14 +6,20 @@
 
 - name: Get all Odoo databases on first replica
   command: /usr/local/bin/docker-odoo-list -c "{{ odoo_hostname }}_1"
-  register: existing_databases
+  register: existing_databases_replicas # use different var, because existing_databases has content as it skipped
   changed_when: false
   when: odoo_replicas > 1
 
 - name: Confirm database drop
   pause:
     prompt: "Please confirm you want to drop database {{ item.name }} on container {{ odoo_hostname }}! Press return to continue. Press ctrl+c to abort."
-  when: item.state == 'absent' and item.name in existing_databases.stdout
+  when: odoo_replicas == 1 and item.state == 'absent' and item.name in existing_databases.stdout
+  loop: "{{ odoo_databases }}"
+
+- name: Confirm database drop
+  pause:
+    prompt: "Please confirm you want to drop database {{ item.name }} on container {{ odoo_hostname }}! Press return to continue. Press ctrl+c to abort."
+  when: odoo_replicas > 1 and item.state == 'absent' and item.name in existing_databases_replicas.stdout
   loop: "{{ odoo_databases }}"
 
 - name: Drop disabled databases
@@ -23,5 +29,5 @@
 
 - name: Drop disabled databases on first replica
   command: /usr/local/bin/docker-odoo-drop -c "{{ odoo_hostname }}_1" -d "{{ item.name }}"
-  when: odoo_replicas > 1 and item.state == 'absent' and item.name in existing_databases.stdout
+  when: odoo_replicas > 1 and item.state == 'absent' and item.name in existing_databases_replicas.stdout
   loop: "{{ odoo_databases }}"
