@@ -42,4 +42,4 @@ done
 # Fallback to environment vars and default values
 : ${CONTAINER:='odoo'}
 
-docker exec $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST -tAc 'select datname from pg_database'"
+docker exec $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/postgres -tAc 'select datname from pg_database'"
