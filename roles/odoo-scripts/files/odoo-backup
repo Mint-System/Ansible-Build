@@ -55,6 +55,9 @@ done
 [[ -z "$OUTPUT" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
 [[ -z "$ODOO_HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
 
+# Remove trailing slash in url
+ODOO_HOST="${ODOO_HOST%/}"
+
 # Check if dir var is file or folder
 if [ "${OUTPUT: -4}" = ".zip" ];then
   DIR=`dirname "$OUTPUT"`
