@@ -7,9 +7,9 @@ SCRIPT=$(basename "$0")
 PACKAGE_PATH="/usr/lib/python3/dist-packages/"
 
 # Custom configuration
-FILE_PATH="${PACKAGE_PATH}odoo/addons/delivery/__manifest__.py"
-FIND="'sale_stock', 'sale_management'"
-REPLACE="'sale_stock'"
+FILE_PATH="${PACKAGE_PATH}odoo/service/server.py"
+FIND="for db_name, registry in registries.d.items()"
+REPLACE="for db_name, registry in registries.d.copy().items()"
 
 # Get filename
 FILE=`basename "$FILE_PATH"`

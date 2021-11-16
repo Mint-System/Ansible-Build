@@ -14,7 +14,7 @@ REPLACE="report_note = fields.Text('HR Comments', copy=False, groups=\"hr_holida
 # Get filename
 FILE=`basename "$FILE_PATH"`
 
-# Cop from docker
+# Copy from docker
 docker cp "$1":"$FILE_PATH" .
 
 # Find and replace

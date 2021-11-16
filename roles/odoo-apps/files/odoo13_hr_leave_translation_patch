@@ -14,7 +14,7 @@ REPLACE="body=_('Your %s planned on %s has been accepted') % (holiday.holiday_st
 # Get filename
 FILE=`basename "$FILE_PATH"`
 
-# Cop from docker
+# Copy from docker
 docker cp "$1":"$FILE_PATH" .
 
 # Find and replace

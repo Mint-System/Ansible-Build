@@ -13,7 +13,7 @@ FIND='groups.push({id: -1, content: _t("<b>UNASSIGNED<\/b>")});'
 # Get filename
 FILE=`basename "$FILE_PATH"`
 
-# Cop from docker
+# Copy from docker
 docker cp "$1":"$FILE_PATH" .
 
 # Find and replace

@@ -14,7 +14,7 @@ REPLACE="if not True:"
 # Get filename
 FILE=`basename "$FILE_PATH"`
 
-# Cop from docker
+# Copy from docker
 docker cp "$1":"$FILE_PATH" .
 
 # Find and replace

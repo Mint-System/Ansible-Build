@@ -14,7 +14,7 @@ REPLACE="'name': meeting_name.replace('on Time Off ', holiday.holiday_status_id.
 # Get filename
 FILE=`basename "$FILE_PATH"`
 
-# Cop from docker
+# Copy from docker
 docker cp "$1":"$FILE_PATH" .
 
 # Find and replace

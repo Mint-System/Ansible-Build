@@ -16,7 +16,7 @@ EOM
 # Get filename
 FILE=`basename "$FILE_PATH"`
 
-# Cop from docker
+# Copy from docker
 docker cp "$1":"$FILE_PATH" .
 
 LINE=$(grep -n "$FIND" $FILE | cut -f1 -d:)

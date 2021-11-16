@@ -14,7 +14,7 @@ REPLACE="orientation: attrs.orientation ? JSON.parse(attrs.orientation) : {item:
 # Get filename
 FILE=`basename "$FILE_PATH"`
 
-# Cop from docker
+# Copy from docker
 docker cp "$1":"$FILE_PATH" .
 
 # Find and replace
