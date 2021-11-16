@@ -13,21 +13,21 @@
 - name: Confirm database drop
   pause:
     prompt: "Please confirm you want to drop database {{ item.name }} on container {{ odoo_hostname }}! Press return to continue. Press ctrl+c to abort."
-  when: odoo_replicas == 1 and item.state == 'absent' and item.name in existing_databases.stdout
+  when: odoo_replicas == 1 and item.state == 'absent' and item.name in existing_databases.stdout_lines
   loop: "{{ odoo_databases }}"
 
 - name: Confirm database drop
   pause:
     prompt: "Please confirm you want to drop database {{ item.name }} on container {{ odoo_hostname }}! Press return to continue. Press ctrl+c to abort."
-  when: odoo_replicas > 1 and item.state == 'absent' and item.name in existing_databases_replicas.stdout
+  when: odoo_replicas > 1 and item.state == 'absent' and item.name in existing_databases_replicas.stdout_lines
   loop: "{{ odoo_databases }}"
 
 - name: Drop disabled databases
   command: /usr/local/bin/docker-odoo-drop -c "{{ odoo_hostname }}" -d "{{ item.name }}"
-  when: odoo_replicas == 1 and item.state == 'absent' and item.name in existing_databases.stdout
+  when: odoo_replicas == 1 and item.state == 'absent' and item.name in existing_databases.stdout_lines
   loop: "{{ odoo_databases }}"
 
 - name: Drop disabled databases on first replica
   command: /usr/local/bin/docker-odoo-drop -c "{{ odoo_hostname }}_1" -d "{{ item.name }}"
-  when: odoo_replicas > 1 and item.state == 'absent' and item.name in existing_databases_replicas.stdout
+  when: odoo_replicas > 1 and item.state == 'absent' and item.name in existing_databases_replicas.stdout_lines
   loop: "{{ odoo_databases }}"
