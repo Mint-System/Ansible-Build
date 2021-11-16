@@ -8,3 +8,12 @@
     creates: "/var/tmp/{{ item.name }}_installed"
   loop: "{{ odoo_patches }}"
   notify: Restart odoo container
+  when: odoo_replicas == 1
+
+- name: Apply patches
+  script: "{{ item.0.name }} {{ item.0.host | default(odoo_hostname) }}_{{ item.1 }}"
+  args:
+    creates: "/var/tmp/{{ item.0.name }}_{{ item.1 }}_installed"
+  loop: "{{ odoo_patches | product(range(1,odoo_replicas+1)) | list }}"
+  notify: Restart odoo container
+  when: odoo_replicas > 1
