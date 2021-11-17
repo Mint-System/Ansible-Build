@@ -24,7 +24,7 @@
     source: pull
     force_source: yes
   register: pull_odoo_image
-  notify: Remove patches
+  notify: Remove odoo patches
 
 - name: Flush handlers
   meta: flush_handlers

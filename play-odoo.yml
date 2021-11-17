@@ -6,7 +6,6 @@
     - role: odoo-apps
       tags:
         - odoo-apps
-        - odoo-patches
         - odoo-pip-packages
     - role: odoo-scripts
       tags: odoo-scripts
@@ -16,3 +15,5 @@
       tags: odoo-enterprise
     - role: odoo-data
       tags: odoo-data
+    - role: odoo-patches
+      tags: odoo-patches

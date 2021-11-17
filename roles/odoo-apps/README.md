@@ -26,9 +26,6 @@ odoo_apps:
   - name: demand_planner
     url: https://github.com/Mint-System/Demand-Planner/archive/refs/tags/v14.0.1.0.0.zip
     github_token: "{{ vault_github_token }}"
-odoo_patches:
-  - name: odoo14_delivery_patch
-    host: odoo03 # default: "{{ odoo_hostname }}"
 odoo_pip_packages:
   - name: python-jose
   - name: mock==3.0.5
@@ -41,8 +38,3 @@ And include it in your playbook.
   roles:
   - role: odoo-apps
 ```
-
-The following tags are available:
-
-* odoo-apps
-* odoo-patches

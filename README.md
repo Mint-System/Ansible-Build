@@ -94,6 +94,7 @@ Role details:
 | [odoo-data](roles/odoo-data/README.md)                                 | Generate Odoo data modules.                                      |
 | [odoo-databases](roles/odoo-databases/README.md)                       | Configure Odoo databases.                                        |
 | [odoo-enterprise](roles/odoo-enterprise/README.md)                     | Checkout the Odoo Enterprise git repository.                     |
+| [odoo-patches](roles/odoo-patches/README.md)                           | Apply custom Odoo patches.                                       |
 | [odoo-scripts](roles/odoo-scripts/README.md)                           | Install Odoo scripts.                                            |
 | [onlyoffice-documentserver](roles/onlyoffice-documentserver/README.md) | Deploy OnlyOffice Document Server container.                     |
 | [openldap](roles/openldap/README.md)                                   | Deploy OpenLDAP Docker container.                                |
