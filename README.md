@@ -167,7 +167,7 @@ Install odoo-scripts and odoo-apps locally.\
 `ansible-playbook -i inventories/odoo play-localhost.yml --skip-tags depends`
 
 List all Odoo databses.\
-`ansible all -i inventories/odoo -a "docker-odoo-list -c {{ odoo_hostname }}"`
+`ansible all -i inventories/odoo -a "docker-postgres-list -c {{ postgres_hostname }}"`
 
 ### Quality
 

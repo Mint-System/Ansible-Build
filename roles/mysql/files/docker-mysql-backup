@@ -6,21 +6,23 @@
 # -o pipefail stops the script if a pipe fails
 set -eo pipefail
 
+# Get script name
+SCRIPT=$(basename "$0")
+
 # Display Help
 Help() {
     echo
-    echo "docker-mysql-backup"
-    echo "###################"
+    echo "$SCRIPT"
     echo
-    echo "Description: Backup docker mysql database."
-    echo "Syntax: docker-mysql-backup [-d|-o|-c|help]"
-    echo "Example: docker-mysql-backup -d mysql,odoo -o /tmp -c mysql01"
+    echo "Description: Backup MySQL Docker database."
+    echo "Syntax: $SCRIPT [-d|-o|-c|help]"
+    echo "Example: $SCRIPT -d mysql,moodle -o /tmp -c mysql01"
     echo "options:"
     echo "  -d    Comma-separated list of database names."
     echo "  -a    Backup all databases"
     echo "  -o    Output directory. Defaults to '/var/tmp'"
     echo "  -c    Docker container name. Defaults to 'mysql'"
-    echo "  help  Show docker-mysql-backup manual."
+    echo "  help  Show $SCRIPT manual."
     echo
 }
 

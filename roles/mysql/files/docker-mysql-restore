@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -eo pipefail
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: Restore MySQL Docker database."
+  echo "Syntax: $SCRIPT [-d|-f|-c|help]"
+  echo "Example: $SCRIPT -d moodle -f /tmp/dump.sql -c mqysl01"
+  echo "options:"
+  echo "  -d    Name of database. Defaults to filename"
+  echo "  -f    Path to sql dump."
+  echo "  -c    Docker container name. Defaults to 'mysql'."
+  echo "  help  Show $SCRIPT manual."
+  echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c :d: :f: :u: :p:" opt; do
+  case $opt in
+    c) CONTAINER="$OPTARG";;
+    d) DATABASE="$OPTARG";;
+    f) FILE="$OPTARG";;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${CONTAINER:='mysql'}
+FILENAME=$(basename -- "$FILE")
+: ${DATABASE:="${FILENAME%%.*}"}
+
+# Verify variables
+[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+
+# Check if database exists
+
+# Start restore 
+echo "Restore MySQL database $DATABASE from $FILE ..."
+cat $FILE | docker exec -i $CONTAINER /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD $DATABASE"
+
+# Notify if backup has finished
+echo "The Docker MySQL restore has finished."

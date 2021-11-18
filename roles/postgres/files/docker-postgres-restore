@@ -15,7 +15,7 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Restore docker postgres database."
-  echo "Syntax: $SCRIPT [-d|-f|-c|r|help]"
+  echo "Syntax: $SCRIPT [-d|-f|-c|-r|help]"
   echo "Example: $SCRIPT -d odoo -f /tmp/dump.sql -c postgres01 -u oc_admin -p *****"
   echo "options:"
   echo "  -d    Name of database. Defaults to filename"
