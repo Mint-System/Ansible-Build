@@ -35,9 +35,10 @@
       MYSQL_CLIENT_CREATE_DATABASE_NAME: "{{ moodle_database_name }}"
       MYSQL_CLIENT_CREATE_DATABASE_USER: "{{ moodle_database_user }}"
       MYSQL_CLIENT_CREATE_DATABASE_PASSWORD: "{{ moodle_database_password }}"
+      MOODLE_SKIP_INSTALL: "{{ moodle_skip_install }}"
       PHP_UPLOAD_MAX_FILESIZE: "{{ moodle_php_max_upload_filesize }}"
     volumes:
-      - "{{ moodle_volume_name }}:/bitnami/moodle"
+      - "{{ moodle_volume_name }}:/bitnami/moodledata"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

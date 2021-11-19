@@ -17,6 +17,7 @@ moodle_username: admin
 moodle_password: "{{ vault_moodle_password }}"
 moodle_email: moodle@example.com
 moodle_site_name: "School of Example"
+moodle_skip_install: "true" # default: "false"
 moodle_database_type: mariadb # default: mysqli
 moodle_mysql_client_flavor: mariadb # default: mysql
 moodle_mysql_database_root_password: "{{ vault_moodle_mysql_database_root_password }}"

@@ -5,3 +5,4 @@ moodle_mysql_client_flavor: mysql
 moodle_smtp_port: "587"
 moodle_smtp_protocol: tls
 moodle_php_max_upload_filesize: 32M
+moodle_skip_install: "false"
