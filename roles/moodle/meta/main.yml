@@ -1,5 +1,5 @@
 dependencies: # noqa 701
-  - role: postgres
+  - role: mysql
     tags:
-      - postgres
+      - mysql
       - depends

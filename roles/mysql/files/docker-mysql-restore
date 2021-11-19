@@ -32,7 +32,7 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":c :d: :f: :u: :p:" opt; do
+while getopts ":c: :d: :f:" opt; do
   case $opt in
     c) CONTAINER="$OPTARG";;
     d) DATABASE="$OPTARG";;
