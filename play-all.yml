@@ -39,3 +39,5 @@
     tags: mysql
   - role: docker-compose
     tags: docker-compose
+  - role: systemd
+    tags: systemd

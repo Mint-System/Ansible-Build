@@ -37,3 +37,5 @@
     tags: innernet-server
   - role: innernet-client
     tags: innernet-client
+  - role: systemd
+    tags: systemd

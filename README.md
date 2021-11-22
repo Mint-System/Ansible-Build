@@ -111,6 +111,7 @@ Role details:
 | [restic-server](roles/restic-server/README.md)                         | Deploy Restic server container.                                  |
 | [s3cmd](roles/s3cmd/README.md)                                         | Install and configure s3cmd.                                     |
 | [simple-mail-forwarder](roles/simple-mail-forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
+| [systemd](roles/systemd/README.md)                                     | Setup systemd service.                                           |
 | [ufw](roles/ufw/README.md)                                             | Configure UFW rules.                                             |
 | [update](roles/update/README.md)                                       | Install system and package updates.                              |
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |

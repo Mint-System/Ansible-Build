@@ -1,0 +1,18 @@
+[Unit]
+Description={{ item.description }}
+{% if item.after is defined %}
+After={{ item.after }}
+{% endif %}
+
+[Service]
+{% if item.syslog_identifier is defined %}
+SyslogIdentifier={{ item.syslog_identifier }}
+{% endif %}
+Restart={{ item.restart | default('always') }}
+{% if item.standard_output is defined %}
+StandardOutput={{ item.standard_output }}
+{% endif %}
+ExecStart={{ item.exec_start }}
+
+[Install]
+WantedBy={{ item.wanted_by | default('multi-user.target') }}
