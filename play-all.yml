@@ -37,3 +37,5 @@
     tags: birt
   - role: mysql
     tags: mysql
+  - role: docker-compose
+    tags: docker-compose
