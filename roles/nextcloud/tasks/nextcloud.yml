@@ -51,11 +51,11 @@
     seconds: "30"
   when: start_nextcloud_container.changed
 
-# FIXME: Wait for server until installation is finished
+# FIXME: Wait for server until installation is finished; docker logs output cannot be parsed
 # - name: "Wait for {{ role_name }} container"
 #   command: "docker logs {{ nextcloud_hostname }}"
 #   register: result
-#   until: result.stdout.find("Nextcloud was successfully installed") != -1
+#   until: result.stdout.find("successfully installed") or result.stdout.find("Update successful")
 #   retries: 15
 #   delay: 3
 #   when: start_nextcloud_container.changed

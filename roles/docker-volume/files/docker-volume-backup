@@ -83,6 +83,7 @@ for VOLUME in "${VOLUME_LIST[@]}"
 do
   echo "Run backup for Docker volume $VOLUME"
   docker run --rm -v $VOLUME:/_data  -v ${DIR}/${CONTAINER}:/backup ubuntu tar cf /backup/$VOLUME.tar /_data
+  # FIXME: Estimate time with pv: /bin/bash -c "tar cf - /_data | pv -s $(du -sb /_data | awk '{print $1}') > /backup/$VOLUME.tar"
 done
 
 # Notify if backup has finished
