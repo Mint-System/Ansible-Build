@@ -3,3 +3,15 @@
   when: elasticsearch_image is defined
   tags:
    - elasticsearch
+
+- name: "Include {{ role_name }} cluster tasks"
+  include_tasks: "{{ role_name }}-cluster.yml"
+  when: elasticsearch_cluster_name is defined
+  tags:
+   - elasticsearch
+
+- name: "Include {{ role_name }} users tasks"
+  include_tasks: "{{ role_name }}-users.yml"
+  when: elasticsearch_users is defined
+  tags:
+   - elasticsearch

@@ -1,6 +1,6 @@
-# Ansible ElasticSearch role
+# Ansible Elasticsearch role
 
-Deploy ElasticSearch Docker cluster.
+Deploy Elasticsearch Docker cluster.
 
 ## Usage
 
@@ -9,7 +9,26 @@ Configure the role.
 **vars.yml**
 
 ```yml
-elasticsearch_image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
+# https://www.docker.elastic.co/r/elasticsearch
+elasticsearch_image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2
+```
+
+Setup a single node.
+
+```yml
+elasticsearch_hostname: elastic01
+elasticsearch_description: Search index for nextcloud01 # default: Elasticsearch
+elasticsearch_data_dir: /usr/share/elastic # default: "{{ elasticsearch_hostname }}"
+elasticsearch_volume_name: elastic_data01 # default: "{{ elasticsearch_hostname }}"
+elasticsearch_password: "{{ vault_elasticsearch_password }}"
+elasticsearch_users:
+  - name: nextcloud
+    password: "{{ vault_elasticsearch_nextcloud_password }}"
+```
+
+Setup a cluster.
+
+```yml
 elasticsearch_cluster_name: elastic-cluster01
 elasticsearch_masternodes: "elastic01,elastic02"
 elasticsearch_nodes:

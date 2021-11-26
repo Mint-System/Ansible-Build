@@ -1,0 +1,112 @@
+- name: Set max map count
+  sysctl:
+    name: vm.max_map_count
+    value: "262144"
+    state: present
+
+- name: "Create {{ role_name }} node volume"
+  docker_volume:
+    name: "{{ item.volume_name }}"
+  when: item.volume_name is defined
+  loop: "{{ elasticsearch_nodes }}"
+
+- name: "Ensure {{ role_name }} node data dir exists"
+  file:
+    path: "{{ item.data_dir }}"
+    state: directory
+  loop: "{{ elasticsearch_nodes }}"
+
+- name: Copy ca keystore
+  copy:
+    src: elastic-stack-ca.p12
+    dest: "{{ item.data_dir }}/certs/"
+  loop: "{{ elasticsearch_nodes }}"
+
+- name: Copy node keystore
+  copy:
+    src: elastic-certificates.p12
+    dest: "{{ item.data_dir }}/certs/"
+  loop: "{{ elasticsearch_nodes }}"
+
+- name: "Start {{ role_name }} container {{ item.hostname }}"
+  docker_container:
+    name: "{{ item.hostname }}"
+    labels:
+      description: "{{ item.description }}"
+    image: "{{ elasticsearch_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env:
+      node.name: "{{ item.hostname }}"
+      cluster.name: "{{ elasticsearch_cluster_name }}"
+      discovery.seed_hosts: "{{ item.seed_hosts }}"
+      cluster.initial_master_nodes: "{{ elasticsearch_masternodes }}"
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
+      xpack.security.enabled: "true"
+      xpack.security.transport.ssl.enabled: "true"
+      xpack.security.transport.ssl.verification_mode: certificate
+      xpack.security.transport.ssl.keystore.path: certs/elastic-certificates.p12
+      xpack.security.transport.ssl.truststore.path: certs/elastic-certificates.p12
+      xpack.monitoring.collection.enabled: "true"
+    volumes:
+      - "{{ item.volume_name }}:/usr/share/elasticsearch/data"
+      - "{{ item.data_dir }}/certs:/usr/share/elasticsearch/config/certs"
+    ports:
+      - 9200:9200
+      - 9300:9300
+    ulimits:
+      - nofile:65535:65535
+      - memlock:-1:-1
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  loop: "{{ elasticsearch_nodes }}"
+  when: item.primary
+  register: start_elasticsearch_primary_node
+
+- name: "Start {{ role_name }} container {{ item.hostname }}"
+  docker_container:
+    name: "{{ item.hostname }}"
+    labels:
+      description: "{{ item.description }}"
+    image: "{{ elasticsearch_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env:
+      node.name: "{{ item.hostname }}"
+      cluster.name: "{{ elasticsearch_cluster_name }}"
+      discovery.seed_hosts: "{{ item.seed_hosts }}"
+      cluster.initial_master_nodes: "{{ elasticsearch_masternodes }}"
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
+      xpack.security.enabled: "true"
+      xpack.security.transport.ssl.enabled: "true"
+      xpack.security.transport.ssl.verification_mode: certificate
+      xpack.security.transport.ssl.keystore.path: certs/elastic-certificates.p12
+      xpack.security.transport.ssl.truststore.path: certs/elastic-certificates.p12
+      xpack.monitoring.collection.enabled: "true"
+    volumes:
+      - "{{ item.volume_name }}:/usr/share/elasticsearch/data"
+      - "{{ item.data_dir }}/certs:/usr/share/elasticsearch/config/certs"
+    ulimits:
+      - nofile:65535:65535
+      - memlock:-1:-1
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+  loop: "{{ elasticsearch_nodes }}"
+  when: not item.primary
+
+- name: "Wait for {{ role_name }} primary node container to boot" # noqa 503
+  pause:
+    seconds: "60"
+  when: start_elasticsearch_primary_node.changed

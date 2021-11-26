@@ -11,3 +11,5 @@
     tags: onlyoffice-documentserver
   - role: nextcloud-exporter
     tags: nextcloud-exporter
+  - role: elasticsearch
+    tags: elasticsearch

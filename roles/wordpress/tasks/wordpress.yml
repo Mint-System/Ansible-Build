@@ -10,7 +10,7 @@
     path: "/var/tmp/{{ wordpress_hostname }}"
     state: directory
 
-- name: "Copy {{ role_name }} Dockerfile conf"
+- name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "templates/{{ item }}"
     dest: "/var/tmp/{{ wordpress_hostname }}/{{ item }}"
