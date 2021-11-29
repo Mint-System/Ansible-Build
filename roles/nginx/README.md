@@ -33,6 +33,7 @@ nginx_proxies:
     redirect_hostname: www.example.com
   - src_hostname: example.org
     redirect_hostname: www.example.com
+    cache: true
     server_names:
       - example.org
       - www.example.org
@@ -50,6 +51,7 @@ nginx_proxies:
           client_max_body_size 256M;
   - src_hostname: old.example.com
     redirect_url: https://www.example.com/new
+nginx_cache_enabled: true # default: false
 ```
 
 And include it in your playbook.
