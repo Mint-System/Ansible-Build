@@ -156,7 +156,7 @@ Deploy role to specific group with non-default user.\
 `ansible-playbook -i inventories/odoo play-odoo.yml -t docker -l europe -u username`
 
 Clean Odoo stack.\
-`ansible-playbook -i inventories/odoo play-clean.yml -t odoo,odoo-volume,odoo-data-dir,postgres,postgres-volume`
+`ansible-playbook -i inventories/odoo play-clean.yml -t odoo,odoo-volume,odoo-data,postgres,postgres-volume`
 
 Clean role only.\
 `ansible-playbook -i inventories/odoo play-clean.yml -t docker-network`

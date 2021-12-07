@@ -7,5 +7,5 @@
   file:
     path: "{{ nginx_data_dir }}"
     state: absent
-  when: '"nginx-data-dir" in ansible_run_tags'
+  when: '"nginx-data" in ansible_run_tags'
 

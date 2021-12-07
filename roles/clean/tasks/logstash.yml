@@ -7,4 +7,4 @@
   file:
     path: "{{ logstash_data_dir }}"
     state: absent
-  when: '"logstash-data-dir" in ansible_run_tags'
+  when: '"logstash-data" in ansible_run_tags'

@@ -7,4 +7,4 @@
   file:
     path: "{{ cadvisor_data_dir }}"
     state: absent
-  when: '"cadvisor-data-dir" in ansible_run_tags'
+  when: '"cadvisor-data" in ansible_run_tags'

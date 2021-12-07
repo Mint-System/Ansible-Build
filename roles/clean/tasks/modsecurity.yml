@@ -2,4 +2,4 @@
   file:
     path: "{{ modsecurity_data_dir }}"
     state: absent
-  when: '"modsecurity-data-dir" in ansible_run_tags'
+  when: '"modsecurity-data" in ansible_run_tags'
