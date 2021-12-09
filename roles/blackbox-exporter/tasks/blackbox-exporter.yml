@@ -1,3 +1,15 @@
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ blackbox_exporter_data_dir }}"
+    state: directory
+
+- name: Copy {{ role_name }} conf files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ blackbox_exporter_data_dir }}/"
+  loop:
+    - files/config.yml
+
 - name: "Start {{ role_name }} container {{ blackbox_exporter_hostname }}"
   docker_container:
     name: "{{ blackbox_exporter_hostname }}"
@@ -6,6 +18,8 @@
     image: "{{ blackbox_exporter_image }}"
     restart_policy: unless-stopped
     recreate: no
+    volumes:
+      - "{{ blackbox_exporter_data_dir }}:/etc/blackbox_exporter"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

@@ -13,6 +13,10 @@
     dest: "{{ prometheus_data_dir }}/"
   notify: Restart prometheus container
 
+- name: List blackbox targets
+  debug:
+    msg: "{{ prometheus_scrape_configs | json_query('[?job_name==`blackbox`].static_configs[*].targets') }}"
+
 - name: "Start {{ role_name }} container {{ prometheus_hostname }}"
   docker_container:
     name: "{{ prometheus_hostname }}"
