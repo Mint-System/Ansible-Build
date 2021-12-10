@@ -42,11 +42,7 @@ Create an inventory and configure a role.
 
 ### Roles
 
-Role dependency graph:
-
-[![](./doc/ansible-roles.png)](./doc/ansible-roles.png)
-
-Role details:
+List of all avaialable Ansible roles.
 
 | Role                                                                   | Description                                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
@@ -118,7 +114,7 @@ Role details:
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |
 | [wordpress](roles/wordpress/README.md)                                 | Deploy WordPress container.                                      |
 
-WIP:
+Work in progress:
 
 | Role                                             | Description                      |
 | ------------------------------------------------ | -------------------------------- |
