@@ -1,5 +1,11 @@
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
-  when: docker_volume_name is defined
+  when: docker_volume_name is defined or docker_volumes is defined
+  tags:
+    - docker-volume
+
+- name: "Include {{ role_name }} backup tasks"
+  include_tasks: "{{ role_name }}-backup.yml"
+  when: docker_volume_backup_sets is defined
   tags:
     - docker-volume

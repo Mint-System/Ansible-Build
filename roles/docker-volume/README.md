@@ -10,6 +10,9 @@ Configure the role.
 
 ```yml
 docker_volume_name: example_data01
+docker_volumes:
+  - name: service_data02
+  - name: service_data03
 docker_volume_backup_sets: # See restic_backup_sets var in role restic-client
 ```
 

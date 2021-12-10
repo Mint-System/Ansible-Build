@@ -36,6 +36,14 @@
   notify: Restart {{ role_name }} project
   when: docker_compose_definition is defined
 
+- name: "Include docker volume role"
+  include_role:
+    name: docker-volume
+  vars:
+    docker_volumes: "{{ docker_compose_volumes }}"
+    docker_volume_backup_sets: "{{ docker_compose_backup_sets | default([]) }}"
+  when: docker_compose_volumes is defined
+
 - name: "Start {{ role_name }} project"
   command:  "/usr/local/bin/docker-compose -p {{ docker_compose_project_name }} up -d"
   args:
