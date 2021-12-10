@@ -13,7 +13,7 @@ docker_compose_project_name: project01
 docker_compose_data_dir: /usr/share/compose01 # default: "/usr/share/{{ docker_compose_project_name }}"
 docker_compose_volumes:
   - name: postgresql-vol
-docker_compose_backup_sets: # See restic_backup_sets var in role restic-client
+docker_compose_backup_set: # See restic_backup_set var in role restic-client
 docker_compose_dotenv: |
   FRAPPE_VERSION: v13
   LETSENCRYPT_EMAIL: email@example.com

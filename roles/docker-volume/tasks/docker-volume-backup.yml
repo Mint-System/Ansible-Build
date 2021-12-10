@@ -11,5 +11,5 @@
   include_role:
     name: restic-client
   vars:
-    restic_backup_sets: "{{ docker_volume_backup_sets }}"
-  when: docker_volume_backup_sets is defined
+    restic_backup_set: "{{ docker_volume_backup_set }}"
+  when: docker_volume_backup_set is defined

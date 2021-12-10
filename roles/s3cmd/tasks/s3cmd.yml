@@ -20,5 +20,5 @@
      write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
-  loop: "{{ s3cmd_backup_sets }}"
-  when: s3cmd_backup_sets is defined
+  loop: "{{ s3cmd_backup_set }}"
+  when: s3cmd_backup_set is defined

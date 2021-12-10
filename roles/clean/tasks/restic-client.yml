@@ -2,5 +2,5 @@
   cron:
     name: "Backup job {{ item.id }}"
     state: absent
-  loop: "{{ restic_backup_sets }}"
+  loop: "{{ restic_backup_set }}"
   when: item.disabled

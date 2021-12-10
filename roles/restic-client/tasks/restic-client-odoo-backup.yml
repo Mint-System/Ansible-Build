@@ -1,7 +1,7 @@
 - name: Verify odoo backup command exists
   shell: "ls $(which odoo-backup)"
   changed_when: false
-  loop: "{{ restic_backup_sets }}"
+  loop: "{{ restic_backup_set }}"
   when: item.type == "odoo-backup"
 
 - name: Register odoo backup jobs
@@ -14,7 +14,7 @@
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
-  loop: "{{ restic_backup_sets }}"
+  loop: "{{ restic_backup_set }}"
   when: item.type == "odoo-backup"
 
 - name: Register odoo backup jobs
@@ -27,5 +27,5 @@
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
-  loop: "{{ restic_backup_sets }}"
+  loop: "{{ restic_backup_set }}"
   when: item.type == "docker-odoo-backup"

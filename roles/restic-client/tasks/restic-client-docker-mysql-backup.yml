@@ -8,7 +8,7 @@
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
-  loop: "{{ restic_backup_sets }}"
+  loop: "{{ restic_backup_set }}"
   when: item.type == "mysql-dump" and item.databases is defined
 
 - name: Register docker mysql backup jobs
@@ -21,5 +21,5 @@
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
-  loop: "{{ restic_backup_sets }}"
+  loop: "{{ restic_backup_set }}"
   when: item.type == "mysql-dump" and item.databases is undefined

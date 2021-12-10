@@ -3,7 +3,7 @@
     name: docker-volume
   vars:
     docker_volume_name: "{{ remark42_volume_name }}"
-    docker_volume_backup_sets: "{{ remark42_volume_backup_sets | default([]) }}"
+    docker_volume_backup_set: "{{ remark42_volume_backup_set | default([]) }}"
   when: remark42_volume_name is defined
 
 - name: "Start {{ role_name }} container {{ remark42_hostname }}"

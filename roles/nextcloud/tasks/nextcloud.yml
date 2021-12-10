@@ -3,7 +3,7 @@
     name: docker-volume
   vars:
     docker_volume_name: "{{ nextcloud_volume_name }}"
-    docker_volume_backup_sets: "{{ nextcloud_volume_backup_sets | default([]) }}"
+    docker_volume_backup_set: "{{ nextcloud_volume_backup_set | default([]) }}"
   when: nextcloud_volume_name is defined
 
 - name: "Start {{ role_name }} container {{ nextcloud_hostname }}"

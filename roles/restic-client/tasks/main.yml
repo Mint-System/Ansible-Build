@@ -6,30 +6,30 @@
 
 - name: "Include {{ role_name }} docker volume backup tasks"
   include_tasks: "{{ role_name }}-docker-volume-backup.yml"
-  when: restic_backup_sets is defined
+  when: restic_backup_set is defined
   tags:
     - restic-client
 
 - name: "Include {{ role_name }} file backup tasks"
   include_tasks: "{{ role_name }}-file-backup.yml"
-  when: restic_backup_sets is defined
+  when: restic_backup_set is defined
   tags:
     - restic-client
 
 - name: "Include {{ role_name }} odoo backup tasks"
   include_tasks: "{{ role_name }}-odoo-backup.yml"
-  when: restic_backup_sets is defined
+  when: restic_backup_set is defined
   tags:
     - restic-client
 
 - name: "Include {{ role_name }} docker postgres backup tasks"
   include_tasks: "{{ role_name }}-docker-postgres-backup.yml"
-  when: restic_backup_sets is defined
+  when: restic_backup_set is defined
   tags:
     - restic-client
 
 - name: "Include {{ role_name }} docker mysql backup tasks"
   include_tasks: "{{ role_name }}-docker-mysql-backup.yml"
-  when: restic_backup_sets is defined
+  when: restic_backup_set is defined
   tags:
     - restic-client

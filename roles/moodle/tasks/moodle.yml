@@ -3,7 +3,7 @@
     name: docker-volume
   vars:
     docker_volume_name: "{{ moodle_volume_name }}"
-    docker_volume_backup_sets: "{{ moodle_volume_backup_sets | default([]) }}"
+    docker_volume_backup_set: "{{ moodle_volume_backup_set | default([]) }}"
   when: moodle_volume_name is defined
 
 - name: "Start {{ role_name }} container {{ moodle_hostname }}"

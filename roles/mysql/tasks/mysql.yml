@@ -39,5 +39,5 @@
   include_role:
     name: restic-client
   vars:
-    restic_backup_sets: "{{ mysql_backup_sets }}"
-  when: mysql_backup_sets is defined
+    restic_backup_set: "{{ mysql_backup_set }}"
+  when: mysql_backup_set is defined

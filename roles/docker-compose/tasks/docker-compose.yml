@@ -41,7 +41,7 @@
     name: docker-volume
   vars:
     docker_volumes: "{{ docker_compose_volumes }}"
-    docker_volume_backup_sets: "{{ docker_compose_backup_sets | default([]) }}"
+    docker_volume_backup_set: "{{ docker_compose_backup_set | default([]) }}"
   when: docker_compose_volumes is defined
 
 - name: "Start {{ role_name }} project"

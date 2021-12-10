@@ -27,7 +27,7 @@ odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
 odoo_conf: |
   dbfilter = ^%d$
-odoo_backup_sets: # See restic_backup_sets var in role restic-client
+odoo_backup_set: # See restic_backup_set var in role restic-client
 ```
 
 And include it in your playbook.

@@ -13,7 +13,7 @@ s3cmd_host_base: sos-ch-dk-2.exo.io
 s3cmd_host_bucket: kronos.sos-ch-dk-2.exo.io
 s3cmd_access_key: EXO2677bc43796a0cff80b29b79
 s3cmd_secret_key: "{{ vault_s3cmd_secret_key }}"
-s3cmd_backup_sets:
+s3cmd_backup_set:
   - id: "disk2"
     src: /mnt/kronos-disk2/
     target: kronos
