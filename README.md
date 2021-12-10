@@ -8,7 +8,7 @@ The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks a
 
 ## Requirements
 
-* Install python 3.8+ with [pyenv](https://github.com/pyenv/pyenv-installer)
+- Install python 3.8+ with [pyenv](https://github.com/pyenv/pyenv-installer)
 
 ## Usage
 
@@ -80,6 +80,7 @@ Role details:
 | [loki](roles/loki/README.md)                                           | Deploy Loki container.                                           |
 | [logstash](roles/logstash/README.md)                                   | Deploy Logstash Docker container.                                |
 | [maintenance](roles/maintenance/README.md)                             | Maintain operating system and disk space.                        |
+| [mariadb](roles/mariadb/README.md)                                     | Deploy MariaDB database container.                               |
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |
@@ -265,16 +266,18 @@ Roles can have multiple tags.
 **example one tag**
 
 To define a Postgres role, you would:
-* Create role `postges`
-* Assign the tag `postgres`
-* Create a task file `postgres.yml`
+
+- Create role `postges`
+- Assign the tag `postgres`
+- Create a task file `postgres.yml`
 
 **example multiple tags**
 
 To define a Nginx role with a config tag, you would:
-* Create role `nginx`
-* Assign the tags `nginx` and `nginx-config`
-* Create the task files `nginx.yml` and `nginx-config.yml`
+
+- Create role `nginx`
+- Assign the tags `nginx` and `nginx-config`
+- Create the task files `nginx.yml` and `nginx-config.yml`
 
 In the `main.yml` you would include the tasks as followed:
 

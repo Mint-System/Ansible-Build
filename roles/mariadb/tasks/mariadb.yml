@@ -1,0 +1,26 @@
+- name: "Create {{ role_name }} volume"
+  docker_volume:
+    name: "{{ mariadb_volume_name }}"
+
+- name: "Start {{ role_name }} container {{ mariadb_hostname }}"
+  docker_container:
+    name: "{{ mariadb_hostname }}"
+    labels:
+      description: "{{ mariadb_description }}"
+    image: "{{ mariadb_image }}"
+    restart_policy: unless-stopped
+    env:
+      MARIADB_ROOT_PASSWORD: "{{ mariadb_root_password }}"
+      MARIADB_DATABASE: "{{ mariadb_database }}"
+      MARIADB_USER: "{{ mariadb_user }}"
+      MARIADB_PASSWORD: "{{ mariadb_password }}"
+    volumes:
+      - "{{ mariadb_volume_name }}:/var/lib/mysql"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ mariadb_hostname }}|{{ role_name }}"
+  when: mariadb_volume_name is defined

@@ -64,7 +64,7 @@ restic_backup_set:
 - id: "mysql dump wordpress"
   type: mysql-dump
   container: mysql01
-  databases: wordpress
+  databases: wordpress,wordpress2
   tags:
     - mysql
     - mysql01
@@ -76,6 +76,14 @@ restic_backup_set:
   tags:
     - mysql
     - mysql01
+  hour: "1"
+- id: "mariadb dump frappe"
+  type: mariadb-dump
+  container: mariadb01
+  databases: frappe
+  tags:
+    - mariadb
+    - mariadb01
   hour: "1"
 restic_backup_rotation:
   daily: 7 # default: 7

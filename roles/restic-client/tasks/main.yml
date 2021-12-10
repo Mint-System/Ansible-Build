@@ -33,3 +33,9 @@
   when: restic_backup_set is defined
   tags:
     - restic-client
+
+- name: "Include {{ role_name }} docker mariadb backup tasks"
+  include_tasks: "{{ role_name }}-docker-mariadb-backup.yml"
+  when: restic_backup_set is defined
+  tags:
+    - restic-client
