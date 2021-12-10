@@ -1,3 +1,7 @@
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
   when: postgres_image is defined
+
+- name: "Include {{ role_name }} backup tasks"
+  include_tasks: "{{ role_name }}-backup.yml"
+  when: postgres_backup_set is defined

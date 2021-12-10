@@ -3,3 +3,9 @@
   when: mysql_image is defined
   tags:
    - mysql
+
+- name: "Include {{ role_name }} backup tasks"
+  include_tasks: "{{ role_name }}-backup.yml"
+  when: mysql_backup_set is defined
+  tags:
+   - mysql

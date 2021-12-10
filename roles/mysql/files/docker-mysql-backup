@@ -14,7 +14,7 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: Backup MySQL Docker database."
+    echo "Description: Backup MySQL/MariaDB Docker database."
     echo "Syntax: $SCRIPT [-d|-o|-c|help]"
     echo "Example: $SCRIPT -d mysql,moodle -o /tmp -c mysql01"
     echo "options:"

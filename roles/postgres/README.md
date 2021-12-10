@@ -19,6 +19,11 @@ postgres_ports:
 postgres_user: example
 postgres_password: "{{ vault_postgres_password }}"
 postgres_db: example
+```
+
+Backup databases.
+
+```yml
 postgres_backup_set: # See restic_backup_set var in role restic-client
   - id: "{{ postgres_hostname }} dump"
     type: postgres-dump

@@ -14,7 +14,7 @@ Help() {
   echo
   echo "$SCRIPT"
   echo
-  echo "Description: Restore MySQL Docker database."
+  echo "Description: Restore MySQL/MariaDB Docker database."
   echo "Syntax: $SCRIPT [-d|-f|-c|help]"
   echo "Example: $SCRIPT -d moodle -f /tmp/dump.sql -c mqysl01"
   echo "options:"
@@ -52,11 +52,11 @@ FILENAME=$(basename -- "$FILE")
 [[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
-# Check if database exists
+#FIXME: Check if database exists
 
 # Start restore 
-echo "Restore MySQL database $DATABASE from $FILE ..."
+echo "Restore MySQL/MariaDB database $DATABASE from $FILE ..."
 cat $FILE | docker exec -i $CONTAINER /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD $DATABASE"
 
 # Notify if backup has finished
-echo "The Docker MySQL restore has finished."
+echo "The Docker MySQL/MariaDB restore has finished."

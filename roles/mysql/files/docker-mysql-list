@@ -14,7 +14,7 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: List all databases in a MySQL Docker container."
+    echo "Description: List all databases in a MySQL/MariaDB Docker container."
     echo "Syntax: $SCRIPT [-c|help]"
     echo "Example: $SCRIPT -c mysql01"
     echo "options:"

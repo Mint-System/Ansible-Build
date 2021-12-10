@@ -24,20 +24,3 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ mysql_hostname }}|{{ role_name }}"
   when: mysql_volume_name is defined
-
-- name: Copy backup scripts
-  copy:
-    src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    mode: +x
-  loop:
-    - docker-mysql-backup
-    - docker-mysql-list
-    - docker-mysql-restore
-
-- name: "Include docker {{ role_name }} backup from restic client role"
-  include_role:
-    name: restic-client
-  vars:
-    restic_backup_set: "{{ mysql_backup_set }}"
-  when: mysql_backup_set is defined
