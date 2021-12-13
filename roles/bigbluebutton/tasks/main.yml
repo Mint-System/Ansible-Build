@@ -9,37 +9,32 @@
     msg: This is not Ubuntu 1804
   when: ansible_distribution != "Ubuntu" and ansible_distribution_major_version != '18.04'
 
-- name: "Include {{ role_name }} ubuntu1604 tasks"
-  include: "{{ role_name }}-ubuntu1604.yml"
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url is defined
-    and ('"all" in ansible_run_tags' or '"bigbluebutton-ubuntu1604" in ansible_run_tags')
-
 - name: "Include {{ role_name }} ubuntu1804 tasks"
   include: "{{ role_name }}-ubuntu1804.yml"
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" and bigbluebutton_apt_repo_url is defined
-    and ('"all" in ansible_run_tags' or '"bigbluebutton-ubuntu1804" in ansible_run_tags')
+  when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined
+    and ('"all" in ansible_run_tags' or '"ubuntu1804" in ansible_run_tags')
 
 - name: "Include {{ role_name }} html5 tasks"
   include: "{{ role_name }}-html5.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined
-    and ('"all" in ansible_run_tags' or '"bigbluebutton-html5" in ansible_run_tags')
+    and ('"all" in ansible_run_tags' or '"html5" in ansible_run_tags')
 
 - name: "Include {{ role_name }} letsencrypt tasks"
   include: "{{ role_name }}-letsencrypt.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined
-    and ('"all" in ansible_run_tags' or '"bigbluebutton-html5" in ansible_run_tags')
+    and ('"all" in ansible_run_tags' or '"letsencrypt" in ansible_run_tags')
 
 - name: "Include {{ role_name }} https tasks"
   include: "{{ role_name }}-https.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined
-    and ('"all" in ansible_run_tags' or '"bigbluebutton-https" in ansible_run_tags')
+    and ('"all" in ansible_run_tags' or '"https" in ansible_run_tags')
 
 - name: "Include {{ role_name }} greenlight tasks"
   include: "{{ role_name }}-greenlight.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined
-    and ('"all" in ansible_run_tags' or '"bigbluebutton-greenlight" in ansible_run_tags')
+    and ('"all" in ansible_run_tags' or '"greenlight" in ansible_run_tags')
 
 - name: "Include {{ role_name }} coturn tasks"
   include: "{{ role_name }}-coturn.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_coturn_domain is defined
-    and ('"all" in ansible_run_tags' or '"bigbluebutton-coturn" in ansible_run_tags')
+    and ('"all" in ansible_run_tags' or '"coturn" in ansible_run_tags')

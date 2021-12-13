@@ -1,3 +1,5 @@
+# https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L699
+
 - name: Make the HTML5 client default for attendees join
   replace:
     path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"

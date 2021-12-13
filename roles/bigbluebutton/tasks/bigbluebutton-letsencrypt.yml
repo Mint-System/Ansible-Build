@@ -1,3 +1,5 @@
+# https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L817
+
 - name: Create nginx SSL certificates directory
   file:
     state: directory
@@ -9,8 +11,6 @@
   command: openssl dhparam -dsaparam  -out /etc/nginx/ssl/dhp-4096.pem 4096
   args:
     creates: /etc/nginx/ssl/dhp-4096.pem
-
-# FIXME: Remove /etc/nginx/sites-enabled/default and restart nginx
 
 - name: Create letsencrypt certificates with certbot
   command: "certbot --webroot --email {{ bigbluebutton_certbot_email }} --agree-tos -w /var/www/bigbluebutton-default/ -d {{ bigbluebutton_hostname }} certonly"

@@ -2,6 +2,9 @@
   become: true
   roles:
     - role: bigbluebutton
-      tags: bigbluebutton-ubuntu1804
+      tags: 
+        - ubuntu1804
+        - ubuntu1604
+        - greenlight
     - role: coturn
       tags: coturn

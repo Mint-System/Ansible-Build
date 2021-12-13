@@ -1,4 +1,4 @@
-# http://docs.bigbluebutton.org/greenlight/gl-install.html
+# https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L717
 
 - name: Get BigBlueButton API secret # noqa 306
   shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
@@ -46,15 +46,11 @@
       tag: "{{ greenlight_hostname }}|{{ role_name }}"
   register: start_greenlight_contaner
 
-# https://docs.bigbluebutton.org/greenlight/gl-install.html#4-configure-nginx-to-route-to-greenlight
-
 - name: Copy greenlight nginx conf
   copy:
     src: greenlight.nginx
     dest: /etc/bigbluebutton/nginx/greenlight.nginx
   notify: Restart BigBlueButton services
-
-# https://docs.bigbluebutton.org/greenlight/gl-admin.html#creating-an-administrator-account
 
 - name: Wait for greenlight container # noqa 503
   pause:

@@ -1,3 +1,17 @@
+
+# https://docs.bigbluebutton.org/2.3/install.html#install
+
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: Run inital installation with script
+  fail:
+    msg: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -v bionic-230 -s {{ bigbluebutton_hostname }} -e {{ bigbluebutton_certbot_email }}  -a -w"
+  when: "'bigbluebutton' not in ansible_facts.packages"
+
+# https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L267
+
 - name: Update locale (ensure LANG=en_US.UTF-8)
   lineinfile:
     dest: /etc/default/locale
@@ -25,16 +39,6 @@
     - 'ppa:rmescandon/yq'
     - 'ppa:libreoffice/ppa'
 
-- name: Add MongoDB apt key
-  apt_key:
-    url: "https://www.mongodb.org/static/pgp/server-4.2.asc"
-    state: present
-
-- name: Check MongoDB repo is present
-  apt_repository:
-    repo: "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse"
-    state: present
-
 - name: Add Nodesource apt key
   apt_key:
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280
@@ -44,6 +48,16 @@
 - name: Check Nodesource repo is present
   apt_repository:
     repo: "deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main"
+    state: present
+
+- name: Add MongoDB apt key
+  apt_key:
+    url: "https://www.mongodb.org/static/pgp/server-4.2.asc"
+    state: present
+
+- name: Check MongoDB repo is present
+  apt_repository:
+    repo: "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse"
     state: present
 
 - name: Add BigBlueButton apt key
@@ -74,6 +88,7 @@
       - build-essential
       - yq
       - certbot
+      - openjdk-8-jre
     state: present
 
 - name: Install bigbluebutton

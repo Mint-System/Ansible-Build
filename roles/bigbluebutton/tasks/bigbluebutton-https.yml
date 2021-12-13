@@ -1,3 +1,11 @@
+# https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L875
+
+- name: Copy bigbluebutton nginx conf
+  template:
+    src: templates/bigbluebutton.nginx
+    dest: /etc/nginx/sites-available/bigbluebutton
+  notify: Restart Nginx service
+
 - name: Update http for https on BigBlueButton webapp
   replace:
     path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"

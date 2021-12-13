@@ -3,24 +3,20 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-
     <bean id="stun0" class="org.bigbluebutton.web.services.turn.StunServer">
-        <constructor-arg index="0" value="stun:{{ bigbluebutton_coturn_domain }}"/>
+        <constructor-arg index="0" value="stun:$COTURN_HOST"/>
     </bean>
-
-
     <bean id="turn0" class="org.bigbluebutton.web.services.turn.TurnServer">
-        <constructor-arg index="0" value="{{ bigbluebutton_coturn_domain | hash('sha1') }}"/>
-        <constructor-arg index="1" value="turns:{{ bigbluebutton_coturn_domain }}:443?transport=tcp"/>
+        <constructor-arg index="0" value="$COTURN_SECRET"/>
+        <constructor-arg index="1" value="turns:$COTURN_HOST:443?transport=tcp"/>
         <constructor-arg index="2" value="86400"/>
     </bean>
     
     <bean id="turn1" class="org.bigbluebutton.web.services.turn.TurnServer">
-        <constructor-arg index="0" value="{{ bigbluebutton_coturn_domain | hash('sha1') }}"/>
-        <constructor-arg index="1" value="turn:{{ bigbluebutton_coturn_domain }}:443?transport=tcp"/>
+        <constructor-arg index="0" value="$COTURN_SECRET"/>
+        <constructor-arg index="1" value="turn:$COTURN_HOST:443?transport=tcp"/>
         <constructor-arg index="2" value="86400"/>
     </bean>
-
     <bean id="stunTurnService"
             class="org.bigbluebutton.web.services.turn.StunTurnService">
         <property name="stunServers">
