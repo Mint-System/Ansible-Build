@@ -1,3 +1,54 @@
+# - name: cadvisor https
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
+#       json_query('[? cadvisor_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+#       map('join', ':') | list }}"
+
+# - name: cadvisor http
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) | 
+#       json_query('[? cadvisor_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') | 
+#       map('join', ':') | list }}"
+
+# - name: node-exporter https
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) | 
+#       json_query('[? node_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+#       map('join', ':') | list }}"
+
+# - name: node-exporter http
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) | 
+#       json_query('[? node_exporter_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') | 
+#       map('join', ':') | list }}"
+
+# - name: nextcloud-exporter https
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) | 
+#       json_query('[? nextcloud_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+#       map('join', ':') | list }}"
+
+# - name: bigbluebutton-exporter http
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) | 
+#       json_query('[? bigbluebutton_exporter_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') | 
+#       map('join', ':') | list }}"
+
+# - name: postgres-exporter https
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) | 
+#       json_query('[? postgres_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+#       map('join', ':') | list }}"
+
+# - name: restic-server https
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) | 
+#       json_query('[? restic_server_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
+#       map('join', ':') | list }}"
+
+# - name: debug
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor==`true`].src_hostname') | flatten | map('regex_replace', '^(.*)$', 'https://\\1') }}"
 
 # - name: Apply patches
 #   debug:

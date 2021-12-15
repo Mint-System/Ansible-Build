@@ -2,8 +2,6 @@
 
 Deploy Prometheus container.
 
-And the inventory group *exporter*.
-
 ## Usage
 
 Configure the role.
@@ -39,8 +37,46 @@ prometheus_scrape_configs:
     static_configs:
       - targets:
           - server.example.com
+  - job_name: cadvisor http
+    metrics_path: "/cadvisor/metrics"
+    scrape_interval: 15s
+    honor_labels: true
+    scheme: http
+    basic_auth:
+      username: "{{ prometheus_cadvisor_basic_auth_username }}"
+      password: "{{ prometheus_cadvisor_basic_auth_password }}"
+    static_configs:
+      - targets: "{{ groups['all'] | map('extract', hostvars) | 
+          json_query('[? cadvisor_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') | 
+          map('join', ':') | list }}"
+  - job_name: node-exporter https
+    metrics_path: "/node-exporter/metrics"
+    scrape_interval: 15s
+    honor_labels: true
+    scheme: https
+    basic_auth:
+      username: "{{ prometheus_node_exporter_basic_auth_username }}"
+      password: "{{ prometheus_node_exporter_basic_auth_password }}"
+    static_configs:
+      - targets: "{{ groups['all'] | map('extract', hostvars) | 
+          json_query('[? node_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+          map('join', ':') | list }}"
 prometheus_etc_hosts: # defaults: {}
   "leto.mint-system.com": 10.42.5.2
+```
+
+On hosts define these vars for https job targets.
+
+```yml
+prometheus_target_scheme: https
+prometheus_target_port: 443
+```
+
+Or for http job targets.
+
+```yml
+prometheus_target_scheme: http
+prometheus_target_port: 80
 ```
 
 And include it in your playbook.
