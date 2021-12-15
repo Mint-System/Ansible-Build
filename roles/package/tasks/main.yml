@@ -15,7 +15,7 @@
 
 - name: "Include {{ role_name }} apt tasks"
   include_tasks: "{{ role_name }}-apt.yml"
-  when: packages is defined and ansible_distribution == 'Ubuntu' or 'Pop!_OS'
+  when: packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Pop!_OS')
   tags:
    - package
 

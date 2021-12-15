@@ -1,3 +1,7 @@
+- name: Show distribution
+  debug:
+    msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+
 - name: "Include {{ role_name }} apt tasks"
   include_tasks: "{{ role_name }}-apt.yml"
   when: update and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian')
@@ -10,7 +14,7 @@
   when: update and ansible_distribution == 'CentOS'
   tags:
     - update
-     - never
+    - never
 
 - name: "Include {{ role_name }} zypper tasks"
   include_tasks: "{{ role_name }}-zypper.yml"
