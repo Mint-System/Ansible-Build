@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Exit script if command fails
-# -u stops the script on unset variables
-# -e stops the script on errors
-# -o pipefail stops the script if a pipe fails
-set -eo pipefail
-
 # Run the renew command in certbot container
 docker run --rm --name {{ certbot_hostname }}-tmp \
 -v "{{ certbot_data_dir }}/:/etc/letsencrypt/" \

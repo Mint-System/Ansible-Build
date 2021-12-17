@@ -2,6 +2,6 @@
 
 - name: Copy bigbluebutton turn stun servers conf
   template:
-    src: templates/turn-stun-servers.xml
+    src: turn-stun-servers.xml
     dest: /usr/share/bbb-web/WEB-INF/classes/spring/turn-stun-servers.xml
   notify: Restart BigBlueButton services

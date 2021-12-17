@@ -6,7 +6,7 @@
 
 - name: Copy manifest file
   template:
-    src: templates/__manifest__.py
+    src: __manifest__.py
     dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/__manifest__.py"
   vars:
     depends: "{{ item.depends | default('base') }}"
@@ -14,7 +14,7 @@
 
 - name: Copy data file
   template:
-    src: templates/data.xml
+    src: data.xml
     dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/data/{{ item.model }}.data.xml"
   loop: "{{ odoo_data }}"
 

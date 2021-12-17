@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -eo pipefail
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Delete Certbot certificate."
+    echo "Syntax: $SCRIPT [-d|-c|help]"
+    echo "Example: $SCRIPT -dc 14.odoo.build -c certbot08"
+    echo "options:"
+    echo "  -d    Certificate name."
+    echo "  -c    Certbot container name. Defaults to 'certbot'"
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":d: :c:" opt; do
+  case $opt in
+    c) CONTAINER="$OPTARG"
+    ;;
+    d) CERTIFICATE="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${CONTAINER:='certbot'}
+
+# Verify variables
+[[ -z "$CERTIFICATE" ]] && { echo "Parameter -d|delete is empty" ; exit 1; }
+
+# Set certbot data dir
+CERTBOT_DATA_DIR="/usr/share/$CONTAINER"
+
+# Ask for confirmation
+read -p "Please confirm the deletion of $CERTIFICATE in $CERTBOT_DATA_DIR (y/n)? " REPLY
+if [[ $REPLY == y ]]; then
+  echo "Deleting certificate $CERTIFICATE ..."
+  
+  # Run the delete command in certbot container
+  docker run --rm --name {{ certbot_hostname }}-tmp \
+  -v "$CERTBOT_DATA_DIR/:/etc/letsencrypt/" \
+  -v "$CERTBOT_DATA_DIR/www/:/var/www/certbot/" \
+  {{ certbot_image }} \
+  delete --cert-name $CERTIFICATE
+
+fi

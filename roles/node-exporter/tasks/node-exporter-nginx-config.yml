@@ -20,5 +20,5 @@
 
 - name: "Copy nginx {{ role_name }} conf"
   template:
-    src: templates/node-exporter.nginx
+    src: node-exporter.nginx
     dest: "{{ node_exporter_nginx_data_dir }}/node-exporter.nginx"

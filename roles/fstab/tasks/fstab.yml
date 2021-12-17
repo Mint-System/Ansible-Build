@@ -1,6 +1,6 @@
 - name: Setup credentials
   template:
-    src: templates/credentials
+    src: credentials
     dest: "/root/.credentials"
     mode: 0600
   loop: "{{ fstab_credentials }}"

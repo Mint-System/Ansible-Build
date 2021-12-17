@@ -1,8 +1,11 @@
-- name: Copy renew certs script
+- name: Copy certbot scripts
   template:
-    src: renew-certs
-    dest: "{{ certbot_data_dir }}/"
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
     mode: +x
+  loop:
+    - docker-certbot-renew
+    - docker-certbot-delete
 
 - name: Register renew certs job
   cron:
@@ -10,4 +13,4 @@
     minute: "{{ 59 |random(seed=nginx_hostname) }}"
     hour: "0"
     weekday: "0"
-    job: "{{ certbot_data_dir }}/renew-certs && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?"
+    job: "docker-certbot-renew && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?"

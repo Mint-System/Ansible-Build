@@ -5,7 +5,7 @@
 
 - name: "Copy nginx default conf"
   template:
-    src: templates/default.conf
+    src: default.conf
     dest: "{{ nginx_data_dir }}/default.conf"
 
 - name: "Get list of active {{ role_name }} certs"
@@ -20,7 +20,7 @@
 
 - name: "Copy {{ role_name }} conf"
   template:
-    src: templates/nginx-proxy.conf
+    src: nginx-proxy.conf
     dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname | replace('*.', 'wildcard.') }}.conf"
   vars:
     src_hostname: "{{ item.src_hostname }}"

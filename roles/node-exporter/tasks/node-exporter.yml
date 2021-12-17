@@ -27,7 +27,7 @@
 
 - name: "Copy {{ role_name }} templated scripts"
   template:
-    src: "templates/{{ item }}"
+    src: "{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
     mode: +x
   loop:

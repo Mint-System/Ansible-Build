@@ -9,7 +9,7 @@
 
 - name: "Copy {{ role_name }} conf"
   template:
-    src: "templates/{{ item }}"
+    src: "{{ item }}"
     dest: "{{ grafana_data_dir }}/{{ item }}"
   loop:
     - datasource.yml

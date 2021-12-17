@@ -20,5 +20,5 @@
 
 - name: "Copy nginx {{ role_name }} conf"
   template:
-    src: templates/nextcloud-exporter.nginx
+    src: nextcloud-exporter.nginx
     dest: "{{ nextcloud_exporter_nginx_data_dir }}/nextcloud-exporter.nginx"

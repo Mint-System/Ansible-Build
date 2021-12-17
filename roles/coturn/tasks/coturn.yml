@@ -5,7 +5,7 @@
 
 - name: "Copy {{ role_name }} conf"
   template:
-    src: "templates/{{ item }}"
+    src: "{{ item }}"
     dest: "{{ coturn_data_dir }}/{{ item }}"
   loop:
     - turnserver.conf

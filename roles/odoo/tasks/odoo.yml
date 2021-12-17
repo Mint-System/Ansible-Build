@@ -12,10 +12,10 @@
 
 - name: "Copy {{ role_name }} conf"
   template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    src: "{{ item }}"
+    dest: "{{ odoo_data_dir }}/{{ item }}"
   loop:
-    - { src: "templates/odoo.conf", dest: "{{ odoo_data_dir }}/odoo.conf" }
+    - odoo.conf
   notify: Restart odoo container
 
 - name: "Pull {{ role_name }} image"

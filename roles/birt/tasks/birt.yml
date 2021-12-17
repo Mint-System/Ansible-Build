@@ -10,7 +10,7 @@
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
-    src: "templates/{{ item }}"
+    src: "{{ item }}"
     dest: "/var/tmp/{{ birt_hostname }}/{{ item }}"
   loop:
     - Dockerfile

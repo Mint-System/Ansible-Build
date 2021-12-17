@@ -5,7 +5,7 @@
 
 - name: "Copy {{ role_name }} config"
   template:
-    src: "templates/{{ item }}"
+    src: "{{ item }}"
     dest: "{{ loki_data_dir }}/{{ item }}"
   loop:
     - local-config.yml

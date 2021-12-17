@@ -27,7 +27,7 @@
 
 - name: "Copy nginx {{ role_name }} conf"
   template:
-    src: templates/nginx-certbot.conf
+    src: nginx-certbot.conf
     dest: "{{ nginx_data_dir }}/proxies/{{ item }}.conf"
   vars:
     server_name: "{{ item }}"

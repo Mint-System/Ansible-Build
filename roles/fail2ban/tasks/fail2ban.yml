@@ -12,6 +12,6 @@
 
 - name: "Set {{ role_name }} local config"
   template:
-    src: templates/jail.local
+    src: jail.local
     dest: /etc/fail2ban/jail.local
   notify: "Restart {{ role_name }} service"

@@ -20,5 +20,5 @@
 
 - name: "Copy nginx {{ role_name }} conf"
   template:
-    src: templates/loki.nginx
+    src: loki.nginx
     dest: "{{ loki_nginx_data_dir }}/loki.nginx"

@@ -1,6 +1,6 @@
 - name: "Setup systemd service"
   template:
-    src: "templates/systemd.service"
+    src: "systemd.service"
     dest: "/etc/systemd/system/{{ item.name }}.service"
   loop: "{{ systemd_units }}"
   when: systemd_units is defined

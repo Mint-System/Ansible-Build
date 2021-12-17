@@ -5,7 +5,7 @@
 
 - name: "Copy docker deamon conf"
   template:
-    src: "templates/deamon.json"
+    src: "deamon.json"
     dest: "/etc/docker/daemon.json"
   notify: "Restart {{ role_name }} service"
 

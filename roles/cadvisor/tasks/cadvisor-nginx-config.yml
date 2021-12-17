@@ -20,5 +20,5 @@
 
 - name: "Copy nginx {{ role_name }} conf"
   template:
-    src: templates/cadvisor.nginx
+    src: cadvisor.nginx
     dest: "{{ cadvisor_nginx_data_dir }}/cadvisor.nginx"

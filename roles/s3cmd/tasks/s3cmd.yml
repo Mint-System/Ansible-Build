@@ -7,7 +7,7 @@
 
 - name: Add bucket credentials
   template:
-    src: templates/.s3cfg
+    src: .s3cfg
     dest: ~/.s3cfg
     mode: 0600
 

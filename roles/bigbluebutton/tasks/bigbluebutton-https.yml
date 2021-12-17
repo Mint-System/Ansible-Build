@@ -2,7 +2,7 @@
 
 - name: Copy bigbluebutton nginx conf
   template:
-    src: templates/bigbluebutton.nginx
+    src: bigbluebutton.nginx
     dest: /etc/nginx/sites-available/bigbluebutton
   notify: Restart Nginx service
 

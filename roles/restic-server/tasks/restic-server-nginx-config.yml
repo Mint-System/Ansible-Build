@@ -20,5 +20,5 @@
 
 - name: "Copy nginx {{ role_name }} conf"
   template:
-    src: templates/restic-server.nginx
+    src: restic-server.nginx
     dest: "{{ restic_server_nginx_data_dir }}/restic-server.nginx"
