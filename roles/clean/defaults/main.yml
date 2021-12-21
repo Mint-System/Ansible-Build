@@ -1,2 +1,3 @@
 elasticsearch_data_dir: "{{ elasticsearch_hostname }}"
 elasticsearch_volume_name: "{{ elasticsearch_hostname }}"
+moodle_volume_name: "{{ moodle_hostname }}"

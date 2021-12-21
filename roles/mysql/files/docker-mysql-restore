@@ -55,8 +55,16 @@ FILENAME=$(basename -- "$FILE")
 #FIXME: Check if database exists
 
 # Start restore 
-echo "Restore MySQL/MariaDB database $DATABASE from $FILE ..."
-cat $FILE | docker exec -i $CONTAINER /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD $DATABASE"
+IMAGE=$(docker inspect mariadb01 --format='{{.Config.Image}}')
+if [[ "$IMAGE" =~ "mariadb" ]]; then
+  echo "Restore MariaDB database $DATABASE from $FILE ..."
+  cat $FILE | docker exec -i $CONTAINER /bin/bash -c "mysql -p\$MARIADB_ROOT_PASSWORD $DATABASE"
+fi
+
+if [[ "$IMAGE" =~ "mysql" ]]; then
+  echo "Restore MySQL database $DATABASE from $FILE ..."
+  cat $FILE | docker exec -i $CONTAINER /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD $DATABASE"
+fi
 
 # Notify if backup has finished
 echo "The Docker MySQL/MariaDB restore has finished."

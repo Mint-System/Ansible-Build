@@ -1,5 +1,5 @@
 dependencies: # noqa 701
-  - role: mysql
+  - role: mariadb
     tags:
-      - mysql
+      - mariadb
       - depends

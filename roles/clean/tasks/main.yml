@@ -37,3 +37,4 @@
       - docker-swarm
       - innernet-client
       - innernet-server
+      - moodle

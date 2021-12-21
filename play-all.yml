@@ -19,27 +19,3 @@
     tags: pgadmin
   - role: moodle
     tags: moodle
-  - role: nginx
-    tags: nginx
-  - role: cadvisor
-    tags: cadvisor
-  - role: node-exporter
-    tags: node-exporter
-  - role: grafana
-    tags: grafana
-  - role: commento
-    tags: commento
-  - role: remark42
-    tags: remark42
-  - role: vercel
-    tags: vercel
-  - role: birt
-    tags: birt
-  - role: mysql
-    tags: mysql
-  - role: mariadb
-    tags: mariadb
-  - role: docker-compose
-    tags: docker-compose
-  - role: systemd
-    tags: systemd
