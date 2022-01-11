@@ -12,6 +12,7 @@
   template:
     src: "{{ item }}"
     dest: "/var/tmp/{{ birt_hostname }}/{{ item }}"
+    mode: +x
   loop:
     - Dockerfile
     - setup

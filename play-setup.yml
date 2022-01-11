@@ -41,3 +41,5 @@
     tags: systemd
   - role: synapse
     tags: synapse
+  - role: birt
+    tags: birt

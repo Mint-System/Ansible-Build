@@ -1,0 +1,2 @@
+rclone_description: RClone
+rclone_volume_name: "{{ rclone_hostname }}"

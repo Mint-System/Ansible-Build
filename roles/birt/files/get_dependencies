@@ -20,3 +20,9 @@ mv -f lib/jt400.jar .
 rm -f jtopen_9_0.zip
 rmdir lib
 chmod 644 jt400.jar
+
+# Results in
+# * birt-runtime-4.5.0.war
+# * jetty-distribution-9.2.17.v20160517.zip
+# * postgresql-9.4.1208.jre7.jar
+# * jt400.jar

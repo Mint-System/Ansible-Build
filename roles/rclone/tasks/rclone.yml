@@ -1,0 +1,20 @@
+# https://rclone.org/install/#install-with-docker
+
+- name: "Start {{ role_name }} container {{ rclone_hostname }}"
+  docker_container:
+    name: "{{ rclone_hostname }}"
+    labels:
+      description: "{{ rclone_description }}"
+    image: "{{ rclone_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    command: "rclone-server --requirepass {{ rclone_password }}"
+    volumes:
+      - "{{ rclone_volume_name }}:/data"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ rclone_hostname }}|{{ role_name }}"
