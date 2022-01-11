@@ -122,6 +122,7 @@ Work in progress:
 | [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
 | [birt](roles/birt/README.md)                     | Deploy BIRT container.           |
 | [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
+| [rclone](roles/rclone/README.md)                 | Sync files with RClone.          |
 
 ### Commands
 
