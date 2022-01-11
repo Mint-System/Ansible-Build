@@ -39,3 +39,5 @@
     tags: innernet-client
   - role: systemd
     tags: systemd
+  - role: synapse
+    tags: synapse

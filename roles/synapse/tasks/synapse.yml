@@ -7,20 +7,6 @@
     path: "{{ synapse_data_dir }}"
     state: directory
 
-- name: "Remove unmanaged certificate with {{ role_name }}"
-  docker_container:
-    name: "{{  }}"
-    image: "{{ synapse_image }}"
-    volumes:
-      - "{{ synapse_volume_name }}:/data"
-    env:
-      SYNAPSE_SERVER_NAME: ""
-      SYNAPSE_CONFIG_PATH: "/data/homeserver.yaml"
-    command: generate
-    auto_remove: true
-  loop: "{{ certbot_managed_certs.stdout_lines }}"
-  when: item not in managed_certs
-
 - name: "Start {{ role_name }} container {{ synapse_hostname }}"
   docker_container:
     name: "{{ synapse_hostname }}"
@@ -29,9 +15,14 @@
     image: "{{ synapse_image }}"
     restart_policy: unless-stopped
     env:
-      SYNAPSE_CONFIG_PATH: ""
+      SYNAPSE_SERVER_NAME: "{{ synapse_server_name }}"
+      SYNAPSE_REPORT_STATS: "yes"
+      SYNAPSE_DATA_DIR: "/data"
+      SYNAPSE_CONFIG_DIR: "/config"
+      TZ: "{{ synapse_timezone }}"
     volumes:
       - "{{ synapse_volume_name }}:/data"
+      - "{{ synapse_data_dir }}:/config"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
@@ -40,3 +31,6 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ synapse_hostname }}|{{ role_name }}"
   when: synapse_volume_name is defined
+
+
+# docker exec -it synapse register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml --help
