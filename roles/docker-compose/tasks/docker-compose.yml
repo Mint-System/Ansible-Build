@@ -41,8 +41,14 @@
     name: docker-volume
   vars:
     docker_volumes: "{{ docker_compose_volumes }}"
-    docker_volume_backup_set: "{{ docker_compose_backup_set | default([]) }}"
   when: docker_compose_volumes is defined
+
+- name: Include restic client role for docker compose backup
+  include_role:
+    name: restic-client
+  vars:
+    restic_backup_set: "{{ docker_compose_backup_set }}"
+  when: docker_compose_backup_set is defined
 
 - name: "Start {{ role_name }} project"
   command:  "/usr/local/bin/docker-compose -p {{ docker_compose_project_name }} up -d"
