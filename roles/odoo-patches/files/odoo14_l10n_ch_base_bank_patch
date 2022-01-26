@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# First param is docker container
+CONTAINER=$1
+
+# Default configuration
+PACKAGE_PATH="/mnt/addons/"
+
+# Custom configuration
+FILE_PATH="${PACKAGE_PATH}l10n_ch_base_bank/models/invoice.py"
+FIND="bank_acc.acc_type != \"qr-iban\""
+REPLACE="bank_acc.acc_type == \"qr-iban\""
+
+# Get filename
+FILE=`basename "$FILE_PATH"`
+
+# Copy from docker
+docker cp "$CONTAINER":"$FILE_PATH" .
+
+# Find and replace
+sed -i'' "s/$FIND/$REPLACE/g" $FILE
+
+# Copy back to docker
+docker cp $FILE "$CONTAINER":"$FILE_PATH"
+
+# Remove file
+rm -f $FILE
+
+# Register patch installation
+echo "Patch $SCRIPT applied."
+touch "/etc/odoo/${SCRIPT}_${CONTAINER}_installed"
