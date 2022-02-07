@@ -12,7 +12,7 @@ PACKAGE_PATH="/mnt/addons/"
 # Custom configuration
 FILE_PATH="${PACKAGE_PATH}l10n_ch_base_bank/models/partner_bank.py"
 FIND="ISR {}"
-REPLACE="ISR {}"
+REPLACE="{}"
 
 # Get filename
 FILE=`basename "$FILE_PATH"`
