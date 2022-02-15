@@ -9,16 +9,16 @@
 
 - name: Apply patches
   script: "{{ item.name }} {{ item.host | default(odoo_hostname) }}"
-  args:
-    creates: "/etc/odoo/{{ item.name }}_{{ odoo_hostname }}_installed"
+  # args:
+  #   creates: "/etc/odoo/{{ item.name }}_{{ odoo_hostname }}_installed"
   loop: "{{ odoo_patches }}"
   notify: Restart odoo container
   when: odoo_replicas == 1
 
 - name: Apply patches
   script: "{{ item.0.name }} {{ odoo_hostname }}_{{ item.1 }}"
-  args:
-    creates: "/etc/odoo/{{ item.0.name }}_{{ odoo_hostname }}_{{ item.1 }}_installed"
+  # args:
+  #   creates: "/etc/odoo/{{ item.0.name }}_{{ odoo_hostname }}_{{ item.1 }}_installed"
   loop: "{{ odoo_patches | product(range(1,odoo_replicas+1)) | list }}"
   notify: Restart odoo container
   when: odoo_replicas > 1
