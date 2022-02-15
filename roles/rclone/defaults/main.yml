@@ -1,2 +1,2 @@
-rclone_description: RClone
-rclone_volume_name: "{{ rclone_hostname }}"
+# rclone_description: RClone
+# rclone_data_dir: "/usr/share/{{ rclone_hostname }}"

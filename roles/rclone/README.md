@@ -9,17 +9,14 @@ Configure the role.
 **vars.yml**
 
 ```yml
-# https://hub.docker.com/r/rclone/rclone
-rclone_image: rclone:6.2.3
-rclone_description: Sync for birt01 # default: RClone
 rclone_sync:
-- id: "Sync folder"
-  type: "copy"
+- id: "sync folder"
+  command: "copy"
   source_provider: filesystem
-  source: "/mnt/snas1/IT/Intranet/Publizierung/"
+  source: /mnt/snas1/publication/
   dest_provider: filesystem
   dest: /usr/share/birt01/reports
-  hourly: 
+  minute: "*/10"
 ```
 
 And include it in your playbook.

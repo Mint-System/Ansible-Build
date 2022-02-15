@@ -1,20 +1,63 @@
-# https://rclone.org/install/#install-with-docker
 
-- name: "Start {{ role_name }} container {{ rclone_hostname }}"
-  docker_container:
-    name: "{{ rclone_hostname }}"
-    labels:
-      description: "{{ rclone_description }}"
-    image: "{{ rclone_image }}"
-    restart_policy: unless-stopped
-    recreate: no
-    command: "rclone-server --requirepass {{ rclone_password }}"
-    volumes:
-      - "{{ rclone_volume_name }}:/data"
-    networks:
-      - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
-    log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
-      tag: "{{ rclone_hostname }}|{{ role_name }}"
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+# FIXME: CentOS package gathering not working
+- name: Fail if package rclone is not installed
+  fail:
+    msg: "Package rclone not installed"
+  when: "'rclone' not in ansible_facts.packages and (ansible_distribution != 'CentOS')"
+
+- name: "Ensure {{ role_name }} config dir exists"
+  file:
+    path: "~/.config/rclone/"
+    state: directory
+
+- name: "Copy {{ role_name }} conf"
+  template:
+    src: rclone.conf
+    dest: "~/.config/rclone/rclone.conf"
+
+- name: Verify source path exists
+  command: "ls {{ item.source }}"
+  changed_when: false
+  loop: "{{ rclone_sync }}"
+  when: item.source_provider == "filesystem"
+
+- name: Verify dest path exists
+  command: "ls {{ item.dest }}"
+  changed_when: false
+  loop: "{{ rclone_sync }}"
+  when: item.dest_provider == "filesystem"
+
+- name: Register rclone copy commands
+  cron:
+    name: "Rclone job {{ item.id }}"
+    minute: "{{ item.minute }}"
+    job: "rclone {{ item.command }} {{ item.source }} {{ item.dest }}"
+    disabled: "{{ item.disabled | default(false) }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ rclone_sync }}"
+  when: item.command == "copy"
+
+# - name: "Start {{ role_name }} container {{ rclone_hostname }}"
+#   docker_container:
+#     name: "{{ rclone_hostname }}"
+#     labels:
+#       description: "{{ rclone_description }}"
+#     image: "{{ rclone_image }}"
+#     restart_policy: unless-stopped
+#     recreate: no
+#     command: "copy "
+#     volumes:
+#       - "{{ rclone_data_dir }}:/config/rclone"
+#       - "/mnt:/mnt:ro"
+#       - "/usr/share:/usr/share"
+#     networks:
+#       - name: "{{ docker_network_name }}"
+#     log_driver: "{{ docker_log_driver }}"
+#     log_options:
+#       max-size: "{{ docker_log_max_size }}"
+#       max-file: "{{ docker_log_max_file }}"
+#       tag: "{{ rclone_hostname }}|{{ role_name }}"
