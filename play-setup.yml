@@ -43,3 +43,5 @@
     tags: synapse
   - role: birt
     tags: birt
+  - role: rclone
+    tags: rclone
