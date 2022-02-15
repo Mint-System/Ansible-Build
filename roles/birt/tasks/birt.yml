@@ -18,7 +18,7 @@
     - setup
     - web.xml
     - run_jetty
-    - example.rptdesign
+    - test.rptdesign
   notify: "Build {{ role_name }} custom image"
 
 - name: Run get dependencies script
@@ -39,7 +39,7 @@
     restart_policy: unless-stopped
     recreate: no
     volumes:
-      - "{{ birt_data_dir }}:/data_init"
+      - "{{ birt_data_dir }}/reports/:/data/reports/"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
