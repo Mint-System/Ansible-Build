@@ -1,22 +1,17 @@
-name: Ansible Lint  # feel free to pick your own name
+name: Ansible Lint
 
 on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    # Important: This sets up your GITHUB_WORKSPACE environment variable
     - uses: actions/checkout@v2
-
     - name: Lint Ansible Playbook
-      # replace "master" with any valid ref
       uses: ansible/ansible-lint-action@master
       with:
         targets: "*.yml"
         override-deps: |
-          ansible==2.11.4
+          ansible==2.10.7
           ansible-lint==5.3.2
         args: ""
