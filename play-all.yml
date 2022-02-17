@@ -19,3 +19,5 @@
     tags: pgadmin
   - role: moodle
     tags: moodle
+  - role: vercel
+    tags: vercel
