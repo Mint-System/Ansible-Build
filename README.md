@@ -116,14 +116,15 @@ List of all avaialable Ansible roles.
 
 Work in progress:
 
-| Role                                             | Description                      |
-| ------------------------------------------------ | -------------------------------- |
-| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
-| [cron-job](roles/cron-job/README.md)             | Setup multiple cron jobs.        |
-| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
-| [birt](roles/birt/README.md)                     | Deploy BIRT container.           |
-| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
-| [rclone](roles/rclone/README.md)                 | Sync files with RClone.          |
+| Role                                             | Description                          |
+| ------------------------------------------------ | ------------------------------------ |
+| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container.     |
+| [cron-job](roles/cron-job/README.md)             | Setup multiple cron jobs.            |
+| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.             |
+| [birt](roles/birt/README.md)                     | Deploy BIRT container.               |
+| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container.     |
+| [rclone](roles/rclone/README.md)                 | Sync files with RClone.              |
+| [htpasswd](roles/htpasswd/README.md)             | Configure .htpasswd basic auth file. |
 
 ### Commands
 

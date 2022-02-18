@@ -1,0 +1,3 @@
+htpasswd_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
+htpasswd_requires_package: python3-passlib
+htpasswd_name: "default"

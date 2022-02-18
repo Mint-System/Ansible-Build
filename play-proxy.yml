@@ -9,3 +9,5 @@
     tags: simple-mail-forwarder
   - role: keycloak-client
     tags: keycloak-client
+  - role: htpasswd
+    tags: htpasswd
