@@ -31,6 +31,10 @@ iam_users:
     ssh_private_key: "{{ vault_bot_ssh_private_key }}"
     hosts:
       - server1
+host_iam_users:
+  - username: bob.meier@example.com
+    hosts:
+      - server1
 ```
 
 And include it in your playbook.

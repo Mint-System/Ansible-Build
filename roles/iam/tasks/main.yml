@@ -4,6 +4,11 @@
   tags:
     - iam
 
+- name: Combine group and host vars
+  set_fact:
+    iam_users: "{{ iam_users + host_iam_users }}"
+  when: host_iam_users is defined
+
 - name: Include users tasks
   include_tasks: users.yml
   when: iam_users is defined

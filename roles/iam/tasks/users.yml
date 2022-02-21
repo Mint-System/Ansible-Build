@@ -14,6 +14,13 @@
   loop: "{{ iam_users }}"
   when: inventory_hostname_short in item.hosts
 
+- name: Set user passwords
+  user:
+    name: "{{ item.username }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+  loop: "{{ iam_users }}"
+  when: inventory_hostname_short in item.hosts and item.password is defined
+
 - name: Set authorized key
   authorized_key:
     user: "{{ item.username }}"

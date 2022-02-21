@@ -23,11 +23,11 @@ Ensure the nginx proxy includes the node-exporter config:
 nginx_proxies:
   - src_hostname: intern.example.com
     locations:
-      - path: /static
-        root: intern.example.com
-        options: |
-          auth_basic "intern";
-          auth_basic_user_file /etc/nginx/conf.d/proxies/users.htpasswd;
+    - path: /static
+      root: intern.example.com
+      options: |
+        auth_basic "intern";
+        auth_basic_user_file /etc/nginx/conf.d/proxies/users.htpasswd;
 ```
 
 And include it in your playbook.
