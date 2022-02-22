@@ -24,7 +24,7 @@
 - name: Set authorized key
   authorized_key:
     user: "{{ item.username }}"
-    state: present
+    state: "{{ item.state | default('present') }}"
     key: "{{ item.ssh_public_key }}"
   loop: "{{ iam_users }}"
   when: item.ssh_public_key is defined and inventory_hostname_short in item.hosts
@@ -38,3 +38,11 @@
     mode: "0700"
   loop: "{{ iam_users }}"
   when: item.ssh_private_key is defined and inventory_hostname_short in item.hosts
+
+- name: Remove users
+  user:
+    user: "{{ item.username }}"
+    state: "absent"
+    remove: true
+  loop: "{{ iam_users }}"
+  when:  item.state is defined and item.state == 'absent'

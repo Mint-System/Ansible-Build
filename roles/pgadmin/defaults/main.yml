@@ -1,2 +1,3 @@
 pgadmin_description: pgAdmin
 pgadmin_data_dir: /usr/share/{{ pgadmin_hostname }}
+pgadmin_volume_name: "{{ pgadmin_hostname }}"
