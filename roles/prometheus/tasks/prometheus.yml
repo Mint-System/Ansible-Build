@@ -24,6 +24,7 @@
       description: "{{ prometheus_description }}"
     image: "{{ prometheus_image }}"
     restart_policy: unless-stopped
+    command: "--storage.tsdb.retention.time={{ prometheus_rention_time }} --config.file=/etc/prometheus/prometheus.yml"
     volumes:
       - "{{ prometheus_volume_name }}:/prometheus"
       - "{{ prometheus_data_dir }}/prometheus.yml:/etc/prometheus/prometheus.yml"
