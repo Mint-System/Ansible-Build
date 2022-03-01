@@ -12,7 +12,7 @@ Configure the role.
 # https://hub.docker.com/r/prometheuscommunity/postgres-exporter
 postgres_exporter_image: prometheuscommunity/postgres-exporter:master
 postgres_exporter_hostname: pgexport01
-postgres_exporter_description: Databse metric for postgres01 # default: PostgreSQL Exporter
+postgres_exporter_description: Database metric for postgres01 # default: "PostgreSQL Exporter {{ postgres_hostname }}"
 postgres_exporter_data_dir: /usr/share/pgexport # default: "/usr/share/{{ postgres_exporter_hostname }}"
 postgres_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 postgres_exporter_requires_package: python2-passlib # default: python3-passlib

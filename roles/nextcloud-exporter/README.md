@@ -12,7 +12,7 @@ Configure the role.
 # https://hub.docker.com/r/xperimental/nextcloud-exporter
 nextcloud_exporter_image: xperimental/nextcloud-exporter:latest
 nextcloud_exporter_hostname: nexport01
-nextcloud_exporter_description: Host metric for server1 # default: Nextcloud Exporter
+nextcloud_exporter_description: Host metric for server1 # default: "Nextcloud Exporter {{ nextcloud_hostname }}"
 nextcloud_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 nextcloud_exporter_requires_package: python2-passlib # default: python3-passlib
 nextcloud_exporter_proxy_basic_auth_username: exporter # default: nextcloud-exporter

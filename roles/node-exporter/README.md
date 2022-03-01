@@ -12,7 +12,7 @@ Configure the role.
 # https://hub.docker.com/r/prom/node-exporter
 node_exporter_image: prom/node-exporter:v1.0.1
 node_exporter_hostname: node01
-node_exporter_description: Host metric for server1 # default: Node Exporter
+node_exporter_description: Host metrics for server1 # default: "Node Exporter {{ inventory_hostname_short }}"
 node_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 node_exporter_requires_package: python2-passlib # default: python3-passlib
 node_exporter_proxy_basic_auth_username: exporter # default: node-exporter
