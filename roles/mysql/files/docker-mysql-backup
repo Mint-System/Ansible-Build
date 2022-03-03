@@ -58,10 +58,20 @@ done
 [[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
-if $ALL ; then
+# Get image
+IMAGE=$(docker inspect $CONTAINER --format='{{.Config.Image}}')
+
+if $ALL; then
   # Get all databases from docker container
-  DATABASE_LIST=($(docker exec $CONTAINER /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD \
-    -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
+  
+  if [[ "$IMAGE" =~ "mariadb" ]]; then
+    DATABASE_LIST=($(docker exec $CONTAINER /bin/bash -c "mysql -p\$MARIADB_ROOT_PASSWORD \
+      -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
+  fi
+  if [[ "$IMAGE" =~ "mysql" ]]; then
+    DATABASE_LIST=($(docker exec $CONTAINER /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD \
+      -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
+  fi
   # Concate database list
   printf -v DATABASES '%s,' "${DATABASE_LIST[@]}"
   DATABASES="${DATABASES%,}"
@@ -81,9 +91,16 @@ rm -rf ${DIR}/${CONTAINER}/*
 # Create dump with docker for each database
 for DATABASE in "${DATABASE_LIST[@]}"
 do
-    echo "Run Docker mysql backup for $DATABASE"
+  if [[ "$IMAGE" =~ "mariadb" ]]; then
+    echo "Run Docker MariaDB backup for $DATABASE"
+    docker exec $CONTAINER /bin/bash -c "mysqldump -p\$MARIADB_ROOT_PASSWORD \
+        $DATABASE" > ${DIR}/${CONTAINER}/${DATABASE}.sql
+  fi
+  if [[ "$IMAGE" =~ "mysql" ]]; then
+    echo "Run Docker MySQL backup for $DATABASE"
     docker exec $CONTAINER /bin/bash -c "mysqldump -p\$MYSQL_ROOT_PASSWORD \
         $DATABASE" > ${DIR}/${CONTAINER}/${DATABASE}.sql
+  fi
 done
 
 # Notify if backup has finished
