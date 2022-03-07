@@ -42,4 +42,16 @@ done
 # Fallback to environment vars and default values
 : ${CONTAINER:='mysql'}
 
-docker exec $CONTAINER bin/bash -c "export MYSQL_PWD=\$MYSQL_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'show databases;'"
+# Get image
+IMAGE=$(docker inspect $CONTAINER --format='{{.Config.Image}}')
+
+if $ALL; then
+  # Get all databases from docker container
+  
+  if [[ "$IMAGE" =~ "mariadb" ]]; then
+    docker exec $CONTAINER bin/bash -c "export MYSQL_PWD=\$MARIADB_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'show databases;'"
+  fi
+  if [[ "$IMAGE" =~ "mysql" ]]; then
+    docker exec $CONTAINER bin/bash -c "export MYSQL_PWD=\$MYSQL_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'show databases;'"
+  fi
+fi

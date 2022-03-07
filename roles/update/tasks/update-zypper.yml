@@ -3,7 +3,7 @@
     runrefresh: true
     repo: "*"
 
-- name: Upgrade all packages # noqa 403
+- name: Upgrade all zypper packages # noqa 403
   zypper:
     name: "*"
     state: latest
