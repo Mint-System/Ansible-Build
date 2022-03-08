@@ -41,3 +41,7 @@
     tags: systemd
   - role: rclone
     tags: rclone
+  - role: simple-mail-forwarder
+    tags: simple-mail-forwarder
+  - role: postfix
+    tags: postfix

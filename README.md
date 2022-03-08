@@ -97,6 +97,7 @@ List of all avaialable Ansible roles.
 | [openldap](roles/openldap/README.md)                                   | Deploy OpenLDAP Docker container.                                |
 | [package](roles/package/README.md)                                     | Set env vars and install packages.                               |
 | [pgadmin](roles/pgadmin/README.md)                                     | Install pgAdmin container.                                       |
+| [postfix](roles/postfix/README.md)                                     | Deploy Postfix relay host.                                       |
 | [postgres](roles/postgres/README.md)                                   | Deploy PostgreSQL database container.                            |
 | [postgres-exporter](roles/postgres-exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
@@ -118,13 +119,12 @@ Work in progress:
 
 | Role                                             | Description                          |
 | ------------------------------------------------ | ------------------------------------ |
-| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container.     |
-| [cron-job](roles/cron-job/README.md)             | Setup multiple cron jobs.            |
-| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.             |
-| [birt](roles/birt/README.md)                     | Deploy BIRT container.               |
-| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container.     |
-| [rclone](roles/rclone/README.md)                 | Sync files with RClone.              |
 | [htpasswd](roles/htpasswd/README.md)             | Configure .htpasswd basic auth file. |
+| [birt](roles/birt/README.md)                     | Deploy BIRT container.               |
+| [rclone](roles/rclone/README.md)                 | Sync files with RClone.              |
+| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.             |
+| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container.     |
+| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container.     |
 
 ### Commands
 

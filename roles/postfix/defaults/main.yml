@@ -1,0 +1,4 @@
+postfix_description: Postfix
+postfix_data_dir: "/usr/share/{{ postfix_hostname }}"
+postfix_ports:
+  - "127.0.0.1:1587:587"
