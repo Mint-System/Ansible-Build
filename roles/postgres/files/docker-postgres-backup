@@ -4,7 +4,7 @@
 # -u stops the script on unset variables
 # -e stops the script on errors
 # -o pipefail stops the script if a pipe fails
-set -eo pipefail
+set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
