@@ -1,0 +1,53 @@
+#!/bin/bash
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: Run jobs from crontab managed by Ansible."
+  echo "Syntax: $SCRIPT [-n|help]"
+  echo "Example: $SCRIPT -n 'Renew certs for nginx08'"
+  echo "options:"
+  echo "  -n    Name of Ansible cron job"
+  echo "  help  Show $SCRIPT manual."
+  echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":n: :h:" opt; do
+  case $opt in
+    n) ANSIBLE_CRON_NAME="#Ansible: $OPTARG";;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+[[ -z "$ANSIBLE_CRON_NAME" ]] && { echo "Parameter -n|database is empty" ; exit 1; }
+
+# Get Path definitions
+# PATH=$(crontab -l | grep "PATH=" | cut -d'=' -f2-)
+
+# Get command from crontab by Ansible cron name
+COMMAND=$(crontab -l | grep "$ANSIBLE_CRON_NAME" -a1 | tail -n 1 | cut -d' ' -f6-)
+
+[[ -z "$COMMAND" ]] && { echo "Cron job not found. Maybe try another user?" ; exit 1; }
+
+# Run command
+$COMMAND
+
+# echo "Run this:"
+# echo
+# echo "PATH=$PATH"
+# echo "$COMMAND"

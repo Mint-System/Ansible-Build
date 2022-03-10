@@ -3,3 +3,16 @@
     name: PATH
     env: yes
     job: /bin:/usr/bin:/usr/local/bin
+
+- name: Add bin folder to /etc/environment
+  lineinfile:
+    dest: /etc/environment
+    line: "PATH=/bin:/usr/bin:/usr/local/bin:$PATH"
+  
+- name: "Copy {{ role_name }}"
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - run-cron-job
