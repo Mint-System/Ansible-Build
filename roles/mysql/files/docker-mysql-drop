@@ -11,12 +11,11 @@ Help() {
   echo
   echo "$SCRIPT"
   echo
-  echo "Description: Restore MySQL/MariaDB Docker database."
+  echo "Description: Drop MySQL/MariaDB Docker database."
   echo "Syntax: $SCRIPT [-d|-f|-c|help]"
-  echo "Example: $SCRIPT -d moodle -f /tmp/dump.sql -c mqysl01"
+  echo "Example: $SCRIPT -d moodle -c mqysl01"
   echo "options:"
   echo "  -d    Name of database. Defaults to filename"
-  echo "  -f    Path to sql dump."
   echo "  -c    Docker container name. Defaults to 'mysql'."
   echo "  help  Show $SCRIPT manual."
   echo
@@ -29,11 +28,10 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":c: :d: :f:" opt; do
+while getopts ":c: :d:" opt; do
   case $opt in
     c) CONTAINER="$OPTARG";;
     d) DATABASE="$OPTARG";;
-    f) FILE="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
     exit;;
@@ -42,26 +40,21 @@ done
 
 # Fallback to environment vars and default values
 : ${CONTAINER:='mysql'}
-FILENAME=$(basename -- "$FILE")
-: ${DATABASE:="${FILENAME%%.*}"}
 
 # Verify variables
-[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
-#FIXME: Check if database exists
-
-# Start restore 
+# Start dropping 
 IMAGE=$(docker inspect $CONTAINER --format='{{.Config.Image}}')
 if [[ "$IMAGE" =~ "mariadb" ]]; then
-  echo "Restore MariaDB database $DATABASE from $FILE ..."
-  cat $FILE | docker exec -i $CONTAINER /bin/bash -c "mysql -p\$MARIADB_ROOT_PASSWORD $DATABASE"
+  echo "Drop MariaDB database $DATABASE on container $FILE ..."
+  docker exec $CONTAINER bin/bash -c "export MYSQL_PWD=\$MARIADB_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $DATABASE;'"
 fi
-
 if [[ "$IMAGE" =~ "mysql" ]]; then
-  echo "Restore MySQL database $DATABASE from $FILE ..."
-  cat $FILE | docker exec -i $CONTAINER /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD $DATABASE"
+  echo "Drop MySQL database $DATABASE on container $FILE ..."
+  docker exec $CONTAINER bin/bash -c "export MYSQL_PWD=\$MYSQL_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $DATABASE;'"
 fi
 
 # Notify if backup has finished
-echo "The Docker MySQL/MariaDB restore has finished."
+echo "The Docker MySQL/MariaDB databse has been dropped."

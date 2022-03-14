@@ -1,29 +1,26 @@
 #!/bin/bash
 
 # Exit script if command fails
-# -u stops the script on unset variables
-# -e stops the script on errors
-# -o pipefail stops the script if a pipe fails
-set -eo pipefail
+set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
 
 # Display Help
 Help() {
-    echo
-    echo "$SCRIPT"
-    echo
-    echo "Description: Backup MySQL/MariaDB Docker database."
-    echo "Syntax: $SCRIPT [-d|-o|-c|help]"
-    echo "Example: $SCRIPT -d mysql,moodle -o /tmp -c mysql01"
-    echo "options:"
-    echo "  -d    Comma-separated list of database names."
-    echo "  -a    Backup all databases"
-    echo "  -o    Output directory. Defaults to '/var/tmp'"
-    echo "  -c    Docker container name. Defaults to 'mysql'"
-    echo "  help  Show $SCRIPT manual."
-    echo
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: Backup MySQL/MariaDB Docker database."
+  echo "Syntax: $SCRIPT [-d|-o|-c|help]"
+  echo "Example: $SCRIPT -d mysql,moodle -o /tmp -c mysql01"
+  echo "options:"
+  echo "  -d    Comma-separated list of database names."
+  echo "  -a    Backup all databases"
+  echo "  -o    Output directory. Defaults to '/var/tmp'"
+  echo "  -c    Docker container name. Defaults to 'mysql'"
+  echo "  help  Show $SCRIPT manual."
+  echo
 }
 
 # Show help and exit
