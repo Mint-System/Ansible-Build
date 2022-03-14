@@ -9,7 +9,7 @@
     dest: /etc/environment
     line: "PATH=/bin:/usr/bin:/usr/local/bin:$PATH"
   
-- name: "Copy {{ role_name }}"
+- name: "Copy {{ role_name }} scripts"
   copy:
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item }}"

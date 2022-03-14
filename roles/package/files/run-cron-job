@@ -44,10 +44,6 @@ COMMAND=$(crontab -l | grep "$ANSIBLE_CRON_NAME" -a1 | tail -n 1 | cut -d' ' -f6
 
 [[ -z "$COMMAND" ]] && { echo "Cron job not found. Maybe try another user?" ; exit 1; }
 
-# Run command
-$COMMAND
-
-# echo "Run this:"
-# echo
-# echo "PATH=$PATH"
-# echo "$COMMAND"
+echo "Run command: $COMMAND"
+echo
+eval $COMMAND
