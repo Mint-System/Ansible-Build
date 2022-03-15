@@ -12,7 +12,7 @@ Configure the role.
 prometheus_image: prom/prometheus:v2.17.1
 prometheus_hostname: prom01
 prometheus_description: Monitoring # default: Prometheus
-prometheus_volume_name: prom_data01
+prometheus_volume_name: prom_data01 # default: "{{ prometheus_hostname }}"
 prometheus_data_dir: /usr/share/prom # default: "/usr/share/{{ prometheus_hostname }}"
 prometheus_port: 127.0.0.1:9999 # default: 127.0.0.1:9090
 prometheus_rention_time: "60d" # default: "30d"
