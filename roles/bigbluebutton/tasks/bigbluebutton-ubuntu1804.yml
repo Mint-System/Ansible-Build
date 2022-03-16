@@ -5,7 +5,7 @@
   package_facts:
     manager: auto
 
-- name: Run inital installation with script
+- name: Run inital installation with script as root
   fail:
     msg: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | 
       bash -s -- -v bionic-230 -s {{ bigbluebutton_hostname }} -e {{ bigbluebutton_certbot_email }}  -a -w"
