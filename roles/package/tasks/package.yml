@@ -2,13 +2,19 @@
   cron:
     name: PATH
     env: yes
-    job: /bin:/usr/bin:/usr/local/bin
+    job: "{{ package_path_var }}"
 
-- name: Add bin folder to /etc/environment
-  lineinfile:
-    dest: /etc/environment
-    line: "PATH=/bin:/usr/bin:/usr/local/bin:$PATH"
-  
+# - name: Remove PATH var from /etc/environment
+#   lineinfile:
+#     dest: /etc/environment
+#     regexp: "PATH=.*"
+#     state: absent
+
+- name: Add bin folder to system-wide $PATH
+  copy:
+    dest: /etc/profile.d/custom-path.sh
+    content: 'PATH=$PATH:{{ package_path_var }}'
+
 - name: "Copy {{ role_name }} scripts"
   copy:
     src: "{{ item }}"
