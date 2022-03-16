@@ -4,7 +4,7 @@
   changed_when: false
   when: odoo_replicas == 1
 
-- name: Get installed python packages
+- name: Get installed python packages by replica
   command: "docker exec {{ odoo_hostname }}_{{ item }} pip3 freeze"
   register: result_replicas
   changed_when: false
@@ -16,7 +16,7 @@
   when: odoo_replicas == 1 and item.name not in result.stdout
   loop: "{{ odoo_pip_packages }}"
 
-- name: Install missing pip packages
+- name: Install missing pip packages by replica
   command: "docker exec {{ item.1.cmd[2] }} pip3 install {{ item.0.name }}"
   when: odoo_replicas > 1 and item.0.name not in item.1.stdout
   loop: "{{ odoo_pip_packages | product(result_replicas.results) | list }}"
