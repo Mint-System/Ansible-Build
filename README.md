@@ -55,6 +55,7 @@ List of all avaialable Ansible roles.
 | [certbot](roles/certbot/README.md)                                     | Deploy Let's Encrypt certificates.                               |
 | [clean](roles/clean/README.md)                                         | Cleanup Ansible roles.                                           |
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
+| [cron](roles/cron/README.md)                                           | Setup cron jobs.                                                 |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
 | [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
 | [docker-compose](roles/docker-compose/README.md)                       | Deploy Docker Compose project.                                   |

@@ -45,3 +45,5 @@
     tags: simple-mail-forwarder
   - role: postfix
     tags: postfix
+  - role: cron
+    tags: cron

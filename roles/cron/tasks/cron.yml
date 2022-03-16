@@ -1,0 +1,7 @@
+- name: Setup cron jobs
+  cron:
+    name: "{{ item.name }}"
+    hour: "{{ item.hour | default('*') }}"
+    minute: "{{ item.hour | default('*') }}"
+    job: "{{ item.command }}"
+  loop: "{{ cron_jobs }}"
