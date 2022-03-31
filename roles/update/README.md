@@ -4,11 +4,11 @@ Install system and package updates.
 
 ## Requires
 
-The Ansible Update role supports os of type:
+The Ansible Update role supports these package managers:
 
-* Ubuntu 
-* CentOS
-* SLES 
+* apt (Ubuntu) 
+* yum (CentOS)
+* zypper (SLES, openSUSE) 
 
 ## Usage
 
