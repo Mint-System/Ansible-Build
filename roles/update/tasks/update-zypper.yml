@@ -8,16 +8,7 @@
     name: "*"
     state: latest
 
-- name: Check if reboot is required
-  stat:
-    path: /boot/do_purge_kernels
-  register: reboot_required
-
-- name: Reboot system if required
-  reboot:
-    msg: Rebooting to complete system upgrade
-    reboot_timeout: 120
-  when: reboot_required.stat.exists and reboot_allowed
+# Zypper natively finds services and restarts them.
 
 - name: Get all installed and updated packages # noqa 306
   shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "

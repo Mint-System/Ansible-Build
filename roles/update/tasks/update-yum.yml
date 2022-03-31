@@ -1,6 +1,6 @@
 - name: Update yum cache
   yum:
-    update_cache: yes
+    update_cache: true
 
 - name: Upgrade all yum packages # noqa 403
   yum:
@@ -8,15 +8,15 @@
     state: latest
 
 - name: Check if reboot is required
-  stat:
-    path: /var/run/reboot-required
-  register: reboot_required
+  command: needs-restarting -r
+  register: needs_restart
+  ignore_errors: true
 
 - name: Reboot system if required
   reboot:
     msg: Rebooting to complete system upgrade
     reboot_timeout: 120
-  when: reboot_required.stat.exists and reboot_allowed
+  when: needs_restart.rc == 1 and reboot_allowed
 
 - name: Get all installed and updated packages # noqa 306
   shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "
