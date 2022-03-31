@@ -25,7 +25,7 @@
 
 - name: "Include {{ role_name }} dnf tasks"
   include_tasks: "{{ role_name }}-dnf.yml"
-  when: update and ansible_distribution == 'AlmaLinux'
+  when: update and ansible_distribution == 'AlmaLinux' or ansible_distribution == 'RHEL'
   tags:
     - update
     - never
