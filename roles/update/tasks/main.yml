@@ -22,3 +22,10 @@
   tags:
     - update
     - never
+
+- name: "Include {{ role_name }} dnf tasks"
+  include_tasks: "{{ role_name }}-dnf.yml"
+  when: update and ansible_distribution == 'AlmaLinux'
+  tags:
+    - update
+    - never

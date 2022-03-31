@@ -6,9 +6,10 @@ Install system and package updates.
 
 The Ansible Update role supports these package managers:
 
-* apt (Debian, Ubuntu) 
-* yum (CentOS, RHEL)
-* zypper (SLES, OpenSUSE) 
+* apt (Debian, Ubuntu)
+* yum (CentOS)
+* zypper (SLES)
+* dnf (AlmaLinux)
 
 ## Usage
 

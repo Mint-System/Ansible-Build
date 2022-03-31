@@ -1,0 +1,31 @@
+- name: Update dnf cache
+  dnf:
+    update_cache: true
+
+- name: Upgrade all dnf packages # noqa 403
+  dnf:
+    name: "*"
+    state: latest
+
+- name: Check if reboot is required
+  command: needs-restarting -r
+  register: needs_restart
+  ignore_errors: true
+  changed_when: false
+
+- name: Reboot system if required
+  reboot:
+    msg: Rebooting to complete system upgrade
+    reboot_timeout: 120
+  when: needs_restart.rc == 1 and reboot_allowed
+
+- name: Get all installed and updated packages # noqa 306
+  shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "
+  args:
+    warn: false
+  register: installed_updated_packages
+  changed_when: false
+
+- name: Show installed and updated packages
+  debug:
+    msg: "{{ installed_updated_packages.stdout_lines }}"
