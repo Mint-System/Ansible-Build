@@ -15,22 +15,41 @@
   set_fact:
     odoo_app_names: "{{ odoo_apps | json_query('[*].name') }}"
 
-- name: List apps to be installed
-  debug:
-    msg: "{{ odoo_app_names }}"
-
 - name: Check odoo app dependencies
   fail:
     msg: "Missing odoo app {{ item }}"
   when: item not in odoo_app_names
   loop: "{{ odoo_app_dependencies }}"
 
+- name: List apps to be installed
+  debug:
+    msg: "{{ odoo_app_names }}"
+
+# Create list of folder, extract only if folder name is not list
+
+- name: "Register {{ role_name }} download folders" # noqa 306
+  command: "find {{ odoo_apps_tmp_dir }} -maxdepth 1 -type d -printf '%f\n'"
+  changed_when: false
+  register: downloaded_odoo_apps
+
+- name: Process downloaded odoo apps
+  set_fact:
+    downloaded_odoo_apps: "{{ downloaded_odoo_apps.stdout_lines | map('regex_replace', '^(.*)$', '\\1.zip') | list }}"
+
+- name: List apps downloaded
+  debug:
+    msg: "{{ downloaded_odoo_apps }}"
+  
+# Download zip files
+
 - name: "Download {{ role_name }} zip archives"
   get_url:
-    url: "{{ item.url }}"
+    url: "{{ odoo_apps_base_url }}{{ item.url_append }}"
     dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
   loop: "{{ odoo_apps }}"
-  when: item.url is defined and item.github_token is not defined
+  when: item.url_append is defined and item.url_append not in downloaded_odoo_apps
+
+# FIXME: Download from normal url
 
 - name: "Download {{ role_name }} zip archives from GitHub"
   get_url:
@@ -48,6 +67,8 @@
   loop: "{{ odoo_apps }}"
   when: item.file is defined
 
+# Unzip
+
 - name: "Extract {{ role_name }} zip archives"
   unarchive:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
@@ -56,6 +77,7 @@
     list_files: yes
   loop: "{{ odoo_apps }}"
   register: archive_contents
+  # when: item.url_append is defined and item.url_append not in downloaded_odoo_apps
 
 - name: "Copy {{ role_name }} to addons dir if archive entry is directory"
   copy:
@@ -75,12 +97,14 @@
   loop: "{{ archive_contents.results }}"
   notify: Restart odoo container
 
-- name: Ensure auto install is disabled
-  replace:
-    path:  "{{ odoo_data_dir }}/addons/{{ item.name }}/__manifest__.py"
-    regexp: "'auto_install': True,"
-    replace: "'auto_install': False,"
-  loop: "{{ odoo_apps }}"
+# Cleanup addon folder
+
+# - name: Ensure auto install is disabled
+#   replace:
+#     path:  "{{ odoo_data_dir }}/addons/{{ item.name }}/__manifest__.py"
+#     regexp: "'auto_install': True,"
+#     replace: "'auto_install': False,"
+#   loop: "{{ odoo_apps }}"
 
 - name: "Register {{ role_name }} folders" # noqa 306
   command: "ls -1 {{ odoo_data_dir }}/addons/"

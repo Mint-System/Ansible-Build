@@ -14,9 +14,10 @@ odoo_replicas: 2 # default: 1
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_apps_tmp_dir: /tmp # default: /var/tmp
 odoo_apps_remove_unmanaged_folders: false # default: true
+odoo_apps_base_url: https://cloud.example.com/download?files=
 odoo_apps:
   - name: show_db_name
-    url: https://github.com/Mint-System/Odoo-App-Show-DB-Name/archive/v1.0.2.zip
+    url_append: show_db_name-14.0.1.0.2.zip
   - name: theme_common
     file: theme_common-14.0.0.1.1.zip
   - name: theme_treehouse

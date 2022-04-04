@@ -10,6 +10,7 @@
 - name: Check if reboot is required
   command: needs-restarting -r
   register: needs_restart
+  changed_when: false
   ignore_errors: true
 
 - name: Missing needs-restart command

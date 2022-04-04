@@ -24,16 +24,19 @@
   command: "sed -i 's/h=rsa-sha256/h=sha256/' mail.txt"
   args:
     chdir: "{{ postfix_data_dir }}"
+  changed_when: false
 
 - name: Move DKIM public key
   command: "mv mail.txt ./{{ postfix_allowed_sender_domains }}.txt"
   args:
     chdir: "{{ postfix_data_dir }}"
+  changed_when: false
 
 - name: Move DKIM private key
   command: "mv mail.private ./{{ postfix_allowed_sender_domains }}.private"
   args:
     chdir: "{{ postfix_data_dir }}"
+  changed_when: false
 
 - name: "Start {{ role_name }} container {{ postfix_hostname }}"
   docker_container:
@@ -60,10 +63,11 @@
 - name: Get DKIM pub key
   command: "cat {{ postfix_data_dir }}/{{ postfix_allowed_sender_domains }}.txt"
   register: command_output
+  changed_when: false
 
 - name: "Create this DKIM record for {{ postfix_allowed_sender_domains }}"
   debug:
-    msg: "{{command_output.stdout}}"
+    msg: "{{ command_output.stdout }}"
 
 - name: "Create this SPF record for {{ postfix_allowed_sender_domains }}"
   debug:
