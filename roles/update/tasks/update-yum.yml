@@ -12,6 +12,11 @@
   register: needs_restart
   ignore_errors: true
 
+- name: Missing needs-restart command
+  fail:
+    msg: "Command needs-restarting is not available. Install 'yum-utils'."
+  when: needs_restart.rc == 127
+
 - name: Reboot system if required
   reboot:
     msg: Rebooting to complete system upgrade
