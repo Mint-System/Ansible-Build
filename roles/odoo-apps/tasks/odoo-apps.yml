@@ -15,6 +15,10 @@
   set_fact:
     odoo_app_names: "{{ odoo_apps | json_query('[*].name') }}"
 
+- name: List apps to be installed
+  debug:
+    msg: "{{ odoo_app_names }}"
+
 - name: Check odoo app dependencies
   fail:
     msg: "Missing odoo app {{ item }}"
