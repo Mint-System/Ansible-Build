@@ -17,3 +17,4 @@
     - docker-odoo-clear-assets
     - docker-odoo-update
     - docker-odoo-remove
+    - docker-odoo-patch

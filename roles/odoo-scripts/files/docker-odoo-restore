@@ -15,7 +15,7 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Backup Odoo database from container."
-    echo "Syntax: $SCRIPT [-d|-c|-f\-r|help]"
+    echo "Syntax: $SCRIPT [-d|-c|-f|-r|help]"
     echo "Example: $SCRIPT -d erp-dev -c odoo06 -f tmp/erp.zip -r"
     echo "options:"
     echo "  -d    Database name. Defaults to filename."
