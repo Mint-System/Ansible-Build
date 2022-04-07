@@ -1,8 +1,7 @@
 - name: Find Odoo patches status files
-  file:
+  find:
     path: "/etc/odoo/"
     patterns: '*_installed'
-    state: absent
   register: files_to_delete
   when: pull_odoo_image.changed and odoo_patches is defined
 
