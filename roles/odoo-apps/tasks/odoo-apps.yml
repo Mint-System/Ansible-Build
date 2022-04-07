@@ -25,8 +25,6 @@
   debug:
     msg: "{{ odoo_app_names }}"
 
-# Create list of folder, extract only if folder name is not list
-
 - name: "Register {{ role_name }} download folders" # noqa 306
   command: "find {{ odoo_apps_tmp_dir }} -maxdepth 1 -type d -printf '%f\n'"
   changed_when: false
@@ -34,77 +32,63 @@
 
 - name: Process downloaded odoo apps
   set_fact:
-    downloaded_odoo_apps: "{{ downloaded_odoo_apps.stdout_lines | map('regex_replace', '^(.*)$', '\\1.zip') | list }}"
+    downloaded_odoo_apps: "{{ downloaded_odoo_apps.stdout_lines | list }}"
 
 - name: List apps downloaded
   debug:
     msg: "{{ downloaded_odoo_apps }}"
   
-# Download zip files
-
 - name: "Download {{ role_name }} zip archives"
   get_url:
-    url: "{{ odoo_apps_base_url }}{{ item.url_append }}"
-    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
+    url: "{{ odoo_apps_base_url }}{{ item.name }}-{{ item.version }}.zip"
+    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
   loop: "{{ odoo_apps }}"
-  when: item.url_append is defined and item.url_append not in downloaded_odoo_apps
+  when: item.version is defined
 
-# FIXME: Download from normal url
-
-- name: "Download {{ role_name }} zip archives from GitHub"
-  get_url:
-    url: "{{ item.url }}"
-    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
-    headers:
-      Authorization: "token {{ item.github_token }}"
-  loop: "{{ odoo_apps }}"
-  when: item.url is defined and item.github_token is defined
-
-- name: "Copy {{ role_name }} zip archives"
+- name: "Upload {{ role_name }} zip archives"
   copy:
     src: "{{ item.file }}"
-    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
+    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
   loop: "{{ odoo_apps }}"
   when: item.file is defined
 
-# Unzip
-
-- name: "Extract {{ role_name }} zip archives"
+- name: "Extract downloaded {{ role_name }} zip archives"
   unarchive:
-    src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}.zip"
+    src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
     dest: "{{ odoo_apps_tmp_dir }}"
     remote_src: yes
     list_files: yes
   loop: "{{ odoo_apps }}"
-  register: archive_contents
-  # when: item.url_append is defined and item.url_append not in downloaded_odoo_apps
+  register: downloaded_archive_contents
+  when: item.version is defined
 
-- name: "Copy {{ role_name }} to addons dir if archive entry is directory"
+- name: "Extract uploaded {{ role_name }} zip archives"
+  unarchive:
+    src: "{{ odoo_apps_tmp_dir }}/{{ item.file }}"
+    dest: "{{ odoo_apps_tmp_dir }}"
+    remote_src: yes
+    list_files: yes
+  loop: "{{ odoo_apps }}"
+  register: uploaded_archive_contents
+  when: item.file is defined
+
+- name: "Copy downloaded {{ role_name }} to addons dir"
+  copy:
+    src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}/"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.name }}"
+    remote_src: yes
+  loop: "{{ odoo_apps }}"
+  when: item.version is defined
+  notify: Restart odoo container
+
+- name: "Copy uploaded {{ role_name }} to addons dir"
   copy:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.files[0] }}"
     dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
     remote_src: yes
-  when: item.files[0] is match(".*\/$")
-  loop: "{{ archive_contents.results }}"
+  when: uploaded_archive_contents.resulsts is defined and item.files[0] is match(".*\/$")
+  loop: "{{ uploaded_archive_contents.results }}"
   notify: Restart odoo container
-
-- name: "Copy {{ role_name }} to addons dir if archive entry is file"
-  copy:
-    src: "{{ odoo_apps_tmp_dir }}/{{ item.item.name }}/"
-    dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
-    remote_src: yes
-  when: item.files[0] is not match(".*\/$")
-  loop: "{{ archive_contents.results }}"
-  notify: Restart odoo container
-
-# Cleanup addon folder
-
-# - name: Ensure auto install is disabled
-#   replace:
-#     path:  "{{ odoo_data_dir }}/addons/{{ item.name }}/__manifest__.py"
-#     regexp: "'auto_install': True,"
-#     replace: "'auto_install': False,"
-#   loop: "{{ odoo_apps }}"
 
 - name: "Register {{ role_name }} folders" # noqa 306
   command: "ls -1 {{ odoo_data_dir }}/addons/"
