@@ -15,8 +15,10 @@
   command: "docker exec {{ odoo_hostname }} pip3 install {{ item.name }}"
   when: odoo_replicas == 1 and item.name not in result.stdout
   loop: "{{ odoo_pip_packages }}"
+  notify: Restart odoo container
 
 - name: Install missing pip packages by replica
   command: "docker exec {{ item.1.cmd[2] }} pip3 install {{ item.0.name }}"
   when: odoo_replicas > 1 and item.0.name not in item.1.stdout
   loop: "{{ odoo_pip_packages | product(result_replicas.results) | list }}"
+  notify: Restart odoo container
