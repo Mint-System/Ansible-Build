@@ -27,14 +27,14 @@
     chdir: "{{ postfix_data_dir }}"
   when: generate_dkim_keys.changed
 
-- name: Move DKIM public key
-  command: "mv mail.txt ./{{ postfix_allowed_sender_domains }}.txt"
+- name: Copy DKIM public key
+  command: "cp mail.txt {{ postfix_allowed_sender_domains }}.txt"
   args:
     chdir: "{{ postfix_data_dir }}"
   when: generate_dkim_keys.changed
 
-- name: Move DKIM private key
-  command: "mv mail.private ./{{ postfix_allowed_sender_domains }}.private"
+- name: Copy DKIM private key
+  command: "mv mail.private {{ postfix_allowed_sender_domains }}.private"
   args:
     chdir: "{{ postfix_data_dir }}"
   when: generate_dkim_keys.changed
@@ -61,7 +61,7 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ postfix_hostname }}|{{ role_name }}"
 
-- name: Get DKIM pub key
+- name: Get DKIM public key content
   command: "cat {{ postfix_data_dir }}/{{ postfix_allowed_sender_domains }}.txt"
   register: command_output
   changed_when: false
