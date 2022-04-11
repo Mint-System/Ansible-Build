@@ -24,20 +24,25 @@
 - name: List apps to be installed
   debug:
     msg: "{{ odoo_app_names }}"
-
-- name: "Register {{ role_name }} download folders" # noqa 306
-  command: "find {{ odoo_apps_tmp_dir }} -maxdepth 1 -type d -printf '%f\n'"
-  changed_when: false
-  register: downloaded_odoo_apps
-
-- name: Process downloaded odoo apps
-  set_fact:
-    downloaded_odoo_apps: "{{ downloaded_odoo_apps.stdout_lines | list }}"
-
-- name: List apps downloaded
-  debug:
-    msg: "{{ downloaded_odoo_apps }}"
   
+# - name: "Check downloaded {{ role_name }} zip archives"
+#   stat:
+#     path: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
+#     get_checksum: false
+#     get_md5: false
+#     get_mime: false
+#     get_attributes: false
+#   register: downloaded_odoo_apps
+#   loop: "{{ odoo_apps }}"
+
+# - name: Process downloaded odoo apps
+#   set_fact:
+#     downloaded_odoo_apps: "{{ downloaded_odoo_apps | json_query('results[*] | [?stat.exists==`true`].stat.path') | list }}"
+
+# - name: List apps downloaded
+#   debug:
+#     msg: "{{ downloaded_odoo_apps }}"
+
 - name: "Download {{ role_name }} zip archives"
   get_url:
     url: "{{ odoo_apps_base_url }}{{ item.name }}-{{ item.version }}.zip"
@@ -58,6 +63,8 @@
     dest: "{{ odoo_apps_tmp_dir }}"
     remote_src: yes
     list_files: yes
+  args:
+    creates: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}"
   loop: "{{ odoo_apps }}"
   register: downloaded_archive_contents
   when: item.version is defined
@@ -73,10 +80,10 @@
   when: item.file is defined
 
 - name: "Copy downloaded {{ role_name }} to addons dir"
-  copy:
+  synchronize:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}/"
-    dest: "{{ odoo_data_dir }}/addons/{{ item.name }}"
-    remote_src: yes
+    dest: "{{ odoo_data_dir }}/addons/{{ item.name }}/"
+  delegate_to: "{{ inventory_hostname }}"
   loop: "{{ odoo_apps }}"
   when: item.version is defined
   notify: Restart odoo container
