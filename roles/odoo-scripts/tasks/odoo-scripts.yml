@@ -4,17 +4,20 @@
     dest: "/usr/local/bin/{{ item }}"
     mode: +x
   loop:
+    - docker-odoo-backup
+    - docker-odoo-clear-assets
+    - docker-odoo-cloc
+    - docker-odoo-drop
+    - docker-odoo-install
+    - docker-odoo-list
+    - docker-odoo-patch
+    - docker-odoo-remove
+    - docker-odoo-restore
+    - docker-odoo-update
+    - docker-odoo-user
     - odoo-backup
-    - odoo-restore
     - odoo-drop
     - odoo-duplicate
-    - docker-odoo-install
-    - docker-odoo-user
-    - docker-odoo-list
-    - docker-odoo-backup
-    - docker-odoo-restore
-    - docker-odoo-drop
-    - docker-odoo-clear-assets
-    - docker-odoo-update
-    - docker-odoo-remove
-    - docker-odoo-patch
+    - odoo-restore
+    - odoo-user
+    - parse-url
