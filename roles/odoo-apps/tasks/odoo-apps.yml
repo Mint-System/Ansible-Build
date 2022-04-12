@@ -13,7 +13,7 @@
 
 - name: "Get odoo app names"
   set_fact:
-    odoo_app_names: "{{ odoo_apps | json_query('[*].name') }}"
+    odoo_app_names: "{{ odoo_apps | json_query('[*].name') | list }}"
 
 - name: Check odoo app dependencies
   fail:
