@@ -1,6 +1,3 @@
 skip_list:
-  - '602'  # Don't compare to empty string
-  - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern
-  - '208'  # File permissions unset or incorrect
   - experimental  # all rules tagged as experimental
-  - internal-error # Ignore missing vault pass file
+  - role-name  # Role name {0} does not match ``^[a-z][a-z0-9_]+$`` pattern

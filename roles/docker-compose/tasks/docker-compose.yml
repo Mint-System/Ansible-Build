@@ -7,7 +7,7 @@
 - name: "Set current {{ role_name }} version"
   set_fact:
     docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
-  when: docker_compose_vsn.stdout != ""
+  when: docker_compose_vsn.stdout | search("version")
 
 - name: "Install {{ role_name }} {{ docker_compose_version }}"
   get_url:

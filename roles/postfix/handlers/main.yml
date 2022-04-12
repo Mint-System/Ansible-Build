@@ -1,3 +1,19 @@
+- name: "Fix DKIM public key"
+  replace:
+    path: "{{ postfix_data_dir }}/mail.txt"
+    regexp: "h=rsa-sha256"
+    replace: "h=sha256"
+
+- name: "Copy DKIM public key"
+  command: "cp mail.txt {{ postfix_allowed_sender_domains }}.txt"
+  args:
+    chdir: "{{ postfix_data_dir }}"
+
+- name: "Copy DKIM private key"
+  command: "mv mail.private {{ postfix_allowed_sender_domains }}.private"
+  args:
+    chdir: "{{ postfix_data_dir }}"
+
 - name: "Restart {{ role_name }} container"
   docker_container:
     name: "{{ postfix_hostname }}"
