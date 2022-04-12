@@ -2,7 +2,7 @@
 
 # Ansible Playbooks
 
-<!-- [![Ansible Lint](https://github.com/Mint-System/Ansible-Playbooks/workflows/Ansible%20Lint/badge.svg)](https://github.com/Mint-System/Ansible-Playbooks/actions?query=workflow%3A"Ansible+Lint") -->
+[![Ansible Lint](https://github.com/Mint-System/Ansible-Playbooks/workflows/Ansible%20Lint/badge.svg)](https://github.com/Mint-System/Ansible-Playbooks/actions?query=workflow%3A"Ansible+Lint")
 
 The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks and roles.
 
