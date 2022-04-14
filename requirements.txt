@@ -3,3 +3,4 @@ jmespath
 dnspython
 graphviz
 ansible-lint
+passlib

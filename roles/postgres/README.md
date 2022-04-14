@@ -17,7 +17,7 @@ postgres_volume_name: postgres_data01 # default: "{{ postgres_hostname}}"
 postgres_ports:
   - 127.0.0.1:5433:5432 # default: []
 postgres_user: example
-postgres_password: "{{ vault_postgres_password }}"
+postgres_password: # default: "{{ vault_postgres_password }}"
 postgres_db: example # default: ""
 ```
 

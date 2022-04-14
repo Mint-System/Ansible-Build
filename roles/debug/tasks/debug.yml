@@ -1,3 +1,15 @@
+- name: odoo master password
+  debug:
+    msg: "{{ vault_odoo_master_password }}"
+
+- name: odoo master password hash
+  debug:
+    msg: "{{ vault_odoo_master_password_hash }}"
+
+- name: odoo master password hash caculated
+  debug:
+    msg: "{{ vault_odoo_master_password | password_hash('pbkdf2_sha512') }}"
+
 # - name: cadvisor https
 #   debug:
 #     msg: "{{ groups['all'] | map('extract', hostvars) |

@@ -20,8 +20,8 @@ odoo_volume_name: odoo_data01 # default: "{{ odoo_hostname}}"
 odoo_timezone: Europe/Paris # default: Europe/Berlin
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: example # default: odoo
-odoo_postgres_password: "{{ vault_postgres_password }}"
-odoo_master_password_hash: "{{ vault_odoo_master_password_hash }}"
+odoo_postgres_password: # default: "{{ vault_postgres_password }}"
+odoo_master_password: # default: "{{ vault_odoo_master_password }}"
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
