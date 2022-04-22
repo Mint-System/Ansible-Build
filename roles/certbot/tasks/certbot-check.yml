@@ -1,17 +1,16 @@
-- name: Dig DNS CNAME record
+- name: Dig src DNS record
   debug:
-    msg: "{{ lookup('dig', item.src_hostname, 'qtype=CNAME') }}"
-  register: dig
+    msg: "{{ lookup('dig', item.src_hostname) }}"
   loop: "{{ nginx_proxies }}"
+  register: dig_src
 
-- name: Fail if DNS record points to alias.zeit.co.
-  fail:
-    msg: DNS record points to default alias.
-  when: item.msg == 'alias.zeit.co.'
-  loop: "{{ dig.results }}"
+- name: Dig host DNS record
+  debug:
+    msg: "{{ lookup('dig', ansible_host) }}"
+  register: dig_host
 
-- name: Fail if DNS record points to cname.vercel-dns.com.
+- name: Fail if src IP is not resolved correctly 
   fail:
-    msg: DNS record points to default alias.
-  when: item.msg == 'cname.vercel-dns.com.'
-  loop: "{{ dig.results }}"
+    msg: "DNS record for {{ item.item.src_hostname }} does not point to proxy host."
+  when: item.msg != dig_host.msg
+  loop: "{{ dig_src.results }}"

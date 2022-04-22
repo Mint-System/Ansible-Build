@@ -1,14 +1,39 @@
-- name: odoo master password
+- name: Dig src DNS record
   debug:
-    msg: "{{ vault_odoo_master_password }}"
+    msg: "{{ lookup('dig', item.src_hostname) }}"
+  loop: "{{ nginx_proxies }}"
+  register: dig_src
 
-- name: odoo master password hash
+- name: Dig host DNS record
   debug:
-    msg: "{{ vault_odoo_master_password_hash }}"
+    msg: "{{ lookup('dig', ansible_host) }}"
+  register: dig_host
 
-- name: odoo master password hash caculated
+- name: src DNS record
   debug:
-    msg: "{{ vault_odoo_master_password | password_hash('pbkdf2_sha512') }}"
+    msg: "{{ dig_src.results   }}"
+
+- name: host DNS record
+  debug:
+    msg: "{{ dig_host.msg }}"
+
+- name: Fail if src IP is not resolved correctly 
+  fail:
+    msg: "DNS record for {{ item.item.src_hostname }} does not point to proxy host."
+  when: item.msg != dig_host.msg
+  loop: "{{ dig_src.results }}"
+
+# - name: odoo master password
+#   debug:
+#     msg: "{{ vault_odoo_master_password }}"
+
+# - name: odoo master password hash
+#   debug:
+#     msg: "{{ vault_odoo_master_password_hash }}"
+
+# - name: odoo master password hash caculated
+#   debug:
+#     msg: "{{ vault_odoo_master_password | password_hash('pbkdf2_sha512') }}"
 
 # - name: cadvisor https
 #   debug:
