@@ -4,7 +4,7 @@
 # -u stops the script on unset variables
 # -e stops the script on errors
 # -o pipefail stops the script if a pipe fails
-set -e
+# set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
@@ -89,7 +89,13 @@ RESPONSE=$(curl \
   -F backup_file=@$FILE \
   -F 'copy=true' \
   "${ODOO_HOST%/}/web/database/restore")
-  
-echo "$RESPONSE" | grep 'error' && exit 1
 
-echo "The restore for Odoo database $DATABASE has finished."
+# If redirect is response then restore was succesfull
+CHECK=$(echo "$RESPONSE" | grep -E 'Redirecting...')
+if [[ $CHECK != "" ]]; then
+  echo "The restore for Odoo database $DATABASE has finished."
+else
+  echo "The restore for Odoo database $DATABASE failed with:"
+  echo "$RESPONSE"
+  exit 1
+fi
