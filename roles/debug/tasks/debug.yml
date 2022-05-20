@@ -1,27 +1,34 @@
-- name: Dig src DNS record
-  debug:
-    msg: "{{ lookup('dig', item.src_hostname) }}"
-  loop: "{{ nginx_proxies }}"
-  register: dig_src
+- name: Distribution
+  debug: msg="{{ ansible_distribution }}"
+- name: Distribution version
+  debug: msg="{{ ansible_distribution_version}}"
+- name: Distribution major version
+  debug: msg="{{ ansible_distribution_major_version }}"
 
-- name: Dig host DNS record
-  debug:
-    msg: "{{ lookup('dig', ansible_host) }}"
-  register: dig_host
+# - name: Dig src DNS record
+#   debug:
+#     msg: "{{ lookup('dig', item.src_hostname) }}"
+#   loop: "{{ nginx_proxies }}"
+#   register: dig_src
 
-- name: src DNS record
-  debug:
-    msg: "{{ dig_src.results   }}"
+# - name: Dig host DNS record
+#   debug:
+#     msg: "{{ lookup('dig', ansible_host) }}"
+#   register: dig_host
 
-- name: host DNS record
-  debug:
-    msg: "{{ dig_host.msg }}"
+# - name: src DNS record
+#   debug:
+#     msg: "{{ dig_src.results   }}"
 
-- name: Fail if src IP is not resolved correctly 
-  fail:
-    msg: "DNS record for {{ item.item.src_hostname }} does not point to proxy host."
-  when: item.msg != dig_host.msg
-  loop: "{{ dig_src.results }}"
+# - name: host DNS record
+#   debug:
+#     msg: "{{ dig_host.msg }}"
+
+# - name: Fail if src IP is not resolved correctly 
+#   fail:
+#     msg: "DNS record for {{ item.item.src_hostname }} does not point to proxy host."
+#   when: item.msg != dig_host.msg
+#   loop: "{{ dig_src.results }}"
 
 # - name: odoo master password
 #   debug:
