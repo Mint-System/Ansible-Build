@@ -6,7 +6,10 @@
     image: "{{ collabora_code_image }}"
     restart_policy: unless-stopped
     env:
+      username: "{{ collabora_code_username }}"
+      password: "{{ collabora_code_password }}"
       extra_params: "--o:ssl.enable=false"
+      collabora_code_aliasgroup1: "{{ collabora_code_aliasgroup1 }}"
     ports:
       - "{{ collabora_code_port }}:9980"
     networks:
