@@ -1,0 +1,29 @@
+#!/bin/bash
+
+VERCEL_TOKEN="{{ vercel_token }}"
+EMAIL="{{ certbot_email }}"
+
+# Strip only the top domain to get the zone id
+DOMAIN=$(expr match "$CERTBOT_DOMAIN" '.*\.\(.*\..*\)')
+
+# Create TXT record
+CREATE_DOMAIN="_acme-challenge.$CERTBOT_DOMAIN"
+RECORD_ID=$(curl -s -X POST "{{ vercel_api_url }}/v2/domains/$DOMAIN/records?teamId={{ vercel_team_id }}" \
+    -H "Authorization: Bearer $VERCEL_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+        "name": "'"$CREATE_DOMAIN"'",
+        "type": "TXT",
+        "value": "'"$CERTBOT_VALIDATION"'",
+        "ttl": 60
+    }'
+)
+
+# Save info for cleanup
+if [ ! -d /tmp/CERTBOT_$CERTBOT_DOMAIN ]; then
+    mkdir -m 0700 /tmp/CERTBOT_$CERTBOT_DOMAIN
+fi
+echo $RECORD_ID > /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID
+
+# Sleep to make sure the change has time to propagate over to DNS
+sleep 25

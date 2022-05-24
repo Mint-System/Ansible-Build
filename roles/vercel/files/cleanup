@@ -1,0 +1,19 @@
+#!/bin/bash
+
+VERCEL_TOKEN="{{ vercel_token }}"
+EMAIL="{{ certbot_email }}"
+
+if [ -f /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID ]; then
+    RECORD_ID=$(cat /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID)
+    rm -f /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID
+fi
+
+# Strip only the top domain to get the zone id
+DOMAIN=$(expr match "$CERTBOT_DOMAIN" '.*\.\(.*\..*\)')
+
+# Remove the challenge TXT record from the zone
+if [ -n "${RECORD_ID}" ]; then
+    curl -s -X DELETE "{{ vercel_api_url }}/v2/domains/$DOMAIN/records/$RECORD_ID?teamId={{ vercel_team_id }}" \
+        -H "Authorization: Bearer $VERCEL_TOKEN" \
+        -H "Content-Type: application/json" \
+fi
