@@ -26,8 +26,8 @@
   register: pull_odoo_image
   notify: Remove odoo patches
 
-- name: Flush handlers
-  meta: flush_handlers
+# - name: Flush handlers
+#   meta: flush_handlers
 
 - name: "Tag {{ role_name }} image"
   command: "docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ pull_odoo_image.image.Id[7:19] }}"
