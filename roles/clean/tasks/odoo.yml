@@ -14,4 +14,3 @@
     path: "{{ odoo_data_dir }}"
     state: absent
   when: '"odoo-data" in ansible_run_tags'
-

@@ -1,3 +1,6 @@
 elasticsearch_data_dir: "{{ elasticsearch_hostname }}"
 elasticsearch_volume_name: "{{ elasticsearch_hostname }}"
 moodle_volume_name: "{{ moodle_hostname }}"
+odoo_data_dir: "/usr/share/{{ odoo_hostname }}"
+odoo_volume_name: "{{ odoo_hostname }}"
+postgres_volume_name: "{{ postgres_hostname }}"

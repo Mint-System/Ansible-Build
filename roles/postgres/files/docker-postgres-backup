@@ -28,9 +28,12 @@ Help() {
 
 # Show help and exit
 if [[ $1 == 'help' ]]; then
-    Help
-    exit
+  Help
+  exit
 fi
+
+# Initialise option flag with a false value
+ALL='false'
 
 # Process params
 while getopts ":a :c: :d: :o:" opt; do

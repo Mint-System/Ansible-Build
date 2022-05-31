@@ -38,3 +38,4 @@
       - innernet-client
       - innernet-server
       - moodle
+      - redis

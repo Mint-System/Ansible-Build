@@ -15,8 +15,8 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Restore docker postgres database."
-  echo "Syntax: $SCRIPT [-d|-f|-c|-r|help]"
-  echo "Example: $SCRIPT -d odoo -f /tmp/dump.sql -c postgres01 -u oc_admin -p *****"
+  echo "Syntax: $SCRIPT [-d|-f|-c|-r|-i|help]"
+  echo "Example: $SCRIPT -d odoo -f /tmp/dump.sql -c postgres01 -r"
   echo "options:"
   echo "  -d    Name of database. Defaults to filename"
   echo "  -f    Path to sql dump."
@@ -24,6 +24,7 @@ Help() {
   # echo "  -u    Optional database owner username."
   # echo "  -p    Optional database owner password."
   echo "  -r    Replace existing database."
+  echo "  -i    Create database."
   echo "  help  Show $SCRIPT manual."
   echo
 }
@@ -39,16 +40,15 @@ DROP='false'
 CREATE='false'
 
 # Process params
-while getopts ":r :c: :d: :f: :u: :p:" opt; do
+while getopts ":r :i :c: :d: :f:" opt; do
   case $opt in
     r) DROP='true'
       CREATE='true'
     ;;
+    i) CREATE='true';;
     c) CONTAINER="$OPTARG";;
     d) DATABASE="$OPTARG";;
     f) FILE="$OPTARG";;
-    # u) USERNAME="$OPTARG";;
-    # p) PASSWORD="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
     exit;;
@@ -79,7 +79,9 @@ fi
 
 # Start restore 
 echo "Restore Postgres database $DATABASE from $FILE ..."
-cat $FILE | docker exec -i $CONTAINER psql -U $POSTGRES_USER
+cat $FILE | docker exec -i $CONTAINER psql -U $POSTGRES_USER -d $DATABASE
+
+echo "Grant all privileges on $DATABASE to $POSTGRES_USER ..."
 docker exec $CONTAINER psql -U $POSTGRES_USER -d template1 -c "GRANT ALL PRIVILEGES ON DATABASE $DATABASE TO $POSTGRES_USER;"
 
 # Notify if backup has finished

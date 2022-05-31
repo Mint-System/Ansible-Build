@@ -1,10 +1,10 @@
-- name: "Remove redis container {{ redis_hostname }}"
+- name: "Remove postgres container {{ postgres_hostname }}"
   docker_container:
-    name: "{{ redis_hostname }}"
+    name: "{{ postgres_hostname }}"
     state: absent
 
-- name: Remove redis volume
+- name: "Remove postgres volume {{ postgres_volume_name }}"
   docker_volume:
-    name: "{{ redis_volume_name }}"
+    name: "{{ postgres_volume_name }}"
     state: absent
-  when: '"redis-volume" in ansible_run_tags'
+  when: '"postgres-volume" in ansible_run_tags'
