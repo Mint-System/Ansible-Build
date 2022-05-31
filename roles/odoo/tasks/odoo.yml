@@ -26,6 +26,7 @@
   register: pull_odoo_image
   notify: Remove odoo patches
 
+# FIXME: This does not work as copy Odoo conf always changes
 # - name: Flush handlers
 #   meta: flush_handlers
 
