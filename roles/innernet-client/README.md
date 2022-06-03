@@ -12,7 +12,7 @@ Configure the role.
 # https://github.com/tonarino/innernet
 packages:
   - name: wireguard
-  - deb: https://github.com/tonarino/innernet/releases/download/v1.5.0/innernet_1.5.0_amd64.deb
+  - deb: https://github.com/tonarino/innernet/releases/download/v1.5.3/innernet_1.5.3_amd64.deb
 
 innernet_client_network_name: mint-system
 innernet_client_peer_name: apollo
