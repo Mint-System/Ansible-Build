@@ -23,7 +23,7 @@
     minute: "30"
     hour: "2"
     weekday: "1"
-    job: "certbot renew >> /var/log/le-renew.log"
+    job: "certbot renew --standalone --pre-hook "service nginx stop" --post-hook "service nginx start" >> /var/log/le-renew.log"
 
 - name: Cron job to restart nginx
   cron:

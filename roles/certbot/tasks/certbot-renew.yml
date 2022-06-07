@@ -6,6 +6,7 @@
   loop:
     - docker-certbot-renew
     - docker-certbot-delete
+    - docker-certbot-list
 
 - name: Register renew certs job
   cron:
