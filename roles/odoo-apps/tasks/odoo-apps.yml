@@ -61,8 +61,8 @@
   unarchive:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
     dest: "{{ odoo_apps_tmp_dir }}"
-    remote_src: yes
-    list_files: yes
+    remote_src: true
+    list_files: true
   args:
     creates: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}"
   loop: "{{ odoo_apps }}"
@@ -73,8 +73,8 @@
   unarchive:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.file }}"
     dest: "{{ odoo_apps_tmp_dir }}"
-    remote_src: yes
-    list_files: yes
+    remote_src: true
+    list_files: true
   loop: "{{ odoo_apps }}"
   register: uploaded_archive_contents
   when: item.file is defined
@@ -83,6 +83,7 @@
   synchronize:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}/"
     dest: "{{ odoo_data_dir }}/addons/{{ item.name }}/"
+    delete: true
   delegate_to: "{{ inventory_hostname }}"
   loop: "{{ odoo_apps }}"
   when: item.version is defined
@@ -92,14 +93,14 @@
   copy:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.files[0] }}"
     dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
-    remote_src: yes
+    remote_src: true
   when: uploaded_archive_contents.resulsts is defined and item.files[0] is match(".*\/$")
   loop: "{{ uploaded_archive_contents.results }}"
   notify: Restart odoo container
 
 - name: "Register {{ role_name }} folders" # noqa 306
   command: "ls -1 {{ odoo_data_dir }}/addons/"
-  changed_when: no
+  changed_when: false
   register: existing_odoo_apps
 
 - name: "Remove unmanaged {{ role_name }} folder"
