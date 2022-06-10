@@ -83,7 +83,7 @@
   synchronize:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}/"
     dest: "{{ odoo_data_dir }}/addons/{{ item.name }}/"
-    delete: true
+    # delete: true # FIXME this does not work properly
   delegate_to: "{{ inventory_hostname }}"
   loop: "{{ odoo_apps }}"
   when: item.version is defined
