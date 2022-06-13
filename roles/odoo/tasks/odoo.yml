@@ -10,6 +10,8 @@
     path: "{{ odoo_data_dir }}/enterprise"
     state: directory
 
+# FIXME: Task always changes
+
 - name: "Copy {{ role_name }} conf"
   template:
     src: "{{ item }}"

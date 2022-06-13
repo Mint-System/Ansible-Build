@@ -10,6 +10,6 @@ odoo_conf_limit_time_cpu: 600
 odoo_conf_limit_time_real: 1200
 odoo_postgres_user: odoo
 odoo_conf: |
-  dbfilter = ^%d$
+  proxy_mode = True
 odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password: "{{ vault_odoo_master_password }}"
