@@ -35,3 +35,9 @@ And include it in your playbook.
   roles:
   - role: innernet-client
 ```
+
+## Docs
+
+### Show status
+
+Run `sudo innernet status` to get the list of available peers.
