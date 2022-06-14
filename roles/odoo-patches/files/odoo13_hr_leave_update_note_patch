@@ -31,6 +31,9 @@ awk -v n="$LINE" -v s="$APPEND" 'NR-1 == n {print s} {print}' $FILE > $FILE.tmp 
 # Copy back to docker
 docker cp $FILE "$CONTAINER":"$FILE_PATH"
 
+# Remove file
+rm -f $FILE
+
 # Register patch installation
 echo "Patch $SCRIPT applied."
 touch "/etc/odoo/${SCRIPT}_${CONTAINER}_installed"

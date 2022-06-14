@@ -26,6 +26,9 @@ sed -i'' "s/$FIND/$REPLACE/g" $FILE
 # Copy back to docker
 docker cp $FILE "$CONTAINER":"$FILE_PATH"
 
+# Remove file
+rm -f $FILE
+
 # Register patch installation
 echo "Patch $SCRIPT applied."
 touch "/etc/odoo/${SCRIPT}_${CONTAINER}_installed"

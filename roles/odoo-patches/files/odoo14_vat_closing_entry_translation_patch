@@ -24,15 +24,15 @@ FILE=`basename "$FILE_PATH"`
 # Copy from docker
 docker cp "$CONTAINER":"$FILE_PATH" .
 
-LINE=$(grep -n "$FIND" $FILE | cut -f1 -d:)
-
-echo $LINE
-
 # Find and replace
+LINE=$(grep -n "$FIND" $FILE | cut -f1 -d:)
 awk -v n="$LINE" -v r="$REPLACE" '{if(NR==n){print r}else{print}}' $FILE > $FILE.tmp && mv $FILE.tmp $FILE
 
 # Copy back to docker
 docker cp $FILE "$CONTAINER":"$FILE_PATH"
+
+# Remove file
+rm -f $FILE
 
 # Register patch installation
 echo "Patch $SCRIPT applied."
