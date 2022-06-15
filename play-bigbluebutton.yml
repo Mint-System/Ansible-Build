@@ -2,9 +2,10 @@
   become: true
   roles:
     - role: bigbluebutton
-      tags:
+      tags: # FIXME Filtering by tag does not work 
         - ubuntu1804
         - ubuntu1604
         - greenlight
+        - letsencrypt
     - role: coturn
       tags: coturn
