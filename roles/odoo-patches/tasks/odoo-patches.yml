@@ -14,6 +14,9 @@
   loop: "{{ odoo_patches }}"
   notify: Restart odoo container
   when: odoo_replicas == 1
+  register: res
+  changed_when: res.rc == 2
+  failed_when: res.rc == 1
 
 - name: Apply patches
   script: "{{ item.0.name }} {{ odoo_hostname }}_{{ item.1 }}"
@@ -22,3 +25,6 @@
   loop: "{{ odoo_patches | product(range(1,odoo_replicas+1)) | list }}"
   notify: Restart odoo container
   when: odoo_replicas > 1
+  register: res
+  changed_when: res.rc == 2
+  failed_when: res.rc == 1

@@ -20,6 +20,9 @@ FILE=`basename "$FILE_PATH"`
 # Copy from docker
 docker cp "$CONTAINER":"$FILE_PATH" .
 
+# Check if already patched
+FOUND=$(grep "$FIND" $FILE)
+
 # Find and replace
 sed -i'' "s/$FIND/$REPLACE/g" $FILE
 
@@ -29,6 +32,8 @@ docker cp $FILE "$CONTAINER":"$FILE_PATH"
 # Remove file
 rm -f $FILE
 
-# Register patch installation
-echo "Patch $SCRIPT applied."
-touch "/etc/odoo/${SCRIPT}_${CONTAINER}_installed"
+if [ -z "$FOUND" ];then
+    exit 0 # File is already patched
+else
+    exit 2 # File changed
+fi
