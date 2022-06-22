@@ -41,6 +41,13 @@ nginx_proxies:
     ssl: true # default: false
     monitor: true # default: false
     locations:
+      - path: /
+        dest_hostname: frappe-bench
+        dest_port: 8000
+        proxy_params: |
+          proxy_set_header Host frappe-bench:8000;
+        options: |
+          client_max_body_size 128M;
       - path: /auth
         dest_hostname: authserver
         dest_port: 8080 # default: 80
