@@ -41,3 +41,9 @@ And include it in your playbook.
 ### Show status
 
 Run `sudo innernet status` to get the list of available peers.
+
+### Start Service
+
+Check innernet service with `sudo systemctl status innernet@{{ innernet_client_network_name }}`.
+
+Start innernet service with `sudo systemctl start innernet@{{ innernet_client_network_name }}`.

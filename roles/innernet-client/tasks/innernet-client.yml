@@ -27,7 +27,12 @@
   ignore_errors: true # FIXME: Cannot check if interface is down
   when: innernet_client_invitation_file is defined and innernet_client_network_name not in innernet_status.stdout
 
-- name: Enable innernet service
+- name: "Stop innernet@{{ innernet_client_network_name }} service"
   systemd:
     name: innernet@{{ innernet_client_network_name }}"
-    state: restarted
+    state: stopped
+
+- name: "Start innernet@{{ innernet_client_network_name }} service"
+  systemd:
+    name: innernet@{{ innernet_client_network_name }}"
+    state: started
