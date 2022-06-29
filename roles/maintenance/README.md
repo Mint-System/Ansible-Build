@@ -1,4 +1,4 @@
-# Ansible Maintenance role
+# Maintenance role
 
 Maintains operating system and disk space.
 

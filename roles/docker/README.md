@@ -1,4 +1,4 @@
-# Ansible Docker role
+# Docker role
 
 Installs Docker for Ubuntu and CentOS.
 

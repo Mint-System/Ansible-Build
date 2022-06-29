@@ -1,4 +1,4 @@
-# Ansible Odoo Enterprise role
+# Odoo Enterprise role
 
 Checkout the Odoo Enterprise git repository.
 

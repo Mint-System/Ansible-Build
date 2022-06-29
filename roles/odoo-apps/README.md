@@ -1,4 +1,4 @@
-# Ansible Odoo apps role
+# Odoo apps role
 
 Install Odoo apps from file, url, public or private GitHub repo.
 

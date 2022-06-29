@@ -1,4 +1,4 @@
-# Ansible systemd role
+# systemd role
 
 Setup systemd service.
 

@@ -1,4 +1,4 @@
-# Ansible Metricbeat role
+# Metricbeat role
 
 Deploy Metricbeat Docker container.
 

@@ -1,4 +1,4 @@
-# Ansible cron role
+# cron role
 
 Setup cron jobs.
 

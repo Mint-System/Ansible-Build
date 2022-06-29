@@ -1,4 +1,4 @@
-# Ansible Grafana role
+# Grafana role
 
 Deploy Grafana container.
 

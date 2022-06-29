@@ -1,4 +1,4 @@
-# Ansible OnlyOffice Document Server role
+# OnlyOffice Document Server role
 
 Deploy OnlyOffice Document Server container.
 

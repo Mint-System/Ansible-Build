@@ -1,4 +1,4 @@
-# Ansible Elasticsearch role
+# Elasticsearch role
 
 Deploy Elasticsearch Docker cluster.
 

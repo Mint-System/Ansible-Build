@@ -1,4 +1,4 @@
-# Ansible Cleanup role
+# Cleanup role
 
 Cleanup Ansible roles.
 

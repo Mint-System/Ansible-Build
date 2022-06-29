@@ -1,4 +1,4 @@
-# Ansible Innernet Server role
+# Innernet Server role
 
 Setup WireGuard based internal network.
 

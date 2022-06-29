@@ -1,4 +1,4 @@
-# Ansible BigBlueButton exporter role
+# BigBlueButton exporter role
 
 Deploy BigBlueButton exporter container.
 

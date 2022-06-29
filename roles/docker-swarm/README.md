@@ -1,4 +1,4 @@
-# Ansible Docker Swarm role
+# Docker Swarm role
 
 Configures Docker Swarm.
 

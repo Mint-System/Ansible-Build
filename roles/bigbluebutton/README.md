@@ -1,4 +1,4 @@
-# Ansible BigBlueButton role
+# BigBlueButton role
 
 Configures an installed BigBlueButton instance.
 

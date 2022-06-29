@@ -1,4 +1,4 @@
-# Ansible Debug role
+# Debug role
 
 Debug Ansible variables.
 

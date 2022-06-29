@@ -1,4 +1,4 @@
-# Ansible WordPress role
+# WordPress role
 
 Deploy WordPress container.
 

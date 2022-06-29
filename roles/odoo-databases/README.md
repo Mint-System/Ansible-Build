@@ -1,4 +1,4 @@
-# Ansible Odoo Databases role
+# Odoo Databases role
 
 Configure Odoo databases.
 

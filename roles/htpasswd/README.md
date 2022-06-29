@@ -1,4 +1,4 @@
-# Ansible .htpasswd role
+# .htpasswd role
 
 Configure .htpasswd basic auth file.
 

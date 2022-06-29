@@ -1,4 +1,4 @@
-# Ansible Simple Mail Forwarder role
+# Simple Mail Forwarder role
 
 Deploy Simple Mail Forwarder container.
 

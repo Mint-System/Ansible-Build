@@ -1,4 +1,4 @@
-# Ansible Certbot role
+# Certbot role
 
 Deploy Let's Encrypt certificates.
 

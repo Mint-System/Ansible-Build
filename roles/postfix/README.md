@@ -1,4 +1,4 @@
-# Ansible Postfix role
+# Postfix role
 
 Deploy Postfix relay host.
 

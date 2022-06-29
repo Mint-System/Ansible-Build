@@ -1,4 +1,4 @@
-# Ansible Restic client role
+# Restic client role
 
 Configures Restic client backup jobs.
 

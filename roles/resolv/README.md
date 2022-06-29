@@ -1,4 +1,4 @@
-# Ansible resolv role
+# resolv role
 
 Manage resolv configuration.
 

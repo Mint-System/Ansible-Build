@@ -1,4 +1,4 @@
-# Ansible cAdvisor role
+# cAdvisor role
 
 Deploy cAdvisor container.
 

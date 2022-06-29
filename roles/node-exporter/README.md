@@ -1,4 +1,4 @@
-# Ansible Node Exporter role
+# Node Exporter role
 
 Deploy node-exporter container and install custom metric script.
 

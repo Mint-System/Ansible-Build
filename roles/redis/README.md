@@ -1,4 +1,4 @@
-# Ansible Redis role
+# Redis role
 
 Deploy Redis container.
 

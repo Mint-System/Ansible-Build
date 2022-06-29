@@ -1,4 +1,4 @@
-# Ansible Docker Compose role
+# Docker Compose role
 
 Deploy Docker Compose project.
 

@@ -1,4 +1,4 @@
-# Ansible BIRT role
+# BIRT role
 
 Deploy BIRT container.
 

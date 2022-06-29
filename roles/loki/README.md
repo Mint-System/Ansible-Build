@@ -1,4 +1,4 @@
-# Ansible Loki role
+# Loki role
 
 Deploy Loki container.
 

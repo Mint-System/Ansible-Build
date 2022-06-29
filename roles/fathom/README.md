@@ -1,4 +1,4 @@
-# Ansible Fathom role
+# Fathom role
 
 Deploy Fathom container.
 

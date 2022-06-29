@@ -1,4 +1,4 @@
-# Ansible package role
+# package role
 
 Set env vars and install packages.
 

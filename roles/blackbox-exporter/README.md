@@ -1,4 +1,4 @@
-# Ansible Blackbox exporter role
+# Blackbox exporter role
 
 Deploy Blackbox exporter container.
 

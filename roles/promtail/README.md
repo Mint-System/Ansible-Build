@@ -1,4 +1,4 @@
-# Ansible Promtail role
+# Promtail role
 
 Deploy Promtail container.
 

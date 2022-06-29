@@ -1,4 +1,4 @@
-# Ansible Nextcloud exporter role
+# Nextcloud exporter role
 
 Deploy Nextcloud exporter container.
 

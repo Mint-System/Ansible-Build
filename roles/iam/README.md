@@ -1,4 +1,4 @@
-# Ansible IAM role
+# IAM role
 
 Configures users and groups.
 

@@ -1,4 +1,4 @@
-# Ansible RClone role
+# RClone role
 
 Sync files with RClone.
 

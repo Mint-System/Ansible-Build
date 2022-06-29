@@ -1,4 +1,4 @@
-# Ansible Nginx role
+# Nginx role
 
 Deploy Nginx proxy with Certbot.
 

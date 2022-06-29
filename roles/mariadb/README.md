@@ -1,4 +1,4 @@
-# Ansible MariaDB role
+# MariaDB role
 
 Deploy MariaDB database container.
 

@@ -1,4 +1,4 @@
-# Ansible s3cmd role
+# s3cmd role
 
 Install and configure s3cmd.
 

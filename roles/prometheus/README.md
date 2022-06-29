@@ -1,4 +1,4 @@
-# Ansible Prometheus role
+# Prometheus role
 
 Deploy Prometheus container.
 

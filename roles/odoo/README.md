@@ -1,4 +1,4 @@
-# Ansible Odoo role
+# Odoo role
 
 Deploy Odoo Docker container.
 

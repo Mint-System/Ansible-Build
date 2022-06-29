@@ -1,4 +1,4 @@
-# Ansible Vercel role
+# Vercel role
 
 Manage vercel domain and dns entries.
 

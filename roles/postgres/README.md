@@ -1,4 +1,4 @@
-# Ansible PostgreSQL role
+# PostgreSQL role
 
 Deploy PostgreSQL database container.
 

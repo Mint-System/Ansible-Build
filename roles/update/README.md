@@ -1,4 +1,4 @@
-# Ansible Update role
+# Update role
 
 Install system and package updates.
 

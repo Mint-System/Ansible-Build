@@ -1,4 +1,4 @@
-# Ansible BookStack role
+# BookStack role
 
 Deploy BookStack container.
 

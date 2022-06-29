@@ -1,4 +1,4 @@
-# Ansible Nextcloud role
+# Nextcloud role
 
 Deploy Nextcloud Docker container.
 

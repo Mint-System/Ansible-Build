@@ -1,4 +1,4 @@
-# Ansible cargo role
+# cargo role
 
 Setup Rust toolchain and cargo package manager.
 

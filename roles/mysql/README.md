@@ -1,4 +1,4 @@
-# Ansible MySQL role
+# MySQL role
 
 Deploy MySQL database container.
 

@@ -1,4 +1,4 @@
-# Ansible Odoo Scripts role
+# Odoo Scripts role
 
 Install Odoo scripts.
 

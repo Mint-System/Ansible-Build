@@ -1,4 +1,4 @@
-# Ansible Keycloak Client role
+# Keycloak Client role
 
 Configure Keycloak client.
 

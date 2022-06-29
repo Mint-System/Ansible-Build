@@ -1,4 +1,4 @@
-# Ansible locale role
+# locale role
 
 Set system locale.
 

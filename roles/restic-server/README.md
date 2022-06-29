@@ -1,4 +1,4 @@
-# Ansible Restic server role
+# Restic server role
 
 Deploy Restic server container.
 

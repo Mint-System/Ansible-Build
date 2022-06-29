@@ -1,4 +1,4 @@
-# Ansible PostgreSQL exporter role
+# PostgreSQL exporter role
 
 Deploy PostgreSQL exporter container.
 

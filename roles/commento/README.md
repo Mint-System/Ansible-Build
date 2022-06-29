@@ -1,4 +1,4 @@
-# Ansible Commento role
+# Commento role
 
 Deploy Commento container
 

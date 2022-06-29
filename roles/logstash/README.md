@@ -1,4 +1,4 @@
-# Ansible Logstash role
+# Logstash role
 
 Deploy Logstash Docker container.
 

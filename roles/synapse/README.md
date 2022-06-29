@@ -1,4 +1,4 @@
-# Ansible Synapse role
+# Synapse role
 
 Deploy Matrix Synapse container.
 

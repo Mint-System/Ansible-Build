@@ -1,4 +1,4 @@
-# Ansible fstab role
+# fstab role
 
 Configure the fstab file.
 

@@ -1,4 +1,4 @@
-# Ansible Docker Volume role
+# Docker Volume role
 
 Configures a Docker volume.
 

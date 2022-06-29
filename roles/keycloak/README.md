@@ -1,4 +1,4 @@
-# Ansible Keycloak role
+# Keycloak role
 
 Deploy Keycloak container.
 

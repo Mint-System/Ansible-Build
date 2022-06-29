@@ -1,4 +1,4 @@
-# Ansible Moodle role
+# Moodle role
 
 Deploy Moodle Docker container.
 

@@ -1,4 +1,4 @@
-# Ansible Remark42 role
+# Remark42 role
 
 Deploy Remark42 container
 

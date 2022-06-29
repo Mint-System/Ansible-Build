@@ -7,3 +7,6 @@ venv*
 inventory
 inventories
 node_modules
+.temp
+.cache
+dist

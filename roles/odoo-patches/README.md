@@ -1,4 +1,4 @@
-# Ansible Odoo patches role
+# Odoo patches role
 
 Apply custom Odoo patches.
 

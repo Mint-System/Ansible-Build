@@ -1,4 +1,4 @@
-# Ansible Odoo Data role
+# Odoo Data role
 
 Generate Odoo data modules.
 

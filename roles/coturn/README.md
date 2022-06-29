@@ -1,4 +1,4 @@
-# Ansible Coturn role
+# Coturn role
 
 Deploy Cotainer.
 

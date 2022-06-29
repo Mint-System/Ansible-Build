@@ -1,4 +1,4 @@
-# Ansible UFW role
+# UFW role
 
 Configures UFW rules.
 

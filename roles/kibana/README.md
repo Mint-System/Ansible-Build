@@ -1,4 +1,4 @@
-# Ansible Kibana role
+# Kibana role
 
 Deploy Kibana Docker container.
 

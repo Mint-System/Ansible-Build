@@ -1,4 +1,4 @@
-# Ansible Docker Network role
+# Docker Network role
 
 Configures a Docker network.
 

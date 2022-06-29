@@ -1,4 +1,4 @@
-# Ansible Nextcloud apps role
+# Nextcloud apps role
 
 Install, update and remove Nextcloud apps.
 
