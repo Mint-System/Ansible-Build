@@ -11,10 +11,10 @@
 # Zypper natively finds services and restarts them.
 
 - name: Check if reboot is required
-    stat: 
-      path: /boot/do_purge_kernels
-      get_md5: no
-    register: linux_reboot_required_file
+  stat: 
+    path: /boot/do_purge_kernels
+    get_md5: no
+  register: linux_reboot_required_file
 
 - name: Reboot system if required
   reboot:
