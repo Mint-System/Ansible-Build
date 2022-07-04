@@ -10,13 +10,19 @@
 
 # Zypper natively finds services and restarts them.
 
-- name: Get all installed and updated packages # noqa 306
-  shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "
-  args:
-    warn: false
-  register: installed_updated_packages
-  changed_when: false
+- name: Check if reboot is required
+    stat: 
+      path: /boot/do_purge_kernels
+      get_md5: no
+    register: linux_reboot_required_file
 
-- name: Show installed and updated packages
-  debug:
-    msg: "{{ installed_updated_packages.stdout_lines }}"
+- name: Reboot system if required
+  reboot:
+    msg: "Reboot initiated by Ansible for kernel updates"
+    connect_timeout: 5
+    reboot_timeout: 300
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+    test_command: uptime
+  when: linux_reboot_required_file.stat.exists
+
