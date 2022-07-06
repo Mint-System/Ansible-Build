@@ -15,12 +15,12 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Manage Odoo users."
-    echo "Syntax: $SCRIPT [-d|-c|-a[enable,disable,list]|-i|help]"
+    echo "Syntax: $SCRIPT [-d|-c|-a[enable,disable,list,reset]|-i|help]"
     echo "Example: $SCRIPT -d erp-dev -c odoo06 -a enable -id janikvonrot@mint-system.ch"
     echo "options:"
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -a    Action to perform."
+    echo "  -a    Action to perform. Options: enable, disable, list, reset"
     echo "  -i    User account login id."
     echo "  help  Show $SCRIPT manual."
     echo
@@ -54,16 +54,22 @@ done
 
 if [[ $ACTION == 'enable' ]]; then
     [[ -z "$ID" ]] && { echo "Parameter -i|id is empty" ; exit 1; }
-    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE public.res_users SET active=true WHERE login='$ID';\""
+    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE res_users SET active=true WHERE login='$ID';\""
     echo "Enabled user $ID on Odoo database $DATABASE."
 fi
 
 if [[ $ACTION == 'disable' ]]; then
     [[ -z "$ID" ]] && { echo "Parameter -i|id is empty" ; exit 1; }
-    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE public.res_users SET active=false WHERE login='$ID';\""
+    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE res_users SET active=false WHERE login='$ID';\""
     echo "Disabled user $ID on Odoo database $DATABASE."
 fi
 
 if [[ $ACTION == 'list' ]]; then
-    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c 'SELECT login,active FROM public.res_users;'"
+    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c 'SELECT id,login,active FROM res_users;'"
+fi
+
+if [[ $ACTION == 'reset' ]]; then
+    [[ -z "$ID" ]] && { echo "Parameter -i|id is empty" ; exit 1; }
+    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE res_users SET active=true,password='\$pbkdf2-sha512\$25000\$JuScEwIg5JzTGqNUivFeqw\$yWTOcix2Afr3XGP2NPY7w4w49e9vpsu14NRndDYXAkbtMF4zkrmx6inVsoLl0zZY30xI/0GzhwonWsK9TUmjWA' WHERE id='$ID';\""
+    echo "Reset password for user $ID on Odoo database $DATABASE."
 fi
