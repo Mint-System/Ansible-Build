@@ -32,12 +32,12 @@
   debug:
     msg: "{{ old_files.files | map(attribute='path') | list }}"
 
-- name: Remove old files
-  command:
-    cmd: find /var/tmp -type f -mtime +7 -exec rm -rf {} \;
-  when: old_files.files
-
 - name: Remove old directories
   command:
     cmd: find /var/tmp -type d -mtime +7 -exec rm -rf {} \;
+  when: old_files.files
+
+- name: Remove old files
+  command:
+    cmd: find /var/tmp -type f -mtime +7 -exec rm -rf {} \;
   when: old_files.files
