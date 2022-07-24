@@ -10,7 +10,7 @@
   fail:
     msg: >-
       Run this command manually:
-      docker run -it --name {{ item | replace('*.', 'wildcard') }}
+      docker run -it --rm --name {{ item | replace('*.', 'wildcard') }}
       -v {{ certbot_data_dir }}/:/etc/letsencrypt/
       -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
       certonly --email {{ certbot_email }} --agree-tos -d {{ item }}
