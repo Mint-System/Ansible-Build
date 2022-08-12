@@ -77,6 +77,11 @@ function version() {
     ansible --version
 }
 
+function show-passwordless-sudo() {
+    USER=${1:-"$USERNAME"}
+    echo "echo \"$USER ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
+}
+
 case "$1" in
     generate-passwordfile)
         generate-passwordfile $2
@@ -101,8 +106,7 @@ case "$1" in
         activate-venv
         ;;
     show-passwordless-sudo)
-        echo "Enter 'sudo EDITOR=vim visudo' and append this line:"
-        echo "$USERNAME ALL=(ALL) NOPASSWD: ALL"
+        show-passwordless-sudo $2
         ;;
     *)
         help task
