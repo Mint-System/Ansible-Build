@@ -13,7 +13,7 @@
   environment:
     RESTIC_PASSWORD: "{{ restic_repo_password }}"
     RESTIC_REPOSITORY: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false
   register: repo_initalized
 
@@ -23,19 +23,7 @@
     RESTIC_PASSWORD: "{{ restic_repo_password }}"
     RESTIC_REPOSITORY: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
   when: repo_initalized.failed
-
-- name: Ensure restic environment vars exists
-  lineinfile:
-    dest: "/etc/environment"
-    state: present
-    regexp: "^{{ item.key }}="
-    line: "{{ item.key }}={{ item.value }}"
-  no_log: true
-  loop:
-    - key: RESTIC_PASSWORD
-      value: "{{ restic_repo_password }}"
-    - key: RESTIC_REPOSITORY
-      value: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
+  notify: "Ensure restic environment vars exists"
 
 - name: Register backup rotation job
   cron:
