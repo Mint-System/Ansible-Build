@@ -15,7 +15,7 @@ prometheus_description: Monitoring # default: Prometheus
 prometheus_volume_name: prom_data01 # default: "{{ prometheus_hostname }}"
 prometheus_data_dir: /usr/share/prom # default: "/usr/share/{{ prometheus_hostname }}"
 prometheus_port: 127.0.0.1:9999 # default: 127.0.0.1:9090
-prometheus_rention_time: "60d" # default: "30d"
+prometheus_rention_time: "30d" # default: "15d"
 prometheus_node_exporter_basic_auth_username: node-exporter
 prometheus_node_exporter_basic_auth_password: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
 prometheus_cadvisor_basic_auth_username: cadvisor

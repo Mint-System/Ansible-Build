@@ -3,4 +3,4 @@ prometheus_description: Prometheus
 prometheus_volume_name: "{{ prometheus_hostname }}"
 prometheus_data_dir: "/usr/share/{{ prometheus_hostname }}"
 prometheus_etc_hosts: {}
-prometheus_rention_time: "21d"
+prometheus_rention_time: "15d"
