@@ -34,7 +34,7 @@ while getopts ":n: :h:" opt; do
   esac
 done
 
-[[ -z "$ANSIBLE_CRON_NAME" ]] && { echo "Parameter -n|database is empty" ; exit 1; }
+[[ -z "$ANSIBLE_CRON_NAME" ]] && { echo "Parameter -n|name is empty" ; exit 1; }
 
 # Get Path definitions
 # PATH=$(crontab -l | grep "PATH=" | cut -d'=' -f2-)
