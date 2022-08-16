@@ -36,3 +36,4 @@
   systemd:
     name: innernet@{{ innernet_client_network_name }}"
     state: started
+    enabled: true
