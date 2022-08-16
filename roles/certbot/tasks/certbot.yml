@@ -18,12 +18,11 @@
   debug:
     var: certbot_missing_certs
 
-- name: Copy nginx conf files
+- name: Copy nginx default conf
   copy:
-    src: "{{ item }}"
-    dest: "{{ nginx_data_dir }}/"
-  loop:
-    - files/default.conf
+    src: default.conf
+    dest: "{{ nginx_data_dir }}/default.conf"
+    force: false
 
 - name: "Copy nginx {{ role_name }} conf"
   template:

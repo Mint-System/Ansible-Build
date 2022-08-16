@@ -59,7 +59,6 @@ nginx_proxies:
   - src_hostname: old.example.com
     redirect_url: https://www.example.com/new
   - src_hostname: intern.example.com
-    redirect: false # default: true
     dest_hostname: intern01
     dest_port: 8080
     locations:
