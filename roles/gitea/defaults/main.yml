@@ -1,0 +1,8 @@
+gitea_volume_name: "{{ gitea_hostname }}"
+gitea_description: Gitea
+gitea_user: git
+gitea_postgres_database: gitea
+gitea_postgres_user: gitea
+gitea_postgres_password: "{{ vault_gitea_postgres_password }}"
+gitea_ports:
+  - "222:22"

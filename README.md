@@ -48,6 +48,7 @@ List of all avaialable Ansible roles.
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
+| [birt](roles/birt/README.md)                                           | Deploy BIRT container.                                           |
 | [blackbox-exporter](roles/blackbox-exporter/README.md)                 | Deploy Blackbox exporter container.                              |
 | [bookstack](roles/bookstack/README.md)                                 | Deploy BookStack container.                                      |
 | [cadvisor](roles/cadvisor/README.md)                                   | Deploy cAdvisor Docker container.                                |
@@ -67,6 +68,7 @@ List of all avaialable Ansible roles.
 | [fathom](roles/fathom/README.md)                                       | Deploy Fathom container.                                         |
 | [fstab](roles/fstab/README.md)                                         | Configure the fstab file.                                        |
 | [grafana](roles/grafana/README.md)                                     | Deploy Grafana Docker container.                                 |
+| [htpasswd](roles/htpasswd/README.md)                                   | Configure .htpasswd basic auth file.                             |
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
 | [innernet-client](roles/innernet-client/README.md)                     | Setup WireGuard based internal network.                          |
 | [innernet-server](roles/innernet-server/README.md)                     | Setup WireGuard based internal network.                          |
@@ -103,6 +105,7 @@ List of all avaialable Ansible roles.
 | [postgres-exporter](roles/postgres-exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
 | [promtail](roles/promtail/README.md)                                   | Deploy Promtail container.                                       |
+| [rclone](roles/rclone/README.md)                 | Sync files with RClone.          |
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
 | [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |
@@ -118,14 +121,12 @@ List of all avaialable Ansible roles.
 
 Work in progress:
 
-| Role                                             | Description                          |
-| ------------------------------------------------ | ------------------------------------ |
-| [htpasswd](roles/htpasswd/README.md)             | Configure .htpasswd basic auth file. |
-| [birt](roles/birt/README.md)                     | Deploy BIRT container.               |
-| [rclone](roles/rclone/README.md)                 | Sync files with RClone.              |
-| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.             |
-| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container.     |
-| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container.     |
+| Role                                             | Description                      |
+| ------------------------------------------------ | -------------------------------- |
+| [gitea](roles/gitea/README.md)                 | Deploy Gitea container.         |
+| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
+| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
+| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
 
 ### Commands
 
