@@ -14,9 +14,10 @@ gitea_image: gitea/gitea:1.17.0
 gitea_description: Git Server # default: Gitea
 gitea_hostname: git01
 odoo_ports:
- - "2222:22" # default: "2222:22"
+ - "2222:22" # default: "222:22"
 gitea_volume_name: git01_data # default: "{{ gitea_hostname }}"
 gitea_user: svn # default: git
+gitea_root_url: https://git.example.com
 gitea_postgres_hostname: postgres01
 gitea_postgres_database: git # default: gitea
 gitea_postgres_user: git # default: gitea

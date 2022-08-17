@@ -8,8 +8,9 @@
     recreate: no
     env:
       USER: "{{ gitea_user }}"
+      LOCAL_ROOT_URL: "{{ gitea_root_url }}"
       GITEA__database__DB_TYPE: postgres
-      GITEA__database__HOST: db:5432
+      GITEA__database__HOST: "{{ gitea_postgres_hostname }}:5432"
       GITEA__database__NAME: "{{ gitea_postgres_database }}"
       GITEA__database__USER: "{{ gitea_postgres_user }}"
       GITEA__database__PASSWD: "{{ gitea_postgres_password }}"
