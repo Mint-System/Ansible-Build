@@ -34,6 +34,7 @@
     locations: "{{ item.locations | default(false) }}"
     server_names: "{{ item.server_names | default(false) }}"
     cache: "{{ item.cache | default(false) }}"
+    limit_req_zone: "{{ item.limit_req_zone | default(false) }}"    
   loop: "{{ nginx_proxies }}"
   notify: Restart nginx container
 
