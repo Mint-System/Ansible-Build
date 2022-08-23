@@ -14,14 +14,21 @@ restic_client_password: "{{ vault_restic_client_password }}"
 restic_repo: "restic.example.com/{{ inventory_hostname }}"
 restic_repo_password: "{{ vault_restic_repo_password }}"
 restic_backup_set:
- - id: "postgres volume"
+  - id: "docker volume backup moodle01"
+    type: docker-volume
+    container: moodle01
+    tags:
+      - moodle
+      - moodle01
+    hour: "1"
+ - id: "docker volume backup postgres_data01"
    type: docker-volume
    volume: postgres_data01
    tags:
     - postgres
     - postgres01
    hour: "1"
-- id: "bookstack data dir"
+- id: "data dir backup bookstack01"
   type: file
   path: /usr/share/bookstack01
   tags:
@@ -29,7 +36,7 @@ restic_backup_set:
     - bookstack01
   hour: "1"
   status: absent
-- id: "odoo backup"
+- id: "odoo backup odoo01"
   type: odoo-backup
   host: http://localhost:8070
   database: odoo
@@ -37,7 +44,7 @@ restic_backup_set:
     - odoo
     - odoo01
   hour: "1"
-- id: "docker odoo backup"
+- id: "docker odoo backup odoo02"
   type: docker-odoo-backup
   container: odoo02
   database: odoo2
@@ -45,7 +52,7 @@ restic_backup_set:
     - odoo
     - odoo02
   hour: "2"
-- id: "postgres dump odoo"
+- id: "postgres dump backup postgres01"
   type: postgres-dump
   container: postgres01
   databases: odoo
@@ -54,14 +61,14 @@ restic_backup_set:
     - postgres01
   hour: "1"
   disabled: true
-- id: "postgres dump all"
+- id: "postgres dump backup postgres01 all"
   type: postgres-dump
   container: postgres01
   tags:
     - postgres
     - postgres01
   hour: "1"
-- id: "mysql dump wordpress"
+- id: "mysql dump backup mysql01"
   type: mysql-dump
   container: mysql01
   databases: wordpress,wordpress2
@@ -70,14 +77,14 @@ restic_backup_set:
     - mysql01
   hour: "1"
   disabled: true
-- id: "postgres dump all"
+- id: "postgres dump backup mysql01 all"
   type: mysql-dump
   container: mysql01
   tags:
     - mysql
     - mysql01
   hour: "1"
-- id: "mariadb dump frappe"
+- id: "mariadb dump backup mariadb01"
   type: mariadb-dump
   container: mariadb01
   databases: frappe
@@ -98,3 +105,17 @@ And include it in your playbook.
   roles:
   - role: restic-client
 ```
+
+## Docs
+
+### Backup types
+
+These backup types are available:
+
+* mariadb-dump
+* mysql-dump
+* postges-dump
+* docker-odoo-backup
+* odoo-backup
+* file
+* docker-volume

@@ -1,4 +1,4 @@
-- name: Register docker volume backup jobs
+- name: Register docker multi volume backup jobs
   cron:
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
@@ -9,4 +9,17 @@
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
-  when: item.type == "docker-volume"
+  when: item.type == "docker-volume" and item.container is defined
+
+- name: Register docker single volume backup jobs
+  cron:
+    name: "Backup job {{ item.id }}"
+    hour: "{{ item.hour }}"
+    minute: "{{ 59 |random(seed=item.id) }}"
+    job: "docker-volume-backup -c {{ item.volume }} -v {{ item.volume }} -a && \
+      restic backup /var/tmp/{{ item.volume }} --tag {{ item.tags | join(' --tag ') }}; \
+      write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
+    disabled: "{{ item.disabled | default(false) }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ restic_backup_set }}"
+  when: item.type == "docker-volume" and item.volume is defined

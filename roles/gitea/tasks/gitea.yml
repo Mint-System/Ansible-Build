@@ -1,7 +1,15 @@
 
-- name: "Create {{ role_name }} volume"
-  docker_volume:
-    name: "{{ gitea_volume_name }}"
+# - name: "Create {{ role_name }} volume"
+#   docker_volume:
+#     name: "{{ gitea_volume_name }}"
+
+- name: "Include docker volume role"
+  include_role:
+    name: docker-volume
+  vars:
+    docker_volume_name: "{{ gitea_volume_name }}"
+    docker_volume_backup_set: "{{ gitea_volume_backup_set | default([]) }}"
+  when: gitea_volume_name is defined
 
 - name: Init gitea env
   set_fact:

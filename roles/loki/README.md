@@ -45,7 +45,6 @@ The following tags are available:
 
 ## Docs
 
-
 ### Send test request to push api
 
 Send test data to push api with with curl using basic auth.

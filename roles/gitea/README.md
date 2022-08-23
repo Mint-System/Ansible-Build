@@ -22,6 +22,7 @@ gitea_postgres_hostname: postgres01
 gitea_postgres_database: git # default: gitea
 gitea_postgres_user: git # default: gitea
 gitea_postgres_password: # default: "{{ vault_gitea_postgres_password }}"
+gitea_volume_backup_set: # See restic_backup_set var in role restic-client
 ```
 
 And include it in your playbook.
