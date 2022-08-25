@@ -22,7 +22,7 @@ nginx_http_options: |
   }
 nginx_limit_req_zones:
   - name: one
-    rate: 5r/s
+    rate: 10r/s
 nginx_proxies:
   - src_hostname: www.example.com
     dest_hostname: webserver
@@ -52,6 +52,7 @@ nginx_proxies:
           proxy_set_header Host frappe-bench:8000;
         options: |
           client_max_body_size 128M;
+        limit_req_zone: one
       - path: /auth
         dest_hostname: authserver
         dest_port: 8080 # default: 80
