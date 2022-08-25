@@ -20,11 +20,15 @@ nginx_http_options: |
     default upgrade;
     '' close;
   }
+nginx_limit_req_zones:
+  - name: one
+    rate: 5r/s
 nginx_proxies:
   - src_hostname: www.example.com
     dest_hostname: webserver
     dest_replicas: 3 # default: 1
     dest_port: 8080 # default: 80
+    limit_req_zone: one
     options: |
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
     ssl: true # default: false
