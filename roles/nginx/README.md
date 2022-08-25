@@ -22,6 +22,7 @@ nginx_http_options: |
   }
 nginx_limit_req_zones:
   - name: one
+    size: 20m # default 10m
     rate: 10r/s
 nginx_proxies:
   - src_hostname: www.example.com
