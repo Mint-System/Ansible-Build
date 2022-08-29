@@ -18,6 +18,7 @@ Help() {
   echo "options:"
   echo "  -v    Volume name. Defaults to tar file name."
   echo "  -f    Path to tar file."
+  # echo "  -r    Remove existing files."
   echo "  help  Show docker-volume-restore manual."
   echo
 }
@@ -52,7 +53,7 @@ echo "Make sure to stop the attached containers before running the restore."
 
 # Restore dump for volume
 echo "Run restore $DIR/$FILENAME to Docker volume $VOLUME ..."
-docker run --rm -v $VOLUME:/_data -v ${DIR}:/restore ubuntu bash -c "cd /_data && tar xvf /restore/$VOLUME.tar --strip 1"
+docker run --rm -v $VOLUME:/_data -v ${DIR}:/restore ubuntu bash -c "cd /_data && rm -rf ./* && tar xvf /restore/$FILENAME --strip 1"
 
 # Notify if restore has finished
 echo "The Docker volume restore has finished."

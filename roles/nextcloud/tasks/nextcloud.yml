@@ -6,6 +6,22 @@
     docker_volume_backup_set: "{{ nextcloud_volume_backup_set | default([]) }}"
   when: nextcloud_volume_name is defined
 
+- name: "Ensure {{ role_name }} tmp dir exists"
+  file:
+    path: "/var/tmp/{{ nextcloud_hostname }}"
+    state: directory
+
+- name: "Copy {{ role_name }} Dockerfile"
+  template:
+    src: "{{ item }}"
+    dest: "/var/tmp/{{ nextcloud_hostname }}/{{ item }}"
+  loop:
+    - Dockerfile
+  notify: "Build {{ role_name }} custom image"
+
+- name: Flush handlers
+  meta: flush_handlers
+
 - name: "Start {{ role_name }} container {{ nextcloud_hostname }}"
   docker_container:
     name: "{{ nextcloud_hostname }}"

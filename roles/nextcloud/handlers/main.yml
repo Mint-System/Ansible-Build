@@ -2,3 +2,14 @@
   docker_container:
     name: "{{ nextcloud_hostname }}"
     restart: true
+
+- name: "Build {{ role_name }} custom image"
+  docker_image:
+    name: nextcloud:custom
+    build:
+      path: "/var/tmp/{{ nextcloud_hostname }}"
+      pull: true
+    source: build
+    force_source: true
+    force_tag: true
+    state: present
