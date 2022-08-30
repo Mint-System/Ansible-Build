@@ -15,6 +15,7 @@ restic_repo: "restic.example.com/{{ inventory_hostname }}"
 restic_repo_password: "{{ vault_restic_repo_password }}"
 restic_backup_set:
   - id: "docker volume backup moodle01"
+    upload: false
     type: docker-volume
     container: moodle01
     tags:

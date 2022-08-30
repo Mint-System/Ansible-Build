@@ -9,7 +9,8 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "restic backup {{ item.path }} --tag {{ item.tags | join(' --tag ') }}; \
+    job: "restic backup {{ item.path }} --tag {{ item.tags | join(' --tag ') }} \
+      {{ (item.upload | default(true)) | ternary('', '--help') }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"

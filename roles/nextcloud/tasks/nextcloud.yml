@@ -27,7 +27,7 @@
     name: "{{ nextcloud_hostname }}"
     labels:
       description: "{{ nextcloud_description }}"
-    image: "{{ nextcloud_image }}"
+    image: nextcloud:custom
     restart_policy: unless-stopped
     recreate: no
     env:

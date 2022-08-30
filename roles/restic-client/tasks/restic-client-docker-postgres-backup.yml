@@ -3,8 +3,9 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} && \
-      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}; \
+    job: "docker-postgres-backup -c {{ item.container }} -d {{ item.databases }} \
+      && restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} \
+      {{ (item.upload | default(true)) | ternary('', '--help') }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
@@ -16,8 +17,9 @@
     name: "Backup job {{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "docker-postgres-backup -c {{ item.container }} -a && \
-      restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }}; \
+    job: "docker-postgres-backup -c {{ item.container }} -a \
+      && restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} \
+      {{ (item.upload | default(true)) | ternary('', '--help') }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
