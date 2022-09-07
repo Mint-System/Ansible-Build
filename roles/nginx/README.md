@@ -70,6 +70,28 @@ nginx_proxies:
     locations:
       - path: /static
         root: intern.example.com
+  - src_hostname: erp.example.com
+    dest_hostname: odoo01
+    dest_port: 8069 # default: 80
+    ssl: true  # default: false
+    monitor: true # default: false
+    options: |
+      client_max_body_size 32M;
+    proxy_params: |
+      include /etc/letsencrypt/proxy-params.conf;
+      if ($request_method = OPTIONS) {
+        add_header Access-Control-Allow-Origin "http://localhost:8080";
+        add_header Access-Control-Allow-Credentials true;
+        add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS";
+        add_header Access-Control-Allow-Headers "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With";
+        add_header Access-Control-Max-Age 1728000;
+        add_header Content-Type "text/plain charset=UTF-8";
+        add_header Content-Length 0;
+        return 204;
+      }
+      add_header Access-Control-Allow-Origin "http://localhost:8080";
+      add_header Access-Control-Allow-Credentials true;
+      proxy_cookie_path / "/; secure; HttpOnly; SameSite=None";
 nginx_cache_enabled: true # default: false
 ```
 
