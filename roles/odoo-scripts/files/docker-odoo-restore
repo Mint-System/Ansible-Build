@@ -78,7 +78,7 @@ fi
 # Copy filestore and dump
 echo -e "\e[1A\e[KCopy filestore and dump."
 $docker_exec_root_bash 'mkdir -p /var/lib/odoo/filestore'
-docker cp filestore "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
+docker cp filestore/ "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
 docker cp dump.sql "$CONTAINER:/var/lib/odoo/"
 
 # Set filestore ownership
@@ -95,6 +95,7 @@ $docker_exec_bash 'PGPASSWORD="$PASSWORD" psql -q -h $HOST -U $USER $DATABASE -f
 
 # Remove source files
 echo -e "\e[1A\e[KCleanup source files."
+$docker_exec_bash 'rm ~/dump.sql'
 rm -rf dump.sql filestore
 
 # Notify if backup has finished
