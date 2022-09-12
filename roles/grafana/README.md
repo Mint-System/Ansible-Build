@@ -9,7 +9,8 @@ Configure the role.
 **vars.yml**
 
 ```yml
-grafana_image: grafana/grafana:6.7.1
+# https://hub.docker.com/r/grafana/grafana/
+grafana_image: grafana/grafana:8.3.11
 grafana_hostname: graf01
 grafana_description: Prometheus dashboard # default: Grafana
 grafana_data_dir: /usr/share/graf # default: "/usr/share/{{ grafana_hostname }}"

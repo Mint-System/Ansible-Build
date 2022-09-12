@@ -9,7 +9,8 @@ Configure the role.
 **vars.yml**
 
 ```yml
-prometheus_image: prom/prometheus:v2.17.1
+# https://hub.docker.com/r/prom/prometheus
+prometheus_image: prom/prometheus:v2.37.1
 prometheus_hostname: prom01
 prometheus_description: Monitoring # default: Prometheus
 prometheus_volume_name: prom_data01 # default: "{{ prometheus_hostname }}"

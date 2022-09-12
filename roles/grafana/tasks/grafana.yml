@@ -1,3 +1,11 @@
+- name: "Copy {{ role_name }} scripts"
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - grafana-backup
+
 - name: "Create {{ role_name }} volume"
   docker_volume:
     name: "{{ grafana_volume_name }}"
