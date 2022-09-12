@@ -1,4 +1,4 @@
-- name: Gather package facts
+- name: "Gather package facts"
   package_facts:
     manager: auto
 
@@ -21,19 +21,20 @@
   register: innernet_status
   changed_when: false
 
-- name: Install innernet client invitation file
+- name: "Install innernet client invitation file"
   command:
     cmd: "innernet install /var/tmp/{{ innernet_client_peer_name }}.yml --name {{ innernet_client_network_name }} --hosts-path /etc/hosts --delete-invite"
   ignore_errors: true # FIXME: Cannot check if interface is down
   when: innernet_client_invitation_file is defined and innernet_client_network_name not in innernet_status.stdout
 
-- name: "Stop innernet@{{ innernet_client_network_name }} service"
-  systemd:
-    name: innernet@{{ innernet_client_network_name }}"
-    state: stopped
+# - name: "Stop innernet@{{ innernet_client_network_name }} service"
+#   systemd:
+#     name: innernet@{{ innernet_client_network_name }}"
+#     state: stopped
 
-- name: "Start innernet@{{ innernet_client_network_name }} service"
+- name: "Enable and (re)start innernet@{{ innernet_client_network_name }} service"
   systemd:
     name: innernet@{{ innernet_client_network_name }}"
-    state: started
+    daemon_reload: true
     enabled: true
+    state: "restarted"
