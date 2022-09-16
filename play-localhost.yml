@@ -18,3 +18,5 @@
     tags: innernet-client
   - role: maintenance
     tags: maintenance
+  - role: rabbitmq
+    tags: rabbitmq

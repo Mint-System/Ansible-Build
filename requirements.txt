@@ -4,3 +4,4 @@ dnspython
 graphviz
 ansible-lint
 passlib
+docker

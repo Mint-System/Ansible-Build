@@ -1,0 +1,15 @@
+- name: "Restart {{ role_name }} container"
+  docker_container:
+    name: "{{ rabbitmq_hostname }}"
+    restart: true
+
+- name: "Build {{ role_name }} custom image"
+  docker_image:
+    name: rabbitmq:custom
+    build:
+      path: "/var/tmp/{{ rabbitmq_hostname }}"
+      pull: true
+    source: build
+    force_source: true
+    force_tag: true
+    state: present
