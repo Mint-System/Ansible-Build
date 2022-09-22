@@ -14,11 +14,11 @@ Help() {
   echo
   echo "$SCRIPT"
   echo
-  echo "Description: Clear all assets of Odoo databases."
+  echo "Description: Clear all assets of Odoo instance."
   echo "Syntax: $SCRIPT [-c||help]"
-  echo "Example: $SCRIPT -c postgres01 -d erp"
+  echo "Example: $SCRIPT -c odoo01 -d erp"
   echo "options:"
-  echo "  -c    Docker database container. Defaults to 'db'."
+  echo "  -c    Docker container. Defaults to 'odoo'."
   echo "  -d    Database name. Defaults to 'odoo'."
   echo "  help  Show $SCRIPT manual."
   echo
@@ -48,7 +48,8 @@ done
 : ${DATABASE:='odoo'}
 
 echo "Delete these assets on $CONTAINER for $DATABASE:"
-docker exec $CONTAINER bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@localhost/$DATABASE -c \"select id,name from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
-docker exec $CONTAINER bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@localhost/$DATABASE -c \"delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
+docker exec $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"select id,name from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
+docker exec $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
 
 echo "Restart the Odoo container".
+docker restart $CONTAINER
