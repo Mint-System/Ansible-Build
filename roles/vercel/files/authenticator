@@ -20,10 +20,10 @@ RECORD_ID=$(curl -s -X POST "{{ vercel_api_url }}/v2/domains/$DOMAIN/records?tea
 )
 
 # Save info for cleanup
-if [ ! -d /tmp/CERTBOT_$CERTBOT_DOMAIN ]; then
-    mkdir -m 0700 /tmp/CERTBOT_$CERTBOT_DOMAIN
+if [ ! -d /tmp/certbot_$CERTBOT_DOMAIN ]; then
+    mkdir -m 0700 /tmp/certbot_$CERTBOT_DOMAIN
 fi
-echo $RECORD_ID > /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID
+echo $RECORD_ID > /tmp/certbot_$CERTBOT_DOMAIN/id
 
 # Sleep to make sure the change has time to propagate over to DNS
 sleep 25

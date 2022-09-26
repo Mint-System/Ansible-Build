@@ -3,9 +3,9 @@
 VERCEL_TOKEN="{{ vercel_token }}"
 EMAIL="{{ certbot_email }}"
 
-if [ -f /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID ]; then
-    RECORD_ID=$(cat /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID)
-    rm -f /tmp/CERTBOT_$CERTBOT_DOMAIN/RECORD_ID
+if [ -f /tmp/certbot_$CERTBOT_DOMAIN/id ]; then
+    RECORD_ID=$(cat /tmp/certbot_$CERTBOT_DOMAIN/id)
+    rm -f /tmp/certbot_$CERTBOT_DOMAIN/RECORD_ID
 fi
 
 # Strip only the top domain to get the zone id

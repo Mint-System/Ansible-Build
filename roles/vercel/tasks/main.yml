@@ -1,3 +1,10 @@
+- name: "Include {{ role_name }} script tasks"
+  include_tasks: "{{ role_name }}-scripts.yml"
+  run_once: true
+  when: vercel_token is defined
+  tags:
+    - vercel
+
 - name: "Include {{ role_name }} dns tasks"
   include_tasks: "{{ role_name }}-dns.yml"
   run_once: true
