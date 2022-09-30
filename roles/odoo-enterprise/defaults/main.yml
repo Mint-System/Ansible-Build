@@ -1,2 +1,3 @@
 odoo_data_dir: "/usr/share/{{ odoo_hostname }}"
 odoo_enterprise_repo: "git@github.com:odoo/enterprise.git"
+odoo_enterprise_access_token: "{{ vault_odoo_enterprise_access_token }}"
