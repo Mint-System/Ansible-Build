@@ -23,7 +23,7 @@
 
 - name: List apps to be installed
   debug:
-    msg: "{{ odoo_app_names }}"
+    msg: "{{ odoo_app_names | sort   }}"
   
 # - name: "Check downloaded {{ role_name }} zip archives"
 #   stat:
