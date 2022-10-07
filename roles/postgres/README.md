@@ -41,3 +41,11 @@ And include it in your playbook.
   roles:
   - role: postgres
 ```
+
+## Docs
+
+### Install PostgreSQL scripts
+
+The installation script requires that you have sudo access to root.
+
+Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-playbooks/master/roles/postgres/files/install | sh` in your terminal.

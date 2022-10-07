@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-playbooks
+
+SCRIPT="docker-postgres-backup"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/postgres/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="docker-postgres-list"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/postgres/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="docker-postgres-restore"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/postgres/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
