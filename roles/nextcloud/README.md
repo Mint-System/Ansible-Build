@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/nextcloud/
-nextcloud_image: nextcloud:19-apache
+nextcloud_image: nextcloud:22.2-apache
 nextcloud_hostname: nextcloud01
 nextcloud_volume_name: nextcloud_data01 # default: "{{ nextcloud_hostname}}"
 nextcloud_volume_backup_set: # See restic_backup_set var in role restic-client
