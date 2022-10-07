@@ -26,7 +26,7 @@ And include it in your playbook.
 
 ## Docs
 
-### Install without Ansible
+### Install Docker Volume scripts
 
 The installation script requires that you have sudo access to root.
 
