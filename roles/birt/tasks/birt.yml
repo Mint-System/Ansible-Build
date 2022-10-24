@@ -19,6 +19,7 @@
     - web.xml
     - run_jetty
     - test.rptdesign
+    - .dockerignore
   notify: "Build {{ role_name }} custom image"
 
 - name: Run get dependencies script

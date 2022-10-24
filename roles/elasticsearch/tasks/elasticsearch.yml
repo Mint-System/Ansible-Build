@@ -24,6 +24,7 @@
     dest: "/var/tmp/{{ elasticsearch_hostname }}/{{ item }}"
   loop:
     - Dockerfile
+    - .dockerignore
   notify: "Build {{ role_name }} custom image"
 
 - name: Flush handlers

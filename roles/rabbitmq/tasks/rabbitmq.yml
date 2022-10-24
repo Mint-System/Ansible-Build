@@ -18,6 +18,7 @@
     dest: "/var/tmp/{{ rabbitmq_hostname }}/{{ item }}"
   loop:
     - Dockerfile
+    - .dockerignore
   notify: "Build {{ role_name }} custom image"
 
 - name: Flush handlers

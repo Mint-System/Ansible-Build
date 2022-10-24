@@ -55,3 +55,13 @@ In case the Redis container is deployed after Nextcloud has been initated, the c
      'port' => 6379,
 ],
 ```
+
+### Build manually
+
+Copy the build files with Ansible.
+
+Build with Docker.
+
+```bash
+docker build . -t nextcloud:custom
+```

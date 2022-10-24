@@ -17,6 +17,7 @@
   loop:
     - Dockerfile
     - custom.ini
+    - .dockerignore
   notify: "Build {{ role_name }} custom image"
 
 - name: Flush handlers
