@@ -1,6 +1,9 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
-    name: "{{ postgres_volume_name }}"
+- name: "Include docker volume role"
+  include_role:
+    name: docker-volume
+  vars:
+    docker_volume_name: "{{ postgres_volume_name }}"
+  when: postgres_volume_name is defined
 
 - name: "Start {{ role_name }} container {{ postgres_hostname }}"
   docker_container:
