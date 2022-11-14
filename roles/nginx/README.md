@@ -70,12 +70,16 @@ nginx_proxies:
     locations:
       - path: /static
         root: intern.example.com
-  - src_hostname: erp.example.com
+  - src_hostname: odoo.example.com
     dest_hostname: odoo01
     dest_port: 8069 # default: 80
     ssl: true  # default: false
     monitor: true # default: false
     options: |
+      location /longpolling {
+        proxy_pass http://odoo01:8072;
+        include /etc/letsencrypt/proxy-params.conf;
+      }
       client_max_body_size 32M;
     proxy_params: |
       include /etc/letsencrypt/proxy-params.conf;
