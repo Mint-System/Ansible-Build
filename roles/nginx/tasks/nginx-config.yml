@@ -23,6 +23,7 @@
     src: nginx-proxy.conf
     dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname | replace('*.', 'wildcard.') }}.conf"
   vars:
+    upstreams: "{{ item.upstreams | default(false) }}"
     src_hostname: "{{ item.src_hostname }}"
     dest_hostname: "{{ item.dest_hostname | default('') }}"
     dest_replicas: "{{ item.dest_replicas | default(1) }}"

@@ -75,9 +75,14 @@ nginx_proxies:
     dest_port: 8069 # default: 80
     ssl: true  # default: false
     monitor: true # default: false
+    upstreams:
+      - name: odoo
+        server: odoo17:8069
+      - name: odoochat
+        server: odoo17:8072
     options: |
       location /longpolling {
-        proxy_pass http://odoo01:8072;
+        proxy_pass http://odoochat;
         include /etc/letsencrypt/proxy-params.conf;
       }
       client_max_body_size 32M;
