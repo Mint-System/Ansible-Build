@@ -37,4 +37,4 @@
     name: innernet@{{ innernet_client_network_name }}"
     daemon_reload: true
     enabled: true
-    state: "restarted"
+    state: "started"
