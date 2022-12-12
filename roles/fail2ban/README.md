@@ -22,3 +22,9 @@ Include it in your playbook.
   roles:
   - role: fail2ban
 ```
+
+## Docs
+
+### Show status
+
+Run `fail2ban-client status sshd` to get the status of the fail2ban service.
