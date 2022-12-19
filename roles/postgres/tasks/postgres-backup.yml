@@ -7,6 +7,7 @@
     - docker-postgres-backup
     - docker-postgres-restore
     - docker-postgres-list
+    - docker-postgres-drop
 
 - name: "Include docker {{ role_name }} backup from restic client role"
   include_role:

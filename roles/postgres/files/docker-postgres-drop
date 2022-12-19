@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Exit script if command fails
+# -u stops the script on unset variables
+# -e stops the script on errors
+# -o pipefail stops the script if a pipe fails
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Drop database in Postgres Docker container."
+    echo "Syntax: $SCRIPT [-c|help]"
+    echo "Example: $SCRIPT -c postgres01 -d odoo"
+    echo "options:"
+    echo "  -c    Docker container. Defaults to 'postgres'."
+    echo "  -d    Comma-separated list of database names."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+# Show help and exit
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c: :d:" opt; do
+  case $opt in
+    c) CONTAINER="$OPTARG";;
+    d) DATABASE="$OPTARG";;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Verify variables
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+
+echo "Drop Postgres database $DATABASE on container $CONTAINER ..."
+docker exec $CONTAINER bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -tAc 'DROP DATABASE \"$DATABASE\";'"

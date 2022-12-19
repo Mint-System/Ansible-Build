@@ -48,13 +48,13 @@ done
 # Start dropping 
 IMAGE=$(docker inspect $CONTAINER --format='{{.Config.Image}}')
 if [[ "$IMAGE" =~ "mariadb" ]]; then
-  echo "Drop MariaDB database $DATABASE on container $FILE ..."
+  echo "Drop MariaDB database $DATABASE on container $CONTAINER ..."
   docker exec $CONTAINER bin/bash -c "export MYSQL_PWD=\$MARIADB_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $DATABASE;'"
 fi
 if [[ "$IMAGE" =~ "mysql" ]]; then
-  echo "Drop MySQL database $DATABASE on container $FILE ..."
+  echo "Drop MySQL database $DATABASE on container $CONTAINER ..."
   docker exec $CONTAINER bin/bash -c "export MYSQL_PWD=\$MYSQL_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $DATABASE;'"
 fi
 
-# Notify if backup has finished
-echo "The Docker MySQL/MariaDB databse has been dropped."
+# Notify if drop has finished
+echo "The Docker MySQL/MariaDB database has been dropped."
