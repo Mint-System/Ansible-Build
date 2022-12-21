@@ -13,6 +13,7 @@
 - name: Create list of missing certs
   set_fact:
     certbot_missing_certs: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`false`].item.src_hostname') | list }}"
+  when: nginx_proxies is defined
 
 - name: Log missing certificates
   debug:
@@ -31,6 +32,7 @@
   vars:
     server_name: "{{ item }}"
   loop: "{{ certbot_missing_certs }}"
+  when: certbot_missing_certs is defined
 
 - name: "Get infos on proxy container {{ nginx_hostname }}"
   docker_container_info:
@@ -64,12 +66,12 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ nginx_hostname }}|{{ role_name }}"
-  when: not nginx_container.exists and certbot_missing_certs
+  when: not nginx_container.exists and certbot_missing_certs is defined
 
 - name: Wait for proxy container
   pause:
     seconds: "3"
-  when: certbot_missing_certs
+  when: certbot_missing_certs is defined
 
 - name: "Issue certificate with {{ role_name }}"
   command: >-
@@ -78,7 +80,7 @@
     -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
     certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
   loop: "{{ certbot_missing_certs }}"
-  when: certbot_preferred_challenges == 'http'
+  when: certbot_preferred_challenges == 'http' and certbot_missing_certs is defined
   register: result
   failed_when: result.stdout is search('Some challenges have failed.') or result.failed
   changed_when: result.stdout is search('Congratulations!') or not result.failed

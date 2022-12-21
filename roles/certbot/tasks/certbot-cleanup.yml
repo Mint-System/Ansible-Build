@@ -7,6 +7,7 @@
 - name: Create managed certificate list from proxy list
   set_fact:
     managed_certs: "{{ nginx_proxies | selectattr('ssl', 'defined') | map(attribute='src_hostname') | map('replace', '*.', '') | list }}"
+  when: nginx_proxies is defined
 
 - name: "Remove unmanaged certificate with {{ role_name }}"
   docker_container:

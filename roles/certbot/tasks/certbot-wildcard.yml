@@ -1,6 +1,7 @@
 - name: Create list of wildcard certs
   set_fact:
     certbot_wildcard_certs: "{{ nginx_proxies | json_query('[?contains(src_hostname, `*`)].src_hostname') | list }}"
+  when: nginx_proxies is defined
 
 - name: Log wildcard certificates
   debug:
