@@ -14,11 +14,3 @@
   copy:
     dest: /etc/profile.d/custom-path.sh
     content: 'PATH=$PATH:{{ package_path_var }}'
-
-- name: "Copy {{ role_name }} scripts"
-  copy:
-    src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    mode: +x
-  loop:
-    - run-cron-job

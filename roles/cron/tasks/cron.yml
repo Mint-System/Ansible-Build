@@ -1,7 +1,41 @@
-- name: Setup cron jobs
+- name: "Copy {{ role_name }} scripts"
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - run-cron-job
+
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ cron_data_dir }}"
+    state: directory
+
+- name: "Copy {{ role_name }} scripts"
+  copy:
+    content: "{{ item.script }}"
+    dest: "{{ cron_data_dir }}/{{ item.script_name }}"
+    mode: +x
+  loop: "{{ cron_jobs }}"
+  when: item.command == "script"
+
+- name: "Setup {{ role_name }} script jobs"
+  cron:
+    name: "{{ item.id }}"
+    minute: "{{ item.minute }}"
+    job: "{{ cron_data_dir }}/{{ item.script_name }}"
+    disabled: "{{ item.disabled | default(false) }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ cron_jobs }}"
+  when: item.command == "script"
+  
+- name: "Setup {{ role_name }} command jobs"
   cron:
     name: "{{ item.name }}"
     hour: "{{ item.hour | default('*') }}"
     minute: "{{ item.hour | default('*') }}"
     job: "{{ item.command }}"
+    disabled: "{{ item.disabled | default(false) }}"
+    state: "{{ item.state | default('present') }}"
   loop: "{{ cron_jobs }}"
+  when: item.command != "script"

@@ -1,0 +1,12 @@
+- name: "Create {{ role_name }} log file"
+  copy:
+    content: ""
+    dest: "/var/log/cron.log"
+    force: no
+- name: "Ensure rsysyslog {{ role_name }} is enabled"
+  lineinfile:
+    path: "/etc/rsyslog.d/50-default.conf"
+    regexp: "cron.*"
+    insertafter: "#cron.*"
+    line: "cron.*                          /var/log/cron.log"
+  notify: "Restart rsyslog service"

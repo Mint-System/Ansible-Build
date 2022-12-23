@@ -3,3 +3,9 @@
   when: cron_jobs is defined
   tags:
     - cron
+
+- name: "Include {{ role_name }} log tasks"
+  include_tasks: "{{ role_name }}-log.yml"
+  when: cron_jobs is defined
+  tags:
+    - cron
