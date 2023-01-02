@@ -10,3 +10,4 @@ node_modules
 .temp
 .cache
 dist
+tmp
