@@ -8,7 +8,7 @@
     'author': 'Mint System GmbH, Odoo Community Association (OCA)',
     'website': 'https://www.mint-system.ch',
     'category': 'Technical',
-    'version': '14.0.1.0.0',
+    'version': '1.0.0',
     'license': 'AGPL-3',
     
     'depends': ['{{ depends }}'],
