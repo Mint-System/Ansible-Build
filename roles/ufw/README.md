@@ -26,3 +26,6 @@ And include it in your playbook.
 
 Enable ufw manually.\
 `ufw enable`
+
+Disable ufw manually.\
+`ufw disable`
