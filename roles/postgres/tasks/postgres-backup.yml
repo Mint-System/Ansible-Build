@@ -1,14 +1,3 @@
-- name: "Copy {{ role_name }} backup scripts"
-  copy:
-    src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    mode: +x
-  loop:
-    - docker-postgres-backup
-    - docker-postgres-restore
-    - docker-postgres-list
-    - docker-postgres-drop
-
 - name: "Include docker {{ role_name }} backup from restic client role"
   include_role:
     name: restic-client

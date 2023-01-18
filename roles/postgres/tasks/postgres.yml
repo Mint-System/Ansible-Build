@@ -28,7 +28,7 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ postgres_hostname }}|{{ role_name }}"
 
-- name: "Copy {{ role_name }} backup scripts"
+- name: "Copy {{ role_name }} scripts"
   copy:
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
