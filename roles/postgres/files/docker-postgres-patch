@@ -54,5 +54,5 @@ done
 POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")
 
 # Patch database
-echo "Patch Postgres database $DATABASE with $FILE ..."
+echo "Patch Postgres database $DATABASE using user $POSTGRES_USER with file $FILE ..."
 cat $FILE | docker exec -i $CONTAINER psql -U $POSTGRES_USER -d $DATABASE
