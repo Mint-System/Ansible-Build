@@ -21,8 +21,6 @@ Help() {
   echo "  -d    Name of database. Defaults to filename"
   echo "  -f    Path to sql dump."
   echo "  -c    Docker container name. Defaults to 'postgres'."
-  # echo "  -u    Optional database owner username."
-  # echo "  -p    Optional database owner password."
   echo "  -r    Replace existing database."
   echo "  -i    Create database."
   echo "  help  Show $SCRIPT manual."

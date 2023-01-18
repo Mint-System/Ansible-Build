@@ -27,3 +27,8 @@ SCRIPT="docker-postgres-drop"
 echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/postgres/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="docker-postgres-patch"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/postgres/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
