@@ -10,7 +10,8 @@ Configure the role.
 
 ```yml
 iam_root_password: "{{ vault_iam_root_password }}"
-iam_disallow_ssh_root_access: yes
+iam_disallow_ssh_root_access: false # default: true
+iam_allow_ssh_password_authentication: true # default: false
 iam_groups:
   - name: wheel
     add_group_to_sudoers: true
@@ -32,7 +33,8 @@ iam_users:
     hosts:
       - server1
 host_iam_users:
-  - username: bob.meier@example.com
+  - username: bobmeyer
+    passwort: "{{ vault_iam_users_bobmeyer_password }}"
     hosts:
       - server1
 ```

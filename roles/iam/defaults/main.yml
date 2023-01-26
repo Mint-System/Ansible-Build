@@ -1,0 +1,2 @@
+iam_disallow_ssh_root_access: true
+iam_allow_ssh_password_authentication: false

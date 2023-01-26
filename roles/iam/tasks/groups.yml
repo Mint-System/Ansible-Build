@@ -22,3 +22,23 @@
     validate: "echo %s && /usr/sbin/sshd -t"
   notify: Restart ssh service
   when: iam_disallow_ssh_root_access
+
+- name: Enable ssh password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication yes"
+    state: present
+    validate: "echo %s && /usr/sbin/sshd -t"
+  notify: Restart ssh service
+  when: iam_allow_ssh_password_authentication
+
+- name: Disable ssh password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+    validate: "echo %s && /usr/sbin/sshd -t"
+  notify: Restart ssh service
+  when: not iam_allow_ssh_password_authentication
