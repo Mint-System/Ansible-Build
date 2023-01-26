@@ -51,10 +51,10 @@ done
 
 # Install with Docker exec
 if [ "$MODULES" != '' ]; then
-  echo "Install $MODULES for database $DATABASE on container $CONAINER."
+  echo "Install $MODULES for database $DATABASE on container $CONTAINER."
   docker exec -it $CONTAINER bin/bash -c "odoo -c /etc/odoo/odoo.conf -i $MODULES -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD $WITHOUT_DEMO --stop-after-init --no-http" && docker restart $CONTAINER
 else
-  echo "Init database $DATABASE on container $CONAINER."
+  echo "Init database $DATABASE on container $CONTAINER."
   docker exec -it $CONTAINER bin/bash -c "odoo -c /etc/odoo/odoo.conf -i base -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD $WITHOUT_DEMO --stop-after-init --no-http" && docker restart $CONTAINER
 fi
 
