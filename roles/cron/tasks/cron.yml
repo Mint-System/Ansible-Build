@@ -22,7 +22,8 @@
 - name: "Setup {{ role_name }} script jobs"
   cron:
     name: "{{ item.id }}"
-    minute: "{{ item.minute }}"
+    hour: "{{ item.hour | default('*') }}"
+    minute: "{{ item.minute | default('*') }}"
     job: "{{ cron_data_dir }}/{{ item.script_name }}; write-node-exporter-metric -c 'Cron job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
@@ -33,7 +34,7 @@
   cron:
     name: "{{ item.name }}"
     hour: "{{ item.hour | default('*') }}"
-    minute: "{{ item.hour | default('*') }}"
+    minute: "{{ item.minute | default('*') }}"
     job: "{{ item.command }}"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
