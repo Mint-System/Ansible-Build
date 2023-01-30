@@ -14,6 +14,7 @@
   loop: "{{ iam_users }}"
   when: inventory_hostname_short in item.hosts
 
+# FIXME: Passwort does not work if not set manually
 - name: Set user passwords
   user:
     name: "{{ item.username }}"

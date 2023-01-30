@@ -46,3 +46,9 @@ And include it in your playbook.
   roles:
   - role: iam
 ```
+
+## Docs
+
+### Set password manually
+
+Run `sudo passwd $USERNAME` to set the password.
