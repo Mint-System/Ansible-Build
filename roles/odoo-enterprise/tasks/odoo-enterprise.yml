@@ -16,7 +16,7 @@
 
 - name: Git https checkout
   git:
-    repo: "https://{{odoo_enterprise_access_username|urlencode()}}:{{odoo_enterprise_access_token|urlencode()}}@github.com/odoo/enterprise.git"
+    repo: "https://{{ odoo_enterprise_access_username|urlencode() }}:{{ odoo_enterprise_access_token|urlencode() }}@github.com/odoo/enterprise.git"
     dest: "{{ odoo_data_dir }}/enterprise"
     version: "{{ odoo_enterprise_commit }}"
     accept_hostkey: true
