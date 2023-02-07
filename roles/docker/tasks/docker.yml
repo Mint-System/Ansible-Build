@@ -3,7 +3,12 @@
     path: "{{ docker_data_dir }}"
     state: directory
 
-- name: "Copy docker deamon conf"
+- name: "Ensure {{ role_name }} config dir exists"
+  file:
+    path: "/etc/docker/"
+    state: directory
+
+- name: "Copy {{ role_name }} deamon conf"
   template:
     src: "deamon.json"
     dest: "/etc/docker/daemon.json"
