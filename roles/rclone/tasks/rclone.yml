@@ -34,8 +34,10 @@
 - name: Register rclone copy commands
   cron:
     name: "Rclone job {{ item.id }}"
-    minute: "{{ item.minute }}"
-    job: "rclone {{ item.command }} {{ item.source }} {{ item.dest }}"
+    hour: "{{ item.hour | default('*') }}"
+    minute: "{{ item.minute | default('*') }}"
+    job: "rclone {{ item.command }} {{ item.source }} {{ item.dest }}; 
+      write-node-exporter-metric -c 'Rclone job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ rclone_sync }}"
