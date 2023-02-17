@@ -41,7 +41,7 @@
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ rclone_sync }}"
-  when: item.command == "copy"
+  when: item.command in ["copy", "copyto"] 
 
 # - name: "Start {{ role_name }} container {{ rclone_hostname }}"
 #   docker_container:
