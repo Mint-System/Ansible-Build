@@ -35,7 +35,7 @@
   cron:
     name: "Rclone job {{ item.id }}"
     hour: "{{ item.hour | default('*') }}"
-    minute: "{{ item.minute | default('*') }}"
+    minute: "{{ item.minute | default('0') }}"
     job: "rclone {{ item.command }} {{ item.source }} {{ item.dest }}; 
       write-node-exporter-metric -c 'Rclone job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
