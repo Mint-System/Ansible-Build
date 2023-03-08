@@ -13,10 +13,10 @@ cargo_enabled: true
 cargo_packages:
   - name: client
     git: https://github.com/tonarino/innernet
-    tag: v1.5.0
+    tag: v1.5.5
   - name: server
     git: https://github.com/tonarino/innernet
-    tag: v1.5.0
+    tag: v1.5.5
 ```
 
 And include it in your playbook.

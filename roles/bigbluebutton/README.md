@@ -17,7 +17,7 @@ bigbluebutton_certbot_email: info@example.com
 bigbluebutton_coturn_domain: turn.example.com
 
 # https://hub.docker.com/r/bigbluebutton/greenlight
-greenlight_image: bigbluebutton/greenlight:release-2.6.4
+greenlight_image: bigbluebutton/greenlight:v2.14.4
 greenlight_hostname: green01
 greenlight_description: BBB-GUI # default: Greenlight
 greenlight_port: 127.0.0.1:4000  # default: 127.0.0.1:5000
