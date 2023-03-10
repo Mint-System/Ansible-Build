@@ -27,3 +27,5 @@
     tags: birt
   - role: gitea
     tags: gitea
+  - role: remark42
+    tags: remark42
