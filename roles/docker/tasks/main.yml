@@ -1,6 +1,6 @@
 - name: Show distribution
   debug:
-    msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+    msg: "Distribution: {{ ansible_distribution }}\nMajor Version: {{ ansible_distribution_major_version }}"
 
 - name: "Include {{ role_name }} ubuntu tasks"
   include_tasks: "{{ role_name }}-ubuntu.yml"
