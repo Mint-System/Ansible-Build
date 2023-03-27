@@ -42,7 +42,7 @@ Create an inventory and configure a role.
 
 ### Roles
 
-List of all avaialable Ansible roles.
+List of all available Ansible roles.
 
 | Role                                                                   | Description                                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
