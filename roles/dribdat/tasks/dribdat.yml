@@ -1,0 +1,56 @@
+- name: "Include docker volume role"
+  include_role:
+    name: docker-volume
+  vars:
+    docker_volume_name: "{{ dribdat_volume_name }}"
+    docker_volume_backup_set: "{{ dribdat_volume_backup_set | default([]) }}"
+  when: dribdat_volume_name is defined
+
+- name: Init dribdat env
+  set_fact:
+    dribdat_env:
+      SERVER_URL: "{{ dribdat_server_name }}"
+      DRIBDAT_SECRET: "{{ dribdat_secret }}"
+      DATABASE_URL: "postgresql://{{ dribdat_postgres_user }}:{{ dribdat_postgres_password }}@{{ dribdat_postgres_hostname }}/{{ dribdat_postgres_database }}"
+
+- name: Append mail config to dribdat env
+  set_fact: 
+    dribdat_env: "{{ dribdat_env | combine(item) }}"
+  with_items:
+    - MAIL_SERVER: "{{ dribdat_mail_server }}"
+    - MAIL_PORT: "{{ dribdat_mail_port }}"
+    - MAIL_USERNAME: "{{ dribdat_mail_username }}"
+    - MAIL_PASSWORD: "{{ dribdat_mail_password }}"
+    - MAIL_DEFAULT_SENDER: "{{ dribdat_mail_default_sender }}"
+    - MAIL_USE_TLS: "{{ dribdat_mail_use_tls }}"
+    - MAIL_USE_SSL: "{{ dribdat_mail_use_ssl }}"
+  when: dribdat_mail_server is defined
+
+- name: Append OAuth config to dribdat env
+  set_fact: 
+    dribdat_env: "{{ dict | combine(item) }}"
+  with_items:
+    - OAUTH_TYPE: "{{  dribdat_oauth_type }}"
+    - OAUTH_ID: "{{ dribdat_oauth_id }}"
+    - OAUTH_SECRET: "{{ dribdat_oauth_secret }}"
+    - OAUTH_DOMAIN: "{{ dribdat_oauth_domain }}"
+  when: dribdat_oauth_type is defined
+
+- name: "Start {{ role_name }} container {{ dribdat_hostname }}"
+  docker_container:
+    name: "{{ dribdat_hostname }}"
+    labels:
+      description: "{{ dribdat_description }}"
+    image: "{{ dribdat_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env: "{{ dribdat_env }}"
+    volumes:
+      - "{{ dribdat_volume_name }}:/data"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ dribdat_hostname }}|{{ role_name }}"

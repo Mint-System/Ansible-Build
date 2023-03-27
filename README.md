@@ -63,6 +63,7 @@ List of all avaialable Ansible roles.
 | [docker-network](roles/docker-network/README.md)                       | Configure Docker network.                                        |
 | [docker-swarm](roles/docker-swarm/README.md)                           | Configure Docker Swarm.                                          |
 | [docker-volume](roles/docker-volume/README.md)                         | Configure Docker volume.                                         |
+| [dribdat](roles/dribdat/README.md)                                     | Deploy dribdat container.                                        |
 | [elasticsearch](roles/elasticsearch/README.md)                         | Deploy Elasticsearch Docker cluster.                             |
 | [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
 | [fathom](roles/fathom/README.md)                                       | Deploy Fathom container.                                         |
