@@ -9,6 +9,8 @@
 - name: Init dribdat env
   set_fact:
     dribdat_env:
+      DRIBDAT_ENV: "prod"
+      TIME_ZONE: "Europe/Zurich"
       SERVER_URL: "{{ dribdat_server_name }}"
       DRIBDAT_SECRET: "{{ dribdat_secret }}"
       DATABASE_URL: "postgresql://{{ dribdat_postgres_user }}:{{ dribdat_postgres_password }}@{{ dribdat_postgres_hostname }}/{{ dribdat_postgres_database }}"
@@ -26,14 +28,27 @@
     - MAIL_USE_SSL: "{{ dribdat_mail_use_ssl }}"
   when: dribdat_mail_server is defined
 
+- name: Append S3 config to dribdat env
+  set_fact: 
+    dribdat_env: "{{ dribdat_env | combine(item) }}"
+  with_items:
+    - S3_KEY: "{{ dribdat_s3_key }}"
+    - S3_SECRET: "{{ dribdat_s3_secret }}"
+    - S3_BUCKET: "{{ dribdat_s3_bucket }}"
+    - S3_REGION: "{{ dribdat_s3_region }}"
+    - S3_HTTPS: "{{ dribdat_s3_https }}"
+    - S3_ENDPOINT: "{{ dribdat_s3_endpoint }}"
+    - MAX_CONTENT_LENGTH: "3000000"
+  when: dribdat_s3_key is defined
+
 - name: Append OAuth config to dribdat env
   set_fact: 
-    dribdat_env: "{{ dict | combine(item) }}"
+    dribdat_env: "{{ dribdat_env | combine(item) }}"
   with_items:
     - OAUTH_TYPE: "{{  dribdat_oauth_type }}"
     - OAUTH_ID: "{{ dribdat_oauth_id }}"
     - OAUTH_SECRET: "{{ dribdat_oauth_secret }}"
-    - OAUTH_DOMAIN: "{{ dribdat_oauth_domain }}"
+    - DRIBDAT_NOT_REGISTER: "1"
   when: dribdat_oauth_type is defined
 
 - name: "Start {{ role_name }} container {{ dribdat_hostname }}"
