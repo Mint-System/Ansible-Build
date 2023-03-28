@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/loleg/dribdat
-dribdat_image: loleg/dribdat:stable
+dribdat_image: loleg/dribdat:latest
 dribdat_description: dribdat Server # default: dribdat
 dribdat_hostname: drib01
 dribdat_volume_name: drib01_data # default: "{{ dribdat_hostname }}"
