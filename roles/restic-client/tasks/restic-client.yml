@@ -2,11 +2,23 @@
   package_facts:
     manager: auto
 
-# FIXME: CentOS package gathering not working
 - name: Fail if package restic is not installed
   fail:
     msg: "Package restic not installed"
-  when: "'restic' not in ansible_facts.packages and (ansible_distribution != 'CentOS')"
+  when: "'restic' not in ansible_facts.packages"
+
+- name: Ensure restic environment vars exists
+  lineinfile:
+    dest: "/etc/environment"
+    state: present
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value }}"
+  no_log: true
+  loop:
+    - key: RESTIC_PASSWORD
+      value: "{{ restic_repo_password }}"
+    - key: RESTIC_REPOSITORY
+      value: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
 
 - name: Check if repo is initialized
   command: restic snapshots
@@ -23,7 +35,6 @@
     RESTIC_PASSWORD: "{{ restic_repo_password }}"
     RESTIC_REPOSITORY: "rest:http://{{ restic_client_user }}:{{ restic_client_password }}@{{ restic_repo }}"
   when: repo_initalized.failed
-  notify: "Ensure restic environment vars exists"
 
 - name: Register backup rotation job
   cron:
