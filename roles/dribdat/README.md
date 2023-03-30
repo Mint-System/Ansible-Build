@@ -15,7 +15,8 @@ dribdat_description: dribdat Server # default: dribdat
 dribdat_hostname: drib01
 dribdat_volume_name: drib01_data # default: "{{ dribdat_hostname }}"
 dribdat_server_name: hack.example.com
-dribdat_secret: # deafult: "{{ vault_dribdat_secret }}"
+dribdat_secret: # default: "{{ vault_dribdat_secret }}"
+dribdat_not_register: "true" # default: "false"
 dribdat_postgres_hostname: postgres01
 dribdat_postgres_database: drib # default: dribdat
 dribdat_postgres_user: drub # default: dribdat

@@ -14,6 +14,7 @@
       SERVER_URL: "{{ dribdat_server_name }}"
       DRIBDAT_SECRET: "{{ dribdat_secret }}"
       DATABASE_URL: "postgresql://{{ dribdat_postgres_user }}:{{ dribdat_postgres_password }}@{{ dribdat_postgres_hostname }}/{{ dribdat_postgres_database }}"
+      DRIBDAT_NOT_REGISTER: "{{ dribdat_not_register }}"
 
 - name: Append mail config to dribdat env
   set_fact: 
@@ -48,7 +49,6 @@
     - OAUTH_TYPE: "{{  dribdat_oauth_type }}"
     - OAUTH_ID: "{{ dribdat_oauth_id }}"
     - OAUTH_SECRET: "{{ dribdat_oauth_secret }}"
-    - DRIBDAT_NOT_REGISTER: "1"
   when: dribdat_oauth_type is defined
 
 - name: "Start {{ role_name }} container {{ dribdat_hostname }}"

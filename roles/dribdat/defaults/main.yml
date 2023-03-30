@@ -1,6 +1,7 @@
 dribdat_volume_name: "{{ dribdat_hostname }}"
 dribdat_description: dribdat
 dribdat_secret: "{{ vault_dribdat_secret }}"
+dribdat_not_register: "false"
 dribdat_postgres_database: dribdat
 dribdat_postgres_user: dribdat
 dribdat_postgres_password: "{{ vault_dribdat_postgres_password }}"
