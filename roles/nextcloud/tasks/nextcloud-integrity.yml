@@ -7,3 +7,8 @@
   command: "docker exec -u www-data {{ nextcloud_hostname }} php occ db:add-missing-primary-keys"
   register: result
   changed_when: result.stdout is search('table updated successfully')
+
+- name: Disable skeleton directory
+  command: "docker exec -u www-data {{ nextcloud_hostname }} php occ config:system:set skeletondirectory --value=''"
+  register: result
+  changed_when: result.stdout is search('System config value skeletondirectory set to empty string')
