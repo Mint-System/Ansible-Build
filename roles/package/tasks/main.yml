@@ -1,6 +1,6 @@
 - name: Show distribution
   debug:
-    msg: "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+    msg: "Distribution: {{ ansible_distribution }}\nMajor Version: {{ ansible_distribution_major_version }}"
 
 - name: Combine group and host vars
   set_fact:
