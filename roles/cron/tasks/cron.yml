@@ -1,11 +1,3 @@
-- name: "Copy {{ role_name }} scripts"
-  copy:
-    src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    mode: +x
-  loop:
-    - run-cron-job
-
 - name: "Ensure {{ role_name }} data dir exists"
   file:
     path: "{{ cron_data_dir }}"

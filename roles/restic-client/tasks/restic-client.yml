@@ -1,3 +1,11 @@
+- name: "Copy {{ role_name }} scripts"
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - run-cron-job
+
 - name: Gather package facts
   package_facts:
     manager: auto
