@@ -6,6 +6,9 @@ module.exports = {
     lang: 'en-US',
     title: 'Ansible Playbooks',
     description: 'Collection of Ansible playbooks and roles.',
+    head: [
+        ['link', { rel: 'icon', href: '/icon.png' }]
+    ],
     theme: defaultTheme({
         logo: '/icon.png',
         repo: 'mint-system/ansible-playbooks',
