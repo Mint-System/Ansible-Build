@@ -1,9 +1,13 @@
-- name: Distribution
-  debug: msg="{{ ansible_distribution }}"
-- name: Distribution version
-  debug: msg="{{ ansible_distribution_version }}"
-- name: Distribution major version
-  debug: msg="{{ ansible_distribution_major_version }}"
+# - name: Distribution
+#   debug: msg="{{ ansible_distribution }}"
+# - name: Distribution version
+#   debug: msg="{{ ansible_distribution_version }}"
+# - name: Distribution major version
+#   debug: msg="{{ ansible_distribution_major_version }}"
+
+- name: Debug
+  debug:
+    var: groups.all
 
 # - name: Dig src DNS record
 #   debug:
