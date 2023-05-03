@@ -80,7 +80,7 @@ echo "Restore Postgres database $DATABASE from $FILE ..."
 cat $FILE | docker exec -i $CONTAINER psql -U $POSTGRES_USER -d $DATABASE
 
 echo "Grant all privileges on $DATABASE to $POSTGRES_USER ..."
-docker exec $CONTAINER psql -U $POSTGRES_USER -d template1 -c "GRANT ALL PRIVILEGES ON DATABASE $DATABASE TO $POSTGRES_USER;"
+docker exec $CONTAINER psql -U $POSTGRES_USER -d template1 -c "GRANT ALL PRIVILEGES ON DATABASE \"$DATABASE\" TO $POSTGRES_USER;"
 
 # Notify if backup has finished
 echo "The Docker Postgres restore has finished."
