@@ -23,3 +23,32 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ keycloak_hostname }}|{{ role_name }}"
+  when: "'jboss/keycloak' in keycloak_image"
+
+- name: "Start {{ role_name }} container {{ keycloak_hostname }}"
+  docker_container:
+    name: "{{ keycloak_hostname }}"
+    labels:
+      description: "{{ keycloak_description }}"
+    image: "{{ keycloak_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    env:
+      KEYCLOAK_ADMIN: "{{ keycloak_admin }}"
+      KEYCLOAK_ADMIN_PASSWORD: "{{ keycloak_admin_password }}"
+      KC_DB: "{{ keycloak_db }}"
+      KC_DB_URL_HOST: "{{ keycloak_db_url_host }}"
+      KC_DB_URL_DATABASE: "{{ keycloak_db_url_database }}"
+      KC_DB_USERNAME: "{{ keycloak_db_username }}"
+      KC_DB_PASSWORD: "{{ keycloak_db_password }}"
+      KC_PROXY: "edge"
+      KC_HOSTNAME: "{{ keycloak_proxy_hostname }}"
+    command: "start"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ keycloak_hostname }}|{{ role_name }}"
+  when: "'quay.io/keycloak' in keycloak_image"
