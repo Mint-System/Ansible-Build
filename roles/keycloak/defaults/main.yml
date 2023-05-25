@@ -4,5 +4,6 @@ keycloak_password: "{{ vault_keycloak_password }}"
 keycloak_db_type: "postgres"
 keycloak_db_password: "{{ vault_keycloak_db_password }}"
 
+keycloak_data_dir: "/usr/share/{{ keycloak_hostname }}"
 keycloak_admin_password: "{{ vault_keycloak_admin_password }}"
 keycloak_db: "postgres"

@@ -1,3 +1,8 @@
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ keycloak_data_dir }}/themes"
+    state: directory
+
 - name: "Start {{ role_name }} container {{ keycloak_hostname }}"
   docker_container:
     name: "{{ keycloak_hostname }}"
@@ -43,6 +48,8 @@
       KC_DB_PASSWORD: "{{ keycloak_db_password }}"
       KC_PROXY: "edge"
       KC_HOSTNAME: "{{ keycloak_proxy_hostname }}"
+    volumes:
+      - "{{ keycloak_data_dir }}/themes:/opt/keycloak/themes"
     command: "start"
     networks:
       - name: "{{ docker_network_name }}"

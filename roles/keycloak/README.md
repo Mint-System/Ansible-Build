@@ -13,9 +13,9 @@ Up to version 17.0 use:
 ```yml
 # https://hub.docker.com/r/jboss/keycloak
 keycloak_image: jboss/keycloak:9.0.2
+keycloak_hostname: login01
 keycloak_description: Login Example Company # default: Keycloak
 keycloak_timezone: Europe/Paris # default: Europe/Berlin
-keycloak_hostname: login01
 keycloak_user: admin
 keycloak_password: # default: "{{ vault_keycloak_password }}"
 keycloak_db_type: mariadb # default: postgres
@@ -29,8 +29,9 @@ From version 17.0 use:
 ```yml
 # https://quay.io/repository/keycloak/keycloak
 keycloak_image: quay.io/keycloak/keycloak:21.1
-keycloak_description: Login Example Company # default: Keycloak
 keycloak_hostname: login02
+keycloak_description: Login Example Company # default: Keycloak
+keycloak_data_dir: /usr/share/keycloak # default: "/usr/share/{{ keycloak_hostname }}"
 keycloak_admin: admin
 keycloak_admin_password: # default: "{{ vault_keycloak_admin_password }}"
 keycloak_db: mariadb # default: postgres
