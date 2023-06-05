@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Mint-System/Ansible-Playbooks#readme",
   "devDependencies": {
-    "@vuepress/plugin-search": "^2.0.0-beta.48",
-    "vuepress": "^2.0.0-beta.48"
+    "@vuepress/plugin-search": "^2.0.0-beta.62",
+    "vuepress": "^2.0.0-beta.62"
   }
 }

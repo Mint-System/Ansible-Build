@@ -1,4 +1,4 @@
-const { path } = require('@vuepress/utils');
+import { path } from '@vuepress/utils'
 
 const name = '@mint-system/plugin-plausible'
 
@@ -12,4 +12,4 @@ const plausiblePlugin = ({ domain }) => {
     }
 }
 
-module.exports = { plausiblePlugin }
+export { plausiblePlugin }

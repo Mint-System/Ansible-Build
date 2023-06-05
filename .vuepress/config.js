@@ -1,8 +1,10 @@
-const { defaultTheme } = require('vuepress')
-const { searchPlugin } = require('@vuepress/plugin-search')
-const { plausiblePlugin } = require('./plausible')
+import { defaultTheme } from 'vuepress'
+import { searchPlugin } from '@vuepress/plugin-search'
+import { plausiblePlugin } from './plausible'
+import { defineUserConfig } from 'vuepress'
 
-module.exports = {
+
+export default defineUserConfig({
     lang: 'en-US',
     title: 'Ansible Playbooks',
     description: 'Collection of Ansible playbooks and roles.',
@@ -27,4 +29,4 @@ module.exports = {
             'domain': 'ansible.build'
         }),
     ],
-}
+})
