@@ -58,11 +58,11 @@ List of all available Ansible roles.
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
 | [cron](roles/cron/README.md)                                           | Setup cron jobs.                                                 |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
-| [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
 | [docker-compose](roles/docker-compose/README.md)                       | Deploy Docker Compose project.                                   |
 | [docker-network](roles/docker-network/README.md)                       | Configure Docker network.                                        |
 | [docker-swarm](roles/docker-swarm/README.md)                           | Configure Docker Swarm.                                          |
 | [docker-volume](roles/docker-volume/README.md)                         | Configure Docker volume.                                         |
+| [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
 | [dribdat](roles/dribdat/README.md)                                     | Deploy dribdat container.                                        |
 | [elasticsearch](roles/elasticsearch/README.md)                         | Deploy Elasticsearch Docker cluster.                             |
 | [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
@@ -74,37 +74,38 @@ List of all available Ansible roles.
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
 | [innernet-client](roles/innernet-client/README.md)                     | Setup WireGuard based internal network.                          |
 | [innernet-server](roles/innernet-server/README.md)                     | Setup WireGuard based internal network.                          |
-| [keycloak](roles/keycloak/README.md)                                   | Deploy Keycloak Docker container.                                |
 | [keycloak-client](roles/keycloak-client/README.md)                     | Configure Keycloak client.                                       |
+| [keycloak](roles/keycloak/README.md)                                   | Deploy Keycloak Docker container.                                |
 | [kibana](roles/elasticsearch/README.md)                                | Deploy Kibana Docker container.                                  |
 | [locale](roles/locale/README.md)                                       | Set system locale.                                               |
-| [loki](roles/loki/README.md)                                           | Deploy Loki container.                                           |
 | [logstash](roles/logstash/README.md)                                   | Deploy Logstash Docker container.                                |
+| [loki](roles/loki/README.md)                                           | Deploy Loki container.                                           |
+| [mailhog](roles/mailhog/README.md)                                     | Deploy MailHog Docker container.                                 |
 | [maintenance](roles/maintenance/README.md)                             | Maintain operating system and disk space.                        |
 | [mariadb](roles/mariadb/README.md)                                     | Deploy MariaDB database container.                               |
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |
-| [nextcloud](roles/nextcloud/README.md)                                 | Deploy Nextcloud container.                                      |
 | [nextcloud-apps](roles/nextcloud-apps/README.md)                       | Install, update and remove Nextcloud apps.                       |
 | [nextcloud-exporter](roles/nextcloud-exporter/README.md)               | Deploy Nextcloud exporter container.                             |
-| [nginx](roles/nginx/README.md)                                         | Deploy Nginx proxy with Certbot.                                 |
+| [nextcloud](roles/nextcloud/README.md)                                 | Deploy Nextcloud container.                                      |
 | [nginx-waf](roles/nginx-waf/README.md)                                 | Deploy Nginx with ModSecurity and Core Rule Set.                 |
+| [nginx](roles/nginx/README.md)                                         | Deploy Nginx proxy with Certbot.                                 |
 | [node-exporter](roles/node-exporter/README.md)                         | Deploy Node exporter container and install custom metric script. |
-| [odoo](roles/odoo/README.md)                                           | Deploy Odoo container.                                           |
 | [odoo-apps](roles/odoo-apps/README.md)                                 | Install Odoo apps from file, url, public or private GitHub repo. |
 | [odoo-data](roles/odoo-data/README.md)                                 | Generate Odoo data modules.                                      |
 | [odoo-databases](roles/odoo-databases/README.md)                       | Configure Odoo databases.                                        |
 | [odoo-enterprise](roles/odoo-enterprise/README.md)                     | Checkout the Odoo Enterprise git repository.                     |
 | [odoo-patches](roles/odoo-patches/README.md)                           | Apply custom Odoo patches.                                       |
 | [odoo-scripts](roles/odoo-scripts/README.md)                           | Install Odoo scripts.                                            |
+| [odoo](roles/odoo/README.md)                                           | Deploy Odoo container.                                           |
 | [onlyoffice-documentserver](roles/onlyoffice-documentserver/README.md) | Deploy OnlyOffice Document Server container.                     |
 | [openldap](roles/openldap/README.md)                                   | Deploy OpenLDAP Docker container.                                |
 | [package](roles/package/README.md)                                     | Set env vars and install packages.                               |
 | [pgadmin](roles/pgadmin/README.md)                                     | Install pgAdmin container.                                       |
 | [postfix](roles/postfix/README.md)                                     | Deploy Postfix relay host.                                       |
-| [postgres](roles/postgres/README.md)                                   | Deploy PostgreSQL database container.                            |
 | [postgres-exporter](roles/postgres-exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
+| [postgres](roles/postgres/README.md)                                   | Deploy PostgreSQL database container.                            |
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
 | [promtail](roles/promtail/README.md)                                   | Deploy Promtail container.                                       |
 | [rclone](roles/rclone/README.md)                                       | Sync files with RClone.                                          |
@@ -126,9 +127,9 @@ Work in progress:
 
 | Role                                             | Description                      |
 | ------------------------------------------------ | -------------------------------- |
+| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
 | [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
 | [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
-| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
 
 ### Commands
 

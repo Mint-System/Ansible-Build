@@ -1,0 +1,15 @@
+- name: "Start {{ role_name }} container {{ mailhog_hostname }}"
+  docker_container:
+    name: "{{ mailhog_hostname }}"
+    labels:
+      description: "{{ mailhog_description }}"
+    image: "{{ mailhog_image }}"
+    restart_policy: unless-stopped
+    recreate: no
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ mailhog_hostname }}|{{ role_name }}"

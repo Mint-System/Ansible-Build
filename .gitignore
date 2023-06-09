@@ -11,3 +11,4 @@ node_modules
 .cache
 dist
 tmp
+.obsidian/workspace.json
