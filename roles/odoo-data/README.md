@@ -12,7 +12,8 @@ Configure the role.
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_data:
   - id: ir_mail_server_1
-    display_name: "Mail Server"
+    module_name: ir_mail_server_data
+    display_name: "Mail Server Example"
     model: ir.mail_server
     fields:
       name: Infomaniak Outgoing
@@ -25,6 +26,7 @@ odoo_data:
         type: eval
         value: "True"
   - id: provider_mint_system
+    module_name: auth_oauth_provider_data
     display_name: "Login Mint System"
     model: auth.oauth.provider
     depends: auth_oauth_keycloak

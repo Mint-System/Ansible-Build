@@ -1,13 +1,13 @@
 - name: "Ensure {{ role_name }} data dir exists"
   file:
-    path: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/data/"
+    path: "{{ odoo_data_dir }}/addons/{{ item.module_name }}/data/"
     state: directory
   loop: "{{ odoo_data }}"
 
 - name: Copy manifest file
   template:
     src: __manifest__.py
-    dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/__manifest__.py"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.module_name }}/__manifest__.py"
   vars:
     depends: "{{ item.depends | default('base') }}"
   loop: "{{ odoo_data }}"
@@ -15,17 +15,17 @@
 - name: Copy data file
   template:
     src: data.xml
-    dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/data/{{ item.model }}.data.xml"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.module_name }}/data/{{ item.model }}.data.xml"
   loop: "{{ odoo_data }}"
 
 - name: "Ensure {{ role_name }} description dir exists"
   file:
-    path: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/static/description/"
+    path: "{{ odoo_data_dir }}/addons/{{ item.module_name }}/static/description/"
     state: directory
   loop: "{{ odoo_data }}"
 
-- name: Copy icon file
+- name: "Copy icon file"
   copy:
     src: icon.png
-    dest: "{{ odoo_data_dir }}/addons/{{ item.model | replace('.', '_') }}_data/static/description/icon.png"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.module_name }}/static/description/icon.png"
   loop: "{{ odoo_data }}"

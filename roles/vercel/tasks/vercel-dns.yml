@@ -34,7 +34,8 @@
     - "{{ vercel_dns_records.results }}"
     - json.records
   register: vercel_dns_simple
-
+  no_log: true
+  
 - name: Make a simple list
   set_fact:
     vercel_dns_simple: "{{ vercel_dns_simple.results | map(attribute='ansible_facts.record') | list }}"

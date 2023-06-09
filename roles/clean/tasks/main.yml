@@ -39,3 +39,4 @@
       - innernet-server
       - moodle
       - redis
+      - mailhog

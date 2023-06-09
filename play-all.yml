@@ -29,3 +29,5 @@
     tags: gitea
   - role: remark42
     tags: remark42
+  - role: mailhog
+    tags: mailhog

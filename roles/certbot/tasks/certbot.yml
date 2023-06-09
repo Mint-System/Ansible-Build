@@ -70,7 +70,7 @@
 
 - name: Wait for proxy container
   pause:
-    seconds: "3"
+    seconds: "2"
   when: certbot_missing_certs is defined
 
 - name: "Issue certificate with {{ role_name }}"
