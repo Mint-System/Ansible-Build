@@ -13,8 +13,10 @@
     name: package
   vars:
     packages: "{{ docker_packages }}"
+  when: docker_packages is defined
 
 - name: Install python modules
   pip:
     name: "{{ item.name }}"
   loop: "{{ docker_pip_packages }}"
+  when: docker_pip_packages is defined
