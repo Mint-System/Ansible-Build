@@ -1,7 +1,3 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
-    name: "{{ odoo_volume_name }}"
-
 - name: Git ssh checkout
   git:
     repo: "{{ odoo_enterprise_repo }}"

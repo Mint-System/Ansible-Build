@@ -13,6 +13,10 @@ echo
 # Set env vars
 GIT_BRANCH=$(git symbolic-ref --short -q HEAD)
 
+if [[ -a ".env" ]]; then
+    export $(cat .env | sed 's/#.*//g' | xargs)
+fi
+
 function generate-passwordfile() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
     export VAULTPASSWORD=$1
@@ -82,6 +86,25 @@ function show-passwordless-sudo() {
     echo "echo \"$USER ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
 }
 
+function galaxy-build() {
+    activate-venv
+    VERSION=$(yq -r .version galaxy.yml)
+    NAMESPACE=$(yq -r .namespace galaxy.yml)
+    NAME=$(yq -r .name galaxy.yml)
+    
+    ansible-galaxy collection build
+    mv $NAMESPACE-$NAME-$VERSION.tar.gz tmp/
+}
+
+function galaxy-publish() {
+    activate-venv
+    VERSION=$(yq -r .version galaxy.yml)
+    NAMESPACE=$(yq -r .namespace galaxy.yml)
+    NAME=$(yq -r .name galaxy.yml)
+
+    ansible-galaxy collection publish tmp/$NAMESPACE-$NAME-$VERSION.tar.gz --token "$GALAXY_API_TOKEN"
+}
+
 case "$1" in
     generate-passwordfile)
         generate-passwordfile $2
@@ -97,6 +120,12 @@ case "$1" in
         ;;
     list-hosts)
         list-hosts $2
+        ;;
+    galaxy-build)
+        galaxy-build
+        ;;
+    galaxy-publish)
+        galaxy-publish
         ;;
     lint)
         activate-venv

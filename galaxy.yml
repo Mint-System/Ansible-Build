@@ -1,0 +1,33 @@
+namespace: "janikvonrotz"
+name: "mint_system"
+version: "1.0.0"
+readme: "README.md"
+authors:
+  - "Janik von Rotz <janik.vonrotz@mint-system.ch>"
+license:
+    - "MIT"
+tags:
+  - docker
+  - docker_network
+  - docker_volume
+  - docker_swarm
+  - docker_compose
+repository: "https://github.com/mint-system/ansible-playbooks"
+build_ignore:
+  - .vault_pass
+  - default.vim
+  - .DS_Store
+  - '*.swp'
+  - run.sh
+  - 'venv*'
+  - inventory
+  - inventories
+  - node_modules
+  - .temp
+  - .cache
+  - dist
+  - tmp
+  - .obsidian
+  - .vuepress
+  - .github
+  - .env
