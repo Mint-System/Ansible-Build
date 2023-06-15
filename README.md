@@ -280,8 +280,8 @@ To define a Postgres role, you would:
 To define a Nginx role with a config tag, you would:
 
 - Create role `nginx`
-- Assign the tags `nginx` and `nginx-config`
-- Create the task files `nginx.yml` and `nginx-config.yml`
+- Assign the tags `nginx` and `nginx_config`
+- Create the task files `nginx.yml` and `nginx_config.yml`
 
 In the `main.yml` you would include the tasks as followed:
 
@@ -291,7 +291,7 @@ In the `main.yml` you would include the tasks as followed:
   when: nginx_data_dir is defined
   tags:
     - nginx
-    - nginx-config
+    - nginx_config
 
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"

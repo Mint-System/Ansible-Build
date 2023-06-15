@@ -1,7 +1,7 @@
-- name: "Include nginx role and apply nginx-config tasks"
+- name: "Include nginx role and apply nginx_config tasks"
   include_role:
     name: nginx
-    tasks_from: nginx-config
+    tasks_from: nginx_config
 
 - name: "Copy rule tuning conf"
   template:

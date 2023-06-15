@@ -4,7 +4,7 @@ Deploy Nginx with ModSecurity and Core Rule Set.
 
 ## Requirements
 
-This role requires the role `nginx` with tag `nginx-config`.
+This role requires the role `nginx` with tag `nginx_config`.
 
 ## Usage
 
