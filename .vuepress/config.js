@@ -6,7 +6,7 @@ import { defineUserConfig } from 'vuepress'
 
 export default defineUserConfig({
     lang: 'en-US',
-    title: 'Ansible Playbooks',
+    title: 'Ansible Build',
     description: 'Collection of Ansible playbooks and roles.',
     head: [
         ['link', { rel: 'icon', href: '/icon.png' }]
