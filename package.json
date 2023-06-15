@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mint-System/Ansible-Playbooks.git"
+    "url": "git+https://github.com/Mint-System/Ansible-Build.git"
   },
   "keywords": [
     "ansible",
@@ -20,9 +20,9 @@
   "author": "Mint System",
   "license": "GPL3",
   "bugs": {
-    "url": "https://github.com/Mint-System/Ansible-Playbooks/issues"
+    "url": "https://github.com/Mint-System/Ansible-Build/issues"
   },
-  "homepage": "https://github.com/Mint-System/Ansible-Playbooks#readme",
+  "homepage": "https://github.com/Mint-System/Ansible-Build#readme",
   "devDependencies": {
     "@vuepress/plugin-search": "^2.0.0-beta.62",
     "vuepress": "^2.0.0-beta.62"

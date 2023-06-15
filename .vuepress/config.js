@@ -13,7 +13,7 @@ export default defineUserConfig({
     ],
     theme: defaultTheme({
         logo: '/icon.png',
-        repo: 'mint-system/ansible-playbooks',
+        repo: 'mint-system/ansible-build',
         docsBranch: 'master',
         editLink: true,
         navbar: [
