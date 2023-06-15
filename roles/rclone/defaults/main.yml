@@ -1,2 +1,0 @@
-# rclone_description: RClone
-# rclone_data_dir: "/usr/share/{{ rclone_hostname }}"
