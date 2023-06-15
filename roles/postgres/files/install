@@ -6,7 +6,7 @@
 # -o pipefail stops the script if a pipe fails
 set -e
 
-REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-playbooks
+REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
 SCRIPT="docker-postgres-backup"
 echo "Install $SCRIPT script ..."

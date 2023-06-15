@@ -2,7 +2,7 @@
 
 # Ansible Build
 
-<!-- [![Ansible Lint](https://github.com/Mint-System/Ansible-Playbooks/workflows/Ansible%20Lint/badge.svg)](https://github.com/Mint-System/Ansible-Playbooks/actions?query=workflow%3A"Ansible+Lint") -->
+<!-- [![Ansible Lint](https://github.com/Mint-System/Ansible-Build/workflows/Ansible%20Lint/badge.svg)](https://github.com/Mint-System/Ansible-Build/actions?query=workflow%3A"Ansible+Lint") -->
 
 The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks and roles.
 
@@ -14,7 +14,7 @@ The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks a
 
 Clone this repository.
 
-`git clone https://github.com/Mint-System/Ansible-Playbooks.git`
+`git clone https://github.com/Mint-System/Ansible-Build.git`
 
 Set this task alias.
 
@@ -24,7 +24,7 @@ Set this task alias.
 
 Navigate to the playbook folder.
 
-`cd Ansible-Playbooks`
+`cd Ansible-Build`
 
 Generate a password file for Ansible vault.
 

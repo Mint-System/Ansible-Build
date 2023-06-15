@@ -32,8 +32,8 @@ Copy the build files.
 
 ```bash
 mkdir /var/tmp/birt && cd $_
-cp /home/$USERNAME/Ansible-Playbooks/roles/birt/templates/* .
-cp /home/$USERNAME/Ansible-Playbooks/roles/birt/files/* .
+cp /home/$USERNAME/Ansible-Build/roles/birt/templates/* .
+cp /home/$USERNAME/Ansible-Build/roles/birt/files/* .
 ```
 
 Pull dependencies.

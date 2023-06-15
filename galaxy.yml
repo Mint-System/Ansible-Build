@@ -12,7 +12,7 @@ tags:
   - docker_volume
   - docker_swarm
   - docker_compose
-repository: "https://github.com/mint-system/ansible-playbooks"
+repository: "https://github.com/mint-system/ansible-build"
 build_ignore:
   - .vault_pass
   - default.vim
