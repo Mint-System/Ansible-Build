@@ -46,10 +46,10 @@ List of all available Ansible roles.
 
 | Role                                                                   | Description                                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| [bigbluebutton-exporter](roles/bigbluebutton-exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
+| [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
 | [birt](roles/birt/README.md)                                           | Deploy BIRT container.                                           |
-| [blackbox-exporter](roles/blackbox-exporter/README.md)                 | Deploy Blackbox exporter container.                              |
+| [blackbox_exporter](roles/blackbox_exporter/README.md)                 | Deploy Blackbox exporter container.                              |
 | [bookstack](roles/bookstack/README.md)                                 | Deploy BookStack container.                                      |
 | [cadvisor](roles/cadvisor/README.md)                                   | Deploy cAdvisor Docker container.                                |
 | [cargo](roles/cargo/README.md)                                         | Setup Rust toolchain and cargo package manager.                  |
@@ -58,10 +58,10 @@ List of all available Ansible roles.
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
 | [cron](roles/cron/README.md)                                           | Setup cron jobs.                                                 |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
-| [docker-compose](roles/docker-compose/README.md)                       | Deploy Docker Compose project.                                   |
-| [docker-network](roles/docker-network/README.md)                       | Configure Docker network.                                        |
-| [docker-swarm](roles/docker-swarm/README.md)                           | Configure Docker Swarm.                                          |
-| [docker-volume](roles/docker-volume/README.md)                         | Configure Docker volume.                                         |
+| [docker_compose](roles/docker_compose/README.md)                       | Deploy Docker Compose project.                                   |
+| [docker_network](roles/docker_network/README.md)                       | Configure Docker network.                                        |
+| [docker_swarm](roles/docker_swarm/README.md)                           | Configure Docker Swarm.                                          |
+| [docker_volume](roles/docker_volume/README.md)                         | Configure Docker volume.                                         |
 | [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
 | [dribdat](roles/dribdat/README.md)                                     | Deploy dribdat container.                                        |
 | [elasticsearch](roles/elasticsearch/README.md)                         | Deploy Elasticsearch Docker cluster.                             |
@@ -72,9 +72,9 @@ List of all available Ansible roles.
 | [grafana](roles/grafana/README.md)                                     | Deploy Grafana Docker container.                                 |
 | [htpasswd](roles/htpasswd/README.md)                                   | Configure .htpasswd basic auth file.                             |
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
-| [innernet-client](roles/innernet-client/README.md)                     | Setup WireGuard based internal network.                          |
-| [innernet-server](roles/innernet-server/README.md)                     | Setup WireGuard based internal network.                          |
-| [keycloak-client](roles/keycloak-client/README.md)                     | Configure Keycloak client.                                       |
+| [innernet_client](roles/innernet_client/README.md)                     | Setup WireGuard based internal network.                          |
+| [innernet_server](roles/innernet_server/README.md)                     | Setup WireGuard based internal network.                          |
+| [keycloak_client](roles/keycloak_client/README.md)                     | Configure Keycloak client.                                       |
 | [keycloak](roles/keycloak/README.md)                                   | Deploy Keycloak Docker container.                                |
 | [kibana](roles/elasticsearch/README.md)                                | Deploy Kibana Docker container.                                  |
 | [locale](roles/locale/README.md)                                       | Set system locale.                                               |
@@ -86,25 +86,25 @@ List of all available Ansible roles.
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |
-| [nextcloud-apps](roles/nextcloud-apps/README.md)                       | Install, update and remove Nextcloud apps.                       |
-| [nextcloud-exporter](roles/nextcloud-exporter/README.md)               | Deploy Nextcloud exporter container.                             |
+| [nextcloud_apps](roles/nextcloud_apps/README.md)                       | Install, update and remove Nextcloud apps.                       |
+| [nextcloud_exporter](roles/nextcloud_exporter/README.md)               | Deploy Nextcloud exporter container.                             |
 | [nextcloud](roles/nextcloud/README.md)                                 | Deploy Nextcloud container.                                      |
-| [nginx-waf](roles/nginx-waf/README.md)                                 | Deploy Nginx with ModSecurity and Core Rule Set.                 |
+| [nginx_waf](roles/nginx_waf/README.md)                                 | Deploy Nginx with ModSecurity and Core Rule Set.                 |
 | [nginx](roles/nginx/README.md)                                         | Deploy Nginx proxy with Certbot.                                 |
-| [node-exporter](roles/node-exporter/README.md)                         | Deploy Node exporter container and install custom metric script. |
-| [odoo-apps](roles/odoo-apps/README.md)                                 | Install Odoo apps from file, url, public or private GitHub repo. |
-| [odoo-data](roles/odoo-data/README.md)                                 | Generate Odoo data modules.                                      |
-| [odoo-databases](roles/odoo-databases/README.md)                       | Configure Odoo databases.                                        |
-| [odoo-enterprise](roles/odoo-enterprise/README.md)                     | Checkout the Odoo Enterprise git repository.                     |
-| [odoo-patches](roles/odoo-patches/README.md)                           | Apply custom Odoo patches.                                       |
-| [odoo-scripts](roles/odoo-scripts/README.md)                           | Install Odoo scripts.                                            |
+| [node_exporter](roles/node_exporter/README.md)                         | Deploy Node exporter container and install custom metric script. |
+| [odoo_apps](roles/odoo_apps/README.md)                                 | Install Odoo apps from file, url, public or private GitHub repo. |
+| [odoo_data](roles/odoo_data/README.md)                                 | Generate Odoo data modules.                                      |
+| [odoo_databases](roles/odoo_databases/README.md)                       | Configure Odoo databases.                                        |
+| [odoo_enterprise](roles/odoo_enterprise/README.md)                     | Checkout the Odoo Enterprise git repository.                     |
+| [odoo_patches](roles/odoo_patches/README.md)                           | Apply custom Odoo patches.                                       |
+| [odoo_scripts](roles/odoo_scripts/README.md)                           | Install Odoo scripts.                                            |
 | [odoo](roles/odoo/README.md)                                           | Deploy Odoo container.                                           |
-| [onlyoffice-documentserver](roles/onlyoffice-documentserver/README.md) | Deploy OnlyOffice Document Server container.                     |
+| [onlyoffice_documentserver](roles/onlyoffice_documentserver/README.md) | Deploy OnlyOffice Document Server container.                     |
 | [openldap](roles/openldap/README.md)                                   | Deploy OpenLDAP Docker container.                                |
 | [package](roles/package/README.md)                                     | Set env vars and install packages.                               |
 | [pgadmin](roles/pgadmin/README.md)                                     | Install pgAdmin container.                                       |
 | [postfix](roles/postfix/README.md)                                     | Deploy Postfix relay host.                                       |
-| [postgres-exporter](roles/postgres-exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
+| [postgres_exporter](roles/postgres_exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
 | [postgres](roles/postgres/README.md)                                   | Deploy PostgreSQL database container.                            |
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
 | [promtail](roles/promtail/README.md)                                   | Deploy Promtail container.                                       |
@@ -113,10 +113,10 @@ List of all available Ansible roles.
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
 | [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |
-| [restic-client](roles/restic-client/README.md)                         | Configure Restic client backup jobs.                             |
-| [restic-server](roles/restic-server/README.md)                         | Deploy Restic server container.                                  |
+| [restic_client](roles/restic_client/README.md)                         | Configure Restic client backup jobs.                             |
+| [restic_server](roles/restic_server/README.md)                         | Deploy Restic server container.                                  |
 | [s3cmd](roles/s3cmd/README.md)                                         | Install and configure s3cmd.                                     |
-| [simple-mail-forwarder](roles/simple-mail-forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
+| [simple_mail_forwarder](roles/simple_mail_forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
 | [systemd](roles/systemd/README.md)                                     | Setup systemd service.                                           |
 | [ufw](roles/ufw/README.md)                                             | Configure UFW rules.                                             |
 | [update](roles/update/README.md)                                       | Install system and package updates.                              |
@@ -127,7 +127,7 @@ Work in progress:
 
 | Role                                             | Description                      |
 | ------------------------------------------------ | -------------------------------- |
-| [collabora-code](roles/collabora-code/README.md) | Deploy Collabora Code container. |
+| [collabora_code](roles/collabora_code/README.md) | Deploy Collabora Code container. |
 | [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
 | [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
 
@@ -161,15 +161,15 @@ Deploy role to specific group with non-default user.\
 `ansible-playbook -i inventories/odoo play-odoo.yml -t docker -l europe -u username`
 
 Clean Odoo stack.\
-`ansible-playbook -i inventories/odoo play-clean.yml -t odoo,odoo-volume,odoo-data,postgres,postgres-volume`
+`ansible-playbook -i inventories/odoo play-clean.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume`
 
 Clean role only.\
-`ansible-playbook -i inventories/odoo play-clean.yml -t docker-network`
+`ansible-playbook -i inventories/odoo play-clean.yml -t docker_network`
 
 Clean dry run.\
 `ansible-playbook -i inventories/odoo play-odoo.yml -t odoo --check`
 
-Install odoo-scripts and odoo-apps locally.\
+Install odoo_scripts and odoo_apps locally.\
 `ansible-playbook -i inventories/odoo play-localhost.yml --skip-tags depends`
 
 List all Odoo databses.\

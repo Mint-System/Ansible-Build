@@ -7,4 +7,4 @@
   docker_volume:
     name: "{{ wordpress_volume_name }}"
     state: absent
-  when: '"wordpress-volume" in ansible_run_tags'
+  when: '"wordpress_volume" in ansible_run_tags'

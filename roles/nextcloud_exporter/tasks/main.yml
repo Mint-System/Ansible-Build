@@ -1,0 +1,12 @@
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: nextcloud_exporter_image is defined
+  tags:
+    - nextcloud_exporter
+
+- name: "Include {{ role_name }} nginx config tasks"
+  include_tasks: "{{ role_name }}_nginx_config.yml"
+  when: nextcloud_exporter_image is defined
+  tags:
+    - nextcloud_exporter
+    - nextcloud_exporter_nginx_config

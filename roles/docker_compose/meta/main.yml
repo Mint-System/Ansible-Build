@@ -1,0 +1,9 @@
+dependencies: # noqa 701
+  - role: docker_network
+    tags:
+      - docker_network
+      - depends
+  - role: docker_volume
+    tags:
+      - docker_volume
+      - depends

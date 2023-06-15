@@ -1,18 +1,18 @@
-- name: "Remove docker-compose project"
+- name: "Remove docker_compose project"
   command:  "docker-compose -p {{ docker_compose_project_name }} down -v"
   args:
     chdir: "{{ docker_compose_data_dir }}"
   register: result
   changed_when: true
 
-- name: Remove docker-compose data dir
+- name: Remove docker_compose data dir
   file:
     path: "{{ docker_compose_data_dir }}"
     state: absent
-  when: '"docker-compose-data" in ansible_run_tags'
+  when: '"docker_compose_data" in ansible_run_tags'
 
-- name: Remove docker-compose
+- name: Remove docker_compose
   file:
     path: "/usr/local/bin/docker-compose"
     state: absent
-  when: '"docker-compose-data" in ansible_run_tags'
+  when: '"docker_compose_data" in ansible_run_tags'

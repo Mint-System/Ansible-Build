@@ -1,0 +1,59 @@
+- name: "Check current {{ role_name }} version"
+  command: /usr/local/bin/docker-compose --version
+  register: docker_compose_vsn
+  changed_when: false
+  failed_when: false
+
+- name: "Set current {{ role_name }} version"
+  set_fact:
+    docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
+  when: docker_compose_vsn.stdout | search("version")
+
+- name: "Install {{ role_name }} {{ docker_compose_version }}"
+  get_url:
+    url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    force: yes
+    mode: "u+x,g+x"
+
+  when: docker_compose_current_version is not defined or docker_compose_current_version != docker_compose_version
+
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ docker_compose_data_dir }}"
+    state: directory
+
+- name: "Copy {{ role_name }} dotenv"
+  template:
+    src: .env
+    dest: "{{ docker_compose_data_dir }}/.env"
+  notify: Restart {{ role_name }} project
+
+- name: "Copy {{ role_name }} config"
+  template:
+    src: docker-compose.yml
+    dest: "{{ docker_compose_data_dir }}/docker-compose.yml"
+  notify: Restart {{ role_name }} project
+  when: docker_compose_definition is defined
+
+- name: "Include docker volume role"
+  include_role:
+    name: docker_volume
+  vars:
+    docker_volumes: "{{ docker_compose_volumes }}"
+  when: docker_compose_volumes is defined
+
+- name: Include restic client role for docker compose backup
+  include_role:
+    name: restic_client
+  vars:
+    restic_backup_set: "{{ docker_compose_backup_set }}"
+  when: docker_compose_backup_set is defined
+
+- name: "Start {{ role_name }} project"
+  command:  "/usr/local/bin/docker-compose -p {{ docker_compose_project_name }} up -d"
+  args:
+    chdir: "{{ docker_compose_data_dir }}"
+  register: result
+  changed_when: "'up-to-date' not in result.stderr"
+  when: docker_compose_definition is defined

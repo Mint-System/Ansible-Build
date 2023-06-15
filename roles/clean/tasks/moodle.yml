@@ -7,4 +7,4 @@
   docker_volume:
     name: "{{ moodle_volume_name }}"
     state: absent
-  when: '"moodle-volume" in ansible_run_tags'
+  when: '"moodle_volume" in ansible_run_tags'

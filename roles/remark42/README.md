@@ -29,7 +29,7 @@ remark42_smtp_password: "{{ vault_remark42_smtp_password }}"
 remark42_admin_shared_email: admin@example.com
 remark42_admin_shared_id: github_XXX
 remark42_notify_email_from: noreply@example.com
-remark42_volume_backup_set: # See restic_backup_set var in role restic-client
+remark42_volume_backup_set: # See restic_backup_set var in role restic_client
 ```
 
 And include it in your playbook.

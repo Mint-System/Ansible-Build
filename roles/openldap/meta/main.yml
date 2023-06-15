@@ -1,5 +1,5 @@
 dependencies: # noqa 701
-  - role: docker-network
+  - role: docker_network
     tags:
-      - docker-network
+      - docker_network
       - depends

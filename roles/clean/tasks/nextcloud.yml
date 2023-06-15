@@ -7,4 +7,4 @@
   docker_volume:
     name: "{{ nextcloud_volume_name }}"
     state: absent
-  when: '"nextcloud-volume" in ansible_run_tags'
+  when: '"nextcloud_volume" in ansible_run_tags'

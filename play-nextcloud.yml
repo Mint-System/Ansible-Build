@@ -1,0 +1,17 @@
+- hosts: all
+  become: true
+  roles:
+  - role: redis
+    tags: redis
+  - role: nextcloud
+    tags: nextcloud
+  - role: nextcloud_apps
+    tags: nextcloud_apps
+  - role: onlyoffice_documentserver
+    tags: onlyoffice_documentserver
+  - role: nextcloud_exporter
+    tags: nextcloud_exporter
+  - role: elasticsearch
+    tags: elasticsearch
+  - role: collabora_code
+    tags: collabora_code

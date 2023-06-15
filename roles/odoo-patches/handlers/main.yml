@@ -1,2 +1,0 @@
-- name: "Remove odoo patches"
-  include_tasks: remove-odoo-patches.yml

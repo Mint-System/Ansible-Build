@@ -1,0 +1,5 @@
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: innernet_client_network_name is defined
+  tags:
+   - innernet_client

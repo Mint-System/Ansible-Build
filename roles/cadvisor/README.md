@@ -40,4 +40,4 @@ And include it in your playbook.
 The following tags are available:
 
 * cadvisor
-* cadvisor-nginx-config
+* cadvisor_nginx_config

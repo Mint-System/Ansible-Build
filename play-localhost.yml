@@ -1,0 +1,22 @@
+- hosts: localhost
+  become: true
+  connection: local
+  roles:
+  - role: odoo_scripts
+    tags: odoo_scripts
+  - role: odoo_apps
+    tags: odoo_apps
+  - role: docker_compose
+    tags: docker_compose
+  - role: clean
+    tags: clean
+  - role: package
+    tags: package
+  - role: cargo
+    tags: cargo
+  - role: innernet_client
+    tags: innernet_client
+  - role: maintenance
+    tags: maintenance
+  - role: rabbitmq
+    tags: rabbitmq

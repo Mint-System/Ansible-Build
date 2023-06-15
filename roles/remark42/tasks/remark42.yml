@@ -1,6 +1,6 @@
 - name: "Include docker volume role"
   include_role:
-    name: docker-volume
+    name: docker_volume
   vars:
     docker_volume_name: "{{ remark42_volume_name }}"
     docker_volume_backup_set: "{{ remark42_volume_backup_set | default([]) }}"

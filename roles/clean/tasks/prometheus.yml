@@ -7,10 +7,10 @@
   file:
     path: "{{ prometheus_data_dir }}"
     state: absent
-  when: '"prometheus-data" in ansible_run_tags'
+  when: '"prometheus_data" in ansible_run_tags'
 
 - name: Remove prometheus volume
   docker_volume:
     name: "{{ prometheus_volume_name }}"
     state: absent
-  when: '"prometheus-volume" in ansible_run_tags'
+  when: '"prometheus_volume" in ansible_run_tags'

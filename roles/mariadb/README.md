@@ -23,7 +23,7 @@ mariadb_password:  "{{ vault_mariadb_password }}"
 Backup databases.
 
 ```yml
-mariadb_backup_set: # See restic_backup_set var in role restic-client
+mariadb_backup_set: # See restic_backup_set var in role restic_client
   - id: "mariadb dump frappe"
     type: mariadb-dump
     container: mariadb01

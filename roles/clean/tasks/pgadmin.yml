@@ -7,4 +7,4 @@
   docker_volume:
     name: "{{ pgadmin_volume_name }}"
     state: absent
-  when: '"pgadmin-volume" in ansible_run_tags'
+  when: '"pgadmin_volume" in ansible_run_tags'

@@ -1,0 +1,51 @@
+- hosts: all
+  become: true
+  roles:
+  - role: resolv
+    tags: resolv
+  - role: package
+    tags: package
+  - role: cargo
+    tags: cargo
+  - role: docker_swarm
+    tags: docker_swarm
+  - role: fstab
+    tags: fstab
+  - role: locale
+    tags: locale
+  - role: iam
+    tags: iam
+  - role: update
+    tags:
+      - update
+      - never
+  - role: maintenance
+    tags: maintenance
+  - role: ufw
+    tags: ufw
+  - role: fail2ban
+    tags: fail2ban
+  - role: restic_server
+    tags: restic_server
+  - role: restic_client
+    tags: restic_client
+  - role: s3cmd
+    tags: s3cmd
+  - role: docker_compose
+    tags: docker_compose
+  - role: innernet_server
+    tags: innernet_server
+  - role: innernet_client
+    tags: innernet_client
+  - role: systemd
+    tags: systemd
+  - role: rclone
+    tags: rclone
+  - role: simple_mail_forwarder
+    tags: simple_mail_forwarder
+  - role: postfix
+    tags: postfix
+  - role: cron
+    tags: cron
+  - role: dribdat
+    tags: dribdat

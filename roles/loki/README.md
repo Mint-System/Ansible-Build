@@ -41,7 +41,7 @@ And include it in your playbook.
 The following tags are available:
 
 * loki
-* loki-nginx-config
+* loki_nginx_config
 
 ## Docs
 

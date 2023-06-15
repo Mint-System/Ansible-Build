@@ -1,0 +1,12 @@
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: restic_server_image is defined
+  tags:
+    - restic_server
+
+- name: "Include {{ role_name }} nginx config tasks"
+  include_tasks: "{{ role_name }}_nginx_config.yml"
+  when: restic_server_image is defined
+  tags:
+    - restic_server
+    - restic_server_nginx_config

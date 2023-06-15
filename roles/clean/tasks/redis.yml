@@ -7,4 +7,4 @@
   docker_volume:
     name: "{{ redis_volume_name }}"
     state: absent
-  when: '"redis-volume" in ansible_run_tags'
+  when: '"redis_volume" in ansible_run_tags'

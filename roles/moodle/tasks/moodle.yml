@@ -1,6 +1,6 @@
 - name: "Include docker volume role"
   include_role:
-    name: docker-volume
+    name: docker_volume
   vars:
     docker_volume_name: "{{ moodle_volume_name }}"
     docker_volume_backup_set: "{{ moodle_volume_backup_set | default([]) }}"

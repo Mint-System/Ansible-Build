@@ -24,7 +24,7 @@ postgres_db: example # default: ""
 Backup databases.
 
 ```yml
-postgres_backup_set: # See restic_backup_set var in role restic-client
+postgres_backup_set: # See restic_backup_set var in role restic_client
   - id: "{{ postgres_hostname }} dump"
     type: postgres-dump
     container: "{{ postgres_hostname }}"

@@ -1,0 +1,19 @@
+- hosts: all
+  become: true
+  roles:
+    - role: odoo
+      tags: odoo
+    - role: odoo_apps
+      tags:
+        - odoo_apps
+        - odoo_pip_packages
+    - role: odoo_scripts
+      tags: odoo_scripts
+    - role: odoo_databases
+      tags: odoo_databases
+    - role: odoo_enterprise
+      tags: odoo_enterprise
+    - role: odoo_data
+      tags: odoo_data
+    - role: odoo_patches
+      tags: odoo_patches

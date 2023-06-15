@@ -5,8 +5,8 @@
     - loki
 
 - name: "Include {{ role_name }} nginx config tasks"
-  include_tasks: "{{ role_name }}-nginx-config.yml"
+  include_tasks: "{{ role_name }}_nginx_config.yml"
   when: loki_image is defined
   tags:
     - loki
-    - loki-nginx-config
+    - loki_nginx_config

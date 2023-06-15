@@ -1,6 +1,6 @@
 - name: "Include docker volume role"
   include_role:
-    name: docker-volume
+    name: docker_volume
   vars:
     docker_volume_name: "{{ wordpress_volume_name }}"
   when: wordpress_volume_name is defined

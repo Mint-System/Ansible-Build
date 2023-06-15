@@ -7,10 +7,10 @@
   file:
     path: "{{ grafana_data_dir }}"
     state: absent
-  when: '"grafana-data" in ansible_run_tags'
+  when: '"grafana_data" in ansible_run_tags'
 
 - name: Remove grafana volume
   docker_volume:
     name: "{{ grafana_volume_name }}"
     state: absent
-  when: '"grafana-volume" in ansible_run_tags'
+  when: '"grafana_volume" in ansible_run_tags'

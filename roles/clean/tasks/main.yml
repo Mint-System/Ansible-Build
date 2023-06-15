@@ -12,12 +12,12 @@
       - moodle
       - odoo
       - nextcloud
-      - collabora-code
+      - collabora_code
       - bookstack
       - logstash
       - metricbeat
       - cadvisor
-      - node-exporter
+      - node_exporter
       - prometheus
       - grafana
       - fathom
@@ -26,17 +26,17 @@
       - openldap
       - mysql
       - postgres
-      - docker-network
-      - odoo-scripts
+      - docker_network
+      - odoo_scripts
       - wordpress
       - pgadmin
-      - restic-client
+      - restic_client
       - commento
       - bigbluebutton
-      - docker-compose
-      - docker-swarm
-      - innernet-client
-      - innernet-server
+      - docker_compose
+      - docker_swarm
+      - innernet_client
+      - innernet_server
       - moodle
       - redis
       - mailhog

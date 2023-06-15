@@ -7,10 +7,10 @@
   docker_volume:
     name: "{{ odoo_volume_name }}"
     state: absent
-  when: '"odoo-volume" in ansible_run_tags'
+  when: '"odoo_volume" in ansible_run_tags'
 
 - name: "Remove odoo data dir {{ odoo_data_dir }}"
   file:
     path: "{{ odoo_data_dir }}"
     state: absent
-  when: '"odoo-data" in ansible_run_tags'
+  when: '"odoo_data" in ansible_run_tags'

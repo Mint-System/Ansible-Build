@@ -28,7 +28,7 @@ odoo_conf_limit_time_real: 600 # default: 1200
 odoo_conf: | # default: proxy_mode = True
   proxy_mode = True
   workers = 2
-odoo_backup_set: # See restic_backup_set var in role restic-client
+odoo_backup_set: # See restic_backup_set var in role restic_client
 ```
 
 And include it in your playbook.

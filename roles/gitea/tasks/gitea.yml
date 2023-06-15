@@ -5,7 +5,7 @@
 
 - name: "Include docker volume role"
   include_role:
-    name: docker-volume
+    name: docker_volume
   vars:
     docker_volume_name: "{{ gitea_volume_name }}"
     docker_volume_backup_set: "{{ gitea_volume_backup_set | default([]) }}"

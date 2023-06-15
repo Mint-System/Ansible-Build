@@ -7,4 +7,4 @@
   docker_volume:
     name: "{{ mysql_volume_name }}"
     state: absent
-  when: '"mysql-volume" in ansible_run_tags'
+  when: '"mysql_volume" in ansible_run_tags'

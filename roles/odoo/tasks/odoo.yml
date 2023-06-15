@@ -1,6 +1,6 @@
 - name: "Include docker volume role"
   include_role:
-    name: docker-volume
+    name: docker_volume
   vars:
     docker_volume_name: "{{ odoo_volume_name }}"
   when: odoo_volume_name is defined
@@ -102,8 +102,8 @@
 
 - name: "Include {{ role_name }} backup from restic client role"
   include_role:
-    name: restic-client
-    tasks_from: restic-client-odoo-backup
+    name: restic_client
+    tasks_from: restic_client_odoo_backup
   vars:
     restic_backup_set: "{{ odoo_backup_set }}"
   when: odoo_backup_set is defined

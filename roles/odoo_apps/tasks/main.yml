@@ -1,0 +1,11 @@
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: odoo_apps is defined
+  tags:
+    - odoo_apps
+
+- name: "Include odoo pip packages tasks"
+  include_tasks: odoo_pip_packages.yml
+  when: odoo_pip_packages is defined
+  tags:
+    - odoo_pip_packages

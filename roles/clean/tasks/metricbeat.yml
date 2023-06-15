@@ -7,4 +7,4 @@
   file:
     path: "{{ metricbeat_data_dir }}"
     state: absent
-  when: '"metricbeat-data" in ansible_run_tags'
+  when: '"metricbeat_data" in ansible_run_tags'

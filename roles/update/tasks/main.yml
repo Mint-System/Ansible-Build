@@ -3,28 +3,28 @@
     msg: "Distribution: {{ ansible_distribution }}\nMajor Version: {{ ansible_distribution_major_version }}"
 
 - name: "Include {{ role_name }} apt tasks"
-  include_tasks: "{{ role_name }}-apt.yml"
+  include_tasks: "{{ role_name }}_apt.yml"
   when: update and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian')
   tags:
     - update
     - never
 
 - name: "Include {{ role_name }} yum tasks"
-  include_tasks: "{{ role_name }}-yum.yml"
+  include_tasks: "{{ role_name }}_yum.yml"
   when: update and ansible_distribution == 'CentOS'
   tags:
     - update
     - never
 
 - name: "Include {{ role_name }} zypper tasks"
-  include_tasks: "{{ role_name }}-zypper.yml"
+  include_tasks: "{{ role_name }}_zypper.yml"
   when: update and ansible_distribution == 'SLES'
   tags:
     - update
     - never
 
 - name: "Include {{ role_name }} dnf tasks"
-  include_tasks: "{{ role_name }}-dnf.yml"
+  include_tasks: "{{ role_name }}_dnf.yml"
   when: update and ansible_distribution == 'AlmaLinux' or ansible_distribution == 'RHEL'
   tags:
     - update

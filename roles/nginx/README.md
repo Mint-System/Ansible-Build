@@ -115,4 +115,4 @@ And include it in your playbook.
 The following tags are available:
 
 * nginx
-* nginx-config
+* nginx_config

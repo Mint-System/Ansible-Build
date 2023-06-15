@@ -1,5 +1,0 @@
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
-  when: blackbox_exporter_image is defined
-  tags:
-    - blackbox-exporter

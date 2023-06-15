@@ -1,6 +1,6 @@
 - name: "Include docker {{ role_name }} backup from restic client role"
   include_role:
-    name: restic-client
+    name: restic_client
   vars:
     restic_backup_set: "{{ postgres_backup_set }}"
   when: postgres_backup_set is defined

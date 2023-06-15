@@ -7,4 +7,4 @@
   docker_volume:
     name: "{{ postgres_volume_name }}"
     state: absent
-  when: '"postgres-volume" in ansible_run_tags'
+  when: '"postgres_volume" in ansible_run_tags'
