@@ -154,61 +154,61 @@ ansible all -m ping -i inventories/odoo
 Deploy multiple inventories.
 
 ```bash
-ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy play-odoo.yml
+ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy play_odoo.yml
 ```
 
 Deploy Odoo stack.
 
 ```bash
-ansible-playbook -i inventories/odoo play-odoo.yml
+ansible-playbook -i inventories/odoo play_odoo.yml
 ```
 
 Deploy role only.
 
 ```bash
-ansible-playbook -i inventories/odoo play-odoo.yml -t postgres
+ansible-playbook -i inventories/odoo play_odoo.yml -t postgres
 ```
 
 Deploy without dependencies.
 
 ```bash
-ansible-playbook -i inventories/odoo play-odoo.yml --skip-tags depends
+ansible-playbook -i inventories/odoo play_odoo.yml --skip-tags depends
 ```
 
 Deploy role to specific host.
 
 ```bash
-ansible-playbook -i inventories/odoo play-odoo.yml -t docker -l host.example.com
+ansible-playbook -i inventories/odoo play_odoo.yml -t docker -l host.example.com
 ```
 
 Deploy role to specific group with non-default user.
 
 ```bash
-ansible-playbook -i inventories/odoo play-odoo.yml -t docker -l europe -u username
+ansible-playbook -i inventories/odoo play_odoo.yml -t docker -l europe -u username
 ```
 
 Clean Odoo stack.
 
 ```bash
-ansible-playbook -i inventories/odoo play-clean.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
+ansible-playbook -i inventories/odoo play_clean.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
 ```
 
 Clean role only.
 
 ```bash
-ansible-playbook -i inventories/odoo play-clean.yml -t docker_network
+ansible-playbook -i inventories/odoo play_clean.yml -t docker_network
 ```
 
 Clean dry run.
 
 ```bash
-ansible-playbook -i inventories/odoo play-odoo.yml -t odoo --check
+ansible-playbook -i inventories/odoo play_odoo.yml -t odoo --check
 ```
 
 Install odoo_scripts and odoo_apps locally.
 
 ```bash
-ansible-playbook -i inventories/odoo play-localhost.yml --skip-tags depends
+ansible-playbook -i inventories/odoo play_localhost.yml --skip-tags depends
 ```
 
 List all Odoo databses.
