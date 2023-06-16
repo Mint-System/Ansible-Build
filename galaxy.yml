@@ -9,40 +9,24 @@ license:
 tags:
   - certbot
   - nginx
-  - modsecurity
-  - keycloak
-  - kibana
-  - moodle
   - odoo
   - nextcloud
-  - collabora_code
-  - bookstack
-  - logstash
-  - metricbeat
   - cadvisor
   - node_exporter
   - prometheus
   - grafana
-  - fathom
-  - elasticsearch
-  - elasticsearch_cluster
-  - openldap
   - mysql
   - postgres
   - docker_network
-  - odoo_scripts
-  - wordpress
   - pgadmin
-  - restic_client
-  - commento
-  - bigbluebutton
-  - docker_compose
-  - docker_swarm
-  - innernet_client
-  - innernet_server
-  - moodle
+  - restic
+  - docker
   - redis
-  - mailhog
+  - fstab
+  - iam
+  - keycloak
+  - promtail
+  - ufw
 repository: "https://github.com/mint-system/ansible-build"
 build_ignore:
   - .vault_pass
