@@ -22,7 +22,7 @@
       - grafana
       - fathom
       - elasticsearch
-      - elasticsearch-cluster
+      - elasticsearch_cluster
       - openldap
       - mysql
       - postgres
