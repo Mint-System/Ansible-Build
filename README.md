@@ -133,53 +133,97 @@ Work in progress:
 
 ### Commands
 
-List hosts in inventory.\
-`task list-hosts inventories/setup`
+List hosts in inventory.
 
-Load virtualenv.\
-`source task source`
+```bash
+task list-hosts inventories/setup
+```
 
-Test connection.\
-`ansible all -m ping -i inventories/odoo`
+Load virtualenv.
 
-Deploy multiple inventories.\
-`ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy play-odoo.yml`
+```bash
+source task source
+```
 
-Deploy Odoo stack.\
-`ansible-playbook -i inventories/odoo play-odoo.yml`
+Test connection.
 
-Deploy role only.\
-`ansible-playbook -i inventories/odoo play-odoo.yml -t postgres`
+```bash
+ansible all -m ping -i inventories/odoo
+```
 
-Deploy without dependencies.\
-`ansible-playbook -i inventories/odoo play-odoo.yml --skip-tags depends`
+Deploy multiple inventories.
 
-Deploy role to specific host.\
-`ansible-playbook -i inventories/odoo play-odoo.yml -t docker -l host.example.com`
+```bash
+ansible-playbook -i inventories/setup -i inventories/odoo -i inventories/proxy play-odoo.yml
+```
 
-Deploy role to specific group with non-default user.\
-`ansible-playbook -i inventories/odoo play-odoo.yml -t docker -l europe -u username`
+Deploy Odoo stack.
 
-Clean Odoo stack.\
-`ansible-playbook -i inventories/odoo play-clean.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume`
+```bash
+ansible-playbook -i inventories/odoo play-odoo.yml
+```
 
-Clean role only.\
-`ansible-playbook -i inventories/odoo play-clean.yml -t docker_network`
+Deploy role only.
 
-Clean dry run.\
-`ansible-playbook -i inventories/odoo play-odoo.yml -t odoo --check`
+```bash
+ansible-playbook -i inventories/odoo play-odoo.yml -t postgres
+```
 
-Install odoo_scripts and odoo_apps locally.\
-`ansible-playbook -i inventories/odoo play-localhost.yml --skip-tags depends`
+Deploy without dependencies.
 
-List all Odoo databses.\
-`ansible all -i inventories/odoo -a "docker-postgres-list -c {{ postgres_hostname }}"`
+```bash
+ansible-playbook -i inventories/odoo play-odoo.yml --skip-tags depends
+```
+
+Deploy role to specific host.
+
+```bash
+ansible-playbook -i inventories/odoo play-odoo.yml -t docker -l host.example.com
+```
+
+Deploy role to specific group with non-default user.
+
+```bash
+ansible-playbook -i inventories/odoo play-odoo.yml -t docker -l europe -u username
+```
+
+Clean Odoo stack.
+
+```bash
+ansible-playbook -i inventories/odoo play-clean.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
+```
+
+Clean role only.
+
+```bash
+ansible-playbook -i inventories/odoo play-clean.yml -t docker_network
+```
+
+Clean dry run.
+
+```bash
+ansible-playbook -i inventories/odoo play-odoo.yml -t odoo --check
+```
+
+Install odoo_scripts and odoo_apps locally.
+
+```bash
+ansible-playbook -i inventories/odoo play-localhost.yml --skip-tags depends
+```
+
+List all Odoo databses.
+
+```bash
+ansible all -i inventories/odoo -a "docker-postgres-list -c {{ postgres_hostname }}"
+```
 
 ### Quality
 
 Lint the project using Ansible lint.
 
-`task lint`
+```bash
+task lint
+```
 
 ### Configuration
 
