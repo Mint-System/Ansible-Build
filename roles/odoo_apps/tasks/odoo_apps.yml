@@ -103,9 +103,9 @@
   changed_when: false
   register: existing_odoo_apps
 
-- name: "Remove unmanaged {{ role_name }} folder"
-  file:
-    path: "{{ odoo_data_dir }}/addons/{{ item }}"
-    state: "absent"
-  loop: "{{ existing_odoo_apps.stdout_lines }}"
-  when: item is not search('_data') and item not in odoo_app_names and odoo_apps_remove_unmanaged_folders
+# - name: "Remove unmanaged {{ role_name }} folder"
+#   file:
+#     path: "{{ odoo_data_dir }}/addons/{{ item }}"
+#     state: "absent"
+#   loop: "{{ existing_odoo_apps.stdout_lines }}"
+#   when: item is not search('_data') and item not in odoo_app_names and odoo_apps_remove_unmanaged_folders
