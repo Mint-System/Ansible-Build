@@ -84,3 +84,17 @@
   register: result
   failed_when: result.stdout is search('Some challenges have failed.') or result.failed
   changed_when: result.stdout is search('Congratulations!') or not result.failed
+
+- name: "Issue certificate with dns-freends authenticator"
+  command: >-
+    docker run --rm --name {{ item }}
+    -v {{ certbot_data_dir }}/:/etc/letsencrypt/
+    -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }} certonly
+    --authenticator dns-freedns --dns-freedns-propagation-seconds 30
+    --dns-freedns-credentials /etc/letsencrypt/.secrets/credentials.ini
+    --email {{ certbot_email }} --agree-tos -d {{ item }}
+  loop: "{{ certbot_missing_certs }}"
+  when: certbot_preferred_challenges == 'dns' and certbot_authenticator == 'dns-freedns' and certbot_missing_certs is defined
+  register: result
+  failed_when: result.stdout is search('Some challenges have failed.') or result.failed
+  changed_when: result.stdout is search('Congratulations!') or not result.failed

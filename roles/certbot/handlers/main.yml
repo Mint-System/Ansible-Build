@@ -1,0 +1,10 @@
+- name: "Build {{ role_name }} custom image"
+  docker_image:
+    name: "{{ certbot_image }}"
+    build:
+      path: "/var/tmp/{{ certbot_hostname }}"
+      pull: true
+    source: build
+    force_source: true
+    force_tag: true
+    state: present

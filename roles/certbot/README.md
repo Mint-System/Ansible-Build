@@ -10,10 +10,10 @@ Configure the role.
 
 ```yml
 certbot_image: certbot/certbot
+certbot_build_image: true # default: false
 certbot_hostname: cert01
 certbot_data_dir: /usr/share/cert # default: "/usr/share/{{ certbot_hostname }}"
 certbot_email: info@example.com
-certbot_preferred_challenges: "dns" # default: "http"
 nginx_image: nginx:1.19.2-alpine
 nginx_hostname: nginx01
 nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"
@@ -30,4 +30,21 @@ And include it in your playbook.
 
 ## Docs
 
-For wildcard certificates set `certbot_preferred_challenges: http`. This will intentionally fail the certbot challenge and give you a manuall command, which must be executed on the server.
+### FreeDNS Authenticator
+
+Set `certbot_build_image`, `certbot_authenticator` and `certbot_preferred_challenges` in the hosts inventory. Pass the the FreeDNS credentials using `certbot_secrets`. Here is an example:
+
+```yml
+certbot_build_image: true
+certbot_preferred_challenges: dns
+certbot_authenticator: dns-freedns
+certbot_secrets:
+  - file: credentials.ini
+    content: |
+      dns_freedns_username = example
+      dns_freedns_password = {{ vault_dns_freedns_password }}
+```
+
+### Wildcard certificates
+
+For wildcard certificates set `certbot_preferred_challenges: dns`. This will intentionally fail the certbot challenge and give you a manuall command, which must be executed on the server.

@@ -1,11 +1,31 @@
+- name: "Set  "
+  set_fact:
+    certbot_image: "certbot:custom"
+    certbot_build_image: "{{ certbot_image }}"
+  when: certbot_build_image
+  tags:
+    - certbot
+
+- name: "Include {{ role_name }} build tasks"
+  include_tasks: "{{ role_name }}_build.yml"
+  when: certbot_build_image
+  tags:
+    - certbot
+
+- name: "Include {{ role_name }} secrets tasks"
+  include_tasks: "{{ role_name }}_secrets.yml"
+  when: certbot_secrets
+  tags:
+    - certbot
+
 - name: "Include {{ role_name }} check tasks"
-  include_tasks: "{{ role_name }}-check.yml"
+  include_tasks: "{{ role_name }}_check.yml"
   when: certbot_image is defined
   tags:
     - certbot
 
 - name: "Include {{ role_name }} wildcard tasks"
-  include_tasks: "{{ role_name }}-wildcard.yml"
+  include_tasks: "{{ role_name }}_wildcard.yml"
   when: certbot_image is defined
   tags:
     - certbot
@@ -17,14 +37,13 @@
     - certbot
 
 - name: "Include {{ role_name }} renew tasks"
-  include_tasks: "{{ role_name }}-renew.yml"
+  include_tasks: "{{ role_name }}_renew.yml"
   when: certbot_image is defined
   tags:
     - certbot
 
-
 - name: "Include {{ role_name }} cleanup tasks"
-  include_tasks: "{{ role_name }}-cleanup.yml"
+  include_tasks: "{{ role_name }}_cleanup.yml"
   when: certbot_image is defined
   tags:
     - certbot
