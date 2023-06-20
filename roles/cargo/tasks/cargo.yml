@@ -2,7 +2,7 @@
   get_url:
     url: https://static.rust-lang.org/rustup.sh
     dest: "~/rustup.sh"
-    mode: "750"
+    mode: "0750"
 
 - name: Run installer rustup
   command:
