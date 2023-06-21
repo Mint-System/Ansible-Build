@@ -2,124 +2,135 @@
 digraph {
 	1 [label=remark42]
 	2 [label=clean]
-	3 [label="odoo-apps"]
-	4 [label=mariadb]
-	5 [label=docker]
-	6 [label="docker-compose"]
-	7 [label=logstash]
+	3 [label=mariadb]
+	4 [label=docker]
+	5 [label=rabbitmq]
+	6 [label=logstash]
+	7 [label=htpasswd]
 	8 [label=postgres]
-	9 [label="docker-volume"]
-	10 [label=synapse]
-	11 [label=locale]
-	12 [label=loki]
-	13 [label=redis]
-	14 [label="bigbluebutton-exporter"]
-	15 [label=pgadmin]
-	16 [label="odoo-patches"]
-	17 [label=maintenance]
-	18 [label=update]
-	19 [label="odoo-databases"]
-	20 [label="odoo-data"]
-	21 [label=openldap]
-	22 [label="odoo-scripts"]
-	23 [label=s3cmd]
-	24 [label="onlyoffice-documentserver"]
-	25 [label=metricbeat]
-	26 [label=fail2ban]
+	9 [label=synapse]
+	10 [label=locale]
+	11 [label=loki]
+	12 [label=redis]
+	13 [label=pgadmin]
+	14 [label=odoo_enterprise]
+	15 [label=maintenance]
+	16 [label=docker_volume]
+	17 [label=update]
+	18 [label=odoo_databases]
+	19 [label=openldap]
+	20 [label=s3cmd]
+	21 [label=odoo_patches]
+	22 [label=keycloak_client]
+	23 [label=metricbeat]
+	24 [label=bigbluebutton_exporter]
+	25 [label=fail2ban]
+	26 [label=nextcloud_exporter]
 	27 [label=fstab]
 	28 [label=keycloak]
-	29 [label=iam]
-	30 [label="innernet-server"]
-	31 [label=cargo]
-	32 [label=elasticsearch]
-	33 [label=ufw]
-	34 [label="nextcloud-apps"]
-	35 [label=debug]
-	36 [label=birt]
-	37 [label=fathom]
-	38 [label=resolv]
-	39 [label=nginx]
-	40 [label=bigbluebutton]
-	41 [label=package]
-	42 [label="blackbox-exporter"]
-	43 [label="odoo-enterprise"]
-	44 [label="nextcloud-exporter"]
-	45 [label=commento]
-	46 [label=rclone]
-	47 [label="restic-client"]
-	48 [label="keycloak-client"]
-	49 [label=odoo]
-	50 [label=prometheus]
-	51 [label=bookstack]
-	52 [label="docker-network"]
-	53 [label="docker-swarm"]
-	54 [label=grafana]
-	55 [label="postgres-exporter"]
-	56 [label=systemd]
-	57 [label=promtail]
-	58 [label=mysql]
-	59 [label=kibana]
-	60 [label="nginx-waf"]
-	61 [label=cadvisor]
-	62 [label="node-exporter"]
-	63 [label="innernet-client"]
-	64 [label=coturn]
-	65 [label="simple-mail-forwarder"]
-	66 [label=nextcloud]
-	67 [label=vercel]
-	68 [label="collabora-code"]
-	69 [label=moodle]
-	70 [label="restic-server"]
-	71 [label=wordpress]
-	72 [label=certbot]
-	1 -> 52
-	4 -> 52
-	6 -> 52
-	6 -> 9
-	7 -> 32
-	8 -> 52
-	9 -> 5
-	10 -> 52
-	12 -> 52
-	13 -> 52
-	14 -> 52
-	15 -> 52
-	17 -> 5
-	19 -> 22
-	21 -> 52
-	24 -> 52
-	25 -> 59
-	25 -> 7
+	29 [label=innernet_client]
+	30 [label=iam]
+	31 [label=collabora_code]
+	32 [label=cargo]
+	33 [label=postfix]
+	34 [label=elasticsearch]
+	35 [label=ufw]
+	36 [label=debug]
+	37 [label=docker_swarm]
+	38 [label=birt]
+	39 [label=fathom]
+	40 [label=resolv]
+	41 [label=nginx]
+	42 [label=bigbluebutton]
+	43 [label=package]
+	44 [label=postgres_exporter]
+	45 [label=odoo_apps]
+	46 [label=commento]
+	47 [label=rclone]
+	48 [label=restic_server]
+	49 [label=nextcloud_apps]
+	50 [label=docker_compose]
+	51 [label=odoo]
+	52 [label=prometheus]
+	53 [label=dribdat]
+	54 [label=simple_mail_forwarder]
+	55 [label=bookstack]
+	56 [label=restic_client]
+	57 [label=grafana]
+	58 [label=systemd]
+	59 [label=odoo_scripts]
+	60 [label=promtail]
+	61 [label=mysql]
+	62 [label=kibana]
+	63 [label=innernet_server]
+	64 [label=cadvisor]
+	65 [label=gitea]
+	66 [label=coturn]
+	67 [label=mailhog]
+	68 [label=blackbox_exporter]
+	69 [label=nextcloud]
+	70 [label=onlyoffice_documentserver]
+	71 [label=vercel]
+	72 [label=moodle]
+	73 [label=nginx_waf]
+	74 [label=wordpress]
+	75 [label=docker_network]
+	76 [label=certbot]
+	77 [label=cron]
+	78 [label=node_exporter]
+	79 [label=odoo_data]
+	1 -> 75
+	3 -> 75
+	5 -> 75
+	6 -> 34
+	8 -> 75
+	9 -> 75
+	11 -> 75
+	12 -> 75
+	13 -> 75
+	14 -> 51
+	15 -> 4
+	16 -> 4
+	18 -> 59
+	19 -> 75
+	22 -> 28
+	23 -> 62
+	23 -> 6
+	24 -> 75
+	26 -> 75
 	28 -> 8
-	29 -> 5
-	32 -> 52
-	37 -> 52
-	39 -> 72
-	40 -> 8
-	42 -> 50
-	43 -> 49
-	44 -> 52
-	45 -> 8
-	46 -> 5
-	48 -> 28
-	49 -> 8
-	50 -> 52
-	51 -> 58
-	52 -> 5
-	53 -> 5
-	54 -> 50
-	55 -> 52
+	30 -> 4
+	31 -> 69
+	33 -> 75
+	34 -> 75
+	37 -> 4
+	39 -> 75
+	41 -> 76
+	42 -> 8
+	44 -> 75
+	46 -> 8
+	48 -> 75
+	50 -> 75
+	50 -> 16
+	51 -> 8
+	52 -> 75
+	53 -> 8
+	54 -> 75
+	55 -> 61
 	57 -> 52
-	58 -> 52
-	59 -> 32
-	61 -> 52
-	62 -> 52
-	64 -> 52
-	65 -> 52
-	66 -> 8
-	68 -> 66
-	69 -> 4
-	70 -> 52
-	71 -> 58
-	72 -> 52
+	60 -> 75
+	61 -> 75
+	62 -> 34
+	64 -> 75
+	65 -> 8
+	66 -> 75
+	67 -> 75
+	68 -> 52
+	69 -> 8
+	70 -> 75
+	72 -> 3
+	74 -> 61
+	75 -> 4
+	76 -> 75
+	78 -> 75
 }
