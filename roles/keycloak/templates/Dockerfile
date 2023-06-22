@@ -1,0 +1,1 @@
+FROM {{ keycloak_build_image }}

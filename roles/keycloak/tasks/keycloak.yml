@@ -58,4 +58,4 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ keycloak_hostname }}|{{ role_name }}"
-  when: "'quay.io/keycloak' in keycloak_image"
+  when: "'quay.io/keycloak' in keycloak_image or 'ghcr.io/inventage' in keycloak_image"

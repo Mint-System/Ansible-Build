@@ -5,30 +5,12 @@
     docker_volume_name: "{{ wordpress_volume_name }}"
   when: wordpress_volume_name is defined
 
-- name: "Ensure {{ role_name }} tmp dir exists"
-  file:
-    path: "/var/tmp/{{ wordpress_hostname }}"
-    state: directory
-
-- name: "Copy {{ role_name }} Dockerfile"
-  template:
-    src: "{{ item }}"
-    dest: "/var/tmp/{{ wordpress_hostname }}/{{ item }}"
-  loop:
-    - Dockerfile
-    - custom.ini
-    - .dockerignore
-  notify: "Build {{ role_name }} custom image"
-
-- name: Flush handlers
-  meta: flush_handlers
-
 - name: "Start {{ role_name }} container {{ wordpress_hostname }}"
   docker_container:
     name: "{{ wordpress_hostname }}"
     labels:
       description: "{{ wordpress_description }}"
-    image: wordpress:custom
+    image: "{{ wordpress_image }}"
     restart_policy: unless-stopped
     recreate: no
     env:

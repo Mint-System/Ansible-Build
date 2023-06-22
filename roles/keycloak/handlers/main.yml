@@ -2,3 +2,14 @@
   docker_container:
     name: "{{ keycloak_hostname }}"
     restart: true
+
+- name: "Build {{ role_name }} custom image"
+  docker_image:
+    name: "{{ keycloak_image }}"
+    build:
+      path: "/var/tmp/{{ keycloak_hostname }}"
+      pull: true
+    source: build
+    force_source: true
+    force_tag: true
+    state: present

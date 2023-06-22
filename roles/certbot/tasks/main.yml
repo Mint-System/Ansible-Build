@@ -1,4 +1,4 @@
-- name: "Set  "
+- name: "On build set new image tag {{ role_name }}:custom"
   set_fact:
     certbot_image: "certbot:custom"
     certbot_build_image: "{{ certbot_image }}"

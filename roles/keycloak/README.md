@@ -13,6 +13,7 @@ Up to version 17.0 use:
 ```yml
 # https://hub.docker.com/r/jboss/keycloak
 keycloak_image: jboss/keycloak:9.0.2
+keycloak_build_image: true # default: false
 keycloak_hostname: login01
 keycloak_description: Login Example Company # default: Keycloak
 keycloak_timezone: Europe/Paris # default: Europe/Berlin
@@ -29,6 +30,7 @@ From version 17.0 use:
 ```yml
 # https://quay.io/repository/keycloak/keycloak
 keycloak_image: quay.io/keycloak/keycloak:21.1
+keycloak_build_image: true # default: false
 keycloak_hostname: login02
 keycloak_description: Login Example Company # default: Keycloak
 keycloak_data_dir: /usr/share/keycloak # default: "/usr/share/{{ keycloak_hostname }}"
