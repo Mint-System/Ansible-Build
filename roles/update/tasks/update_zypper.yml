@@ -24,5 +24,5 @@
     pre_reboot_delay: 0
     post_reboot_delay: 30
     test_command: uptime
-  when: linux_reboot_required_file.stat.exists
+  when: linux_reboot_required_file.stat.exists and reboot_allowed
 
