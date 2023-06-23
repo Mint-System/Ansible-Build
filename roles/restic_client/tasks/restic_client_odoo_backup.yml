@@ -11,7 +11,7 @@
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} \
       && restic backup /var/tmp/{{ item.database }}.zip --tag {{ item.tags | join(' --tag ') }} \
-      {{ (item.upload | default(true)) | ternary('', '--help') }}; \
+      {{ '--help' if item.upload else '' }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
@@ -25,7 +25,7 @@
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "docker-odoo-backup -d {{ item.database }} -c {{ item.container }} \
       && restic backup /var/tmp/{{ item.database }}.zip --tag {{ item.tags | join(' --tag ') }} \
-      {{ (item.upload | default(true)) | ternary('', '--help') }}; \
+      {{ '--help' if item.upload else '' }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"

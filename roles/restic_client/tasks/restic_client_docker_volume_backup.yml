@@ -5,7 +5,7 @@
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "docker-volume-backup -c {{ item.container }} -a \
       && restic backup /var/tmp/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} \
-      {{ (item.upload | default(true)) | ternary('', '--help') }}; \
+      {{ '--help' if item.upload else '' }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
@@ -19,7 +19,7 @@
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "docker-volume-backup -c {{ item.volume }} -v {{ item.volume }} -a \
       && restic backup /var/tmp/{{ item.volume }} --tag {{ item.tags | join(' --tag ') }} \
-      {{ (item.upload | default(true)) | ternary('', '--help') }}; \
+      {{ '--help' if item.upload else '' }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
