@@ -51,3 +51,28 @@ And include it in your playbook.
   roles:
   - role: keycloak
 ```
+
+## Docs
+
+### Additonal Hash-Providers
+
+The custom image supports the hash providers Argon and Bcrypt. This might be helpful when migrating user credentials from another idp.
+
+To test the providers you can run the following SQL statemens. Replace the `user_id` when doing so.
+
+**Argon**
+
+```SQL
+UPDATE credential SET credential_data='{"algorithm":"argon"}', secret_data='{"value":"$argon2i$v=19$m=65536,t=16,p=1$bnI2SEl3UXNicmovRTZYdg$MeU+vEnpIQb1q1QiWNiIq70K8hoWWb3gbp1CfqH6jAU"}'
+WHERE user_id='dc6eec6c-7aea-456c-bf6d-007f4a5b6b07';
+```
+
+**Bcrypt**
+
+
+```sql
+UPDATE credential SET credential_data='{"algorithm":"bcrypt"}', secret_data='{"value":"$2y$12$xtQ/70RpLO8pzGQjYjzsmuJ.eFBAFmizDotdHUBKd9.y755qj/OWu"}'
+WHERE user_id='dc6eec6c-7aea-456c-bf6d-007f4a5b6b07';
+```
+
+In the both cases the actual password is `sozialinfo`.

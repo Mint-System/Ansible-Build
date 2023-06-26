@@ -1,7 +1,15 @@
 - name: "Ensure {{ role_name }} tmp dir exists"
   file:
-    path: "/var/tmp/{{ keycloak_hostname }}"
+    path: "/var/tmp/{{ keycloak_hostname }}/providers"
     state: directory
+
+- name: "Copy {{ role_name }} provider files"
+  copy:
+    src: "{{ item }}"
+    dest: "/var/tmp/{{ keycloak_hostname }}/providers/{{ item }}"
+  loop:
+    - hashprovider-extension-1.0.0-SNAPSHOT.jar
+    - spring-security-crypto-6.1.0.jar
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
