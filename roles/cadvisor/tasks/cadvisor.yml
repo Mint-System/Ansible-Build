@@ -5,13 +5,16 @@
       description: "{{ cadvisor_description }}"
     image: "{{ cadvisor_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
+    privileged: true
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - "{{ docker_data_dir }}:/var/lib/docker:ro"
       - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg:/dev/kmsg:ro
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
