@@ -3,7 +3,7 @@
     /bin/bash -c 'curl -X GET "{{ metricbeat_elasticsearch_username }}:
     {{ metricbeat_elasticsearch_password }}@
     localhost:9200/_cat/templates?v&s=name&pretty" | grep metricbeat'
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false
   when: metricbeat_setup
   register: check_metricbeat_setup

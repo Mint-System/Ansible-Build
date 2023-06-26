@@ -38,7 +38,7 @@
       description: "{{ birt_description }}"
     image: birt:custom
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     volumes:
       - "{{ birt_data_dir }}/reports/:/data/reports/"
     networks:

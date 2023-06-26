@@ -1,7 +1,7 @@
 - name: Add bin folder to cron PATH
   cron:
     name: PATH
-    env: yes
+    env: true
     job: "{{ package_path_var }}"
 
 # - name: Remove PATH var from /etc/environment

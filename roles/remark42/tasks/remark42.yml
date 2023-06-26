@@ -13,7 +13,7 @@
       description: "{{ remark42_description }}"
     image: "{{ remark42_image }}"
     restart_policy: unless-stopped
-    recreate: yes
+    recreate: true
     env:
       REMARK_URL: "{{ remark42_url }}"
       SECRET: "{{ remark42_secret }}"

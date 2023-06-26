@@ -13,7 +13,7 @@
   get_url:
     url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
     dest: /usr/local/bin/docker-compose
-    force: yes
+    force: true
     mode: "u+x,g+x"
 
   when: docker_compose_current_version is not defined or docker_compose_current_version != docker_compose_version

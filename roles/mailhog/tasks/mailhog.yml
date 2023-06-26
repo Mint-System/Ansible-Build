@@ -5,7 +5,7 @@
       description: "{{ mailhog_description }}"
     image: "{{ mailhog_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

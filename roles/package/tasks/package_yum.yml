@@ -6,7 +6,7 @@
 
 - name: Update yum cache
   yum:
-    update_cache: yes
+    update_cache: true
 
 - name: Install latest packages
   yum:

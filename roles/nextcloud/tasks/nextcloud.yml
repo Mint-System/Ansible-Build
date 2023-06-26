@@ -30,7 +30,7 @@
       description: "{{ nextcloud_description }}"
     image: nextcloud:custom
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       NEXTCLOUD_TRUSTED_DOMAINS: "{{ nextcloud_trusted_domains }}"
       NEXTCLOUD_ADMIN_USER: "{{ nextcloud_admin_user }}"

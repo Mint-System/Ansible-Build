@@ -36,12 +36,12 @@ elasticsearch_nodes:
     data_dir: /usr/share/elastic01
     volume_name: elastic_data01
     seed_hosts: "elastic02"
-    primary: yes
+    primary: true
   - hostname: elastic02
     data_dir: /usr/share/elastic02
     volume_name: elastic_data02
     seed_hosts: "elastic01"
-    primary: no
+    primary: false
 elasticsearch_password: "{{ vault_elasticsearch_password }}"
 elasticsearch_users:
   - name: kibana

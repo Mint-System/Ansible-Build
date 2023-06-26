@@ -31,7 +31,7 @@
       description: "{{ grafana_description }}"
     image: "{{ grafana_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       GF_SECURITY_ADMIN_USER: "{{ grafana_admin_user }}"
       GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"

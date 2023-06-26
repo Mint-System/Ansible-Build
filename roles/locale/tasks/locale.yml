@@ -1,7 +1,7 @@
 - name: Add bin folder to cron PATH
   cron:
     name: PATH
-    env: yes
+    env: true
     job: /bin:/usr/bin:/usr/local/bin
 
 - name: Ensure localisation files for system locale are available

@@ -31,7 +31,7 @@
       description: "{{ rabbitmq_description }}"
     image: rabbitmq:custom
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       RABBITMQ_DEFAULT_USER: "{{ rabbitmq_user }}"
       RABBITMQ_DEFAULT_PASS: "{{ rabbitmq_password }}"

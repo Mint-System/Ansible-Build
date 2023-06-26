@@ -5,7 +5,7 @@
       description: "{{ commento_description }}"
     image: "{{ commento_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       COMMENTO_ORIGIN: "{{ commento_host }}"
       COMMENTO_POSTGRES: "postgres://{{ commento_db_user }}:{{ commento_db_password }}@{{ commento_db_hostname }}:5432/commento?sslmode=disable"

@@ -9,7 +9,7 @@
     name: "{{ item.username }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups | default('') }}"
-    append: yes
+    append: true
     state: "{{ item.state | default('present') }}"
   loop: "{{ iam_users }}"
   when: inventory_hostname_short in item.hosts

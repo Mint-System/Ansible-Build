@@ -45,7 +45,7 @@
 
 - name: "Register {{ role_name }} conf files" # noqa 306
   shell: "find {{ nginx_data_dir }}/proxies/ -type f -name '*.conf' -printf '%f\n'"
-  changed_when: no
+  changed_when: false
   register: nginx_proxy_conf_files
 
 - name: Create managed file list from proxy list

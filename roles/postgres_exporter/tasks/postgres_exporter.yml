@@ -17,7 +17,7 @@
       description: "{{ postgres_exporter_description }}"
     image: "{{ postgres_exporter_image }}"
     restart_policy: unless-stopped
-    recreate: yes
+    recreate: true
     env:
       DATA_SOURCE_NAME: "postgresql://{{ postgres_exporter_username }}:{{ postgres_exporter_password }}\
         @{{ postgres_exporter_server }}:5432/postgres?sslmode=disable"

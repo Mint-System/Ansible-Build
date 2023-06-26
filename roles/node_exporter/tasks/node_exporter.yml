@@ -5,7 +5,7 @@
       description: "{{ node_exporter_description }}"
     image: "{{ node_exporter_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     volumes:
       - "/:/host:ro,rslave"
     command: '--collector.textfile.directory=/host/var/tmp --path.rootfs=/host'

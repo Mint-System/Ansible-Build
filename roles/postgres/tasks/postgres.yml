@@ -12,7 +12,7 @@
       description: "{{ postgres_description }}"
     image: "{{ postgres_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"

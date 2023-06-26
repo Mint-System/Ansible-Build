@@ -5,7 +5,7 @@
       description: "{{ nextcloud_exporter_description }}"
     image: "{{ nextcloud_exporter_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       NEXTCLOUD_SERVER: "{{ nextcloud_exporter_server }}"
       NEXTCLOUD_USERNAME: "{{ nextcloud_exporter_username }}"

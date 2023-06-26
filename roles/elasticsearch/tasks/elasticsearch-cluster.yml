@@ -35,7 +35,7 @@
       description: "{{ item.description }}"
     image: "{{ elasticsearch_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       node.name: "{{ item.hostname }}"
       cluster.name: "{{ elasticsearch_cluster_name }}"
@@ -76,7 +76,7 @@
       description: "{{ item.description }}"
     image: "{{ elasticsearch_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       node.name: "{{ item.hostname }}"
       cluster.name: "{{ elasticsearch_cluster_name }}"

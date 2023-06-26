@@ -5,7 +5,7 @@
       description: "{{ nginx_description }}"
     image: "{{ nginx_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     ports: "{{ nginx_ports | default([]) }}"
     volumes:
       - "{{ nginx_data_dir }}/proxies:/etc/nginx/conf.d/proxies/:ro"

@@ -162,7 +162,7 @@
 #   docker_image:
 #     name: "{{ odoo_image }}"
 #     source: pull
-#     force_source: yes
+#     force_source: true
 #   register: pull_odoo_image
 
 # - name: Tag odoo image

@@ -4,7 +4,7 @@
     headers:
       Content-Type: "application/json"
       Authorization: "Bearer {{ vercel_token }}"
-    return_content: yes
+    return_content: true
   register: vercel_domains
 
 - name: Set domains exist fact
@@ -23,7 +23,7 @@
     headers:
       Content-Type: "application/json"
       Authorization: "Bearer {{ vercel_token }}"
-    return_content: yes
+    return_content: true
   loop: "{{ domains_exist }}"
   register: vercel_dns_records
 

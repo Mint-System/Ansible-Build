@@ -2,7 +2,7 @@
   copy:
     content: ""
     dest: "/var/log/cron.log"
-    force: no
+    force: false
 - name: "Ensure rsysyslog {{ role_name }} is enabled"
   lineinfile:
     path: "/etc/rsyslog.d/50-default.conf"

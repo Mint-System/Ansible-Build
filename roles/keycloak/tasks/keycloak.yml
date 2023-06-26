@@ -10,7 +10,7 @@
       description: "{{ keycloak_description }}"
     image: "{{ keycloak_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       KEYCLOAK_USER: "{{ keycloak_user }}"
       KEYCLOAK_PASSWORD: "{{ keycloak_password }}"
@@ -37,7 +37,7 @@
       description: "{{ keycloak_description }}"
     image: "{{ keycloak_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       KEYCLOAK_ADMIN: "{{ keycloak_admin }}"
       KEYCLOAK_ADMIN_PASSWORD: "{{ keycloak_admin_password }}"

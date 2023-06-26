@@ -17,7 +17,7 @@
       description: "{{ blackbox_exporter_description }}"
     image: "{{ blackbox_exporter_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     volumes:
       - "{{ blackbox_exporter_data_dir }}:/etc/blackbox_exporter"
     networks:

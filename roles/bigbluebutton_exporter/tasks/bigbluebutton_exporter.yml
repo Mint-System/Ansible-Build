@@ -15,7 +15,7 @@
       description: "{{ bigbluebutton_exporter_description }}"
     image: "{{ bigbluebutton_exporter_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       API_BASE_URL: "{{ bigbluebutton_api_url.stdout }}api/"
       API_SECRET: "{{ bigbluebutton_api_secret.stdout }}"

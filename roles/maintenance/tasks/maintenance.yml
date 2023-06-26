@@ -25,7 +25,7 @@
     paths:
       - "/var/tmp"
     age: 7d
-    recurse: yes
+    recurse: true
   register: old_files
 
 # - name: Show old files

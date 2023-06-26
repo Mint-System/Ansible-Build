@@ -42,7 +42,7 @@
 - name: "Restart container {{ nginx_hostname }}"
   docker_container:
     name: "{{ nginx_hostname }}"
-    restart: yes
+    restart: true
     state: started
   when: nginx_container.exists and certbot_missing_certs
 

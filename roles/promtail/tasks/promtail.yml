@@ -18,7 +18,7 @@
       description: "{{ promtail_description }}"
     image: "{{ promtail_image }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     volumes:
       - "{{ docker_data_dir }}:/var/lib/docker:ro"
       - "{{ promtail_data_dir }}:/etc/promtail"

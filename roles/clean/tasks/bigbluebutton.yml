@@ -5,7 +5,7 @@
 
 - name: "Register bigbluebutton packages" # noqa 306
   shell: "dpkg -l | grep bbb | cut -d' ' -f3"
-  changed_when: no
+  changed_when: false
   register: bbb_packages
 
 - name: Uninstall bigbluebutton
@@ -23,7 +23,7 @@
 
 - name: Remove dependencies that are no longer required
   apt:
-    autoremove: yes
+    autoremove: true
 
 - name: "Remove bigbluebutton files and folders"
   file:

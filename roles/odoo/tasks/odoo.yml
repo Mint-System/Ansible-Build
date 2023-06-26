@@ -24,7 +24,7 @@
   docker_image:
     name: "{{ odoo_image }}"
     source: pull
-    force_source: yes
+    force_source: true
   register: pull_odoo_image
   notify: Remove odoo patches
 
@@ -43,7 +43,7 @@
       description: "{{ odoo_description }}"
     image: "odoo:{{ pull_odoo_image.image.Id[7:19] }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
@@ -71,7 +71,7 @@
       description: "{{ odoo_description }}"
     image: "odoo:{{ pull_odoo_image.image.Id[7:19] }}"
     restart_policy: unless-stopped
-    recreate: no
+    recreate: false
     env:
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
