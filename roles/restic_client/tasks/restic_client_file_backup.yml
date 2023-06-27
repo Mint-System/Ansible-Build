@@ -10,7 +10,7 @@
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "restic backup {{ item.path }} --tag {{ item.tags | join(' --tag ') }} \
-      {{ '--help' if item.upload else '' }}; \
+      {{ '--help' if item.upload | default(false) else '' }}; \
       write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
