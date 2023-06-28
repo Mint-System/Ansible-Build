@@ -1,5 +1,4 @@
 postgres_description: PostgreSQL
 postgres_volume_name: "{{ postgres_hostname }}"
-postgres_max_connections: 20
-postgres_db: ""
+postgres_db: "{{ postgres_user }}"
 postgres_password: "{{ vault_postgres_password }}"
