@@ -15,7 +15,7 @@
   set_fact:
     odoo_app_names: "{{ odoo_apps | json_query('[*].name') | list }}"
 
-- name: Check odoo app dependencies
+- name: "Check odoo app dependencies"
   fail:
     msg: "Missing odoo app {{ item }}"
   when: item not in odoo_app_names
@@ -25,37 +25,12 @@
   debug:
     msg: "{{ odoo_app_names | sort   }}"
   
-# - name: "Check downloaded {{ role_name }} zip archives"
-#   stat:
-#     path: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
-#     get_checksum: false
-#     get_md5: false
-#     get_mime: false
-#     get_attributes: false
-#   register: downloaded_odoo_apps
-#   loop: "{{ odoo_apps }}"
-
-# - name: Process downloaded odoo apps
-#   set_fact:
-#     downloaded_odoo_apps: "{{ downloaded_odoo_apps | json_query('results[*] | [?stat.exists==`true`].stat.path') | list }}"
-
-# - name: List apps downloaded
-#   debug:
-#     msg: "{{ downloaded_odoo_apps }}"
-
 - name: "Download {{ role_name }} zip archives"
   get_url:
     url: "{{ odoo_apps_base_url }}{{ item.name }}-{{ item.version }}.zip"
     dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
   loop: "{{ odoo_apps }}"
   when: item.version is defined
-
-- name: "Upload {{ role_name }} zip archives"
-  copy:
-    src: "{{ item.file }}"
-    dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
-  loop: "{{ odoo_apps }}"
-  when: item.file is defined
 
 - name: "Extract downloaded {{ role_name }} zip archives"
   unarchive:
@@ -69,16 +44,6 @@
   register: downloaded_archive_contents
   when: item.version is defined
 
-- name: "Extract uploaded {{ role_name }} zip archives"
-  unarchive:
-    src: "{{ odoo_apps_tmp_dir }}/{{ item.file }}"
-    dest: "{{ odoo_apps_tmp_dir }}"
-    remote_src: true
-    list_files: true
-  loop: "{{ odoo_apps }}"
-  register: uploaded_archive_contents
-  when: item.file is defined
-
 - name: "Copy downloaded {{ role_name }} to addons dir"
   synchronize:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}/"
@@ -89,23 +54,20 @@
   when: item.version is defined
   notify: Restart odoo container
 
-- name: "Copy uploaded {{ role_name }} to addons dir"
-  copy:
-    src: "{{ odoo_apps_tmp_dir }}/{{ item.files[0] }}"
-    dest: "{{ odoo_data_dir }}/addons/{{ item.item.name }}"
-    remote_src: true
-  when: uploaded_archive_contents.resulsts is defined and item.files[0] is match(".*\/$")
-  loop: "{{ uploaded_archive_contents.results }}"
-  notify: Restart odoo container
-
 - name: "Register {{ role_name }} folders" # noqa 306
   command: "ls -1 {{ odoo_data_dir }}/addons/"
   changed_when: false
   register: existing_odoo_apps
 
-# - name: "Remove unmanaged {{ role_name }} folder"
-#   file:
-#     path: "{{ odoo_data_dir }}/addons/{{ item }}"
-#     state: "absent"
-#   loop: "{{ existing_odoo_apps.stdout_lines }}"
-#   when: item is not search('_data') and item not in odoo_app_names and odoo_apps_remove_unmanaged_folders
+- name: "Append odoo_data folders to odoo app names"
+  set_fact:
+    odoo_app_names: "{{ odoo_app_names + item.module_name }}"
+  loop: "{{ odoo_data }}"
+  when: odoo_data is defined
+
+- name: "Remove unmanaged {{ role_name }} folder"
+  file:
+    path: "{{ odoo_data_dir }}/addons/{{ item }}"
+    state: "absent"
+  loop: "{{ existing_odoo_apps.stdout_lines }}"
+  when: item not in odoo_app_names and odoo_apps_remove_unmanaged_folders
