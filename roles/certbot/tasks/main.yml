@@ -14,7 +14,7 @@
 
 - name: "Include {{ role_name }} secrets tasks"
   include_tasks: "{{ role_name }}_secrets.yml"
-  when: certbot_secrets
+  when: certbot_secrets is defined
   tags:
     - certbot
 
