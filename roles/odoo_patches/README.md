@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 odoo_patches:
-  - name: odoo14_delivery_patch
+  - name: odoo16_microsoft_outlook_expires_in_patch
 ```
 
 And include it in your playbook.
