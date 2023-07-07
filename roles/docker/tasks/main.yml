@@ -23,6 +23,13 @@
     - docker
     - docker-debian
 
+- name: "Include {{ role_name }} debian tasks"
+  include_tasks: "{{ role_name }}-rocky.yml"
+  when: docker_packages is defined and (ansible_distribution == 'Rocky')
+  tags:
+    - docker
+    - docker-rocky
+
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
   when: docker_packages is defined

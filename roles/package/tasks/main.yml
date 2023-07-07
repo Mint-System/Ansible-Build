@@ -39,7 +39,7 @@
 
 - name: "Include {{ role_name }} dnf tasks"
   include_tasks: "{{ role_name }}_dnf.yml"
-  when: packages is defined and ansible_distribution == 'CentOS' and ansible_distribution_major_version in ['8', '9']
+  when: packages is defined and ansible_distribution in ['CentOS', 'Rocky'] and ansible_distribution_major_version in ['8', '9']
   tags:
    - package
    
