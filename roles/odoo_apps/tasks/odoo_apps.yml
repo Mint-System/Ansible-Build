@@ -23,7 +23,7 @@
 
 - name: List apps to be installed
   debug:
-    msg: "{{ odoo_app_names | sort   }}"
+    msg: "{{ odoo_app_names | sort }}"
   
 - name: "Download {{ role_name }} zip archives"
   get_url:
@@ -61,8 +61,7 @@
 
 - name: "Append odoo_data folders to odoo app names"
   set_fact:
-    odoo_app_names: "{{ odoo_app_names + item.module_name }}"
-  loop: "{{ odoo_data }}"
+    odoo_app_names: "{{ odoo_app_names + (odoo_data | json_query('[*].module_name') | list) }}"
   when: odoo_data is defined
 
 - name: "Remove unmanaged {{ role_name }} folder"
