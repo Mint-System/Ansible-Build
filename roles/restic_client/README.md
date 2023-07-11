@@ -36,7 +36,7 @@ restic_backup_set:
       - bookstack
       - bookstack01
     hour: "1"
-    status: absent
+    state: absent
   - id: "odoo backup odoo01"
     type: odoo-backup
     host: http://localhost:8070

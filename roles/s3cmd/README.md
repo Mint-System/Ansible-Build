@@ -23,7 +23,7 @@ s3cmd_backup_set:
     target: kronos
     hour: "3"
     disabled: true # default: false
-    status: absent # default: present
+    state: absent # default: present
 ```
 
 And include it in your playbook.
