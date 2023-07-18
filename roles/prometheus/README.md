@@ -64,7 +64,7 @@ prometheus_scrape_configs:
           json_query('[? node_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
           map('join', ':') | list }}"
 prometheus_etc_hosts: # defaults: {}
-  "leto.mint-system.com": 10.42.5.2
+  "server.example.com": 10.42.5.2
 ```
 
 On hosts define these vars for https job targets.

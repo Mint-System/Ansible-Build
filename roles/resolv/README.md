@@ -18,7 +18,7 @@ resolv_domain_search:
   - redhat.com
   - cisco.com
 resolv_hosts:
-  - name: leto.mint-system.com
+  - name: server.example.com
     ip: 10.42.5.1
 ```
 

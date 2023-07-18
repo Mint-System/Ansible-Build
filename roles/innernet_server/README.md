@@ -22,9 +22,9 @@ innernet_server_cidrs:
     cidr: 10.42.5.0/24
     parent: mintsystem
 innernet_server_peers:
-  - name: leto
+  - name: server1
     cidr: infra
-  - name: pop-os
+  - name: client1
     cidr: infra
 ```
 
