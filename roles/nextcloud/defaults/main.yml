@@ -2,3 +2,4 @@ nextcloud_description: Nextcloud
 nextcloud_timezone: Europe/Berlin
 nextcloud_volume_name: "{{ nextcloud_hostname }}"
 nextcloud_integrity_check: false
+nextcloud_build_image: false

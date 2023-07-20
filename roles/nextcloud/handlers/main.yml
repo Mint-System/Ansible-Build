@@ -5,7 +5,7 @@
 
 - name: "Build {{ role_name }} custom image"
   docker_image:
-    name: nextcloud:custom
+    name: "{{ nextcloud_image }}"
     build:
       path: "/var/tmp/{{ nextcloud_hostname }}"
       pull: true
