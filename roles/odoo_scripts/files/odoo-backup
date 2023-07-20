@@ -47,13 +47,12 @@ done
 
 # Fallback to environment vars and default values
 : ${PASSWORD:=${ODOO_MASTER_PASSWORD:='admin'}}
+: ${DATABASE:='odoo'}
 : ${OUTPUT:='/var/tmp'}
 : ${ODOO_HOST:='http://localhost:8069'}
 
 # Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$OUTPUT" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
-[[ -z "$ODOO_HOST" ]] && { echo "Parameter -h|host is empty" ; exit 1; }
+[[ "$ODOO_HOST" == http* ]]  || { echo "Parameter -h|host must start with 'http/s'" ; exit 1; }
 
 # Remove trailing slash in url
 ODOO_HOST="${ODOO_HOST%/}"
