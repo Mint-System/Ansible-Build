@@ -96,6 +96,6 @@ if [[ $CHECK != "" ]]; then
   echo "The restore for Odoo database $DATABASE has finished."
 else
   echo "The restore for Odoo database $DATABASE failed with:"
-  echo "$RESPONSE"
+  echo "$RESPONSE" | grep error
   exit 1
 fi
