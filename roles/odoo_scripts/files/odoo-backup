@@ -79,7 +79,7 @@ FILEPATH="${DIR}/${FILE}"
 echo "Backup database $DATABASE to $FILEPATH ..."
 
 # Request backup with curl
-ESPONSE=$(curl \
+RESPONSE=$(curl \
   -F "master_pwd=$PASSWORD" \
   -F "name=$DATABASE" \
   -F "backup_format=zip" \
