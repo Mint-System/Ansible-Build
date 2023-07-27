@@ -70,7 +70,7 @@ FILEPATH="${DIR}/${FILE}"
 echo "Backup database $DATABASE to $FILEPATH ..."
 
 # Copy filestore
-echo "Remove and copy filestore."
+echo -e "\e[1A\e[KCopy filestore."
 rm -rf "$DIR/filestore"
 docker cp "$CONTAINER:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
 

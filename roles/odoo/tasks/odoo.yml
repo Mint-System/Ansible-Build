@@ -10,8 +10,6 @@
     path: "{{ odoo_data_dir }}/enterprise"
     state: directory
 
-# FIXME: Task always changes
-
 - name: "Copy {{ role_name }} conf"
   template:
     src: "{{ item }}"
@@ -27,10 +25,6 @@
     force_source: true
   register: pull_odoo_image
   notify: Remove odoo patches
-
-# FIXME: This does not work as copy Odoo conf always changes
-# - name: Flush handlers
-#   meta: flush_handlers
 
 - name: "Tag {{ role_name }} image"
   command: "docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ pull_odoo_image.image.Id[7:19] }}"
