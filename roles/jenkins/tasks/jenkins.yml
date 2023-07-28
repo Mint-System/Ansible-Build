@@ -1,0 +1,28 @@
+- name: "Include docker volume role"
+  include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ jenkins_volume_name }}"
+  when: jenkins_volume_name is defined
+
+- name: "Start {{ role_name }} container {{ jenkins_hostname }}"
+  docker_container:
+    name: "{{ jenkins_hostname }}"
+    labels:
+      description: "{{ jenkins_description }}"
+    image: "{{ jenkins_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    env:
+      JENKINS_USER: "{{ jenkins_user }}"
+      JENKINS_PASSWORD: "{{ jenkins_password }}"
+      JENKINS_URL: "{{ jenkins_url }}"
+    volumes:
+      - "{{ jenkins_volume_name }}:/var/jenkins_home"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ jenkins_hostname }}|{{ role_name }}"

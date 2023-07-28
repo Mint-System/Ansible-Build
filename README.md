@@ -74,6 +74,7 @@ List of all available Ansible roles.
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
 | [innernet_client](roles/innernet_client/README.md)                     | Setup WireGuard based internal network.                          |
 | [innernet_server](roles/innernet_server/README.md)                     | Setup WireGuard based internal network.                          |
+| [jenkins](roles/jenkins/README.md)                                     | Deploy Jenkins container.                                        |
 | [keycloak_client](roles/keycloak_client/README.md)                     | Configure Keycloak client.                                       |
 | [keycloak](roles/keycloak/README.md)                                   | Deploy Keycloak Docker container.                                |
 | [kibana](roles/elasticsearch/README.md)                                | Deploy Kibana Docker container.                                  |

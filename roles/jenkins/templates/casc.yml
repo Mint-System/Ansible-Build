@@ -1,0 +1,16 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+      - id: ${JENKINS_USER}
+        password: ${JENKINS_PASSWORD}
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+  unclassified:
+    location:
+      url: ${JENKINS_URL}
+ 

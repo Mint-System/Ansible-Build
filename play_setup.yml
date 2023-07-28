@@ -49,3 +49,5 @@
     tags: cron
   - role: dribdat
     tags: dribdat
+  - role: jenkins
+    tags: jenkins

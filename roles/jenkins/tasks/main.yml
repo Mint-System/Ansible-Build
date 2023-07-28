@@ -1,0 +1,17 @@
+- name: "On build set new image tag {{ role_name }}:custom"
+  set_fact:
+    jenkins_image: "jenkins:custom"
+    jenkins_build_image: "{{ jenkins_image }}"
+  when: jenkins_build_image
+  tags:
+    - jenkins
+
+- name: "Include {{ role_name }} build tasks"
+  include_tasks: "{{ role_name }}_build.yml"
+  when: jenkins_build_image
+  tags:
+    - jenkins
+
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: jenkins_image is defined
