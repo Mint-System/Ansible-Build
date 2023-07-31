@@ -55,6 +55,6 @@ docker_exec_bash="docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
 
 # Patch database
 echo "Patch database $DATABASE with $FILE."
-cat $FILE | $docker_exec_bash 'psql postgres://$USER:$PASSWORD@$HOST/$DATABASE' 
+cat $FILE | $docker_exec_bash 'psql postgres://$USER:$PASSWORD@$HOST/$DATABASE'
 
 echo "Patching for Odoo database $DATABASE has finished."

@@ -62,7 +62,7 @@ echo "Requesting restore for Odoo database from $FILENAME to $DATABASE ..."
 
 # Set alias
 docker_exec_bash="docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
-docker_exec_root_bash="docker exec  --user root -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
+docker_exec_root_bash="docker exec --user root -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
 
 # Unip archive
 echo "Unzip archive."

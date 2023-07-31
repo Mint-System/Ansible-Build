@@ -45,21 +45,23 @@ done
 : ${DATABASE:='odoo'}
 : ${CONTAINER:='odoo'}
 
-# Kill open connnections
-echo "Kill all database connections"
+# Set alias
+docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
+docker_exec_root_bash="docker exec --user root $CONTAINER /bin/bash -c"
+
+# Kill datbase connections
+echo -e "\e[1A\e[KKill all database connections"
 QUERY="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$DATABASE';"
-COMMAND="psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
-docker exec $CONTAINER /bin/bash -c "$COMMAND"
+$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
 
 # Drop database
-echo "Drop database $DATABASE"
+echo -e "\e[1A\e[KDrop database $DATABASE"
 QUERY="DROP DATABASE \\\"$DATABASE\\\";" # Escape quotes twice
-COMMAND="psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
-docker exec $CONTAINER /bin/bash -c "$COMMAND"
+$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
 
 # Remove filestore
-echo "Remove filestore $DATABASE"
-docker exec $CONTAINER rm -rf "/var/lib/odoo/filestore/$DATABASE"
+echo -e "\e[1A\e[KRemove filestore $DATABASE"
+$docker_exec_root_bash "rm -rf /var/lib/odoo/filestore/$DATABASE"
 
-# Notify of removeal
-echo "The Odoo database $DATABASE has been removed."
+# Notify of removal
+echo -e "\e[1A\e[KThe Odoo database $DATABASE has been removed."
