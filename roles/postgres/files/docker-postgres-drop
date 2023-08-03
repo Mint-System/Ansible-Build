@@ -45,5 +45,14 @@ done
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
-echo "Drop Postgres database $DATABASE on container $CONTAINER ..."
-docker exec $CONTAINER bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -tAc 'DROP DATABASE \"$DATABASE\";'"
+# Set alias
+docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
+
+# Kill datbase connections
+echo -e "\e[1A\e[KKill all database connections"
+QUERY="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$DATABASE';"
+$docker_exec_bash "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c \"$QUERY\""
+
+# Drop datbase
+echo -e "\e[1A\e[KDrop Postgres database $DATABASE on container $CONTAINER ..."
+$docker_exec_bash "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -tAc 'DROP DATABASE \"$DATABASE\";'"

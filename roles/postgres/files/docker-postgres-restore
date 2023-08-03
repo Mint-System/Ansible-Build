@@ -66,8 +66,7 @@ FILENAME=$(basename -- "$FILE")
 POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")
 
 if $DROP; then
-  echo "Deleting Postgres database $DATABASE ..."
-  docker exec $CONTAINER dropdb -U $POSTGRES_USER $DATABASE
+  docker-postgres-drop -c $CONTAINER -d $DATABASE
 fi
 
 if $CREATE; then
