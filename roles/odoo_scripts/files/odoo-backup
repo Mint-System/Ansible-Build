@@ -46,7 +46,7 @@ while getopts ":p: :d: :o: :h:" opt; do
 done
 
 # Fallback to environment vars and default values
-: ${PASSWORD:=${ODOO_MASTER_PASSWORD:='admin'}}
+: ${PASSWORD:=${ODOO_MASTER_PASSWORD:='odoo'}}
 : ${DATABASE:='odoo'}
 : ${OUTPUT:='/var/tmp'}
 : ${ODOO_HOST:='http://localhost:8069'}
