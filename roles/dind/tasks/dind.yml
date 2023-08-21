@@ -1,0 +1,18 @@
+- name: "Start {{ role_name }} container {{ dind_hostname }}"
+  docker_container:
+    name: "{{ dind_hostname }}"
+    labels:
+      description: "{{ dind_description }}"
+    image: "{{ dind_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    privileged: true
+    env: "{{ dind_env | default([]) }}"
+    volumes: "{{ dind_volumes | default([]) }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ dind_hostname }}|{{ role_name }}"

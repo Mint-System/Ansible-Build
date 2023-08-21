@@ -51,3 +51,5 @@
     tags: dribdat
   - role: jenkins
     tags: jenkins
+  - role: dind
+    tags: dind

@@ -58,6 +58,7 @@ List of all available Ansible roles.
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
 | [cron](roles/cron/README.md)                                           | Setup cron jobs.                                                 |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
+| [dind](roles/dind/README.md)                                           | Deploy Docker in Docker container.                               |
 | [docker_compose](roles/docker_compose/README.md)                       | Deploy Docker Compose project.                                   |
 | [docker_network](roles/docker_network/README.md)                       | Configure Docker network.                                        |
 | [docker_swarm](roles/docker_swarm/README.md)                           | Configure Docker Swarm.                                          |

@@ -17,6 +17,7 @@
       JENKINS_USER: "{{ jenkins_user }}"
       JENKINS_PASSWORD: "{{ jenkins_password }}"
       JENKINS_URL: "{{ jenkins_url }}"
+      DOCKER_HOST: "{{ jenkins_docker_host }}"
     volumes:
       - "{{ jenkins_volume_name }}:/var/jenkins_home"
     networks:

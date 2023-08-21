@@ -18,6 +18,21 @@ jenkins_volume_name: jenkins_data01 # default: "{{ jenkins_hostname}}"
 jenkins_user: admin
 jenkins_password: # default: "{{ vault_jenkins_password }}"
 jenkins_url: https://cd.example.com
+jenkins_docker_host: tcp://dind01:2375 # default: "unix:///var/run/docker.sock"
+jenkins_casc: | # default: ''
+  clouds:
+  - docker:
+      dockerApi:
+        dockerHost:
+          uri: "tcp://dind01:2375"
+      exposeDockerHost: true
+      name: "docker"
+      templates:
+      - connector: "attach"
+        dockerTemplateBase:
+          image: "jenkins/agent"
+        labelString: "docker-agent"
+        name: "agent"
 ```
 
 And include it in your playbook.

@@ -1,4 +1,12 @@
 FROM {{ jenkins_build_image }}
+
+USER root
+RUN apt-get update \
+&& DEBIAN_FRONTEND=noninteractive \
+apt-get install --no-install-recommends --assume-yes \
+docker.io
+USER jenkins
+
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
 COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt

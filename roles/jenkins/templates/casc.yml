@@ -13,4 +13,4 @@ jenkins:
   unclassified:
     location:
       url: ${JENKINS_URL}
- 
+  {{ jenkins_casc | indent(width=2) }}
