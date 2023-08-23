@@ -10,8 +10,13 @@ Configure the role.
 
 ```yml
 # https://quay.io/repository/keycloak/keycloak
-keycloak_image: quay.io/keycloak/keycloak:21.1
+keycloak_image: quay.io/keycloak/keycloak:22.0
 keycloak_build_image: true # default: false
+keycloak_build_include:
+  - url: https://github.com/inventage/keycloak-password-hashprovider-extension/releases/download/2.0.0/extension-password-hashprovider-2.0.0-202307200659-6-d59b2187.jar
+    dest: /opt/keycloak/providers/hashprovider-extension.jar
+  - url: https://repo1.maven.org/maven2/org/springframework/security/spring-security-crypto/6.1.3/spring-security-crypto-6.1.3.jar
+    dest: /opt/keycloak/providers/spring-security-crypto.jar
 keycloak_hostname: login02
 keycloak_description: Login Example Company # default: Keycloak
 keycloak_data_dir: /usr/share/keycloak # default: "/usr/share/{{ keycloak_hostname }}"

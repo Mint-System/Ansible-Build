@@ -53,3 +53,5 @@
     tags: jenkins
   - role: dind
     tags: dind
+  - role: keycloak
+    tags: keycloak
