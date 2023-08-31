@@ -18,6 +18,8 @@ jenkins_volume_name: jenkins_data01 # default: "{{ jenkins_hostname}}"
 jenkins_user: admin
 jenkins_password: # default: "{{ vault_jenkins_password }}"
 jenkins_url: https://cd.example.com
+Jenkins_plugins: |
+  oic-auth:latest
 jenkins_docker_host: tcp://dind01:2375 # default: "unix:///var/run/docker.sock"
 jenkins_casc: | # default: ''
   clouds:
