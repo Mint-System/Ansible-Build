@@ -1,10 +1,17 @@
 FROM {{ jenkins_build_image }}
 
 USER root
+
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive \
 apt-get install --no-install-recommends --assume-yes \
 docker.io
+
+RUN curl -L \  
+  "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" \  
+  -o /usr/local/bin/docker-compose \  
+  && chmod +x /usr/local/bin/docker-compose  
+
 USER jenkins
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
