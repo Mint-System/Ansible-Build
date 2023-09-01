@@ -111,7 +111,7 @@ List of all available Ansible roles.
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
 | [promtail](roles/promtail/README.md)                                   | Deploy Promtail container.                                       |
 | [rclone](roles/rclone/README.md)                                       | Sync files with RClone.                                          |
-| [redis](roles/rabbitmq/README.md)                                      | Deploy RabbitMQ container.                                       |
+| [rabbit](roles/rabbitmq/README.md)                                      | Deploy RabbitMQ container.                                       |
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
 | [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |
