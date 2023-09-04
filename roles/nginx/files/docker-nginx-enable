@@ -1,0 +1,47 @@
+#!/bin/bash
+set -e
+SCRIPT=$(basename "$0")
+
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Template nginx proxy conf with env vars."
+    echo "Syntax: $SCRIPT [-t|-o|help]"
+    echo "Example: SERVER_NAME=odoo.example.com PROXY_PASS=http://odoo05:8069 $SCRIPT -t /usr/share/nginx01/default.conf.template -o /usr/share/nginx01/proxies"
+    echo "options:"
+    echo "  -t    Path to the proxy conf template."
+    echo "  -o    Output folder of the proxy conf."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":t: :o:" opt; do
+  case $opt in
+    t) TEMPLATE="$OPTARG"
+    ;;
+    o) OUTPUT_DIR="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Verify variables
+[[ -z "$TEMPLATE" ]] && { echo "Parameter -t|template is empty" ; exit 1; }
+[[ -z "$OUTPUT_DIR" ]] && { echo "Parameter -o|output dir is empty" ; exit 1; }
+
+# Set default vars
+OUTPUT_PATH="${OUTPUT_DIR}/${SERVER_NAME}.nginx"
+DEFINED_ENVS=$(printf '${%s} ' $(env | cut -d= -f1))
+
+echo "Templating nginx proxy conf with these env vars: $DEFINED_ENVS"
+envsubst "$DEFINED_ENVS" < "$TEMPLATE" > "$OUTPUT_PATH"
+echo "Nginx proxy conf created: $OUTPUT_PATH"

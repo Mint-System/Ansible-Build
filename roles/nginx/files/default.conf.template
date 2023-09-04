@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    server_name $SERVER_NAME;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name $SERVER_NAME;
+
+    ssl_certificate /etc/letsencrypt/live/$SERVER_NAME/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$SERVER_NAME/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        proxy_pass $PROXY_PASS;
+        include /etc/letsencrypt/proxy-params.conf;
+    }
+}
