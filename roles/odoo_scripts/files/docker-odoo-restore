@@ -21,7 +21,8 @@ Help() {
     echo "  -d    Database name. Defaults to filename."
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'."
-    echo "  -r    Replace existing database."  
+    echo "  -r    Replace existing database."
+    echo "  -u    Update database uuid."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -34,14 +35,16 @@ fi
 
 # Initialise option flag with a false value
 REPLACE='false'
+UPDATE='false'
 
 # Process params
-while getopts ":r :d: :c: :f:" opt; do
+while getopts ":d: :c: :f: :u :r" opt; do
     case $opt in
-        r) REPLACE='true';;
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
         f) FILE="$OPTARG";;
+        r) REPLACE='true';;
+        u) UPDATE='true';;
         \?) echo "Invalid option -$OPTARG" >&2
         Help
         exit;;
@@ -97,6 +100,14 @@ $docker_exec_bash 'PGPASSWORD="$PASSWORD" psql -q -h $HOST -U $USER $DATABASE -f
 echo -e "\e[1A\e[KCleanup source files."
 $docker_exec_bash 'rm ~/dump.sql'
 rm -rf dump.sql filestore
+
+# Update database uuid
+if $UPDATE; then
+    UUID=$(uuidgen)
+    echo -e "\e[1A\e[KUpdate database uuid."
+    QUERY="UPDATE ir_config_parameter SET value = '$UUID' WHERE key = 'database.uuid';"
+    $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE -c \"$QUERY\""
+fi
 
 # Notify if backup has finished
 echo "The restore for Odoo database $DATABASE has finished."
