@@ -1,0 +1,53 @@
+#!/bin/bash
+set -e
+SCRIPT=$(basename "$0")
+
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Delete Certbot certificate."
+    echo "Syntax: $SCRIPT [-c|-d|help]"
+    echo "Example: $SCRIPT -c example.odoo.com -d /usr/share/certbot01"
+    echo "options:"
+    echo "  -c    Certificate name."
+    echo "  -d    Certbot data dir."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c: :d:" opt; do
+  case $opt in
+    c) CERTIFICATE="$OPTARG"
+    ;;
+    d) CERTBOT_DATA_DIR="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Verify variables
+[[ -z "$CERTIFICATE" ]] && { echo "Parameter -c|certificate is empty" ; exit 1; }
+[[ -z "$CERTBOT_DATA_DIR" ]] && { echo "Parameter -d|certbot data dir is empty" ; exit 1; }
+
+# Ask for confirmation
+read -p "Please confirm the deletion of $CERTIFICATE in $CERTBOT_DATA_DIR (y/n)? " REPLY
+if [[ $REPLY == y ]]; then
+  echo "Deleting certificate $CERTIFICATE ..."
+  
+  # Run the delete command in certbot container
+  docker run --rm --name "${CERTIFICATE}-tmp" \
+  -v "$CERTBOT_DATA_DIR/:/etc/letsencrypt/" \
+  -v "$CERTBOT_DATA_DIR/www/:/var/www/certbot/" \
+  certbot/certbot \
+  delete --cert-name $CERTIFICATE --non-interactive
+
+fi

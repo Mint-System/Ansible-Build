@@ -1,14 +1,4 @@
-- name: Copy certbot scripts
-  template:
-    src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    mode: +x
-  loop:
-    - docker-certbot-renew
-    - docker-certbot-delete
-    - docker-certbot-list
-
-- name: Register renew certs job
+- name: "Register renew certs job"
   cron:
     name: "Renew certs for {{ nginx_hostname }}"
     minute: "{{ 59 |random(seed=nginx_hostname) }}"

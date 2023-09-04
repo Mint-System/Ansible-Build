@@ -1,25 +1,43 @@
-- name: Ensure nginx data dir exists
+- name: "Ensure nginx data dir exists"
   file:
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
-- name: "Get list of {{ role_name }} certs"
+- name: "Copy {{ role_name }} templated scripts"
+  template:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - docker-certbot-renew
+    - docker-certbot-list
+
+- name: "Copy {{ role_name }} scripts"
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - docker-certbot-delete
+    - docker-certbot-create
+
+- name: "Get list of nginx certs"
   stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname | replace('*.', '') }}"
   loop: "{{ nginx_proxies }}"
   register: certbot_certs
   when: item.ssl is defined and item.ssl
 
-- name: Create list of missing certs
+- name: "Create list of missing certs"
   set_fact:
     certbot_missing_certs: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`false`].item.src_hostname') | list }}"
   when: nginx_proxies is defined
 
-- name: Log missing certificates
+- name: "Log missing certificates"
   debug:
     var: certbot_missing_certs
 
-- name: Copy nginx default conf
+- name: "Copy nginx default conf"
   copy:
     src: default.conf
     dest: "{{ nginx_data_dir }}/default.conf"
@@ -68,7 +86,7 @@
       tag: "{{ nginx_hostname }}|{{ role_name }}"
   when: not nginx_container.exists and certbot_missing_certs is defined
 
-- name: Wait for proxy container
+- name: "Wait for proxy container"
   pause:
     seconds: "2"
   when: certbot_missing_certs is defined

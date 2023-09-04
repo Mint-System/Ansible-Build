@@ -1,0 +1,64 @@
+#!/bin/bash
+set -e
+SCRIPT=$(basename "$0")
+
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Request Certbot certificate."
+    echo "Syntax: $SCRIPT [-c|-d|-e|help]"
+    echo "Example: $SCRIPT -c odoo.example.com -d /usr/share/certbot01 -e sysadmin@example.com"
+    echo "options:"
+    echo "  -c    Certificate name."
+    echo "  -d    Certbot data dir."
+    echo "  -e    Mail address for Let's Encrypt. Optional."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c: :d: :e:" opt; do
+  case $opt in
+    c) CERTIFICATE="$OPTARG"
+    ;;
+    d) CERTBOT_DATA_DIR="$OPTARG"
+    ;;
+    e) CERTBOT_EMAIL="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Verify variables
+[[ -z "$CERTIFICATE" ]] && { echo "Parameter -c|certificate is empty" ; exit 1; }
+[[ -z "$CERTBOT_DATA_DIR" ]] && { echo "Parameter -d|certbot data dir is empty" ; exit 1; }
+
+echo "Request certificate $CERTIFICATE ..."
+
+if [[ -z "$CERTBOT_EMAIL" ]]; then
+  
+  # Run the request command in certbot container without email
+  docker run --rm --name "${CERTIFICATE}-tmp" \
+  -v $CERTBOT_DATA_DIR/:/etc/letsencrypt/ \
+  -v $CERTBOT_DATA_DIR/www/:/var/www/certbot/ \
+  certbot/certbot \
+  certonly --webroot --register-unsafely-without-email --agree-tos --webroot-path=/var/www/certbot/ -d $CERTIFICATE
+
+else
+
+  # Run the request command in certbot container with email
+  docker run --rm --name "${CERTIFICATE}-tmp" \
+  -v $CERTBOT_DATA_DIR/:/etc/letsencrypt/ \
+  -v $CERTBOT_DATA_DIR/www/:/var/www/certbot/ \
+  certbot/certbot \
+  certonly --webroot --email $CERTBOT_EMAIL --agree-tos --webroot-path=/var/www/certbot/ -d $CERTIFICATE
+
+fi

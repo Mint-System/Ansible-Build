@@ -4,7 +4,7 @@
   ignore_errors: true
   register: certbot_managed_certs
 
-- name: Create managed certificate list from proxy list
+- name: "Create managed certificate list from proxy list"
   set_fact:
     managed_certs: "{{ nginx_proxies | selectattr('ssl', 'defined') | map(attribute='src_hostname') | map('replace', '*.', '') | list }}"
   when: nginx_proxies is defined
@@ -23,18 +23,18 @@
   loop_control:
     pause: 5
 
-- name: Remove unmanaged certificate live folder
+- name: "Remove unmanaged certificate live folder"
   file:
     path: "{{ certbot_data_dir }}/live/{{ item }}"
     state: absent
   loop: "{{ certbot_managed_certs.stdout_lines }}"
   when: item not in managed_certs
 
-- name: Copy nginx ssl conf files
+- name: "Copy nginx ssl conf files"
   copy:
     src: "{{ item }}"
     dest: "{{ certbot_data_dir }}/"
   loop:
-    - files/options-ssl-nginx.conf
-    - files/ssl-dhparams.pem
-    - files/proxy-params.conf
+    - options-ssl-nginx.conf
+    - ssl-dhparams.pem
+    - proxy-params.conf

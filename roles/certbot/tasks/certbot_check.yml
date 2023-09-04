@@ -1,16 +1,16 @@
-- name: Dig src DNS record
+- name: "Dig src DNS record"
   debug:
     msg: "{{ lookup('dig', item.src_hostname) }}"
   loop: "{{ nginx_proxies }}"
   when: item.ssl is defined and item.ssl
   register: dig_src
 
-- name: Dig host DNS record
+- name: "Dig host DNS record"
   debug:
     msg: "{{ lookup('dig', ansible_host) }}"
   register: dig_host
 
-- name: Fail if src IP is not resolved correctly 
+- name: "Fail if src IP is not resolved correctly"
   fail:
     msg: "DNS record for {{ item.item.src_hostname }} does not point to proxy host."
   when: item.msg is defined and item.msg != dig_host.msg and item.msg != 'NXDOMAIN'
