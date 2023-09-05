@@ -1,6 +1,6 @@
 namespace: "janikvonrotz"
 name: "ansible_build"
-version: "1.0.2"
+version: "1.0.3"
 readme: "README.md"
 authors:
   - "Janik von Rotz <janik.vonrotz@mint-system.ch>"
