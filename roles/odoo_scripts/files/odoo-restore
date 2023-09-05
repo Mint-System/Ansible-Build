@@ -15,14 +15,16 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Restore Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-f|-h|-r|help]"
-  echo "Example: $SCRIPT -p secret -d odoo -f /tmp/odoo.zip -h https://odoo.example.org"
+  echo "Syntax: $SCRIPT [-p|-d|-f|-h|-r|-n|-m|help]"
+  echo "Example: $SCRIPT -p secret -d odoo -f /tmp/odoo.zip -h https://odoo.example.org -n"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
   echo "  -d    Database name. Defaults to filename."
   echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'."
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
   echo "  -r    Replace existing database."  
+  echo "  -n    Neutralize database after restore."  
+  echo "  -m    Database was moved."  
   echo "  help  Show $SCRIPT manual."
   echo
 }
@@ -35,11 +37,15 @@ fi
 
 # Initialise option flag with a false value
 REPLACE='false'
+NEUTRALIZE='false'
+COPY='true'
 
 # Process params
-while getopts ":r :p: :d: :f: :h:" opt; do
+while getopts ":r :n :m :p: :d: :f: :h:" opt; do
   case $opt in
     r) REPLACE='true';;
+    n) NEUTRALIZE='true';;
+    m) COPY='false';;
     h) ODOO_HOST="$OPTARG";;
     p) PASSWORD="$OPTARG";;
     d) DATABASE="$OPTARG";;
@@ -87,7 +93,8 @@ RESPONSE=$(curl \
   -F "master_pwd=$PASSWORD" \
   -F "name=$DATABASE" \
   -F backup_file=@$FILE \
-  -F 'copy=true' \
+  -F "neutralize_database=${NEUTRALIZE}" \
+  -F "copy=${COPY}" \
   "${ODOO_HOST%/}/web/database/restore")
 
 # If redirect is response then restore was succesfull

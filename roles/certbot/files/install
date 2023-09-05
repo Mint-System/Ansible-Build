@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
+
+SCRIPT="docker-certbot-create"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/certbot/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="docker-certbot-delete"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/certbot/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"
