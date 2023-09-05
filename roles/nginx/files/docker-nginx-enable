@@ -8,7 +8,7 @@ Help() {
     echo
     echo "Description: Template nginx proxy conf with env vars."
     echo "Syntax: $SCRIPT [-t|-o|help]"
-    echo "Example: SERVER_NAME=odoo.example.com PROXY_PASS=http://odoo05:8069 $SCRIPT -t /usr/share/nginx01/default.conf.template -o /usr/share/nginx01/proxies"
+    echo "Example: SERVER_NAME=odoo.example.com PROXY_HOST=http://odoo05 $SCRIPT -t /usr/share/nginx01/odoo.conf.template -o /usr/share/nginx01/proxies"
     echo "options:"
     echo "  -t    Path to the proxy conf template."
     echo "  -o    Output folder of the proxy conf."
@@ -39,7 +39,7 @@ done
 [[ -z "$OUTPUT_DIR" ]] && { echo "Parameter -o|output dir is empty" ; exit 1; }
 
 # Set default vars
-OUTPUT_PATH="${OUTPUT_DIR}/${SERVER_NAME}.nginx"
+OUTPUT_PATH="${OUTPUT_DIR}/${SERVER_NAME}.conf"
 DEFINED_ENVS=$(printf '${%s} ' $(env | cut -d= -f1))
 
 echo "Templating nginx proxy conf with these env vars: $DEFINED_ENVS"
