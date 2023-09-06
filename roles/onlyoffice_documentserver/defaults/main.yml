@@ -1,1 +1,2 @@
 onlyoffice_documentserver_description: OnlyOffice Document Server
+onlyoffice_documentserver_jwt_secret: "{{ vault_onlyoffice_documentserver_jwt_secret }}"

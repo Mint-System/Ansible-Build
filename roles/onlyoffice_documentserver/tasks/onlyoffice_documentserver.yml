@@ -5,6 +5,9 @@
       description: "{{ onlyoffice_documentserver_description }}"
     image: "{{ onlyoffice_documentserver_image }}"
     restart_policy: unless-stopped
+    env:
+      JWT_ENABLED: "true"
+      JWT_SECRET: "{{ onlyoffice_documentserver_jwt_secret }}"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
