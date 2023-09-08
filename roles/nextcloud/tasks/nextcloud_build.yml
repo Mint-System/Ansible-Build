@@ -1,12 +1,12 @@
 - name: "Ensure {{ role_name }} tmp dir exists"
   file:
-    path: "/var/tmp/{{ nextcloud_hostname }}/providers"
+    path: "/srv/build/{{ nextcloud_hostname }}/providers"
     state: directory
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "{{ item }}"
-    dest: "/var/tmp/{{ nextcloud_hostname }}/{{ item }}"
+    dest: "/srv/build/{{ nextcloud_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore

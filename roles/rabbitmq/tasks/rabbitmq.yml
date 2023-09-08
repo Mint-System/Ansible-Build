@@ -9,13 +9,13 @@
 
 - name: "Ensure {{ role_name }} tmp dir exists"
   file:
-    path: "/var/tmp/{{ rabbitmq_hostname }}"
+    path: "/srv/build/{{ rabbitmq_hostname }}"
     state: directory
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "{{ item }}"
-    dest: "/var/tmp/{{ rabbitmq_hostname }}/{{ item }}"
+    dest: "/srv/build/{{ rabbitmq_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore

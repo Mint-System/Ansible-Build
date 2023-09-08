@@ -7,7 +7,7 @@
   docker_image:
     name: "{{ nextcloud_image }}"
     build:
-      path: "/var/tmp/{{ nextcloud_hostname }}"
+      path: "/srv/build/{{ nextcloud_hostname }}"
       pull: true
     source: build
     force_source: true

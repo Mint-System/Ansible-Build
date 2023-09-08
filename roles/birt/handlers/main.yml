@@ -7,7 +7,7 @@
   docker_image:
     name: birt:custom
     build:
-      path: "/var/tmp/{{ birt_hostname }}"
+      path: "/srv/build/{{ birt_hostname }}"
       pull: true
     source: build
     force_source: true

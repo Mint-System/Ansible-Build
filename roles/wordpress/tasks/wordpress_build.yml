@@ -1,12 +1,12 @@
 - name: "Ensure {{ role_name }} tmp dir exists"
   file:
-    path: "/var/tmp/{{ wordpress_hostname }}"
+    path: "/srv/build/{{ wordpress_hostname }}"
     state: directory
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "{{ item }}"
-    dest: "/var/tmp/{{ wordpress_hostname }}/{{ item }}"
+    dest: "/srv/build/{{ wordpress_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore

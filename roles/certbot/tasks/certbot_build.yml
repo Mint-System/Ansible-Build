@@ -1,12 +1,12 @@
 - name: "Ensure {{ role_name }} tmp dir exists"
   file:
-    path: "/var/tmp/{{ certbot_hostname }}"
+    path: "/srv/build/{{ certbot_hostname }}"
     state: directory
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "{{ item }}"
-    dest: "/var/tmp/{{ certbot_hostname }}/{{ item }}"
+    dest: "/srv/build/{{ certbot_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore

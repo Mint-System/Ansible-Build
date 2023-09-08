@@ -2,7 +2,7 @@
   docker_image:
     name: "{{ certbot_image }}"
     build:
-      path: "/var/tmp/{{ certbot_hostname }}"
+      path: "/srv/build/{{ certbot_hostname }}"
       pull: true
     source: build
     force_source: true

@@ -7,7 +7,7 @@
   docker_image:
     name: elasticsearch:custom
     build:
-      path: "/var/tmp/{{ elasticsearch_hostname }}"
+      path: "/srv/build/{{ elasticsearch_hostname }}"
       pull: true
     source: build
     force_source: true

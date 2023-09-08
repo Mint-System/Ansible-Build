@@ -1,11 +1,11 @@
 - name: "Ensure {{ role_name }} tmp dir exists"
   file:
-    path: "/var/tmp/{{ keycloak_hostname }}"
+    path: "/srv/build/{{ keycloak_hostname }}"
     state: directory
 
 - name: "Ensure path for build files exists"
   file:
-    path: "/var/tmp/{{ keycloak_hostname }}{{ item.dest | dirname }}"
+    path: "/srv/build/{{ keycloak_hostname }}{{ item.dest | dirname }}"
     state: directory
   loop: "{{ keycloak_build_include }}"
   when: keycloak_build_include is defined
@@ -13,7 +13,7 @@
 - name: "Download build files"
   get_url:
     url: "{{ item.url }}"
-    dest: "/var/tmp/{{ keycloak_hostname }}{{ item.dest }}"
+    dest: "/srv/build/{{ keycloak_hostname }}{{ item.dest }}"
   loop: "{{ keycloak_build_include }}"
   when: keycloak_build_include is defined
   notify: "Build {{ role_name }} custom image"
@@ -21,7 +21,7 @@
 - name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "{{ item }}"
-    dest: "/var/tmp/{{ keycloak_hostname }}/{{ item }}"
+    dest: "/srv/build/{{ keycloak_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore
