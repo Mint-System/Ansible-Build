@@ -3,15 +3,15 @@
     path: "{{ birt_data_dir }}"
     state: directory
 
-- name: "Ensure {{ role_name }} tmp dir exists"
+- name: "Ensure {{ role_name }} build dir exists"
   file:
-    path: "/srv/build/{{ birt_hostname }}"
+    path: "{{ docker_build_dir }}/{{ birt_hostname }}"
     state: directory
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "{{ item }}"
-    dest: "/srv/build/{{ birt_hostname }}/{{ item }}"
+    dest: "{{ docker_build_dir }}/{{ birt_hostname }}/{{ item }}"
     mode: +x
   loop:
     - Dockerfile
@@ -25,8 +25,8 @@
 - name: Run get dependencies script
   script: "get_dependencies"
   args:
-    chdir: "/srv/build/{{ birt_hostname }}"
-    creates: "/srv/build/{{ birt_hostname }}/birt-runtime-4.5.0.war"
+    chdir: "{{ docker_build_dir }}/{{ birt_hostname }}"
+    creates: "{{ docker_build_dir }}/{{ birt_hostname }}/birt-runtime-4.5.0.war"
 
 - name: Flush handlers
   meta: flush_handlers

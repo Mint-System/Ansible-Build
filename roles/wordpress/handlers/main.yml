@@ -7,7 +7,7 @@
   docker_image:
     name: "{{ wordpress_image }}"
     build:
-      path: "/srv/build/{{ wordpress_hostname }}"
+      path: "{{ docker_build_dir }}/{{ wordpress_hostname }}"
       pull: true
     source: build
     force_source: true

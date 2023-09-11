@@ -7,15 +7,15 @@
     path: "{{ rabbitmq_data_dir }}"
     state: directory
 
-- name: "Ensure {{ role_name }} tmp dir exists"
+- name: "Ensure {{ role_name }} build dir exists"
   file:
-    path: "/srv/build/{{ rabbitmq_hostname }}"
+    path: "{{ docker_build_dir }}/{{ rabbitmq_hostname }}"
     state: directory
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "{{ item }}"
-    dest: "/srv/build/{{ rabbitmq_hostname }}/{{ item }}"
+    dest: "{{ docker_build_dir }}/{{ rabbitmq_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore

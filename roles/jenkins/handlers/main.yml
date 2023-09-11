@@ -7,7 +7,7 @@
   docker_image:
     name: "{{ jenkins_image }}"
     build:
-      path: "/srv/build/{{ jenkins_hostname }}"
+      path: "{{ docker_build_dir }}/{{ jenkins_hostname }}"
       pull: true
     source: build
     force_source: true

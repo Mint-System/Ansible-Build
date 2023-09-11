@@ -14,6 +14,7 @@ Configure all depending roles.
 
 ```yml
 docker_data_dir: /mnt/server-disk2/docker # defaults: /var/lib/docker
+docker_build_dir: /tmp/build # defaults: {{ docker_build_dir }}
 docker_pip_packages:
   - name: docker==4.2.0  # defaults: "docker"
 docker_log_driver: "local" # defaults: "json-file

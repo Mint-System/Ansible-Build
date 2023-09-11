@@ -7,7 +7,7 @@
   docker_image:
     name: rabbitmq:custom
     build:
-      path: "/srv/build/{{ rabbitmq_hostname }}"
+      path: "{{ docker_build_dir }}/{{ rabbitmq_hostname }}"
       pull: true
     source: build
     force_source: true

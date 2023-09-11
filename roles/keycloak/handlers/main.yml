@@ -7,7 +7,7 @@
   docker_image:
     name: "{{ keycloak_image }}"
     build:
-      path: "/srv/build/{{ keycloak_hostname }}"
+      path: "{{ docker_build_dir }}/{{ keycloak_hostname }}"
       pull: true
     source: build
     force_source: true

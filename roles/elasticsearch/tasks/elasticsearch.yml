@@ -13,15 +13,15 @@
     path: "{{ elasticsearch_data_dir }}"
     state: directory
 
-- name: "Ensure {{ role_name }} tmp dir exists"
+- name: "Ensure {{ role_name }} build dir exists"
   file:
-    path: "/srv/build/{{ elasticsearch_hostname }}"
+    path: "{{ docker_build_dir }}/{{ elasticsearch_hostname }}"
     state: directory
 
 - name: "Copy {{ role_name }} Dockerfile"
   template:
     src: "{{ item }}"
-    dest: "/srv/build/{{ elasticsearch_hostname }}/{{ item }}"
+    dest: "{{ docker_build_dir }}/{{ elasticsearch_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore
