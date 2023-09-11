@@ -49,6 +49,8 @@ docker_packages:
     version: 1.2.13
 docker_login_username: janikvonrotz
 docker_login_password: "{{ vault_docker_login_password }}"
+docker_login_users: # defaults: - root
+  - git-bot
 ```
 
 Include it in your playbook.

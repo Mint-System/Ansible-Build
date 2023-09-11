@@ -2,3 +2,6 @@
   docker_login:
     username: "{{ docker_login_username }}"
     password: "{{ docker_login_password }}"
+  become: true
+  become_user: "{{ item }}"
+  loop: "{{ docker_login_users }}"
