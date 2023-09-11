@@ -9,6 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
+restic_backup_dir: /tmp/backup # default: /var/tmp
 restic_client_user: restic-user # default: restic
 restic_client_password: "{{ vault_restic_client_password }}"
 restic_repo: "restic.example.com/{{ inventory_hostname }}"
