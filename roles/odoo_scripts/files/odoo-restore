@@ -31,16 +31,16 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Initialise option flag with a false value
-REPLACE='false'
-NEUTRALIZE='false'
-COPY='true'
+REPLACE="false"
+NEUTRALIZE="false"
+COPY="true"
 
 # Process params
 while getopts ":r :n :m :p: :d: :f: :h:" opt; do
   case $opt in
-    r) REPLACE='true';;
-    n) NEUTRALIZE='true';;
-    m) COPY='false';;
+    r) REPLACE="true";;
+    n) NEUTRALIZE="true";;
+    m) COPY="false";;
     h) ODOO_HOST="$OPTARG";;
     p) PASSWORD="$OPTARG";;
     d) DATABASE="$OPTARG";;
@@ -83,14 +83,20 @@ fi
 # Start restore
 echo "Requesting restore for Odoo database from $FILE to $DATABASE ..."
 
+COMMAND="curl \
+-F \"master_pwd=$PASSWORD\"
+-F \"name=$DATABASE\"
+-F \"backup_file=@$FILE\""
+if $NEUTRALIZE; then
+  COMMAND="$COMMAND -F \"neutralize_database=$NEUTRALIZE\""
+fi
+if $COPY; then
+  COMMAND="$COMMAND -F \"copy=$COPY\""
+fi
+COMMAND="$COMMAND ${ODOO_HOST%/}/web/database/restore"
+
 # Request restore with curl
-RESPONSE=$(curl \
-  -F "master_pwd=$PASSWORD" \
-  -F "name=$DATABASE" \
-  -F backup_file=@$FILE \
-  -F "neutralize_database=${NEUTRALIZE}" \
-  -F "copy=${COPY}" \
-  "${ODOO_HOST%/}/web/database/restore")
+RESPONSE=$(eval $COMMAND)
 
 # If redirect is response then restore was succesfull
 CHECK=$(echo "$RESPONSE" | grep -E 'Redirecting...')
