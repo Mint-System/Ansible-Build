@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# Exit script if command fails
 set -e
 
 # Get script name

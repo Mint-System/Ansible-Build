@@ -73,7 +73,7 @@ echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
 
-SCRIPT="docker-odoo-remove"
+SCRIPT="docker-odoo-uninstall"
 echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
