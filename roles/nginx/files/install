@@ -7,3 +7,8 @@ SCRIPT="docker-nginx-enable"
 echo "Install $SCRIPT script ..."
 sudo curl -L "$REPOSITORY/master/roles/nginx/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
 sudo chmod +x "/usr/local/bin/$SCRIPT"
+
+SCRIPT="docker-nginx-reload"
+echo "Install $SCRIPT script ..."
+sudo curl -L "$REPOSITORY/master/roles/nginx/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+sudo chmod +x "/usr/local/bin/$SCRIPT"

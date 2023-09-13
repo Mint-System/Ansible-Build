@@ -1,0 +1,44 @@
+#!/bin/bash
+set -e
+
+SCRIPT=$(basename "$0")
+VERSION="1.0.0"
+
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Reload Nginx config in container."
+    echo "Syntax: $SCRIPT [-t|-o|help]"
+    echo "Example: $SCRIPT -c nginx01"
+    echo "options:"
+    echo "  -c    Name of the container."
+    echo "  -v    Show $SCRIPT version."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+if [[ $1 == 'help' ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c: :v" opt; do
+  case $opt in
+    c) CONTAINER="$OPTARG"
+    ;;
+    v) echo $VERSION
+    exit 0
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Verify variables
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+
+echo "Reload Nginx config on $CONTAINER"
+docker exec "$CONTAINER" /usr/sbin/nginx -s reload

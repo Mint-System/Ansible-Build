@@ -20,3 +20,11 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ nginx_hostname }}|{{ role_name }}"
+
+- name: "Copy {{ role_name }} scripts"
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - docker-nginx-reload
