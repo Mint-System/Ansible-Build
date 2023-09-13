@@ -1,0 +1,26 @@
+- name: "Get ip address of postgres container"
+  shell: "docker inspect --format '{''{range.NetworkSettings.Networks}''}''{''{.IPAddress}''}''{''{end}''}' {{ postgres_hostname }}"
+  register: ip_address
+  ignore_errors: true
+  changed_when: false
+
+- name: "Setup postgres users."
+  postgresql_user:
+    login_host: "{{ ip_address.stdout }}"
+    login_user: "{{ postgres_user }}"
+    login_password: "{{ postgres_password }}"
+    db: "postgres"
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+  loop: "{{ postgres_users }}"
+
+- name: "Grant privilieges to users."
+  postgresql_privs:
+    login_host: "{{ ip_address.stdout }}"
+    login_user: "{{ postgres_user }}"
+    login_password: "{{ postgres_password }}"
+    db: "{{ item.1 }}"
+    privs: SELECT
+    objs: ALL_IN_SCHEMA
+    role: "{{ item.0.name }}"
+  loop: "{{ postgres_users | subelements('databases') }}"

@@ -1,3 +1,16 @@
+# - name: "Grant privilieges to users."
+#   debug:
+#     var: "{{ item.0.name }}, {{ item.1 }}"
+#   loop: "{{ postgres_users | subelements('databases') }}"
+
+# - name: "Get ip address of postgres container"
+#   shell: "docker inspect --format '{''{range.NetworkSettings.Networks}''}''{''{.IPAddress}''}''{''{end}''}' {{ postgres_hostname }}"
+#   register: ip_address
+
+# - name: debug
+#   debug:
+#     var: ip_address.stdout
+
 # - name: Distribution
 #   debug: msg="{{ ansible_distribution }}"
 # - name: Distribution version
@@ -5,9 +18,9 @@
 # - name: Distribution major version
 #   debug: msg="{{ ansible_distribution_major_version }}"
 
-- name: Debug
-  debug:
-    var: groups.all
+# - name: Debug
+#   debug:
+#     var: groups.all
 
 # - name: Dig src DNS record
 #   debug:

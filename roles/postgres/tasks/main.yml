@@ -3,5 +3,9 @@
   when: postgres_image is defined
 
 - name: "Include {{ role_name }} backup tasks"
-  include_tasks: "{{ role_name }}-backup.yml"
+  include_tasks: "{{ role_name }}_backup.yml"
   when: postgres_backup_set is defined
+
+- name: "Include {{ role_name }} users tasks"
+  include_tasks: "{{ role_name }}_users.yml"
+  when: postgres_users is defined
