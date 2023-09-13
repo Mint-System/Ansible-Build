@@ -5,7 +5,7 @@ USER root
 RUN apt-get update \
 && DEBIAN_FRONTEND=noninteractive \
 apt-get install --no-install-recommends --assume-yes \
-docker.io
+docker.io gettext
 
 RUN curl -L \  
   "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" \  
