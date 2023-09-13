@@ -28,7 +28,7 @@ while getopts ":c: :v" opt; do
   case $opt in
     c) CONTAINER="$OPTARG"
     ;;
-    v) echo $VERSION
+    v) echo "$SCRIPT version $VERSION"
     exit 0
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
