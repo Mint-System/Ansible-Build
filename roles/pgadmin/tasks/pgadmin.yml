@@ -21,10 +21,12 @@
     image: "{{ pgadmin_image }}"
     restart_policy: unless-stopped
     recreate: false
+    ports: "{{ pgadmin_ports | default([]) }}"
     env:
       PGADMIN_DEFAULT_EMAIL: "{{ pgadmin_user }}"
       PGADMIN_DEFAULT_PASSWORD: "{{ pgadmin_password }}"
-      PGADMIN_SERVER_JSON_FILE: /pgadmin4/servers.json
+      SCRIPT_NAME: "{{ pgadmin_script_name }}"
+      PGADMIN_CONFIG_WTF_CSRF_ENABLED: "False"
     volumes:
       - "{{ pgadmin_volume_name }}:/var/lib/pgadmin"
       - "{{ pgadmin_data_dir }}/servers.json:/pgadmin4/servers.json"
