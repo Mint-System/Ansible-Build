@@ -17,7 +17,7 @@ keycloak_build_include:
     dest: /opt/keycloak/providers/hashprovider-extension.jar
   - url: https://repo1.maven.org/maven2/org/springframework/security/spring-security-crypto/6.1.3/spring-security-crypto-6.1.3.jar
     dest: /opt/keycloak/providers/spring-security-crypto.jar
-keycloak_hostname: login02
+keycloak_hostname: login01
 keycloak_description: Login Example Company # default: Keycloak
 keycloak_data_dir: /usr/share/keycloak # default: "/usr/share/{{ keycloak_hostname }}"
 keycloak_admin: admin
@@ -39,6 +39,31 @@ And include it in your playbook.
 ```
 
 ## Docs
+
+### Use Admin CLI in Container
+
+You can use the `kcadm.sh` cli inside a Docker container to manage the Keycloak instance.
+
+Log into a Kecyloak container.
+
+```bash
+docker exec -w /opt/keycloak/bin -it login01 bash
+```
+
+Log into the realm with a Keycloak user.
+
+```bash
+./kcadm.sh config credentials --server https://login.example.com --realm master --user $USERNAME --password $PASSWORD
+```
+
+Run `kcadm.sh` commands.
+
+```bash
+./kcadm.sh get clients -r master --fields id,clientId
+./kcadm.sh create clear-user-cache -r master -s realm=master
+# ...
+```
+
 
 ### Additonal Hash-Providers
 
