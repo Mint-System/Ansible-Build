@@ -26,6 +26,8 @@ postgres_users:
      - odoo-main
      - odoo-int
      - odoo-dev
+    rules:
+      - source: 95.15.213.106/24
 ```
 
 Backup databases.

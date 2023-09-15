@@ -18,6 +18,7 @@
       POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_DB: "{{ postgres_db }}"
     volumes:
+      - "{{ postgres_data_dir }}/pg_hba.conf:/etc/postgresql/pg_hba.conf"
       - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
     ports: "{{ postgres_ports | default([]) }}"
     networks:
