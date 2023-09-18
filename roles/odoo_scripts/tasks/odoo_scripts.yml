@@ -8,11 +8,12 @@
     - docker-odoo-clear-assets
     - docker-odoo-cloc
     - docker-odoo-drop
+    - docker-odoo-duplicate
     - docker-odoo-install
     - docker-odoo-list
     - docker-odoo-patch
-    - docker-odoo-remove
     - docker-odoo-restore
+    - docker-odoo-uninstall
     - docker-odoo-update
     - docker-odoo-user
     - odoo-backup
