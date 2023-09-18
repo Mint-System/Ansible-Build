@@ -1,16 +1,3 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
-    path: "{{ postgres_data_dir }}"
-    state: directory
-
-- name: "Copy {{ role_name }} conf"
-  template:
-    src: "{{ item }}"
-    dest: "{{ postgres_data_dir }}/{{ item }}"
-  loop:
-    - pg_hba.conf
-  notify: Restart postgres container
-
 - name: "Get ip address of postgres container"
   shell: "docker inspect --format '{''{range.NetworkSettings.Networks}''}''{''{.IPAddress}''}''{''{end}''}' {{ postgres_hostname }}"
   register: ip_address

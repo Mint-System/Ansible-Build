@@ -5,6 +5,18 @@
     docker_volume_name: "{{ postgres_volume_name }}"
   when: postgres_volume_name is defined
 
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ postgres_data_dir }}"
+    state: directory
+
+- name: "Copy {{ role_name }} conf"
+  template:
+    src: "{{ item }}"
+    dest: "{{ postgres_data_dir }}/{{ item }}"
+  loop:
+    - pg_hba.conf
+
 - name: "Start {{ role_name }} container {{ postgres_hostname }}"
   docker_container:
     name: "{{ postgres_hostname }}"
@@ -18,7 +30,7 @@
       POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_DB: "{{ postgres_db }}"
     volumes:
-      - "{{ postgres_data_dir }}/pg_hba.conf:/etc/postgresql/pg_hba.conf"
+      - "{{ postgres_data_dir }}/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf"
       - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
     ports: "{{ postgres_ports | default([]) }}"
     networks:
