@@ -67,6 +67,9 @@ fi
 # Set file path
 FILEPATH="${DIR}/${FILE}"
 
+# Switch container name with id
+CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+
 echo "Backup database $DATABASE to $FILEPATH ..."
 
 # Copy filestore
