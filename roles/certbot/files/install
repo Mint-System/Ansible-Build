@@ -3,12 +3,13 @@ set -e
 
 REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
-SCRIPT="docker-certbot-create"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/certbot/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
+SCRIPTS=(
+    docker-certbot-create
+    docker-certbot-delete
+)
 
-SCRIPT="docker-certbot-delete"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/certbot/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
+for SCRIPT in ${SCRIPTS[@]}; do
+    echo "Install $SCRIPT script ..."
+    sudo curl -L "$REPOSITORY/master/roles/certbot/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+    sudo chmod +x "/usr/local/bin/$SCRIPT"
+done

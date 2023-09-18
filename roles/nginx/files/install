@@ -3,12 +3,13 @@ set -e
 
 REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
-SCRIPT="docker-nginx-enable"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/nginx/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
+SCRIPTS=(
+    docker-nginx-enable
+    docker-nginx-reload
+)
 
-SCRIPT="docker-nginx-reload"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/nginx/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
+for SCRIPT in ${SCRIPTS[@]}; do
+    echo "Install $SCRIPT script ..."
+    sudo curl -L "$REPOSITORY/master/roles/nginx/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+    sudo chmod +x "/usr/local/bin/$SCRIPT"
+done

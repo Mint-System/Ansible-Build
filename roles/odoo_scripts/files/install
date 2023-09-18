@@ -3,87 +3,28 @@ set -e
 
 REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
-SCRIPT="docker-odoo-install"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
+SCRIPTS=(
+    docker-odoo-install
+    docker-odoo-backup
+    docker-odoo-drop
+    docker-odoo-restore
+    docker-odoo-user
+    odoo-user
+    odoo-backup
+    odoo-restore
+    docker-odoo-list
+    parse-url
+    odoo-drop
+    odoo-duplicate
+    docker-odoo-clear-assets
+    docker-odoo-update
+    docker-odoo-uninstall
+    docker-odoo-patch
+    docker-odoo-cloc
+)
 
-SCRIPT="docker-odoo-backup"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-drop"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-restore"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-user"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="odoo-user"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="odoo-backup"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="odoo-restore"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-list"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="parse-url"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="odoo-drop"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="odoo-duplicate"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-clear-assets"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-update"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-uninstall"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-patch"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
-
-SCRIPT="docker-odoo-cloc"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
+for SCRIPT in ${SCRIPTS[@]}; do
+    echo "Install $SCRIPT script ..."
+    sudo curl -L "$REPOSITORY/master/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+    sudo chmod +x "/usr/local/bin/$SCRIPT"
+done
