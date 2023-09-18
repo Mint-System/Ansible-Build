@@ -13,6 +13,7 @@ odoo_image: odoo:14
 odoo_hostname: odoo01
 odoo_replicas: 3 # default: 1
 odoo_description: Odoo14 # default: Odoo
+odoo_state: stopped # default: started
 odoo_ports:
  - "8069:8069" # default: "127.0.0.1:8069:8069"
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"

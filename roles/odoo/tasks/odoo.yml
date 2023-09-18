@@ -38,6 +38,7 @@
     image: "odoo:{{ pull_odoo_image.image.Id[7:19] }}"
     restart_policy: unless-stopped
     recreate: false
+    state: "{{ odoo_state }}"
     env:
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
