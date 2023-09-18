@@ -29,6 +29,7 @@
   postgresql_pg_hba:
     dest: "{{ postgres_data_dir }}/pg_hba.conf"
     contype: host
+    databases: "{{ item.1.database }}"
     users: "{{ item.0.name }}"
     source: "{{ item.1.source }}"
     method: trust
