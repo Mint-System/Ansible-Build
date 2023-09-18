@@ -4,6 +4,7 @@ set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
+VERSION="1.0.0"
 
 # Display Help
 Help() {
@@ -11,13 +12,14 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Duplicate Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-h|-n|help]"
+  echo "Syntax: $SCRIPT [-p|-d|-h|-n|-v|help]"
   echo "Example: $SCRIPT -p secret -d odoo -h https://odoo.example.org" -n odoo2
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
   echo "  -d    Database name."
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
   echo "  -n    New database name."
+  echo "  -v    Show $SCRIPT version."
   echo "  help  Show $SCRIPT manual."
   echo
 }
@@ -29,16 +31,19 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":p: :d: :h: :n:" opt; do
-  case $opt in
-    h) ODOO_HOST="$OPTARG";;
-    p) PASSWORD="$OPTARG";;
-    d) DATABASE="$OPTARG";;
-    n) NEW_DATABASE="$OPTARG";;
-    \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
-  esac
+while getopts ":p: :d: :h: :n: :v" opt; do
+    case $opt in
+        p) PASSWORD="$OPTARG";;
+        d) DATABASE="$OPTARG";;
+        n) NEW_DATABASE="$OPTARG";;
+        h) ODOO_HOST="$OPTARG";;
+        v) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
 done
 
 # Fallback to environment vars and default values
@@ -54,10 +59,10 @@ echo "Duplicating Odoo database $DATABASE to $NEW_DATABASE ..."
 
 # Request duplication with curl
 RESPONSE=$(curl \
-  -F "master_pwd=${PASSWORD}" \
-  -F "name=${DATABASE}" \
-  -F "new_name=${NEW_DATABASE}" \
-  "${ODOO_HOST%/}/web/database/duplicate")
+    -F "master_pwd=${PASSWORD}" \
+    -F "name=${DATABASE}" \
+    -F "new_name=${NEW_DATABASE}" \
+    "${ODOO_HOST%/}/web/database/duplicate")
 
 echo "$RESPONSE" | grep 'error' && exit 1
 

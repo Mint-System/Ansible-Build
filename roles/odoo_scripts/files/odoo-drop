@@ -4,6 +4,7 @@ set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
+VERSION="1.0.0"
 
 # Display Help
 Help() {
@@ -11,12 +12,13 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Drop Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-h|help]"
+  echo "Syntax: $SCRIPT [-p|-d|-h|-v|help]"
   echo "Example: $SCRIPT -p secret -d odoo -h https://odoo.example.org"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
   echo "  -d    Database name."
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
+  echo "  -v    Show $SCRIPT version."
   echo "  help  Show $SCRIPT manual."
   echo
 }
@@ -28,15 +30,18 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":p: :d: :h:" opt; do
-  case $opt in
-    h) ODOO_HOST="$OPTARG";;
-    p) PASSWORD="$OPTARG";;
-    d) DATABASE="$OPTARG";;
-    \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
-  esac
+while getopts ":p: :d: :h: :v" opt; do
+    case $opt in
+        p) PASSWORD="$OPTARG";;
+        d) DATABASE="$OPTARG";;
+        h) ODOO_HOST="$OPTARG";;
+        v) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
 done
 
 # Fallback to environment vars and default values
@@ -50,16 +55,16 @@ done
 read -p "Please confirm the deletion of $DATABASE on $ODOO_HOST (y/n)? " REPLY
 if [[ $REPLY == y ]]; then
 
-  echo "Deleting Odoo database $DATABASE ..."
+    echo "Deleting Odoo database $DATABASE ..."
 
-  # Request drop with curl
-  RESPONSE=$(curl \
-    -F "master_pwd=${PASSWORD}" \
-    -F "name=${DATABASE}" \
-    "${ODOO_HOST%/}/web/database/drop")
+    # Request drop with curl
+    RESPONSE=$(curl \
+        -F "master_pwd=${PASSWORD}" \
+        -F "name=${DATABASE}" \
+        "${ODOO_HOST%/}/web/database/drop")
 
-  echo "$RESPONSE" | grep 'error' && exit 1
+    echo "$RESPONSE" | grep 'error' && exit 1
 
-  echo "The deletion of Odoo database $DATABASE has finished."
+    echo "The deletion of Odoo database $DATABASE has finished."
 
 fi

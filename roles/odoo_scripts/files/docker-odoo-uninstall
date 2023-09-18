@@ -3,6 +3,7 @@ set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
+VERSION="1.0.0"
 
 # Display Help
 Help() {
@@ -10,12 +11,13 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Uninstall Odoo modules in Docker container."
-    echo "Syntax: $SCRIPT [-d|-m|-c|help]"
+    echo "Syntax: $SCRIPT [-c|-d|-u|-v|help]"
     echo "Example: $SCRIPT -d erp -r hr_timesheet -c odoo01"
     echo "options:"
-    echo "  -d    Database name. Defaults to 'odoo'."
-    echo "  -r    Name of Odoo module to uninstall."
     echo "  -c    Docker container. Defaults to 'odoo'."
+    echo "  -d    Database name. Defaults to 'odoo'."
+    echo "  -u    Name of Odoo module to uninstall."
+    echo "  -v    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -27,15 +29,18 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":d: :r: :c:" opt; do
-  case $opt in
-    r) MODULE="$OPTARG";;
-    c) CONTAINER="$OPTARG";;
-    d) DATABASE="$OPTARG";;
-    \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
-  esac
+while getopts ":c: :d: :u: :v" opt; do
+    case $opt in
+        c) CONTAINER="$OPTARG";;
+        d) DATABASE="$OPTARG";;
+        u) MODULE="$OPTARG";;
+        v) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
 done
 
 # Fallback to environment vars and default values

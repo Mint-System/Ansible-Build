@@ -3,6 +3,7 @@
 
 # Get script name
 SCRIPT=$(basename "$0")
+VERSION="1.0.0"
 
 # Display Help
 Help() {
@@ -10,7 +11,7 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Restore Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-f|-h|-r|-n|-m|help]"
+  echo "Syntax: $SCRIPT [-p|-d|-f|-h|-r|-n|-m|-v|help]"
   echo "Example: $SCRIPT -p secret -d odoo -f /tmp/odoo.zip -h https://odoo.example.org -n"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
@@ -19,7 +20,8 @@ Help() {
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
   echo "  -r    Replace existing database."  
   echo "  -n    Neutralize database after restore."  
-  echo "  -m    Database was moved."  
+  echo "  -m    Database was moved."
+  echo "  -v    Show $SCRIPT version."
   echo "  help  Show $SCRIPT manual."
   echo
 }
@@ -36,19 +38,22 @@ NEUTRALIZE="false"
 COPY="true"
 
 # Process params
-while getopts ":r :n :m :p: :d: :f: :h:" opt; do
-  case $opt in
-    r) REPLACE="true";;
-    n) NEUTRALIZE="true";;
-    m) COPY="false";;
-    h) ODOO_HOST="$OPTARG";;
-    p) PASSWORD="$OPTARG";;
-    d) DATABASE="$OPTARG";;
-    f) FILE="$OPTARG";;
-    \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
-  esac
+while getopts ":p: :d: :f: :h: :r :n :m :v" opt; do
+    case $opt in
+        p) PASSWORD="$OPTARG";;
+        d) DATABASE="$OPTARG";;
+        f) FILE="$OPTARG";;
+        h) ODOO_HOST="$OPTARG";;
+        r) REPLACE="true";;
+        n) NEUTRALIZE="true";;
+        m) COPY="false";;
+        v) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
 done
 
 # Fallback to environment vars and default values
@@ -67,17 +72,17 @@ unzip -q -t $FILE
 
 if $REPLACE; then
   
-  # Ask for confirmation
-  read -p "Please confirm the deletion of $DATABASE on $ODOO_HOST (y/n)? " REPLY
-  if [[ $REPLY == y ]]; then
+    # Ask for confirmation
+    read -p "Please confirm the deletion of $DATABASE on $ODOO_HOST (y/n)? " REPLY
+    if [[ $REPLY == y ]]; then
     echo "Deleting Odoo database $DATABASE ..."
 
     curl \
-      --silent \
-      -F "master_pwd=${PASSWORD}" \
-      -F "name=${DATABASE}" \
-      ${ODOO_HOST%/}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
-  fi
+        --silent \
+        -F "master_pwd=${PASSWORD}" \
+        -F "name=${DATABASE}" \
+        ${ODOO_HOST%/}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
+    fi
 fi
 
 # Start restore
@@ -88,10 +93,10 @@ COMMAND="curl \
 -F \"name=$DATABASE\"
 -F \"backup_file=@$FILE\""
 if $NEUTRALIZE; then
-  COMMAND="$COMMAND -F \"neutralize_database=$NEUTRALIZE\""
+    COMMAND="$COMMAND -F \"neutralize_database=$NEUTRALIZE\""
 fi
 if $COPY; then
-  COMMAND="$COMMAND -F \"copy=$COPY\""
+    COMMAND="$COMMAND -F \"copy=$COPY\""
 fi
 COMMAND="$COMMAND ${ODOO_HOST%/}/web/database/restore"
 
@@ -101,9 +106,9 @@ RESPONSE=$(eval $COMMAND)
 # If redirect is response then restore was succesfull
 CHECK=$(echo "$RESPONSE" | grep -E 'Redirecting...')
 if [[ $CHECK != "" ]]; then
-  echo "The restore for Odoo database $DATABASE has finished."
+    echo "The restore for Odoo database $DATABASE has finished."
 else
-  echo "The restore for Odoo database $DATABASE failed with:"
-  echo "$RESPONSE" | grep error
-  exit 1
+    echo "The restore for Odoo database $DATABASE failed with:"
+    echo "$RESPONSE" | grep error
+    exit 1
 fi

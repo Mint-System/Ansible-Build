@@ -3,6 +3,7 @@ set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
+VERSION="1.0.0"
 
 # Display Help
 Help() {
@@ -10,7 +11,7 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Backup Odoo database from container."
-    echo "Syntax: $SCRIPT [-d|-c|-f|-r|help]"
+    echo "Syntax: $SCRIPT [-d|-c|-f|-r|-u|-v|help]"
     echo "Example: $SCRIPT -d erp-dev -c odoo06 -f tmp/erp.zip -r"
     echo "options:"
     echo "  -d    Database name. Defaults to filename."
@@ -18,6 +19,7 @@ Help() {
     echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'."
     echo "  -r    Replace existing database."
     echo "  -u    Update database uuid."
+    echo "  -v    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -33,13 +35,16 @@ REPLACE='false'
 UPDATE='false'
 
 # Process params
-while getopts ":d: :c: :f: :u :r" opt; do
+while getopts ":c: :d: :f: :r :u :v" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
         f) FILE="$OPTARG";;
         r) REPLACE='true';;
         u) UPDATE='true';;
+        v) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
         \?) echo "Invalid option -$OPTARG" >&2
         Help
         exit;;
