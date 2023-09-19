@@ -25,24 +25,31 @@ nginx_limit_req_zones:
   - name: one
     size: 20m # default 10m
     rate: 10r/s
+nginx_cache_enabled: true # default: false
+
 nginx_proxies:
+
   - src_hostname: www.example.com
     dest_hostname: webserver
     dest_replicas: 3 # default: 1
     dest_port: 8080 # default: 80
     limit_req_zone: one
     options: |
+      include /etc/letsencrypt/proxy-params.conf;
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
     ssl: true # default: false
+
   - src_hostname: example.com
     ssl: true # default: false
     redirect_hostname: www.example.com
+
   - src_hostname: example.org
     redirect_hostname: www.example.com
     cache: true
     server_names:
       - example.org
       - www.example.org
+
   - src_hostname: login.example.com
     ssl: true # default: false
     monitor: true # default: false
@@ -50,27 +57,31 @@ nginx_proxies:
       - path: /
         dest_hostname: frappe-bench
         dest_port: 8000
-        proxy_params: |
-          proxy_set_header Host frappe-bench:8000;
         options: |
+          include /etc/letsencrypt/proxy-params.conf;
+          proxy_set_header Host frappe-bench:8000;
           client_max_body_size 128M;
         limit_req_zone: one
       - path: /auth
         dest_hostname: authserver
         dest_port: 8080 # default: 80
         options: |
+          include /etc/letsencrypt/proxy-params.conf;
           proxy_buffer_size 128k;
           proxy_buffers 4 256k;
           proxy_busy_buffers_size 256k;
           client_max_body_size 256M;
+
   - src_hostname: old.example.com
     redirect_url: https://www.example.com/new
+
   - src_hostname: intern.example.com
     dest_hostname: intern01
     dest_port: 8080
     locations:
       - path: /static
         root: intern.example.com
+
   - src_hostname: odoo.example.com
     dest_hostname: odoo01
     dest_port: 8069 # default: 80
@@ -82,13 +93,12 @@ nginx_proxies:
       - name: odoochat
         server: odoo17:8072
     options: |
+      include /etc/letsencrypt/proxy-params.conf;
       location /longpolling {
         proxy_pass http://odoochat;
-        include /etc/letsencrypt/proxy-params.conf;
+        
       }
       client_max_body_size 32M;
-    proxy_params: |
-      include /etc/letsencrypt/proxy-params.conf;
       if ($request_method = OPTIONS) {
         add_header Access-Control-Allow-Origin "http://localhost:8080";
         add_header Access-Control-Allow-Credentials true;
@@ -102,7 +112,6 @@ nginx_proxies:
       add_header Access-Control-Allow-Origin "http://localhost:8080";
       add_header Access-Control-Allow-Credentials true;
       proxy_cookie_path / "/; secure; HttpOnly; SameSite=None";
-nginx_cache_enabled: true # default: false
 ```
 
 And include it in your playbook.

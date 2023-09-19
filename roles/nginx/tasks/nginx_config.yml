@@ -31,7 +31,6 @@
     dest_replicas: "{{ item.dest_replicas | default(1) }}"
     dest_port: "{{ item.dest_port | default(80)  }}"
     options: "{{ item.options | default('') }}"
-    proxy_params: "{{ item.proxy_params | default('') }}"
     redirect_hostname: "{{ item.redirect_hostname | default(false) }}"
     redirect_url: "{{ item.redirect_url | default(false) }}"
     ssl: "{{ item.ssl | default(false) }}"
