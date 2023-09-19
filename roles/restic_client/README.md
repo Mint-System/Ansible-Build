@@ -15,6 +15,7 @@ restic_client_password: "{{ vault_restic_client_password }}"
 restic_repo: "restic.example.com/{{ inventory_hostname }}"
 restic_repo_password: "{{ vault_restic_repo_password }}"
 restic_backup_set:
+
   - id: "docker volume backup jenkins01"
     upload: false
     type: docker-volume
@@ -24,6 +25,7 @@ restic_backup_set:
       - moodle
       - jenkins01
     hour: "1"
+
   - id: "docker volume backup postgres_data01"
     type: docker-volume
     volume: postgres_data01
@@ -31,6 +33,7 @@ restic_backup_set:
     - postgres
     - postgres01
     hour: "1"
+
   - id: "data dir backup bookstack01"
     type: file
     path: /usr/share/bookstack01
@@ -39,6 +42,7 @@ restic_backup_set:
       - bookstack01
     hour: "1"
     state: absent
+
   - id: "odoo backup odoo01"
     type: odoo-backup
     host: http://localhost:8070
@@ -48,6 +52,7 @@ restic_backup_set:
       - odoo01
     hour: "1"
   - id: "docker odoo backup odoo02"
+
     type: docker-odoo-backup
     container: odoo02
     database: odoo2
@@ -55,6 +60,7 @@ restic_backup_set:
       - odoo
       - odoo02
     hour: "2"
+
   - id: "postgres dump backup postgres01"
     type: postgres-dump
     container: postgres01
@@ -64,6 +70,7 @@ restic_backup_set:
       - postgres01
     hour: "1"
     disabled: true
+
   - id: "postgres dump backup postgres01 all"
     type: postgres-dump
     container: postgres01
@@ -71,6 +78,7 @@ restic_backup_set:
       - postgres
       - postgres01
     hour: "1"
+
   - id: "mysql dump backup mysql01"
     type: mysql-dump
     container: mysql01
@@ -80,6 +88,7 @@ restic_backup_set:
       - mysql01
     hour: "1"
     disabled: true
+
   - id: "postgres dump backup mysql01 all"
     type: mysql-dump
     container: mysql01
@@ -87,6 +96,7 @@ restic_backup_set:
       - mysql
       - mysql01
     hour: "1"
+
   - id: "mariadb dump backup mariadb01"
     type: mariadb-dump
     container: mariadb01
@@ -95,6 +105,7 @@ restic_backup_set:
       - mariadb
       - mariadb01
     hour: "1"
+    
 restic_backup_rotation:
   daily: 7 # default: 7
   weekly: 4 # default: 4
