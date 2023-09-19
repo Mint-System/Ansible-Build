@@ -1,22 +1,27 @@
 #!/bin/bash
 set -e
 
+# Get script name
+SCRIPT=$(basename "$0")
+VERSION="1.0.0"
+
 # Display Help
 Help() {
-  echo
-  echo "docker-volume-backup"
-  echo "####################"
-  echo
-  echo "Description: Backup docker volumes."
-  echo "Syntax: docker-volume-backup [-v|-a|-o|-c|help]"
-  echo "Example: docker-volume-backup -v postgres_data01 -o /tmp -c postgres01"
-  echo "options:"
-  echo "  -v    Comma-separated list of volume names."
-  echo "  -a    Backup all volumes."
-  echo "  -o    Output directory. Defaults to '/var/tmp'"
-  echo "  -c    Docker container name."
-  echo "  help  Show docker-volume-backup manual."
-  echo
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Backup docker volumes."
+    echo "Syntax: $SCRIPT [-c|-a|-v|-e|-o|-V|help]"
+    echo "Example: $SCRIPT -c jeknins -v jenkins_data01 -e workspace -o /tmp "
+    echo "options:"
+    echo "  -c    Docker container name."
+    echo "  -a    Backup all volumes."
+    echo "  -v    Comma-separated list of volume names."
+    echo "  -o    Output directory. Defaults to '/var/tmp'"
+    echo "  -e    Exclude option for tar command."
+    echo "  -v    Show $SCRIPT version."
+    echo "  help  Show $SCRIPT manual."
+    echo
 }
 
 # Show help and exit
@@ -25,60 +30,72 @@ if [[ $1 == 'help' ]]; then
     exit
 fi
 
+# Initialise option flag with a false value
+ALL='false'
+
 # Process params
-while getopts ":a :c: :v: :o:" opt; do
-  case $opt in
-    a) ALL='true'
-    ;;
-    c) CONTAINER="$OPTARG"
-    ;;
-    v) VOLUMES="$OPTARG"
-    ;;
-    o) DIR="$OPTARG"
-    ;;
-    \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
-  esac
+while getopts ":c: :a :v: :e: :o: :V" opt; do
+    case $opt in
+        c) CONTAINER="$OPTARG"
+        ;;
+        a) ALL='true'
+        ;;
+        v) VOLUMES="$OPTARG"
+        ;;
+        e) EXCLUDE="$OPTARG"
+        ;;
+        o) DIR="$OPTARG"
+        ;;
+        V) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
 done
 
 # Fallback to environment vars and default values
-: ${DIR:='/var/tmp'}
+: "${DIR:=/var/tmp}"
 
 # Verify variables
-[[ -z "$VOLUMES" ]] && [[ -z "$ALL" ]] && { echo "Parameter -v or -a|volumes or all must be set" ; exit 1; }
+[[ -z "$VOLUMES" ]] && [[ -z "$ALL" ]] && { echo "Parameter -v|volumes or -a|all must be set" ; exit 1; }
 [[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
-if [ "$ALL" = "true" ]; then
-  # Get all volumes from docker container
-  VOLUME_LIST=($(docker inspect -f '{{ range .Mounts }}{{ .Name }} {{ end }}' $CONTAINER))
+if $ALL; then
+    # Get all volumes from docker container
+    VOLUME_LIST=$(docker inspect -f '{{ range .Mounts }}{{ .Name }}{{ end }}' "$CONTAINER")
 
-  # Concate volume list
-  printf -v VOLUMES '%s,' "${VOLUME_LIST[@]}"
-  VOLUMES="${VOLUMES%,}"
+    # Concate volume list
+    printf -v VOLUMES '%s,' "${VOLUME_LIST[@]}"
+    VOLUMES="${VOLUMES%,}"
 fi
 
-if [[ ! -z $VOLUMES ]] ; then
-  # Split volumes param values
-  VOLUME_LIST=($(echo $VOLUMES | tr "," "\n"))
+if [[ -n $VOLUMES ]] ; then
+    # Split volumes param values
+    VOLUME_LIST=$(echo $VOLUMES | tr "," "\n")
 fi
 
 # Create backup folder
-mkdir -p ${DIR}/${CONTAINER}
+mkdir -p "${DIR}/${CONTAINER}"
 
 # Cleanup backup folder
-rm -rf ${DIR}/${CONTAINER}/*
+rm -rf ${DIR:?}/"${CONTAINER}"/*
 
 # Warning
 echo "Make sure to stop the container $CONTAINER before creating a backup."
 
 # Create dump with docker for each database
-for VOLUME in "${VOLUME_LIST[@]}"
-do
-  echo "Run backup for Docker volume $VOLUME"
-  docker run --rm -v $VOLUME:/_data  -v ${DIR}/${CONTAINER}:/backup ubuntu tar cf /backup/$VOLUME.tar /_data
-  # FIXME: Estimate time with pv: /bin/bash -c "tar cf - /_data | pv -s $(du -sb /_data | awk '{print $1}') > /backup/$VOLUME.tar"
+for VOLUME in "${VOLUME_LIST[@]}"; do
+    if [[ -n "$EXCLUDE" ]]; then
+        echo "Run backup for Docker volume $VOLUME with the exclude option"
+        docker run --rm -v "$VOLUME:/_data" -v "${DIR}/${CONTAINER}:/backup" ubuntu tar --exclude="$EXCLUDE" -cf "/backup/$VOLUME.tar" /_data
+        # FIXME: Estimate time with pv: /bin/bash -c "tar cf - /_data | pv -s $(du -sb /_data | awk '{print $1}') > /backup/$VOLUME.tar"
+    else
+        echo "Run backup for Docker volume $VOLUME"
+        docker run --rm -v "$VOLUME:/_data" -v "${DIR}/${CONTAINER}:/backup" ubuntu tar cf "/backup/$VOLUME.tar" /_data
+    fi
 done
 
 # Notify if backup has finished

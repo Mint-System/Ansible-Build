@@ -1,19 +1,15 @@
 #!/bin/bash
-
-# Exit script if command fails
-# -u stops the script on unset variables
-# -e stops the script on errors
-# -o pipefail stops the script if a pipe fails
 set -e
 
 REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
-SCRIPT="docker-volume-backup"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/docker-volume/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
+SCRIPTS=(
+    docker-volume-backup
+    docker-volume-restore
+)
 
-SCRIPT="docker-volume-restore"
-echo "Install $SCRIPT script ..."
-sudo curl -L "$REPOSITORY/master/roles/docker-volume/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-sudo chmod +x "/usr/local/bin/$SCRIPT"
+for SCRIPT in ${SCRIPTS[@]}; do
+    echo "Install $SCRIPT script ..."
+    sudo curl -L "$REPOSITORY/master/roles/docker_volume/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+    sudo chmod +x "/usr/local/bin/$SCRIPT"
+done

@@ -1,21 +1,24 @@
 #!/bin/bash
 set -e
 
+# Get script name
+SCRIPT=$(basename "$0")
+VERSION="1.0.0"
+
 # Display Help
 Help() {
-  echo
-  echo "docker-volume-restore"
-  echo "#####################"
-  echo
-  echo "Description: Restore docker volumes."
-  echo "Syntax: docker-volume-restore [-v|-f|help]"
-  echo "Example: docker-volume-restore -v postgres_data01 -f /var/tmp/postgres_data01.tar"
-  echo "options:"
-  echo "  -v    Volume name. Defaults to tar file name."
-  echo "  -f    Path to tar file."
-  # echo "  -r    Remove existing files."
-  echo "  help  Show docker-volume-restore manual."
-  echo
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Restore docker volumes."
+    echo "Syntax: $SCRIPT [-v|-f|-V|help]"
+    echo "Example: $SCRIPT -v postgres_data01 -f /var/tmp/postgres_data01.tar"
+    echo "options:"
+    echo "  -v    Volume name. Defaults to tar file name."
+    echo "  -f    Path to tar file."
+    echo "  -v    Show $SCRIPT version."
+    echo "  help  Show $SCRIPT manual."
+    echo
 }
 
 # Show help and exit
@@ -26,13 +29,16 @@ fi
 
 # Process params
 while getopts ":v: :f:" opt; do
-  case $opt in
-    v) VOLUME="$OPTARG";;
-    f) FILE="$OPTARG";;
-    \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
-  esac
+    case $opt in
+        v) VOLUME="$OPTARG";;
+        f) FILE="$OPTARG";;
+        V) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
 done
 
 # Verify variables

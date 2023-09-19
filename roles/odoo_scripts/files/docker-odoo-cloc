@@ -7,18 +7,18 @@ VERSION="1.0.0"
 
 # Display Help
 Help() {
-  echo
-  echo "$SCRIPT"
-  echo
-  echo "Description: Count lines of code for Odoo database."
-  echo "Syntax: $SCRIPT [-c|-d|-v|help]"
-  echo "Example: $SCRIPT -c odoo08 -d shop"
-  echo "options:"
-  echo "  -c    Docker database container. Defaults to 'odoo'."
-  echo "  -d    Database name. Defaults to 'odoo'."
-  echo "  -v    Show $SCRIPT version."
-  echo "  help  Show $SCRIPT manual."
-  echo
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Count lines of code for Odoo database."
+    echo "Syntax: $SCRIPT [-c|-d|-v|help]"
+    echo "Example: $SCRIPT -c odoo08 -d shop"
+    echo "options:"
+    echo "  -c    Docker database container. Defaults to 'odoo'."
+    echo "  -d    Database name. Defaults to 'odoo'."
+    echo "  -v    Show $SCRIPT version."
+    echo "  help  Show $SCRIPT manual."
+    echo
 }
 
 # Show help and exit

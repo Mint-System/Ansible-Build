@@ -15,13 +15,14 @@ restic_client_password: "{{ vault_restic_client_password }}"
 restic_repo: "restic.example.com/{{ inventory_hostname }}"
 restic_repo_password: "{{ vault_restic_repo_password }}"
 restic_backup_set:
-  - id: "docker volume backup moodle01"
+  - id: "docker volume backup jenkins01"
     upload: false
     type: docker-volume
-    container: moodle01
+    container: jenkins01
+    exclude: workspace
     tags:
       - moodle
-      - moodle01
+      - jenkins01
     hour: "1"
   - id: "docker volume backup postgres_data01"
     type: docker-volume
