@@ -1,1 +1,3 @@
 mailhog_description: MailHog
+mailhog_data_dir: "/usr/share/{{ mailhog_hostname }}"
+mailhog_web_path: ""

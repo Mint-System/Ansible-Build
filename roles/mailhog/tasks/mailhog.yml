@@ -1,3 +1,11 @@
+- name: "Configure user access for {{ role_name }}"
+  htpasswd:
+    path: "{{ mailhog_data_dir }}/auth"
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    crypt_scheme: bcrypt
+  loop: "{{ mailhog_users }}"
+
 - name: "Start {{ role_name }} container {{ mailhog_hostname }}"
   docker_container:
     name: "{{ mailhog_hostname }}"
@@ -6,6 +14,12 @@
     image: "{{ mailhog_image }}"
     restart_policy: unless-stopped
     recreate: false
+    env:
+      MH_AUTH_FILE: "/etc/mailhog/auth"
+      MH_STORAGE: "maildir"
+      MH_UI_WEB_PATH: "{{ mailhog_web_path}}"
+    volumes:
+      - "{{ mailhog_data_dir }}/auth:/etc/mailhog/auth"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
