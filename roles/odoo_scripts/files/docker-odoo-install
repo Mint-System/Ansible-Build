@@ -11,12 +11,12 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Install Odoo database in Docker container."
-    echo "Syntax: $SCRIPT [-d|-m|-c|-w|-v|help]"
-    echo "Example: $SCRIPT -d erp -m hr_timesheet -c odoo01 -w all"
+    echo "Syntax: $SCRIPT [-c|-d|-i|-w|-v|help]"
+    echo "Example: $SCRIPT -c odoo01 -d erp -i hr_timesheet -w all"
     echo "options:"
-    echo "  -d    Database name. Defaults to 'odoo'."
-    echo "  -m    List of odoo modules. Defaults to 'base'."
     echo "  -c    Docker container. Defaults to 'odoo'."
+    echo "  -d    Database name. Defaults to 'odoo'."
+    echo "  -i    List of odoo modules. Defaults to 'base'."
     echo "  -w    Without demo data."
     echo "  -v    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
@@ -30,11 +30,11 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":d: :m: :c: :w: :v" opt; do
+while getopts ":c: :d: :i: :w: :v" opt; do
     case $opt in
-        m) MODULES="$OPTARG";;
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
+        i) MODULES="$OPTARG";;
         w) WITHOUT_DEMO="--without-demo=$OPTARG";;
         v) echo "$SCRIPT version $VERSION"
         exit 0
@@ -48,6 +48,9 @@ done
 # Fallback to environment vars and default values
 : ${DATABASE:='odoo'}
 : ${CONTAINER:='odoo'}
+
+# Switch container name with id
+CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 
 # Install with Docker exec
 if [ "$MODULES" != '' ]; then

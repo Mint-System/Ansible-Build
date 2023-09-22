@@ -57,6 +57,8 @@ done
 [[ -z "$SOURCE_DATABASE" ]] && { echo "Parameter -s|source is empty" ; exit 1; }
 [[ -z "$TARGET_DATABASE" ]] && { echo "Parameter -t|target is empty" ; exit 1; }
 
+# Switch container name with id
+CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 
 # Set alias
 docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
