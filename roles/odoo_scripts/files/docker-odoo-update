@@ -51,8 +51,10 @@ done
 # Switch container name with id
 CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 
-# Update with Docker exec
-echo "Update modules $MODULES for database $DATABASE on container $CONTAINER."
-docker exec -it $CONTAINER bin/bash -c "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init --no-http"
+# Set alias
+docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
 
-echo "The Odoo update for $CONTAINER has finished."
+# Update with Docker exec
+echo "Update modules $MODULES on database $DATABASE on container $CONTAINER."
+$docker_exec_bash "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init --no-http"
+
