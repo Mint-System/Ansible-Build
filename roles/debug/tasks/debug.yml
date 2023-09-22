@@ -1,3 +1,17 @@
+# - name: set_fact
+#   set_fact:
+#     revoke_tables: "{{ postgres_users | subelements('revoke_tables') | subelements('databases', 'skip_missing=True') }}"
+
+# - name: "Revoke privilieges to users."
+#   debug:
+#     msg: "{{ revoke_tables }}"
+
+# - name: "Revoke privilieges to users."
+#   debug:
+#     msg: "{{ item.0.name }}, {{ item.1.name }}"
+#   loop: "{{ revoke_tables }}"
+
+
 # - name: "Grant privilieges to users."
 #   debug:
 #     var: "{{ item.0.name }}, {{ item.1 }}"

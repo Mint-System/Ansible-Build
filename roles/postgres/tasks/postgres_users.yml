@@ -23,7 +23,19 @@
     privs: SELECT
     objs: ALL_IN_SCHEMA
     role: "{{ item.0.name }}"
-  loop: "{{ postgres_users | subelements('databases') }}"
+  loop: "{{ postgres_users | subelements('grant_databases') }}"
+
+- name: "Revoke privilieges to users."
+  postgresql_privs:
+    login_host: "{{ ip_address.stdout }}"
+    login_user: "{{ postgres_user }}"
+    login_password: "{{ postgres_password }}"
+    db: "{{ item.1.database }}"
+    state: absent
+    privs: SELECT
+    objs: "{{ item.1.name }}"
+    role: "{{ item.0.name }}"
+  loop: "{{ postgres_users | subelements('revoke_tables') }}"
 
 - name: "Setup connection rules for users."
   postgresql_pg_hba:
@@ -33,5 +45,5 @@
     users: "{{ item.0.name }}"
     source: "{{ item.1.source }}"
     method: trust
-  loop: "{{ postgres_users | subelements('rules') }}"
+  loop: "{{ postgres_users | subelements('connection_rules', skip_missing=True) }}"
   notify: "Restart postgres container"

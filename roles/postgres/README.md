@@ -23,12 +23,20 @@ postgres_db: example # default: "{{ postgres_user }}"
 postgres_users:
   - name: powerbi
     password: "{{ vault_postgres_users_powerbi_password }}"
-    databases:
+    grant_databases:
      - odoo-main
      - odoo-int
      - odoo-dev
     rules:
       - source: 95.15.213.106/24
+        database: odoo-main
+      - source: 95.15.213.106/24
+        database: odoo-int
+    revoke_tables:
+      - name: hr_employee
+        database: odoo-main
+      - name: hr_employee
+        database: odoo-int
 ```
 
 Backup databases.
