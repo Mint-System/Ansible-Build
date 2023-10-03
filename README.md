@@ -64,6 +64,7 @@ List of all available Ansible roles.
 | [docker_swarm](roles/docker_swarm/README.md)                           | Configure Docker Swarm.                                          |
 | [docker_volume](roles/docker_volume/README.md)                         | Configure Docker volume.                                         |
 | [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
+| [dozzle](roles/dozzle/README.md)                                       | Deploy Dozzle container.                                         |
 | [dribdat](roles/dribdat/README.md)                                     | Deploy dribdat container.                                        |
 | [elasticsearch](roles/elasticsearch/README.md)                         | Deploy Elasticsearch Docker cluster.                             |
 | [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
@@ -111,7 +112,7 @@ List of all available Ansible roles.
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
 | [promtail](roles/promtail/README.md)                                   | Deploy Promtail container.                                       |
 | [rclone](roles/rclone/README.md)                                       | Sync files with RClone.                                          |
-| [rabbit](roles/rabbitmq/README.md)                                      | Deploy RabbitMQ container.                                       |
+| [rabbit](roles/rabbitmq/README.md)                                     | Deploy RabbitMQ container.                                       |
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
 | [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |

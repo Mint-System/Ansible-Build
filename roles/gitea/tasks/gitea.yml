@@ -1,8 +1,3 @@
-
-# - name: "Create {{ role_name }} volume"
-#   docker_volume:
-#     name: "{{ gitea_volume_name }}"
-
 - name: "Include docker volume role"
   include_role:
     name: docker_volume

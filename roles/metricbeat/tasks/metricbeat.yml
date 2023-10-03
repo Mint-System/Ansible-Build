@@ -49,7 +49,7 @@
     labels:
       description: "{{ metricbeat_description }}"
     image: "{{ metricbeat_image }}"
-    user: root
+    privileged: true
     env:
       system.hostfs: /hostfs
     volumes:

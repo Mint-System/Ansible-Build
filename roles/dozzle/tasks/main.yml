@@ -1,0 +1,5 @@
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: dozzle_image is defined
+  tags:
+   - dozzle

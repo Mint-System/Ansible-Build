@@ -31,3 +31,5 @@
     tags: remark42
   - role: mailhog
     tags: mailhog
+  - role: dozzle
+    tags: dozzle
