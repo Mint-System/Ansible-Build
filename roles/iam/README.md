@@ -52,3 +52,7 @@ And include it in your playbook.
 ### Set password manually
 
 Run `sudo passwd $USERNAME` to set the password.
+
+### Add user to group manually
+
+Run `sudo usermod -a -G sshusers janikvonrotz` to add a user to a group.

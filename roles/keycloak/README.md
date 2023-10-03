@@ -19,6 +19,7 @@ keycloak_build_include:
     dest: /opt/keycloak/providers/spring-security-crypto.jar
 keycloak_hostname: login01
 keycloak_description: Login Example Company # default: Keycloak
+keycloak_state: stopped # default: started
 keycloak_data_dir: /usr/share/keycloak # default: "/usr/share/{{ keycloak_hostname }}"
 keycloak_admin: admin
 keycloak_admin_password: # default: "{{ vault_keycloak_admin_password }}"

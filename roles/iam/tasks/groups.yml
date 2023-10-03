@@ -4,7 +4,7 @@
     state: present
   loop: "{{ iam_groups }}"
 
-- name: "Allow {{ item.name }} group to have passwordless sudo"
+- name: "Allow groups to have passwordless sudo"
   lineinfile:
     dest: /etc/sudoers
     state: present

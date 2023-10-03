@@ -11,6 +11,7 @@
     image: "{{ keycloak_image }}"
     restart_policy: unless-stopped
     recreate: false
+    state: "{{ keycloak_state }}"
     env:
       KEYCLOAK_USER: "{{ keycloak_user }}"
       KEYCLOAK_PASSWORD: "{{ keycloak_password }}"
@@ -38,6 +39,7 @@
     image: "{{ keycloak_image }}"
     restart_policy: unless-stopped
     recreate: false
+    state: "{{ keycloak_state }}"
     env:
       KEYCLOAK_ADMIN: "{{ keycloak_admin }}"
       KEYCLOAK_ADMIN_PASSWORD: "{{ keycloak_admin_password }}"
