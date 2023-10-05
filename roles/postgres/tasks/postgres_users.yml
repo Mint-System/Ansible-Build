@@ -1,9 +1,3 @@
-- name: "Get ip address of postgres container"
-  shell: "docker inspect --format '{''{range.NetworkSettings.Networks}''}''{''{.IPAddress}''}''{''{end}''}' {{ postgres_hostname }}"
-  register: ip_address
-  ignore_errors: true
-  changed_when: false
-
 - name: "Setup postgres users."
   postgresql_user:
     login_host: "{{ ip_address.stdout }}"
@@ -37,6 +31,13 @@
     role: "{{ item.0.name }}"
   loop: "{{ postgres_users | subelements('revoke_tables') }}"
 
+- name: "Copy {{ role_name }} conf"
+  template:
+    src: "{{ item }}"
+    dest: "{{ postgres_data_dir }}/{{ item }}"
+  loop:
+    - pg_hba.conf
+
 - name: "Setup connection rules for users."
   postgresql_pg_hba:
     dest: "{{ postgres_data_dir }}/pg_hba.conf"
@@ -47,3 +48,10 @@
     method: trust
   loop: "{{ postgres_users | subelements('connection_rules', skip_missing=True) }}"
   notify: "Restart postgres container"
+
+- name: "Copy data files"
+  shell: "docker cp {{ postgres_data_dir }}/{{ item }} {{ postgres_hostname }}:/var/lib/postgrehsql/data/{{ item }}"
+  ignore_errors: true
+  changed_when: false
+  loop:
+    - pg_hba.conf
