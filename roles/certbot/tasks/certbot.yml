@@ -108,7 +108,7 @@
     docker run --rm --name {{ item }}
     -v {{ certbot_data_dir }}/:/etc/letsencrypt/
     -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }} certonly
-    --authenticator dns-freedns --dns-freedns-propagation-seconds 30
+    --authenticator dns-freedns --dns-freedns-propagation-seconds 60
     --dns-freedns-credentials /etc/letsencrypt/.secrets/credentials.ini
     --email {{ certbot_email }} --agree-tos -d {{ item }}
   loop: "{{ certbot_missing_certs }}"
