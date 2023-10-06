@@ -33,3 +33,5 @@
     tags: mailhog
   - role: dozzle
     tags: dozzle
+  - role: superset
+    tags: superset

@@ -1,0 +1,19 @@
+- name: "On build set new image tag {{ role_name }}:custom"
+  set_fact:
+    superset_image: "superset:custom"
+    superset_build_image: "{{ superset_image }}"
+  when: superset_build_image
+  tags:
+    - superset
+
+- name: "Include {{ role_name }} build tasks"
+  include_tasks: "{{ role_name }}_build.yml"
+  when: superset_build_image
+  tags:
+    - superset
+
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: superset_image is defined
+  tags:
+    - superset

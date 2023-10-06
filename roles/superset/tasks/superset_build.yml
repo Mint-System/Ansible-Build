@@ -1,0 +1,20 @@
+- name: "Ensure {{ role_name }} build dir exists"
+  file:
+    path: "{{ docker_build_dir }}/{{ superset_hostname }}"
+    state: directory
+
+- name: "Copy {{ role_name }} Dockerfile"
+  template:
+    src: "{{ item.path }}"
+    dest: "{{ docker_build_dir }}/{{ superset_hostname }}/{{ item.path }}"
+    mode: "{{ item.mode | default('') }}"
+  loop:
+    - path: Dockerfile
+    - path: .dockerignore
+    - path: superset_config.py
+    - path: superset-init
+      mode: "u+x,g+x"
+  notify: "Build {{ role_name }} custom image"
+
+- name: Flush handlers
+  meta: flush_handlers

@@ -1,3 +1,3 @@
-wordpress_build_image: true
+wordpress_build_image: false
 wordpress_description: WordPress
 wordpress_volume_name: "{{ wordpress_hostname }}"

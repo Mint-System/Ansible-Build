@@ -1,0 +1,42 @@
+- name: "Create {{ role_name }} volume"
+  docker_volume:
+    name: "{{ superset_volume_name }}"
+
+- name: "Start {{ role_name }} container {{ superset_hostname }}"
+  docker_container:
+    name: "{{ superset_hostname }}"
+    labels:
+      description: "{{ superset_description }}"
+    image: "{{ superset_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    # env:
+    #   SUPERSET_SECRET_KEY: "{{ superset_secret_key }}"
+    volumes:
+      - "{{ superset_volume_name }}:/app/superset_home"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ superset_hostname }}|{{ role_name }}"
+
+# - name: "Create {{ role_name }} users"
+#   command: docker exec "{{ superset_hostname }}" \
+#     superset fab create-admin \
+#     --username "{{ item.username }}" \
+#     --firstname "{{ item.firstname }}" \
+#     --lastname "{{ item.lastname }}" \
+#     --email "{{ item.email }}" \
+#     --password "{{ item.password }}" \
+#   loop: "{{ superset_users }}"
+
+# - name: "Update {{ role_name }} db"
+#   command: docker exec "{{ superset_hostname }}" \
+#     superset db upgrade
+
+# - name: "Init {{ role_name }} db"
+#   command: docker exec "{{ superset_hostname }}" \
+#     superset superset init
+

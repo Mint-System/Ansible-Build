@@ -1,0 +1,7 @@
+#!/bin/bash
+
+superset fab create-admin --username "{{ superset_admin_username }}" --firstname Superset --lastname Admin --email "{{ superset_admin_email }}" --password "{{ superset_admin_password }}"
+superset db upgrade
+superset superset init 
+
+/bin/sh -c /usr/bin/run-server.sh
