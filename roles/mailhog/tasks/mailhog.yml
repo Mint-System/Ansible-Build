@@ -16,7 +16,6 @@
     recreate: false
     env:
       MH_AUTH_FILE: "/etc/mailhog/auth"
-      MH_STORAGE: "maildir"
       MH_UI_WEB_PATH: "{{ mailhog_web_path}}"
     volumes:
       - "{{ mailhog_data_dir }}/auth:/etc/mailhog/auth"
