@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/bitnami/moodle
-moodle_image: bitnami/moodle:3.11.3
+moodle_image: bitnami/moodle:4.0
 moodle_hostname: moodle01
 moodle_volume_name: moodle_data01 # default: "{{ moodle_hostname }}"
 moodle_username: admin

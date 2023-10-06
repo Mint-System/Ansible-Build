@@ -46,4 +46,3 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ moodle_hostname }}|{{ role_name }}"
-  # when: moodle_database_type == 'mysqli'
