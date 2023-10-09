@@ -73,27 +73,27 @@ CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 echo "Backup database $DATABASE to $FILEPATH ..."
 
 # Copy filestore
-echo -e "\e[1A\e[KCopy filestore."
+echo "Copy filestore."
 rm -rf "$DIR/filestore"
 docker cp "$CONTAINER:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
 
 # Create pgpass file
-echo -e "\e[1A\e[KCreate pgpass file."
+echo "Create pgpass file."
 docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c 'echo "$HOST:5432:$DATABASE:$USER:$PASSWORD" > ~/.pgpass'
 docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c 'chmod 600 ~/.pgpass'
 
 # Dump database
-echo -e "\e[1A\e[KDump database."
+echo "Dump database."
 docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c 'pg_dump -h $HOST -U $USER $DATABASE' > "$DIR/dump.sql"
 
 # Zip everything
-echo -e "\e[1A\e[KZip filestore and dump to $FILE."
+echo "Zip filestore and dump to $FILE."
 rm -f "$FILEPATH"
 cd "$DIR"
 zip -q -r "$FILE" ./dump.sql ./filestore
 
 # Remove source files
-echo -e "\e[1A\e[KCleanup source files."
+echo "Cleanup source files."
 rm -rf dump.sql filestore
 
 # Notify if backup has finished

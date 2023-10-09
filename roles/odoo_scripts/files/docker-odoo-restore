@@ -74,37 +74,37 @@ unzip -q -o $FILENAME
 
 # Clear database
 if $REPLACE; then
-    echo -e "\e[1A\e[KDrop database."
+    echo "Drop database."
     docker-odoo-drop -c $CONTAINER -d $DATABASE
 fi
 
 # Copy filestore and dump
-echo -e "\e[1A\e[KCopy filestore and dump."
+echo "Copy filestore and dump."
 $docker_exec_root_bash 'mkdir -p /var/lib/odoo/filestore'
 docker cp filestore/ "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
 docker cp dump.sql "$CONTAINER:/var/lib/odoo/"
 
 # Set filestore ownership
-echo -e "\e[1A\e[KSet filestore ownership."
+echo "Set filestore ownership."
 $docker_exec_root_bash 'chown -R odoo:odoo /var/lib/odoo/filestore/$DATABASE'
 
 # Create database
-echo -e "\e[1A\e[KCreate database $DATABASE."
+echo "Create database $DATABASE."
 $docker_exec_bash 'PGPASSWORD="$PASSWORD" createdb -h $HOST -U $USER -T template0 $DATABASE'
 
 # Restore database
-echo -e "\e[1A\e[KRestore database from $DATABASE."
+echo "Restore database from $DATABASE."
 $docker_exec_bash 'PGPASSWORD="$PASSWORD" psql -q -h $HOST -U $USER $DATABASE -f ~/dump.sql' 
 
 # Remove source files
-echo -e "\e[1A\e[KCleanup source files."
+echo "Cleanup source files."
 $docker_exec_bash 'rm ~/dump.sql'
 rm -rf dump.sql filestore
 
 # Update database uuid
 if $UPDATE; then
     UUID=$(uuidgen)
-    echo -e "\e[1A\e[KUpdate database uuid."
+    echo "Update database uuid."
     QUERY="UPDATE ir_config_parameter SET value = '$UUID' WHERE key = 'database.uuid';"
     $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE -c \"$QUERY\""
 fi
