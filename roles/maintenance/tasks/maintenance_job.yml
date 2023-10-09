@@ -1,0 +1,7 @@
+- name: "Setup Docker cleanup job"
+  cron:
+    name: "Docker cleanup job"
+    minute: "{{ 59 |random(seed=ansible_host) }}"
+    hour: "0"
+    weekday: "0"
+    job: "docker system prune -af --filter \"until=$((30*24))h\"" 

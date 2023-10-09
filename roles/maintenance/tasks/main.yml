@@ -4,8 +4,14 @@
   tags:
    - maintenance
 
+- name: "Include {{ role_name }} job tasks"
+  include_tasks: "{{ role_name }}_job.yml"
+  when: maintenance_job
+  tags:
+   - maintenance
+
 - name: "Include {{ role_name }} apt tasks"
   include_tasks: "{{ role_name }}_apt.yml"
-  when: update and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian')
+  when: maintenance and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian')
   tags:
    - maintenance
