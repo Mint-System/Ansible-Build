@@ -7,14 +7,38 @@
   debug:
     var: certbot_wildcard_certs
 
-- name: "Issue certificate with {{ role_name }} manually"
-  fail:
-    msg: >-
-      Run this command manually:
-      docker run -it --rm --name {{ item | replace('*.', 'wildcard') }}
-      -v {{ certbot_data_dir }}/:/etc/letsencrypt/
-      -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
-      certonly --email {{ certbot_email }} --agree-tos -d {{ item }}
-      --preferred-challenges={{ certbot_preferred_challenges }} --manual
+- name: "Copy {{ role_name }} vercel scripts"
+  template:
+    src: "{{ item }}"
+    dest: "{{ certbot_data_dir }}/{{ item }}"
+    mode: +x
+  loop:
+    - vercel-post-hook
+    - vercel-pre-hook
+
+- name: "Issue certificate with vercel authenticator"
+  command: >-
+    docker run --rm --name {{ item | replace('*.', 'wildcard') }}
+    -v {{ certbot_data_dir }}/:/etc/letsencrypt/
+    -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }} certonly
+    --manual --preferred-challenges=dns 
+    --manual-auth-hook /etc/letsencrypt/vercel-pre-hook
+    --manual-cleanup-hook /etc/letsencrypt/vercel-post-hook
+    --email {{ certbot_email }} --agree-tos -d {{ item }}
   loop: "{{ certbot_wildcard_certs }}"
-  when: certbot_preferred_challenges == 'dns'
+  when: certbot_preferred_challenges == 'dns' and certbot_authenticator == 'vercel' and certbot_missing_certs is defined
+  register: result
+  failed_when: result.stdout is search('Some challenges have failed.') or result.failed
+  changed_when: result.stdout is search('Congratulations!') or not result.failed
+
+# - name: "Issue certificate with {{ role_name }} manually"
+#   fail:
+#     msg: >-
+#       Run this command manually:
+#       docker run -it --rm --name {{ item | replace('*.', 'wildcard') }}
+#       -v {{ certbot_data_dir }}/:/etc/letsencrypt/
+#       -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
+#       certonly --email {{ certbot_email }} --agree-tos -d {{ item }}
+#       --preferred-challenges={{ certbot_preferred_challenges }} --manual
+#   loop: "{{ certbot_wildcard_certs }}"
+#   when: certbot_preferred_challenges == 'dns'

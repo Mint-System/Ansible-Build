@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Domain and txt record value for validation
+DOMAIN="_acme-challenge.$CERTBOT_DOMAIN"
+TXT_RECORD="$CERTBOT_VALIDATION"
+
+# Add DNS record using Vercel API
+curl -X POST "https://api.vercel.com/v2/domains/{{ certbot_vercel_team_id }}/records" \
+     -H "Authorization: Bearer {{ certbot_vercel_token }}" \
+     -H "Content-Type: application/json" \
+     -d "{\"name\":\"$DOMAIN\",\"type\":\"TXT\",\"value\":\"$TXT_RECORD\"}"
+
+# Sleep for a few seconds to allow DNS record to propagate
+sleep 15

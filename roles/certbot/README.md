@@ -36,6 +36,16 @@ The installation script requires that you have sudo access to root.
 
 Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/certbot/files/install | bash` in your terminal.
 
+### Vercel Authenticator
+
+For <https://vercel.com/> there are pre and post authentication scripts included. Here is an example on how to use Vercel DNS:
+
+```yml
+certbot_preferred_challenges: dns
+certbot_authenticator: vercel
+certbot_vercel_token: # default: "{{ vault_certbot_vercel_token }}"
+certbot_vercel_team_id: example-organization
+```
 
 ### FreeDNS Authenticator
 

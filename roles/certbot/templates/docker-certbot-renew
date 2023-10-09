@@ -16,3 +16,12 @@ docker run --rm --name {{ certbot_hostname }}-tmp \
 renew --authenticator dns-freedns --dns-freedns-propagation-seconds 60 \
 --dns-freedns-credentials /etc/letsencrypt/.secrets/credentials.ini
 {% endif %}
+
+{% if certbot_preferred_challenges == 'dns' and certbot_authenticator == 'vercel' %}
+docker run --rm --name {{ certbot_hostname }}-tmp \
+-v "{{ certbot_data_dir }}/:/etc/letsencrypt/" \
+-v "{{ certbot_data_dir }}/www/:/var/www/certbot/" \
+{{ certbot_image }} \
+renew --manual-auth-hook /etc/letsencrypt/vercel-pre-hook \
+--manual-cleanup-hook /etc/letsencrypt/vercel-post-hook
+{% endif %}
