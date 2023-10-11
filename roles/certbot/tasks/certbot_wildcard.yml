@@ -15,6 +15,7 @@
   loop:
     - vercel-post-hook
     - vercel-pre-hook
+  when: certbot_wildcard_certs is defined
 
 - name: "Issue certificate with vercel authenticator"
   command: >-
@@ -26,7 +27,7 @@
     --manual-cleanup-hook /etc/letsencrypt/vercel-post-hook
     --email {{ certbot_email }} --agree-tos -d {{ item }}
   loop: "{{ certbot_wildcard_certs }}"
-  when: certbot_preferred_challenges == 'dns' and certbot_authenticator == 'vercel' and certbot_missing_certs is defined
+  when: certbot_authenticator == 'vercel' and certbot_wildcard_certs is defined
   register: result
   failed_when: result.stdout is search('Some challenges have failed.') or result.failed
   changed_when: result.stdout is search('Congratulations!') or not result.failed

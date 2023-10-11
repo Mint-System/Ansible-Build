@@ -41,7 +41,7 @@ Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/
 For <https://vercel.com/> there are pre and post authentication scripts included. Here is an example on how to use Vercel DNS:
 
 ```yml
-certbot_preferred_challenges: dns
+certbot_preferred_challenges: dns # default: http
 certbot_authenticator: vercel
 certbot_vercel_token: # default: "{{ vault_certbot_vercel_token }}"
 certbot_vercel_team_id: example-organization
@@ -53,7 +53,7 @@ Set `certbot_build_image`, `certbot_authenticator` and `certbot_preferred_challe
 
 ```yml
 certbot_build_image: true
-certbot_preferred_challenges: dns
+certbot_preferred_challenges: dns # default: http
 certbot_authenticator: dns-freedns
 certbot_secrets:
   - file: credentials.ini
