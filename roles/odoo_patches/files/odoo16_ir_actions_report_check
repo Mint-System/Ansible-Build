@@ -10,12 +10,12 @@ CONTAINER=$1
 PACKAGE_PATH="/usr/lib/python3/dist-packages/"
 
 # Custom configuration
-FILE_PATH="${PACKAGE_PATH}odoo/odoo/addons/base/models/ir_actions_report.py
+FILE_PATH="${PACKAGE_PATH}odoo/addons/base/models/ir_actions_report.py"
 FIND="if report_sudo.attachment and set(res_ids_wo_stream) != set(html_ids):"
 REPLACE="if not report_sudo.attachment and set(res_ids_wo_stream) != set(html_ids):"
 
 # Get filename
-FILE=`basename "$FILE_PATH"`
+FILE=$(basename "$FILE_PATH")
 
 # Copy from docker
 docker cp "$CONTAINER":"$FILE_PATH" .
