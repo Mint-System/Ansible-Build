@@ -11,14 +11,15 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Backup Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-o|-h|-a|-v|help]"
-  echo "Example: $SCRIPT -p password -d odoo -o /tmp -h https://odoo.example.com" -t token
+  echo "Syntax: $SCRIPT [-p|-d|-o|-h|-t|-s|-v|help]"
+  echo "Example: $SCRIPT -p password -d odoo -o /tmp -h https://odoo.example.com" -t token -s
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var."
   echo "  -d    Database name."
   echo "  -o    Output directory with or without filename. Defaults to '/var/tmp'."
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
   echo "  -t    Pass a bearer auth token."
+  echo "  -s    Download SQL dump only."
   echo "  -v    Show $SCRIPT version."
   echo "  help  Show $SCRIPT manual."
   echo
@@ -31,13 +32,14 @@ if [[ $1 == 'help' ]]; then
 fi
 
 # Process params
-while getopts ":p: :d: :o: :h: :t: :v" opt; do
+while getopts ":p: :d: :o: :h: :t: :s :v" opt; do
     case $opt in
         p) PASSWORD="$OPTARG";;
         d) DATABASE="$OPTARG";;
         o) OUTPUT="$OPTARG";;
         h) ODOO_HOST="$OPTARG";;
         t) TOKEN="$OPTARG";;
+        s) BACKUP_FORMAT="dump";;
         v) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
@@ -51,6 +53,7 @@ done
 : ${PASSWORD:=${ODOO_MASTER_PASSWORD:='odoo'}}
 : ${DATABASE:='odoo'}
 : ${OUTPUT:='/var/tmp'}
+: ${BACKUP_FORMAT:='zip'}
 : ${ODOO_HOST:='http://localhost:8069'}
 
 # Verify variables
@@ -85,7 +88,7 @@ RESPONSE=$(curl \
     -H "Authorization: Bearer $TOKEN" \
     -F "master_pwd=$PASSWORD" \
     -F "name=$DATABASE" \
-    -F "backup_format=zip" \
+    -F "backup_format=$BACKUP_FORMAT" \
     -o "$FILEPATH" \
     "$ODOO_HOST/web/database/backup")
 
