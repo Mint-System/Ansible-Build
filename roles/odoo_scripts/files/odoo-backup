@@ -75,7 +75,12 @@ mkdir -p $DIR
 
 # Ensure file name is set
 if [ -z "$FILE" ];then
-    FILE="$DATABASE.zip"
+    if [[ "$BACKUP_FORMAT" == "zip" ]];then
+        FILE="$DATABASE.zip"
+    fi
+    if [[ "$BACKUP_FORMAT" == "dump" ]];then
+        FILE="$DATABASE.sql"
+    fi
 fi
 
 # Set file path
@@ -101,7 +106,9 @@ if [[ "$FILETYPE" == 'text/html' ]]; then
 fi
 
 # Validate zip file
-unzip -q -t "$FILEPATH"
+if [[ "$BACKUP_FORMAT" == "zip" ]];then
+    unzip -q -t "$FILEPATH"
+fi
 
 # Notify if backup has finished
 echo "The Odoo backup has finished: $FILEPATH"
