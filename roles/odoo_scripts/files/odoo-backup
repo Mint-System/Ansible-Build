@@ -26,7 +26,7 @@ Help() {
 }
 
 # Show help and exit
-if [[ $1 == 'help' ]]; then
+if [[ $1 == "help" ]]; then
     Help
     exit
 fi
@@ -50,11 +50,11 @@ while getopts ":p: :d: :o: :h: :t: :s :v" opt; do
 done
 
 # Fallback to environment vars and default values
-: ${PASSWORD:=${ODOO_MASTER_PASSWORD:='odoo'}}
-: ${DATABASE:='odoo'}
-: ${OUTPUT:='/var/tmp'}
-: ${BACKUP_FORMAT:='zip'}
-: ${ODOO_HOST:='http://localhost:8069'}
+: ${PASSWORD:=${ODOO_MASTER_PASSWORD:="odoo"}}
+: ${DATABASE:="odoo"}
+: ${OUTPUT:="/var/tmp"}
+: ${BACKUP_FORMAT:="zip"}
+: ${ODOO_HOST:="http://localhost:8069"}
 
 # Verify variables
 [[ "$ODOO_HOST" == http* ]]  || { echo "Parameter -h|host must start with 'http/s'" ; exit 1; }
@@ -63,9 +63,9 @@ done
 ODOO_HOST="${ODOO_HOST%/}"
 
 # Check if dir var is file or folder
-if [ "${OUTPUT: -4}" = ".zip" ];then
-    DIR=`dirname "$OUTPUT"`
-    FILE=`basename "$OUTPUT"`
+if [[ "${OUTPUT: -3}" =~ "zip|sql" ]]; then
+    DIR=$(dirname "$OUTPUT")
+    FILE=$(basename "$OUTPUT")
 else
     DIR=$OUTPUT
 fi
@@ -75,10 +75,10 @@ mkdir -p $DIR
 
 # Ensure file name is set
 if [ -z "$FILE" ];then
-    if [[ "$BACKUP_FORMAT" == "zip" ]];then
+    if [[ "$BACKUP_FORMAT" == "zip" ]]; then
         FILE="$DATABASE.zip"
     fi
-    if [[ "$BACKUP_FORMAT" == "dump" ]];then
+    if [[ "$BACKUP_FORMAT" == "dump" ]]; then
         FILE="$DATABASE.sql"
     fi
 fi
@@ -97,11 +97,11 @@ RESPONSE=$(curl \
     -o "$FILEPATH" \
     "$ODOO_HOST/web/database/backup")
 
-echo "$RESPONSE" | grep 'error' && exit 1
+echo "$RESPONSE" | grep "error" && exit 1
 
 # Grep error if is html response
 FILETYPE=$(file --mime-type -b "$FILEPATH")
-if [[ "$FILETYPE" == 'text/html' ]]; then
+if [[ "$FILETYPE" == "text/html" ]]; then
     grep error "$FILEPATH"
 fi
 

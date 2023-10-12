@@ -22,7 +22,7 @@ Help() {
 }
 
 # Show help and exit
-if [[ $1 == 'help' ]]; then
+if [[ "$1" == "help" ]]; then
   Help
   exit
 fi
