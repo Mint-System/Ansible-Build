@@ -1,22 +1,2 @@
 jenkins:
-  securityRealm:
-    local:
-      allowsSignup: false
-      users:
-      - id: ${JENKINS_USER}
-        password: ${JENKINS_PASSWORD}
-  authorizationStrategy:
-    globalMatrix:
-      entries:
-      - group:
-          name: "authenticated"
-          permissions:
-          - "Overall/Read"
-      - user:
-          name: "admin"
-          permissions:
-          - "Overall/Administer"
-  unclassified:
-    location:
-      url: ${JENKINS_URL}
   {{ jenkins_casc | indent(width=2) }}
