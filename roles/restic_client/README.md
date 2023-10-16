@@ -122,6 +122,15 @@ And include it in your playbook.
 
 ## Docs
 
+### Delete all snaphots
+
+Run these commands to remove all snapshots:
+
+```bash
+restic forget --keep-last 1 --prune
+restic forget --prune latest
+```
+
 ### Backup types
 
 These backup types are available:
@@ -129,7 +138,8 @@ These backup types are available:
 * mariadb-dump
 * mysql-dump
 * postges-dump
+* docker-volume
 * docker-odoo-backup
 * odoo-backup
 * file
-* docker-volume
+
