@@ -1,4 +1,4 @@
-- name: Update Root user's Password
+- name: "Update root user's password"
   user:
     name: root
     password: "{{ iam_root_password | password_hash('sha512') }}"
