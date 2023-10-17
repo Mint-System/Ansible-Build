@@ -11,9 +11,9 @@ Configure the role.
 ```yml
 restic_backup_dir: /tmp/backup # default: /var/tmp
 restic_repo: "restic.example.com/{{ inventory_hostname }}"
-restic_repo_password: "{{ vault_restic_repo_password }}"
-restic_rest_user: restic-user # default: restic
-restic_rest_password: "{{ vault_restic_rest_password }}"
+restic_repo_password: # default: "{{ vault_restic_repo_password }}"
+restic_rest_user: rest-user # default: restic
+restic_rest_password: # default "{{ vault_restic_rest_password }}"
 restic_backup_set:
 
   - id: "docker volume backup jenkins01"

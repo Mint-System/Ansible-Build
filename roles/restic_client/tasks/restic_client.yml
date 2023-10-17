@@ -15,6 +15,47 @@
     msg: "Package restic not installed"
   when: "'restic' not in ansible_facts.packages"
 
+- name: "Set {{ role_name }} rest env"
+  set_fact:
+    restic_password: "{{ restic_repo_password }}"
+    restic_repository: "rest:http://{{ restic_rest_user }}:{{ restic_rest_password }}@{{ restic_repo }}"
+  when: restic_repo_type == 'rest'
+
+- name: "Set {{ role_name }} local env"
+  set_fact:
+    restic_password: "{{ restic_repo_password }}"
+    restic_repository: "{{ restic_repo }}"
+  when: restic_repo_type == 'local'
+
+- name: "Ensure {{ role_name }} environment vars exists"
+  lineinfile:
+    dest: "/etc/environment"
+    state: present
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value }}"
+  no_log: true
+  loop:
+    - key: RESTIC_PASSWORD
+      value: "{{ restic_password }}"
+    - key: RESTIC_REPOSITORY
+      value: "{{ restic_repository }}"
+
+- name: Check if repo is initialized
+  command: restic snapshots
+  environment:
+    RESTIC_PASSWORD: "{{ restic_password }}"
+    RESTIC_REPOSITORY: "{{ restic_repository }}"
+  ignore_errors: true
+  changed_when: false
+  register: repo_initalized
+
+- name: Init restic repository
+  command: restic init
+  environment:
+    RESTIC_PASSWORD: "{{ restic_password }}"
+    RESTIC_REPOSITORY: "{{ restic_repository }}"
+  when: repo_initalized.failed
+
 - name: Register backup rotation job
   cron:
     name: "Backup rotation job"
