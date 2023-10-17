@@ -10,10 +10,10 @@ Configure the role.
 
 ```yml
 restic_backup_dir: /tmp/backup # default: /var/tmp
-restic_client_user: restic-user # default: restic
-restic_client_password: "{{ vault_restic_client_password }}"
 restic_repo: "restic.example.com/{{ inventory_hostname }}"
 restic_repo_password: "{{ vault_restic_repo_password }}"
+restic_rest_user: restic-user # default: restic
+restic_rest_password: "{{ vault_restic_rest_password }}"
 restic_backup_set:
 
   - id: "docker volume backup jenkins01"
@@ -121,6 +121,15 @@ And include it in your playbook.
 ```
 
 ## Docs
+
+### Setup a local repository
+
+Set these env vars for local repsitory:
+
+```yaml
+restic_repo_type: local # default: rest
+restic_repo: /home/Backuplocal
+```
 
 ### Delete all snaphots
 

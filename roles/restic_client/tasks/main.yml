@@ -4,6 +4,18 @@
   tags:
     - restic_client
 
+- name: "Include {{ role_name }} rest tasks"
+  include_tasks: "{{ role_name }}_rest.yml"
+  when: restic_repo is defined and restic_repo_type == 'rest'
+  tags:
+    - restic_client
+
+- name: "Include {{ role_name }} local tasks"
+  include_tasks: "{{ role_name }}_local.yml"
+  when: restic_repo is defined and restic_repo_type == 'local'
+  tags:
+    - restic_client
+
 - name: "Include {{ role_name }} docker volume backup tasks"
   include_tasks: "{{ role_name }}_docker_volume_backup.yml"
   when: restic_backup_set is defined
