@@ -26,7 +26,7 @@
 
 - name: "Include {{ role_name }} wildcard tasks"
   include_tasks: "{{ role_name }}_wildcard.yml"
-  when: certbot_image is defined and certbot_authenticator == 'vercel'
+  when: certbot_authenticator is defined and certbot_authenticator == 'vercel'
   tags:
     - certbot
 

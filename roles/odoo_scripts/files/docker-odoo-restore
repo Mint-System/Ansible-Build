@@ -58,7 +58,7 @@ done
 # Get file and directory name
 DIR=`dirname "$FILE"`
 FILENAME=`basename "$FILE"`
-: ${DATABASE:="${FILENAME%%.*}"}
+: ${DATABASE:="${FILENAME::-4}"}
 
 # Start restore
 echo "Requesting restore for Odoo database from $FILENAME to $DATABASE ..."
