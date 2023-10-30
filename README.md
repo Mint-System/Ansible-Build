@@ -8,7 +8,8 @@ The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks a
 
 ## Requirements
 
-- Install python 3.8+ with [pyenv](https://github.com/pyenv/pyenv-installer)
+* Install python 3.8+ with [pyenv](https://github.com/pyenv/pyenv-installer)
+* bash/zsh alias `task='./task'` with optional [completion](https://github.com/janikvonrotz/dotfiles/blob/master/oh-my-zsh-completions/_task)
 
 ## Usage
 
@@ -16,13 +17,11 @@ Clone this repository.
 
 `git clone https://github.com/Mint-System/Ansible-Build.git`
 
-Set this task alias.
-
-`alias task=./task`
+See `task help` or [task](./task.md) for details about the project commands.
 
 ### Setup
 
-Navigate to the playbook folder.
+Navigate into the playbook folder.
 
 `cd Ansible-Build`
 
@@ -39,6 +38,10 @@ Create an inventory and configure a role.
 [Ansbile Documentation > Build Your Inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)
 
 ## Docs
+
+### Scripts
+
+Some roles install helper scripts. They can be used without Ansible. See [scripts](./scripts.md) for details. 
 
 ### Roles
 

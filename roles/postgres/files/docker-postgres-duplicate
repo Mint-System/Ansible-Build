@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-# Check requiremements
-command -v uuidgen >/dev/null 2>&1 || { echo >&2 "uuidgen not found."; exit 1; }
-
 SCRIPT=$(basename "$0")
 VERSION="1.0.0"
 
@@ -12,15 +9,14 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: Duplicate Odoo database in container."
+    echo "Description: Duplicate database in Postgres Docker container."
     echo "Syntax: $SCRIPT [-c|-s|-t|-r|-u|-v|help]"
-    echo "Example: $SCRIPT -c odoo06 -s odoo -t odoo-int -r -u"
+    echo "Example: $SCRIPT -c postgres01 -s keycloak-main -t keycloak-int -r -u"
     echo "options:"
-    echo "  -c    Docker container. Defaults to 'odoo'."
+    echo "  -c    Docker container."
     echo "  -s    Source database name."
     echo "  -t    Target database name."
     echo "  -r    Replace existing database."
-    echo "  -u    Update database uuid."
     echo "  -v    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
@@ -34,16 +30,14 @@ fi
 
 # Initialise option flag with a false value
 REPLACE='false'
-UPDATE='false'
 
 # Process params
-while getopts ":c: :s: :t: :r :u :v" opt; do
+while getopts ":c: :s: :t: :r :v" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         s) SOURCE_DATABASE="$OPTARG";;
         t) TARGET_DATABASE="$OPTARG";;
         r) REPLACE='true';;
-        u) UPDATE='true';;
         v) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
@@ -53,10 +47,8 @@ while getopts ":c: :s: :t: :r :u :v" opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${CONTAINER:=odoo}"
-
 # Verify variables
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 [[ -z "$SOURCE_DATABASE" ]] && { echo "Parameter -s|source is empty" ; exit 1; }
 [[ -z "$TARGET_DATABASE" ]] && { echo "Parameter -t|target is empty" ; exit 1; }
 [[ "$TARGET_DATABASE" == "$SOURCE_DATABASE" ]] && { echo "Parameter -s|source and -t|target cannot be the same" ; exit 1; }
@@ -70,7 +62,7 @@ docker_exec_root_bash="docker exec --user root $CONTAINER /bin/bash -c"
 
 # Clear database
 if $REPLACE; then
-    docker-odoo-drop -c "$CONTAINER" -d "$TARGET_DATABASE"
+    docker-postgres-drop -c "$CONTAINER" -d "$TARGET_DATABASE"
 fi
 
 # Kill datbase connections
@@ -80,20 +72,7 @@ $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$
 
 # Duplicate database
 echo "Duplicate database from $SOURCE_DATABASE to $TARGET_DATABASE."
-$docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER -T $SOURCE_DATABASE $TARGET_DATABASE"
-
-# Duplicate filestore
-echo "Duplicate filestore from $SOURCE_DATABASE to $TARGET_DATABASE."
-$docker_exec_root_bash "mkdir -p /var/lib/odoo/filestore"
-$docker_exec_root_bash "cp -ar /var/lib/odoo/filestore/$SOURCE_DATABASE /var/lib/odoo/filestore/$TARGET_DATABASE"
-
-# Update database uuid
-if $UPDATE; then
-    UUID=$(uuidgen)
-    echo "Update database uuid."
-    QUERY="UPDATE ir_config_parameter SET value = '$UUID' WHERE key = 'database.uuid';"
-    $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$TARGET_DATABASE -c \"$QUERY\""
-fi
+$docker_exec_bash "createdb -U \$POSTGRES_USER -T $SOURCE_DATABASE $TARGET_DATABASE"
 
 # Notify if backup has finished
-echo "The duplication for Odoo database $TARGET_DATABASE has finished."
+echo "The duplication for Postgres database $TARGET_DATABASE has finished."

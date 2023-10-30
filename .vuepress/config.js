@@ -18,6 +18,7 @@ export default defineUserConfig({
         editLink: true,
         navbar: [
             { text: 'Home', link: '/' },
+            { text: 'Scripts', link: '/scripts' },
             { text: 'Mint System', link: 'https://www.mint-system.ch' }
         ],
     }),
