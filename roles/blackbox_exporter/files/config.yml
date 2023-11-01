@@ -35,4 +35,4 @@ modules:
   http_401_unauth:
     prober: http
     http:
-      valid_status_codes: [401,200]
+      valid_status_codes: [403,401,200]
