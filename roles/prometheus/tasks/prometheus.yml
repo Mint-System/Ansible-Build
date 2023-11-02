@@ -7,15 +7,27 @@
     path: "{{ prometheus_data_dir }}"
     state: directory
 
+- name: "Extract and filter blackbox target hostnames"
+  set_fact:
+    src_hostnames: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].src_hostname') | flatten }}"
+
+- name: "Extract and filter blackbox target paths"
+  set_fact:
+    paths: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].monitor') | flatten }}"
+
+- name: "Generate blackbox target urls"
+  set_fact:
+    targets: "{{ src_hostnames | zip(paths) | map('join', '') | map('regex_replace', '^(.*)$', 'https://\\1') }}"
+
+- name: List blackbox targets
+  debug:
+    msg: "{{ targets }}"
+
 - name: "Copy {{ role_name }} conf"
   template:
     src: prometheus.yml
     dest: "{{ prometheus_data_dir }}/"
   notify: Restart prometheus container
-
-- name: List blackbox targets
-  debug:
-    msg: "{{ prometheus_scrape_configs | json_query('[?job_name==`blackbox`].static_configs[*].targets') }}"
 
 - name: "Start {{ role_name }} container {{ prometheus_hostname }}"
   docker_container:
@@ -24,7 +36,7 @@
       description: "{{ prometheus_description }}"
     image: "{{ prometheus_image }}"
     restart_policy: unless-stopped
-    command: "--storage.tsdb.retention.time={{ prometheus_rention_time }} --config.file=/etc/prometheus/prometheus.yml"
+    command: "--storage.tsdb.retention.time={{ prometheus_retention_time }} --config.file=/etc/prometheus/prometheus.yml"
     volumes:
       - "{{ prometheus_volume_name }}:/prometheus"
       - "{{ prometheus_data_dir }}/prometheus.yml:/etc/prometheus/prometheus.yml"

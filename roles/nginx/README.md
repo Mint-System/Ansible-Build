@@ -52,7 +52,7 @@ nginx_proxies:
 
   - src_hostname: login.example.com
     ssl: true # default: false
-    monitor: true # default: false
+    monitor: / # default: false
     locations:
       - path: /
         dest_hostname: frappe-bench
@@ -86,7 +86,7 @@ nginx_proxies:
     dest_hostname: odoo01
     dest_port: 8069 # default: 80
     ssl: true  # default: false
-    monitor: true # default: false
+    monitor: / # default: false
     upstreams:
       - name: odoo
         server: odoo17:8069

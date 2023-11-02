@@ -47,7 +47,7 @@
   changed_when: false
   register: nginx_proxy_conf_files
 
-- name: Create managed file list from proxy list
+- name: "Create managed file list from proxy list"
   set_fact:
     managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('replace', '*.', 'wildcard.') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
   when: nginx_proxies is defined
@@ -58,3 +58,6 @@
     state: "absent"
   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"
   when: item not in managed_files
+
+- name: "Test {{ role_name }} conf files" 
+  command: "docker exec {{ nginx_hostname }} nginx -t"

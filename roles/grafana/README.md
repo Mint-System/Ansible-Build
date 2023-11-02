@@ -49,7 +49,7 @@ nginx_proxies:
     dest_hostname: graf01
     dest_port: 3000
     ssl: true
-    monitor: true
+    monitor: /
     options: |
       include /etc/nginx/conf.d/proxies/loki.nginx;
     locations:

@@ -121,9 +121,21 @@
 #       json_query('[? restic_server_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
+# - name: Extract and filter targets
+#   set_fact:
+#     src_hostnames: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].src_hostname') | flatten }}"
+
+# - name: Extract and filter targets
+#   set_fact:
+#     paths: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].monitor') | flatten }}"
+
+# - name: Generate URLs and store in a list
+#   debug:
+#     msg: "{{ src_hostnames | zip(paths) | map('join', '') | map('regex_replace', '^(.*)$', 'https://\\1') }}"
+
 # - name: debug
 #   debug:
-#     msg: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor==`true`].src_hostname') | flatten | map('regex_replace', '^(.*)$', 'https://\\1') }}"
+#     msg: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false`].src_hostname') | flatten | map('regex_replace', '^(.*)$', 'https://\\1') }}"
 
 # - name: Apply patches
 #   debug:
