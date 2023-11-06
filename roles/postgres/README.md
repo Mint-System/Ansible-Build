@@ -62,7 +62,7 @@ And include it in your playbook.
 
 ## Docs
 
-### Install PostgreSQL scripts
+### Install command line tools
 
 The installation script requires that you have sudo access to root.
 

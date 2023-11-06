@@ -14,7 +14,7 @@ Include the role in your playbook.
 
 ## Docs
 
-### Install without Ansible
+### Install command line tools
 
 The installation script requires that you have sudo access to root.
 

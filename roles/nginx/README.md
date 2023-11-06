@@ -129,7 +129,7 @@ The following tags are available:
 
 ## Docs
 
-### Install Nginx command line tools
+### Install command line tools
 
 The installation script requires that you have sudo access to root.
 

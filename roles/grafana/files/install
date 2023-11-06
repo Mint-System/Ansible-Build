@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
+
+SCRIPTS=(
+    grafana-backup
+)
+
+for SCRIPT in ${SCRIPTS[@]}; do
+    echo "Install $SCRIPT script ..."
+    sudo curl -L "$REPOSITORY/master/roles/grafana/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+    sudo chmod +x "/usr/local/bin/$SCRIPT"
+done
