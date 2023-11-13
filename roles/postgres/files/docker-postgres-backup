@@ -52,7 +52,7 @@ done
 : ${CONTAINER:='postgres'}
 
 # Verify variables
-[[ -z "$DATABASES" ]] && [[ -z "$ALL" ]] && { echo "Parameter -d or -a|databases or all must be set" ; exit 1; }
+[[ -z "$DATABASES" ]] && [[ "$ALL" == "false" ]] && { echo "Parameter -d or -a|databases or all must be set" ; exit 1; }
 [[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
