@@ -43,6 +43,9 @@
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
       PASSWORD: "{{ odoo_postgres_password }}"
+      PGHOST: "{{ odoo_postgres_hostname }}"
+      PGUSER: "{{ odoo_postgres_user }}"
+      PGPASSWORD: "{{ odoo_postgres_password }}"
       TZ: "{{ odoo_timezone }}"
     ports: "{{ odoo_ports | default([]) }}"
     volumes:
@@ -71,6 +74,9 @@
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
       PASSWORD: "{{ odoo_postgres_password }}"
+      PGHOST: "{{ odoo_postgres_hostname }}"
+      PGUSER: "{{ odoo_postgres_user }}"
+      PGPASSWORD: "{{ odoo_postgres_password }}"
       TZ: "{{ odoo_timezone }}"
     volumes:
       - "{{ odoo_volume_name }}:/var/lib/odoo"
