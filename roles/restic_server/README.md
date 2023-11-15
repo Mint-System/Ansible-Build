@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/restic/rest-server
-restic_server_image: restic/rest-server:0.10.0
+restic_server_image: restic/rest-server:0.12.1
 restic_server_description: "restic server" # default: "Restic Server"
 restic_server_user: restic-user # default: restic
 restic_server_password: "{{ vault_restic_server_password }}"

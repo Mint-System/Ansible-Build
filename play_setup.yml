@@ -57,3 +57,11 @@
     tags: keycloak
   - role: pgadmin
     tags: pgadmin
+  - role: bigbluebutton
+    tags: # FIXME Filtering by tag does not work 
+      - ubuntu1804
+      - ubuntu1604
+      - greenlight
+      - letsencrypt
+  - role: coturn
+    tags: coturn
