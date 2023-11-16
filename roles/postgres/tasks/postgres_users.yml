@@ -1,3 +1,9 @@
+- name: "Get ip address of postgres container"
+  shell: "docker inspect --format '{''{range.NetworkSettings.Networks}''}''{''{.IPAddress}''}''{''{end}''}' {{ postgres_hostname }}"
+  register: ip_address
+  ignore_errors: true
+  changed_when: false
+
 - name: "Setup postgres users."
   postgresql_user:
     login_host: "{{ ip_address.stdout }}"
@@ -50,7 +56,7 @@
   notify: "Restart postgres container"
 
 - name: "Copy data files"
-  shell: "docker cp {{ postgres_data_dir }}/{{ item }} {{ postgres_hostname }}:/var/lib/postgrehsql/data/{{ item }}"
+  shell: "docker cp {{ postgres_data_dir }}/{{ item }} {{ postgres_hostname }}:/var/lib/postgresql/data/{{ item }}"
   ignore_errors: true
   changed_when: false
   loop:
