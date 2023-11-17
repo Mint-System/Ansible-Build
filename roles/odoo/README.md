@@ -42,11 +42,30 @@ And include it in your playbook.
 
 ## Docs
 
+### Nginx config
+
+Setup this Nginx configuration for the `doc01` host:
+
+```yaml
+nginx_proxies:
+  - src_hostname: odoo.example.com
+    dest_hostname: odoo01
+    dest_port: 8069
+    locations:
+      - path: /websocket
+        dest_hostname: odoo04
+        dest_port: 8072
+        options: |
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+          include /etc/letsencrypt/proxy-params.conf;
+```
+
 ### Configure workers
 
 If Odoo should make use of workers `workers = x>0` then this proxy config must be applied:
 
-```
+```yaml
 nginx_proxies:
   - src_hostname: odoo.example.com
     dest_hostname: odoo01
