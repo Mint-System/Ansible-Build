@@ -8,7 +8,7 @@
     env:
       username: "{{ collabora_code_username }}"
       password: "{{ collabora_code_password }}"
-      extra_params: "--o:ssl.enable=false"
+      server_name: "{{ collabora_code_server_name}}"
       collabora_code_aliasgroup1: "{{ collabora_code_aliasgroup1 }}"
     ports:
       - "{{ collabora_code_port }}:9980"
