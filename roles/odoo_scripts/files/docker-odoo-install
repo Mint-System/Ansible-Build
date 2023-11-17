@@ -12,13 +12,13 @@ Help() {
     echo
     echo "Description: Install Odoo database in Docker container."
     echo "Syntax: $SCRIPT [-c|-d|-i|-l|-w|-v|help]"
-    echo "Example: $SCRIPT -c odoo01 -d erp -i hr_timesheet -l de_CH -w all"
+    echo "Example: $SCRIPT -c odoo01 -d erp -i hr_timesheet -l de_CH -w"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -d    Database name."
     echo "  -i    List of odoo modules. Defaults to 'base'."
     echo "  -l    Odoo language. Defaults to 'en'."
-    echo "  -w    Without demo data."
+    echo "  -w    With demo data."
     echo "  -v    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
@@ -30,14 +30,17 @@ if [[ "$1" == "help" ]]; then
     exit
 fi
 
+# Set defaults
+WITHOUT_DEMO="--without-demo=all"
+
 # Process params
-while getopts ":c: :d: :i: :l: :w: :v" opt; do
+while getopts ":c: :d: :i: :l: :w :v" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
         i) MODULES="$OPTARG";;
         l) LANGUAGE="$OPTARG";;
-        w) WITHOUT_DEMO="--without-demo=$OPTARG";;
+        w) WITHOUT_DEMO="";;
         v) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
