@@ -59,5 +59,11 @@
   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"
   when: item not in managed_files
 
+- name: "Get infos on container {{ nginx_hostname }}"
+  docker_container_info:
+    name: "{{ nginx_hostname }}"
+  register: nginx_container
+
 - name: "Test {{ role_name }} conf files" 
   command: "docker exec {{ nginx_hostname }} nginx -t"
+  when: nginx_container.exists

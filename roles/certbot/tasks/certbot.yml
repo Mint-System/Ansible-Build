@@ -52,7 +52,7 @@
   loop: "{{ certbot_missing_certs }}"
   when: certbot_missing_certs is defined
 
-- name: "Get infos on proxy container {{ nginx_hostname }}"
+- name: "Get infos on container {{ nginx_hostname }}"
   docker_container_info:
     name: "{{ nginx_hostname }}"
   register: nginx_container
