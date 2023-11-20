@@ -27,7 +27,7 @@ postgres_users:
      - odoo-main
      - odoo-int
      - odoo-dev
-    rules:
+    connection_rules:
       - source: 95.15.213.106/24
         database: odoo-main
       - source: 95.15.213.106/24
