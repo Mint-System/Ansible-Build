@@ -45,6 +45,9 @@ done
 : ${DATABASE:='odoo'}
 : ${CONTAINER:='odoo'}
 
+# Switch container name with id
+CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+
 # Set alias
 docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
 docker_exec_root_bash="docker exec --user root $CONTAINER /bin/bash -c"
