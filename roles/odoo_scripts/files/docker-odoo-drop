@@ -46,14 +46,14 @@ done
 : ${CONTAINER:='odoo'}
 
 # Switch container name with id
-CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 
 # Set alias
-docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
-docker_exec_root_bash="docker exec --user root $CONTAINER /bin/bash -c"
+docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
+docker_exec_root_bash="docker exec --user root $CONTAINER_ID /bin/bash -c"
 
 # Kill datbase connections
-echo "Kill all database connections"
+echo "Kill database connections on $DATABASE"
 QUERY="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$DATABASE';"
 $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
 

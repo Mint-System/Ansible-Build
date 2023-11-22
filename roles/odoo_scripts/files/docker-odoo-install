@@ -59,11 +59,11 @@ done
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
 # Switch container name with id
-CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 
 # Set alias
-docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
+docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
 
 # Install modules on database
-echo "Install modules $MODULES on database $DATABASE on container $CONTAINER."
+echo "Install modules $MODULES on database $DATABASE."
 $docker_exec_bash "odoo -i $MODULES -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD $WITHOUT_DEMO --load-language $LANGUAGE --stop-after-init --no-http"

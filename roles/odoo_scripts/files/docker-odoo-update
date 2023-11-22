@@ -49,12 +49,12 @@ done
 : ${MODULES:='all'}
 
 # Switch container name with id
-CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 
 # Set alias
-docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
+docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
 
 # Update with Docker exec
-echo "Update modules $MODULES on database $DATABASE on container $CONTAINER."
+echo "Update modules $MODULES on database $DATABASE."
 $docker_exec_bash "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init --no-http"
 

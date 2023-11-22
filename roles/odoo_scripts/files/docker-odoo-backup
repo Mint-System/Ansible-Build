@@ -71,17 +71,17 @@ fi
 FILEPATH="${DIR}/${FILE}"
 
 # Switch container name with id
-CONTAINER=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 
 echo "Backup database $DATABASE to $FILEPATH ..."
 
 # Copy filestore
 echo "Copy filestore."
 rm -rf "$DIR/filestore"
-docker cp "$CONTAINER:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
+docker cp "$CONTAINER_ID:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
 
 # Set alias
-docker_exec_bash="docker exec $CONTAINER /bin/bash -c"
+docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
 
 # Create pgpass file
 echo "Create pgpass file."
