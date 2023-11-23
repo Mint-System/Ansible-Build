@@ -73,6 +73,12 @@
 #   debug:
 #     msg: "{{ vault_odoo_master_password | password_hash('pbkdf2_sha512') }}"
 
+# - name: odoo https
+#   debug:
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
+#           json_query('[*].nginx_proxies[?monitor_odoo==`true`].src_hostname') |
+#           flatten }}"
+
 # - name: cadvisor https
 #   debug:
 #     msg: "{{ groups['all'] | map('extract', hostvars) |
