@@ -15,6 +15,7 @@
     restart_policy: unless-stopped
     recreate: false
     env:
+      NEXTCLOUD_HOSTNAME: "{{ nextcloud_domain }}"
       NEXTCLOUD_TRUSTED_DOMAINS: "{{ nextcloud_trusted_domains }}"
       NEXTCLOUD_ADMIN_USER: "{{ nextcloud_admin_user }}"
       NEXTCLOUD_ADMIN_PASSWORD: "{{ nextcloud_admin_password }}"
@@ -32,7 +33,7 @@
       MAIL_DOMAIN: "{{ nextcloud_mail_username.split('@')[1] }}"
       TZ: "{{ nextcloud_timezone }}"
       OVERWRITEPROTOCOL: "https"
-      OVERWRITEHOST: "{{ nextcloud_trusted_domains }}"
+      OVERWRITEHOST: "{{ nextcloud_domain }}"
       REDIS_HOST: "{{ nextcloud_redis_hostname }}" # FIXME: Not working without redis
       REDIS_HOST_PASSWORD: "{{ nextcloud_redis_password }}"
     volumes:

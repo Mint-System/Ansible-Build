@@ -1,5 +1,6 @@
 nextcloud_description: Nextcloud
 nextcloud_timezone: Europe/Berlin
 nextcloud_volume_name: "{{ nextcloud_hostname }}"
+nextcloud_trusted_domains: "{{ nextcloud_domain }}"
 nextcloud_integrity_check: false
 nextcloud_build_image: false

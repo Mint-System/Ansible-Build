@@ -15,7 +15,8 @@ nextcloud_build_image: true # default: false
 nextcloud_hostname: nextcloud01
 nextcloud_volume_name: nextcloud_data01 # default: "{{ nextcloud_hostname}}"
 nextcloud_volume_backup_set: # See restic_backup_set var in role restic_client
-nextcloud_trusted_domains: nextcloud.example.com
+nextcloud_domain: nextcloud.example.com
+nextcloud_trusted_domains: nextcloud.example.com # default: "{{ nextcloud_domain }}"
 nextcloud_admin_user: admin
 nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"
 nextcloud_postgres_hostname: postgres01
