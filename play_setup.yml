@@ -41,27 +41,5 @@
     tags: systemd
   - role: rclone
     tags: rclone
-  - role: simple_mail_forwarder
-    tags: simple_mail_forwarder
-  - role: postfix
-    tags: postfix
   - role: cron
     tags: cron
-  - role: dribdat
-    tags: dribdat
-  - role: jenkins
-    tags: jenkins
-  - role: dind
-    tags: dind
-  - role: keycloak
-    tags: keycloak
-  - role: pgadmin
-    tags: pgadmin
-  - role: bigbluebutton
-    tags: # FIXME Filtering by tag does not work 
-      - ubuntu1804
-      - ubuntu1604
-      - greenlight
-      - letsencrypt
-  - role: coturn
-    tags: coturn
