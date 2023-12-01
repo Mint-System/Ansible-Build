@@ -8,12 +8,3 @@
     name: "{{ item.name }}"
   loop: "{{ docker_volumes }}"
   when: docker_volumes is defined
-
-- name: Copy backup scripts
-  copy:
-    src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    mode: +x
-  loop:
-    - docker-volume-backup
-    - docker-volume-restore

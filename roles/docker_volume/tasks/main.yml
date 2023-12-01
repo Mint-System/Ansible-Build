@@ -9,3 +9,8 @@
   when: docker_volume_backup_set is defined
   tags:
     - docker_volume
+
+- name: "Include {{ role_name }} scripts tasks"
+  include_tasks: "{{ role_name }}_scripts.yml"
+  tags:
+    - docker_volume

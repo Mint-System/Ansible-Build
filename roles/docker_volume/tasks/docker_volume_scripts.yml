@@ -1,0 +1,9 @@
+- name: Copy backup scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - docker-volume-backup
+    - docker-volume-restore
+    - docker-volume-copy
