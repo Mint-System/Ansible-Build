@@ -6,6 +6,7 @@ REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 SCRIPTS=(
     docker-volume-backup
     docker-volume-restore
+    docker-volume-copy
 )
 
 for SCRIPT in ${SCRIPTS[@]}; do

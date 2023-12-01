@@ -16,7 +16,7 @@ Help() {
     echo "options:"
     echo "  -v    Volume name. Defaults to tar file name."
     echo "  -f    Path to tar file."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }

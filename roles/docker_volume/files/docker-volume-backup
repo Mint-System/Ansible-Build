@@ -12,14 +12,14 @@ Help() {
     echo
     echo "Description: Backup docker volumes."
     echo "Syntax: $SCRIPT [-c|-a|-v|-e|-o|-V|help]"
-    echo "Example: $SCRIPT -c jeknins -v jenkins_data01 -e workspace -o /tmp "
+    echo "Example: $SCRIPT -c jenkins -v jenkins_data01 -e workspace -o /tmp "
     echo "options:"
     echo "  -c    Docker container name."
     echo "  -a    Backup all volumes."
     echo "  -v    Comma-separated list of volume names."
     echo "  -o    Output directory. Defaults to '/var/tmp'"
     echo "  -e    Exclude option for tar command."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -89,11 +89,11 @@ echo "Make sure to stop the container $CONTAINER before creating a backup."
 # Create dump with docker for each database
 for VOLUME in "${VOLUME_LIST[@]}"; do
     if [[ -n "$EXCLUDE" ]]; then
-        echo "Run backup for Docker volume $VOLUME with the exclude option"
+        echo "Run backup for Docker volume $VOLUME with the exclude option."
         docker run --rm -v "$VOLUME:/_data" -v "${DIR}/${CONTAINER}:/backup" ubuntu tar --exclude="$EXCLUDE" -cf "/backup/$VOLUME.tar" /_data
         # FIXME: Estimate time with pv: /bin/bash -c "tar cf - /_data | pv -s $(du -sb /_data | awk '{print $1}') > /backup/$VOLUME.tar"
     else
-        echo "Run backup for Docker volume $VOLUME"
+        echo "Run backup for Docker volume $VOLUME."
         docker run --rm -v "$VOLUME:/_data" -v "${DIR}/${CONTAINER}:/backup" ubuntu tar cf "/backup/$VOLUME.tar" /_data
     fi
 done
