@@ -14,7 +14,7 @@ echo
 GIT_BRANCH=$(git symbolic-ref --short -q HEAD)
 
 if [[ -a ".env" ]]; then
-    export $(cat .env | sed 's/#.*//g' | xargs)
+    export $(cat .env | sed 's/^#.*//g' | xargs)
 fi
 
 function generate-passwordfile() {
