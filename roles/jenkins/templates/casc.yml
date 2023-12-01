@@ -1,2 +1,1 @@
-jenkins:
-  {{ jenkins_casc | indent(width=2) }}
+{{ jenkins_casc | indent(width=2) }}

@@ -18,23 +18,30 @@ jenkins_volume_name: jenkins_data01 # default: "{{ jenkins_hostname}}"
 jenkins_user: admin
 jenkins_password: # default: "{{ vault_jenkins_password }}"
 jenkins_url: https://cd.example.com
-Jenkins_plugins: |
+jenkins_plugins: |
   oic-auth:latest
 jenkins_docker_host: tcp://dind01:2375 # default: "unix:///var/run/docker.sock"
-jenkins_casc: | # default: ''
-  clouds:
-  - docker:
-      dockerApi:
-        dockerHost:
-          uri: "tcp://dind01:2375"
-      exposeDockerHost: true
-      name: "docker"
-      templates:
-      - connector: "attach"
-        dockerTemplateBase:
-          image: "jenkins/agent"
-        labelString: "docker-agent"
-        name: "agent"
+jenkins_casc: | # default: see defaults/main.yml
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+      - id: ${JENKINS_USER}
+        password: ${JENKINS_PASSWORD}
+  authorizationStrategy:
+    globalMatrix:
+      entries:
+      - group:
+          name: "authenticated"
+          permissions:
+          - "Overall/Read"
+      - user:
+          name: "${JENKINS_USER}"
+          permissions:
+          - "Overall/Administer"
+  unclassified:
+    location:
+      url: ${JENKINS_URL}
 ```
 
 And include it in your playbook.

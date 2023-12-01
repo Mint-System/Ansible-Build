@@ -17,4 +17,4 @@ mailer:latest
 docker-plugin:latest
 docker-workflow:latest
 ssh-agent:latest
-{{ Jenkins_plugins }}
+{{ jenkins_plugins }}
