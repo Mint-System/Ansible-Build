@@ -36,6 +36,18 @@ grafana_generic_oauth_token_url: "https://login.example.com/auth/realms/example.
 grafana_generic_oauth_api_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/userinfo"
 ```
 
+And include it in your playbook.
+
+```yml
+- hosts: prometheus
+  roles:
+  - role: grafana
+```
+
+## Docs
+
+### Setup Loki Nginx config 
+
 For livetrailing with loki use this nginx config:
 
 ```yml
@@ -60,16 +72,6 @@ nginx_proxies:
           proxy_set_header Connection $connection_upgrade;
           proxy_set_header Upgrade $http_upgrade;
 ```
-
-And include it in your playbook.
-
-```yml
-- hosts: prometheus
-  roles:
-  - role: grafana
-```
-
-## Docs
 
 ### Install command line tools
 

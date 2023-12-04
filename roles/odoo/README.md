@@ -44,6 +44,11 @@ And include it in your playbook.
 Setup this Nginx configuration for the `doc01` host:
 
 ```yaml
+nginx_http_options: |
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }
 nginx_proxies:
   - src_hostname: odoo.example.com
     dest_hostname: odoo01
