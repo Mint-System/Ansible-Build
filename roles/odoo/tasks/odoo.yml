@@ -16,7 +16,7 @@
     dest: "{{ odoo_data_dir }}/{{ item }}"
   loop:
     - odoo.conf
-  notify: Restart odoo container
+  notify: "Restart {{ role_name }} container"
 
 - name: "Pull {{ role_name }} image"
   docker_image:

@@ -1,26 +1,28 @@
 jenkins_build_image: false
 jenkins_description: Jenkins
+jenkins_data_dir: "/usr/share/{{ jenkins_hostname }}"
 jenkins_volume_name: "{{ jenkins_hostname }}"
 jenkins_password: "{{ vault_jenkins_password }}"
 jenkins_docker_host: "unix:///var/run/docker.sock"
 jenkins_casc: |
-  securityRealm:
-    local:
-      allowsSignup: false
-      users:
-      - id: ${JENKINS_USER}
-        password: ${JENKINS_PASSWORD}
-  authorizationStrategy:
-    globalMatrix:
-      entries:
-      - group:
-          name: "authenticated"
-          permissions:
-          - "Overall/Read"
-      - user:
-          name: "${JENKINS_USER}"
-          permissions:
-          - "Overall/Administer"
-  unclassified:
-    location:
-      url: ${JENKINS_URL}
+  jenkins:
+    securityRealm:
+      local:
+        allowsSignup: false
+        users:
+        - id: ${JENKINS_USER}
+          password: ${JENKINS_PASSWORD}
+    authorizationStrategy:
+      globalMatrix:
+        entries:
+        - group:
+            name: "authenticated"
+            permissions:
+            - "Overall/Read"
+        - user:
+            name: "${JENKINS_USER}"
+            permissions:
+            - "Overall/Administer"
+    unclassified:
+      location:
+        url: ${JENKINS_URL}

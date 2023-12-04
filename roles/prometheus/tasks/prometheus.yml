@@ -27,7 +27,7 @@
   template:
     src: prometheus.yml
     dest: "{{ prometheus_data_dir }}/"
-  notify: Restart prometheus container
+  notify: "Restart {{ role_name }} container"
 
 - name: "Start {{ role_name }} container {{ prometheus_hostname }}"
   docker_container:

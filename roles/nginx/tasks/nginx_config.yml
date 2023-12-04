@@ -39,7 +39,7 @@
     cache: "{{ item.cache | default(false) }}"
     limit_req_zone: "{{ item.limit_req_zone | default(false) }}"    
   loop: "{{ nginx_proxies }}"
-  notify: Restart nginx container
+  notify: "Restart {{ role_name }} container"
   when: nginx_proxies is defined
 
 - name: "Register {{ role_name }} conf files" # noqa 306

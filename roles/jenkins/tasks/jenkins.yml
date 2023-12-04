@@ -5,6 +5,19 @@
     docker_volume_name: "{{ jenkins_volume_name }}"
   when: jenkins_volume_name is defined
 
+- name: "Ensure {{ role_name }} data dir exists"
+  file:
+    path: "{{ jenkins_data_dir }}"
+    state: directory
+
+- name: "Copy {{ role_name }} conf"
+  template:
+    src: "{{ item }}"
+    dest: "{{ jenkins_data_dir }}/{{ item }}"
+  loop:
+    -jenkins.yml
+  notify: "Restart {{ role_name }} container"
+
 - name: "Start {{ role_name }} container {{ jenkins_hostname }}"
   docker_container:
     name: "{{ jenkins_hostname }}"
@@ -20,6 +33,7 @@
       DOCKER_HOST: "{{ jenkins_docker_host }}"
     volumes:
       - "{{ jenkins_volume_name }}:/var/jenkins_home"
+      - "{{ odoo_data_dir }}/jenkins.yml:/usr/share/jenkins/ref/jenkins.yml"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
