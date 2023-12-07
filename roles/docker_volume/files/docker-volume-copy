@@ -77,7 +77,7 @@ docker volume create --name "$TARGET_VOLUME"
 
 if $FORCE; then
     echo "Remove path $TARGET_PATH in volume $TARGET_VOLUME."
-    docker container run --rm -it \
+    docker container run --rm \
         -v "$TARGET_VOLUME":/to \
         alpine ash -c "rm -rf /to$TARGET_PATH"
 fi
