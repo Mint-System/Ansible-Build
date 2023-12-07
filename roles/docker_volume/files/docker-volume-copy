@@ -10,12 +10,13 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: Copy docker volumes."
-    echo "Syntax: $SCRIPT [-s|-t|-r|-v|help]"
-    echo "Example: $SCRIPT -s jenkins -t jenkins_data01"
+    echo "Description: Copy docker volumes or specific folders."
+    echo "Syntax: $SCRIPT [-s|-t|-f|-r|-v|help]"
+    echo "Example: $SCRIPT -s odoo-main:/filestore/odoo-main -t odoo-int:/filestore/odoo-int -f"
     echo "options:"
-    echo "  -s    Source Docker volume name."
-    echo "  -t    Target Docker volume name."
+    echo "  -s    Source Docker volume name and path."
+    echo "  -t    Target Docker volume name and path."
+    echo "  -f    Remove target path before copy."
     echo "  -r    Replace existing target volume."
     echo "  -v    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
@@ -30,13 +31,16 @@ fi
 
 # Initialise option flags
 REPLACE="false"
+FORCE="false"
 
 # Process params
-while getopts ":s: :t: :r :v" opt; do
+while getopts ":s: :t: :f :r :v" opt; do
     case $opt in
         s) SOURCE="$OPTARG"
         ;;
         t) TARGET="$OPTARG"
+        ;;
+        f) FORCE="true"
         ;;
         r) REPLACE="true"
         ;;
@@ -53,19 +57,34 @@ done
 [[ -z "$SOURCE" ]] && { echo "Parameter -s|source is empty" ; exit 1; }
 [[ -z "$TARGET" ]] && { echo "Parameter -t|target is empty" ; exit 1; }
 
+# Split volume name and path
+TARGET_VOLUME=$(echo $TARGET | cut -f1 -d:)
+TARGET_PATH=$(echo $TARGET | grep -q ":" && echo $TARGET | cut -f2 -d: || echo "")
+SOURCE_VOLUME=$(echo $SOURCE | cut -f1 -d:)
+SOURCE_PATH=$(echo $SOURCE | grep -q ":" && echo $SOURCE | cut -f2 -d: || echo "")
+
 if $REPLACE; then
-    echo "Remove docker volume $TARGET."
-    docker volume rm "$TARGET"
+    echo "Remove docker volume $TARGET_VOLUME."
+    docker volume rm "$TARGET_VOLUME"
 fi
 
-docker volume inspect "$TARGET" > /dev/null && { echo "Docker volume $TARGET already exists." ; exit 1; }
+if [[ -z "$TARGET_PATH" ]]; then
+    docker volume inspect "$TARGET_VOLUME" > /dev/null && { echo "Docker volume $TARGET_VOLUME already exists." ; exit 1; }
+fi
 
-echo "Create docker volume $TARGET."
-docker volume create --name "$TARGET"
+echo "Create docker volume $TARGET_VOLUME."
+docker volume create --name "$TARGET_VOLUME"
+
+if $FORCE; then
+    echo "Remove path $TARGET_PATH in volume $TARGET_VOLUME."
+    docker container run --rm -it \
+        -v "$TARGET_VOLUME":/to \
+        alpine ash -c "rm -rf /to$TARGET_PATH"
+fi
 
 echo "Copy Docker volume content from $SOURCE to $TARGET."
 docker container run --rm -it \
-    -v "$SOURCE":/from \
-    -v "$TARGET":/to \
-    alpine ash -c "cd /from ; cp -av . /to" \
+    -v "$SOURCE_VOLUME":/from \
+    -v "$TARGET_VOLUME":/to \
+    alpine ash -c "cd /to; mkdir -p .$TARGET_PATH; cd /from$SOURCE_PATH; cp -av . /to$TARGET_PATH" \
     > /dev/null && { echo "Docker volume copy has finished."; }

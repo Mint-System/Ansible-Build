@@ -14,13 +14,14 @@ Help() {
     echo
     echo "Description: Duplicate Odoo database in container."
     echo "Syntax: $SCRIPT [-c|-s|-t|-r|-u|-v|help]"
-    echo "Example: $SCRIPT -c odoo06 -s odoo -t odoo-int -r -u"
+    echo "Example: $SCRIPT -c odoo06 -s odoo -t odoo-int -r -u -i"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -s    Source database name."
     echo "  -t    Target database name."
     echo "  -r    Replace existing database."
     echo "  -u    Update database uuid."
+    echo "  -i    Ignore filestore."
     echo "  -v    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
@@ -35,15 +36,17 @@ fi
 # Initialise option flag with a false value
 REPLACE='false'
 UPDATE='false'
+COPY_FILESTORE='true'
 
 # Process params
-while getopts ":c: :s: :t: :r :u :v" opt; do
+while getopts ":c: :s: :t: :r :u :i :v" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         s) SOURCE_DATABASE="$OPTARG";;
         t) TARGET_DATABASE="$OPTARG";;
         r) REPLACE='true';;
         u) UPDATE='true';;
+        i) COPY_FILESTORE='false';;
         v) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
@@ -83,9 +86,11 @@ echo "Duplicate database from $SOURCE_DATABASE to $TARGET_DATABASE."
 $docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER -T $SOURCE_DATABASE $TARGET_DATABASE"
 
 # Duplicate filestore
-echo "Duplicate filestore from $SOURCE_DATABASE to $TARGET_DATABASE."
-$docker_exec_root_bash "mkdir -p /var/lib/odoo/filestore"
-$docker_exec_root_bash "cp -ar /var/lib/odoo/filestore/$SOURCE_DATABASE /var/lib/odoo/filestore/$TARGET_DATABASE"
+if $COPY_FILESTORE; then
+    echo "Duplicate filestore from $SOURCE_DATABASE to $TARGET_DATABASE."
+    $docker_exec_root_bash "mkdir -p /var/lib/odoo/filestore"
+    $docker_exec_root_bash "cp -ar /var/lib/odoo/filestore/$SOURCE_DATABASE /var/lib/odoo/filestore/$TARGET_DATABASE"
+fi
 
 # Update database uuid
 if $UPDATE; then
