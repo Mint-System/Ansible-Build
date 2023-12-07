@@ -4,23 +4,25 @@ set -e
 REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
 SCRIPTS=(
-    docker-odoo-install
     docker-odoo-backup
+    docker-odoo-clear-assets
+    docker-odoo-cloc
     docker-odoo-drop
-    docker-odoo-restore
-    docker-odoo-user
-    odoo-user
-    odoo-backup
-    odoo-restore
+    docker-odoo-duplicate
+    docker-odoo-install
     docker-odoo-list
-    parse-url
+    docker-odoo-patch
+    docker-odoo-restore
+    docker-odoo-shell
+    docker-odoo-uninstall
+    docker-odoo-update
+    docker-odoo-user
+    odoo-backup
     odoo-drop
     odoo-duplicate
-    docker-odoo-clear-assets
-    docker-odoo-update
-    docker-odoo-uninstall
-    docker-odoo-patch
-    docker-odoo-cloc
+    odoo-restore
+    odoo-user
+    parse-url
 )
 
 for SCRIPT in ${SCRIPTS[@]}; do

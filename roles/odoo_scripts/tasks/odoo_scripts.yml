@@ -13,6 +13,7 @@
     - docker-odoo-list
     - docker-odoo-patch
     - docker-odoo-restore
+    - docker-odoo-shell
     - docker-odoo-uninstall
     - docker-odoo-update
     - docker-odoo-user
