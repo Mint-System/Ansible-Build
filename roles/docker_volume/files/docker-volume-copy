@@ -83,7 +83,7 @@ if $FORCE; then
 fi
 
 echo "Copy Docker volume content from $SOURCE to $TARGET."
-docker container run --rm -it \
+docker container run --rm \
     -v "$SOURCE_VOLUME":/from \
     -v "$TARGET_VOLUME":/to \
     alpine ash -c "cd /to; mkdir -p .$TARGET_PATH; cd /from$SOURCE_PATH; cp -av . /to$TARGET_PATH" \
