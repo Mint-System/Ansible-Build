@@ -28,3 +28,9 @@ Include it in your playbook.
 ### Show status
 
 Run `fail2ban-client status sshd` to get the status of the fail2ban service.
+
+Show status for alls hosts.
+
+```
+ansible all -i inventories/setup -a "sudo fail2ban-client status sshd"
+```
