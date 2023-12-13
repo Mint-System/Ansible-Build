@@ -57,13 +57,16 @@ done
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
+# Switch container name with id
+CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+
 # Append commit command if forced
 if $FORCE; then
     CODE="${CODE};self.env.cr.commit()"
 fi
 
 echo "Execute code in container $CONTAINER on datbase $DATABASE." 
-docker exec $CONTAINER bash -c "echo \"$CODE\" | odoo shell -d $DATABASE --db_host=\$HOST -r \$USER -w \$PASSWORD --no-http"
+docker exec $CONTAINER_ID bash -c "echo \"$CODE\" | odoo shell -d $DATABASE --db_host=\$HOST -r \$USER -w \$PASSWORD --no-http"
 
 if $FORCE; then
     echo "Changes to the database have been committed."
