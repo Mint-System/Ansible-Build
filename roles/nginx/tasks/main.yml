@@ -1,12 +1,12 @@
 - name: "Include {{ role_name }} config tasks"
-  include: "{{ role_name }}_config.yml"
+  include_tasks: "{{ role_name }}_config.yml"
   when: nginx_hostname is defined
   tags:
     - nginx_config
     - nginx
 
 - name: "Include {{ role_name }} tasks"
-  include: "{{ role_name }}.yml"
+  include_tasks: "{{ role_name }}.yml"
   when: nginx_image is defined
   tags:
     - nginx
