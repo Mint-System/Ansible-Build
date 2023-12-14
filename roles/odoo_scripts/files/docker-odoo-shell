@@ -62,8 +62,13 @@ if $FORCE; then
     CODE="${CODE};self.env.cr.commit()"
 fi
 
-echo "Execute code in container $CONTAINER on datbase $DATABASE." 
-docker exec $CONTAINER_ID bash -c "echo \"$CODE\" | odoo shell -d $DATABASE --db_host=\$HOST -r \$USER -w \$PASSWORD --no-http"
+if [[ -n $CODE ]]; then
+    echo "Execute code in container $CONTAINER on datbase $DATABASE." 
+    docker exec $CONTAINER_ID bash -c "echo \"$CODE\" | odoo shell -d $DATABASE --db_host=\$HOST -r \$USER -w \$PASSWORD --no-http"
+else
+    echo "Execute code in container $CONTAINER on datbase $DATABASE." 
+    docker exec -it $CONTAINER_ID bash -c "odoo shell -d $DATABASE --db_host=\$HOST -r \$USER -w \$PASSWORD --no-http"
+fi
 
 if $FORCE; then
     echo "Changes to the database have been committed."
