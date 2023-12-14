@@ -15,7 +15,7 @@ The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks a
 
 Clone this repository.
 
-`git clone https://github.com/Mint-System/Ansible-Build.git`
+`git clone git@github.com:Mint-System/Ansible-Build.git`
 
 See `task help` or [task](./task.md) for details about the project commands.
 
