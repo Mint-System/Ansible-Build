@@ -26,6 +26,7 @@ odoo_master_password: # default: "{{ vault_odoo_master_password }}"
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
+odoo_dbfilter: ^%h$ # default: ^%d$
 odoo_conf: | # default: ""
   server_wide_modules = base,web,dbfilter_from_header
 odoo_backup_set: # See restic_backup_set var in role restic_client

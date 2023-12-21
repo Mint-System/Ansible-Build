@@ -12,4 +12,5 @@ odoo_conf_limit_time_real: 1200
 odoo_postgres_user: odoo
 odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password: "{{ vault_odoo_master_password }}"
+odoo_dbfilter: ^%d$
 odoo_conf: ""
