@@ -15,7 +15,7 @@
     src: "{{ item }}"
     dest: "{{ jenkins_data_dir }}/{{ item }}"
   loop:
-    -jenkins.yml
+    - jenkins.yml
   notify: "Restart {{ role_name }} container"
 
 - name: "Start {{ role_name }} container {{ jenkins_hostname }}"
@@ -33,7 +33,7 @@
       DOCKER_HOST: "{{ jenkins_docker_host }}"
     volumes:
       - "{{ jenkins_volume_name }}:/var/jenkins_home"
-      - "{{ odoo_data_dir }}/jenkins.yml:/usr/share/jenkins/ref/jenkins.yml"
+      - "{{ jenkins_data_dir }}/jenkins.yml:/usr/share/jenkins/ref/jenkins.yml"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
