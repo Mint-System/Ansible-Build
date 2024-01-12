@@ -57,3 +57,5 @@
       - letsencrypt
   - role: coturn
     tags: coturn
+  - role: git
+    tags: git

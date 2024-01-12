@@ -73,6 +73,7 @@ List of all available Ansible roles.
 | [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
 | [fathom](roles/fathom/README.md)                                       | Deploy Fathom container.                                         |
 | [fstab](roles/fstab/README.md)                                         | Configure the fstab file.                                        |
+| [git](roles/git/README.md)                                             | Checkout Git repositories.                                       |
 | [gitea](roles/gitea/README.md)                                         | Deploy Gitea container.                                          |
 | [grafana](roles/grafana/README.md)                                     | Deploy Grafana Docker container.                                 |
 | [htpasswd](roles/htpasswd/README.md)                                   | Configure .htpasswd basic auth file.                             |
