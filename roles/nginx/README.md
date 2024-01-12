@@ -30,6 +30,10 @@ nginx_cache_enabled: true # default: false
 nginx_proxies:
 
   - src_hostname: www.example.com
+    ssl: true
+    root: public # Translates to "/usr/share/{{ nginx_hostname }}/static/public"
+
+  - src_hostname: www.example.com
     dest_hostname: webserver
     dest_replicas: 3 # default: 1
     dest_port: 8080 # default: 80
