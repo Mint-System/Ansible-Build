@@ -12,7 +12,7 @@
     append: true
     state: "{{ item.state | default('present') }}"
   loop: "{{ iam_users }}"
-  when: inventory_hostname_short in item.hosts
+  when: item.hosts is defined and inventory_hostname_short in item.hosts
 
 # FIXME: Passwort does not work if not set manually
 - name: Set user passwords
@@ -20,7 +20,7 @@
     name: "{{ item.username }}"
     password: "{{ item.password | password_hash('sha512') }}"
   loop: "{{ iam_users }}"
-  when: inventory_hostname_short in item.hosts and item.password is defined
+  when: item.hosts is defined and inventory_hostname_short in item.hosts and item.password is defined
 
 - name: Set authorized key
   authorized_key:
@@ -28,7 +28,7 @@
     state: "{{ item.state | default('present') }}"
     key: "{{ item.ssh_public_key }}"
   loop: "{{ iam_users }}"
-  when: item.ssh_public_key is defined and inventory_hostname_short in item.hosts
+  when: item.ssh_public_key is defined and item.hosts is defined and inventory_hostname_short in item.hosts
 
 - name: Copy ssh private key
   copy:
@@ -38,7 +38,7 @@
     group: "{{ item.username }}"
     mode: "0700"
   loop: "{{ iam_users }}"
-  when: item.ssh_private_key is defined and inventory_hostname_short in item.hosts
+  when: item.ssh_private_key is defined and item.hosts is defined and inventory_hostname_short in item.hosts
 
 - name: Remove users
   user:
