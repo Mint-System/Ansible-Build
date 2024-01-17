@@ -1,0 +1,12 @@
+
+- name: Init a system service to update Docker hostname in /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '.*{{ item.name }}$'
+    line: "{{ item.ip }} {{ item.name }}"
+    state: present
+  loop: "{{ docker_hosts }}"
+
+  docker_hosts:
+    state: present
+
