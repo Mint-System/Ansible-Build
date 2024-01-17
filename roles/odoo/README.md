@@ -28,7 +28,7 @@ odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
 odoo_dbfilter: ^%h$ # default: ^%d$
 odoo_proxy_mode: "False" # default: "True"
-odoo_workers: 1 # default: 2
+odoo_workers: 0 # default: 2
 odoo_conf: | # default: ""
   server_wide_modules = base,web,dbfilter_from_header
 odoo_backup_set: # See restic_backup_set var in role restic_client
