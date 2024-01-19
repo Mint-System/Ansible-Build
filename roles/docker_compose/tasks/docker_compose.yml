@@ -7,15 +7,14 @@
 - name: "Set current {{ role_name }} version"
   set_fact:
     docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
-  when: docker_compose_vsn.stdout | search("version")
+  when: docker_compose_vsn.stdout | regex_search("version")
 
 - name: "Install {{ role_name }} {{ docker_compose_version }}"
   get_url:
-    url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    url : "https://github.com/docker/compose/releases/download/v{{ docker_compose_version }}/docker-compose-Linux-x86_64"
     dest: /usr/local/bin/docker-compose
     force: true
-    mode: "u+x,g+x"
-
+    mode: "u+rx,g+rx"
   when: docker_compose_current_version is not defined or docker_compose_current_version != docker_compose_version
 
 - name: "Ensure {{ role_name }} data dir exists"
