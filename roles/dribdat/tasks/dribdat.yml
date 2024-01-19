@@ -11,6 +11,7 @@
     dribdat_env:
       DRIBDAT_ENV: "prod"
       TIME_ZONE: "Europe/Zurich"
+      SERVER_SSL: "false"
       SERVER_URL: "{{ dribdat_server_name }}"
       DRIBDAT_SECRET: "{{ dribdat_secret }}"
       DATABASE_URL: "postgresql://{{ dribdat_postgres_user }}:{{ dribdat_postgres_password }}@{{ dribdat_postgres_hostname }}/{{ dribdat_postgres_database }}"

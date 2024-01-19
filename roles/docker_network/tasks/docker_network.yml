@@ -2,3 +2,11 @@
   docker_network:
     name: "{{ docker_network_name }}"
     driver: "{{ docker_network_driver }}"
+
+- name: Set docker network subnet
+  docker_network:
+    name: "{{ docker_network_name }}"
+    driver: "{{ docker_network_driver }}"
+    ipam_config:
+      - subnet: "{{ docker_network_subnet }}" 
+  when: docker_network_subnet is defined
