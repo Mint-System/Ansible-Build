@@ -59,3 +59,5 @@
     tags: coturn
   - role: git
     tags: git
+  - role: docker_network
+    tags: docker_network
