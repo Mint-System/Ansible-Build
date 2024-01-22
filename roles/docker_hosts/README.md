@@ -1,6 +1,6 @@
 # Docker Hosts role
 
-Configures Docker Hostname in /etc/hosts.
+Docker hostname resolver.
 
 ## Usage
 

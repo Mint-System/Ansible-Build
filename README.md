@@ -58,6 +58,7 @@ List of all available Ansible roles.
 | [cargo](roles/cargo/README.md)                                         | Setup Rust toolchain and cargo package manager.                  |
 | [certbot](roles/certbot/README.md)                                     | Deploy Let's Encrypt certificates.                               |
 | [clean](roles/clean/README.md)                                         | Cleanup Ansible roles.                                           |
+| [collabora_code](roles/collabora_code/README.md)                       | Deploy Collabora Code container.                                 |
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
 | [cron](roles/cron/README.md)                                           | Setup cron jobs.                                                 |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
@@ -131,13 +132,13 @@ List of all available Ansible roles.
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |
 | [wordpress](roles/wordpress/README.md)                                 | Deploy WordPress container.                                      |
 
-Work in progress:
+Work in Progress:
 
-| Role                                             | Description                      |
-| ------------------------------------------------ | -------------------------------- |
-| [collabora_code](roles/collabora_code/README.md) | Deploy Collabora Code container. |
-| [coturn](roles/coturn/README.md)                 | Deploy Coturn container.         |
-| [synapse](roles/synapse/README.md)               | Deploy Matrix Synapse container. |
+| Role                                         | Description                      |
+| -------------------------------------------- | -------------------------------- |
+| [docker_hosts](roles/docker_hosts/README.md) | Docker hostname resolver..       |
+| [coturn](roles/coturn/README.md)             | Deploy Coturn container.         |
+| [synapse](roles/synapse/README.md)           | Deploy Matrix Synapse container. |
 
 ### Commands
 
