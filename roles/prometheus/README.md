@@ -46,3 +46,29 @@ And include it in your playbook.
   roles:
   - role: prometheus
 ```
+
+## Docs
+
+### Predefined srape configs
+
+The `prometheus.yml` template contains predefined srcape jobs that lookup hosts in the Ansible inventory.
+
+* **prometheus**: Target is `localhost:9090`.
+* **cadvisor https**: Targets are hosts with a `cadvisor_hostname` and https scheme.
+* **cadvisor http**: Targets are hosts with a `cadvisor_hostname` and http scheme.
+* **node-exporter https**: Targets are hosts with a `node_exporter_hostname` and https scheme.
+* **node-exporter http**: Targets are hosts with a `node_exporter_hostname` and http scheme.
+* **nextcloud http**: Targets are hosts with a `nextcloud_exporter_hostname` and http scheme.
+* **bigbluebutton https**: Targets are hosts with a `bigbluebutton_exporter_hostname` and https scheme.
+* **postgres https**: Targets are hosts with a `postgres_exporter_hostname` and https scheme.
+* **restic-server https**: Targets are hosts with a `restic_server_hostname` and https scheme.
+* **blackbox**: Targets are `nginx_proxies` with `monitor` not false and host is `blackbox01:9115`.
+* **odoo https**: Targets are `nginx_proxies` with `monitor_odoo` set true.
+
+### Deploy Prometheus container
+
+Select multiple inventories when deploying.
+
+```bash
+ansible-playbook -i inventories/odoo -i inventories/nextcloud -i inventories/setup play_proxy.yml -l prometheus -t prometheus
+```
