@@ -15,6 +15,7 @@ SCRIPTS=(
     docker-postgres-drop
     docker-postgres-patch
     docker-postgres-duplicate
+    docker-postgres-size
 )
 
 for SCRIPT in ${SCRIPTS[@]}; do
