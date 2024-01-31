@@ -65,7 +65,6 @@
     name: "{{ nginx_hostname }}"
   register: nginx_container
 
-# FIXME does not work with nginx vars
-# - name: "Test {{ role_name }} conf files"
-#   command: "docker exec {{ nginx_hostname }} nginx -t"
-#   when: nginx_container.exists
+- name: "Test {{ role_name }} conf files"
+  command: "docker exec {{ nginx_hostname }} nginx -t"
+  when: nginx_container.exists
