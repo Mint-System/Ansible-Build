@@ -1,6 +1,6 @@
-- name: "On build set new image tag {{ role_name }}:custom"
+- name: "On build set new image tag {{ role_name }}:{{ certbot_hostname }}"
   set_fact:
-    certbot_image: "certbot:custom"
+    certbot_image: "certbot:{{ certbot_hostname }}"
     certbot_build_image: "{{ certbot_image }}"
   when: certbot_build_image
   tags:

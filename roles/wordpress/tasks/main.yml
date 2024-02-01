@@ -1,6 +1,6 @@
-- name: "On build set new image tag {{ role_name }}:custom"
+- name: "On build set new image tag {{ role_name }}:{{ wordpress_hostname }}"
   set_fact:
-    wordpress_image: "wordpress:custom"
+    wordpress_image: "wordpress:{{ wordpress_hostname }}"
     wordpress_build_image: "{{ wordpress_image }}"
   when: wordpress_build_image
   tags:

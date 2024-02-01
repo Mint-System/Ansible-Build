@@ -1,6 +1,6 @@
-- name: "On build set new image tag {{ role_name }}:custom"
+- name: "On build set new image tag {{ role_name }}:{{ jenkins_hostname }}"
   set_fact:
-    jenkins_image: "jenkins:custom"
+    jenkins_image: "jenkins:{{ jenkins_hostname }}"
     jenkins_build_image: "{{ jenkins_image }}"
   when: jenkins_build_image
   tags:

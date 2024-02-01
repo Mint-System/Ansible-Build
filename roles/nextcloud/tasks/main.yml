@@ -1,6 +1,6 @@
-- name: "On build set new image tag {{ role_name }}:custom"
+- name: "On build set new image tag {{ role_name }}:{{ nextcloud_hostname }}"
   set_fact:
-    nextcloud_image: "nextcloud:custom"
+    nextcloud_image: "nextcloud:{{ nextcloud_hostname }}"
     nextcloud_build_image: "{{ nextcloud_image }}"
   when: nextcloud_build_image
   tags:
@@ -19,7 +19,7 @@
     - nextcloud
 
 - name: "Include {{ role_name }} integrity tasks"
-  include_tasks: "{{ role_name }}-integrity.yml"
+  include_tasks: "{{ role_name }}_integrity.yml"
   when: nextcloud_integrity_check
   tags:
     - nextcloud

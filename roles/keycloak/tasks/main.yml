@@ -1,6 +1,6 @@
-- name: "On build set new image tag {{ role_name }}:custom"
+- name: "On build set new image tag {{ role_name }}:{{ keycloak_hostname }}"
   set_fact:
-    keycloak_image: "keycloak:custom"
+    keycloak_image: "keycloak:{{ keycloak_hostname }}"
     keycloak_build_image: "{{ keycloak_image }}"
   when: keycloak_build_image
   tags:

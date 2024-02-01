@@ -11,6 +11,7 @@ Configure the role.
 ```yml
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:12-alpine
+postgres_build_image: true # default: false
 postgres_description: Database for website # default: PostgreSQL
 postgres_hostname: postgres01
 postgres_volume_name: postgres_data01 # default: "{{ postgres_hostname}}"

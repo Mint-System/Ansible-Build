@@ -2,3 +2,14 @@
   docker_container:
     name: "{{ postgres_hostname }}"
     restart: true
+
+- name: "Build {{ role_name }} custom image"
+  docker_image:
+    name: "{{ postgres_image }}"
+    build:
+      path: "{{ docker_build_dir }}/{{ postgres_hostname }}"
+      pull: true
+    source: build
+    force_source: true
+    force_tag: true
+    state: present

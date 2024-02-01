@@ -1,3 +1,17 @@
+- name: "On build set new image tag {{ role_name }}:{{ role_name }}"
+  set_fact:
+    postgres_image: "postgres:{{ role_name }}"
+    postgres_build_image: "{{ postgres_image }}"
+  when: postgres_build_image
+  tags:
+    - postgres
+
+- name: "Include {{ role_name }} build tasks"
+  include_tasks: "{{ role_name }}_build.yml"
+  when: postgres_build_image
+  tags:
+    - postgres
+
 - name: "Include {{ role_name }} tasks"
   include_tasks: "{{ role_name }}.yml"
   when: postgres_image is defined

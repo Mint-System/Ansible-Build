@@ -1,3 +1,4 @@
+postgres_build_image: false
 postgres_description: PostgreSQL
 postgres_volume_name: "{{ postgres_hostname }}"
 postgres_db: "{{ postgres_user }}"

@@ -1,6 +1,6 @@
-- name: "On build set new image tag {{ role_name }}:custom"
+- name: "On build set new image tag {{ role_name }}:{{ superset_hostname }}"
   set_fact:
-    superset_image: "superset:custom"
+    superset_image: "superset:{{ superset_hostname }}"
     superset_build_image: "{{ superset_image }}"
   when: superset_build_image
   tags:
