@@ -46,4 +46,4 @@
     state: "absent"
     remove: true
   loop: "{{ iam_users }}"
-  when:  item.state is defined and item.state == 'absent'
+  when: item.state is defined and item.state == 'absent' and item.hosts is defined and inventory_hostname_short in item.hosts
