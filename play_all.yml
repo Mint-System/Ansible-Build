@@ -9,6 +9,8 @@
     tags: bookstack
   - role: nextcloud
     tags: nextcloud
+  - role: matomo
+    tags: matomo
   - role: fathom
     tags: fathom
   - role: keycloak

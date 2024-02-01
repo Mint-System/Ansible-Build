@@ -1,0 +1,3 @@
+matomo_build_image: false
+matomo_description: Matomo
+matomo_volume_name: "{{ matomo_hostname }}"

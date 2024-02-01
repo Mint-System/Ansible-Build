@@ -1,0 +1,30 @@
+- name: "Include docker volume role"
+  include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ matomo_volume_name }}"
+  when: matomo_volume_name is defined
+
+- name: "Start {{ role_name }} container {{ matomo_hostname }}"
+  docker_container:
+    name: "{{ matomo_hostname }}"
+    labels:
+      description: "{{ matomo_description }}"
+    image: "{{ matomo_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    env:
+      MATOMO_DATABASE_HOST: "{{ matomo_db_hostname }}"
+      MATOMO_DATABASE_USERNAME: "{{ matomo_db_user }}"
+      MATOMO_DATABASE_PASSWORD: "{{ matomo_db_password }}"
+      MATOMO_DATABASE_DBNAME: "{{ matomo_db_name }}"
+
+    volumes:
+      - "{{ matomo_volume_name }}:/var/www/html"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ matomo_hostname }}|{{ role_name }}"

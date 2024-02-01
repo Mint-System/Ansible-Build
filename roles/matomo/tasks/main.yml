@@ -1,0 +1,19 @@
+- name: "On build set new image tag {{ role_name }}:{{ matomo_hostname }}"
+  set_fact:
+    matomo_image: "matomo:{{ matomo_hostname }}"
+    matomo_build_image: "{{ matomo_image }}"
+  when: matomo_build_image
+  tags:
+    - matomo
+
+- name: "Include {{ role_name }} build tasks"
+  include_tasks: "{{ role_name }}_build.yml"
+  when: matomo_build_image
+  tags:
+    - matomo
+
+- name: "Include {{ role_name }} tasks"
+  include_tasks: "{{ role_name }}.yml"
+  when: matomo_image is defined
+  tags:
+    - matomo
