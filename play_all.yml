@@ -5,6 +5,8 @@
     tags: debug
   - role: postgres
     tags: postgres
+  - role: mysql
+    tags: mysql
   - role: bookstack
     tags: bookstack
   - role: nextcloud
