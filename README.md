@@ -48,7 +48,7 @@ Some roles install helper scripts. They can be used without Ansible. See [script
 List of all available Ansible roles.
 
 | Role                                                                   | Description                                                      |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
+|------------------------------------------------------------------------|------------------------------------------------------------------|
 | [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
 | [birt](roles/birt/README.md)                                           | Deploy BIRT container.                                           |
@@ -91,6 +91,7 @@ List of all available Ansible roles.
 | [mailhog](roles/mailhog/README.md)                                     | Deploy MailHog Docker container.                                 |
 | [maintenance](roles/maintenance/README.md)                             | Maintain operating system and disk space.                        |
 | [mariadb](roles/mariadb/README.md)                                     | Deploy MariaDB database container.                               |
+| [matomo](roles/matomo/README.md)                                       | Deploy Matomo container.                                         |
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |

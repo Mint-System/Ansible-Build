@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/matomo
-matomo_image: matomo:php7.4-apache
+matomo_image: matomo:php:8.2-apache
 matomo_build_image: true # default: false
 matomo_hostname: mat01
 matomo_description: MA # default: Matomo

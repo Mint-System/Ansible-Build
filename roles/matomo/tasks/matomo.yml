@@ -14,6 +14,9 @@
     restart_policy: unless-stopped
     recreate: false
     env:
+      MYSQL_PASSWORD: "{{ matomo_db_password }}"
+      MYSQL_DATABASE: "matomo"
+      MYSQL_USER: "matomo"
       MATOMO_DATABASE_HOST: "{{ matomo_db_hostname }}"
       MATOMO_DATABASE_USERNAME: "{{ matomo_db_user }}"
       MATOMO_DATABASE_PASSWORD: "{{ matomo_db_password }}"
