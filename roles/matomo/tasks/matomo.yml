@@ -3,6 +3,7 @@
     name: docker_volume
   vars:
     docker_volume_name: "{{ matomo_volume_name }}"
+    docker_volume_backup_set: "{{ matomo_volume_backup_set | default([]) }}"
   when: matomo_volume_name is defined
 
 - name: "Start {{ role_name }} container {{ matomo_hostname }}"
@@ -32,3 +33,19 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ matomo_hostname }}|{{ role_name }}"
+
+- name: "Cron job to run {{ role_name }} background jobs"
+  cron:
+    name: "Run {{ role_name }} background jobs"
+    minute: "*/5"
+    job: "docker exec -u root {{ matomo_hostname }} bash -c \"/usr/local/bin/php /var/www/html/console core:archive --url={{ matomo_url }} > /var/log/matomo-archive.log\""
+
+- name: "Include {{ role_name }} backup from restic client role"
+  include_role:
+    name: restic_client
+    tasks_from:
+      restic_client_docker_volume_backup
+      restic_client_docker_mysql_backup
+  vars:
+    restic_backup_set: "{{ docker_backup_set }} {{ mysql_backup_set }}"
+  when: odoo_backup_set is defined
