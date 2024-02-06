@@ -43,9 +43,7 @@
 - name: "Include {{ role_name }} backup from restic client role"
   include_role:
     name: restic_client
-    tasks_from:
-      restic_client_docker_volume_backup
-      restic_client_docker_mysql_backup
+    tasks_from: restic_client_docker_volume_backup and restic_client_docker_mysql_backup
   vars:
-    restic_backup_set: "{{ docker_backup_set }} {{ mysql_backup_set }}"
-  when: odoo_backup_set is defined
+    restic_backup_set: "{{ matomo_volume_backup_set }} {{ mysql_backup_set }}"
+  when: restic_backup_set is defined
