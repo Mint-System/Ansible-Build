@@ -28,7 +28,7 @@ odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
 odoo_dbfilter: ^%h$ # default: ^%d$
 odoo_proxy_mode: "False" # default: "True"
-odoo_workers: 0 # default: 2
+odoo_workers: 0 # default: 4
 odoo_conf: | # default: ""
   server_wide_modules = base,web,dbfilter_from_header
 odoo_backup_set: # See restic_backup_set var in role restic_client
@@ -67,6 +67,20 @@ nginx_proxies:
           proxy_set_header Connection $connection_upgrade;
           include /etc/letsencrypt/proxy-params.conf;
 ```
+
+### Calculate workers
+
+The amount of workers to be set depends the amount CPUs available on the host.
+
+Get the amount of CPUs on all hosts:
+
+```bash
+ansible -i inventories/setup all -m shell -a "grep -c ^processor /proc/cpuinfo"
+```
+
+Use rule of thumb: (#CPU * 2) + 1
+
+In case of 4 CPUs it is 8 workers and 1 cron worker.
 
 ### Configure workers
 

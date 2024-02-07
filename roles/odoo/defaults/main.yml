@@ -14,5 +14,5 @@ odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%d$
 odoo_proxy_mode: "True"
-odoo_workers: 2
+odoo_workers: 4
 odoo_conf: ""
