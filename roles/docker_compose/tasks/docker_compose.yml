@@ -24,7 +24,7 @@
 
 - name: "Copy {{ role_name }} dotenv"
   template:
-    src: .env
+    src: dotenv
     dest: "{{ docker_compose_data_dir }}/.env"
   notify: Restart {{ role_name }} project
 
