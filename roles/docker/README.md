@@ -68,3 +68,13 @@ The following tags are available:
 * docker-centos
 * docker-debian
 * docker-rocky
+
+## Docs
+
+### Manage Docker service
+
+Restart Docker service:
+
+```bash
+sudo service docker restart
+```
