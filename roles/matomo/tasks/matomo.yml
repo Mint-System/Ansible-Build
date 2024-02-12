@@ -19,13 +19,6 @@
       MATOMO_DATABASE_USERNAME: "{{ matomo_db_user }}"
       MATOMO_DATABASE_PASSWORD: "{{ vault_matomo_db_password }}"
       MATOMO_DATABASE_DBNAME: "{{ matomo_db_name }}"
-
-  env:
-      MATOMO_DATABASE_HOST: "{{ matomo_db_hostname }}"
-      MATOMO_DATABASE_USERNAME: "{{ matomo_db_user }}"
-      MATOMO_DATABASE_PASSWORD: "{{ vault_matomo_db_password }}"
-      MATOMO_DATABASE_DBNAME: "{{ matomo_db_name }}"
-
     volumes:
       - "{{ matomo_volume_name }}:/var/www/html"
     networks:
@@ -41,11 +34,3 @@
     name: "Run {{ role_name }} background jobs"
     minute: "*/5"
     job: "docker exec -u root {{ matomo_hostname }} bash -c \"/usr/local/bin/php /var/www/html/console core:archive --url={{ matomo_url }} > /var/log/matomo-archive.log\""
-
-# - name: "Include {{ role_name }} backup from restic client role"
-#   include_role:
-#     name: restic_client
-#     tasks_from: restic_client_docker_volume_backup and restic_client_docker_mysql_backup
-#   vars:
-#     restic_backup_set: "{{ matomo_volume_backup_set }} {{ mysql_backup_set }}"
-#   when: restic_backup_set is defined
