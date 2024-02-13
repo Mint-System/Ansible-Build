@@ -1,12 +1,21 @@
+- name: "Copy {{ role_name }} scripts"
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: +x
+  loop:
+    - docker-update-hosts
 
-- name: Init a system service to update Docker hostname in /etc/hosts
-  lineinfile:
-    dest: /etc/hosts
-    regexp: '.*{{ item.name }}$'
-    line: "{{ item.ip }} {{ item.name }}"
-    state: present
-  loop: "{{ docker_hosts }}"
+- name: "Copy {{ role_name }} service"
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+    mode: +x
+  loop:
+    - docker-update-hosts.service
 
-  docker_hosts:
-    state: present
-
+- name: "Start {{ role_name }} service"
+  service:
+    name: docker-update-hosts
+    state: started
+    enabled: true
