@@ -10,12 +10,12 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Restore docker postgres database."
-  echo "Syntax: $SCRIPT [-d|-f|-c|-r|-i|help]"
+  echo "Syntax: $SCRIPT [-c|-d|-f|-r|-i|help]"
   echo "Example: $SCRIPT -d odoo -f /tmp/dump.sql -c postgres01 -r"
   echo "options:"
+  echo "  -c    Docker container name. Defaults to 'postgres'."
   echo "  -d    Name of database. Defaults to filename"
   echo "  -f    Path to sql dump."
-  echo "  -c    Docker container name. Defaults to 'postgres'."
   echo "  -r    Replace existing database."
   echo "  -i    Create database."
   echo "  help  Show $SCRIPT manual."
@@ -33,15 +33,15 @@ DROP='false'
 CREATE='false'
 
 # Process params
-while getopts ":r :i :c: :d: :f:" opt; do
+while getopts ":c: :d: :f: :r :i" opt; do
   case $opt in
+    c) CONTAINER="$OPTARG";;
+    d) DATABASE="$OPTARG";;
+    f) FILE="$OPTARG";;
     r) DROP='true'
       CREATE='true'
     ;;
     i) CREATE='true';;
-    c) CONTAINER="$OPTARG";;
-    d) DATABASE="$OPTARG";;
-    f) FILE="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
     exit;;
