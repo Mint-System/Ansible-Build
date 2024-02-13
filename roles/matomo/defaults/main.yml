@@ -2,3 +2,4 @@ matomo_build_image: false
 matomo_description: Matomo
 matomo_volume_name: "{{ matomo_hostname }}"
 matomo_db_password: "{{ vault_matomo_db_password }}"
+matomo_db_table_prefix: ""

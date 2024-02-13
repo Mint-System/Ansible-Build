@@ -19,6 +19,7 @@
       MATOMO_DATABASE_USERNAME: "{{ matomo_db_user }}"
       MATOMO_DATABASE_PASSWORD: "{{ vault_matomo_db_password }}"
       MATOMO_DATABASE_DBNAME: "{{ matomo_db_name }}"
+      MATOMO_DATABASE_TABLES_PREFIX:  "{{ matomo_db_table_prefix }}"
     volumes:
       - "{{ matomo_volume_name }}:/var/www/html"
     networks:
