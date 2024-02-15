@@ -1,6 +1,6 @@
-- name: "On build set new image tag {{ role_name }}:{{ role_name }}"
+- name: "On build set new image tag {{ role_name }}:{{ postgres_hostname }}"
   set_fact:
-    postgres_image: "postgres:{{ role_name }}"
+    postgres_image: "postgres:{{ postgres_hostname }}"
     postgres_build_image: "{{ postgres_image }}"
   when: postgres_build_image
   tags:
