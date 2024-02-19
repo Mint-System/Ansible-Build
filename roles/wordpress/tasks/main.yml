@@ -2,13 +2,13 @@
   set_fact:
     wordpress_image: "wordpress:{{ wordpress_hostname }}"
     wordpress_build_image: "{{ wordpress_image }}"
-  when: wordpress_build_image
+  when: wordpress_build_image != wordpress_image
   tags:
     - wordpress
 
 - name: "Include {{ role_name }} build tasks"
   include_tasks: "{{ role_name }}_build.yml"
-  when: wordpress_build_image
+  when: wordpress_build_image != wordpress_image
   tags:
     - wordpress
 

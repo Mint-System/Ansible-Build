@@ -2,13 +2,13 @@
   set_fact:
     jenkins_image: "jenkins:{{ jenkins_hostname }}"
     jenkins_build_image: "{{ jenkins_image }}"
-  when: jenkins_build_image
+  when: jenkins_build_image != jenkins_image
   tags:
     - jenkins
 
 - name: "Include {{ role_name }} build tasks"
   include_tasks: "{{ role_name }}_build.yml"
-  when: jenkins_build_image
+  when: jenkins_build_image != jenkins_image
   tags:
     - jenkins
 
