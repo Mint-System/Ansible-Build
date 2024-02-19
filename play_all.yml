@@ -65,3 +65,5 @@
     tags: git
   - role: docker_network
     tags: docker_network
+  - role: docker_hosts
+    tags: docker_hosts
