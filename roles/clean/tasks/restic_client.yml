@@ -1,6 +1,6 @@
 - name: Remove disabled backup jobs
   cron:
-    name: "Backup job {{ item.id }}"
+    name: "{{ item.id }}"
     state: absent
   loop: "{{ restic_backup_set }}"
   when: item.disabled

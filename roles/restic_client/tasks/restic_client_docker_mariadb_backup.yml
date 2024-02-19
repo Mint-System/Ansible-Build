@@ -1,12 +1,12 @@
 - name: Register selective docker mariadb backup jobs
   cron:
-    name: "Backup job {{ item.id }}"
+    name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} \
       && restic backup {{ restic_backup_dir }}/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} \
       {{ '--help' if not (item.upload | default(true)) else '' }}; \
-      write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
+      write-node-exporter-metric -c '{{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
@@ -14,13 +14,13 @@
 
 - name: Register docker mariadb backup jobs
   cron:
-    name: "Backup job {{ item.id }}"
+    name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
     job: "docker-mysql-backup -c {{ item.container }} -a \
       && restic backup {{ restic_backup_dir }}/{{ item.container }} --tag {{ item.tags | join(' --tag ') }} \
       {{ '--help' if not (item.upload | default(true)) else '' }}; \
-      write-node-exporter-metric -c 'Backup job {{ item.id }}' -v $?"
+      write-node-exporter-metric -c '{{ item.id }}' -v $?"
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
