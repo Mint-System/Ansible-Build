@@ -9,7 +9,7 @@
     name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} \
+    job: "odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} -o {{ restic_backup_dir }} \
       && restic backup {{ restic_backup_dir }}/{{ item.database }}.zip --tag {{ item.tags | join(' --tag ') }} \
       {{ '--help' if not (item.upload | default(true)) else '' }}; \
       write-node-exporter-metric -c '{{ item.id }}' -v $?"
@@ -23,7 +23,7 @@
     name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "docker-odoo-backup -d {{ item.database }} -c {{ item.container }} \
+    job: "docker-odoo-backup -d {{ item.database }} -c {{ item.container }} -o {{ restic_backup_dir }} \
       && restic backup {{ restic_backup_dir }}/{{ item.database }}.zip --tag {{ item.tags | join(' --tag ') }} \
       {{ '--help' if not (item.upload | default(true)) else '' }}; \
       write-node-exporter-metric -c '{{ item.id }}' -v $?"
