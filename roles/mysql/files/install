@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
+
+SCRIPTS=(
+    docker-mysql-backup
+    docker-mysql-drop
+    docker-mysql-list
+    docker-mysql-restore
+)
+
+for SCRIPT in ${SCRIPTS[@]}; do
+    echo "Install $SCRIPT script ..."
+    sudo curl -L "$REPOSITORY/master/roles/mysql/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+    sudo chmod +x "/usr/local/bin/$SCRIPT"
+done

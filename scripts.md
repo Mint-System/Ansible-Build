@@ -1,51 +1,106 @@
 # Scripts
 
-The following Ansible roles contain bash scripts that can be installed and used independent of Ansible.
+The following Ansible roles contain command line tools that can be used independent of Ansible.
 
-## Odoo Scripts
+## [odoo_scripts](roles/odoo_scripts/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/odoo_scripts/files/install | bash
 ```
 
-## Nginx
+- docker-odoo-backup
+- docker-odoo-clear-assets
+- docker-odoo-cloc
+- docker-odoo-drop
+- docker-odoo-duplicate
+- docker-odoo-install
+- docker-odoo-list
+- docker-odoo-patch
+- docker-odoo-restore
+- docker-odoo-shell
+- docker-odoo-uninstall
+- docker-odoo-update
+- docker-odoo-user
+- odoo-backup
+- odoo-drop
+- odoo-duplicate
+- odoo-restore
+- odoo-user
+- parse-url
+
+## [nginx](roles/nginx/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/nginx/files/install | bash
 ```
 
-## Node Exporter
+- docker-nginx-enable
+- docker-nginx-reload
+
+## [node_exporter](roles/node_exporter/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/node_exporter/files/install | bash
 ```
 
-## Grafana
+- write-node-exporter-metric
+
+## [mysql](roles/mysql/README.md)
+
+```bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/mysql/files/install | bash
+```
+
+- docker-mysql-backup
+- docker-mysql-list
+- docker-mysql-restore
+- docker-mysql-drop
+
+## [grafana](roles/grafana/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/grafana/files/install | bash
 ```
 
-## PostgreSQL
+- grafana-backup
+
+## [postgres](roles/postgres/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/postgres/files/install | bash
 ```
 
-## Docker Volume
+- docker-postgres-backup
+- docker-postgres-restore
+- docker-postgres-list
+- docker-postgres-drop
+- docker-postgres-patch
+- docker-postgres-duplicate
+- docker-postgres-size
+
+## [docker_volume](roles/docker_volume/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/docker_volume/files/install | bash
 ```
 
-## Certbot
+- docker-volume-backup
+- docker-volume-restore
+- docker-volume-copy
+
+## [certbot](roles/certbot/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/certbot/files/install | bash
 ```
 
-## Restic Client
+- docker-certbot-delete
+- docker-certbot-create
+
+## [restic_client](roles/restic_client/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/restic_client/files/install | bash
 ```
+
+- run-cron-job
