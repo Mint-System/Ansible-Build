@@ -1,6 +1,13 @@
-- name: Remove disabled backup jobs
+- name: Remove restic backup jobs
   cron:
     name: "{{ item.id }}"
     state: absent
   loop: "{{ restic_backup_set }}"
-  when: item.disabled
+  when: restic_backup_set is defined
+
+- name: Remove postgres backup jobs
+  cron:
+    name: "{{ item.id }}"
+    state: absent
+  loop: "{{ postgres_backup_set }}"
+  when: postgres_backup_set is defined
