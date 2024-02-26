@@ -12,7 +12,7 @@ Help() {
     echo "options:"
     echo "  -c    Certificate name."
     echo "  -d    Certbot data dir."
-    echo "  -e    Mail address for Let's Encrypt. Optional."
+    echo "  -e    Optional mail address for Let's Encrypt."
     echo "  help  Show $SCRIPT manual."
     echo
 }

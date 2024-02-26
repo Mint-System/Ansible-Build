@@ -2,13 +2,13 @@
   set_fact:
     matomo_image: "matomo:{{ matomo_hostname }}"
     matomo_build_image: "{{ matomo_image }}"
-  when: matomo_build_image != matomo_image
+  when: matomo_build_image and matomo_build_image != matomo_image
   tags:
     - matomo
 
 - name: "Include {{ role_name }} build tasks"
   include_tasks: "{{ role_name }}_build.yml"
-  when: matomo_build_image != matomo_image
+  when: matomo_build_image and matomo_build_image != matomo_image
   tags:
     - matomo
 

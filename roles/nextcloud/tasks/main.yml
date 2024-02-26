@@ -2,13 +2,13 @@
   set_fact:
     nextcloud_image: "nextcloud:{{ nextcloud_hostname }}"
     nextcloud_build_image: "{{ nextcloud_image }}"
-  when: nextcloud_build_image != nextcloud_image
+  when: nextcloud_build_image and nextcloud_build_image != nextcloud_image
   tags:
     - nextcloud
 
 - name: "Include {{ role_name }} build tasks"
   include_tasks: "{{ role_name }}_build.yml"
-  when: nextcloud_build_image != nextcloud_image
+  when: nextcloud_build_image and nextcloud_build_image != nextcloud_image
   tags:
     - nextcloud
 

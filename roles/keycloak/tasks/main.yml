@@ -2,13 +2,13 @@
   set_fact:
     keycloak_image: "keycloak:{{ keycloak_hostname }}"
     keycloak_build_image: "{{ keycloak_image }}"
-  when: keycloak_build_image != keycloak_image
+  when: keycloak_build_image and keycloak_build_image != keycloak_image
   tags:
     - keycloak
 
 - name: "Include {{ role_name }} build tasks"
   include_tasks: "{{ role_name }}_build.yml"
-  when: keycloak_build_image != keycloak_image
+  when: keycloak_build_image and keycloak_build_image != keycloak_image
   tags:
     - keycloak
 
