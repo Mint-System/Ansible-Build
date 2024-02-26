@@ -39,10 +39,6 @@ Create an inventory and configure a role.
 
 ## Docs
 
-### Scripts
-
-Some roles install helper scripts. They can be used without Ansible. See [scripts](./scripts.md) for details. 
-
 ### Roles
 
 List of all available Ansible roles.
@@ -140,6 +136,10 @@ Work in Progress:
 | [docker_hosts](roles/docker_hosts/README.md) | Docker hostname resolver..       |
 | [coturn](roles/coturn/README.md)             | Deploy Coturn container.         |
 | [synapse](roles/synapse/README.md)           | Deploy Matrix Synapse container. |
+
+### Scripts
+
+Various roles install command line tools that can be used independent of Ansible. See [scripts](./scripts.md) for details. 
 
 ### Commands
 
