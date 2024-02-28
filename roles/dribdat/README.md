@@ -47,3 +47,26 @@ And include it in your playbook.
   roles:
   - role: dribdat
 ```
+
+## Docs
+
+### Nginx config
+
+Setup this Nginx configuration for the `drib01` host:
+
+```yaml
+nginx_http_options: |
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }
+nginx_proxies:
+  - src_hostname: hack.example.com
+    dest_hostname: drib01
+    dest_port: 5000
+    ssl: true
+    monitor: false
+    options: |
+      proxy_set_header Host $host;
+      include /etc/letsencrypt/proxy-params.conf;
+```
