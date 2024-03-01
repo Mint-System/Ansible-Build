@@ -17,7 +17,8 @@ mariadb_volume_name: mariadb_data01 # default: "{{ mariadb_hostname }}"
 mariadb_root_password: "{{ vault_mariadb_root_password }}"
 mariadb_database: example
 mariadb_user: example
-mariadb_password:  "{{ vault_mariadb_password }}"
+mariadb_password: "{{ vault_mariadb_password }}"
+mariadb_command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci # default: ""
 ```
 
 Backup databases.

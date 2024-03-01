@@ -65,5 +65,6 @@ Copy the build files with Ansible.
 Build with Docker.
 
 ```bash
+cd /srv/build/nextcloud01
 docker build . -t nextcloud:custom
 ```

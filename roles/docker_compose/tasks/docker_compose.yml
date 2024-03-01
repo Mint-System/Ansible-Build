@@ -50,7 +50,7 @@
   when: docker_compose_backup_set is defined
 
 - name: "Start {{ role_name }} project"
-  command:  "/usr/local/bin/docker-compose -p {{ docker_compose_project_name }} up -d"
+  command: "/usr/local/bin/docker-compose -p {{ docker_compose_project_name }} up -d"
   args:
     chdir: "{{ docker_compose_data_dir }}"
   register: result

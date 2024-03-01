@@ -49,7 +49,7 @@ elasticsearch_users:
   - name: beats_system
     password: "{{ vault_elasticsearch_beats_system_password }}"
   - name: logstash_system
-    password:  "{{ vault_elasticsearch_logstash_password }}"
+    password: "{{ vault_elasticsearch_logstash_password }}"
 ```
 
 And include it in your playbook.

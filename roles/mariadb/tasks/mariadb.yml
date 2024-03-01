@@ -9,6 +9,7 @@
       description: "{{ mariadb_description }}"
     image: "{{ mariadb_image }}"
     restart_policy: unless-stopped
+    command: "{{ mariadb_command }}" 
     env:
       MARIADB_ROOT_PASSWORD: "{{ mariadb_root_password }}"
       MARIADB_DATABASE: "{{ mariadb_database }}"
