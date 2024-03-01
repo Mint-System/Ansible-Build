@@ -10,6 +10,7 @@
       password: "{{ collabora_code_password }}"
       server_name: "{{ collabora_code_server_name}}"
       collabora_code_aliasgroup1: "{{ collabora_code_aliasgroup1 }}"
+      collabora_code_aliasgroup2: "{{ collabora_code_aliasgroup2 }}"
     ports:
       - "{{ collabora_code_port }}:9980"
     networks:
