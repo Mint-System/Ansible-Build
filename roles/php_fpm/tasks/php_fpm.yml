@@ -1,0 +1,24 @@
+- name: "Include docker volume role"
+  include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ php_fpm_volume_name }}"
+  when: php_fpm_volume_name is defined
+
+- name: "Start {{ role_name }} container {{ php_fpm_hostname }}"
+  docker_container:
+    name: "{{ php_fpm_hostname }}"
+    labels:
+      description: "{{ php_fpm_description }}"
+    image: "{{ php_fpm_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    env: "{{ php_fpm_env }}"
+    volumes: "{{ php_fpm_volumes }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ php_fpm_hostname }}|{{ role_name }}"

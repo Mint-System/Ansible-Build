@@ -67,3 +67,5 @@
     tags: docker_network
   - role: docker_hosts
     tags: docker_hosts
+  - role: php_fpm
+    tags: php_fpm

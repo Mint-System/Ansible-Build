@@ -44,7 +44,7 @@ Create an inventory and configure a role.
 List of all available Ansible roles.
 
 | Role                                                                   | Description                                                      |
-|------------------------------------------------------------------------|------------------------------------------------------------------|
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
 | [birt](roles/birt/README.md)                                           | Deploy BIRT container.                                           |
@@ -107,7 +107,8 @@ List of all available Ansible roles.
 | [onlyoffice_documentserver](roles/onlyoffice_documentserver/README.md) | Deploy OnlyOffice Document Server container.                     |
 | [openldap](roles/openldap/README.md)                                   | Deploy OpenLDAP Docker container.                                |
 | [package](roles/package/README.md)                                     | Set env vars and install packages.                               |
-| [pgadmin](roles/pgadmin/README.md)                                     | Install pgAdmin container.                                       |
+| [pgadmin](roles/pgadmin/README.md)                                     | Deploy pgAdmin container.                                        |
+| [php_fpm](roles/php_fpm/README.md)                                     | Deploy PHP-FPM container.                                        |
 | [postfix](roles/postfix/README.md)                                     | Deploy Postfix relay host.                                       |
 | [postgres_exporter](roles/postgres_exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
 | [postgres](roles/postgres/README.md)                                   | Deploy PostgreSQL database container.                            |

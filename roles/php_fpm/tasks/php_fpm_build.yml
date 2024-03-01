@@ -1,0 +1,17 @@
+- name: "Ensure {{ role_name }} build dir exists"
+  file:
+    path: "{{ docker_build_dir }}/{{ php_fpm_hostname }}"
+    state: directory
+
+- name: "Copy {{ role_name }} Dockerfile"
+  template:
+    src: "{{ item }}"
+    dest: "{{ docker_build_dir }}/{{ php_fpm_hostname }}/{{ item }}"
+  loop:
+    - Dockerfile
+    - .dockerignore
+    - php.ini
+  notify: "Build {{ role_name }} custom image"
+
+- name: Flush handlers
+  meta: flush_handlers
