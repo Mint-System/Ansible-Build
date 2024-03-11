@@ -134,7 +134,8 @@ Work in Progress:
 
 | Role                                         | Description                      |
 | -------------------------------------------- | -------------------------------- |
-| [docker_hosts](roles/docker_hosts/README.md) | Docker hostname resolver..       |
+| [meilisearch](roles/meilisearch/README.md)   | Deploy Meilisearch container.    |
+| [docker_hosts](roles/docker_hosts/README.md) | Docker hostname resolver.        |
 | [coturn](roles/coturn/README.md)             | Deploy Coturn container.         |
 | [synapse](roles/synapse/README.md)           | Deploy Matrix Synapse container. |
 
