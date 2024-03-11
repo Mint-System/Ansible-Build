@@ -52,7 +52,6 @@
   delegate_to: "{{ inventory_hostname }}"
   loop: "{{ odoo_apps }}"
   when: item.version is defined
-  notify: Restart odoo container
 
 - name: "Register {{ role_name }} folders" # noqa 306
   command: "ls -1 {{ odoo_data_dir }}/addons/"
