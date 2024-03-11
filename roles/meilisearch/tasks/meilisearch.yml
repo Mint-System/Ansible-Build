@@ -1,0 +1,23 @@
+- name: "Start {{ role_name }} container {{ meilisearch_hostname }}"
+  docker_container:
+    name: "{{ meilisearch_hostname }}"
+    labels:
+      description: "{{ meilisearch_description }}"
+    image: "{{ meilisearch_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    env:
+      MEILI_HTTP_ADDR: "{{ meilisearch_http_addr }}"
+      MEILI_MASTER_KEY: "{{ meilisearch_master_key }}"
+      MEILI_DB_PATH: "{{ meilisearch_db_path }}"
+      MEILI_ENV: "{{ meilisearch_environment }}"
+    volumes:
+      - "{{ matomo_volume_name }}:/var/www/html"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ matomo_hostname }}|{{ role_name }}"
+

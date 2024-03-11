@@ -1,0 +1,16 @@
+- name: "Ensure {{ role_name }} build dir exists"
+  file:
+    path: "{{ docker_build_dir }}/{{ meilisearch_hostname }}"
+    state: directory
+
+- name: "Copy {{ role_name }} Dockerfile"
+  template:
+    src: "{{ item }}"
+    dest: "{{ docker_build_dir }}/{{ meilisearch_hostname }}/{{ item }}"
+  loop:
+    - Dockerfile
+    - .dockerignore
+  notify: "Build {{ role_name }} custom image"
+
+- name: Flush handlers
+  meta: flush_handlers
