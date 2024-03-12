@@ -60,6 +60,7 @@ List of all available Ansible roles.
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
 | [dind](roles/dind/README.md)                                           | Deploy Docker in Docker container.                               |
 | [docker_compose](roles/docker_compose/README.md)                       | Deploy Docker Compose project.                                   |
+| [docker_hosts](roles/docker_hosts/README.md)                           | Docker hostname resolver.                                        |
 | [docker_network](roles/docker_network/README.md)                       | Configure Docker network.                                        |
 | [docker_swarm](roles/docker_swarm/README.md)                           | Configure Docker Swarm.                                          |
 | [docker_volume](roles/docker_volume/README.md)                         | Configure Docker volume.                                         |
@@ -132,12 +133,11 @@ List of all available Ansible roles.
 
 Work in Progress:
 
-| Role                                         | Description                      |
-| -------------------------------------------- | -------------------------------- |
-| [meilisearch](roles/meilisearch/README.md)   | Deploy Meilisearch container.    |
-| [docker_hosts](roles/docker_hosts/README.md) | Docker hostname resolver.        |
-| [coturn](roles/coturn/README.md)             | Deploy Coturn container.         |
-| [synapse](roles/synapse/README.md)           | Deploy Matrix Synapse container. |
+| Role                                       | Description                      |
+| ------------------------------------------ | -------------------------------- |
+| [meilisearch](roles/meilisearch/README.md) | Deploy Meilisearch container.    |
+| [coturn](roles/coturn/README.md)           | Deploy Coturn container.         |
+| [synapse](roles/synapse/README.md)         | Deploy Matrix Synapse container. |
 
 ### Scripts
 

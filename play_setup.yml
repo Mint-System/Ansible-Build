@@ -43,3 +43,5 @@
     tags: rclone
   - role: cron
     tags: cron
+  - role: docker_hosts
+    tags: docker_hosts
