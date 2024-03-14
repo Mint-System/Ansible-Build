@@ -15,3 +15,4 @@
     msg: "DNS record for {{ item.item.src_hostname }} does not point to proxy host."
   when: item.msg is defined and item.msg != dig_host.msg and item.msg != 'NXDOMAIN'
   loop: "{{ dig_src.results }}"
+  tags: [ check ]
