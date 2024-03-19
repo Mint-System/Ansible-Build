@@ -4,6 +4,8 @@
   loop: "{{ nginx_proxies }}"
   when: item.ssl is defined and item.ssl
   register: dig_src
+  tags:
+    - check
 
 - name: "Dig host DNS record"
   debug:
@@ -15,4 +17,5 @@
     msg: "DNS record for {{ item.item.src_hostname }} does not point to proxy host."
   when: item.msg is defined and item.msg != dig_host.msg and item.msg != 'NXDOMAIN'
   loop: "{{ dig_src.results }}"
-  tags: [ check ]
+  tags:
+    - check
