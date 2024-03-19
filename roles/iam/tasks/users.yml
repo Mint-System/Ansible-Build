@@ -28,7 +28,7 @@
     state: "{{ item.state | default('present') }}"
     key: "{{ item.ssh_public_key }}"
   loop: "{{ iam_users }}"
-  when: item.ssh_public_key is defined and item.hosts is defined and inventory_hostname_short in item.hosts
+  when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_public_key is defined
 
 - name: Copy ssh private key
   copy:
@@ -38,7 +38,7 @@
     group: "{{ item.username }}"
     mode: "0700"
   loop: "{{ iam_users }}"
-  when: item.ssh_private_key is defined and item.hosts is defined and inventory_hostname_short in item.hosts
+  when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_private_key is defined
 
 - name: Remove users
   user:
@@ -46,4 +46,4 @@
     state: "absent"
     remove: true
   loop: "{{ iam_users }}"
-  when: item.state is defined and item.state == 'absent' and item.hosts is defined and inventory_hostname_short in item.hosts
+  when: item.hosts is defined and inventory_hostname_short in item.hosts and item.state is defined and item.state == 'absent'
