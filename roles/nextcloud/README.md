@@ -18,10 +18,10 @@ nextcloud_volume_backup_set: # See restic_backup_set var in role restic_client
 nextcloud_domain: nextcloud.example.com
 nextcloud_trusted_domains: nextcloud.example.com # default: "{{ nextcloud_domain }}"
 nextcloud_admin_user: admin
-nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"
+nextcloud_admin_password: # default: "{{ vault_nextcloud_admin_password }}"
 nextcloud_postgres_hostname: postgres01
 nextcloud_postgres_user: nextcloud
-nextcloud_postgres_password: "{{ vault_nextcloud_postgres_password }}"
+nextcloud_postgres_password: # default: "{{ vault_nextcloud_postgres_password }}"
 nextcloud_postgres_db: nextcloud
 nextcloud_mail_hostname: mail.example.com
 nextcloud_mail_encryption: tls
@@ -43,6 +43,17 @@ And include it in your playbook.
 ```
 
 ## Docs
+
+### Use MySQL/MariaDB database
+
+Configure these vars to make a connection to a MySQL/MariaDB database:
+
+```yaml
+nextcloud_mysql_hostname: mysql01
+nextcloud_mysql_user: nextcloud
+nextcloud_mysql_password: # default: "{{ vault_nextcloud_mysql_password }}"
+nextcloud_mysql_db: nextcloud
+```
 
 ### Add Redis config manually
 
