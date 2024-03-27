@@ -35,20 +35,20 @@
   set_fact: 
     nextcloud_env: "{{ nextcloud_env | combine(item) }}"
   with_items:
-      POSTGRES_HOST: "{{ nextcloud_postgres_hostname }}:5432"
-      POSTGRES_USER: "{{ nextcloud_postgres_user }}"
-      POSTGRES_PASSWORD: "{{ nextcloud_postgres_password }}"
-      POSTGRES_DB: "{{ nextcloud_postgres_db }}"
+    - POSTGRES_HOST: "{{ nextcloud_postgres_hostname }}:5432"
+    - POSTGRES_USER: "{{ nextcloud_postgres_user }}"
+    - POSTGRES_PASSWORD: "{{ nextcloud_postgres_password }}"
+    - POSTGRES_DB: "{{ nextcloud_postgres_db }}"
   when: nextcloud_postgres_hostname is defined
 
 - name: "Append mysql env vars"
   set_fact: 
     nextcloud_env: "{{ nextcloud_env | combine(item) }}"
   with_items:
-      MYSQL_HOST: "{{ nextcloud_mysql_hostname }}"
-      MYSQL_USER: "{{ nextcloud_mysql_user }}"
-      MYSQL_PASSWORD: "{{ nextcloud_mysql_password }}"
-      MYSQL_DATABASE: "{{ nextcloud_mysql_db }}"
+    - MYSQL_HOST: "{{ nextcloud_mysql_hostname }}"
+    - MYSQL_USER: "{{ nextcloud_mysql_user }}"
+    - MYSQL_PASSWORD: "{{ nextcloud_mysql_password }}"
+    - MYSQL_DATABASE: "{{ nextcloud_mysql_db }}"
   when: nextcloud_mysql_hostname is defined
 
 - name: "Start {{ role_name }} container {{ nextcloud_hostname }}"
