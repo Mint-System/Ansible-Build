@@ -3,3 +3,7 @@ dependencies: # noqa 701
     tags:
       - postgres
       - depends
+  - role: mariadb
+    tags:
+      - mariadb
+      - depends
