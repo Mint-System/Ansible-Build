@@ -10,6 +10,7 @@
       password: "{{ collabora_code_password }}"
       server_name: "{{ collabora_code_server_name}}"
       aliasgroup1: "{{ collabora_code_aliasgroup1 }}"
+      extra_params: "--o:ssl.enable={{ collabora_code_ssl_enable }}"
     ports:
       - "{{ collabora_code_port }}:9980"
     networks:

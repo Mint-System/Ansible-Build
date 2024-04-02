@@ -18,6 +18,7 @@ collabora_code_description: Collabora for Nextcloud # default: Collabora Code
 collabora_code_port: 9981 # default: 9980
 collabora_code_username: code # default: admin
 collabora_code_password: # default: "{{ vault_collabora_code_password }}"
+collabora_code_ssl_enable: false # default: true
 ```
 
 And include it in your playbook.
