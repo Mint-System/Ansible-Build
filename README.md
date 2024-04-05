@@ -2,8 +2,6 @@
 
 # Ansible Build
 
-<!-- [![Ansible Lint](https://github.com/Mint-System/Ansible-Build/workflows/Ansible%20Lint/badge.svg)](https://github.com/Mint-System/Ansible-Build/actions?query=workflow%3A"Ansible+Lint") -->
-
 The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks and roles.
 
 ## Requirements
