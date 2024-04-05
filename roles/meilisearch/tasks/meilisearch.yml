@@ -7,10 +7,7 @@
     restart_policy: unless-stopped
     recreate: false
     env:
-      MEILI_HTTP_ADDR: "{{ meilisearch_http_addr }}"
       MEILI_MASTER_KEY: "{{ meilisearch_master_key }}"
-      MEILI_DB_PATH: "{{ meilisearch_db_path }}"
-      MEILI_ENV: "{{ meilisearch_environment }}"
     volumes:
       - "{{ matomo_volume_name }}:/var/www/html"
     networks:

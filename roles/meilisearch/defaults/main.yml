@@ -1,8 +1,2 @@
-meilisearch_version: "v1.6.2"
-meilisearch_http_addr: "127.0.0.1:7700"
-meilisearch_master_key: {{ vault_meilisearch_master_key }}
-meilisearch_download_path: "/usr/local/bin/meilisearch"
-meilisearch_environment: "production"
-
-meilisearch_exe_path: '/usr/bin/meilisearch'
-meilisearch_db_path: '/var/lib/meilisearch'
+meilisearch_description: "meilisearch"
+meilisearch_master_key: "{{ vault_meilisearch_master_key }}"
