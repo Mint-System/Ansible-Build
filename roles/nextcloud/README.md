@@ -79,3 +79,11 @@ Build with Docker.
 cd /srv/build/nextcloud01
 docker build . -t nextcloud:custom
 ```
+
+### Internal Server Error
+
+When Nextcloud is thowing an *Internal Server Error* without details in the log, run the occ cli to get details on the issue.
+
+```
+docker exec --user www-data nextcloud01 php occ
+```

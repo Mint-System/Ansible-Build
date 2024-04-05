@@ -42,3 +42,13 @@ And include it in your playbook.
   roles:
   - role: mariadb
 ```
+
+## Docs
+
+### Set max connections
+
+Add the `--max_connections=#` param to the MAriaDB command.
+
+```yml
+mariadb_command: --max-connections=1000
+```
