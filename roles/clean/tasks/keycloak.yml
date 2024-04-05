@@ -1,4 +1,5 @@
-- name: "Remove keycloak container {{ keycloak_hostname }}"
-  docker_container:
+---
+- name: Remove keycloak container {{ keycloak_hostname }}
+  community.docker.docker_container:
     name: "{{ keycloak_hostname }}"
     state: absent

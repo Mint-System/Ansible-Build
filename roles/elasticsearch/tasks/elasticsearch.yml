@@ -1,37 +1,37 @@
+---
 - name: Set max map count
-  sysctl:
+  ansible.posix.sysctl:
     name: vm.max_map_count
     value: "262144"
     state: present
 
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ elasticsearch_volume_name }}"
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ elasticsearch_data_dir }}"
     state: directory
 
-- name: "Ensure {{ role_name }} build dir exists"
-  file:
+- name: Ensure {{ role_name }} build dir exists
+  ansible.builtin.file:
     path: "{{ docker_build_dir }}/{{ elasticsearch_hostname }}"
     state: directory
 
-- name: "Copy {{ role_name }} Dockerfile"
-  template:
+- name: Copy {{ role_name }} Dockerfile
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ docker_build_dir }}/{{ elasticsearch_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore
-  notify: "Build {{ role_name }} custom image"
+  notify: Build {{ role_name }} custom image
 
 - name: Flush handlers
-  meta: flush_handlers
-
-- name: "Start {{ role_name }} container"
-  docker_container:
+  ansible.builtin.meta: flush_handlers
+- name: Start {{ role_name }} container
+  community.docker.docker_container:
     name: "{{ elasticsearch_hostname }}"
     labels:
       description: "{{ elasticsearch_description }}"
@@ -39,12 +39,12 @@
     restart_policy: unless-stopped
     recreate: false
     ports:
-      - "127.0.0.1:9200:9200"
-      - "127.0.0.1:9300:9300"
+      - 127.0.0.1:9200:9200
+      - 127.0.0.1:9300:9300
     env:
       ES_SETTING_NODE_NAME: "{{ elasticsearch_hostname }}"
-      ES_SETTING_DISCOVERY_TYPE: "single-node"
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_SETTING_DISCOVERY_TYPE: single-node
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
       ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
     volumes:
       - "{{ elasticsearch_volume_name }}:/usr/share/elasticsearch/data"
@@ -62,7 +62,7 @@
   register: start_elasticsearch_single_node
 
 # FIXME: Check in docker logs
-- name: "Wait for {{ role_name }} container to boot" # noqa 503
-  pause:
+- name: Wait for {{ role_name }} container to boot # noqa 503
+  ansible.builtin.pause:
     seconds: "60"
   when: start_elasticsearch_single_node.changed

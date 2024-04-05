@@ -1,4 +1,5 @@
+---
 node_exporter_requires_package: python3-passlib
-node_exporter_description: "Node Exporter {{ inventory_hostname_short }}"
+node_exporter_description: Node Exporter {{ inventory_hostname_short }}
 node_exporter_proxy_basic_auth_username: node-exporter
 node_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"

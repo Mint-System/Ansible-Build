@@ -1,10 +1,11 @@
+---
 - name: Create docker volume
-  docker_volume:
+  community.docker.docker_volume:
     name: "{{ docker_volume_name }}"
   when: docker_volume_name is defined
 
 - name: Create docker volume
-  docker_volume:
+  community.docker.docker_volume:
     name: "{{ item.name }}"
   loop: "{{ docker_volumes }}"
   when: docker_volumes is defined

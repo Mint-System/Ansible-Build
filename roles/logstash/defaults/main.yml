@@ -1,2 +1,3 @@
+---
 logastash_description: Logstash
-logstash_data_dir: "/usr/share/{{ logstash_hostname }}"
+logstash_data_dir: /usr/share/{{ logstash_hostname }}

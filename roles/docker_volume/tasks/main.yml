@@ -1,16 +1,17 @@
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: docker_volume_name is defined or docker_volumes is defined
   tags:
     - docker_volume
 
-- name: "Include {{ role_name }} backup tasks"
-  include_tasks: "{{ role_name }}_backup.yml"
+- name: Include {{ role_name }} backup tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_backup.yml"
   when: docker_volume_backup_set is defined
   tags:
     - docker_volume
 
-- name: "Include {{ role_name }} scripts tasks"
-  include_tasks: "{{ role_name }}_scripts.yml"
+- name: Include {{ role_name }} scripts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
   tags:
     - docker_volume

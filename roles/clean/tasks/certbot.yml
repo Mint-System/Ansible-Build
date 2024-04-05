@@ -1,5 +1,6 @@
-- name: "Remove certbot container {{ certbot_hostname }}"
-  docker_container:
+---
+- name: Remove certbot container {{ certbot_hostname }}
+  community.docker.docker_container:
     name: "{{ certbot_hostname }}"
     state: absent
 

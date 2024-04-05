@@ -1,10 +1,11 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ bookstack_data_dir }}"
     state: directory
 
-- name: "Start {{ role_name }} container {{ bookstack_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ bookstack_hostname }}
+  community.docker.docker_container:
     name: "{{ bookstack_hostname }}"
     labels:
       description: "{{ bookstack_description }}"

@@ -1,12 +1,13 @@
+---
 # https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L717
 
 - name: Get BigBlueButton API secret # noqa 306
-  shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
+  ansible.builtin.shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
   register: bigbluebutton_api_secret
   changed_when: false
 
-- name: "Start greenlight container {{ greenlight_hostname }}"
-  docker_container:
+- name: Start greenlight container {{ greenlight_hostname }}
+  community.docker.docker_container:
     name: "{{ greenlight_hostname }}"
     labels:
       description: "{{ greenlight_description }}"
@@ -47,18 +48,18 @@
   register: start_greenlight_contaner
 
 - name: Copy greenlight nginx conf
-  copy:
+  ansible.builtin.copy:
     src: greenlight.nginx
     dest: /etc/bigbluebutton/nginx/greenlight.nginx
   notify: Restart BigBlueButton services
 
 - name: Wait for greenlight container # noqa 503
-  pause:
+  ansible.builtin.pause:
     seconds: "5"
   when: start_greenlight_contaner.changed
 
 - name: Create greenlight admin user
-  command: docker exec "{{ greenlight_hostname }}" \
-    bundle exec rake user:create["admin","{{ greenlight_admin_email }}","{{ greenlight_admin_password }}","admin"]
+  ansible.builtin.command: docker exec "{{ greenlight_hostname }}" \ bundle exec rake user:create["admin","{{ greenlight_admin_email }}","{{ greenlight_admin_password
+    }}","admin"]
   register: greenlight_admin
   changed_when: "'Account with that email already exists' not in greenlight_admin.stdout"

@@ -1,22 +1,23 @@
+---
 - name: Include groups tasks
-  include_tasks: groups.yml
+  ansible.builtin.include_tasks: groups.yml
   when: iam_groups is defined
   tags:
     - iam
 
 - name: Combine group and host vars
-  set_fact:
+  ansible.builtin.set_fact:
     iam_users: "{{ iam_users + host_iam_users }}"
   when: host_iam_users is defined
 
 - name: Include users tasks
-  include_tasks: users.yml
+  ansible.builtin.include_tasks: users.yml
   when: iam_users is defined
   tags:
     - iam
 
 - name: Include install oh-my-zsh tasks
-  include_tasks: install-oh-my-zsh.yml
+  ansible.builtin.include_tasks: install-oh-my-zsh.yml
   when: iam_users is defined
   tags:
     - iam

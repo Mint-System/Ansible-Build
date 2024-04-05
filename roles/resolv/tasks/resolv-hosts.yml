@@ -1,7 +1,8 @@
+---
 - name: Set resolv hosts
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/hosts
-    regexp: '.*{{ item.name }}$'
+    regexp: .*{{ item.name }}$
     line: "{{ item.ip }} {{ item.name }}"
     state: present
   loop: "{{ resolv_hosts }}"

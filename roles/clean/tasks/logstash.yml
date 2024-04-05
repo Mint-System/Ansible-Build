@@ -1,10 +1,11 @@
-- name: "Remove logstash container {{ logstash_hostname }}"
-  docker_container:
+---
+- name: Remove logstash container {{ logstash_hostname }}
+  community.docker.docker_container:
     name: "{{ logstash_hostname }}"
     state: absent
 
 - name: Remove logstash data dir
-  file:
+  ansible.builtin.file:
     path: "{{ logstash_data_dir }}"
     state: absent
   when: '"logstash_data" in ansible_run_tags'

@@ -1,3 +1,4 @@
+---
 dozzle_description: Dozzle
 dozzle_username: dozzle
 dozzle_password: "{{ vault_dozzle_password }}"

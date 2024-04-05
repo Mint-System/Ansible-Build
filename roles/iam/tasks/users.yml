@@ -1,11 +1,12 @@
-- name: "Update root user's password"
-  user:
+---
+- name: Update root user's password
+  ansible.builtin.user:
     name: root
     password: "{{ iam_root_password | password_hash('sha512') }}"
   when: iam_root_password is defined
 
 - name: Setup users
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups | default('') }}"
@@ -16,14 +17,14 @@
 
 # FIXME: Passwort does not work if not set manually
 - name: Set user passwords
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     password: "{{ item.password | password_hash('sha512') }}"
   loop: "{{ iam_users }}"
   when: item.hosts is defined and inventory_hostname_short in item.hosts and item.password is defined
 
 - name: Set authorized key
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ item.username }}"
     state: "{{ item.state | default('present') }}"
     key: "{{ item.ssh_public_key }}"
@@ -31,9 +32,9 @@
   when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_public_key is defined
 
 - name: Copy ssh private key
-  copy:
+  ansible.builtin.copy:
     content: "{{ item.ssh_private_key }}"
-    dest: "/home/{{ item.username }}/.ssh/id_ed25519"
+    dest: /home/{{ item.username }}/.ssh/id_ed25519
     owner: "{{ item.username }}"
     group: "{{ item.username }}"
     mode: "0700"
@@ -41,9 +42,9 @@
   when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_private_key is defined
 
 - name: Remove users
-  user:
+  ansible.builtin.user:
     user: "{{ item.username }}"
-    state: "absent"
+    state: absent
     remove: true
   loop: "{{ iam_users }}"
   when: item.hosts is defined and inventory_hostname_short in item.hosts and item.state is defined and item.state == 'absent'

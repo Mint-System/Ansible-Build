@@ -1,33 +1,34 @@
+---
 - hosts: all
   become: true
   roles:
-  - role: cadvisor
-    tags: cadvisor
-  - role: node_exporter
-    tags: node_exporter
-  - role: restic_server
-    tags: restic_server
-  - role: bigbluebutton_exporter
-    tags: bigbluebutton_exporter
-  - role: grafana
-    tags: grafana
-  - role: postgres_exporter
-    tags: postgres_exporter
-  - role: blackbox_exporter
-    tags: blackbox_exporter
-  - role: prometheus
-    tags: prometheus
-  - role: loki
-    tags: loki
-  - role: promtail
-    tags: promtail
-  - role: nginx
-    tags: nginx
-  - role: nginx_waf
-    tags: nginx_waf
-  - role: simple_mail_forwarder
-    tags: simple_mail_forwarder
-  - role: keycloak_client
-    tags: keycloak_client
-  - role: htpasswd
-    tags: htpasswd
+    - role: cadvisor
+      tags: cadvisor
+    - role: node_exporter
+      tags: node_exporter
+    - role: restic_server
+      tags: restic_server
+    - role: bigbluebutton_exporter
+      tags: bigbluebutton_exporter
+    - role: grafana
+      tags: grafana
+    - role: postgres_exporter
+      tags: postgres_exporter
+    - role: blackbox_exporter
+      tags: blackbox_exporter
+    - role: prometheus
+      tags: prometheus
+    - role: loki
+      tags: loki
+    - role: promtail
+      tags: promtail
+    - role: nginx
+      tags: nginx
+    - role: nginx_waf
+      tags: nginx_waf
+    - role: simple_mail_forwarder
+      tags: simple_mail_forwarder
+    - role: keycloak_client
+      tags: keycloak_client
+    - role: htpasswd
+      tags: htpasswd

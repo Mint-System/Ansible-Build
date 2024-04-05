@@ -1,5 +1,6 @@
+---
 - name: Cloning oh-my-zsh for user
-  git:
+  ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh
     dest: ~/.oh-my-zsh
     version: master
@@ -9,17 +10,17 @@
   loop: "{{ iam_users }}"
 
 - name: Install oh-my-zsh for user"
-  command: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+  ansible.builtin.command: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
   args:
-    creates: "/home/{{ item.username }}/.zshrc"
+    creates: /home/{{ item.username }}/.zshrc
   become_user: "{{ item.username }}"
   become: true
   when: item.shell is defined and item.shell == '/bin/zsh' and inventory_hostname_short in item.hosts
   loop: "{{ iam_users }}"
 
 - name: Insert zsh runtime configuration.
-  blockinfile:
-    path: "/home/{{ item.username }}/.zshrc"
+  ansible.builtin.blockinfile:
+    path: /home/{{ item.username }}/.zshrc
     block: "{{ item.zshrc }}"
   when: item.shell is defined and item.shell == '/bin/zsh' and inventory_hostname_short in item.hosts and item.zshrc is defined
   loop: "{{ iam_users }}"

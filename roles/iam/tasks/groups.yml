@@ -1,44 +1,45 @@
+---
 - name: Add groups
-  group:
+  ansible.builtin.group:
     name: "{{ item.name }}"
     state: present
   loop: "{{ iam_groups }}"
 
-- name: "Allow groups to have passwordless sudo"
-  lineinfile:
+- name: Allow groups to have passwordless sudo
+  ansible.builtin.lineinfile:
     dest: /etc/sudoers
     state: present
-    regexp: "^%{{ item.name }}"
+    regexp: ^%{{ item.name }}
     line: "%{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
   when: item.add_group_to_sudoers
   loop: "{{ iam_groups }}"
 
 - name: Disallow root ssh access
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
-    regexp: "^PermitRootLogin"
-    line: "PermitRootLogin no"
+    regexp: ^PermitRootLogin
+    line: PermitRootLogin no
     state: present
-    validate: "echo %s && /usr/sbin/sshd -t"
+    validate: echo %s && /usr/sbin/sshd -t
   notify: Restart ssh service
   when: iam_disallow_ssh_root_access
 
 - name: Enable ssh password authentication
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
-    regexp: "^PasswordAuthentication"
-    line: "PasswordAuthentication yes"
+    regexp: ^PasswordAuthentication
+    line: PasswordAuthentication yes
     state: present
-    validate: "echo %s && /usr/sbin/sshd -t"
+    validate: echo %s && /usr/sbin/sshd -t
   notify: Restart ssh service
   when: iam_allow_ssh_password_authentication
 
 - name: Disable ssh password authentication
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
-    regexp: "^PasswordAuthentication"
-    line: "PasswordAuthentication no"
+    regexp: ^PasswordAuthentication
+    line: PasswordAuthentication no
     state: present
-    validate: "echo %s && /usr/sbin/sshd -t"
+    validate: echo %s && /usr/sbin/sshd -t
   notify: Restart ssh service
   when: not iam_allow_ssh_password_authentication

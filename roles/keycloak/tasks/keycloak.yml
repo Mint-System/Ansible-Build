@@ -1,10 +1,11 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ keycloak_data_dir }}/themes"
     state: directory
 
-- name: "Start {{ role_name }} container {{ keycloak_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ keycloak_hostname }}
+  community.docker.docker_container:
     name: "{{ keycloak_hostname }}"
     labels:
       description: "{{ keycloak_description }}"
@@ -21,7 +22,7 @@
       DB_PASSWORD: "{{ keycloak_db_password }}"
       PROXY_ADDRESS_FORWARDING: "true"
       TZ: "{{ keycloak_timezone }}"
-    command: "-Dkeycloak.profile.feature.upload_scripts=enabled"
+    command: -Dkeycloak.profile.feature.upload_scripts=enabled
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
@@ -31,8 +32,8 @@
       tag: "{{ keycloak_hostname }}|{{ role_name }}"
   when: "'jboss/keycloak' in keycloak_image"
 
-- name: "Start {{ role_name }} container {{ keycloak_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ keycloak_hostname }}
+  community.docker.docker_container:
     name: "{{ keycloak_hostname }}"
     labels:
       description: "{{ keycloak_description }}"
@@ -48,12 +49,12 @@
       KC_DB_URL_DATABASE: "{{ keycloak_db_url_database }}"
       KC_DB_USERNAME: "{{ keycloak_db_username }}"
       KC_DB_PASSWORD: "{{ keycloak_db_password }}"
-      KC_PROXY: "edge"
+      KC_PROXY: edge
       KC_HTTP_RELATIVE_PATH: "{{ '/auth' if keycloak_migrate }}"
       KC_HOSTNAME: "{{ keycloak_proxy_hostname }}"
     volumes:
       - "{{ keycloak_data_dir }}/themes:/opt/keycloak/themes"
-    command: "start {{'--auto-build --db=postgres' if keycloak_migrate }}"
+    command: start {{'--auto-build --db=postgres' if keycloak_migrate }}
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

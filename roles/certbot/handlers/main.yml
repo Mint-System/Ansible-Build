@@ -1,5 +1,6 @@
-- name: "Build {{ role_name }} custom image"
-  docker_image:
+---
+- name: Build {{ role_name }} custom image
+  community.docker.docker_image:
     name: "{{ certbot_image }}"
     build:
       path: "{{ docker_build_dir }}/{{ certbot_hostname }}"

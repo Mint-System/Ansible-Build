@@ -1,5 +1,6 @@
-- name: "Configure resolv.conf"
-  template:
-    src: "resolv.conf"
-    dest: "/etc/resolv.conf"
+---
+- name: Configure resolv.conf
+  ansible.builtin.template:
+    src: resolv.conf
+    dest: /etc/resolv.conf
     mode: "0644"

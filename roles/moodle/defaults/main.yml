@@ -1,3 +1,4 @@
+---
 moodle_description: Moodle
 moodle_volume_name: "{{ moodle_hostname }}"
 moodle_database_type: mariadb

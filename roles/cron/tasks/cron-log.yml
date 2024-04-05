@@ -1,12 +1,13 @@
-- name: "Create {{ role_name }} log file"
-  copy:
+---
+- name: Create {{ role_name }} log file
+  ansible.builtin.copy:
     content: ""
-    dest: "/var/log/cron.log"
+    dest: /var/log/cron.log
     force: false
-- name: "Ensure rsysyslog {{ role_name }} is enabled"
-  lineinfile:
-    path: "/etc/rsyslog.d/50-default.conf"
-    regexp: "cron.*"
+- name: Ensure rsysyslog {{ role_name }} is enabled
+  ansible.builtin.lineinfile:
+    path: /etc/rsyslog.d/50-default.conf
+    regexp: cron.*
     insertafter: "#cron.*"
-    line: "cron.*                          /var/log/cron.log"
-  notify: "Restart rsyslog service"
+    line: cron.*                          /var/log/cron.log
+  notify: Restart rsyslog service

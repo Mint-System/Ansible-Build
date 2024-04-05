@@ -1,42 +1,43 @@
+---
 ufw_rules:
   default:
-    - rule: "limit"
+    - rule: limit
       port: "22"
-      proto: "tcp"
-    - rule: "allow"
+      proto: tcp
+    - rule: allow
       port: "80"
-      proto: "tcp"
-    - rule: "allow"
+      proto: tcp
+    - rule: allow
       port: "443"
-      proto: "tcp"
+      proto: tcp
   bigbluebutton:
-    - rule: "allow"
+    - rule: allow
       port: "8080"
-      proto: "tcp"
-    - rule: "allow"
+      proto: tcp
+    - rule: allow
       port: "8443"
-      proto: "tcp"
-    - rule: "allow"
-      port: "16384:32768"
-      proto: "udp"
+      proto: tcp
+    - rule: allow
+      port: 16384:32768
+      proto: udp
   mail:
-    - rule: "allow"
+    - rule: allow
       port: "25"
-      proto: "tcp"
+      proto: tcp
   frappe:
-    - rule: "allow"
-      port: "8000:8005"
-      proto: "tcp"
-    - rule: "allow"
-      port: "9000:9005"
-      proto: "tcp"
+    - rule: allow
+      port: 8000:8005
+      proto: tcp
+    - rule: allow
+      port: 9000:9005
+      proto: tcp
   wireguard:
-    - rule: "allow"
+    - rule: allow
       port: "51820"
-      proto: "udp"
-    - rule: "allow"
+      proto: udp
+    - rule: allow
       port: "51820"
-      proto: "tcp"
+      proto: tcp
 ufw_profiles:
   - default
 ufw_enabled: false

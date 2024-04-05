@@ -1,24 +1,25 @@
+---
 - name: Ensure nginx data dir exists
-  file:
+  ansible.builtin.file:
     path: "{{ bigbluebutton_exporter_nginx_data_dir }}"
     state: directory
 
 - name: Gather package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
-- name: "Fail if package {{ bigbluebutton_exporter_requires_package }} is not installed"
-  fail:
-    msg: "Package {{ bigbluebutton_exporter_requires_package }} is not installed!"
+- name: Fail if package {{ bigbluebutton_exporter_requires_package }} is not installed
+  ansible.builtin.fail:
+    msg: Package {{ bigbluebutton_exporter_requires_package }} is not installed!
   when: bigbluebutton_exporter_requires_package not in ansible_facts.packages
 
-- name: "Configure user access for {{ role_name }}"
-  htpasswd:
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
     path: "{{ bigbluebutton_exporter_nginx_data_dir }}/bigbluebutton-exporter.htpasswd"
     name: "{{ bigbluebutton_exporter_proxy_basic_auth_username }}"
     password: "{{ bigbluebutton_exporter_proxy_basic_auth_password }}"
 
-- name: "Copy nginx {{ role_name }} conf"
-  template:
+- name: Copy nginx {{ role_name }} conf
+  ansible.builtin.template:
     src: bigbluebutton-exporter.nginx
     dest: "{{ bigbluebutton_exporter_nginx_data_dir }}/bigbluebutton-exporter.nginx"

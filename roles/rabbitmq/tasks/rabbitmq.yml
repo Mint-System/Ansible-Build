@@ -1,31 +1,31 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ rabbitmq_volume_name }}"
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ rabbitmq_data_dir }}"
     state: directory
 
-- name: "Ensure {{ role_name }} build dir exists"
-  file:
+- name: Ensure {{ role_name }} build dir exists
+  ansible.builtin.file:
     path: "{{ docker_build_dir }}/{{ rabbitmq_hostname }}"
     state: directory
 
-- name: "Copy {{ role_name }} Dockerfile"
-  template:
+- name: Copy {{ role_name }} Dockerfile
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ docker_build_dir }}/{{ rabbitmq_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore
-  notify: "Build {{ role_name }} custom image"
+  notify: Build {{ role_name }} custom image
 
 - name: Flush handlers
-  meta: flush_handlers
-
-- name: "Start {{ role_name }} container {{ rabbitmq_hostname }}"
-  docker_container:
+  ansible.builtin.meta: flush_handlers
+- name: Start {{ role_name }} container {{ rabbitmq_hostname }}
+  community.docker.docker_container:
     name: "{{ rabbitmq_hostname }}"
     labels:
       description: "{{ rabbitmq_description }}"

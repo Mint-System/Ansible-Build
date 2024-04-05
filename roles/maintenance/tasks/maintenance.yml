@@ -1,29 +1,30 @@
+---
 - name: Prune docker images, volumes and containers
-  docker_prune:
+  community.docker.docker_prune:
     containers: true
     images: true
     volumes: true
     images_filters:
-       dangling: false
+      dangling: false
   register: prune_docker
 
 - name: Show image space reclaimed
-  debug:
-    msg: "Removed {{ prune_docker.images | length }} image layers and reclaimed {{ prune_docker.images_space_reclaimed|filesizeformat }} space."
+  ansible.builtin.debug:
+    msg: Removed {{ prune_docker.images | length }} image layers and reclaimed {{ prune_docker.images_space_reclaimed|filesizeformat }} space.
 
 - name: Cleanup journals
-  command: journalctl --vacuum-time=10d
+  ansible.builtin.command: journalctl --vacuum-time=10d
   changed_when: false
   register: cleanup_journal
 
 - name: Show journal space reclaimed
-  debug:
+  ansible.builtin.debug:
     msg: "{{ cleanup_journal.stderr }}"
 
-- name: "Find old files in /var/tmp"
-  find:
+- name: Find old files in /var/tmp
+  ansible.builtin.find:
     paths:
-      - "/var/tmp"
+      - /var/tmp
     age: 7d
     recurse: true
   register: old_files
@@ -33,13 +34,13 @@
 #     msg: "{{ old_files.files | map(attribute='path') | list }}"
 
 - name: Remove old directories
-  command:
+  ansible.builtin.command:
     cmd: find /var/tmp -type d -mtime +7 -exec rm -rf {} \;
   when: old_files.files
   ignore_errors: true
 
 - name: Remove old files
-  command:
+  ansible.builtin.command:
     cmd: find /var/tmp -type f -mtime +7 -exec rm -rf {} \;
   when: old_files.files
   ignore_errors: true # FIXME: Start with deepest nested folders first

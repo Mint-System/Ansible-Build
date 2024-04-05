@@ -1,10 +1,11 @@
-- name: "Remove moodle container {{ moodle_hostname }}"
-  docker_container:
+---
+- name: Remove moodle container {{ moodle_hostname }}
+  community.docker.docker_container:
     name: "{{ moodle_hostname }}"
     state: absent
 
 - name: Remove moodle volume
-  docker_volume:
+  community.docker.docker_volume:
     name: "{{ moodle_volume_name }}"
     state: absent
   when: '"moodle_volume" in ansible_run_tags'

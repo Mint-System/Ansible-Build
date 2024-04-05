@@ -1,17 +1,18 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ blackbox_exporter_data_dir }}"
     state: directory
 
 - name: Copy {{ role_name }} conf files
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ blackbox_exporter_data_dir }}/"
   loop:
     - files/config.yml
 
-- name: "Start {{ role_name }} container {{ blackbox_exporter_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ blackbox_exporter_hostname }}
+  community.docker.docker_container:
     name: "{{ blackbox_exporter_hostname }}"
     labels:
       description: "{{ blackbox_exporter_description }}"

@@ -1,49 +1,50 @@
-- name: "On build set new image tag {{ role_name }}:{{ certbot_hostname }}"
-  set_fact:
-    certbot_image: "certbot:{{ certbot_hostname }}"
+---
+- name: On build set new image tag {{ role_name }}:{{ certbot_hostname }}
+  ansible.builtin.set_fact:
+    certbot_image: certbot:{{ certbot_hostname }}
     certbot_build_image: "{{ certbot_image }}"
   when: certbot_build_image and certbot_build_image != certbot_image
   tags:
     - certbot
 
-- name: "Include {{ role_name }} build tasks"
-  include_tasks: "{{ role_name }}_build.yml"
+- name: Include {{ role_name }} build tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_build.yml"
   when: certbot_build_image and certbot_build_image != certbot_image
   tags:
     - certbot
 
-- name: "Include {{ role_name }} secrets tasks"
-  include_tasks: "{{ role_name }}_secrets.yml"
+- name: Include {{ role_name }} secrets tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_secrets.yml"
   when: certbot_secrets is defined
   tags:
     - certbot
 
-- name: "Include {{ role_name }} check tasks"
-  include_tasks: "{{ role_name }}_check.yml"
+- name: Include {{ role_name }} check tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_check.yml"
   when: certbot_image is defined
   tags:
     - certbot
 
-- name: "Include {{ role_name }} wildcard tasks"
-  include_tasks: "{{ role_name }}_wildcard.yml"
+- name: Include {{ role_name }} wildcard tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_wildcard.yml"
   when: certbot_authenticator is defined and certbot_authenticator == 'vercel'
   tags:
     - certbot
 
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: certbot_image is defined
   tags:
     - certbot
 
-- name: "Include {{ role_name }} renew tasks"
-  include_tasks: "{{ role_name }}_renew.yml"
+- name: Include {{ role_name }} renew tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_renew.yml"
   when: certbot_image is defined
   tags:
     - certbot
 
-- name: "Include {{ role_name }} cleanup tasks"
-  include_tasks: "{{ role_name }}_cleanup.yml"
+- name: Include {{ role_name }} cleanup tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_cleanup.yml"
   when: certbot_image is defined
   tags:
     - certbot

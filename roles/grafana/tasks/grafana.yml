@@ -1,31 +1,32 @@
-- name: "Copy {{ role_name }} scripts"
-  copy:
+---
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - grafana-backup
 
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ grafana_volume_name }}"
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ grafana_data_dir }}"
     state: directory
 
-- name: "Copy {{ role_name }} conf"
-  template:
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ grafana_data_dir }}/{{ item }}"
   loop:
     - datasource.yml
     - dashboard.yml
-  notify: "Restart {{ role_name }} container"
+  notify: Restart {{ role_name }} container
 
-- name: "Start {{ role_name }} container {{ grafana_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ grafana_hostname }}
+  community.docker.docker_container:
     name: "{{ grafana_hostname }}"
     labels:
       description: "{{ grafana_description }}"
@@ -53,7 +54,7 @@
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: "{{ grafana_generic_oauth_auth_url }}"
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "{{ grafana_generic_oauth_token_url }}"
       GF_AUTH_GENERIC_OAUTH_API_URL: "{{ grafana_generic_oauth_api_url }}"
-      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'"
+      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
     volumes:
       - "{{ grafana_volume_name }}:/var/lib/grafana"
       - "{{ grafana_data_dir }}/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml"

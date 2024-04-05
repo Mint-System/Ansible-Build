@@ -1,17 +1,18 @@
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: elasticsearch_image is defined
   tags:
-   - elasticsearch
+    - elasticsearch
 
-- name: "Include {{ role_name }} cluster tasks"
-  include_tasks: "{{ role_name }}-cluster.yml"
+- name: Include {{ role_name }} cluster tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-cluster.yml"
   when: elasticsearch_cluster_name is defined
   tags:
-   - elasticsearch
+    - elasticsearch
 
-- name: "Include {{ role_name }} users tasks"
-  include_tasks: "{{ role_name }}-users.yml"
+- name: Include {{ role_name }} users tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-users.yml"
   when: elasticsearch_users is defined
   tags:
-   - elasticsearch
+    - elasticsearch

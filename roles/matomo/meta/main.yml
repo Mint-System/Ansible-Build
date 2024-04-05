@@ -1,3 +1,4 @@
+---
 dependencies: # noqa 701
   - role: mysql
     tags:

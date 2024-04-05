@@ -1,10 +1,11 @@
-- name: "Remove metricbeat container {{ metricbeat_hostname }}"
-  docker_container:
+---
+- name: Remove metricbeat container {{ metricbeat_hostname }}
+  community.docker.docker_container:
     name: "{{ metricbeat_hostname }}"
     state: absent
 
 - name: Remove metricbeat data dir
-  file:
+  ansible.builtin.file:
     path: "{{ metricbeat_data_dir }}"
     state: absent
   when: '"metricbeat_data" in ansible_run_tags'

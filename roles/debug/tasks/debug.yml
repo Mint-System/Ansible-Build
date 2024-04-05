@@ -11,7 +11,6 @@
 #     msg: "{{ item.0.name }}, {{ item.1.name }}"
 #   loop: "{{ revoke_tables }}"
 
-
 # - name: "Grant privilieges to users."
 #   debug:
 #     var: "{{ item.0.name }}, {{ item.1 }}"
@@ -55,7 +54,7 @@
 #   debug:
 #     msg: "{{ dig_host.msg }}"
 
-# - name: Fail if src IP is not resolved correctly 
+# - name: Fail if src IP is not resolved correctly
 #   fail:
 #     msg: "DNS record for {{ item.item.src_hostname }} does not point to proxy host."
 #   when: item.msg != dig_host.msg
@@ -82,48 +81,48 @@
 # - name: cadvisor https
 #   debug:
 #     msg: "{{ groups['all'] | map('extract', hostvars) |
-#       json_query('[? cadvisor_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+#       json_query('[? cadvisor_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
 # - name: cadvisor http
 #   debug:
-#     msg: "{{ groups['all'] | map('extract', hostvars) | 
-#       json_query('[? cadvisor_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') | 
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
+#       json_query('[? cadvisor_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
 # - name: node_exporter https
 #   debug:
-#     msg: "{{ groups['all'] | map('extract', hostvars) | 
-#       json_query('[? node_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
+#       json_query('[? node_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
 # - name: node_exporter http
 #   debug:
-#     msg: "{{ groups['all'] | map('extract', hostvars) | 
-#       json_query('[? node_exporter_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') | 
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
+#       json_query('[? node_exporter_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
 # - name: nextcloud-exporter https
 #   debug:
-#     msg: "{{ groups['all'] | map('extract', hostvars) | 
-#       json_query('[? nextcloud_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
+#       json_query('[? nextcloud_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
 # - name: bigbluebutton_exporter http
 #   debug:
-#     msg: "{{ groups['all'] | map('extract', hostvars) | 
-#       json_query('[? bigbluebutton_exporter_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') | 
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
+#       json_query('[? bigbluebutton_exporter_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
 # - name: postgres_exporter https
 #   debug:
-#     msg: "{{ groups['all'] | map('extract', hostvars) | 
-#       json_query('[? postgres_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') | 
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
+#       json_query('[? postgres_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
 # - name: restic_server https
 #   debug:
-#     msg: "{{ groups['all'] | map('extract', hostvars) | 
+#     msg: "{{ groups['all'] | map('extract', hostvars) |
 #       json_query('[? restic_server_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
 #       map('join', ':') | list }}"
 
@@ -212,10 +211,10 @@
 
 # - name: Tag odoo image
 #   command: "docker tag {{ odoo_image[7:19] }} odoo:{{ odoo_image[7:19] }}"
-#   when: pull_odoo_image.image.RepoTags | length == 0 
+#   when: pull_odoo_image.image.RepoTags | length == 0
 
 # - name: Dig DNS CNAME record
-#   debug: 
+#   debug:
 #     msg: "{{ lookup('dig', item.src_hostname, 'qtype=CNAME') }}"
 #   register: dig
 #   loop: "{{ nginx_proxies }}"
@@ -258,7 +257,7 @@
 #     var: managed_files
 
 # - name: Remove unmanaged nginx conf files
-#   file: 
+#   file:
 #     path: "{{ nginx_data_dir }}/{{ item }}"
 #     state: absent
 #   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"

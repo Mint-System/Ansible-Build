@@ -1,24 +1,25 @@
+---
 - name: Update apt-get repo and cache
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     force_apt_get: true
     cache_valid_time: 3600
 
 - name: Install latest packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ item.name }}"
     state: present
   when: item.version is not defined and item.name is defined
   loop: "{{ packages }}"
 
 - name: Install latest deb packages
-  apt:
+  ansible.builtin.apt:
     deb: "{{ item.deb }}"
   when: item.deb is defined
   loop: "{{ packages }}"
 
 - name: Install versioned packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ item.name }}={{ item.version }}"
     state: present
   loop: "{{ packages }}"

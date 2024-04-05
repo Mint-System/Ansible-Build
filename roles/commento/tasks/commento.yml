@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ commento_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ commento_hostname }}
+  community.docker.docker_container:
     name: "{{ commento_hostname }}"
     labels:
       description: "{{ commento_description }}"
@@ -8,7 +9,7 @@
     recreate: false
     env:
       COMMENTO_ORIGIN: "{{ commento_host }}"
-      COMMENTO_POSTGRES: "postgres://{{ commento_db_user }}:{{ commento_db_password }}@{{ commento_db_hostname }}:5432/commento?sslmode=disable"
+      COMMENTO_POSTGRES: postgres://{{ commento_db_user }}:{{ commento_db_password }}@{{ commento_db_hostname }}:5432/commento?sslmode=disable
       COMMENTO_SMTP_HOST: "{{ commento_smtp_host }}"
       COMMENTO_SMTP_PORT: "{{ commento_smtp_port }}"
       COMMENTO_SMTP_USERNAME: "{{ commento_smtp_username }}"

@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ meilisearch_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ meilisearch_hostname }}
+  community.docker.docker_container:
     name: "{{ meilisearch_hostname }}"
     labels:
       description: "{{ meilisearch_description }}"
@@ -17,4 +18,3 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ matomo_hostname }}|{{ role_name }}"
-

@@ -1,17 +1,18 @@
+---
 - name: Remove peer invitation files
-  file:
-    path: "/var/tmp/{{ item.name }}.yml"
+  ansible.builtin.file:
+    path: /var/tmp/{{ item.name }}.yml
     state: absent
   loop: "{{ innernet_server_peers }}"
 
 - name: Disable innernet server service
-  systemd:
+  ansible.builtin.systemd:
     name: innernet-server@{{ innernet_server_network_name }}"
     state: stopped
     enabled: false
 
 # FIXME cannot confirm deletion
 - name: Remove innernet server network
-  command:
-    cmd: "innernet-server uninstall {{ innernet_server_network_name }}"
-    removes: "/var/lib/innernet-server/{{ innernet_server_network_name }}.db"
+  ansible.builtin.command:
+    cmd: innernet-server uninstall {{ innernet_server_network_name }}
+    removes: /var/lib/innernet-server/{{ innernet_server_network_name }}.db

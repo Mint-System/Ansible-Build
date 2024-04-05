@@ -1,24 +1,25 @@
+---
 - name: Gather package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
 # FIXME: CentOS package gathering not working
 - name: Fail if package opendkim-tools is not installed
-  fail:
-    msg: "Package restic not installed"
+  ansible.builtin.fail:
+    msg: Package restic not installed
   when: "'opendkim-tools' not in ansible_facts.packages and (ansible_distribution != 'CentOS')"
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ postfix_data_dir }}"
     state: directory
 
 - name: Generate DKIM keys
-  command: "opendkim-genkey -b 2048 -h rsa-sha256 -r -v --subdomains -s mail -d {{ postfix_allowed_sender_domains }}"
+  ansible.builtin.command: opendkim-genkey -b 2048 -h rsa-sha256 -r -v --subdomains -s mail -d {{ postfix_allowed_sender_domains }}
   args:
     chdir: "{{ postfix_data_dir }}"
     creates: "{{ postfix_data_dir }}/mail.txt"
-  register: "generate_dkim_keys"
+  register: generate_dkim_keys
   notify:
     - Fix DKIM public key
     - Copy DKIM public key
@@ -26,10 +27,9 @@
     - Restart postfix container
 
 - name: Flush handlers
-  meta: flush_handlers
-
-- name: "Start {{ role_name }} container {{ postfix_hostname }}"
-  docker_container:
+  ansible.builtin.meta: flush_handlers
+- name: Start {{ role_name }} container {{ postfix_hostname }}
+  community.docker.docker_container:
     name: "{{ postfix_hostname }}"
     labels:
       description: "{{ postfix_description }}"
@@ -51,14 +51,14 @@
       tag: "{{ postfix_hostname }}|{{ role_name }}"
 
 - name: Get DKIM public key content
-  command: "cat {{ postfix_data_dir }}/{{ postfix_allowed_sender_domains }}.txt"
+  ansible.builtin.command: cat {{ postfix_data_dir }}/{{ postfix_allowed_sender_domains }}.txt
   register: command_output
   changed_when: false
 
-- name: "Create this DKIM record for {{ postfix_allowed_sender_domains }}"
-  debug:
+- name: Create this DKIM record for {{ postfix_allowed_sender_domains }}
+  ansible.builtin.debug:
     msg: "{{ command_output.stdout }}"
 
-- name: "Create this SPF record for {{ postfix_allowed_sender_domains }}"
-  debug:
-    msg: "v=spf1 include:{{ ansible_host }} -all"
+- name: Create this SPF record for {{ postfix_allowed_sender_domains }}
+  ansible.builtin.debug:
+    msg: v=spf1 include:{{ ansible_host }} -all

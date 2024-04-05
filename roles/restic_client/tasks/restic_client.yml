@@ -1,37 +1,38 @@
-- name: "Copy {{ role_name }} scripts"
-  copy:
+---
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - run-cron-job
 
 - name: Gather package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
 - name: Fail if package restic is not installed
-  fail:
-    msg: "Package restic not installed"
+  ansible.builtin.fail:
+    msg: Package restic not installed
   when: "'restic' not in ansible_facts.packages"
 
-- name: "Set {{ role_name }} rest env"
-  set_fact:
+- name: Set {{ role_name }} rest env
+  ansible.builtin.set_fact:
     restic_password: "{{ restic_repo_password }}"
-    restic_repository: "rest:http://{{ restic_rest_user }}:{{ restic_rest_password }}@{{ restic_repo }}"
+    restic_repository: rest:http://{{ restic_rest_user }}:{{ restic_rest_password }}@{{ restic_repo }}
   when: restic_repo_type == 'rest'
 
-- name: "Set {{ role_name }} local env"
-  set_fact:
+- name: Set {{ role_name }} local env
+  ansible.builtin.set_fact:
     restic_password: "{{ restic_repo_password }}"
     restic_repository: "{{ restic_repo }}"
   when: restic_repo_type == 'local'
 
-- name: "Ensure {{ role_name }} environment vars exists"
-  lineinfile:
-    dest: "/etc/environment"
+- name: Ensure {{ role_name }} environment vars exists
+  ansible.builtin.lineinfile:
+    dest: /etc/environment
     state: present
-    regexp: "^{{ item.key }}="
+    regexp: ^{{ item.key }}=
     line: "{{ item.key }}={{ item.value }}"
   no_log: true
   loop:
@@ -41,7 +42,7 @@
       value: "{{ restic_repository }}"
 
 - name: Check if repo is initialized
-  command: restic snapshots
+  ansible.builtin.command: restic snapshots
   environment:
     RESTIC_PASSWORD: "{{ restic_password }}"
     RESTIC_REPOSITORY: "{{ restic_repository }}"
@@ -50,18 +51,17 @@
   register: repo_initalized
 
 - name: Init restic repository
-  command: restic init
+  ansible.builtin.command: restic init
   environment:
     RESTIC_PASSWORD: "{{ restic_password }}"
     RESTIC_REPOSITORY: "{{ restic_repository }}"
   when: repo_initalized.failed
 
 - name: Register backup rotation job
-  cron:
-    name: "Backup rotation job"
+  ansible.builtin.cron:
+    name: Backup rotation job
     hour: "23"
     minute: "{{ 59 |random(seed=restic_repo) }}"
-    job: "restic forget --keep-daily {{ restic_backup_rotation.daily }} \
-      --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly }} --prune; \
-      write-node-exporter-metric -c 'Backup rotation job' -v $?"
+    job: restic forget --keep-daily {{ restic_backup_rotation.daily }} --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly
+      }} --prune; write-node-exporter-metric -c 'Backup rotation job' -v $?
     disabled: "{{ item.disabled | default(false) }}"

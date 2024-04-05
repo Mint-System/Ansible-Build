@@ -1,16 +1,17 @@
-- name: "Remove grafana container {{ grafana_hostname }}"
-  docker_container:
+---
+- name: Remove grafana container {{ grafana_hostname }}
+  community.docker.docker_container:
     name: "{{ grafana_hostname }}"
     state: absent
 
 - name: Remove grafana data dir
-  file:
+  ansible.builtin.file:
     path: "{{ grafana_data_dir }}"
     state: absent
   when: '"grafana_data" in ansible_run_tags'
 
 - name: Remove grafana volume
-  docker_volume:
+  community.docker.docker_volume:
     name: "{{ grafana_volume_name }}"
     state: absent
   when: '"grafana_volume" in ansible_run_tags'

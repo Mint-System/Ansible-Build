@@ -129,7 +129,7 @@ case "$1" in
         ;;
     lint)
         activate-venv
-        ansible-lint --offline roles/*
+        ansible-lint --write --offline roles/*
         ;;
     source)
         activate-venv

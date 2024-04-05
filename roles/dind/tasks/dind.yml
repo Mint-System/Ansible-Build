@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ dind_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ dind_hostname }}
+  community.docker.docker_container:
     name: "{{ dind_hostname }}"
     labels:
       description: "{{ dind_description }}"

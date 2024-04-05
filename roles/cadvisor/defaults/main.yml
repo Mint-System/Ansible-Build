@@ -1,4 +1,5 @@
+---
 cadvisor_requires_package: python3-passlib
-cadvisor_description: "cAdvisor {{ inventory_hostname_short }}"
+cadvisor_description: cAdvisor {{ inventory_hostname_short }}
 cadvisor_proxy_basic_auth_username: cadvisor
 cadvisor_nginx_data_dir: "{{ nginx_data_dir }}/proxies"

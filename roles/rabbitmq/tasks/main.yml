@@ -1,3 +1,4 @@
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: rabbitmq_image is defined

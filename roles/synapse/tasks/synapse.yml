@@ -1,14 +1,15 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ synapse_volume_name }}"
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ synapse_data_dir }}"
     state: directory
 
-- name: "Start {{ role_name }} container {{ synapse_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ synapse_hostname }}
+  community.docker.docker_container:
     name: "{{ synapse_hostname }}"
     labels:
       description: "{{ synapse_description }}"
@@ -17,8 +18,8 @@
     env:
       SYNAPSE_SERVER_NAME: "{{ synapse_server_name }}"
       SYNAPSE_REPORT_STATS: "yes"
-      SYNAPSE_DATA_DIR: "/data"
-      SYNAPSE_CONFIG_DIR: "/config"
+      SYNAPSE_DATA_DIR: /data
+      SYNAPSE_CONFIG_DIR: /config
       TZ: "{{ synapse_timezone }}"
     volumes:
       - "{{ synapse_volume_name }}:/data"
@@ -31,6 +32,5 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ synapse_hostname }}|{{ role_name }}"
   when: synapse_volume_name is defined
-
 
 # docker exec -it synapse register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml --help

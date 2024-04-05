@@ -1,18 +1,19 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ cron_data_dir }}"
     state: directory
 
-- name: "Copy {{ role_name }} scripts"
-  copy:
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
     content: "{{ item.script }}"
     dest: "{{ cron_data_dir }}/{{ item.script_name }}"
     mode: +x
   loop: "{{ cron_jobs }}"
   when: item.command == "script"
 
-- name: "Setup {{ role_name }} script jobs"
-  cron:
+- name: Setup {{ role_name }} script jobs
+  ansible.builtin.cron:
     name: "{{ item.id }}"
     hour: "{{ item.hour | default('*') }}"
     minute: "{{ item.minute | default('*') }}"
@@ -21,9 +22,9 @@
     state: "{{ item.state | default('present') }}"
   loop: "{{ cron_jobs }}"
   when: item.command == "script"
-  
-- name: "Setup {{ role_name }} command jobs"
-  cron:
+
+- name: Setup {{ role_name }} command jobs
+  ansible.builtin.cron:
     name: "{{ item.name }}"
     hour: "{{ item.hour | default('*') }}"
     minute: "{{ item.minute | default('*') }}"

@@ -1,21 +1,22 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}"
     state: directory
 
-- name: "Ensure {{ role_name }} config dir exists"
-  file:
-    path: "/etc/docker/"
+- name: Ensure {{ role_name }} config dir exists
+  ansible.builtin.file:
+    path: /etc/docker/
     state: directory
 
-- name: "Copy {{ role_name }} deamon conf"
-  template:
-    src: "deamon.json"
-    dest: "/etc/docker/daemon.json"
-  notify: "Restart {{ role_name }} service"
+- name: Copy {{ role_name }} deamon conf
+  ansible.builtin.template:
+    src: deamon.json
+    dest: /etc/docker/daemon.json
+  notify: Restart {{ role_name }} service
 
-- name: "Ensure {{ role_name }} deamon is running"
-  service:
+- name: Ensure {{ role_name }} deamon is running
+  ansible.builtin.service:
     name: docker
     state: started
     enabled: true

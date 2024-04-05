@@ -1,41 +1,42 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ odoo_volume_name }}"
   when: odoo_volume_name is defined
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ odoo_data_dir }}/enterprise"
     state: directory
 
-- name: "Copy {{ role_name }} conf"
-  template:
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ odoo_data_dir }}/{{ item }}"
   loop:
     - odoo.conf
-  notify: "Restart {{ role_name }} container"
+  notify: Restart {{ role_name }} container
 
-- name: "Pull {{ role_name }} image"
-  docker_image:
+- name: Pull {{ role_name }} image
+  community.docker.docker_image:
     name: "{{ odoo_image }}"
     source: pull
     force_source: true
   register: pull_odoo_image
   notify: Remove odoo patches
 
-- name: "Tag {{ role_name }} image"
-  command: "docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ pull_odoo_image.image.Id[7:19] }}"
+- name: Tag {{ role_name }} image
+  ansible.builtin.command: docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ pull_odoo_image.image.Id[7:19] }}
   when: pull_odoo_image.image.RepoTags | length == 0
 
-- name: "Start {{ role_name }} container {{ odoo_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ odoo_hostname }}
+  community.docker.docker_container:
     name: "{{ odoo_hostname }}"
     labels:
       description: "{{ odoo_description }}"
-    image: "odoo:{{ pull_odoo_image.image.Id[7:19] }}"
+    image: odoo:{{ pull_odoo_image.image.Id[7:19] }}
     restart_policy: unless-stopped
     recreate: false
     state: "{{ odoo_state }}"
@@ -62,12 +63,12 @@
       tag: "{{ odoo_hostname }}|{{ role_name }}"
   when: odoo_replicas == 1
 
-- name: "Start {{ role_name }} container {{ odoo_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ odoo_hostname }}
+  community.docker.docker_container:
     name: "{{ odoo_hostname }}_{{ item }}"
     labels:
       description: "{{ odoo_description }}"
-    image: "odoo:{{ pull_odoo_image.image.Id[7:19] }}"
+    image: odoo:{{ pull_odoo_image.image.Id[7:19] }}
     restart_policy: unless-stopped
     recreate: false
     env:
@@ -93,16 +94,16 @@
   with_sequence: start=1 end={{ odoo_replicas }}
   when: odoo_replicas > 1
 
-- name: "Ensure {{ role_name }} master password is in environment"
-  lineinfile:
-    dest: "/etc/environment"
+- name: Ensure {{ role_name }} master password is in environment
+  ansible.builtin.lineinfile:
+    dest: /etc/environment
     state: present
-    regexp: "^ODOO_MASTER_PASSWORD="
-    line: "ODOO_MASTER_PASSWORD={{ odoo_master_password }}"
+    regexp: ^ODOO_MASTER_PASSWORD=
+    line: ODOO_MASTER_PASSWORD={{ odoo_master_password }}
   when: odoo_master_password is defined
 
-- name: "Include {{ role_name }} backup from restic client role"
-  include_role:
+- name: Include {{ role_name }} backup from restic client role
+  ansible.builtin.include_role:
     name: restic_client
     tasks_from: restic_client_odoo_backup
   vars:

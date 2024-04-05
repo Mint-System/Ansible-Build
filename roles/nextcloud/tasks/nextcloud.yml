@@ -1,13 +1,14 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ nextcloud_volume_name }}"
     docker_volume_backup_set: "{{ nextcloud_volume_backup_set | default([]) }}"
   when: nextcloud_volume_name is defined
 
-- name: "Init {{ role_name }} env"
-  set_fact:
+- name: Init {{ role_name }} env
+  ansible.builtin.set_fact:
     nextcloud_env:
       NEXTCLOUD_HOSTNAME: "{{ nextcloud_domain }}"
       NEXTCLOUD_TRUSTED_DOMAINS: "{{ nextcloud_trusted_domains }}"
@@ -20,19 +21,19 @@
       SMTP_HOST: "{{ nextcloud_mail_hostname }}"
       SMTP_SECURE: "{{ nextcloud_mail_encryption }}"
       SMTP_PORT: "{{ nextcloud_mail_port }}"
-      SMTP_AUTHTYPE: "LOGIN"
+      SMTP_AUTHTYPE: LOGIN
       SMTP_NAME: "{{ nextcloud_mail_username }}"
       SMTP_PASSWORD: "{{ nextcloud_mail_password }}"
       MAIL_FROM_ADDRESS: "{{ nextcloud_mail_from }}"
       MAIL_DOMAIN: "{{ nextcloud_mail_username.split('@')[1] }}"
       TZ: "{{ nextcloud_timezone }}"
-      OVERWRITEPROTOCOL: "https"
+      OVERWRITEPROTOCOL: https
       OVERWRITEHOST: "{{ nextcloud_domain }}"
       REDIS_HOST: "{{ nextcloud_redis_hostname }}" # FIXME: Not working without redis
       REDIS_HOST_PASSWORD: "{{ nextcloud_redis_password }}"
 
-- name: "Append postgres env vars"
-  set_fact: 
+- name: Append postgres env vars
+  ansible.builtin.set_fact:
     nextcloud_env: "{{ nextcloud_env | combine(item) }}"
   with_items:
     - POSTGRES_HOST: "{{ nextcloud_postgres_hostname }}:5432"
@@ -41,8 +42,8 @@
     - POSTGRES_DB: "{{ nextcloud_postgres_db }}"
   when: nextcloud_postgres_hostname is defined
 
-- name: "Append mysql env vars"
-  set_fact: 
+- name: Append mysql env vars
+  ansible.builtin.set_fact:
     nextcloud_env: "{{ nextcloud_env | combine(item) }}"
   with_items:
     - MYSQL_HOST: "{{ nextcloud_mysql_hostname }}"
@@ -51,8 +52,8 @@
     - MYSQL_DATABASE: "{{ nextcloud_mysql_db }}"
   when: nextcloud_mysql_hostname is defined
 
-- name: "Start {{ role_name }} container {{ nextcloud_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ nextcloud_hostname }}
+  community.docker.docker_container:
     name: "{{ nextcloud_hostname }}"
     labels:
       description: "{{ nextcloud_description }}"
@@ -71,13 +72,13 @@
       tag: "{{ nextcloud_hostname }}|{{ role_name }}"
   register: start_nextcloud_container
 
-- name: "Wait for {{ role_name }} container" # noqa 503
-  pause:
+- name: Wait for {{ role_name }} container # noqa 503
+  ansible.builtin.pause:
     seconds: "30"
   when: start_nextcloud_container.changed
 
-- name: "Cron job to run {{ role_name }} background jobs"
-  cron:
-    name: "Run nextcloud background jobs"
+- name: Cron job to run {{ role_name }} background jobs
+  ansible.builtin.cron:
+    name: Run nextcloud background jobs
     minute: "*/5"
-    job: "docker exec -u www-data {{ nextcloud_hostname }} php -f /var/www/html/cron.php; write-node-exporter-metric -c 'Run nextcloud background jobs' -v $?"
+    job: docker exec -u www-data {{ nextcloud_hostname }} php -f /var/www/html/cron.php; write-node-exporter-metric -c 'Run nextcloud background jobs' -v $?

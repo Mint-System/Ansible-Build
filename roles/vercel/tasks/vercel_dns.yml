@@ -1,52 +1,53 @@
+---
 - name: Get all vercel domains
-  uri:
+  ansible.builtin.uri:
     url: "{{ vercel_api_url }}/v4/domains?teamId={{ vercel_team_id }}"
     headers:
-      Content-Type: "application/json"
-      Authorization: "Bearer {{ vercel_token }}"
+      Content-Type: application/json
+      Authorization: Bearer {{ vercel_token }}
     return_content: true
   register: vercel_domains
 
 - name: Set domains exist fact
-  set_fact:
+  ansible.builtin.set_fact:
     domains_exist: "{{ vercel_domains.json | json_query('domains[*].name') }}"
 
 - name: Fail if domain is not managed by vercel
-  fail:
+  ansible.builtin.fail:
     msg: Domain is not managed by vercel
   when: item.domain not in domains_exist
   loop: "{{ vercel_dns }}"
 
 - name: Get all vercel dns records
-  uri:
+  ansible.builtin.uri:
     url: "{{ vercel_api_url }}/v4/domains/{{ item }}/records?teamId={{ vercel_team_id }}"
     headers:
-      Content-Type: "application/json"
-      Authorization: "Bearer {{ vercel_token }}"
+      Content-Type: application/json
+      Authorization: Bearer {{ vercel_token }}
     return_content: true
   loop: "{{ domains_exist }}"
   register: vercel_dns_records
 
 - name: Set vercel dns simple fact
-  set_fact:
+  ansible.builtin.set_fact:
     record: "{{ item.1.name }}.{{ item.0.item }}-{{ item.1.type }}"
   with_subelements:
     - "{{ vercel_dns_records.results }}"
     - json.records
   register: vercel_dns_simple
   no_log: true
-  
+
 - name: Make a simple list
-  set_fact:
+  ansible.builtin.set_fact:
     vercel_dns_simple: "{{ vercel_dns_simple.results | map(attribute='ansible_facts.record') | list }}"
 
 - name: Ensure DNS entry exists
-  uri:
+  ansible.builtin.uri:
     url: "{{ vercel_api_url }}/v2/domains/{{ item.0.domain }}/records?teamId={{ vercel_team_id }}"
     method: POST
     headers:
-      Content-Type: "application/json"
-      Authorization: "Bearer {{ vercel_token }}"
+      Content-Type: application/json
+      Authorization: Bearer {{ vercel_token }}
     body: "{{ item.1  | dict2items | rejectattr('key', 'equalto', 'state') | list | items2dict | to_json }}"
   with_subelements:
     - "{{ vercel_dns }}"
@@ -56,7 +57,7 @@
   changed_when: response.status == 200
 
 - name: Set vercel dns absent fact
-  set_fact:
+  ansible.builtin.set_fact:
     record: "{{ item.1.name }}.{{ item.0.domain }}-{{ item.1.type }}"
   with_subelements:
     - "{{ vercel_dns }}"
@@ -65,16 +66,16 @@
   register: vercel_dns_absent
 
 - name: Make a simple list
-  set_fact:
+  ansible.builtin.set_fact:
     vercel_dns_absent: "{{ vercel_dns_absent.results | selectattr('ansible_facts.record','defined') | map(attribute='ansible_facts.record') | list }}"
 
 - name: Ensure DNS entries to be removed
-  uri:
+  ansible.builtin.uri:
     url: "{{ vercel_api_url }}/v2/domains/{{ item.0.item }}/records/{{ item.1.id }}?teamId={{ vercel_team_id }}"
     method: DELETE
     headers:
-      Content-Type: "application/json"
-      Authorization: "Bearer {{ vercel_token }}"
+      Content-Type: application/json
+      Authorization: Bearer {{ vercel_token }}
   with_subelements:
     - "{{ vercel_dns_records.results }}"
     - json.records

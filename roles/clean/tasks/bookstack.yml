@@ -1,10 +1,11 @@
-- name: "Remove bookstack container {{ bookstack_hostname }}"
-  docker_container:
+---
+- name: Remove bookstack container {{ bookstack_hostname }}
+  community.docker.docker_container:
     name: "{{ bookstack_hostname }}"
     state: absent
 
 - name: Remove bookstack data dir
-  file:
+  ansible.builtin.file:
     path: "{{ bookstack_data_dir }}"
     state: absent
   when: '"bookstack_data" in ansible_run_tags'

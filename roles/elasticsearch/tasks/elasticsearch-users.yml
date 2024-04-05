@@ -1,6 +1,6 @@
-
+---
 - name: Test password for builtin users
-  uri:
+  ansible.builtin.uri:
     url: http://localhost:9200/_xpack?pretty
     user: "{{ item.name }}"
     password: "{{ item.password }}"
@@ -10,12 +10,12 @@
   register: request
 
 - name: Set password if authentication failed
-  uri:
-    url: "http://localhost:9200/_security/user/{{ item.item.name }}/_password"
+  ansible.builtin.uri:
+    url: http://localhost:9200/_security/user/{{ item.item.name }}/_password
     user: elastic
     password: "{{ elasticsearch_password }}"
     method: POST
     body_format: json
-    body: "{ \"password\": \"{{ item.item.password }}\" }"
+    body: '{ "password": "{{ item.item.password }}" }'
   loop: "{{ request.results }}"
   when: item.failed

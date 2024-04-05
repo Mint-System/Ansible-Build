@@ -1,5 +1,6 @@
-- name: "Create or update Keycloak client"
-  keycloak_client:
+---
+- name: Create or update Keycloak client
+  community.general.keycloak_client:
     auth_client_id: "{{ item.auth_client_id | default('admin-cli') }}"
     auth_keycloak_url: "{{ item.auth_keycloak_url }}"
     auth_realm: "{{ item.auth_realm | default('master') }}"

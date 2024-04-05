@@ -1,20 +1,21 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ pgadmin_volume_name }}"
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ pgadmin_data_dir }}"
     state: directory
 
-- name: "Copy {{ role_name }} server conf"
-  template:
+- name: Copy {{ role_name }} server conf
+  ansible.builtin.template:
     src: servers.json
     dest: "{{ pgadmin_data_dir }}/servers.json"
   notify: Restart {{ role_name }} container
 
-- name: "Start {{ role_name }} container {{ pgadmin_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ pgadmin_hostname }}
+  community.docker.docker_container:
     name: "{{ pgadmin_hostname }}"
     labels:
       description: "{{ pgadmin_description }}"

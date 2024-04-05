@@ -1,10 +1,11 @@
-- name: "Remove nextcloud container {{ nextcloud_hostname }}"
-  docker_container:
+---
+- name: Remove nextcloud container {{ nextcloud_hostname }}
+  community.docker.docker_container:
     name: "{{ nextcloud_hostname }}"
     state: absent
 
 - name: Remove nextcloud volume
-  docker_volume:
+  community.docker.docker_volume:
     name: "{{ nextcloud_volume_name }}"
     state: absent
   when: '"nextcloud_volume" in ansible_run_tags'

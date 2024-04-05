@@ -1,16 +1,17 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ redis_volume_name }}"
 
-- name: "Start {{ role_name }} container {{ redis_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ redis_hostname }}
+  community.docker.docker_container:
     name: "{{ redis_hostname }}"
     labels:
       description: "{{ redis_description }}"
     image: "{{ redis_image }}"
     restart_policy: unless-stopped
     recreate: false
-    command: "redis-server --requirepass {{ redis_password }}"
+    command: redis-server --requirepass {{ redis_password }}
     volumes:
       - "{{ redis_volume_name }}:/data"
     networks:

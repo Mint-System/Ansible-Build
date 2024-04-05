@@ -1,18 +1,19 @@
-- name: "Include nginx role and apply nginx_config tasks"
-  include_role:
+---
+- name: Include nginx role and apply nginx_config tasks
+  ansible.builtin.include_role:
     name: nginx
     tasks_from: nginx_config
 
-- name: "Copy rule tuning conf"
-  template:
+- name: Copy rule tuning conf
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ nginx_data_dir }}/{{ item }}"
   loop:
     - REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf
     - RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
 
-- name: "Start {{ role_name }} container {{ nginx_waf_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ nginx_waf_hostname }}
+  community.docker.docker_container:
     name: "{{ nginx_waf_hostname }}"
     labels:
       description: "{{ nginx_waf_description }}"

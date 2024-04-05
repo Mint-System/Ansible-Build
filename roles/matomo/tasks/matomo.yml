@@ -1,13 +1,14 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ matomo_volume_name }}"
     docker_volume_backup_set: "{{ matomo_volume_backup_set | default([]) }}"
   when: matomo_volume_name is defined
 
-- name: "Start {{ role_name }} container {{ matomo_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ matomo_hostname }}
+  community.docker.docker_container:
     name: "{{ matomo_hostname }}"
     labels:
       description: "{{ matomo_description }}"
@@ -30,8 +31,8 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ matomo_hostname }}|{{ role_name }}"
 
-- name: "Cron job to run {{ role_name }} background jobs"
-  cron:
-    name: "Run {{ role_name }} background jobs"
+- name: Cron job to run {{ role_name }} background jobs
+  ansible.builtin.cron:
+    name: Run {{ role_name }} background jobs
     minute: "*/5"
-    job: "docker exec -u root {{ matomo_hostname }} bash -c \"/usr/local/bin/php /var/www/html/console core:archive --url={{ matomo_url }} > /var/log/matomo-archive.log\""
+    job: docker exec -u root {{ matomo_hostname }} bash -c "/usr/local/bin/php /var/www/html/console core:archive --url={{ matomo_url }} > /var/log/matomo-archive.log"

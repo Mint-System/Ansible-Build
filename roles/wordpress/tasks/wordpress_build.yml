@@ -1,16 +1,17 @@
-- name: "Ensure {{ role_name }} build dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} build dir exists
+  ansible.builtin.file:
     path: "{{ docker_build_dir }}/{{ wordpress_hostname }}"
     state: directory
 
-- name: "Copy {{ role_name }} Dockerfile"
-  template:
+- name: Copy {{ role_name }} Dockerfile
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ docker_build_dir }}/{{ wordpress_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore
-  notify: "Build {{ role_name }} custom image"
+  notify: Build {{ role_name }} custom image
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers

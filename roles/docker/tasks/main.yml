@@ -1,43 +1,44 @@
+---
 - name: Show distribution
-  debug:
+  ansible.builtin.debug:
     msg: "Distribution: {{ ansible_distribution }}\nMajor Version: {{ ansible_distribution_major_version }}"
 
-- name: "Include {{ role_name }} ubuntu tasks"
-  include_tasks: "{{ role_name }}-ubuntu.yml"
+- name: Include {{ role_name }} ubuntu tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-ubuntu.yml"
   when: docker_packages is defined and (ansible_distribution == 'Ubuntu')
   tags:
     - docker
     - docker-ubuntu
 
-- name: "Include {{ role_name }} centos tasks"
-  include_tasks: "{{ role_name }}-centos.yml"
+- name: Include {{ role_name }} centos tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-centos.yml"
   when: docker_packages is defined and (ansible_distribution == 'CentOS')
   tags:
     - docker
     - docker-centos
 
-- name: "Include {{ role_name }} debian tasks"
-  include_tasks: "{{ role_name }}-debian.yml"
+- name: Include {{ role_name }} debian tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-debian.yml"
   when: docker_packages is defined and (ansible_distribution == 'Debian')
   tags:
     - docker
     - docker-debian
 
-- name: "Include {{ role_name }} debian tasks"
-  include_tasks: "{{ role_name }}-rocky.yml"
+- name: Include {{ role_name }} debian tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-rocky.yml"
   when: docker_packages is defined and (ansible_distribution == 'Rocky')
   tags:
     - docker
     - docker-rocky
 
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: docker_packages is defined
   tags:
     - docker
 
-- name: "Include {{ role_name }} login tasks"
-  include_tasks: "{{ role_name }}-login.yml"
+- name: Include {{ role_name }} login tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-login.yml"
   when: docker_login_username is defined
   tags:
     - docker

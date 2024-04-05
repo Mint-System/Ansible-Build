@@ -1,3 +1,4 @@
+---
 dribdat_volume_name: "{{ dribdat_hostname }}"
 dribdat_description: dribdat
 dribdat_secret: "{{ vault_dribdat_secret }}"

@@ -1,3 +1,4 @@
+---
 modules:
   http_2xx:
     prober: http
@@ -11,7 +12,7 @@ modules:
     prober: tcp
     tcp:
       query_response:
-      - expect: "^+OK"
+        - expect: ^+OK
       tls: true
       tls_config:
         insecure_skip_verify: false
@@ -19,20 +20,20 @@ modules:
     prober: tcp
     tcp:
       query_response:
-      - expect: "^SSH-2.0-"
-      - send: "SSH-2.0-blackbox-ssh-check"
+        - expect: ^SSH-2.0-
+        - send: SSH-2.0-blackbox-ssh-check
   irc_banner:
     prober: tcp
     tcp:
       query_response:
-      - send: "NICK prober"
-      - send: "USER prober prober prober :prober"
-      - expect: "PING :([^ ]+)"
-        send: "PONG ${1}"
-      - expect: "^:[^ ]+ 001"
+        - send: NICK prober
+        - send: USER prober prober prober :prober
+        - expect: PING :([^ ]+)
+          send: PONG ${1}
+        - expect: ^:[^ ]+ 001
   icmp:
     prober: icmp
   http_401_unauth:
     prober: http
     http:
-      valid_status_codes: [403,401,200]
+      valid_status_codes: [403, 401, 200]

@@ -1,34 +1,35 @@
+---
 - name: Update yum cache
-  yum:
+  ansible.builtin.yum:
     update_cache: true
 
 - name: Upgrade all yum packages # noqa 403
-  yum:
+  ansible.builtin.yum:
     name: "*"
     state: latest
 
 - name: Check if reboot is required
-  command: needs-restarting -r
+  ansible.builtin.command: needs-restarting -r
   register: needs_restart
   changed_when: false
   ignore_errors: true
 
 - name: Missing needs-restart command
-  fail:
-    msg: "Command needs-restarting is not available. Install 'yum-utils'."
+  ansible.builtin.fail:
+    msg: Command needs-restarting is not available. Install 'yum-utils'.
   when: needs_restart.rc == 127
 
 - name: Reboot system if required
-  reboot:
+  ansible.builtin.reboot:
     msg: Rebooting to complete system upgrade
     reboot_timeout: 120
   when: needs_restart.rc == 1 and reboot_allowed
 
 - name: Get all installed and updated packages # noqa 306
-  shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "
+  ansible.builtin.shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "
   register: installed_updated_packages
   changed_when: false
 
 - name: Show installed and updated packages
-  debug:
+  ansible.builtin.debug:
     msg: "{{ installed_updated_packages.stdout_lines }}"

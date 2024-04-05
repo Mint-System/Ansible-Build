@@ -1,10 +1,11 @@
-- name: "Ensure {{ role_name }} build dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} build dir exists
+  ansible.builtin.file:
     path: "{{ docker_build_dir }}/{{ superset_hostname }}"
     state: directory
 
-- name: "Copy {{ role_name }} Dockerfile"
-  template:
+- name: Copy {{ role_name }} Dockerfile
+  ansible.builtin.template:
     src: "{{ item.path }}"
     dest: "{{ docker_build_dir }}/{{ superset_hostname }}/{{ item.path }}"
     mode: "{{ item.mode | default('') }}"
@@ -13,8 +14,8 @@
     - path: .dockerignore
     - path: superset_config.py
     - path: superset-init
-      mode: "u+x,g+x"
-  notify: "Build {{ role_name }} custom image"
+      mode: u+x,g+x
+  notify: Build {{ role_name }} custom image
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers

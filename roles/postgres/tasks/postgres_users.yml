@@ -1,21 +1,22 @@
-- name: "Get ip address of postgres container"
-  shell: "docker inspect --format '{''{range.NetworkSettings.Networks}''}''{''{.IPAddress}''}''{''{end}''}' {{ postgres_hostname }}"
+---
+- name: Get ip address of postgres container
+  ansible.builtin.shell: docker inspect --format '{''{range.NetworkSettings.Networks}''}''{''{.IPAddress}''}''{''{end}''}' {{ postgres_hostname }}
   register: ip_address
   ignore_errors: true
   changed_when: false
 
-- name: "Setup postgres users."
-  postgresql_user:
+- name: Setup postgres users.
+  community.postgresql.postgresql_user:
     login_host: "{{ ip_address.stdout }}"
     login_user: "{{ postgres_user }}"
     login_password: "{{ postgres_password }}"
-    db: "postgres"
+    db: postgres
     name: "{{ item.name }}"
     password: "{{ item.password }}"
   loop: "{{ postgres_users }}"
 
-- name: "Grant privilieges to users."
-  postgresql_privs:
+- name: Grant privilieges to users.
+  community.postgresql.postgresql_privs:
     login_host: "{{ ip_address.stdout }}"
     login_user: "{{ postgres_user }}"
     login_password: "{{ postgres_password }}"
@@ -25,8 +26,8 @@
     role: "{{ item.0.name }}"
   loop: "{{ postgres_users | subelements('grant_databases') }}"
 
-- name: "Revoke privilieges to users."
-  postgresql_privs:
+- name: Revoke privilieges to users.
+  community.postgresql.postgresql_privs:
     login_host: "{{ ip_address.stdout }}"
     login_user: "{{ postgres_user }}"
     login_password: "{{ postgres_password }}"
@@ -37,15 +38,15 @@
     role: "{{ item.0.name }}"
   loop: "{{ postgres_users | subelements('revoke_tables') }}"
 
-- name: "Copy {{ role_name }} conf"
-  template:
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ postgres_data_dir }}/{{ item }}"
   loop:
     - pg_hba.conf
 
-- name: "Setup connection rules for users."
-  postgresql_pg_hba:
+- name: Setup connection rules for users.
+  community.postgresql.postgresql_pg_hba:
     dest: "{{ postgres_data_dir }}/pg_hba.conf"
     contype: host
     databases: "{{ item.1.database }}"
@@ -53,10 +54,10 @@
     source: "{{ item.1.source }}"
     method: trust
   loop: "{{ postgres_users | subelements('connection_rules', skip_missing=True) }}"
-  notify: "Restart {{ role_name }} container"
+  notify: Restart {{ role_name }} container
 
-- name: "Copy data files"
-  shell: "docker cp {{ postgres_data_dir }}/{{ item }} {{ postgres_hostname }}:/var/lib/postgresql/data/{{ item }}"
+- name: Copy data files
+  ansible.builtin.command: docker cp {{ postgres_data_dir }}/{{ item }} {{ postgres_hostname }}:/var/lib/postgresql/data/{{ item }}
   ignore_errors: true
   changed_when: false
   loop:

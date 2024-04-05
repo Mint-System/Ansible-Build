@@ -1,10 +1,11 @@
-- name: "Remove postgres container {{ postgres_hostname }}"
-  docker_container:
+---
+- name: Remove postgres container {{ postgres_hostname }}
+  community.docker.docker_container:
     name: "{{ postgres_hostname }}"
     state: absent
 
-- name: "Remove postgres volume {{ postgres_volume_name }}"
-  docker_volume:
+- name: Remove postgres volume {{ postgres_volume_name }}
+  community.docker.docker_volume:
     name: "{{ postgres_volume_name }}"
     state: absent
   when: '"postgres_volume" in ansible_run_tags'

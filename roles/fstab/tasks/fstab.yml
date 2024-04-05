@@ -1,11 +1,12 @@
+---
 - name: Setup credentials
-  template:
+  ansible.builtin.template:
     src: credentials
-    dest: "/root/.credentials"
-    mode: 0600
+    dest: /root/.credentials
+    mode: "0600"
   loop: "{{ fstab_credentials }}"
   when: fstab_credentials is defined
 
 - name: Mount and bind a volume
-  mount: "{{ item }}"
+  ansible.posix.mount: "{{ item }}"
   loop: "{{ fstab_mounts }}"

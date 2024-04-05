@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ cadvisor_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ cadvisor_hostname }}
+  community.docker.docker_container:
     name: "{{ cadvisor_hostname }}"
     labels:
       description: "{{ cadvisor_description }}"
@@ -15,7 +16,7 @@
       - /dev/disk/:/dev/disk:ro
     devices:
       - /dev/kmsg:/dev/kmsg
-    command: "--housekeeping_interval=30s --docker_only=true"
+    command: --housekeeping_interval=30s --docker_only=true
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

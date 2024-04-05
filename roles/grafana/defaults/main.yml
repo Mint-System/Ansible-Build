@@ -1,3 +1,4 @@
+---
 grafana_description: Grafana
-grafana_data_dir: "/usr/share/{{ grafana_hostname }}"
-grafana_generic_oauth_scopes: "profile"
+grafana_data_dir: /usr/share/{{ grafana_hostname }}
+grafana_generic_oauth_scopes: profile

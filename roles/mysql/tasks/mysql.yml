@@ -1,9 +1,10 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ mysql_volume_name }}"
 
-- name: "Start {{ role_name }} container {{ mysql_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ mysql_hostname }}
+  community.docker.docker_container:
     name: "{{ mysql_hostname }}"
     labels:
       description: "{{ mysql_description }}"

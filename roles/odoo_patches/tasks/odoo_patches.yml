@@ -1,14 +1,15 @@
+---
 - name: Show patches
-  debug:
+  ansible.builtin.debug:
     var: odoo_patches
 
-- name: "Ensure odoo host config dir exists"
-  file:
-    path: "/etc/odoo"
+- name: Ensure odoo host config dir exists
+  ansible.builtin.file:
+    path: /etc/odoo
     state: directory
 
 - name: Apply patches
-  script: "{{ item.name }} {{ item.host | default(odoo_hostname) }}"
+  ansible.builtin.script: "{{ item.name }} {{ item.host | default(odoo_hostname) }}"
   loop: "{{ odoo_patches }}"
   notify: Restart odoo container
   when: odoo_replicas == 1
@@ -17,7 +18,7 @@
   failed_when: res.rc == 1
 
 - name: Apply patches
-  script: "{{ item.0.name }} {{ odoo_hostname }}_{{ item.1 }}"
+  ansible.builtin.script: "{{ item.0.name }} {{ odoo_hostname }}_{{ item.1 }}"
   loop: "{{ odoo_patches | product(range(1,odoo_replicas+1)) | list }}"
   notify: Restart odoo container
   when: odoo_replicas > 1

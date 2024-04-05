@@ -1,7 +1,8 @@
+---
 - name: Copy backup scripts
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - docker-mysql-backup
@@ -9,8 +10,8 @@
     - docker-mysql-restore
     - docker-mysql-drop
 
-- name: "Include docker {{ role_name }} backup from restic client role"
-  include_role:
+- name: Include docker {{ role_name }} backup from restic client role
+  ansible.builtin.include_role:
     name: restic_client
   vars:
     restic_backup_set: "{{ mysql_backup_set }}"

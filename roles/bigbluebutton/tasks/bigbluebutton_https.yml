@@ -1,35 +1,36 @@
+---
 # https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L875
 
 - name: Copy bigbluebutton nginx conf
-  template:
+  ansible.builtin.template:
     src: bigbluebutton.nginx
     dest: /etc/nginx/sites-available/bigbluebutton
   notify: Restart Nginx service
 
 - name: Update http for https on BigBlueButton webapp
-  replace:
-    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
-    regexp: 'bigbluebutton.web.serverURL=http:'
-    replace: 'bigbluebutton.web.serverURL=https:'
+  ansible.builtin.replace:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: "bigbluebutton.web.serverURL=http:"
+    replace: "bigbluebutton.web.serverURL=https:"
   notify: Restart BigBlueButton services
 
 - name: Update ws for wss on kurento media server
-  replace:
+  ansible.builtin.replace:
     path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
-    regexp: 'ws://'
-    replace: 'wss://'
+    regexp: ws://
+    replace: wss://
   notify: Restart BigBlueButton services
 
 - name: Update http for https on kurento media server
-  replace:
+  ansible.builtin.replace:
     path: /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
-    regexp: 'http://'
-    replace: 'https://'
+    regexp: http://
+    replace: https://
   notify: Restart BigBlueButton services
 
 - name: Update http for https on BigBlueButton client config
-  replace:
+  ansible.builtin.replace:
     path: /usr/local/bigbluebutton/core/scripts/bigbluebutton.yml
-    regexp: 'playback_protocol: http$'
-    replace: 'playback_protocol: https'
+    regexp: "playback_protocol: http$"
+    replace: "playback_protocol: https"
   notify: Restart BigBlueButton services

@@ -1,5 +1,6 @@
-- name: "Restart {{ role_name }} project"
-  command: "/usr/local/bin/docker-compose -p {{ docker_compose_project_name }} restart"
+---
+- name: Restart {{ role_name }} project
+  ansible.builtin.command: /usr/local/bin/docker-compose -p {{ docker_compose_project_name }} restart
   args:
     chdir: "{{ docker_compose_data_dir }}"
   changed_when: true

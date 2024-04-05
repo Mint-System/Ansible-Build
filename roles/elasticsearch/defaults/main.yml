@@ -1,3 +1,4 @@
+---
 elasticsearch_data_dir: "{{ elasticsearch_hostname }}"
 elasticsearch_volume_name: "{{ elasticsearch_hostname }}"
 elasticsearch_description: Elasticsearch

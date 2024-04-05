@@ -1,17 +1,18 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ postgres_volume_name }}"
   when: postgres_volume_name is defined
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ postgres_data_dir }}"
     state: directory
 
-- name: "Start {{ role_name }} container {{ postgres_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ postgres_hostname }}
+  community.docker.docker_container:
     name: "{{ postgres_hostname }}"
     labels:
       description: "{{ postgres_description }}"
@@ -33,10 +34,10 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ postgres_hostname }}|{{ role_name }}"
 
-- name: "Copy {{ role_name }} scripts"
-  copy:
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - docker-postgres-backup
@@ -47,8 +48,8 @@
     - docker-postgres-duplicate
     - docker-postgres-size
 
-- name: "Include docker {{ role_name }} backup from restic client role"
-  include_role:
+- name: Include docker {{ role_name }} backup from restic client role
+  ansible.builtin.include_role:
     name: restic_client
   vars:
     restic_backup_set: "{{ postgres_backup_set }}"

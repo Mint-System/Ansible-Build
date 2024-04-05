@@ -1,4 +1,5 @@
-- name: "Remove MailHog container {{ mailhog_hostname }}"
-  docker_container:
+---
+- name: Remove MailHog container {{ mailhog_hostname }}
+  community.docker.docker_container:
     name: "{{ mailhog_hostname }}"
     state: absent

@@ -1,15 +1,16 @@
-- name: "Add {{ role_name }} gpg apt key"
-  apt_key:
+---
+- name: Add {{ role_name }} gpg apt key
+  ansible.builtin.apt_key:
     url: "{{ docker_apt_url }}"
     state: present
 
-- name: "Add {{ role_name }} repo"
-  apt_repository:
+- name: Add {{ role_name }} repo
+  ansible.builtin.apt_repository:
     repo: "{{ docker_apt_repo }}"
     state: present
 
-- name: "Install required {{ role_name }} packages"
-  include_role:
+- name: Install required {{ role_name }} packages
+  ansible.builtin.include_role:
     name: package
   vars:
     packages: "{{ docker_packages }}"

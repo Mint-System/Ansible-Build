@@ -1,13 +1,14 @@
-- name: "Configure user access for {{ role_name }}"
-  htpasswd:
+---
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
     path: "{{ mailhog_data_dir }}/auth"
     name: "{{ item.username }}"
     password: "{{ item.password }}"
     crypt_scheme: bcrypt
   loop: "{{ mailhog_users }}"
 
-- name: "Start {{ role_name }} container {{ mailhog_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ mailhog_hostname }}
+  community.docker.docker_container:
     name: "{{ mailhog_hostname }}"
     labels:
       description: "{{ mailhog_description }}"

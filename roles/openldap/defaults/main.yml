@@ -1,2 +1,3 @@
+---
 openldap_description: OpenLDAP
-openldap_data_dir: "/usr/share/{{ openldap_hostname }}"
+openldap_data_dir: /usr/share/{{ openldap_hostname }}

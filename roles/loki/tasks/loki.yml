@@ -1,18 +1,19 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ loki_data_dir }}"
     state: directory
 
-- name: "Copy {{ role_name }} config"
-  template:
+- name: Copy {{ role_name }} config
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ loki_data_dir }}/{{ item }}"
   loop:
     - local-config.yml
-  notify: "Restart {{ role_name }} container"
+  notify: Restart {{ role_name }} container
 
-- name: "Start {{ role_name }} container {{ loki_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ loki_hostname }}
+  community.docker.docker_container:
     name: "{{ loki_hostname }}"
     labels:
       description: "{{ loki_description }}"

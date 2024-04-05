@@ -1,3 +1,4 @@
+---
 restic_backup_dir: /var/tmp
 restic_repo_type: rest
 restic_rest_user: restic

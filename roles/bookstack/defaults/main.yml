@@ -1,2 +1,3 @@
+---
 bookstack_description: BookStack
-bookstack_data_dir: "/usr/share/{{ bookstack_hostname }}"
+bookstack_data_dir: /usr/share/{{ bookstack_hostname }}

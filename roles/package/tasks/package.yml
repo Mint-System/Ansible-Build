@@ -1,5 +1,6 @@
+---
 - name: Add bin folder to cron PATH
-  cron:
+  ansible.builtin.cron:
     name: PATH
     env: true
     job: "{{ package_path_var }}"
@@ -11,6 +12,6 @@
 #     state: absent
 
 - name: Add bin folder to system-wide $PATH
-  copy:
+  ansible.builtin.copy:
     dest: /etc/profile.d/custom-path.sh
-    content: 'PATH=$PATH:{{ package_path_var }}'
+    content: PATH=$PATH:{{ package_path_var }}

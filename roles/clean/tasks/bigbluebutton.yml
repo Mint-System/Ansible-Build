@@ -1,34 +1,35 @@
-- name: "Remove greenlight container {{ greenlight_hostname }}"
-  docker_container:
+---
+- name: Remove greenlight container {{ greenlight_hostname }}
+  community.docker.docker_container:
     name: "{{ greenlight_hostname }}"
     state: absent
 
-- name: "Register bigbluebutton packages" # noqa 306
-  shell: "dpkg -l | grep bbb | cut -d' ' -f3"
+- name: Register bigbluebutton packages # noqa 306
+  ansible.builtin.shell: dpkg -l | grep bbb | cut -d' ' -f3
   changed_when: false
   register: bbb_packages
 
 - name: Uninstall bigbluebutton
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
   loop: "{{ bbb_packages.stdout_lines }}"
 
 - name: Uninstall bigbluebutton dependencies
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
   loop:
     - nginx
 
 - name: Remove dependencies that are no longer required
-  apt:
+  ansible.builtin.apt:
     autoremove: true
 
-- name: "Remove bigbluebutton files and folders"
-  file:
+- name: Remove bigbluebutton files and folders
+  ansible.builtin.file:
     path: "{{ item }}"
-    state: "absent"
+    state: absent
   loop:
     - /etc/bigbluebutton/ # bigbluebutton
     - /usr/local/bigbluebutton
@@ -54,11 +55,11 @@
     - /usr/share/meteor # meteor
 
 - name: Remove cron job to renew letsencrypt certficiates
-  cron:
-    name: "Renew letsencrypt certificates"
-    state: "absent"
+  ansible.builtin.cron:
+    name: Renew letsencrypt certificates
+    state: absent
 
 - name: Remove cron job to restart nginx
-  cron:
-    name: "Restart nginx"
-    state: "absent"
+  ansible.builtin.cron:
+    name: Restart nginx
+    state: absent

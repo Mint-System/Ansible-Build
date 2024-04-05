@@ -1,12 +1,13 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ wordpress_volume_name }}"
   when: wordpress_volume_name is defined
 
-- name: "Start {{ role_name }} container {{ wordpress_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ wordpress_hostname }}
+  community.docker.docker_container:
     name: "{{ wordpress_hostname }}"
     labels:
       description: "{{ wordpress_description }}"

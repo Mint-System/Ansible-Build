@@ -1,50 +1,51 @@
-- name: "Ensure nginx data dir exists"
-  file:
+---
+- name: Ensure nginx data dir exists
+  ansible.builtin.file:
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
-- name: "Copy {{ role_name }} templated scripts"
-  template:
+- name: Copy {{ role_name }} templated scripts
+  ansible.builtin.template:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - docker-certbot-renew
     - docker-certbot-list
 
-- name: "Copy {{ role_name }} scripts"
-  copy:
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - docker-certbot-delete
     - docker-certbot-create
 
-- name: "Get list of nginx certs"
-  stat:
+- name: Get list of nginx certs
+  ansible.builtin.stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname | replace('*.', '') }}"
   loop: "{{ nginx_proxies }}"
   register: certbot_certs
   when: item.ssl is defined and item.ssl
 
-- name: "Create list of missing certs"
-  set_fact:
+- name: Create list of missing certs
+  ansible.builtin.set_fact:
     certbot_missing_certs: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`false`].item.src_hostname') | list }}"
   when: nginx_proxies is defined
 
-- name: "Log missing certificates"
-  debug:
+- name: Log missing certificates
+  ansible.builtin.debug:
     var: certbot_missing_certs
 
-- name: "Copy nginx default conf"
-  copy:
+- name: Copy nginx default conf
+  ansible.builtin.copy:
     src: default.conf
     dest: "{{ nginx_data_dir }}/default.conf"
     force: false
 
-- name: "Copy nginx {{ role_name }} conf"
-  template:
+- name: Copy nginx {{ role_name }} conf
+  ansible.builtin.template:
     src: nginx-certbot.conf
     dest: "{{ nginx_data_dir }}/proxies/{{ item }}.conf"
   vars:
@@ -52,20 +53,20 @@
   loop: "{{ certbot_missing_certs }}"
   when: certbot_missing_certs is defined
 
-- name: "Get infos on container {{ nginx_hostname }}"
-  docker_container_info:
+- name: Get infos on container {{ nginx_hostname }}
+  community.docker.docker_container_info:
     name: "{{ nginx_hostname }}"
   register: nginx_container
 
-- name: "Restart container {{ nginx_hostname }}"
-  docker_container:
+- name: Restart container {{ nginx_hostname }}
+  community.docker.docker_container:
     name: "{{ nginx_hostname }}"
     restart: true
     state: started
   when: nginx_container.exists and certbot_missing_certs
 
-- name: "Start proxy container {{ nginx_hostname }}"
-  docker_container:
+- name: Start proxy container {{ nginx_hostname }}
+  community.docker.docker_container:
     name: "{{ nginx_hostname }}"
     labels:
       description: "{{ nginx_description }}"
@@ -86,13 +87,13 @@
       tag: "{{ nginx_hostname }}|{{ role_name }}"
   when: not nginx_container.exists and certbot_missing_certs is defined
 
-- name: "Wait for proxy container"
-  pause:
+- name: Wait for proxy container
+  ansible.builtin.pause:
     seconds: "2"
   when: certbot_missing_certs is defined
 
-- name: "Issue certificate with {{ role_name }}"
-  command: >-
+- name: Issue certificate with {{ role_name }}
+  ansible.builtin.command: >-
     docker run --rm --name {{ item }}
     -v {{ certbot_data_dir }}/:/etc/letsencrypt/
     -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
@@ -103,8 +104,8 @@
   failed_when: result.stdout is search('Some challenges have failed.') or result.failed
   changed_when: result.stdout is search('Congratulations!') or not result.failed
 
-- name: "Issue certificate with dns-freends authenticator"
-  command: >-
+- name: Issue certificate with dns-freends authenticator
+  ansible.builtin.command: >-
     docker run --rm --name {{ item }}
     -v {{ certbot_data_dir }}/:/etc/letsencrypt/
     -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }} certonly

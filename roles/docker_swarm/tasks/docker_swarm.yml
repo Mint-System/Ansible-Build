@@ -1,3 +1,4 @@
+---
 - name: Init a new swarm with default parameters
-  docker_swarm:
+  community.docker.docker_swarm:
     state: present

@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ kibana_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ kibana_hostname }}
+  community.docker.docker_container:
     name: "{{ kibana_hostname }}"
     labels:
       description: "{{ kibana_description }}"
@@ -7,7 +8,7 @@
     restart_policy: unless-stopped
     env:
       SERVER_NAME: "{{ kibana_server_name }}"
-      ELASTICSEARCH_HOSTS: "http://{{ kibana_elasticsearch_host }}:9200"
+      ELASTICSEARCH_HOSTS: http://{{ kibana_elasticsearch_host }}:9200
       ELASTICSEARCH_USERNAME: "{{ kibana_elasticsearch_username }}"
       ELASTICSEARCH_PASSWORD: "{{ kibana_elasticsearch_password }}"
     networks:

@@ -1,7 +1,8 @@
-docker_data_dir: "/var/lib/docker"
-docker_build_dir: "/srv/build"
-docker_log_driver: "json-file"
-docker_log_max_size: "10m"
+---
+docker_data_dir: /var/lib/docker
+docker_build_dir: /srv/build
+docker_log_driver: json-file
+docker_log_max_size: 10m
 docker_log_max_file: "3"
 docker_login_users:
   - root

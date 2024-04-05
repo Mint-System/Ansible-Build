@@ -1,24 +1,25 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ dribdat_volume_name }}"
     docker_volume_backup_set: "{{ dribdat_volume_backup_set | default([]) }}"
   when: dribdat_volume_name is defined
 
-- name: "Init {{ role_name }} env"
-  set_fact:
+- name: Init {{ role_name }} env
+  ansible.builtin.set_fact:
     dribdat_env:
-      DRIBDAT_ENV: "prod"
-      TIME_ZONE: "Europe/Zurich"
+      DRIBDAT_ENV: prod
+      TIME_ZONE: Europe/Zurich
       SERVER_SSL: "false"
       SERVER_URL: "{{ dribdat_server_name }}"
       DRIBDAT_SECRET: "{{ dribdat_secret }}"
-      DATABASE_URL: "postgresql://{{ dribdat_postgres_user }}:{{ dribdat_postgres_password }}@{{ dribdat_postgres_hostname }}/{{ dribdat_postgres_database }}"
+      DATABASE_URL: postgresql://{{ dribdat_postgres_user }}:{{ dribdat_postgres_password }}@{{ dribdat_postgres_hostname }}/{{ dribdat_postgres_database }}
       DRIBDAT_NOT_REGISTER: "{{ dribdat_not_register }}"
 
-- name: "Append mail config to {{ role_name }} env"
-  set_fact: 
+- name: Append mail config to {{ role_name }} env
+  ansible.builtin.set_fact:
     dribdat_env: "{{ dribdat_env | combine(item) }}"
   with_items:
     - MAIL_SERVER: "{{ dribdat_mail_server }}"
@@ -30,8 +31,8 @@
     - MAIL_USE_SSL: "{{ dribdat_mail_use_ssl }}"
   when: dribdat_mail_server is defined
 
-- name: "Append S3 config to {{ role_name }} env"
-  set_fact: 
+- name: Append S3 config to {{ role_name }} env
+  ansible.builtin.set_fact:
     dribdat_env: "{{ dribdat_env | combine(item) }}"
   with_items:
     - S3_KEY: "{{ dribdat_s3_key }}"
@@ -43,8 +44,8 @@
     - MAX_CONTENT_LENGTH: "3000000"
   when: dribdat_s3_key is defined
 
-- name: "Append OAuth config to {{ role_name }} env"
-  set_fact: 
+- name: Append OAuth config to {{ role_name }} env
+  ansible.builtin.set_fact:
     dribdat_env: "{{ dribdat_env | combine(item) }}"
   with_items:
     - OAUTH_TYPE: "{{  dribdat_oauth_type }}"
@@ -52,8 +53,8 @@
     - OAUTH_SECRET: "{{ dribdat_oauth_secret }}"
   when: dribdat_oauth_type is defined
 
-- name: "Start {{ role_name }} container {{ dribdat_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ dribdat_hostname }}
+  community.docker.docker_container:
     name: "{{ dribdat_hostname }}"
     labels:
       description: "{{ dribdat_description }}"

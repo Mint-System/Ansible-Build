@@ -1,5 +1,6 @@
+---
 - name: Include cleanup tasks
-  include_tasks: "{{ item }}.yml"
+  ansible.builtin.include_tasks: "{{ item }}.yml"
   when: item in tasks
   loop: "{{ ansible_run_tags }}"
   vars:

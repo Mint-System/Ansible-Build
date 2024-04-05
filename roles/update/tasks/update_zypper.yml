@@ -1,28 +1,28 @@
+---
 - name: Update zypper cache
-  zypper_repository:
+  community.general.zypper_repository:
     runrefresh: true
     repo: "*"
 
 - name: Upgrade all zypper packages # noqa 403
-  zypper:
+  community.general.zypper:
     name: "*"
     state: latest
 
 # Zypper natively finds services and restarts them.
 
 - name: Check if reboot is required
-  stat: 
+  ansible.builtin.stat:
     path: /boot/do_purge_kernels
     get_md5: false
   register: linux_reboot_required_file
 
 - name: Reboot system if required
-  reboot:
-    msg: "Reboot initiated by Ansible for kernel updates"
+  ansible.builtin.reboot:
+    msg: Reboot initiated by Ansible for kernel updates
     connect_timeout: 5
     reboot_timeout: 300
     pre_reboot_delay: 0
     post_reboot_delay: 30
     test_command: uptime
   when: linux_reboot_required_file.stat.exists and reboot_allowed
-

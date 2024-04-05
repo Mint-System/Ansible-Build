@@ -1,10 +1,11 @@
-- name: "Remove node_exporter container {{ node_exporter_hostname }}"
-  docker_container:
+---
+- name: Remove node_exporter container {{ node_exporter_hostname }}
+  community.docker.docker_container:
     name: "{{ node_exporter_hostname }}"
     state: absent
 
 - name: Remove node_exporter data dir
-  file:
+  ansible.builtin.file:
     path: "{{ node_exporter_data_dir }}"
     state: absent
   when: '"node_exporter_data" in ansible_run_tags'

@@ -1,16 +1,17 @@
-- name: "Remove odoo container {{ odoo_hostname }}"
-  docker_container:
+---
+- name: Remove odoo container {{ odoo_hostname }}
+  community.docker.docker_container:
     name: "{{ odoo_hostname }}"
     state: absent
 
-- name: "Remove odoo volume {{ odoo_volume_name }}"
-  docker_volume:
+- name: Remove odoo volume {{ odoo_volume_name }}
+  community.docker.docker_volume:
     name: "{{ odoo_volume_name }}"
     state: absent
   when: '"odoo_volume" in ansible_run_tags'
 
-- name: "Remove odoo data dir {{ odoo_data_dir }}"
-  file:
+- name: Remove odoo data dir {{ odoo_data_dir }}
+  ansible.builtin.file:
     path: "{{ odoo_data_dir }}"
     state: absent
   when: '"odoo_data" in ansible_run_tags'

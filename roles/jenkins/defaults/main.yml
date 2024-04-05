@@ -1,10 +1,11 @@
+---
 jenkins_build_image: false
 jenkins_description: Jenkins
-jenkins_data_dir: "/usr/share/{{ jenkins_hostname }}"
+jenkins_data_dir: /usr/share/{{ jenkins_hostname }}
 jenkins_volume_name: "{{ jenkins_hostname }}"
 jenkins_password: "{{ vault_jenkins_password }}"
-jenkins_docker_host: "unix:///var/run/docker.sock"
-jenkins_casc: |
+jenkins_docker_host: unix:///var/run/docker.sock
+jenkins_casc: |-
   jenkins:
     securityRealm:
       local:

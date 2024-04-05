@@ -1,3 +1,4 @@
+---
 greenlight_port: 127.0.0.1:5000
 greenlight_description: Greenlight
 greenlight_safe_hosts: "{{ bigbluebutton_hostname }}"

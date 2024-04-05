@@ -1,29 +1,30 @@
+---
 - name: Update apt-get repo and cache
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     force_apt_get: true
     cache_valid_time: 3600
 
 - name: Upgrade all apt packages
-  apt:
+  ansible.builtin.apt:
     upgrade: safe
 
 - name: Check if reboot is required
-  stat:
+  ansible.builtin.stat:
     path: /var/run/reboot-required
   register: reboot_required
 
 - name: Reboot system if required
-  reboot:
+  ansible.builtin.reboot:
     msg: Rebooting to complete system upgrade
     reboot_timeout: 120
   when: reboot_required.stat.exists and reboot_allowed
 
 - name: Get all installed and updated packages # noqa 306
-  shell: grep -E "$(date --iso-8601).+ (install|upgrade) " /var/log/dpkg.log | cut -d " " -f 3-5
+  ansible.builtin.shell: grep -E "$(date --iso-8601).+ (install|upgrade) " /var/log/dpkg.log | cut -d " " -f 3-5
   register: installed_updated_packages
   changed_when: false
 
 - name: Show installed and updated packages
-  debug:
+  ansible.builtin.debug:
     msg: "{{ installed_updated_packages.stdout_lines }}"

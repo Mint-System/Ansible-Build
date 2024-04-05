@@ -1,10 +1,11 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ openldap_data_dir }}"
     state: directory
 
-- name: "Start {{ role_name }} container {{ openldap_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ openldap_hostname }}
+  community.docker.docker_container:
     name: "{{ openldap_hostname }}"
     labels:
       description: "{{ openldap_description }}"

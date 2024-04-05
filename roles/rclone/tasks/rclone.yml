@@ -1,43 +1,43 @@
+---
 - name: Gather package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
 # FIXME: CentOS package gathering not working
 - name: Fail if package rclone is not installed
-  fail:
-    msg: "Package rclone not installed"
+  ansible.builtin.fail:
+    msg: Package rclone not installed
   when: "'rclone' not in ansible_facts.packages and (ansible_distribution != 'CentOS')"
 
-- name: "Ensure {{ role_name }} config dir exists"
-  file:
-    path: "~/.config/rclone/"
+- name: Ensure {{ role_name }} config dir exists
+  ansible.builtin.file:
+    path: ~/.config/rclone/
     state: directory
 
-- name: "Copy {{ role_name }} conf"
-  template:
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
     src: rclone.conf
-    dest: "~/.config/rclone/rclone.conf"
+    dest: ~/.config/rclone/rclone.conf
 
 - name: Verify source path exists
-  command: "ls {{ item.source }}"
+  ansible.builtin.command: ls {{ item.source }}
   changed_when: false
   loop: "{{ rclone_sync }}"
   when: item.source_provider == "filesystem"
 
 - name: Verify dest path exists
-  command: "ls {{ item.dest }}"
+  ansible.builtin.command: ls {{ item.dest }}
   changed_when: false
   loop: "{{ rclone_sync }}"
   when: item.dest_provider == "filesystem"
 
 - name: Register rclone copy commands
-  cron:
-    name: "Rclone job {{ item.id }}"
+  ansible.builtin.cron:
+    name: Rclone job {{ item.id }}
     hour: "{{ item.hour | default('*') }}"
     minute: "{{ item.minute | default('0') }}"
-    job: "rclone {{ item.command }} {{ item.source }} {{ item.dest }}; 
-      write-node-exporter-metric -c 'Rclone job {{ item.id }}' -v $?"
+    job: rclone {{ item.command }} {{ item.source }} {{ item.dest }}; write-node-exporter-metric -c 'Rclone job {{ item.id }}' -v $?
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ rclone_sync }}"
-  when: item.command in ["copy", "copyto"] 
+  when: item.command in ["copy", "copyto"]

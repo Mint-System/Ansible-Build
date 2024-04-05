@@ -1,16 +1,17 @@
-- name: "Register existing {{ role_name }} certificates" # noqa 306
-  shell: "ls -1 -d {{ certbot_data_dir }}/live/*/ | xargs -n 1 basename"
+---
+- name: Register existing {{ role_name }} certificates # noqa 306
+  ansible.builtin.shell: ls -1 -d {{ certbot_data_dir }}/live/*/ | xargs -n 1 basename
   changed_when: false
   ignore_errors: true
   register: certbot_managed_certs
 
-- name: "Create managed certificate list from proxy list"
-  set_fact:
+- name: Create managed certificate list from proxy list
+  ansible.builtin.set_fact:
     managed_certs: "{{ nginx_proxies | selectattr('ssl', 'defined') | map(attribute='src_hostname') | map('replace', '*.', '') | list }}"
   when: nginx_proxies is defined
 
-- name: "Remove unmanaged certificate with {{ role_name }}"
-  docker_container:
+- name: Remove unmanaged certificate with {{ role_name }}
+  community.docker.docker_container:
     name: "{{ item | replace('*.', 'wildcard') }}"
     image: "{{ certbot_image }}"
     volumes:
@@ -23,15 +24,15 @@
   loop_control:
     pause: 5
 
-- name: "Remove unmanaged certificate live folder"
-  file:
+- name: Remove unmanaged certificate live folder
+  ansible.builtin.file:
     path: "{{ certbot_data_dir }}/live/{{ item }}"
     state: absent
   loop: "{{ certbot_managed_certs.stdout_lines }}"
   when: item not in managed_certs
 
-- name: "Copy nginx ssl conf files"
-  copy:
+- name: Copy nginx ssl conf files
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ certbot_data_dir }}/"
   loop:

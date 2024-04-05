@@ -1,10 +1,11 @@
-- name: "Restart {{ role_name }} container"
-  docker_container:
+---
+- name: Restart {{ role_name }} container
+  community.docker.docker_container:
     name: "{{ birt_hostname }}"
     restart: true
 
-- name: "Build {{ role_name }} custom image"
-  docker_image:
+- name: Build {{ role_name }} custom image
+  community.docker.docker_image:
     name: birt:custom
     build:
       path: "{{ docker_build_dir }}/{{ birt_hostname }}"

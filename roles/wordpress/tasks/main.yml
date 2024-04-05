@@ -1,19 +1,20 @@
-- name: "On build set new image tag {{ role_name }}:{{ wordpress_hostname }}"
-  set_fact:
-    wordpress_image: "wordpress:{{ wordpress_hostname }}"
+---
+- name: On build set new image tag {{ role_name }}:{{ wordpress_hostname }}
+  ansible.builtin.set_fact:
+    wordpress_image: wordpress:{{ wordpress_hostname }}
     wordpress_build_image: "{{ wordpress_image }}"
   when: wordpress_build_image and wordpress_build_image != wordpress_image
   tags:
     - wordpress
 
-- name: "Include {{ role_name }} build tasks"
-  include_tasks: "{{ role_name }}_build.yml"
+- name: Include {{ role_name }} build tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_build.yml"
   when: wordpress_build_image and wordpress_build_image != wordpress_image
   tags:
     - wordpress
 
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: wordpress_image is defined
   tags:
     - wordpress

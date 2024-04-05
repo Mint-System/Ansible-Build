@@ -1,12 +1,13 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
-    path: "/usr/share/vercel"
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: /usr/share/vercel
     state: directory
 
-- name: "Copy {{ role_name }}"
-  copy:
+- name: Copy {{ role_name }}
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/share/vercel/{{ item }}"
+    dest: /usr/share/vercel/{{ item }}
     mode: +x
   loop:
     - authenticator

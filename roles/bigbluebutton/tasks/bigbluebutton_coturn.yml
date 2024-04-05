@@ -1,7 +1,8 @@
+---
 # https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L988
 
 - name: Copy bigbluebutton turn stun servers conf
-  template:
+  ansible.builtin.template:
     src: turn-stun-servers.xml
     dest: /usr/share/bbb-web/WEB-INF/classes/spring/turn-stun-servers.xml
   notify: Restart BigBlueButton services

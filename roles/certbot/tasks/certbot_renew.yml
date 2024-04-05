@@ -1,7 +1,8 @@
-- name: "Register renew certs job"
-  cron:
-    name: "Renew certs for {{ nginx_hostname }}"
+---
+- name: Register renew certs job
+  ansible.builtin.cron:
+    name: Renew certs for {{ nginx_hostname }}
     minute: "{{ 59 |random(seed=nginx_hostname) }}"
     hour: "0"
     weekday: "0"
-    job: "docker-certbot-renew && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?"
+    job: docker-certbot-renew && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?

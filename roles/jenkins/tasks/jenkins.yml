@@ -1,25 +1,26 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ jenkins_volume_name }}"
   when: jenkins_volume_name is defined
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ jenkins_data_dir }}"
     state: directory
 
-- name: "Copy {{ role_name }} conf"
-  template:
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ jenkins_data_dir }}/{{ item }}"
   loop:
     - jenkins.yml
-  notify: "Restart {{ role_name }} container"
+  notify: Restart {{ role_name }} container
 
-- name: "Start {{ role_name }} container {{ jenkins_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ jenkins_hostname }}
+  community.docker.docker_container:
     name: "{{ jenkins_hostname }}"
     labels:
       description: "{{ jenkins_description }}"

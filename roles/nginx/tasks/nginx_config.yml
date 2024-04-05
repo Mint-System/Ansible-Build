@@ -1,15 +1,16 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
-- name: "Copy nginx default conf"
-  template:
+- name: Copy nginx default conf
+  ansible.builtin.template:
     src: default.conf
     dest: "{{ nginx_data_dir }}/default.conf"
-  
-- name: "Copy {{ role_name }} conf"
-  template:
+
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
     src: nginx-proxy.conf
     dest: "{{ nginx_data_dir }}/proxies/{{ item.src_hostname | replace('*.', 'wildcard.') }}.conf"
   vars:
@@ -26,33 +27,33 @@
     locations: "{{ item.locations | default(false) }}"
     server_names: "{{ item.server_names | default(false) }}"
     cache: "{{ item.cache | default(false) }}"
-    limit_req_zone: "{{ item.limit_req_zone | default(false) }}"    
+    limit_req_zone: "{{ item.limit_req_zone | default(false) }}"
   loop: "{{ nginx_proxies }}"
-  notify: "Restart {{ role_name }} container"
+  notify: Restart {{ role_name }} container
   when: nginx_proxies is defined
 
-- name: "Register {{ role_name }} conf files" # noqa 306
-  shell: "find {{ nginx_data_dir }}/proxies/ -type f -name '*.conf' -printf '%f\n'"
+- name: Register {{ role_name }} conf files # noqa 306
+  ansible.builtin.shell: "find {{ nginx_data_dir }}/proxies/ -type f -name '*.conf' -printf '%f\n'"
   changed_when: false
   register: nginx_proxy_conf_files
 
-- name: "Create managed file list from proxy list"
-  set_fact:
+- name: Create managed file list from proxy list
+  ansible.builtin.set_fact:
     managed_files: "{{ nginx_proxies | map(attribute='src_hostname') | map('replace', '*.', 'wildcard.') | map('regex_replace', '^(.*)$', '\\1.conf') | list }}"
   when: nginx_proxies is defined
-  
-- name: "Remove unmanaged {{ role_name }} conf files"
-  file:
+
+- name: Remove unmanaged {{ role_name }} conf files
+  ansible.builtin.file:
     path: "{{ nginx_data_dir }}/proxies/{{ item }}"
-    state: "absent"
+    state: absent
   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"
   when: item not in managed_files
 
-- name: "Get infos on container {{ nginx_hostname }}"
-  docker_container_info:
+- name: Get infos on container {{ nginx_hostname }}
+  community.docker.docker_container_info:
     name: "{{ nginx_hostname }}"
   register: nginx_container
 
-- name: "Test {{ role_name }} conf files"
-  command: "docker exec {{ nginx_hostname }} nginx -t"
+- name: Test {{ role_name }} conf files
+  ansible.builtin.command: docker exec {{ nginx_hostname }} nginx -t
   when: nginx_container.exists

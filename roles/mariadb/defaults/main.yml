@@ -1,3 +1,4 @@
+---
 mariadb_description: MariaDB
 mariadb_volume_name: "{{ mariadb_hostname }}"
 mariadb_root_password: "{{ vault_mariadb_root_password }}"

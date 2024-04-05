@@ -1,45 +1,45 @@
+---
 - name: Show distribution
-  debug:
+  ansible.builtin.debug:
     msg: "Distribution: {{ ansible_distribution }}\nMajor Version: {{ ansible_distribution_major_version }}"
 
 - name: Combine group and host vars
-  set_fact:
+  ansible.builtin.set_fact:
     packages: "{{ packages + host_packages }}"
   when: host_packages is defined
 
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: packages is defined
   tags:
-   - package
+    - package
 
-- name: "Include {{ role_name }} apt tasks"
-  include_tasks: "{{ role_name }}_apt.yml"
+- name: Include {{ role_name }} apt tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
   when: packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Pop!_OS')
   tags:
-   - package
+    - package
 
-- name: "Include {{ role_name }} snap tasks"
-  include_tasks: "{{ role_name }}_snap.yml"
+- name: Include {{ role_name }} snap tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_snap.yml"
   when: packages_snap is defined and ansible_distribution == 'Ubuntu'
   tags:
-   - package
+    - package
 
-- name: "Include {{ role_name }} apt tasks"
-  include_tasks: "{{ role_name }}_apt.yml"
+- name: Include {{ role_name }} apt tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
   when: packages is defined and ansible_distribution == 'Debian'
   tags:
-   - package
+    - package
 
-- name: "Include {{ role_name }} yum tasks"
-  include_tasks: "{{ role_name }}_yum.yml"
+- name: Include {{ role_name }} yum tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_yum.yml"
   when: packages is defined and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
   tags:
-   - package
+    - package
 
-- name: "Include {{ role_name }} dnf tasks"
-  include_tasks: "{{ role_name }}_dnf.yml"
+- name: Include {{ role_name }} dnf tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_dnf.yml"
   when: packages is defined and ansible_distribution in ['CentOS', 'Rocky'] and ansible_distribution_major_version in ['8', '9']
   tags:
-   - package
-   
+    - package

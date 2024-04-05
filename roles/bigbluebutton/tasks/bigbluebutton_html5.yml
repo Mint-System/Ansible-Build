@@ -1,22 +1,23 @@
+---
 # https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L699
 
 - name: Make the HTML5 client default for attendees join
-  replace:
-    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
-    regexp: 'attendeesJoinViaHTML5Client=false'
-    replace: 'attendeesJoinViaHTML5Client=true'
+  ansible.builtin.replace:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: attendeesJoinViaHTML5Client=false
+    replace: attendeesJoinViaHTML5Client=true
     backup: true
 
 - name: Make the HTML5 client default for moderators join
-  replace:
-    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
-    regexp: 'moderatorsJoinViaHTML5Client=false'
-    replace: 'moderatorsJoinViaHTML5Client=true'
+  ansible.builtin.replace:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: moderatorsJoinViaHTML5Client=false
+    replace: moderatorsJoinViaHTML5Client=true
     backup: true
 
 - name: Disable swf slides
-  replace:
-    path: "/usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties"
-    regexp: 'swfSlidesRequired=true'
-    replace: 'swfSlidesRequired=false'
+  ansible.builtin.replace:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: swfSlidesRequired=true
+    replace: swfSlidesRequired=false
     backup: true

@@ -1,7 +1,8 @@
-- name: "Copy {{ role_name }}"
-  copy:
+---
+- name: Copy {{ role_name }}
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - docker-odoo-backup

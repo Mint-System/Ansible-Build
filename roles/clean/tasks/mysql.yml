@@ -1,10 +1,11 @@
-- name: "Remove mysql container {{ mysql_hostname }}"
-  docker_container:
+---
+- name: Remove mysql container {{ mysql_hostname }}
+  community.docker.docker_container:
     name: "{{ mysql_hostname }}"
     state: absent
 
-- name: "Remove mysql volume {{ mysql_volume_name }}"
-  docker_volume:
+- name: Remove mysql volume {{ mysql_volume_name }}
+  community.docker.docker_volume:
     name: "{{ mysql_volume_name }}"
     state: absent
   when: '"mysql_volume" in ansible_run_tags'

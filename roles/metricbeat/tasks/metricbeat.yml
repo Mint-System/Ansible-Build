@@ -1,5 +1,6 @@
-- name: "Check {{ role_name }} setup"
-  command: >
+---
+- name: Check {{ role_name }} setup
+  ansible.builtin.command: >
     /bin/bash -c 'curl -X GET "{{ metricbeat_elasticsearch_username }}:
     {{ metricbeat_elasticsearch_password }}@
     localhost:9200/_cat/templates?v&s=name&pretty" | grep metricbeat'
@@ -8,8 +9,8 @@
   when: metricbeat_setup
   register: check_metricbeat_setup
 
-- name: "Run {{ role_name }} setup"
-  docker_container:
+- name: Run {{ role_name }} setup
+  community.docker.docker_container:
     name: "{{ metricbeat_hostname }}"
     labels:
       description: "{{ metricbeat_description }}"
@@ -32,19 +33,19 @@
       tag: "{{ metricbeat_hostname }}|{{ role_name }}"
   when: metricbeat_setup and check_metricbeat_setup.failed
 
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ metricbeat_data_dir }}"
     state: directory
 
-- name: "Copy {{ role_name }} conf"
-  template:
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
     src: metricbeat.yml
     dest: "{{ metricbeat_data_dir }}/"
   notify: Restart metricbeat container
 
-- name: "Start {{ role_name }} container {{ metricbeat_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ metricbeat_hostname }}
+  community.docker.docker_container:
     name: "{{ metricbeat_hostname }}"
     labels:
       description: "{{ metricbeat_description }}"

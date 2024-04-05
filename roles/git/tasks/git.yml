@@ -1,14 +1,15 @@
+---
 - name: Gather package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
 - name: Fail if package git is not installed
-  fail:
-    msg: "Package restic not installed"
+  ansible.builtin.fail:
+    msg: Package restic not installed
   when: "'git' not in ansible_facts.packages"
 
 - name: Git ssh checkout
-  git:
+  ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"
@@ -16,7 +17,7 @@
   when: item.repo is regex('git:\/\/')
 
 - name: Git https checkout
-  git:
+  ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"

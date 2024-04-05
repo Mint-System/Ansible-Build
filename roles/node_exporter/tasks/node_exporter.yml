@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ node_exporter_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ node_exporter_hostname }}
+  community.docker.docker_container:
     name: "{{ node_exporter_hostname }}"
     labels:
       description: "{{ node_exporter_description }}"
@@ -7,8 +8,8 @@
     restart_policy: unless-stopped
     recreate: false
     volumes:
-      - "/:/host:ro,rslave"
-    command: '--collector.textfile.directory=/host/var/tmp --path.rootfs=/host'
+      - /:/host:ro,rslave
+    command: --collector.textfile.directory=/host/var/tmp --path.rootfs=/host
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
@@ -17,24 +18,24 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ node_exporter_hostname }}|{{ role_name }}"
 
-- name: "Copy {{ role_name }} file scripts"
-  copy:
+- name: Copy {{ role_name }} file scripts
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - write-node-exporter-metric
 
-- name: "Copy {{ role_name }} templated scripts"
-  template:
+- name: Copy {{ role_name }} templated scripts
+  ansible.builtin.template:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - write-docker-volume-metric
 
-- name: "Cron job to run {{ role_name }} background jobs"
-  cron:
-    name: "Run write-docker-volume-metric job"
+- name: Cron job to run {{ role_name }} background jobs
+  ansible.builtin.cron:
+    name: Run write-docker-volume-metric job
     minute: "*"
-    job: "write-docker-volume-metric"
+    job: write-docker-volume-metric

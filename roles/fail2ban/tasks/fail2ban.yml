@@ -1,17 +1,18 @@
-- name: "Install required {{ role_name }} packages"
-  include_role:
+---
+- name: Install required {{ role_name }} packages
+  ansible.builtin.include_role:
     name: package
   vars:
     packages: "{{ fail2ban_packages }}"
 
-- name: "Ensure {{ role_name }} deamon is running"
-  service:
+- name: Ensure {{ role_name }} deamon is running
+  ansible.builtin.service:
     name: fail2ban
     state: started
     enabled: true
 
-- name: "Set {{ role_name }} local config"
-  template:
+- name: Set {{ role_name }} local config
+  ansible.builtin.template:
     src: jail.local
     dest: /etc/fail2ban/jail.local
-  notify: "Restart {{ role_name }} service"
+  notify: Restart {{ role_name }} service

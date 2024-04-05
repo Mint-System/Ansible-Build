@@ -1,5 +1,6 @@
+---
 - name: Remove docker network
-  docker_network:
+  community.docker.docker_network:
     name: "{{ docker_network_name }}"
     state: absent
   when: docker_network_name is defined

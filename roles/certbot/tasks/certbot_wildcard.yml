@@ -1,14 +1,15 @@
-- name: "Create list of wildcard certs"
-  set_fact:
+---
+- name: Create list of wildcard certs
+  ansible.builtin.set_fact:
     certbot_wildcard_certs: "{{ nginx_proxies | json_query('[?contains(src_hostname, `*`)].src_hostname') | list }}"
   when: nginx_proxies is defined
 
-- name: "Log wildcard certificates"
-  debug:
+- name: Log wildcard certificates
+  ansible.builtin.debug:
     var: certbot_wildcard_certs
 
-- name: "Copy {{ role_name }} vercel scripts"
-  template:
+- name: Copy {{ role_name }} vercel scripts
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ certbot_data_dir }}/{{ item }}"
     mode: +x
@@ -22,7 +23,7 @@
 #     docker run --rm --name {{ item | replace('*.', 'wildcard') }}
 #     -v {{ certbot_data_dir }}/:/etc/letsencrypt/
 #     -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }} certonly
-#     --manual --preferred-challenges=dns 
+#     --manual --preferred-challenges=dns
 #     --manual-auth-hook /etc/letsencrypt/vercel-pre-hook
 #     --manual-cleanup-hook /etc/letsencrypt/vercel-post-hook
 #     --email {{ certbot_email }} --agree-tos -d {{ item }}
@@ -32,8 +33,8 @@
 #   failed_when: result.stdout is search('Some challenges have failed.') or result.failed
 #   changed_when: result.stdout is search('Congratulations!') or not result.failed
 
-- name: "Issue certificate with {{ role_name }} manually"
-  fail:
+- name: Issue certificate with {{ role_name }} manually
+  ansible.builtin.fail:
     msg: >-
       Run this command manually:
       docker run -it --rm --name {{ item | replace('*.', 'wildcard') }}

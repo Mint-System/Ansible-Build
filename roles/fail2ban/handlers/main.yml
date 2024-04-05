@@ -1,4 +1,5 @@
-- name: "Restart {{ role_name }} service"
-  service:
+---
+- name: Restart {{ role_name }} service
+  ansible.builtin.service:
     name: fail2ban
     state: restarted

@@ -1,11 +1,12 @@
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: resolv_enabled
   tags:
     - resolv
 
-- name: "Include {{ role_name }} hosts tasks"
-  include_tasks: "{{ role_name }}-hosts.yml"
+- name: Include {{ role_name }} hosts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-hosts.yml"
   when: resolv_hosts is defined
   tags:
     - resolv

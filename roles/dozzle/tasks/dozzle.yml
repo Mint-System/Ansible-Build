@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ dozzle_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ dozzle_hostname }}
+  community.docker.docker_container:
     name: "{{ dozzle_hostname }}"
     labels:
       description: "{{ dozzle_description }}"
@@ -13,7 +14,7 @@
       DOZZLE_FILTER: "{{ dozzle_filter }}"
     ports: "{{ dozzle_ports | default([]) }}"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

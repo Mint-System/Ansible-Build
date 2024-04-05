@@ -1,4 +1,5 @@
-- name: "Remove kibana container {{ kibana_hostname }}"
-  docker_container:
+---
+- name: Remove kibana container {{ kibana_hostname }}
+  community.docker.docker_container:
     name: "{{ kibana_hostname }}"
     state: absent

@@ -1,5 +1,6 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ gitea_volume_name }}"
@@ -7,13 +8,13 @@
   when: gitea_volume_name is defined
 
 - name: Init gitea env
-  set_fact:
+  ansible.builtin.set_fact:
     gitea_env:
       USER: "{{ gitea_user }}"
       LOCAL_ROOT_URL: "{{ gitea_root_url }}"
 
 - name: Append postgres config to gitea env
-  set_fact: 
+  ansible.builtin.set_fact:
     gitea_env: "{{ dict | combine(item) }}"
   with_items:
     - GITEA__database__DB_TYPE: postgres
@@ -23,8 +24,8 @@
     - GITEA__database__PASSWD: "{{ gitea_postgres_password }}"
   when: gitea_postgres_hostname is defined
 
-- name: "Start {{ role_name }} container {{ gitea_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ gitea_hostname }}
+  community.docker.docker_container:
     name: "{{ gitea_hostname }}"
     labels:
       description: "{{ gitea_description }}"
@@ -35,8 +36,8 @@
     ports: "{{ gitea_ports | default([]) }}"
     volumes:
       - "{{ gitea_volume_name }}:/data"
-      - "/etc/timezone:/etc/timezone:ro"
-      - "/etc/localtime:/etc/localtime:ro"
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

@@ -1,10 +1,11 @@
-- name: "Remove redis container {{ redis_hostname }}"
-  docker_container:
+---
+- name: Remove redis container {{ redis_hostname }}
+  community.docker.docker_container:
     name: "{{ redis_hostname }}"
     state: absent
 
-- name: "Remove redis volume {{ redis_volume_name }}"
-  docker_volume:
+- name: Remove redis volume {{ redis_volume_name }}
+  community.docker.docker_volume:
     name: "{{ redis_volume_name }}"
     state: absent
   when: '"redis_volume" in ansible_run_tags'

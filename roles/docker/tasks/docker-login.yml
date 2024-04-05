@@ -1,5 +1,6 @@
-- name: "Log into Docker Hub"
-  docker_login:
+---
+- name: Log into Docker Hub
+  community.docker.docker_login:
     username: "{{ docker_login_username }}"
     password: "{{ docker_login_password }}"
   become: true

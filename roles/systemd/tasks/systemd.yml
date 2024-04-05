@@ -1,12 +1,13 @@
-- name: "Setup systemd service"
-  template:
-    src: "systemd.service"
-    dest: "/etc/systemd/system/{{ item.name }}.service"
+---
+- name: Setup systemd service
+  ansible.builtin.template:
+    src: systemd.service
+    dest: /etc/systemd/system/{{ item.name }}.service
   loop: "{{ systemd_units }}"
   when: systemd_units is defined
 
-- name: "Start systemd service"
-  systemd:
+- name: Start systemd service
+  ansible.builtin.systemd:
     name: "{{ item.name }}"
     state: started
     enabled: true

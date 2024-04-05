@@ -1,10 +1,11 @@
-- name: "Remove cadvisor container {{ cadvisor_hostname }}"
-  docker_container:
+---
+- name: Remove cadvisor container {{ cadvisor_hostname }}
+  community.docker.docker_container:
     name: "{{ cadvisor_hostname }}"
     state: absent
 
 - name: Remove cadvisor data dir
-  file:
+  ansible.builtin.file:
     path: "{{ cadvisor_data_dir }}"
     state: absent
   when: '"cadvisor_data" in ansible_run_tags'

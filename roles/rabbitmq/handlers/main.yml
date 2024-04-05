@@ -1,10 +1,11 @@
-- name: "Restart {{ role_name }} container"
-  docker_container:
+---
+- name: Restart {{ role_name }} container
+  community.docker.docker_container:
     name: "{{ rabbitmq_hostname }}"
     restart: true
 
-- name: "Build {{ role_name }} custom image"
-  docker_image:
+- name: Build {{ role_name }} custom image
+  community.docker.docker_image:
     name: rabbitmq:custom
     build:
       path: "{{ docker_build_dir }}/{{ rabbitmq_hostname }}"

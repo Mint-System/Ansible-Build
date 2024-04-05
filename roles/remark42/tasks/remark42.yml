@@ -1,13 +1,14 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ remark42_volume_name }}"
     docker_volume_backup_set: "{{ remark42_volume_backup_set | default([]) }}"
   when: remark42_volume_name is defined
 
-- name: "Start {{ role_name }} container {{ remark42_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ remark42_hostname }}
+  community.docker.docker_container:
     name: "{{ remark42_hostname }}"
     labels:
       description: "{{ remark42_description }}"
@@ -18,7 +19,7 @@
       REMARK_URL: "{{ remark42_url }}"
       SECRET: "{{ remark42_secret }}"
       ADMIN_PASSWD: "{{ remark42_secret }}"
-      SITE: "remark,{{ remark42_site }}"
+      SITE: remark,{{ remark42_site }}
       AUTH_ANON: "{{ remark42_auth_anonymous }}"
       AUTH_EMAIL_ENABLE: "{{ remark42_auth_email_enable }}"
       AUTH_EMAIL_FROM: "{{ remark42_auth_email_from }}"
@@ -31,10 +32,10 @@
       AUTH_GITHUB_CSEC: "{{ remark42_auth_github_secret }}"
       ADMIN_SHARED_EMAIL: "{{ remark42_admin_shared_email }}"
       ADMIN_SHARED_ID: "{{ remark42_admin_shared_id }}"
-      NOTIFY_TYPE: "email"
+      NOTIFY_TYPE: email
       NOTIFY_EMAIL_FROM: "{{ remark42_notify_email_from }}"
       NOTIFY_EMAIL_ADMIN: "true"
-      BACKUP_PATH: "/srv/var/backup"
+      BACKUP_PATH: /srv/var/backup
       AUTH_SAME_SITE: none
       # DEBUG: "true"
     volumes:

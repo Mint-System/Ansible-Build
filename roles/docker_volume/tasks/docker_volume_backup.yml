@@ -1,5 +1,6 @@
+---
 - name: Include docker volume backup from restic client role
-  include_role:
+  ansible.builtin.include_role:
     name: restic_client
   vars:
     restic_backup_set: "{{ docker_volume_backup_set }}"

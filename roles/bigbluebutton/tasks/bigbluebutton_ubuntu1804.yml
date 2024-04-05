@@ -1,86 +1,86 @@
-
+---
 # https://docs.bigbluebutton.org/2.3/install.html#install
 
 - name: Gather package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
 - name: Run inital installation with script as root
-  fail:
-    msg: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | 
-      bash -s -- -v bionic-230 -s {{ bigbluebutton_hostname }} -e {{ bigbluebutton_certbot_email }}  -a -w"
+  ansible.builtin.fail:
+    msg: wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -v bionic-230 -s {{ bigbluebutton_hostname }} -e {{ bigbluebutton_certbot_email }}  -a
+      -w
   when: "'bigbluebutton' not in ansible_facts.packages"
 
 # https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L267
 
 - name: Update locale (ensure LANG=en_US.UTF-8)
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/default/locale
     regexp: ^LANG
-    line: 'LANG=en_US.UTF-8'
+    line: LANG=en_US.UTF-8
 
 - name: Check multiverse apt repositories are present
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item }}"
     state: present
   loop:
-    - "deb http://archive.ubuntu.com/ubuntu bionic multiverse"
-    - "deb http://archive.ubuntu.com/ubuntu bionic-security multiverse"
-    - "deb http://archive.ubuntu.com/ubuntu bionic-updates multiverse"
-    - "deb http://archive.ubuntu.com/ubuntu bionic universe"
-    - "deb http://archive.ubuntu.com/ubuntu bionic-security universe"
-    - "deb http://archive.ubuntu.com/ubuntu bionic-updates universe"
+    - deb http://archive.ubuntu.com/ubuntu bionic multiverse
+    - deb http://archive.ubuntu.com/ubuntu bionic-security multiverse
+    - deb http://archive.ubuntu.com/ubuntu bionic-updates multiverse
+    - deb http://archive.ubuntu.com/ubuntu bionic universe
+    - deb http://archive.ubuntu.com/ubuntu bionic-security universe
+    - deb http://archive.ubuntu.com/ubuntu bionic-updates universe
 
 - name: Check supplemental PPA repos are present
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item }}"
     state: present
   loop:
-    - 'ppa:bigbluebutton/support'
-    - 'ppa:rmescandon/yq'
-    - 'ppa:libreoffice/ppa'
+    - ppa:bigbluebutton/support
+    - ppa:rmescandon/yq
+    - ppa:libreoffice/ppa
 
 - name: Add Nodesource apt key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280
     id: "68576280"
     state: present
 
 - name: Check Nodesource repo is present
-  apt_repository:
-    repo: "deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main"
+  ansible.builtin.apt_repository:
+    repo: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
     state: present
 
 - name: Add MongoDB apt key
-  apt_key:
-    url: "https://www.mongodb.org/static/pgp/server-4.2.asc"
+  ansible.builtin.apt_key:
+    url: https://www.mongodb.org/static/pgp/server-4.2.asc
     state: present
 
 - name: Check MongoDB repo is present
-  apt_repository:
-    repo: "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse"
+  ansible.builtin.apt_repository:
+    repo: deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse
     state: present
 
 - name: Add BigBlueButton apt key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc
     state: present
 
 - name: Check BigBlueButton repo is present
-  apt_repository:
-    repo: "deb {{ bigbluebutton_apt_repo_url }} bigbluebutton-bionic main"
+  ansible.builtin.apt_repository:
+    repo: deb {{ bigbluebutton_apt_repo_url }} bigbluebutton-bionic main
     state: present
   register: bigbluebutton_repo_is_present
 
 - name: Update apt-get repo and cache # noqa 503
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     force_apt_get: true
     cache_valid_time: 3600
   when: bigbluebutton_repo_is_present.changed
 
 - name: Install dependencies
-  apt:
+  ansible.builtin.apt:
     name:
       - nodejs
       - mongodb-org
@@ -93,24 +93,24 @@
     state: present
 
 - name: Install bigbluebutton
-  apt:
+  ansible.builtin.apt:
     name:
       - bigbluebutton
     state: present
 
 - name: Install bbb-html5
-  apt:
+  ansible.builtin.apt:
     name:
       - bbb-html5
     state: present
 
 - name: Get BigBlueButton API url # noqa 306
-  shell: "bbb-conf --secret | grep {{ bigbluebutton_hostname }}"
+  ansible.builtin.shell: bbb-conf --secret | grep {{ bigbluebutton_hostname }}
   register: bigbluebutton_api_status
   ignore_errors: true
   changed_when: false
 
 - name: Set BigBlueButton server name
-  command: bbb-conf --setip "{{ bigbluebutton_hostname }}"
+  ansible.builtin.command: bbb-conf --setip "{{ bigbluebutton_hostname }}"
   when: bigbluebutton_api_status.rc != 0
   notify: Restart BigBlueButton services

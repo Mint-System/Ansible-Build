@@ -1,11 +1,11 @@
-- name: "Remove nginx container {{ nginx_hostname }}"
-  docker_container:
+---
+- name: Remove nginx container {{ nginx_hostname }}
+  community.docker.docker_container:
     name: "{{ nginx_hostname }}"
     state: absent
 
 - name: Remove nginx data dir
-  file:
+  ansible.builtin.file:
     path: "{{ nginx_data_dir }}"
     state: absent
   when: '"nginx_data" in ansible_run_tags'
-

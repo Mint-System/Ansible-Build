@@ -1,9 +1,10 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ fathom_volume_name }}"
 
-- name: "Start {{ role_name }} container {{ fathom_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ fathom_hostname }}
+  community.docker.docker_container:
     name: "{{ fathom_hostname }}"
     labels:
       description: "{{ fathom_description }}"

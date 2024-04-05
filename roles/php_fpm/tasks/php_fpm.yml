@@ -1,12 +1,13 @@
-- name: "Include docker volume role"
-  include_role:
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
     name: docker_volume
   vars:
     docker_volume_name: "{{ php_fpm_volume_name }}"
   when: php_fpm_volume_name is defined
 
-- name: "Start {{ role_name }} container {{ php_fpm_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ php_fpm_hostname }}
+  community.docker.docker_container:
     name: "{{ php_fpm_hostname }}"
     labels:
       description: "{{ php_fpm_description }}"

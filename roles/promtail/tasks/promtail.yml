@@ -1,18 +1,19 @@
-- name: "Ensure {{ role_name }} data dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
     path: "{{ promtail_data_dir }}"
     state: directory
 
-- name: "Copy {{ role_name }} config"
-  template:
+- name: Copy {{ role_name }} config
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ promtail_data_dir }}/{{ item }}"
   loop:
     - config.yml
-  notify: "Restart {{ role_name }} container"
+  notify: Restart {{ role_name }} container
 
-- name: "Start {{ role_name }} container {{ promtail_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ promtail_hostname }}
+  community.docker.docker_container:
     name: "{{ promtail_hostname }}"
     labels:
       description: "{{ promtail_description }}"

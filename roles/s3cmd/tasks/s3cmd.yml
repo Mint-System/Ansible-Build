@@ -1,23 +1,23 @@
-- name: "Install required {{ role_name }} packages"
-  include_role:
+---
+- name: Install required {{ role_name }} packages
+  ansible.builtin.include_role:
     name: package
   vars:
     packages:
       - name: s3cmd
 
 - name: Add bucket credentials
-  template:
+  ansible.builtin.template:
     src: .s3cfg
     dest: ~/.s3cfg
-    mode: 0600
+    mode: "0600"
 
 - name: Register s3cmd backup jobs
-  cron:
+  ansible.builtin.cron:
     name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "s3cmd sync --delete-removed {{ item.src }} s3://{{ item.target }} && \
-     write-node-exporter-metric -c '{{ item.id }}' -v $?"
+    job: s3cmd sync --delete-removed {{ item.src }} s3://{{ item.target }} && write-node-exporter-metric -c '{{ item.id }}' -v $?
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ s3cmd_backup_set }}"

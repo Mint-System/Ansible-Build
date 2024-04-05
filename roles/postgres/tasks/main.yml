@@ -1,25 +1,26 @@
-- name: "On build set new image tag {{ role_name }}:{{ postgres_hostname }}"
-  set_fact:
-    postgres_image: "postgres:{{ postgres_hostname }}"
+---
+- name: On build set new image tag {{ role_name }}:{{ postgres_hostname }}
+  ansible.builtin.set_fact:
+    postgres_image: postgres:{{ postgres_hostname }}
     postgres_build_image: "{{ postgres_image }}"
   when: postgres_build_image and postgres_build_image != postgres_image
   tags:
     - postgres
 
-- name: "Include {{ role_name }} build tasks"
-  include_tasks: "{{ role_name }}_build.yml"
+- name: Include {{ role_name }} build tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_build.yml"
   when: postgres_build_image and postgres_build_image != postgres_image
   tags:
     - postgres
 
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: postgres_image is defined
 
-- name: "Include {{ role_name }} backup tasks"
-  include_tasks: "{{ role_name }}_backup.yml"
+- name: Include {{ role_name }} backup tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_backup.yml"
   when: postgres_backup_set is defined
 
-- name: "Include {{ role_name }} users tasks"
-  include_tasks: "{{ role_name }}_users.yml"
+- name: Include {{ role_name }} users tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_users.yml"
   when: postgres_users is defined

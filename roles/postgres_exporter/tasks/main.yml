@@ -1,11 +1,12 @@
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: postgres_exporter_image is defined
   tags:
     - postgres_exporter
 
-- name: "Include {{ role_name }} nginx config tasks"
-  include_tasks: "{{ role_name }}_nginx_config.yml"
+- name: Include {{ role_name }} nginx config tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_nginx_config.yml"
   when: postgres_exporter_image is defined
   tags:
     - postgres_exporter

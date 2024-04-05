@@ -1,2 +1,3 @@
+---
 blackbox_exporter_description: Blackbox exporter
-blackbox_exporter_data_dir: "/usr/share/{{ blackbox_exporter_hostname }}"
+blackbox_exporter_data_dir: /usr/share/{{ blackbox_exporter_hostname }}

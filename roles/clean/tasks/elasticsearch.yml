@@ -1,16 +1,17 @@
-- name: "Remove elasticsearch container {{ elasticsearch_hostname }}"
-  docker_container:
+---
+- name: Remove elasticsearch container {{ elasticsearch_hostname }}
+  community.docker.docker_container:
     name: "{{ elasticsearch_hostname }}"
     state: absent
 
-- name: "Remove elasticsearch volume {{ elasticsearch_volume_name }}"
-  docker_volume:
+- name: Remove elasticsearch volume {{ elasticsearch_volume_name }}
+  community.docker.docker_volume:
     name: "{{ elasticsearch_volume_name }}"
     state: absent
   when: ("elasticsearch_volume" in ansible_run_tags)
 
-- name: "Remove elasticsearch data dir {{ elasticsearch_data_dir }}"
-  file:
+- name: Remove elasticsearch data dir {{ elasticsearch_data_dir }}
+  ansible.builtin.file:
     path: "{{ elasticsearch_data_dir }}"
     state: absent
   when: ("elasticsearch_data" in ansible_run_tags)

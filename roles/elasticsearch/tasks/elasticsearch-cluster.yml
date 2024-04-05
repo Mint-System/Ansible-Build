@@ -1,35 +1,36 @@
+---
 - name: Set max map count
-  sysctl:
+  ansible.posix.sysctl:
     name: vm.max_map_count
     value: "262144"
     state: present
 
-- name: "Create {{ role_name }} node volume"
-  docker_volume:
+- name: Create {{ role_name }} node volume
+  community.docker.docker_volume:
     name: "{{ item.volume_name }}"
   when: item.volume_name is defined
   loop: "{{ elasticsearch_nodes }}"
 
-- name: "Ensure {{ role_name }} node data dir exists"
-  file:
+- name: Ensure {{ role_name }} node data dir exists
+  ansible.builtin.file:
     path: "{{ item.data_dir }}"
     state: directory
   loop: "{{ elasticsearch_nodes }}"
 
 - name: Copy ca keystore
-  copy:
+  ansible.builtin.copy:
     src: elastic-stack-ca.p12
     dest: "{{ item.data_dir }}/certs/"
   loop: "{{ elasticsearch_nodes }}"
 
 - name: Copy node keystore
-  copy:
+  ansible.builtin.copy:
     src: elastic-certificates.p12
     dest: "{{ item.data_dir }}/certs/"
   loop: "{{ elasticsearch_nodes }}"
 
-- name: "Start {{ role_name }} container {{ item.hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ item.hostname }}
+  community.docker.docker_container:
     name: "{{ item.hostname }}"
     labels:
       description: "{{ item.description }}"
@@ -42,7 +43,7 @@
       discovery.seed_hosts: "{{ item.seed_hosts }}"
       cluster.initial_master_nodes: "{{ elasticsearch_masternodes }}"
       bootstrap.memory_lock: "true"
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
       ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
       xpack.security.enabled: "true"
       xpack.security.transport.ssl.enabled: "true"
@@ -69,8 +70,8 @@
   when: item.primary
   register: start_elasticsearch_primary_node
 
-- name: "Start {{ role_name }} container {{ item.hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ item.hostname }}
+  community.docker.docker_container:
     name: "{{ item.hostname }}"
     labels:
       description: "{{ item.description }}"
@@ -83,7 +84,7 @@
       discovery.seed_hosts: "{{ item.seed_hosts }}"
       cluster.initial_master_nodes: "{{ elasticsearch_masternodes }}"
       bootstrap.memory_lock: "true"
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
       ELASTIC_PASSWORD: "{{ elasticsearch_password }}"
       xpack.security.enabled: "true"
       xpack.security.transport.ssl.enabled: "true"
@@ -106,7 +107,7 @@
   loop: "{{ elasticsearch_nodes }}"
   when: not item.primary
 
-- name: "Wait for {{ role_name }} primary node container to boot" # noqa 503
-  pause:
+- name: Wait for {{ role_name }} primary node container to boot # noqa 503
+  ansible.builtin.pause:
     seconds: "60"
   when: start_elasticsearch_primary_node.changed

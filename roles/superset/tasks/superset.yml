@@ -1,9 +1,10 @@
-- name: "Create {{ role_name }} volume"
-  docker_volume:
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
     name: "{{ superset_volume_name }}"
 
-- name: "Start {{ role_name }} container {{ superset_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ superset_hostname }}
+  community.docker.docker_container:
     name: "{{ superset_hostname }}"
     labels:
       description: "{{ superset_description }}"
@@ -39,4 +40,3 @@
 # - name: "Init {{ role_name }} db"
 #   command: docker exec "{{ superset_hostname }}" \
 #     superset superset init
-

@@ -1,4 +1,5 @@
-- name: "Restart {{ role_name }} container"
-  docker_container:
+---
+- name: Restart {{ role_name }} container
+  community.docker.docker_container:
     name: "{{ metricbeat_hostname }}"
     restart: true

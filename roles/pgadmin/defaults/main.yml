@@ -1,6 +1,7 @@
+---
 pgadmin_description: pgAdmin
 pgadmin_data_dir: /usr/share/{{ pgadmin_hostname }}
 pgadmin_volume_name: "{{ pgadmin_hostname }}"
 pgadmin_script_name: ""
 pgadmin_ports:
-  - "127.0.0.1:5050:80"
+  - 127.0.0.1:5050:80

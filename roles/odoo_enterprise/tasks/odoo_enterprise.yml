@@ -1,5 +1,6 @@
+---
 - name: Git ssh checkout
-  git:
+  ansible.builtin.git:
     repo: "{{ odoo_enterprise_repo }}"
     dest: "{{ odoo_data_dir }}/enterprise"
     key_file: "{{ odoo_enterprise_key_file }}"
@@ -11,8 +12,8 @@
   when: odoo_enterprise_repo is regex('git@')
 
 - name: Git https checkout
-  git:
-    repo: "https://{{ odoo_enterprise_access_username|urlencode() }}:{{ odoo_enterprise_access_token|urlencode() }}@github.com/odoo/enterprise.git"
+  ansible.builtin.git:
+    repo: https://{{ odoo_enterprise_access_username|urlencode() }}:{{ odoo_enterprise_access_token|urlencode() }}@github.com/odoo/enterprise.git
     dest: "{{ odoo_data_dir }}/enterprise"
     version: "{{ odoo_enterprise_commit }}"
     accept_hostkey: true
@@ -22,5 +23,5 @@
   when: odoo_enterprise_repo is regex('https:\/\/')
 
 - name: Ensure auto install is disabled
-  script: "disable-auto-install {{ odoo_data_dir }}"
+  ansible.builtin.script: disable-auto-install {{ odoo_data_dir }}
   changed_when: false

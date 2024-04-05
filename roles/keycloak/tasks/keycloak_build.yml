@@ -1,31 +1,32 @@
-- name: "Ensure {{ role_name }} build dir exists"
-  file:
+---
+- name: Ensure {{ role_name }} build dir exists
+  ansible.builtin.file:
     path: "{{ docker_build_dir }}/{{ keycloak_hostname }}"
     state: directory
 
-- name: "Ensure path for build files exists"
-  file:
+- name: Ensure path for build files exists
+  ansible.builtin.file:
     path: "{{ docker_build_dir }}/{{ keycloak_hostname }}{{ item.dest | dirname }}"
     state: directory
   loop: "{{ keycloak_build_include }}"
   when: keycloak_build_include is defined
 
-- name: "Download build files"
-  get_url:
+- name: Download build files
+  ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "{{ docker_build_dir }}/{{ keycloak_hostname }}{{ item.dest }}"
   loop: "{{ keycloak_build_include }}"
   when: keycloak_build_include is defined
-  notify: "Build {{ role_name }} custom image"
-  
-- name: "Copy {{ role_name }} Dockerfile"
-  template:
+  notify: Build {{ role_name }} custom image
+
+- name: Copy {{ role_name }} Dockerfile
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ docker_build_dir }}/{{ keycloak_hostname }}/{{ item }}"
   loop:
     - Dockerfile
     - .dockerignore
-  notify: "Build {{ role_name }} custom image"
+  notify: Build {{ role_name }} custom image
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers

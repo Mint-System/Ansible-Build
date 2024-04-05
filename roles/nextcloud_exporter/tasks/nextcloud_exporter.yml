@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ nextcloud_exporter_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ nextcloud_exporter_hostname }}
+  community.docker.docker_container:
     name: "{{ nextcloud_exporter_hostname }}"
     labels:
       description: "{{ nextcloud_exporter_description }}"

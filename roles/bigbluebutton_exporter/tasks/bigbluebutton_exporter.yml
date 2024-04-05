@@ -1,15 +1,16 @@
+---
 - name: Get BigBlueButton API secret # noqa 306
-  shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
+  ansible.builtin.shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
   register: bigbluebutton_api_secret
   changed_when: false
 
 - name: Get BigBlueButton API url # noqa 306
-  shell: "bbb-conf --secret | grep 'URL: ' | sed 's/^ *URL:\\s//g'"
+  ansible.builtin.shell: "bbb-conf --secret | grep 'URL: ' | sed 's/^ *URL:\\s//g'"
   register: bigbluebutton_api_url
   changed_when: false
 
-- name: "Start {{ role_name }} container {{ bigbluebutton_exporter_hostname }}"
-  docker_container:
+- name: Start {{ role_name }} container {{ bigbluebutton_exporter_hostname }}
+  community.docker.docker_container:
     name: "{{ bigbluebutton_exporter_hostname }}"
     labels:
       description: "{{ bigbluebutton_exporter_description }}"
@@ -21,7 +22,7 @@
       API_SECRET: "{{ bigbluebutton_api_secret.stdout }}"
       RECORDINGS_METRICS_READ_FROM_DISK: "true"
     volumes:
-      - "/var/bigbluebutton:/var/bigbluebutton:ro"
+      - /var/bigbluebutton:/var/bigbluebutton:ro
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

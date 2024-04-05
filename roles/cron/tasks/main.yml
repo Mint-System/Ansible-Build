@@ -1,11 +1,12 @@
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: cron_jobs is defined
   tags:
     - cron
 
-- name: "Include {{ role_name }} log tasks"
-  include_tasks: "{{ role_name }}-log.yml"
+- name: Include {{ role_name }} log tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-log.yml"
   when: cron_jobs is defined
   tags:
     - cron

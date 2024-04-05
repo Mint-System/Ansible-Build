@@ -1,19 +1,20 @@
-- name: "On build set new image tag {{ role_name }}:{{ php_fpm_hostname }}"
-  set_fact:
-    php_fpm_image: "php_fpm:{{ php_fpm_hostname }}"
+---
+- name: On build set new image tag {{ role_name }}:{{ php_fpm_hostname }}
+  ansible.builtin.set_fact:
+    php_fpm_image: php_fpm:{{ php_fpm_hostname }}
     php_fpm_build_image: "{{ php_fpm_image }}"
   when: php_fpm_build_image and php_fpm_build_image != php_fpm_image
   tags:
     - php_fpm
 
-- name: "Include {{ role_name }} build tasks"
-  include_tasks: "{{ role_name }}_build.yml"
+- name: Include {{ role_name }} build tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_build.yml"
   when: php_fpm_build_image and php_fpm_build_image != php_fpm_image
   tags:
     - php_fpm
 
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: php_fpm_image is defined
   tags:
     - php_fpm

@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ onlyoffice_documentserver_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ onlyoffice_documentserver_hostname }}
+  community.docker.docker_container:
     name: "{{ onlyoffice_documentserver_hostname }}"
     labels:
       description: "{{ onlyoffice_documentserver_description }}"

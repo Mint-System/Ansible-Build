@@ -1,32 +1,30 @@
+---
 - name: Verify odoo backup command exists
-  shell: "ls $(which odoo-backup)"
+  ansible.builtin.shell: ls $(which odoo-backup)
   changed_when: false
   loop: "{{ restic_backup_set }}"
   when: item.type == "odoo-backup"
 
 - name: Register odoo backup jobs
-  cron:
+  ansible.builtin.cron:
     name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} -o {{ restic_backup_dir }} \
-      && restic backup {{ restic_backup_dir }}/{{ item.database }}.zip --tag {{ item.tags | join(' --tag ') }} \
-      {{ '--help' if not (item.upload | default(true)) else '' }}; \
-      write-node-exporter-metric -c '{{ item.id }}' -v $?"
+    job: odoo-backup -d {{ item.database }} -h {{ item.host | default('http://localhost:8069') }} -o {{ restic_backup_dir }} && restic backup {{ restic_backup_dir
+      }}/{{ item.database }}.zip --tag {{ item.tags | join(' --tag ') }} {{ '--help' if not (item.upload | default(true)) else '' }}; write-node-exporter-metric -c
+      '{{ item.id }}' -v $?
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
   when: item.type == "odoo-backup"
 
 - name: Register odoo backup jobs
-  cron:
+  ansible.builtin.cron:
     name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: "docker-odoo-backup -d {{ item.database }} -c {{ item.container }} -o {{ restic_backup_dir }} \
-      && restic backup {{ restic_backup_dir }}/{{ item.database }}.zip --tag {{ item.tags | join(' --tag ') }} \
-      {{ '--help' if not (item.upload | default(true)) else '' }}; \
-      write-node-exporter-metric -c '{{ item.id }}' -v $?"
+    job: docker-odoo-backup -d {{ item.database }} -c {{ item.container }} -o {{ restic_backup_dir }} && restic backup {{ restic_backup_dir }}/{{ item.database }}.zip
+      --tag {{ item.tags | join(' --tag ') }} {{ '--help' if not (item.upload | default(true)) else '' }}; write-node-exporter-metric -c '{{ item.id }}' -v $?
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"

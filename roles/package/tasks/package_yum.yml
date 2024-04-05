@@ -1,22 +1,23 @@
+---
 - name: Enable yum repos
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ item.url }}"
-    dest: "/etc/yum.repos.d/{{ item.name }}.repo"
+    dest: /etc/yum.repos.d/{{ item.name }}.repo
   loop: "{{ yum_repos }}"
 
 - name: Update yum cache
-  yum:
+  ansible.builtin.yum:
     update_cache: true
 
 - name: Install latest packages
-  yum:
+  ansible.builtin.yum:
     name: "{{ item.name }}"
     state: present
   loop: "{{ packages }}"
   when: item.version is not defined
 
 - name: Install versioned packages
-  yum:
+  ansible.builtin.yum:
     name: "{{ item.name }}-{{ item.version }}"
     state: present
   loop: "{{ packages }}"

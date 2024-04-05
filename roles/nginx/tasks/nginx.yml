@@ -1,5 +1,6 @@
-- name: "Start {{ role_name }} container {{ nginx_hostname }}"
-  docker_container:
+---
+- name: Start {{ role_name }} container {{ nginx_hostname }}
+  community.docker.docker_container:
     name: "{{ nginx_hostname }}"
     labels:
       description: "{{ nginx_description }}"
@@ -21,10 +22,10 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ nginx_hostname }}|{{ role_name }}"
 
-- name: "Copy {{ role_name }} scripts"
-  copy:
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - docker-nginx-reload

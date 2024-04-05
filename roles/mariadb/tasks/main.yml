@@ -1,11 +1,12 @@
-- name: "Include {{ role_name }} tasks"
-  include_tasks: "{{ role_name }}.yml"
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: mariadb_image is defined
   tags:
-   - mariadb
+    - mariadb
 
-- name: "Include {{ role_name }} backup tasks"
-  include_tasks: "{{ role_name }}-backup.yml"
+- name: Include {{ role_name }} backup tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-backup.yml"
   when: mariadb_backup_set is defined
   tags:
-   - mariadb
+    - mariadb
