@@ -7,18 +7,6 @@
   template:
     src: default.conf
     dest: "{{ nginx_data_dir }}/default.conf"
-
-- name: "Get list of active {{ role_name }} certs"
-  stat:
-    path: "{{ certbot_data_dir }}/live/{{ item.src_hostname }}"
-  loop: "{{ nginx_proxies }}"
-  register: certbot_certs
-  when: nginx_proxies is defined
-
-- name: "Create list of active certs"
-  set_fact:
-    certbot_active_certs: "{{ certbot_certs | json_query('results[*] | [?stat.exists==`true`].item.src_hostname') | list }}"
-  when: nginx_proxies is defined
   
 - name: "Copy {{ role_name }} conf"
   template:
