@@ -1,4 +1,5 @@
 ---
+rabbitmq_build_image: false
 rabbitmq_description: RabbitMQ
 rabbitmq_volume_name: "{{ rabbitmq_hostname }}"
 rabbitmq_data_dir: /usr/share/{{ rabbitmq_hostname }}

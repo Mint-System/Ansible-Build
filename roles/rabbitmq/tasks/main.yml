@@ -1,4 +1,19 @@
 ---
+---
+- name: On build set new image tag {{ role_name }}:{{ rabbitmq_hostname }}
+  ansible.builtin.set_fact:
+    rabbitmq_image: rabbitmq:{{ rabbitmq_hostname }}
+    rabbitmq_build_image: "{{ rabbitmq_image }}"
+  when: rabbitmq_build_image and rabbitmq_build_image != rabbitmq_image
+  tags:
+    - rabbitmq
+
+- name: Include {{ role_name }} build tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_build.yml"
+  when: rabbitmq_build_image and rabbitmq_build_image != rabbitmq_image
+  tags:
+    - rabbitmq
+
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: rabbitmq_image is defined

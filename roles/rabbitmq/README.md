@@ -11,6 +11,7 @@ Configure the role.
 ```yml
 # https://registry.hub.docker.com/_/rabbitmq/
 rabbitmq_image: rabbitmq:3.8-management
+rabbitmq_build_image: true # default: false
 rabbitmq_description: Database for website # default: RabbitMQ
 rabbitmq_hostname: mq01
 rabbitmq_volume_name: mq_data01 # default: "{{ rabbitmq_hostname}}"
