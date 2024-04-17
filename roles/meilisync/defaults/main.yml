@@ -1,0 +1,28 @@
+---
+meilisync_description: meilisync
+meilisync_data_dir: /usr/share/{{ meilisync_hostname }}
+meilisync_volume_name: "{{ meilisync_hostname }}"
+meilisync_password: "{{ vault_meilisync_password }}"
+meilisync_docker_host: unix:///var/run/docker.sock
+meilisync_casc: |-
+  meilisync:
+    securityRealm:
+      local:
+        allowsSignup: false
+        users:
+        - id: ${MEILISYNC_USER}
+          password: ${MEILISYNC_PASSWORD}
+    authorizationStrategy:
+      globalMatrix:
+        entries:
+        - group:
+            name: "authenticated"
+            permissions:
+            - "Overall/Read"
+        - user:
+            name: "${MEILISYNC_USER}"
+            permissions:
+            - "Overall/Administer"
+    unclassified:
+      location:
+        url: ${MEILISYNC_URL}
