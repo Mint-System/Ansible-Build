@@ -77,7 +77,7 @@ Build with Docker.
 
 ```bash
 cd /srv/build/nextcloud01
-docker build . -t nextcloud:custom
+docker build . -t nextcloud:nextcloud01
 ```
 
 ### Internal Server Error

@@ -6,7 +6,7 @@
 
 - name: Build {{ role_name }} custom image
   community.docker.docker_image:
-    name: rabbitmq:custom
+    name: "{{ rabbitmq_image }}"
     build:
       path: "{{ docker_build_dir }}/{{ rabbitmq_hostname }}"
       pull: true

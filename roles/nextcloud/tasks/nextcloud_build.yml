@@ -1,7 +1,7 @@
 ---
 - name: Ensure {{ role_name }} build dir exists
   ansible.builtin.file:
-    path: "{{ docker_build_dir }}/{{ nextcloud_hostname }}/providers"
+    path: "{{ docker_build_dir }}/{{ nextcloud_hostname }}"
     state: directory
 
 - name: Copy {{ role_name }} Dockerfile

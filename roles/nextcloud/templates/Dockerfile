@@ -1,4 +1,4 @@
-FROM {{ nextcloud_image }}
+FROM {{ nextcloud_build_image }}
 RUN apt update
 RUN apt install -y smbclient libsmbclient-dev
 RUN pecl install smbclient
