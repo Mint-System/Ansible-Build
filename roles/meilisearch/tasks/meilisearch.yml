@@ -1,4 +1,8 @@
 ---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ meilisearch_volume_name }}"
+
 - name: Start {{ role_name }} container {{ meilisearch_hostname }}
   community.docker.docker_container:
     name: "{{ meilisearch_hostname }}"
@@ -10,11 +14,12 @@
     env:
       MEILI_MASTER_KEY: "{{ meilisearch_master_key }}"
     volumes:
-      - "{{ matomo_volume_name }}:/var/www/html"
+      - "{{ meilisearch_volume_name }}:/meili_data"
+    ports: "{{ meilisearch_ports }}"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
-      tag: "{{ matomo_hostname }}|{{ role_name }}"
+      tag: "{{ meilisearch_hostname }}|{{ role_name }}"

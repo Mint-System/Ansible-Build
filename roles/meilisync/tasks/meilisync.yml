@@ -1,11 +1,4 @@
 ---
-- name: Include docker volume role
-  ansible.builtin.include_role:
-    name: docker_volume
-  vars:
-    docker_volume_name: "{{ meilisync_volume_name }}"
-  when: meilisyn_volume_name is defined
-
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
     path: "{{ meilisync_data_dir }}"
@@ -16,31 +9,19 @@
     src: "{{ item }}"
     dest: "{{ meilisync_data_dir }}/{{ item }}"
   loop:
-    - meilisync.yml
+    - config.yml
   notify: Restart {{ role_name }} container
 
-- name: Start {{ role_name }} container {{ meilisyn_hostname }}
+- name: Start {{ role_name }} container {{ meilisync_hostname }}
   community.docker.docker_container:
     name: "{{ meilisync_hostname }}"
     labels:
-      description: "{{ meilisync
-_description }}"
+      description: "{{ meilisync_description }}"
     image: "{{ meilisync_image }}"
     restart_policy: unless-stopped
     recreate: false
-    env:
-      meilisync
-_USER: "{{ meilisync_user }}"
-      meilisync
-_PASSWORD: "{{ meilisync_password }}"
-      meilisync
-_URL: "{{ meilisync_url }}"
-      DOCKER_HOST: "{{ meilisync
-_docker_host }}"
     volumes:
-      - "{{ meilisync
-_volume_name }}:/var/meilisync_home"
-      - "{{ meilisync_data_dir }}/meilisync.yml:/usr/share/meilisync/ref/meilisync.yml"
+      - "{{ meilisync_data_dir }}/config.yml:/meilisync/config.yml"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

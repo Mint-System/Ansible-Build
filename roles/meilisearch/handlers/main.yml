@@ -1,16 +1,6 @@
 ---
 - name: Restart {{ role_name }} container
   community.docker.docker_container:
-    name: "{{ matomo_hostname }}"
+    name: "{{ meilisearch_hostname }}"
     restart: true
 
-- name: Build {{ role_name }} custom image
-  community.docker.docker_image:
-    name: "{{ matomo_image }}"
-    build:
-      path: "{{ docker_build_dir }}/{{ matomo_hostname }}"
-      pull: true
-    source: build
-    force_source: true
-    force_tag: true
-    state: present
