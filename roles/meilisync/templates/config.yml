@@ -1,0 +1,18 @@
+meilisearch:
+  api_url: "{{ meilisync_api_url }}"
+  api_key: "{{ meilisync_api_key }}"
+  insert_size: 1000
+  insert_interval: 10
+
+progress:
+  type: file
+
+source:
+  type: postgres
+  host: "{{ meilisync_postgres_host }}"
+  port: 5432
+  database: "{{ meilisync_postgres_db }}"
+  user: "{{ meilisync_postgres_user }}"
+  password: "{{ meilisync_postgres_password }}"
+
+{{ meilisync_config }}

@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/postgres
-postgres_image: postgres:12-alpine
+postgres_image: postgres:14
 postgres_build_image: true # default: false
 postgres_description: Database for website # default: PostgreSQL
 postgres_hostname: postgres01
@@ -38,6 +38,7 @@ postgres_users:
         database: odoo-main
       - name: hr_employee
         database: odoo-int
+postgres_wal_level: logical # default: replica 
 ```
 
 Backup databases.

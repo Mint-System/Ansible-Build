@@ -6,3 +6,4 @@ postgres_db: "{{ postgres_user }}"
 postgres_password: "{{ vault_postgres_password }}"
 postgres_data_dir: /usr/share/{{ postgres_hostname }}
 postgres_ports: []
+postgres_wal_level: replica

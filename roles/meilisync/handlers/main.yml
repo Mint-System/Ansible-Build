@@ -1,6 +1,5 @@
 ---
 - name: Restart {{ role_name }} container
   community.docker.docker_container:
-    name: "{{ meilisearch_hostname }}"
+    name: "{{ meilisync_hostname }}"
     restart: true
-

@@ -1,0 +1,31 @@
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ meilisync_data_dir }}"
+    state: directory
+
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ meilisync_data_dir }}/{{ item }}"
+  loop:
+    - config.yml
+  notify: Restart {{ role_name }} container
+
+- name: Start {{ role_name }} container {{ meilisync_hostname }}
+  community.docker.docker_container:
+    name: "{{ meilisync_hostname }}"
+    labels:
+      description: "{{ meilisync_description }}"
+    image: "{{ meilisync_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    volumes:
+      - "{{ meilisync_data_dir }}/config.yml:/meilisync/config.yml"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ meilisync_hostname }}|{{ role_name }}"
