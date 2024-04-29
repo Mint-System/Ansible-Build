@@ -54,6 +54,7 @@ List of all available Ansible roles.
 | [clean](roles/clean/README.md)                                         | Cleanup Ansible roles.                                           |
 | [collabora_code](roles/collabora_code/README.md)                       | Deploy Collabora Code container.                                 |
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
+| [coturn](roles/coturn/README.md)                                       | Deploy Coturn cotainer.                                          |
 | [cron](roles/cron/README.md)                                           | Setup cron jobs.                                                 |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
 | [dind](roles/dind/README.md)                                           | Deploy Docker in Docker container.                               |
@@ -87,6 +88,7 @@ List of all available Ansible roles.
 | [maintenance](roles/maintenance/README.md)                             | Maintain operating system and disk space.                        |
 | [mariadb](roles/mariadb/README.md)                                     | Deploy MariaDB database container.                               |
 | [matomo](roles/matomo/README.md)                                       | Deploy Matomo container.                                         |
+| [meilisearch](roles/meilisearch/README.md)                             | Deploy Meilisearch container.                                    |
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |
@@ -128,14 +130,6 @@ List of all available Ansible roles.
 | [update](roles/update/README.md)                                       | Install system and package updates.                              |
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |
 | [wordpress](roles/wordpress/README.md)                                 | Deploy WordPress container.                                      |
-
-Work in Progress:
-
-| Role                                       | Description                      |
-| ------------------------------------------ | -------------------------------- |
-| [meilisearch](roles/meilisearch/README.md) | Deploy Meilisearch container.    |
-| [coturn](roles/coturn/README.md)           | Deploy Coturn container.         |
-| [synapse](roles/synapse/README.md)         | Deploy Matrix Synapse container. |
 
 ### Scripts
 

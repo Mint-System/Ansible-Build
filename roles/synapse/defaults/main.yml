@@ -1,5 +1,0 @@
----
-synapse_description: Synapse
-synapse_volume_name: "{{ synapse_hostname }}"
-synapse_data_dir: /usr/share/{{ synapse_hostname }}
-synapse_timezone: Europe/Berlin

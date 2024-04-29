@@ -1,6 +1,6 @@
 # Coturn role
 
-Deploy Cotainer.
+Deploy Coturn cotainer.
 
 ## Usage
 
