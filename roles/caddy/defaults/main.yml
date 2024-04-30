@@ -1,0 +1,8 @@
+---
+caddy_build_image: false
+caddy_description: Apache caddy
+caddy_data_dir: /usr/share/{{ caddy_hostname }}
+caddy_ports:
+  - 80:80
+  - 443:443
+  - 443:443/udp

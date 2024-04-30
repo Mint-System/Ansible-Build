@@ -1,5 +1,4 @@
 ---
----
 - name: On build set new image tag {{ role_name }}:{{ rabbitmq_hostname }}
   ansible.builtin.set_fact:
     rabbitmq_image: rabbitmq:{{ rabbitmq_hostname }}

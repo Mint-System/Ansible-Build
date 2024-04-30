@@ -32,3 +32,5 @@
       tags: keycloak_client
     - role: htpasswd
       tags: htpasswd
+    - role: caddy
+      tags: caddy

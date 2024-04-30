@@ -10,12 +10,12 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/postgres
-postgres_image: postgres:14
+postgres_image: postgres:14-alpine
 postgres_build_image: true # default: false
 postgres_description: Database for website # default: PostgreSQL
 postgres_hostname: postgres01
 postgres_volume_name: postgres_data01 # default: "{{ postgres_hostname }}"
-postgres_data_dir: postgres_conf01 # default: "/usr/share/{{ postgres_hostname }}"
+postgres_data_dir: /usr/share/postgres # default: "/usr/share/{{ postgres_hostname }}"
 postgres_ports:
   - 127.0.0.1:5433:5432 # default: []
 postgres_user: example

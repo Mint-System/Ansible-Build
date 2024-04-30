@@ -27,3 +27,7 @@
       tags: maintenance
     - role: rabbitmq
       tags: rabbitmq
+    - role: caddy
+      tags: caddy
+    - role: pgadmin
+      tags: pgadmin

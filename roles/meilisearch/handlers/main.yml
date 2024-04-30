@@ -3,4 +3,3 @@
   community.docker.docker_container:
     name: "{{ meilisearch_hostname }}"
     restart: true
-

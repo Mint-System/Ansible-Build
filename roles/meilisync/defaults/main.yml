@@ -1,5 +1,5 @@
 ---
 meilisync_description: Meilisync
 meilisync_postgres_password: "{{ vault_meilisync_postgres_password }}"
-meilisync_data_dir: "/usr/share/{{ meilisync_hostname }}"
+meilisync_data_dir: /usr/share/{{ meilisync_hostname }}
 meilisync_api_key: "{{ vault_meilisync_api_key }}"
