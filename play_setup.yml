@@ -74,8 +74,6 @@
       tags: moodle
     - role: vercel
       tags: vercel
-    - role: synapse
-      tags: synapse
     - role: birt
       tags: birt
     - role: gitea
