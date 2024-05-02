@@ -47,7 +47,7 @@ function install() {
 
     echo "Install Ansible and Python dependencies."
     sudo apt install graphviz
-    pip3 install -r requirements.txt
+    pip install -r requirements.txt
 
     ansible-galaxy collection install community.general
 }
