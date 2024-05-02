@@ -11,25 +11,25 @@
   when: ansible_distribution != "Ubuntu" and ansible_distribution_major_version != '18.04'
 
 - name: Include {{ role_name }} ubuntu1804 tasks
-  ansible.builtin._include: "{{ role_name }}_ubuntu1804.yml"
+  ansible.builtin.include_tasks: "{{ role_name }}_ubuntu1804.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined and ('"all" in ansible_run_tags' or '"ubuntu1804" in ansible_run_tags')
 
 - name: Include {{ role_name }} html5 tasks
-  ansible.builtin._include: "{{ role_name }}_html5.yml"
+  ansible.builtin.include_tasks: "{{ role_name }}_html5.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined and ('"all" in ansible_run_tags' or '"html5" in ansible_run_tags')
 
 - name: Include {{ role_name }} letsencrypt tasks
-  ansible.builtin._include: "{{ role_name }}_letsencrypt.yml"
+  ansible.builtin.include_tasks: "{{ role_name }}_letsencrypt.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined and ('"all" in ansible_run_tags' or '"letsencrypt" in ansible_run_tags')
 
 - name: Include {{ role_name }} https tasks
-  ansible.builtin._include: "{{ role_name }}_https.yml"
+  ansible.builtin.include_tasks: "{{ role_name }}_https.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined and ('"all" in ansible_run_tags' or '"https" in ansible_run_tags')
 
 - name: Include {{ role_name }} greenlight tasks
-  ansible.builtin._include: "{{ role_name }}_greenlight.yml"
+  ansible.builtin.include_tasks: "{{ role_name }}_greenlight.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_apt_repo_url is defined and ('"all" in ansible_run_tags' or '"greenlight" in ansible_run_tags')
 
 - name: Include {{ role_name }} coturn tasks
-  ansible.builtin._include: "{{ role_name }}_coturn.yml"
+  ansible.builtin.include_tasks: "{{ role_name }}_coturn.yml"
   when: ansible_distribution == "Ubuntu" and bigbluebutton_coturn_domain is defined and ('"all" in ansible_run_tags' or '"coturn" in ansible_run_tags')
