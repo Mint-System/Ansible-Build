@@ -72,8 +72,6 @@
       tags: pgadmin
     - role: moodle
       tags: moodle
-    - role: vercel
-      tags: vercel
     - role: birt
       tags: birt
     - role: gitea
@@ -96,12 +94,6 @@
       tags: keycloak
     - role: pgadmin
       tags: pgadmin
-    - role: bigbluebutton
-      tags: # FIXME Filtering by tag does not work 
-        - ubuntu1804
-        - ubuntu1604
-        - greenlight
-        - letsencrypt
     - role: coturn
       tags: coturn
     - role: git
@@ -118,8 +110,6 @@
       tags: node_exporter
     - role: restic_server
       tags: restic_server
-    - role: bigbluebutton_exporter
-      tags: bigbluebutton_exporter
     - role: grafana
       tags: grafana
     - role: postgres_exporter
