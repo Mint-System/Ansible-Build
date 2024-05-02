@@ -1,7 +1,7 @@
 ansible
+ansible-dev-tools
 jmespath
 dnspython
-graphviz
-ansible-lint
 passlib
 docker
+graphviz
