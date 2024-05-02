@@ -70,5 +70,5 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup hosts 
 Select multiple inventories when deploying.
 
 ```bash
-ansible-playbook -i inventories/odoo -i inventories/nextcloud -i inventories/setup play_proxy.yml -l prometheus -t prometheus
+ansible-playbook -i inventories/odoo -i inventories/nextcloud -i inventories/setup play_setup.yml -l prometheus -t prometheus
 ```
