@@ -31,3 +31,5 @@
       tags: caddy
     - role: pgadmin
       tags: pgadmin
+    - role: vercel
+      tags: vercel
