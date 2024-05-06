@@ -1,0 +1,2 @@
+---
+acme_sh_data_dir: /usr/share/{{ acme_sh_hostname }}

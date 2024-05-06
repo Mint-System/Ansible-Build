@@ -122,6 +122,8 @@
       tags: loki
     - role: promtail
       tags: promtail
+    - role: acme_sh
+      tags: acme_sh
     - role: nginx
       tags: nginx
     - role: nginx_waf

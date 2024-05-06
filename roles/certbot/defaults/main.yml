@@ -2,4 +2,3 @@
 certbot_build_image: false
 certbot_preferred_challenges: http
 certbot_data_dir: /usr/share/{{ certbot_hostname }}
-nginx_data_dir: /usr/share/{{ nginx_hostname }}

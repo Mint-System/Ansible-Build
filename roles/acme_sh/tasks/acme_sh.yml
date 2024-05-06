@@ -1,0 +1,26 @@
+---
+- name: Ensure nginx data dir exists
+  ansible.builtin.file:
+    path: "{{ nginx_data_dir }}/proxies"
+    state: directory
+
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ acme_sh_data_dir }}/out"
+    state: directory
+
+- name: Get list nginx certs with api
+  ansible.builtin.set_fact:
+    acme_sh_certs: "{{ nginx_proxies | selectattr('dns_api', 'defined') }}"
+
+- name: Log certificates to issue
+  ansible.builtin.debug:
+    var: "{{ acme_sh_certs | json_query('[*].src_hostname') }}"
+
+- name: Issue certificate with {{ role_name }}
+  ansible.builtin.command: >-
+    docker run --rm
+    -e VERCEL_TOKEN="{{ vercel_token }}"
+    -v {{ acme_sh_data_dir }}/out:/acme.sh
+    {{ acme_sh_image }} --issue -dns {{ item.dns_api }} -d {{ item.src_hostname }}
+  loop: "{{ acme_sh_certs }}"

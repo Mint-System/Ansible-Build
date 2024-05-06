@@ -43,6 +43,7 @@ List of all available Ansible roles.
 
 | Role                                                                   | Description                                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| [acme_sh](roles/acme_sh/README.md)                                     | Issue & renew the free certificates.                             |
 | [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
 | [birt](roles/birt/README.md)                                           | Deploy BIRT container.                                           |
