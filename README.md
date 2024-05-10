@@ -348,3 +348,25 @@ In the `main.yml` you would include the tasks as followed:
   tags:
     - nginx
 ```
+
+### Aliases
+
+Whenever a role is applied to the same host multiple times, you can create multiple aliases for the same host. Append a selected suffix to make a distinction between the aliases:
+
+* **main**: Production environment.
+* **int**: Staging environment.
+* **dev**: Development and test environment.
+* **upgrade**: Upgrade environment.
+* **website**: Website environment.
+* **old**: Obsolete environment.
+
+Here is an example of an host with two aliases:
+
+```yml
+all:
+  hosts:
+    zeus_web:
+      ansible_host: zeus.mint-system.com
+    zeus_main:
+      ansible_host: zeus.mint-system.com
+```
