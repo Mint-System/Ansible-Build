@@ -70,6 +70,6 @@ fi
 
 if [[ $ACTION == 'reset' ]]; then
     [[ -z "$ID" ]] && { echo "Parameter -i|id is empty" ; exit 1; }
-    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE res_users SET active=true,password='\$pbkdf2-sha512\$25000\$JuScEwIg5JzTGqNUivFeqw\$yWTOcix2Afr3XGP2NPY7w4w49e9vpsu14NRndDYXAkbtMF4zkrmx6inVsoLl0zZY30xI/0GzhwonWsK9TUmjWA' WHERE id='$ID';\""
+    docker exec -it $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE res_users SET active=true,password='odoo' WHERE id='$ID';\""
     echo "Reset password for user $ID on Odoo database $DATABASE."
 fi
