@@ -128,6 +128,14 @@ The installation script requires that you have sudo access to root.
 
 Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/restic_client/files/install | bash` in your terminal.
 
+### Show restic version
+
+Show restic version for alls hosts.
+
+```bash
+ansible all -i inventories/setup -a "restic version"
+```
+
 ### Setup a local repository
 
 Set these env vars for local repsitory:
@@ -157,4 +165,3 @@ These backup types are available:
 * docker-odoo-backup
 * odoo-backup
 * file
-
