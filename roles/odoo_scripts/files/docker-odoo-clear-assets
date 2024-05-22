@@ -46,8 +46,8 @@ done
 : ${DATABASE:='odoo'}
 
 echo "Delete these assets on $CONTAINER for $DATABASE:"
-docker exec $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"select id,name from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
-docker exec $CONTAINER bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
+docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"select id,name from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
+docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
 
 echo "Restart the Odoo container".
-docker restart $CONTAINER
+docker restart "$CONTAINER"

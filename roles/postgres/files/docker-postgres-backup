@@ -58,7 +58,7 @@ done
 
 if $ALL ; then
   # Get all databases from docker container
-  DATABASE_LIST=($(docker exec $CONTAINER bin/bash -c "psql -U \$POSTGRES_USER \
+  DATABASE_LIST=($(docker exec "$CONTAINER" /bin/bash -c "psql -U \$POSTGRES_USER \
     template1 -q -A -t -c 'SELECT datname FROM pg_database WHERE datistemplate = false;'"))
   # Concate database list
   printf -v DATABASES '%s,' "${DATABASE_LIST[@]}"
