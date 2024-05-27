@@ -104,3 +104,4 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ```
 
 - run-cron-job
+- list-cron-job

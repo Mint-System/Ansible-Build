@@ -5,6 +5,7 @@ REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
 SCRIPTS=(
     run-cron-job
+    list-cron-job
 )
 
 for SCRIPT in ${SCRIPTS[@]}; do

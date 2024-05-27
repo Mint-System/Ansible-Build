@@ -1,0 +1,50 @@
+#!/bin/bash
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+VERSION="1.0.0"
+
+# Display Help
+Help() {
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: List jobs from crontab managed by Ansible."
+  echo "Syntax: $SCRIPT [-u|-v|help]"
+  echo "Example: $SCRIPT -u root"
+  echo "options:"
+  echo "  -u    Specify username of crontab."
+  echo "  -v    Show $SCRIPT version."
+  echo "  help  Show $SCRIPT manual."
+  echo
+}
+
+# Show help and exit
+if [[ "$1" == "help" ]]; then
+    Help
+    exit
+fi
+
+# Initialize variables
+: ${CRONTAB_USERNAME:="$USERNAME"}
+: ${CRONTAB_USERNAME:=$(whoami)}
+
+# Process params
+while getopts ":u: :v" opt; do
+  case $opt in
+    u) CRONTAB_USERNAME="$OPTARG";;
+    v) echo "$SCRIPT version $VERSION"
+    exit 0
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    Help
+    exit;;
+  esac
+done
+
+# Fallback to environment vars and default values
+: ${CRONTAB_USERNAME:="$USERNAME"}
+
+# Fetch and list the Ansible jobs from the crontab
+sudo crontab -u "$CRONTAB_USERNAME"  -l | grep '^#Ansible: ' | sed 's/^#Ansible: //'

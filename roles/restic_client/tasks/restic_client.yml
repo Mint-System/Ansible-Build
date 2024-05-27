@@ -6,6 +6,7 @@
     mode: +x
   loop:
     - run-cron-job
+    - list-cron-job
 
 - name: Gather package facts
   ansible.builtin.package_facts:
