@@ -20,7 +20,7 @@
     reboot_timeout: 120
   when: needs_restart.rc == 1 and reboot_allowed
 
-- name: Get all installed and updated packages # noqa 306
+- name: Get all installed and updated packages
   ansible.builtin.shell: rpm -qa --last | grep -e "$(date +%a\ %b\ %d)" -e "$(date +%a\ %d\ %b)" | cut -f 1 -d " "
   register: installed_updated_packages
   changed_when: false

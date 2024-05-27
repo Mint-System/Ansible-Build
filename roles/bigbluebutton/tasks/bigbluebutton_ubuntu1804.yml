@@ -104,7 +104,7 @@
       - bbb-html5
     state: present
 
-- name: Get BigBlueButton API url # noqa 306
+- name: Get BigBlueButton API url
   ansible.builtin.shell: bbb-conf --secret | grep {{ bigbluebutton_hostname }}
   register: bigbluebutton_api_status
   ignore_errors: true

@@ -32,7 +32,7 @@
   notify: Restart {{ role_name }} container
   when: nginx_proxies is defined
 
-- name: Register {{ role_name }} conf files # noqa 306
+- name: Register {{ role_name }} conf files
   ansible.builtin.shell: "find {{ nginx_data_dir }}/proxies/ -type f -name '*.conf' -printf '%f\n'"
   changed_when: false
   register: nginx_proxy_conf_files

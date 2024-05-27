@@ -1,5 +1,5 @@
 ---
-- name: Register existing {{ role_name }} certificates # noqa 306
+- name: Register existing {{ role_name }} certificates
   ansible.builtin.shell: ls -1 -d {{ certbot_data_dir }}/live/*/ | xargs -n 1 basename
   changed_when: false
   ignore_errors: true

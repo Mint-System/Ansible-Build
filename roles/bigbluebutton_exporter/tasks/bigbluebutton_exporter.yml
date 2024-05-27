@@ -1,10 +1,10 @@
 ---
-- name: Get BigBlueButton API secret # noqa 306
+- name: Get BigBlueButton API secret
   ansible.builtin.shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
   register: bigbluebutton_api_secret
   changed_when: false
 
-- name: Get BigBlueButton API url # noqa 306
+- name: Get BigBlueButton API url
   ansible.builtin.shell: "bbb-conf --secret | grep 'URL: ' | sed 's/^ *URL:\\s//g'"
   register: bigbluebutton_api_url
   changed_when: false

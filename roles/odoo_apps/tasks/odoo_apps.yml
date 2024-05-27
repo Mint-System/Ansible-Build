@@ -53,8 +53,9 @@
   delegate_to: "{{ inventory_hostname }}"
   loop: "{{ odoo_apps }}"
   when: item.version is defined
+  notify: Restart odoo container
 
-- name: Register {{ role_name }} folders # noqa 306
+- name: Register {{ role_name }} folders
   ansible.builtin.command: ls -1 {{ odoo_data_dir }}/addons/
   changed_when: false
   register: existing_odoo_apps

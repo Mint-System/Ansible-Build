@@ -4,7 +4,7 @@
     name: "{{ greenlight_hostname }}"
     state: absent
 
-- name: Register bigbluebutton packages # noqa 306
+- name: Register bigbluebutton packages
   ansible.builtin.shell: dpkg -l | grep bbb | cut -d' ' -f3
   changed_when: false
   register: bbb_packages
