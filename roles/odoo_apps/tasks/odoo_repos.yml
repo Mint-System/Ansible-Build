@@ -1,0 +1,19 @@
+---
+- name: Set default repo name
+  set_fact:
+    odoo_repos: >-
+      {{ odoo_repos | json_query('[].{name: name || url.split("/")[1].split(".")[0], @:other_attributes}') }}
+
+- name: Odoo repo ssh checkout
+  ansible.builtin.git:
+    repo: "{{ item.url }}"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.name }}"
+    key_file: "{{ odoo_repo_key_file }}"
+    version: "{{ item.version }}"
+    single_branch: true
+    accept_hostkey: true
+    force: true
+  ignore_errors: true
+  changed_when: false
+  when: item.url is regex('git@')
+  loop: "{{ odoo_repos }}"

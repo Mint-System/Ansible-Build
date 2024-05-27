@@ -5,6 +5,12 @@
   tags:
     - odoo_apps
 
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: odoo_repos is defined
+  tags:
+    - odoo_repos
+
 - name: Include odoo pip packages tasks
   ansible.builtin.include_tasks: odoo_pip_packages.yml
   when: odoo_pip_packages is defined
