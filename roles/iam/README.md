@@ -19,6 +19,7 @@ iam_groups:
     add_group_to_sudoers: false
 iam_users:
   - username: admin
+    comment: "Administrator"
     ssh_public_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups: wheel,docker
     shell: /bin/zsh
@@ -28,12 +29,14 @@ iam_users:
       - server1
       - server2
   - username: bot
+    comment: "Bot Example"
     ssh_public_key: "ssh-ed25519 ANzaC1yc2EA...KHgKLVcBaeKQ== bot@example.com"
     ssh_private_key: "{{ vault_bot_ssh_private_key }}"
     hosts:
       - server1
 host_iam_users:
   - username: bobmeyer
+    comment: "Bob Meyer"
     passwort: "{{ vault_iam_users_bobmeyer_password }}"
     hosts:
       - server1

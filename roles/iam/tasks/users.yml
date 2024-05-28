@@ -8,6 +8,7 @@
 - name: Setup users
   ansible.builtin.user:
     name: "{{ item.username }}"
+    comment: "{{ item.comment | default('') }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups | default('') }}"
     append: true
