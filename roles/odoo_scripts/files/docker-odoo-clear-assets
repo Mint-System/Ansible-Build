@@ -11,7 +11,7 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Clear all assets of Odoo instance."
-  echo "Syntax: $SCRIPT [-c|-d|-v|help]"
+  echo "Syntax: $SCRIPT [-c|-d|-V|help]"
   echo "Example: $SCRIPT -c odoo01 -d erp"
   echo "options:"
   echo "  -c    Docker container. Defaults to 'odoo'."
@@ -28,11 +28,11 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":c: :d: :v" opt; do
+while getopts ":c: :d: :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG" ;;
         d) DATABASE="$OPTARG" ;;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

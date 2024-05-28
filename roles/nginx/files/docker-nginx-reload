@@ -13,7 +13,7 @@ Help() {
     echo "Example: $SCRIPT -c nginx01"
     echo "options:"
     echo "  -c    Name of the container."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -24,11 +24,11 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":c::v" opt; do
+while getopts ":c::V" opt; do
   case $opt in
     c) CONTAINER="$OPTARG"
     ;;
-    v) echo "$SCRIPT version $VERSION"
+    V) echo "$SCRIPT version $VERSION"
     exit 0
     ;;
     \?) echo "Invalid option -$OPTARG" >&2

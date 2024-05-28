@@ -13,7 +13,7 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Duplicate Odoo database in container."
-    echo "Syntax: $SCRIPT [-c|-s|-t|-r|-u|-v|help]"
+    echo "Syntax: $SCRIPT [-c|-s|-t|-r|-u|-V|help]"
     echo "Example: $SCRIPT -c odoo06 -s odoo -t odoo-int -r -u -i"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
@@ -22,7 +22,7 @@ Help() {
     echo "  -r    Replace existing database."
     echo "  -u    Update database uuid."
     echo "  -i    Ignore filestore."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -39,7 +39,7 @@ UPDATE='false'
 COPY_FILESTORE='true'
 
 # Process params
-while getopts ":c: :s: :t: :r :u :i :v" opt; do
+while getopts ":c: :s: :t: :r :u :i :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         s) SOURCE_DATABASE="$OPTARG";;
@@ -47,7 +47,7 @@ while getopts ":c: :s: :t: :r :u :i :v" opt; do
         r) REPLACE='true';;
         u) UPDATE='true';;
         i) COPY_FILESTORE='false';;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

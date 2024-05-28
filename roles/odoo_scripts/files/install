@@ -22,7 +22,6 @@ SCRIPTS=(
     odoo-duplicate
     odoo-restore
     odoo-user
-    parse-url
 )
 
 for SCRIPT in ${SCRIPTS[@]}; do

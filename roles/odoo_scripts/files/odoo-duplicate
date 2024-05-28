@@ -12,7 +12,7 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Duplicate Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-h|-n|-v|help]"
+  echo "Syntax: $SCRIPT [-p|-d|-h|-n|-V|help]"
   echo "Example: $SCRIPT -p secret -d odoo -h https://odoo.example.org" -n odoo2
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
@@ -31,13 +31,13 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":p: :d: :h: :n: :v" opt; do
+while getopts ":p: :d: :h: :n: :V" opt; do
     case $opt in
         p) PASSWORD="$OPTARG";;
         d) DATABASE="$OPTARG";;
         n) NEW_DATABASE="$OPTARG";;
         h) ODOO_HOST="$OPTARG";;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

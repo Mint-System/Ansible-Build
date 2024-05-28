@@ -11,12 +11,12 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Drop Odoo database in Docker container."
-    echo "Syntax: $SCRIPT [-d|-c|-v|help]"
+    echo "Syntax: $SCRIPT [-d|-c|-V|help]"
     echo "Example: $SCRIPT -d erp -c odoo01"
     echo "options:"
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -28,11 +28,11 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":c: :d: :v" opt; do
+while getopts ":c: :d: :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

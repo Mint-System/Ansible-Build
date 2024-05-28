@@ -11,13 +11,13 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Uninstall Odoo modules in Docker container."
-    echo "Syntax: $SCRIPT [-c|-d|-u|-v|help]"
+    echo "Syntax: $SCRIPT [-c|-d|-u|-V|help]"
     echo "Example: $SCRIPT -d erp -r hr_timesheet -c odoo01"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -u    Name of Odoo module to uninstall."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -29,12 +29,12 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":c: :d: :u: :v" opt; do
+while getopts ":c: :d: :u: :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
         u) MODULE="$OPTARG";;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

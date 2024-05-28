@@ -11,7 +11,7 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Restore Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-f|-h|-r|-n|-m|-v|help]"
+  echo "Syntax: $SCRIPT [-p|-d|-f|-h|-r|-n|-m|-V|help]"
   echo "Example: $SCRIPT -p secret -d odoo -f /tmp/odoo.sql -h https://odoo.example.org -r -m -n"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
@@ -38,7 +38,7 @@ NEUTRALIZE="false"
 COPY="true"
 
 # Process params
-while getopts ":p: :d: :f: :h: :r :n :m :v" opt; do
+while getopts ":p: :d: :f: :h: :r :n :m :V" opt; do
     case $opt in
         p) PASSWORD="$OPTARG";;
         d) DATABASE="$OPTARG";;
@@ -47,7 +47,7 @@ while getopts ":p: :d: :f: :h: :r :n :m :v" opt; do
         r) REPLACE="true";;
         n) NEUTRALIZE="true";;
         m) COPY="false";;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

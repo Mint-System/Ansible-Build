@@ -11,13 +11,13 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Manage Odoo users."
-    echo "Syntax: $SCRIPT [-d|-a[enable,disable,list]|-i|-v|help]"
+    echo "Syntax: $SCRIPT [-d|-a[enable,disable,list]|-i|-V|help]"
     echo "Example: $SCRIPT -d erp-dev -a enable -id janikvonrot@mint-system.ch"
     echo "options:"
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -a    Action to perform."
     echo "  -i    User account login id."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -29,12 +29,12 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":d: :a: :i: :v" opt; do
+while getopts ":d: :a: :i: :V" opt; do
     case $opt in
         d) PGDATABASE="$OPTARG";;
         a) ACTION="$OPTARG";;
         i) ID="$OPTARG";;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

@@ -10,9 +10,9 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: List all Odoo databases in Docker container."
-    echo "Syntax: $SCRIPT [-c|-V|help]"
-    echo "Example: $SCRIPT -c odoo01"
+    echo "Description: Show public facing ip of server."
+    echo "Syntax: $SCRIPT [-V|help]"
+    echo "Example: $SCRIPT"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -V    Show $SCRIPT version."
@@ -39,7 +39,4 @@ while getopts ":c: :V" opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: ${CONTAINER:='odoo'}
-
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/postgres -tAc 'select datname from pg_database'"
+curl -4 ifconfig.co

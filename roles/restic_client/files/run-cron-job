@@ -11,7 +11,7 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Run jobs from crontab managed by Ansible."
-  echo "Syntax: $SCRIPT [-n|-v|help]"
+  echo "Syntax: $SCRIPT [-n|-V|help]"
   echo "Example: $SCRIPT -n 'Renew certs for nginx08'"
   echo "options:"
   echo "  -n    Name of Ansible cron job"
@@ -30,7 +30,7 @@ fi
 while getopts ":n: :h:" opt; do
   case $opt in
     n) ANSIBLE_CRON_NAME="#Ansible: $OPTARG";;
-    v) echo "$SCRIPT version $VERSION"
+    V) echo "$SCRIPT version $VERSION"
     exit 0
     ;;
     \?) echo "Invalid option -$OPTARG" >&2

@@ -11,7 +11,7 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Backup Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-o|-h|-t|-s|-v|help]"
+  echo "Syntax: $SCRIPT [-p|-d|-o|-h|-t|-s|-V|help]"
   echo "Example: $SCRIPT -p password -d odoo -o /tmp -h https://odoo.example.com" -t token -s
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var."
@@ -32,7 +32,7 @@ if [[ $1 == "help" ]]; then
 fi
 
 # Process params
-while getopts ":p: :d: :o: :h: :t: :s :v" opt; do
+while getopts ":p: :d: :o: :h: :t: :s :V" opt; do
     case $opt in
         p) PASSWORD="$OPTARG";;
         d) DATABASE="$OPTARG";;
@@ -40,7 +40,7 @@ while getopts ":p: :d: :o: :h: :t: :s :v" opt; do
         h) ODOO_HOST="$OPTARG";;
         t) TOKEN="$OPTARG";;
         s) BACKUP_FORMAT="dump";;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

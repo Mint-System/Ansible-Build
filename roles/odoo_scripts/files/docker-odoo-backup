@@ -14,13 +14,13 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Backup Odoo database from container."
-    echo "Syntax: $SCRIPT [-d|-c|-o|-v|help]"
+    echo "Syntax: $SCRIPT [-d|-c|-o|-V|help]"
     echo "Example: $SCRIPT -d erp -c odoo06 -o tmp/erp.zip"
     echo "options:"
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -o    Output directory with or without filename. Defaults to '/var/tmp'."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -32,12 +32,12 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":d: :c: :o: :v" opt; do
+while getopts ":d: :c: :o: :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
         o) OUTPUT="$OPTARG";;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

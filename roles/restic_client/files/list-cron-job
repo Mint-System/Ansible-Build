@@ -11,7 +11,7 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: List jobs from crontab managed by Ansible."
-  echo "Syntax: $SCRIPT [-u|-v|help]"
+  echo "Syntax: $SCRIPT [-u|-V|help]"
   echo "Example: $SCRIPT -u root"
   echo "options:"
   echo "  -u    Specify username of crontab."
@@ -31,10 +31,10 @@ fi
 : ${CRONTAB_USERNAME:=$(whoami)}
 
 # Process params
-while getopts ":u: :v" opt; do
+while getopts ":u: :V" opt; do
   case $opt in
     u) CRONTAB_USERNAME="$OPTARG";;
-    v) echo "$SCRIPT version $VERSION"
+    V) echo "$SCRIPT version $VERSION"
     exit 0
     ;;
     \?) echo "Invalid option -$OPTARG" >&2

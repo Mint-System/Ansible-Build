@@ -29,3 +29,6 @@
     mode: +x
   loop:
     - docker-nginx-reload
+    - docker-nginx-enable
+    - parse-url
+    - get-public-ip

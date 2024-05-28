@@ -10,14 +10,14 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Duplicate database in Postgres Docker container."
-    echo "Syntax: $SCRIPT [-c|-s|-t|-r|-u|-v|help]"
+    echo "Syntax: $SCRIPT [-c|-s|-t|-r|-u|-V|help]"
     echo "Example: $SCRIPT -c postgres01 -s keycloak-main -t keycloak-int -r -u"
     echo "options:"
     echo "  -c    Docker container."
     echo "  -s    Source database name."
     echo "  -t    Target database name."
     echo "  -r    Replace existing database."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -32,13 +32,13 @@ fi
 REPLACE='false'
 
 # Process params
-while getopts ":c: :s: :t: :r :v" opt; do
+while getopts ":c: :s: :t: :r :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         s) SOURCE_DATABASE="$OPTARG";;
         t) TARGET_DATABASE="$OPTARG";;
         r) REPLACE='true';;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

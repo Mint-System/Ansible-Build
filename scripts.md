@@ -26,7 +26,6 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 - odoo-duplicate
 - odoo-restore
 - odoo-user
-- parse-url
 
 ## [nginx](roles/nginx/README.md)
 
@@ -36,6 +35,8 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 
 - docker-nginx-enable
 - docker-nginx-reload
+- parse-url
+- get-public-ip
 
 ## [node_exporter](roles/node_exporter/README.md)
 

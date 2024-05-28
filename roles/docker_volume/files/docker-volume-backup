@@ -16,7 +16,7 @@ Help() {
     echo "options:"
     echo "  -c    Docker container name."
     echo "  -a    Backup all volumes."
-    echo "  -v    Comma-separated list of volume names."
+    echo "  -V    Comma-separated list of volume names."
     echo "  -o    Output directory. Defaults to '/var/tmp'"
     echo "  -e    Exclude option for tar command."
     echo "  -V    Show $SCRIPT version."

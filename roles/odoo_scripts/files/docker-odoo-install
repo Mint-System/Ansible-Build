@@ -11,7 +11,7 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Install Odoo database in Docker container."
-    echo "Syntax: $SCRIPT [-c|-d|-i|-l|-w|-v|help]"
+    echo "Syntax: $SCRIPT [-c|-d|-i|-l|-w|-V|help]"
     echo "Example: $SCRIPT -c odoo01 -d erp -i hr_timesheet -l de_CH -w"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
@@ -19,7 +19,7 @@ Help() {
     echo "  -i    List of odoo modules. Defaults to 'base'."
     echo "  -l    Odoo language. Defaults to 'en_US'."
     echo "  -w    With demo data."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -34,14 +34,14 @@ fi
 WITHOUT_DEMO="--without-demo=all"
 
 # Process params
-while getopts ":c: :d: :i: :l: :w :v" opt; do
+while getopts ":c: :d: :i: :l: :w :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
         i) MODULES="$OPTARG";;
         l) ODOO_LANGUAGE="$OPTARG";;
         w) WITHOUT_DEMO="";;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2

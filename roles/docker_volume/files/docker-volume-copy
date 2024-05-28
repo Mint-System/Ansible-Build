@@ -11,14 +11,14 @@ Help() {
     echo "$SCRIPT"
     echo
     echo "Description: Copy docker volumes or specific folders."
-    echo "Syntax: $SCRIPT [-s|-t|-f|-r|-v|help]"
+    echo "Syntax: $SCRIPT [-s|-t|-f|-r|-V|help]"
     echo "Example: $SCRIPT -s odoo-main:/filestore/odoo-main -t odoo-int:/filestore/odoo-int -f"
     echo "options:"
     echo "  -s    Source Docker volume name and path."
     echo "  -t    Target Docker volume name and path."
     echo "  -f    Remove target path before copy."
     echo "  -r    Replace existing target volume."
-    echo "  -v    Show $SCRIPT version."
+    echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -34,7 +34,7 @@ REPLACE="false"
 FORCE="false"
 
 # Process params
-while getopts ":s: :t: :f :r :v" opt; do
+while getopts ":s: :t: :f :r :V" opt; do
     case $opt in
         s) SOURCE="$OPTARG"
         ;;
@@ -44,7 +44,7 @@ while getopts ":s: :t: :f :r :v" opt; do
         ;;
         r) REPLACE="true"
         ;;
-        v) echo "$SCRIPT version $VERSION"
+        V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
