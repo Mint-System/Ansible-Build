@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 rclone_sync:
-- id: "sync folder"
+- id: "Run sync folder"
   command: "copy"
   source_provider: filesystem
   source: /mnt/snas1/publication/
