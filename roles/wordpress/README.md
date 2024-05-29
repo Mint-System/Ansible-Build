@@ -25,7 +25,6 @@ wordpress_smtp_port: "587"
 wordpress_smtp_from: noreply@example.com
 wordpress_smtp_username: bot@example.com
 wordpress_smtp_password: "{{ vault_wordpress_smtp_password }}"
-
 ```
 
 And include it in your playbook.
