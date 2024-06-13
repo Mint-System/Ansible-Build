@@ -33,3 +33,5 @@
       tags: pgadmin
     - role: vercel
       tags: vercel
+    - role: docker_hosts
+      tags: docker_hosts

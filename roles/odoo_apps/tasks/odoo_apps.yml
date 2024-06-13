@@ -32,6 +32,11 @@
     dest: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}.zip"
   loop: "{{ odoo_apps }}"
   when: item.version is defined
+  register: downloaded_apps
+
+- name: Set downloaded_apps with names and changes
+  ansible.builtin.set_fact:
+    downloaded_apps: "{{ downloaded_apps.results | json_query('[].{name: item.name, version: item.version, changed: changed}') | list }}"
 
 - name: Extract downloaded {{ role_name }} zip archives
   ansible.builtin.unarchive:
@@ -39,20 +44,19 @@
     dest: "{{ odoo_apps_tmp_dir }}"
     remote_src: true
     list_files: true
-  args:
-    creates: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}"
-  loop: "{{ odoo_apps }}"
-  register: downloaded_archive_contents
-  when: item.version is defined
+  # args:
+  #   creates: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}"
+  loop: "{{ downloaded_apps }}"
+  when: item.changed
 
-- name: Copy downloaded {{ role_name }} to addons dir
+- name: Sync {{ role_name }} folders to addons dir
   ansible.posix.synchronize:
     src: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}/"
     dest: "{{ odoo_data_dir }}/addons/{{ item.name }}/"
-    # delete: true # FIXME this does not work properly
+    # delete: true # FIXME: this does not work properly
   delegate_to: "{{ inventory_hostname }}"
-  loop: "{{ odoo_apps }}"
-  when: item.version is defined
+  loop: "{{ downloaded_apps }}"
+  when: item.changed
   notify: Restart odoo container
 
 - name: Register {{ role_name }} folders

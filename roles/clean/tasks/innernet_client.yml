@@ -10,7 +10,7 @@
     state: stopped
     enabled: false
 
-# FIXME cannot confirm deletion
+# FIXME: cannot confirm deletion
 - name: Remove innernet client network
   ansible.builtin.command:
     cmd: innernet uninstall {{ innernet_client_network_name }}
