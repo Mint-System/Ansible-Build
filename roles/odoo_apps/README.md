@@ -28,9 +28,11 @@ odoo_apps:
 
 odoo_repo_key_file: /home/bot/.ssh/id_ed25519
 odoo_repos:
-  - url: git@github.com:OCA/partner-contact.git
+  - name: partner-contact
+    url: git@github.com:OCA/partner-contact.git
     version: 16.0
-  - url: git@github.com:OCA/web.git
+  - name: web
+    url: git@github.com:OCA/web.git
     version: "d83e8543db74363b71ce71b32243766b986da335"
   - name: mint-system-server-tools
     url: git@github.com:Mint-System/Odoo-Apps-Server-Tools.git

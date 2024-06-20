@@ -9,7 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-odoo_image: odoo:14
+odoo_image: mintsystem/odoo:16.0.20240603
 odoo_hostname: odoo01
 odoo_replicas: 3 # default: 1
 odoo_description: Odoo14 # default: Odoo
@@ -22,16 +22,18 @@ odoo_timezone: Europe/Paris # default: Europe/Berlin
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: example # default: odoo
 odoo_postgres_password: # default: "{{ vault_postgres_password }}"
+odoo_backup_set: # See restic_backup_set var in role restic_client
 odoo_master_password: # default: "{{ vault_odoo_master_password }}"
+odoo_dbfilter: ^%h$ # default: ^%d$
+
+# Supported by official Odoo image
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
-odoo_dbfilter: ^%h$ # default: ^%d$
 odoo_proxy_mode: "False" # default: "True"
 odoo_workers: 0 # default: 4
 odoo_conf: | # default: ""
   server_wide_modules = base,web,dbfilter_from_header
-odoo_backup_set: # See restic_backup_set var in role restic_client
 ```
 
 And include it in your playbook.
@@ -99,3 +101,12 @@ nginx_proxies:
 ```
 
 Once workers are active the longpolling port moves from 8069 to 8072 and therefore a redirect is required.
+
+### Official Odoo image
+
+Configure these vars when using the official Odoo image:
+
+```yml
+odoo_revision: "16.0.20230612"
+odoo_image: odoo@sha256:df0276cdb0ff8bb7883058071daf898d90fdbf13045ae96d131584660878da84
+```

@@ -1,3 +1,7 @@
+# - name: Set default repo name
+#   debug:
+#     msg: "{{ odoo_repos | json_query('[].{name: name || url.split(`/`)[1].split(`.`)[0], pull:pull, url:url, version:version, }') }}"
+
 # - name: set_fact
 #   set_fact:
 #     revoke_tables: "{{ postgres_users | subelements('revoke_tables') | subelements('databases', 'skip_missing=True') }}"

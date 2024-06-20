@@ -28,15 +28,31 @@
   notify: Remove odoo patches
 
 - name: Tag {{ role_name }} image
-  ansible.builtin.command: docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ pull_odoo_image.image.Id[7:19] }}
-  when: pull_odoo_image.image.RepoTags | length == 0
+  ansible.builtin.command: docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ odoo_revision }}
+  when: odoo_revision is defined
+
+- name: Define {{ role_name }} volumes
+  ansible.builtin.set_fact:
+    odoo_volumes:
+      - "{{ odoo_volume_name }}:/var/lib/odoo"
+      - "{{ odoo_data_dir }}/addons:/mnt/addons"
+      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
+
+- name: Update {{ role_name }} volumes
+  ansible.builtin.set_fact:
+    odoo_volumes:
+      - "{{ odoo_volume_name }}:/var/lib/odoo"
+      - "{{ odoo_data_dir }}/addons:/mnt/addons"
+      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
+      - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf"
+  when: odoo_revision is defined
 
 - name: Start {{ role_name }} container {{ odoo_hostname }}
   community.docker.docker_container:
     name: "{{ odoo_hostname }}"
     labels:
       description: "{{ odoo_description }}"
-    image: odoo:{{ pull_odoo_image.image.Id[7:19] }}
+    image: "{{ odoo_image }}"
     restart_policy: unless-stopped
     recreate: false
     state: "{{ odoo_state }}"
@@ -49,12 +65,11 @@
       PGUSER: "{{ odoo_postgres_user }}"
       PGPASSWORD: "{{ odoo_postgres_password }}"
       TZ: "{{ odoo_timezone }}"
+      ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
+      ADMIN_PASSWD: "{{ odoo_master_password }}"
+      DBFILTER: "{{ odoo_dbfilter }}"
     ports: "{{ odoo_ports | default([]) }}"
-    volumes:
-      - "{{ odoo_volume_name }}:/var/lib/odoo"
-      - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
-      - "{{ odoo_data_dir }}/addons:/mnt/addons"
-      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
+    volumes: "{{ odoo_volumes }}"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
@@ -69,7 +84,7 @@
     name: "{{ odoo_hostname }}_{{ item }}"
     labels:
       description: "{{ odoo_description }}"
-    image: odoo:{{ pull_odoo_image.image.Id[7:19] }}
+    image: "{{ odoo_image }}"
     restart_policy: unless-stopped
     recreate: false
     env:
@@ -80,11 +95,10 @@
       PGUSER: "{{ odoo_postgres_user }}"
       PGPASSWORD: "{{ odoo_postgres_password }}"
       TZ: "{{ odoo_timezone }}"
-    volumes:
-      - "{{ odoo_volume_name }}:/var/lib/odoo"
-      - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf:ro"
-      - "{{ odoo_data_dir }}/addons:/mnt/addons"
-      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
+      ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
+      ADMIN_PASSWD: "{{ odoo_master_password }}"
+      DBFILTER: "{{ odoo_dbfilter }}"
+    volumes: "{{ odoo_volumes }}"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

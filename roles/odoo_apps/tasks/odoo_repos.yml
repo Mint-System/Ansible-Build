@@ -1,9 +1,4 @@
 ---
-- name: Set default repo name
-  set_fact:
-    odoo_repos: >-
-      {{ odoo_repos | json_query('[].{name: name || url.split("/")[1].split(".")[0], @:other_attributes}') }}
-
 - name: Odoo repo ssh checkout
   ansible.builtin.git:
     repo: "{{ item.url }}"
