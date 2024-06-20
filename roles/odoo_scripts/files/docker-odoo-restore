@@ -6,7 +6,7 @@ command -v uuidgen >/dev/null 2>&1 || { echo >&2 "uuidgen not found."; exit 1; }
 
 # Get script name
 SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+VERSION="1.0.1"
 
 # Display Help
 Help() {
@@ -96,11 +96,11 @@ $docker_exec_bash 'PGPASSWORD="$PASSWORD" createdb -h $HOST -U $USER -T template
 
 # Restore database
 echo "Restore database from $DATABASE."
-$docker_exec_bash 'PGPASSWORD="$PASSWORD" psql -q -h $HOST -U $USER $DATABASE -f ~/dump.sql' 
+$docker_exec_bash 'PGPASSWORD="$PASSWORD" psql -q -h $HOST -U $USER $DATABASE -f /var/lib/odoo/dump.sql' 
 
 # Remove source files
 echo "Cleanup source files."
-$docker_exec_bash 'rm ~/dump.sql'
+$docker_exec_bash 'rm /var/lib/odoo/dump.sql'
 rm -rf dump.sql filestore
 
 # Update database uuid
