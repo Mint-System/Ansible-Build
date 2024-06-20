@@ -59,3 +59,15 @@ Run `sudo passwd $USERNAME` to set the password.
 ### Add user to group manually
 
 Run `sudo usermod -a -G sshusers janikvonrotz` to add a user to a group.
+
+### Generate ssh key pair
+
+Generate a ssh key pair for the username.
+
+```bash
+SSH_USERNAME=n8ncloud
+ssh-keygen -t ed25519 -C "$SSH_USERNAME" -f ./id_ed25519 
+echo "vault_${SSH_USERNAME}_ssh_private_key: |"
+cat ./id_ed25519 | sed 's/^/    /'
+echo "ssh_public_key: $(cat ./id_ed25519.pub)"
+```
