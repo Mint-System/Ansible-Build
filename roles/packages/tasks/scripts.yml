@@ -1,0 +1,7 @@
+---
+- name: Copy scripts
+  ansible.builtin.copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.path }}"
+    mode: +x
+  loop: "{{ scripts }}"

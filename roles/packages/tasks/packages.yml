@@ -5,12 +5,6 @@
     env: true
     job: "{{ package_path_var }}"
 
-# - name: Remove PATH var from /etc/environment
-#   lineinfile:
-#     dest: /etc/environment
-#     regexp: "PATH=.*"
-#     state: absent
-
 - name: Add bin folder to system-wide $PATH
   ansible.builtin.copy:
     dest: /etc/profile.d/custom-path.sh

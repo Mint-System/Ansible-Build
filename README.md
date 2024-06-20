@@ -108,7 +108,7 @@ List of all available Ansible roles.
 | [odoo](roles/odoo/README.md)                                           | Deploy Odoo container.                                           |
 | [onlyoffice_documentserver](roles/onlyoffice_documentserver/README.md) | Deploy OnlyOffice Document Server container.                     |
 | [openldap](roles/openldap/README.md)                                   | Deploy OpenLDAP Docker container.                                |
-| [package](roles/package/README.md)                                     | Set env vars and install packages.                               |
+| [packages](roles/packages/README.md)                                   | Set env vars and install packages and scripts.                   |
 | [pgadmin](roles/pgadmin/README.md)                                     | Deploy pgAdmin container.                                        |
 | [php_fpm](roles/php_fpm/README.md)                                     | Deploy PHP-FPM container.                                        |
 | [postfix](roles/postfix/README.md)                                     | Deploy Postfix relay host.                                       |

@@ -4,8 +4,8 @@
   roles:
     - role: resolv
       tags: resolv
-    - role: package
-      tags: package
+    - role: packages
+      tags: packages
     - role: cargo
       tags: cargo
     - role: docker_swarm

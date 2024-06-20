@@ -15,8 +15,8 @@
       tags: meilisync
     - role: meilisearch
       tags: meilisearch
-    - role: package
-      tags: package
+    - role: packages
+      tags: packages
     - role: postgres
       tags: postgres
     - role: cargo

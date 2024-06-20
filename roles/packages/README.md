@@ -1,6 +1,6 @@
-# package role
+# Packages role
 
-Set env vars and install packages.
+Set env vars and install packages and scripts.
 
 ## Usage
 
@@ -23,14 +23,18 @@ host_packages:
   - name: cifs_utils
 packages_snap:
   - name: ripgrep
+scripts:
+  - path: /usr/local/bin/hello-mom
+    content: |
+      echo "Hello Mom!"
 ```
 
 Include it in your playbook.
 
 ```yml
-- hosts: package
+- hosts: packages
   roles:
-  - role: package
+  - role: packages
 ```
 
 Or include it in another role.

@@ -12,34 +12,40 @@
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: packages is defined
   tags:
-    - package
+    - packages
 
 - name: Include {{ role_name }} apt tasks
   ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
   when: packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Pop!_OS')
   tags:
-    - package
+    - packages
 
 - name: Include {{ role_name }} snap tasks
   ansible.builtin.include_tasks: "{{ role_name }}_snap.yml"
   when: packages_snap is defined and ansible_distribution == 'Ubuntu'
   tags:
-    - package
+    - packages
 
 - name: Include {{ role_name }} apt tasks
   ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
   when: packages is defined and ansible_distribution == 'Debian'
   tags:
-    - package
+    - packages
 
 - name: Include {{ role_name }} yum tasks
   ansible.builtin.include_tasks: "{{ role_name }}_yum.yml"
   when: packages is defined and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
   tags:
-    - package
+    - packages
 
 - name: Include {{ role_name }} dnf tasks
   ansible.builtin.include_tasks: "{{ role_name }}_dnf.yml"
   when: packages is defined and ansible_distribution in ['CentOS', 'Rocky'] and ansible_distribution_major_version in ['8', '9']
   tags:
-    - package
+    - packages
+
+- name: Include scripts tasks
+  ansible.builtin.include_tasks: scripts.yml
+  when: scripts is defined
+  tags:
+    - packages
