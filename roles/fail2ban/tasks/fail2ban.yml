@@ -1,7 +1,7 @@
 ---
 - name: Install required {{ role_name }} packages
   ansible.builtin.include_role:
-    name: package
+    name: packages
   vars:
     packages: "{{ fail2ban_packages }}"
 
