@@ -42,7 +42,7 @@ Or include it in another role.
 ```yml
 - name: Install required docker packages
   include_role:
-    name: package
+    name: packages
   vars:
     packages:
       - "{{ docker_package }}"
