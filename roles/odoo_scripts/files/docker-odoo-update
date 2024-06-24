@@ -48,7 +48,7 @@ done
 
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$MODULES" ]] && { echo "Parameter -i|install is empty" ; exit 1; }
+[[ -z "$MODULES" ]] && { echo "Parameter -u|update is empty" ; exit 1; }
 
 # Switch container name with id
 CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)

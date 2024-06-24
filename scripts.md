@@ -13,7 +13,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 - docker-odoo-cloc
 - docker-odoo-drop
 - docker-odoo-duplicate
-- docker-odoo-install
+- docker-odoo-init
 - docker-odoo-list
 - docker-odoo-patch
 - docker-odoo-restore

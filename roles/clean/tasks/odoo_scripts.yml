@@ -6,4 +6,4 @@
   loop:
     - odoo-backup
     - odoo-restore
-    - docker-odoo-install
+    - docker-odoo-init

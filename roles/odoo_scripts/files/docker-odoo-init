@@ -56,7 +56,7 @@ done
 
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$MODULES" ]] && { echo "Parameter -i|install is empty" ; exit 1; }
+[[ -z "$MODULES" ]] && { echo "Parameter -i|init is empty" ; exit 1; }
 
 # Switch container name with id
 CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
@@ -65,6 +65,6 @@ CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
 # Set alias
 docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
 
-# Install modules on database
-echo "Install modules $MODULES with langague $ODOO_LANGUAGE on database $DATABASE."
+# Init modules on database
+echo "Initializing modules $MODULES with langague $ODOO_LANGUAGE on database $DATABASE."
 $docker_exec_bash "odoo -i $MODULES -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD $WITHOUT_DEMO --load-language $ODOO_LANGUAGE --stop-after-init --no-http"
