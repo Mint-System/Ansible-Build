@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/amir20/dozzle
-dozzle_image: amir20/dozzle:pr-2409
+dozzle_image: amir20/dozzle:v7.0.7
 dozzle_description: Log Viewer # default: Dozzle
 dozzle_hostname: logview01
 dozzle_username: logs # default: dozzle
