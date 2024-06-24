@@ -12,10 +12,10 @@ Help() {
     echo
     echo "Description: Drop Odoo database in Docker container."
     echo "Syntax: $SCRIPT [-d|-c|-V|help]"
-    echo "Example: $SCRIPT -d erp -c odoo01"
+    echo "Example: $SCRIPT -c odoo01 -d erp"
     echo "options:"
-    echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -c    Docker container. Defaults to 'odoo'."
+    echo "  -d    Database name."
     echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
@@ -42,8 +42,10 @@ while getopts ":c: :d: :V" opt; do
 done
 
 # Fallback to environment vars and default values
-: ${DATABASE:='odoo'}
 : ${CONTAINER:='odoo'}
+
+# Verify variables
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
 # Switch container name with id
 CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)

@@ -12,10 +12,10 @@ Help() {
     echo
     echo "Description: Uninstall Odoo modules in Docker container."
     echo "Syntax: $SCRIPT [-c|-d|-u|-V|help]"
-    echo "Example: $SCRIPT -d erp -r hr_timesheet -c odoo01"
+    echo "Example: $SCRIPT -c odoo01 -d erp -r hr_timesheet"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -d    Database name. Defaults to 'odoo'."
+    echo "  -d    Database name."
     echo "  -u    Name of Odoo module to uninstall."
     echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
@@ -44,8 +44,10 @@ while getopts ":c: :d: :u: :V" opt; do
 done
 
 # Fallback to environment vars and default values
-: ${DATABASE:='odoo'}
 : ${CONTAINER:='odoo'}
+
+# Verify variables
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
 # Remove with Docker exec
 echo "Remove module $MODULE on database $DATABASE on container $CONTAINER."
