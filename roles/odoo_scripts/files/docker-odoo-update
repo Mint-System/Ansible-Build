@@ -3,7 +3,7 @@ set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+VERSION="1.1.0"
 
 # Display Help
 Help() {
@@ -12,11 +12,11 @@ Help() {
     echo
     echo "Description: Update Odoo modules in Docker container."
     echo "Syntax: $SCRIPT [-c|-d|-u|-V|help]"
-    echo "Example: $SCRIPT -d erp -u hr_timesheet -c odoo01"
+    echo "Example: $SCRIPT -c odoo01 -d erp -u hr_timesheet "
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -d    Database name. Defaults to 'odoo'."
-    echo "  -u    List of odoo modules to update. Defaults to 'all'."
+    echo "  -d    Database name."
+    echo "  -u    List of odoo modules to update."
     echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
@@ -44,9 +44,11 @@ while getopts ":c: :d: :u: :V" opt; do
 done
 
 # Fallback to environment vars and default values
-: ${DATABASE:='odoo'}
 : ${CONTAINER:='odoo'}
-: ${MODULES:='all'}
+
+# Verify variables
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$MODULES" ]] && { echo "Parameter -i|install is empty" ; exit 1; }
 
 # Switch container name with id
 CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
