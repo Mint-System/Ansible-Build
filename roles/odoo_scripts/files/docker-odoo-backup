@@ -72,6 +72,7 @@ FILEPATH="${DIR}/${FILE}"
 
 # Switch container name with id
 CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+[[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
 
 echo "Backup database $DATABASE to $FILEPATH ..."
 
