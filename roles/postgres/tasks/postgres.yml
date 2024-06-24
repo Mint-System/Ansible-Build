@@ -48,6 +48,7 @@
     - docker-postgres-patch
     - docker-postgres-duplicate
     - docker-postgres-size
+    - docker-postgres-shell
 
 - name: Include docker {{ role_name }} backup from restic client role
   ansible.builtin.include_role:

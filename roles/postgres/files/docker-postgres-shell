@@ -1,0 +1,55 @@
+#!/bin/bash
+set -e
+
+# Get script name
+SCRIPT=$(basename "$0")
+
+# Display Help
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Open psql shell in Postgres Docker container."
+    echo "Syntax: $SCRIPT [-c|help]"
+    echo "Example: $SCRIPT -c postgres01 -d odoo -s 'SELECT id,name FROM res_partner LIMIT 10'"
+    echo "options:"
+    echo "  -c    Docker container. Defaults to 'postgres'."
+    echo "  -d    Name of database. Defaults to 'postgres'."
+    echo "  -s    SQL query as string."
+    echo "  -V    Show $SCRIPT version."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+# Show help and exit
+if [[ "$1" == "help" ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c: :d: :s: :V" opt; do
+    case $opt in
+        c) CONTAINER="$OPTARG";;
+        d) DATABASE="$OPTARG";;
+        s) QUERY="$OPTARG";;
+        V) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
+done
+
+# Fallback to environment vars and default values
+: ${CONTAINER:='postgres'}
+: ${DATABASE:='postgres'}
+
+if [[ -n $QUERY ]]; then
+    echo "Execute SQL query in container $CONTAINER on database $DATABASE."
+    docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/$DATABASE -c \"$QUERY\""
+else
+    echo "Start psql shell in container $CONTAINER on database $DATABASE." 
+    docker exec -it "$CONTAINER" /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/$DATABASE"
+fi
