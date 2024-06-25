@@ -1,4 +1,9 @@
 ---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ dozzle_data_dir }}"
+    state: directory
+
 - name: Start {{ role_name }} container {{ dozzle_hostname }}
   community.docker.docker_container:
     name: "{{ dozzle_hostname }}"
@@ -8,12 +13,12 @@
     restart_policy: unless-stopped
     recreate: false
     env:
-      DOZZLE_USERNAME: "{{ dozzle_username }}"
-      DOZZLE_PASSWORD: "{{ dozzle_password }}"
       DOZZLE_BASE: "{{ dozzle_base }}"
       DOZZLE_FILTER: "{{ dozzle_filter }}"
+    command: -auth-provider simple
     ports: "{{ dozzle_ports | default([]) }}"
     volumes:
+      - "{{ dozzle_data_dir }}:/data/"
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - name: "{{ docker_network_name }}"
@@ -22,3 +27,8 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ dozzle_hostname }}|{{ role_name }}"
+
+- name: Create dozzle admin user
+  ansible.builtin.shell: docker run {{ dozzle_image }} generate {{ dozzle_username }} --password {{ dozzle_password }} --email admin@example.com --name "Admin" >
+    {{ dozzle_data_dir }}/users.yml
+  notify: Restart {{ role_name }} container

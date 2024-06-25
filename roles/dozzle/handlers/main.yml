@@ -1,0 +1,5 @@
+---
+- name: Restart {{ role_name }} container
+  community.docker.docker_container:
+    name: "{{ dozzle_hostname }}"
+    restart: true

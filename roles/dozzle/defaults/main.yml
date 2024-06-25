@@ -1,5 +1,6 @@
 ---
 dozzle_description: Dozzle
+dozzle_data_dir: /usr/share/{{ dozzle_hostname }}
 dozzle_username: dozzle
 dozzle_password: "{{ vault_dozzle_password }}"
 dozzle_base: /
