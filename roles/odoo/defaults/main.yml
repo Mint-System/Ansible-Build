@@ -1,19 +1,23 @@
 ---
-odoo_ports:
-  - 127.0.0.1:8069:8069
+odoo_replicas: 1
+odoo_timezone: Europe/Berlin
 odoo_description: Odoo
 odoo_state: started
-odoo_timezone: Europe/Berlin
+odoo_ports:
+  - 127.0.0.1:8069:8069
+
 odoo_data_dir: /usr/share/{{ odoo_hostname }}
 odoo_volume_name: "{{ odoo_hostname }}"
-odoo_replicas: 1
-odoo_conf_limit_request: 8192
-odoo_conf_limit_time_cpu: 1200
-odoo_conf_limit_time_real: 1200
 odoo_postgres_user: odoo
 odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%d$
+
+# Supported by official Odoo image
+odoo_list_db: "False" # default: "True"
+odoo_conf_limit_request: 8192
+odoo_conf_limit_time_cpu: 1200
+odoo_conf_limit_time_real: 1200
 odoo_proxy_mode: "True"
 odoo_workers: 4
 odoo_conf: ""

@@ -12,13 +12,13 @@ Configure the role.
 odoo_image: mintsystem/odoo:16.0.20240603
 odoo_hostname: odoo01
 odoo_replicas: 3 # default: 1
+odoo_timezone: Europe/Paris # default: Europe/Berlin
 odoo_description: Odoo14 # default: Odoo
 odoo_state: stopped # default: started
 odoo_ports:
  - "8069:8069" # default: "127.0.0.1:8069:8069"
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_volume_name: odoo_data01 # default: "{{ odoo_hostname}}"
-odoo_timezone: Europe/Paris # default: Europe/Berlin
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: example # default: odoo
 odoo_postgres_password: # default: "{{ vault_postgres_password }}"
@@ -27,6 +27,7 @@ odoo_master_password: # default: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%h$ # default: ^%d$
 
 # Supported by official Odoo image
+odoo_list_db: "False" # default: "True"
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
