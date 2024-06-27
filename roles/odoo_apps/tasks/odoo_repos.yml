@@ -8,7 +8,6 @@
     single_branch: true
     accept_hostkey: true
     force: true
-  ignore_errors: true
-  changed_when: false
   when: item.url is regex('git@')
   loop: "{{ odoo_repos }}"
+  notify: Restart odoo container
