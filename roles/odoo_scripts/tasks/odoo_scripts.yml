@@ -23,3 +23,10 @@
     - odoo-duplicate
     - odoo-restore
     - odoo-user
+
+- name: Remove deprecated {{ role_name }}
+  ansible.builtin.file:
+    path: /usr/local/bin/{{ item }}
+    state: absent
+  loop:
+    - docker-odoo-install
