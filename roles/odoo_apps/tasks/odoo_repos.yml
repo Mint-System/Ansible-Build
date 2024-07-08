@@ -2,8 +2,8 @@
 - name: Odoo repo ssh checkout
   ansible.builtin.git:
     repo: "{{ item.url }}"
-    dest: "{{ odoo_data_dir }}/addons/{{ item.name }}"
     key_file: "{{ odoo_repo_key_file }}"
+    dest: "{{ odoo_data_dir }}/addons/{{ item.name }}"
     version: "{{ item.version }}"
     single_branch: true
     accept_hostkey: true

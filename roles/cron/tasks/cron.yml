@@ -15,6 +15,7 @@
 - name: Setup {{ role_name }} script jobs
   ansible.builtin.cron:
     name: "{{ item.id }}"
+    user: "{{ item.user | default('root') }}"
     hour: "{{ item.hour | default('*') }}"
     minute: "{{ item.minute | default('*') }}"
     job: "{{ cron_data_dir }}/{{ item.script_name }}; write-node-exporter-metric -c 'Cron job {{ item.id }}' -v $?"
@@ -26,6 +27,7 @@
 - name: Setup {{ role_name }} command jobs
   ansible.builtin.cron:
     name: "{{ item.name }}"
+    user: "{{ item.user | default('root') }}"
     hour: "{{ item.hour | default('*') }}"
     minute: "{{ item.minute | default('*') }}"
     job: "{{ item.command }}"

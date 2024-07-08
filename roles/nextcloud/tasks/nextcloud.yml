@@ -7,7 +7,7 @@
     docker_volume_backup_set: "{{ nextcloud_volume_backup_set | default([]) }}"
   when: nextcloud_volume_name is defined
 
-- name: Init {{ role_name }} env
+- name: Init {{ role_name }} env vars
   ansible.builtin.set_fact:
     nextcloud_env:
       NEXTCLOUD_HOSTNAME: "{{ nextcloud_domain }}"

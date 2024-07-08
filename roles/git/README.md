@@ -13,6 +13,10 @@ git_repositories:
   - repo: https://github.com/Digital-Cluster-Uri/Website
     dest: /usr/share/nginx01/static
     version: main
+  - repo: git@github.com:sozialinfo/reference-data.git
+    key_file: /home/sozialinfo-git-bot/.ssh/id_ed25519
+    dest: /usr/share/postgres43/reference-data
+    version: main
 ```
 
 Include the role in your playbook.

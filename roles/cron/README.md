@@ -15,11 +15,12 @@ cron_jobs:
     hour: "4" # default: '*'
     minute: "1" # default: '*'
   - id: "Run job sync folder"
+    user: bot
     command: "script"
     minute: "*/10"
     script_name: hello-world
     script: |
-      #!/bin/sh
+      #!/bin/bash
       echo "hello world"
 ```
 

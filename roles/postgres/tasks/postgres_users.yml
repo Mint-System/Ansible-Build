@@ -56,6 +56,7 @@
   loop: "{{ postgres_users | subelements('connection_rules', skip_missing=True) }}"
   notify: Restart {{ role_name }} container
 
+# FIXME: Mount the pg_hba.conf -> Change the path outside of volume
 - name: Copy data files
   ansible.builtin.command: docker cp {{ postgres_data_dir }}/{{ item }} {{ postgres_hostname }}:/var/lib/postgresql/data/{{ item }}
   ignore_errors: true

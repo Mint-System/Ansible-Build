@@ -4,13 +4,6 @@
     path: "{{ postgres_exporter_data_dir }}"
     state: directory
 
-- name: Copy {{ role_name }} conf files
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ postgres_exporter_data_dir }}/"
-  loop:
-    - files/queries.yml
-
 - name: Start {{ role_name }} container {{ postgres_exporter_hostname }}
   community.docker.docker_container:
     name: "{{ postgres_exporter_hostname }}"
@@ -21,8 +14,6 @@
     recreate: true
     env:
       DATA_SOURCE_NAME: postgresql://{{ postgres_exporter_username }}:{{ postgres_exporter_password }}@{{ postgres_exporter_server }}:5432/postgres?sslmode=disable
-      PG_EXPORTER_DISABLE_DEFAULT_METRICS: "true"
-      PG_EXPORTER_EXTEND_QUERY_PATH: /data/queries.yml
     volumes:
       - "{{ postgres_exporter_data_dir }}:/data"
     networks:

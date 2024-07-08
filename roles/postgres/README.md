@@ -16,11 +16,14 @@ postgres_description: Database for website # default: PostgreSQL
 postgres_hostname: postgres01
 postgres_volume_name: postgres_data01 # default: "{{ postgres_hostname }}"
 postgres_data_dir: /usr/share/postgres # default: "/usr/share/{{ postgres_hostname }}"
+postgres_volumes:
+  - "{{ postgres_data_dir }}/reference-data/data:/mnt/reference-data" # default: "{{ postgres_volume_name }}:/var/lib/postgresql/data"
 postgres_ports:
   - 127.0.0.1:5433:5432 # default: []
 postgres_user: example
 postgres_password: # default: "{{ vault_postgres_password }}"
 postgres_db: example # default: "{{ postgres_user }}"
+postgres_wal_level: logical # default: replica 
 postgres_users:
   - name: powerbi
     password: "{{ vault_postgres_users_powerbi_password }}"
@@ -38,7 +41,6 @@ postgres_users:
         database: odoo-main
       - name: hr_employee
         database: odoo-int
-postgres_wal_level: logical # default: replica 
 ```
 
 Backup databases.

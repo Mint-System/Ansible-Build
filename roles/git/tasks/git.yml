@@ -11,10 +11,11 @@
 - name: Git ssh checkout
   ansible.builtin.git:
     repo: "{{ item.repo }}"
+    key_file: "{{ item.key_file }}"
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"
   loop: "{{ git_repositories }}"
-  when: item.repo is regex('git:\/\/')
+  when: item.repo is regex('git@')
 
 - name: Git https checkout
   ansible.builtin.git:

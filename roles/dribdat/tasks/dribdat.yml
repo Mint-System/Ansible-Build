@@ -7,7 +7,7 @@
     docker_volume_backup_set: "{{ dribdat_volume_backup_set | default([]) }}"
   when: dribdat_volume_name is defined
 
-- name: Init {{ role_name }} env
+- name: Init {{ role_name }} env vars
   ansible.builtin.set_fact:
     dribdat_env:
       DRIBDAT_ENV: prod
@@ -18,7 +18,7 @@
       DATABASE_URL: postgresql://{{ dribdat_postgres_user }}:{{ dribdat_postgres_password }}@{{ dribdat_postgres_hostname }}/{{ dribdat_postgres_database }}
       DRIBDAT_NOT_REGISTER: "{{ dribdat_not_register }}"
 
-- name: Append mail config to {{ role_name }} env
+- name: Append mail config to {{ role_name }} env vars
   ansible.builtin.set_fact:
     dribdat_env: "{{ dribdat_env | combine(item) }}"
   with_items:
@@ -31,7 +31,7 @@
     - MAIL_USE_SSL: "{{ dribdat_mail_use_ssl }}"
   when: dribdat_mail_server is defined
 
-- name: Append S3 config to {{ role_name }} env
+- name: Append S3 config to {{ role_name }} env vars
   ansible.builtin.set_fact:
     dribdat_env: "{{ dribdat_env | combine(item) }}"
   with_items:
@@ -44,7 +44,7 @@
     - MAX_CONTENT_LENGTH: "3000000"
   when: dribdat_s3_key is defined
 
-- name: Append OAuth config to {{ role_name }} env
+- name: Append OAuth config to {{ role_name }} envvars 
   ansible.builtin.set_fact:
     dribdat_env: "{{ dribdat_env | combine(item) }}"
   with_items:
