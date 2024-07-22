@@ -6,7 +6,27 @@ echo "$1 <command> [options]"
 echo
 echo "commands:"
 echo
-column -t -s"|" ./task.md | tail -n +3
+
+cmd_width=24
+opt_width=10
+desc_width=45
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "Command" "Option" "Description"
+echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-passwordfile" "[password]" "Generate a password file for Ansible vault."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with pip."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "lint" "" "Lint Ansible roles and playbooks."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-build" "" "Create tarball of collection."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-publish" "" "Publish tarball to Ansible Galaxy."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-install" "" "Install build dependencies."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-dev" "" "Start vuepress development server."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-build" "" "Create vuepress build."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-serve-build" "" "Serve vuepress build."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "update-docs" "" "Update project docs."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-hosts" "[path]" "Lists all hosts of an inventory."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
+
 echo
 }
 
@@ -126,6 +146,19 @@ case "$1" in
         ;;
     galaxy-publish)
         galaxy-publish
+        ;;
+    node-install)
+        npm install
+        ;;
+    node-dev)
+        npm run vue-dev
+        ;;
+    node-build)
+        npm run vue-build
+        ;;
+    node-serve-build)
+        cd .vuepress/dist
+        npx serve
         ;;
     lint)
         activate-venv
