@@ -4,8 +4,8 @@
   "description": "The Mint System collection of Ansible playbooks and roles.",
   "main": "index.js",
   "scripts": {
-    "vue-dev": "vuepress dev .",
-    "vue-build": "vuepress build ."
+    "dev": "vuepress dev .",
+    "build": "vuepress build ."
   },
   "repository": {
     "type": "git",

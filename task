@@ -151,10 +151,10 @@ case "$1" in
         npm install
         ;;
     node-dev)
-        npm run vue-dev
+        npm run dev
         ;;
     node-build)
-        npm run vue-build
+        npm run build
         ;;
     node-serve-build)
         cd .vuepress/dist
