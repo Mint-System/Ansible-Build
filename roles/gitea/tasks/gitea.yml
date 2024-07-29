@@ -12,6 +12,7 @@
     gitea_env:
       USER: "{{ gitea_user }}"
       LOCAL_ROOT_URL: "{{ gitea_root_url }}"
+      GITEA__service__DISABLE_REGISTRATION: "{{ gitea_disable_registration | default('false') }}"
 
 - name: Append postgres config to gitea env
   ansible.builtin.set_fact:
