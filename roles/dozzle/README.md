@@ -27,3 +27,27 @@ And include it in your playbook.
   roles:
   - role: dozzle
 ```
+
+## Docs
+
+### Nginx config
+
+Setup this Nginx configuration for the `dozzle01` host:
+
+```yaml
+nginx_proxies:
+  - src_hostname: server.example.com
+    ssl: true
+    monitor: false
+    options: |
+      include /etc/letsencrypt/proxy-params.conf;
+      include /etc/nginx/conf.d/proxies/node-exporter.nginx;
+      include /etc/nginx/conf.d/proxies/cadvisor.nginx;
+      include /etc/nginx/conf.d/proxies/postgres-exporter.nginx;
+    locations:
+      - path: /logs
+        dest_hostname: dozzle01
+        dest_port: 8080
+        options: |
+          include /etc/letsencrypt/proxy-params.conf;
+```
