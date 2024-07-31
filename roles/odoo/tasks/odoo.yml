@@ -25,11 +25,12 @@
     source: pull
     force_source: true
   register: pull_odoo_image
+  when: not odoo_build_image
   notify: Remove odoo patches
 
 - name: Tag {{ role_name }} image
   ansible.builtin.command: docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ odoo_revision }}
-  when: odoo_revision is defined
+  when: odoo_revision is defined and not odoo_build_image
 
 - name: Define {{ role_name }} volumes
   ansible.builtin.set_fact:

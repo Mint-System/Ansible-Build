@@ -1,4 +1,5 @@
 ---
+odoo_build_image: false
 odoo_replicas: 1
 odoo_timezone: Europe/Berlin
 odoo_description: Odoo

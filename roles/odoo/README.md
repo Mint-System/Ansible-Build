@@ -10,6 +10,7 @@ Configure the role.
 
 ```yml
 odoo_image: mintsystem/odoo:16.0.20240603
+odoo_build_image: true # default: false
 odoo_hostname: odoo01
 odoo_replicas: 3 # default: 1
 odoo_timezone: Europe/Paris # default: Europe/Berlin
@@ -26,7 +27,8 @@ odoo_backup_set: # See restic_backup_set var in role restic_client
 odoo_master_password: # default: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%h$ # default: ^%d$
 
-# Supported by official Odoo image
+# Supported by official Odoo image only:
+
 odoo_list_db: "False" # default: "True"
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
