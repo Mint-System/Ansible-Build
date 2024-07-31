@@ -56,7 +56,8 @@
     # delete: true # FIXME: this does not work properly
   delegate_to: "{{ inventory_hostname }}"
   loop: "{{ downloaded_apps }}"
-  when: item.changed
+  # FIXME: if there are mutliple containers sharing the same modules it will not work
+  # when: item.changed
   notify: Restart odoo container
 
 - name: Register {{ role_name }} folders
