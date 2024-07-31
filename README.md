@@ -75,6 +75,7 @@ List of all available Ansible roles.
 | [gitea](roles/gitea/README.md)                                         | Deploy Gitea container.                                          |
 | [grafana](roles/grafana/README.md)                                     | Deploy Grafana Docker container.                                 |
 | [htpasswd](roles/htpasswd/README.md)                                   | Configure .htpasswd basic auth file.                             |
+| [hosts](roles/hosts/README.md)                                         | Add entries to hosts files.                                      |
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
 | [innernet_client](roles/innernet_client/README.md)                     | Setup WireGuard based internal network.                          |
 | [innernet_server](roles/innernet_server/README.md)                     | Setup WireGuard based internal network.                          |

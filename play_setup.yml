@@ -136,3 +136,5 @@
       tags: htpasswd
     - role: caddy
       tags: caddy
+    - role: hosts
+      tags: hosts
