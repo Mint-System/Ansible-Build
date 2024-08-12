@@ -4,4 +4,5 @@ collabora_code_description: Collabora Code
 collabora_code_username: admin
 collabora_code_password: "{{ vault_collabora_code_password }}"
 collabora_code_aliasgroup1: ""
+collabora_code_aliasgroup2: ""
 collabora_code_ssl_enable: true
