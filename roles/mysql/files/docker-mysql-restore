@@ -61,7 +61,7 @@ fi
 IMAGE=$(docker inspect $CONTAINER --format='{{.Config.Image}}')
 if [[ "$IMAGE" =~ "mariadb" ]]; then
   echo "Restore MariaDB database $DATABASE from $FILE ..."
-  cat "$FILE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -p\$MARIADB_ROOT_PASSWORD $DATABASE"
+  cat "$FILE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD --force $DATABASE"
 fi
 
 if [[ "$IMAGE" =~ "mysql" ]]; then
