@@ -60,7 +60,7 @@ if $ALL; then
   # Get all databases from docker container
   
   if [[ "$IMAGE" =~ "mariadb" ]]; then
-    DATABASE_LIST=($(docker exec $CONTAINER /bin/bash -c "mysql -p\$MARIADB_ROOT_PASSWORD \
+    DATABASE_LIST=($(docker exec $CONTAINER /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
       -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
   fi
   if [[ "$IMAGE" =~ "mysql" ]]; then
@@ -88,7 +88,7 @@ for DATABASE in "${DATABASE_LIST[@]}"
 do
   if [[ "$IMAGE" =~ "mariadb" ]]; then
     echo "Run Docker MariaDB backup for $DATABASE"
-    docker exec $CONTAINER /bin/bash -c "mysqldump -p\$MARIADB_ROOT_PASSWORD \
+    docker exec $CONTAINER /bin/bash -c "mysqldump -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
         $DATABASE" > ${DIR}/${CONTAINER}/${DATABASE}.sql
   fi
   if [[ "$IMAGE" =~ "mysql" ]]; then
