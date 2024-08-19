@@ -19,8 +19,8 @@
   tags:
     - nextcloud
 
-- name: Include {{ role_name }} integrity tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_integrity.yml"
+- name: Include {{ role_name }} config tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_config.yml"
   when: nextcloud_integrity_check
   tags:
     - nextcloud
