@@ -16,7 +16,7 @@ nextcloud_exporter_description: Host metric for server1 # default: "Nextcloud Ex
 nextcloud_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 nextcloud_exporter_requires_package: python2-passlib # default: python3-passlib
 nextcloud_exporter_proxy_basic_auth_username: exporter # default: nextcloud-exporter
-nextcloud_exporter_proxy_basic_auth_password: "{{ vault_node_exporter_proxy_basic_auth_password }}"
+nextcloud_exporter_proxy_basic_auth_password: # default "{{ vault_nextcloud_exporter_proxy_basic_auth_password }}"
 nextcloud_exporter_server: http://nextcloud01
 nextcloud_exporter_username: "{{ nextcloud_admin_user }}"
 nextcloud_exporter_password: "{{ nextcloud_admin_password }}"
