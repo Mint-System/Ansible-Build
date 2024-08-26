@@ -7,3 +7,4 @@ nextcloud_build_image: false
 vault_nextcloud_postgres_password: "{{ vault_nextcloud_admin_password }}"
 nextcloud_postgres_password: "{{ vault_nextcloud_postgres_password }}"
 nextcloud_mysql_password: "{{ vault_nextcloud_mysql_password }}"
+nextcloud_etc_hosts: {}

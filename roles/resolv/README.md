@@ -10,8 +10,7 @@ Configure the role.
 
 ```yml
 resolv_enabled: true # default: false
-resolv_name_servers:
-  - 1.1.1.1
+resolv_nameserver: 1.1.1.1
 resolv_domain_name: test.example.com
 resolv_domain_search:
   - ansible.com

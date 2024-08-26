@@ -61,6 +61,7 @@
       - "{{ nextcloud_volume_name }}:/var/www/html"
     networks:
       - name: "{{ docker_network_name }}"
+    etc_hosts: "{{ nextcloud_etc_hosts }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
