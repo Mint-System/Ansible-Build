@@ -6,6 +6,18 @@
     docker_volume_name: "{{ wordpress_volume_name }}"
   when: wordpress_volume_name is defined
 
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ wordpress_data_dir }}"
+    state: directory
+
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ wordpress_data_dir }}/{{ item }}"
+  loop:
+    - upload.ini
+
 - name: Start {{ role_name }} container {{ wordpress_hostname }}
   community.docker.docker_container:
     name: "{{ wordpress_hostname }}"
@@ -29,6 +41,7 @@
       WORDPRESS_SMTP_AUTH: "true"
     volumes:
       - "{{ wordpress_volume_name }}:/var/www/html"
+      - "{{ wordpress_data_dir }}/upload.ini:/usr/local/etc/php/conf.d/upload.ini"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

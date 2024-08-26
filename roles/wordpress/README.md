@@ -15,6 +15,7 @@ wordpress_build_image: true # default: false
 wordpress_hostname: word01
 wordpress_description: WP # default: WordPress
 wordpress_volume_name: word_data01 # default: "{{ wordpress_hostname }}"
+wordpress_data_dir: /usr/share/wordpress # default: "/usr/share/{{ wordpress_hostname }}"
 wordpress_db_hostname: mysql01
 wordpress_db_user: wordpress
 wordpress_db_password: # default: "{{ vault_wordpress_db_password }}"
