@@ -111,7 +111,7 @@ scrape_configs:
           json_query('[? restic_server_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
           map('join', ':') }}
 
-  - job_name: "blackbox"
+  - job_name: blackbox
     metrics_path: "/probe"
     scrape_interval: 60s
     params:
@@ -135,3 +135,16 @@ scrape_configs:
       - targets: {{ groups['all'] | map('extract', hostvars) |
           json_query('[*].nginx_proxies[?monitor_odoo==`true`].src_hostname') |
           flatten }}
+
+  - job_name: mysqld https
+    metrics_path: "/mysqld-exporter/metrics"
+    scrape_interval: 30s
+    honor_labels: true
+    scheme: https
+    basic_auth:
+      username: {{ prometheus_mysqld_exporter_basic_auth_username }}
+      password: {{ prometheus_mysqld_exporter_basic_auth_password }}
+    static_configs:
+      - targets: {{ groups['all'] | map('extract', hostvars) |
+          json_query('[? mysqld_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
+          map('join', ':') }}

@@ -1,0 +1,29 @@
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ mysqld_exporter_data_dir }}"
+    state: directory
+
+- name: Copy {{ role_name }} config
+  ansible.builtin.template:
+    src: my.cnf
+    dest: "{{ mysqld_exporter_data_dir }}/my.cnf"
+
+- name: Start {{ role_name }} container {{ mysqld_exporter_hostname }}
+  community.docker.docker_container:
+    name: "{{ mysqld_exporter_hostname }}"
+    labels:
+      description: "{{ mysqld_exporter_description }}"
+    image: "{{ mysqld_exporter_image }}"
+    restart_policy: unless-stopped
+    recreate: true
+    command: --config.my-cnf=/etc/my.cnf
+    volumes:
+      - "{{ mysqld_exporter_data_dir }}/my.cnf:/etc/my.cnf"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ mysqld_exporter_hostname }}|{{ role_name }}"

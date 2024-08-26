@@ -1,6 +1,7 @@
 ---
 postgres_exporter_requires_package: python3-passlib
-postgres_exporter_description: PostgreSQL Exporter {{ postgres_hostname }}
+postgres_exporter_description: PostgreSQL Exporter {{ postgres_exporter_server }}
 postgres_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
 postgres_exporter_proxy_basic_auth_username: postgres-exporter
+postgres_exporter_proxy_basic_auth_password: "{{ vault_postgres_exporter_proxy_basic_auth_password }}"
 postgres_exporter_data_dir: /usr/share/{{ postgres_exporter_hostname }}

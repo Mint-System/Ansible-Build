@@ -1,0 +1,13 @@
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: mysqld_exporter_image is defined
+  tags:
+    - mysqld_exporter
+
+- name: Include {{ role_name }} nginx config tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_nginx_config.yml"
+  when: mysqld_exporter_image is defined
+  tags:
+    - mysqld_exporter
+    - mysqld_exporter_nginx_config

@@ -138,3 +138,5 @@
       tags: caddy
     - role: hosts
       tags: hosts
+    - role: mysqld_exporter
+      tags: mysqld_exporter
