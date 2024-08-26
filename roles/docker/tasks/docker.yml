@@ -9,7 +9,7 @@
     path: /etc/docker/
     state: directory
 
-- name: Copy {{ role_name }} deamon conf
+- name: Copy {{ role_name }} deamon config
   ansible.builtin.template:
     src: deamon.json
     dest: /etc/docker/daemon.json

@@ -13,6 +13,7 @@ The Ansible Docker role has the following requirements:
 Configure all depending roles.
 
 ```yml
+docker_dns: "[\"172.17.4.1\", \"8.8.8.8\"]"
 docker_data_dir: /mnt/server-disk2/docker # defaults: /var/lib/docker
 docker_build_dir: /tmp/build # defaults: /srv/build
 docker_pip_packages:
