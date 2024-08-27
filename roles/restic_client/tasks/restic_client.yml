@@ -64,5 +64,5 @@
     hour: "23"
     minute: "{{ 59 |random(seed=restic_repo) }}"
     job: restic forget --keep-daily {{ restic_backup_rotation.daily }} --keep-weekly {{ restic_backup_rotation.weekly }} --keep-monthly {{ restic_backup_rotation.monthly
-      }} --prune; write-node-exporter-metric -c 'Backup rotation job' -v $?
+      }} --prune; write-node-exporter-metric -c "Backup rotation job" -v $?
     disabled: "{{ item.disabled | default(false) }}"

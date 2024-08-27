@@ -4,7 +4,7 @@
     content: ""
     dest: /var/log/cron.log
     force: false
-    
+
 - name: Ensure rsysyslog {{ role_name }} is enabled
   ansible.builtin.lineinfile:
     path: /etc/rsyslog.d/50-default.conf

@@ -18,7 +18,7 @@
     user: "{{ item.user | default('root') }}"
     hour: "{{ item.hour | default('*') }}"
     minute: "{{ item.minute | default('*') }}"
-    job: "{{ cron_data_dir }}/{{ item.script_name }}; write-node-exporter-metric -c 'Cron job {{ item.id }}' -v $?"
+    job: '{{ cron_data_dir }}/{{ item.script_name }}; write-node-exporter-metric -c "Cron job {{ item.id }}" -v $?'
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ cron_jobs }}"

@@ -5,4 +5,4 @@
     minute: "{{ 59 |random(seed=nginx_hostname) }}"
     hour: "0"
     weekday: "0"
-    job: docker-certbot-renew && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c 'Renew certs for {{ nginx_hostname }}' -v $?
+    job: docker-certbot-renew && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c "Renew certs for {{ nginx_hostname }}" -v $?

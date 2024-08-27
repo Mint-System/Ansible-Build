@@ -3,22 +3,22 @@
   lineinfile:
     path: /etc/resolv.conf
     state: present
-    line: "nameserver {{ resolv_nameserver }}"
-    backup: yes
+    line: nameserver {{ resolv_nameserver }}
+    backup: true
   when: resolv_nameserver is defined
 
 - name: Configure domain name
   lineinfile:
     path: /etc/resolv.conf
     state: present
-    line: "domain {{ resolv_domain_name }}"
-    backup: yes
+    line: domain {{ resolv_domain_name }}
+    backup: true
   when: resolv_domain_name is defined
 
 - name: Configure domain search
   lineinfile:
     path: /etc/resolv.conf
     state: present
-    line: "search {{ resolv_domain_search | join(' ') }}"
-    backup: yes
+    line: search {{ resolv_domain_search | join(' ') }}
+    backup: true
   when: resolv_domain_search is defined

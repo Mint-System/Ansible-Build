@@ -44,7 +44,7 @@
     - MAX_CONTENT_LENGTH: "3000000"
   when: dribdat_s3_key is defined
 
-- name: Append OAuth config to {{ role_name }} envvars 
+- name: Append OAuth config to {{ role_name }} env vars
   ansible.builtin.set_fact:
     dribdat_env: "{{ dribdat_env | combine(item) }}"
   with_items:
