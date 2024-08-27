@@ -23,7 +23,8 @@ postgres_ports:
 postgres_user: example
 postgres_password: # default: "{{ vault_postgres_password }}"
 postgres_db: example # default: "{{ postgres_user }}"
-postgres_wal_level: logical # default: replica 
+postgres_wal_level: logical # default: replica
+postgres_max_connections: 200 # default: 100
 postgres_users:
   - name: powerbi
     password: "{{ vault_postgres_users_powerbi_password }}"

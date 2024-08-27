@@ -25,6 +25,7 @@
     objs: ALL_IN_SCHEMA
     role: "{{ item.0.name }}"
   loop: "{{ postgres_users | subelements('grant_databases') }}"
+  when: postgres_users | selectattr('grant_databases', 'defined') | list | length > 0
 
 - name: Revoke privilieges to users.
   community.postgresql.postgresql_privs:
@@ -37,6 +38,7 @@
     objs: "{{ item.1.name }}"
     role: "{{ item.0.name }}"
   loop: "{{ postgres_users | subelements('revoke_tables') }}"
+  when: postgres_users | selectattr('revoke_tables', 'defined') | list | length > 0
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:

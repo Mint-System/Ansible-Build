@@ -9,3 +9,4 @@ postgres_volumes:
   - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
 postgres_ports: []
 postgres_wal_level: replica
+postgres_max_connections: 100

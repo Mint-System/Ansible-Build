@@ -23,7 +23,7 @@
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_DB: "{{ postgres_db }}"
-    command: [postgres, -c, "wal_level={{ postgres_wal_level }}"]
+    command: [postgres, -c, " max_connections={{ postgres_max_connections }}"]
     volumes: "{{ postgres_volumes }}"
     ports: "{{ postgres_ports }}"
     networks:
