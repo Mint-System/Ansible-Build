@@ -1,4 +1,4 @@
-# Mmeilisearch role
+# Meilisearch role
 
 Deploy Meilisearch container.
 
