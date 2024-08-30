@@ -8,16 +8,8 @@
 - name: Set skeleton directory
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set skeletondirectory --value=''
   when: skeletondirectory.rc == 1 or skeletondirectory.stdout != ""
+  notify: Restart {{ role_name }} container
 
-- name: Get session lifetime
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get session_lifetime
-  register: session_lifetime
-  changed_when: false
-  ignore_errors: true
-
-- name: Set session lifetime
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_lifetime --value=60*60*24*15
-  when: session_lifetime.rc == 1 or session_lifetime.stdout != "60*60*24*15"
 
 - name: Get remember login cookie lifetime
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get remember_login_cookie_lifetime
@@ -28,6 +20,32 @@
 - name: Set remember login cookie lifetime
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set remember_login_cookie_lifetime --value=60*60*24*15
   when: remember_login_cookie_lifetime.rc == 1 or remember_login_cookie_lifetime.stdout != "60*60*24*15"
+  notify: Restart {{ role_name }} container
+
+
+- name: Get session lifetime
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get session_lifetime
+  register: session_lifetime
+  changed_when: false
+  ignore_errors: true
+
+- name: Set session lifetime
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_lifetime --value=60*60*24*15
+  when: session_lifetime.rc == 1 or session_lifetime.stdout != "60*24*15"
+  notify: Restart {{ role_name }} container
+
+
+- name: Get session relaxed expiry
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get session_relaxed_expiry
+  register: session_relaxed_expiry
+  changed_when: false
+  ignore_errors: true
+
+- name: Set session relaxed expiry
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_relaxed_expiry --value=false
+  when: session_relaxed_expiry.rc == 1 or session_relaxed_expiry.stdout != "false"
+  notify: Restart {{ role_name }} container
+
 
 - name: Get session keepalive
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get session_keepalive
@@ -38,6 +56,8 @@
 - name: Set session keepalive
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_keepalive --value=true
   when: session_keepalive.rc == 1 or session_keepalive.stdout != "true"
+  notify: Restart {{ role_name }} container
+
 
 - name: Get auto logout
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get auto_logout
@@ -48,3 +68,4 @@
 - name: Set auto logout
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set auto_logout --value=false
   when: auto_logout.rc == 1 or auto_logout.stdout != "false"
+  notify: Restart {{ role_name }} container
