@@ -14,6 +14,7 @@ cron_jobs:
     command: curl https://moodle.example.com/admin/cron.php
     hour: "4" # default: '*'
     minute: "1" # default: '*'
+    disabled: true
   - id: "Run job sync folder"
     user: bot
     command: "script"
