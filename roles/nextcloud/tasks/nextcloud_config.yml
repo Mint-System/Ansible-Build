@@ -6,8 +6,20 @@
   ignore_errors: true
 
 - name: Set skeleton directory
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set skeletondirectory --value=''
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set skeletondirectory --value=""
   when: skeletondirectory.rc == 1 or skeletondirectory.stdout != ""
+  notify: Restart {{ role_name }} container
+
+
+- name: Get trusted proxies
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get trusted_proxies
+  register: trusted_proxies
+  changed_when: false
+  ignore_errors: true
+
+- name: Set trusted proxies
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set trusted_proxies 0 --value="172.18.0.0/30"
+  when: trusted_proxies.rc == 1 or trusted_proxies.stdout != ""
   notify: Restart {{ role_name }} container
 
 

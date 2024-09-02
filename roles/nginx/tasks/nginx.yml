@@ -2,6 +2,7 @@
 - name: Start {{ role_name }} container {{ nginx_hostname }}
   community.docker.docker_container:
     name: "{{ nginx_hostname }}"
+    hostname: "{{ role_name }}.internal"
     labels:
       description: "{{ nginx_description }}"
     image: "{{ nginx_image }}"
