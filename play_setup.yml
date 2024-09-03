@@ -140,3 +140,5 @@
       tags: hosts
     - role: mysqld_exporter
       tags: mysqld_exporter
+    - role: timezone
+      tags: timezone

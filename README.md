@@ -128,6 +128,7 @@ List of all available Ansible roles.
 | [simple_mail_forwarder](roles/simple_mail_forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
 | [superset](roles/superset/README.md)                                   | Deploy Apache Superset container.                                |
 | [systemd](roles/systemd/README.md)                                     | Setup systemd service.                                           |
+| [timezone](roles/timezone/README.md)                                   | Define timezone.                                                 |
 | [ufw](roles/ufw/README.md)                                             | Configure UFW rules.                                             |
 | [update](roles/update/README.md)                                       | Install system and package updates.                              |
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |
