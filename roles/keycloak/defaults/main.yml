@@ -3,7 +3,7 @@ keycloak_build_image: false
 keycloak_description: Keycloak
 keycloak_state: started
 keycloak_data_dir: /usr/share/{{ keycloak_hostname }}
-keycloak_timezone: Europe/Berlin
+keycloak_timezone: Europe/Zurich
 keycloak_password: "{{ vault_keycloak_password }}"
 keycloak_db_type: postgres
 keycloak_db_password: "{{ vault_keycloak_db_password }}"
