@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/jenkins/jenkins
-jenkins_image: jenkins/jenkins:2.439-jdk11
+jenkins_image: jenkins/jenkins:2.474-jdk17
 jenkins_build_image: true # default: false
 jenkins_description: Continuous Integration and Delivery server # default: Jenkins
 jenkins_hostname: jenkins01
