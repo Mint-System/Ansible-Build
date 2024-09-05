@@ -18,6 +18,7 @@ SCRIPTS=(
     docker-odoo-update
     docker-odoo-user
     docker-odoo-neutralize
+    docker-odoo-upgrade
     odoo-backup
     odoo-drop
     odoo-duplicate

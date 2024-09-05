@@ -22,6 +22,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 - docker-odoo-update
 - docker-odoo-user
 - docker-odoo-neutralize
+- docker-odoo-upgrade
 - odoo-backup
 - odoo-drop
 - odoo-duplicate
