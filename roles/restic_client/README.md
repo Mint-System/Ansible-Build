@@ -28,6 +28,7 @@ restic_backup_set:
 
   - id: "docker volume backup postgres_data01"
     type: docker-volume
+    container: postgres01
     volume: postgres_data01
     tags:
     - postgres

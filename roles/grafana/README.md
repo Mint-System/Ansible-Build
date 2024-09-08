@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/grafana/grafana/
-grafana_image: grafana/grafana:8.3.11
+grafana_image: grafana/grafana:9.5.21
 grafana_hostname: graf01
 grafana_description: Prometheus dashboard # default: Grafana
 grafana_data_dir: /usr/share/graf # default: "/usr/share/{{ grafana_hostname }}"

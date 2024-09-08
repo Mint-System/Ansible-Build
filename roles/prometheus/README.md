@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/prom/prometheus
-prometheus_image: prom/prometheus:v2.37.1
+prometheus_image: prom/prometheus:v2.54.1
 prometheus_hostname: prom01
 prometheus_description: Monitoring # default: Prometheus
 prometheus_volume_name: prom_data01 # default: "{{ prometheus_hostname }}"
