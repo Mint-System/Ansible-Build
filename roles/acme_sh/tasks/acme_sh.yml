@@ -9,18 +9,33 @@
     path: "{{ acme_sh_data_dir }}/out"
     state: directory
 
-- name: Get list nginx certs with api
+- name: Get list of nginx certs with dns attribute
   ansible.builtin.set_fact:
-    acme_sh_certs: "{{ nginx_proxies | selectattr('dns_api', 'defined') }}"
+    acme_sh_certs: "{{ nginx_proxies | json_query('[?dns]') }}"
 
 - name: Log certificates to issue
   ansible.builtin.debug:
-    var: "{{ acme_sh_certs | json_query('[*].src_hostname') }}"
+    msg: "{{ acme_sh_certs | json_query('[*].src_hostname') | list }}"
+
+- name: Init {{ role_name }} env vars
+  ansible.builtin.set_fact:
+    acme_sh_env:
+      FREEDNS_User: {{ acme_sh_freedns_user }}
+      FREEDNS_Password: {{ acme_sh_freedns_password }}
+
+- name: Register {{ role_name }} e-mail
+  community.docker.docker_container:
+    name: "{{ acme_sh_hostname }}"
+    labels:
+      description: "{{ acme_sh_description }}"
+    image: "{{ acme_sh_image }}"
+    env: "{{ acme_sh_env }}"
+    volumes:
+      - "{{ acme_sh_data_dir }}:/acme.sh"
+    command: --register-account -m {{ acme_sh_email }}
 
 - name: Issue certificate with {{ role_name }}
-  ansible.builtin.command: >-
-    docker run --rm
-    -e VERCEL_TOKEN="{{ vercel_token }}"
-    -v {{ acme_sh_data_dir }}/out:/acme.sh
-    {{ acme_sh_image }} --issue -dns {{ item.dns_api }} -d {{ item.src_hostname }}
+  community.docker.docker_container:
+    name: "{{ acme_sh_hostname }}"
+    command: --issue --dns {{ item.dns }} -d {{ item.src_hostname }}
   loop: "{{ acme_sh_certs }}"

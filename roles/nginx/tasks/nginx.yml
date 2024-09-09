@@ -1,4 +1,13 @@
 ---
+- name: Init {{ role_name }} volume vars
+  ansible.builtin.set_fact:
+    nginx_volumes:
+      - "{{ nginx_data_dir }}/proxies:/etc/nginx/conf.d/proxies/:ro"
+      - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
+      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
+      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
+      - "{{ nginx_data_dir }}/static:/etc/nginx/conf.d/static/"
+
 - name: Start {{ role_name }} container {{ nginx_hostname }}
   community.docker.docker_container:
     name: "{{ nginx_hostname }}"
@@ -9,12 +18,7 @@
     restart_policy: unless-stopped
     recreate: false
     ports: "{{ nginx_ports | default([]) }}"
-    volumes:
-      - "{{ nginx_data_dir }}/proxies:/etc/nginx/conf.d/proxies/:ro"
-      - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
-      - "{{ certbot_data_dir }}/:/etc/letsencrypt/"
-      - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
-      - "{{ nginx_data_dir }}/static:/etc/nginx/conf.d/static/"
+    volumes: "{{ nginx_volumes }}"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

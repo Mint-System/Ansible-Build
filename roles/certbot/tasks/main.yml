@@ -27,7 +27,7 @@
 
 - name: Include {{ role_name }} wildcard tasks
   ansible.builtin.include_tasks: "{{ role_name }}_wildcard.yml"
-  when: certbot_authenticator is defined and certbot_authenticator == 'vercel'
+  when: certbot_preferred_challenges is defined and certbot_preferred_challenges == 'dns'
   tags:
     - certbot
 

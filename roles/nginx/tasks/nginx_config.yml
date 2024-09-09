@@ -24,6 +24,7 @@
     redirect_url: "{{ item.redirect_url | default(false) }}"
     root: "{{ item.root | default(false) }}"
     ssl: "{{ item.ssl | default(false) }}"
+    dns: "{{ item.dns | default(false) }}"
     locations: "{{ item.locations | default(false) }}"
     server_names: "{{ item.server_names | default(false) }}"
     cache: "{{ item.cache | default(false) }}"

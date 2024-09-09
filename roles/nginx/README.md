@@ -138,3 +138,11 @@ The following tags are available:
 The installation script requires that you have sudo access to root.
 
 Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/nginx/files/install | bash` in your terminal.
+
+### Use with Certbot
+
+To generate ssl certificates with Certbot define the `certbot_data_dir`.
+
+### Use with Acme.sh
+
+To generate ssl certificates with Acme.sh define the `acme_sh_data_dir`.

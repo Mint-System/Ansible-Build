@@ -22,7 +22,7 @@
     - docker-certbot-delete
     - docker-certbot-create
 
-- name: Get list of nginx certs
+- name: Get list of nginx certs with ssl attribute
   ansible.builtin.stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname | replace('*.', '') }}"
   loop: "{{ nginx_proxies }}"

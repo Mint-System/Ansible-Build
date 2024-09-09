@@ -1,2 +1,4 @@
 ---
 acme_sh_data_dir: /usr/share/{{ acme_sh_hostname }}
+acme_sh_description: Acme.sh
+acme_sh_freedns_password: {{ vault_dns_freedns_password }}
