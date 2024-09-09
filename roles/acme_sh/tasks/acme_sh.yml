@@ -20,22 +20,17 @@
 - name: Init {{ role_name }} env vars
   ansible.builtin.set_fact:
     acme_sh_env:
-      FREEDNS_User: {{ acme_sh_freedns_user }}
-      FREEDNS_Password: {{ acme_sh_freedns_password }}
+      FREEDNS_User: "{{ acme_sh_freedns_user }}"
+      FREEDNS_Password: "{{ acme_sh_freedns_password }}"
 
-- name: Register {{ role_name }} e-mail
+- name: Issue {{ role_name }} certificates
   community.docker.docker_container:
-    name: "{{ acme_sh_hostname }}"
+    name: "{{ item.src_hostname }}"
     labels:
       description: "{{ acme_sh_description }}"
     image: "{{ acme_sh_image }}"
     env: "{{ acme_sh_env }}"
     volumes:
       - "{{ acme_sh_data_dir }}:/acme.sh"
-    command: --register-account -m {{ acme_sh_email }}
-
-- name: Issue certificate with {{ role_name }}
-  community.docker.docker_container:
-    name: "{{ acme_sh_hostname }}"
-    command: --issue --dns {{ item.dns }} -d {{ item.src_hostname }}
+    command: --register-account -m {{ acme_sh_email }} --issue --dns {{ item.dns }} -d {{ item.src_hostname }} --force
   loop: "{{ acme_sh_certs }}"

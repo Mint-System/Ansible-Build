@@ -5,5 +5,5 @@
   register: current_timezone
 
 - name: Set {{ role_name }}
-  ansible.builtin.command:  timedatectl set-timezone {{ timezone }}
+  ansible.builtin.command: timedatectl set-timezone {{ timezone }}
   when: current_timezone.stdout != timezone

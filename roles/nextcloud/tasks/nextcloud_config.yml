@@ -10,7 +10,6 @@
   when: skeletondirectory.rc == 1 or skeletondirectory.stdout != ""
   notify: Restart {{ role_name }} container
 
-
 - name: Get trusted proxies
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get trusted_proxies
   register: trusted_proxies
@@ -21,7 +20,6 @@
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set trusted_proxies 0 --value="172.18.0.0/30"
   when: trusted_proxies.rc == 1 or trusted_proxies.stdout != ""
   notify: Restart {{ role_name }} container
-
 
 - name: Get remember login cookie lifetime
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get remember_login_cookie_lifetime
@@ -34,7 +32,6 @@
   when: remember_login_cookie_lifetime.rc == 1 or remember_login_cookie_lifetime.stdout != "60*60*24*15"
   notify: Restart {{ role_name }} container
 
-
 - name: Get session lifetime
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get session_lifetime
   register: session_lifetime
@@ -45,7 +42,6 @@
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_lifetime --value=60*60*24*15
   when: session_lifetime.rc == 1 or session_lifetime.stdout != "60*24*15"
   notify: Restart {{ role_name }} container
-
 
 - name: Get session relaxed expiry
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get session_relaxed_expiry
@@ -58,7 +54,6 @@
   when: session_relaxed_expiry.rc == 1 or session_relaxed_expiry.stdout != "false"
   notify: Restart {{ role_name }} container
 
-
 - name: Get session keepalive
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get session_keepalive
   register: session_keepalive
@@ -69,7 +64,6 @@
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_keepalive --value=true
   when: session_keepalive.rc == 1 or session_keepalive.stdout != "true"
   notify: Restart {{ role_name }} container
-
 
 - name: Get auto logout
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get auto_logout
