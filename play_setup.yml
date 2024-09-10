@@ -142,3 +142,5 @@
       tags: mysqld_exporter
     - role: timezone
       tags: timezone
+    - role: meilisearch
+      tags: meilisearch

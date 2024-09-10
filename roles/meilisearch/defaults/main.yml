@@ -1,4 +1,5 @@
 ---
 meilisearch_description: meilisearch
+meilisearch_volume_name: "{{ meilisearch_hostname }}"
 meilisearch_master_key: "{{ vault_meilisearch_master_key }}"
 meilisearch_ports: []
