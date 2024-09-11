@@ -13,13 +13,14 @@
     recreate: false
     env:
       MEILI_MASTER_KEY: "{{ meilisearch_master_key }}"
+      MEILI_TASK_WEBHOOK_URL: "{{ meilisearch_task_webhook }}"
     volumes:
       - "{{ meilisearch_volume_name }}:/meili_data"
     ports: "{{ meilisearch_ports }}"
-    networks:
-      - name: "{{ docker_network_name }}"
+    network_mode: "{{ meilisearch_network_mode }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ meilisearch_hostname }}|{{ role_name }}"
+    etc_hosts: "{{ meilisearch_etc_hosts }}"
