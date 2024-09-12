@@ -42,5 +42,5 @@ Run the curl command to post a succeeded status for task with uid `4`:
 curl \
   -X POST 'http://localhost:8069/meilisearch/task-webhook' \
   -H 'Content-Type: application/json' \
-  --data-binary '{"uid":4,"indexUid":"books","status":"succeeded","type":"documentAdditionOrUpdate","canceledBy":null,"details.receivedDocuments":1,"details.indexedDocuments":1,"duration":"PT0.001192S","enqueuedAt":"2022-08-04T12:28:15.159167Z","startedAt":"2022-08-04T12:28:15.161996Z","finishedAt":"2022-08-04T12:28:15.163188Z"}'
+  --data-binary '{"uid":2105,"indexUid":"legal_advice_legal_domain","status":"succeeded","type":"documentAdditionOrUpdate"}'
 ```
