@@ -91,6 +91,7 @@ nginx_proxies:
     dest_port: 8069 # default: 80
     ssl: true  # default: false
     monitor: / # default: false
+    exporter: odoo
     upstreams:
       - name: odoo
         server: odoo17:8069

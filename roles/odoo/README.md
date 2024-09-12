@@ -51,7 +51,7 @@ And include it in your playbook.
 
 ### Nginx config
 
-Setup this Nginx configuration for the `doc01` host:
+Setup this Nginx configuration for the `odoo01` host:
 
 ```yaml
 nginx_http_options: |
@@ -63,6 +63,7 @@ nginx_proxies:
   - src_hostname: odoo.example.com
     dest_hostname: odoo01
     dest_port: 8069
+    exporter: odoo
     locations:
       - path: /websocket
         dest_hostname: odoo04

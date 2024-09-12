@@ -7,32 +7,6 @@ scrape_configs:
       - targets:
           - localhost:9090
 
-  - job_name: cadvisor https
-    metrics_path: "/cadvisor/metrics"
-    scrape_interval: 30s
-    honor_labels: true
-    scheme: https
-    basic_auth:
-      username: {{ prometheus_cadvisor_basic_auth_username }}
-      password: {{ prometheus_cadvisor_basic_auth_password }}
-    static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? cadvisor_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}
-
-  - job_name: cadvisor http
-    metrics_path: "/cadvisor/metrics"
-    scrape_interval: 30s
-    honor_labels: true
-    scheme: http
-    basic_auth:
-      username: {{ prometheus_cadvisor_basic_auth_username }}
-      password: {{ prometheus_cadvisor_basic_auth_password }}
-    static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? cadvisor_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}
-
   - job_name: node-exporter https
     metrics_path: "/node-exporter/metrics"
     scrape_interval: 30s
@@ -42,22 +16,18 @@ scrape_configs:
       username: {{ prometheus_node_exporter_basic_auth_username }}
       password: {{ prometheus_node_exporter_basic_auth_password }}
     static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? node_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}
+      - targets: {{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `node`)].src_hostname') | flatten }}
   
-  - job_name: node-exporter http
-    metrics_path: "/node-exporter/metrics"
+  - job_name: cadvisor https
+    metrics_path: "/cadvisor/metrics"
     scrape_interval: 30s
     honor_labels: true
-    scheme: http
+    scheme: https
     basic_auth:
-      username: {{ prometheus_node_exporter_basic_auth_username }}
-      password: {{ prometheus_node_exporter_basic_auth_password }}
+      username: {{ prometheus_cadvisor_basic_auth_username }}
+      password: {{ prometheus_cadvisor_basic_auth_password }}
     static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? node_exporter_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}
+      - targets: {{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `cadvisor`)].src_hostname') | flatten }}
 
   - job_name: nextcloud https
     metrics_path: "/nextcloud-exporter/metrics"
@@ -68,9 +38,7 @@ scrape_configs:
       username: {{ prometheus_nextcloud_exporter_basic_auth_username }}
       password: {{ prometheus_nextcloud_exporter_basic_auth_password }}
     static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? nextcloud_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}
+      - targets: {{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `nextcloud`)].src_hostname') | flatten }}
 
   - job_name: bigbluebutton http
     metrics_path: "/bigbluebutton-exporter/metrics"
@@ -81,9 +49,7 @@ scrape_configs:
       username: {{ prometheus_bigbluebutton_exporter_basic_auth_username }}
       password: {{ prometheus_bigbluebutton_exporter_basic_auth_password }}
     static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? bigbluebutton_exporter_hostname && prometheus_target_scheme==`http`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}
+      - targets: {{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `bigbluebutton`)].src_hostname') | flatten }}
 
   - job_name: postgres https
     metrics_path: "/postgres-exporter/metrics"
@@ -94,9 +60,7 @@ scrape_configs:
       username: {{ prometheus_postgres_exporter_basic_auth_username }}
       password: {{ prometheus_postgres_exporter_basic_auth_password }}
     static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? postgres_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}
+      - targets: {{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `postgres`)].src_hostname') | flatten }}
 
   - job_name: restic-server https
     metrics_path: "/restic-server/metrics"
@@ -107,9 +71,26 @@ scrape_configs:
       username: {{ prometheus_restic_server_basic_auth_username }}
       password: {{ prometheus_restic_server_basic_auth_password }}
     static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? restic_server_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}
+      - targets: {{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `restic`)].src_hostname') | flatten }}
+
+  - job_name: odoo https
+    metrics_path: "/metrics"
+    scrape_interval: 60s
+    honor_labels: true
+    scheme: https
+    static_configs:
+      - targets: {{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `odoo`)].src_hostname') | flatten }}
+
+  - job_name: mysqld https
+    metrics_path: "/mysqld-exporter/metrics"
+    scrape_interval: 30s
+    honor_labels: true
+    scheme: https
+    basic_auth:
+      username: {{ prometheus_mysqld_exporter_basic_auth_username }}
+      password: {{ prometheus_mysqld_exporter_basic_auth_password }}
+    static_configs:
+      - targets: {{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `mysqld`)].src_hostname') | flatten }}
 
   - job_name: blackbox
     metrics_path: "/probe"
@@ -125,26 +106,3 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: blackbox01:9115
-
-  - job_name: odoo https
-    metrics_path: "/metrics"
-    scrape_interval: 60s
-    honor_labels: true
-    scheme: https
-    static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[*].nginx_proxies[?monitor_odoo==`true`].src_hostname') |
-          flatten }}
-
-  - job_name: mysqld https
-    metrics_path: "/mysqld-exporter/metrics"
-    scrape_interval: 30s
-    honor_labels: true
-    scheme: https
-    basic_auth:
-      username: {{ prometheus_mysqld_exporter_basic_auth_username }}
-      password: {{ prometheus_mysqld_exporter_basic_auth_password }}
-    static_configs:
-      - targets: {{ groups['all'] | map('extract', hostvars) |
-          json_query('[? mysqld_exporter_hostname && prometheus_target_scheme==`https`].[ansible_host,prometheus_target_port]') |
-          map('join', ':') }}

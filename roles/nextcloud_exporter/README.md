@@ -28,6 +28,7 @@ Ensure the nginx proxy includes the nextcloud-exporter config:
 nginx_proxies:
   - src_hostname: server.example.com
     ssl: true
+    exporter: nextcloud
     options: |
       include /etc/nginx/conf.d/proxies/nextcloud-exporter.nginx;
 ```

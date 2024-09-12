@@ -25,6 +25,7 @@ Ensure the nginx proxy includes the node-exporter config:
 nginx_proxies:
   - src_hostname: server.example.com
     ssl: true
+    exporter: node
     options: |
       include /etc/nginx/conf.d/proxies/node-exporter.nginx;
 ```
