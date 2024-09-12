@@ -15,7 +15,7 @@ odoo_master_password: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%d$
 
 # Supported by official Odoo image
-odoo_list_db: "False" # default: "True"
+odoo_list_db: "True" # default: "False"
 odoo_conf_limit_request: 8192
 odoo_conf_limit_time_cpu: 1200
 odoo_conf_limit_time_real: 1200
