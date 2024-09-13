@@ -69,6 +69,8 @@
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
       DBFILTER: "{{ odoo_dbfilter }}"
+      LIST_DB: "{{ odoo_list_db }}"
+      PROXY_MODE: "{{ odoo_proxy_mode }}"
     ports: "{{ odoo_ports | default([]) }}"
     volumes: "{{ odoo_volumes }}"
     networks:

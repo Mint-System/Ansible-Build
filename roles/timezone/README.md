@@ -9,7 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-timezone="Europ/Zurich"
+timezone: "Europe/Zurich"
 ```
 
 And include it in your playbook.

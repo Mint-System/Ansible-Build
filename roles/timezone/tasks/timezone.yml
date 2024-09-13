@@ -2,6 +2,7 @@
 - name: Get {{ role_name }}
   ansible.builtin.command: timedatectl show --property=Timezone --value
   changed_when: false
+  ignore_errors: True
   register: current_timezone
 
 - name: Set {{ role_name }}

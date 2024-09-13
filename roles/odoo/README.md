@@ -26,14 +26,14 @@ odoo_postgres_password: # default: "{{ vault_postgres_password }}"
 odoo_backup_set: # See restic_backup_set var in role restic_client
 odoo_master_password: # default: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%h$ # default: ^%d$
+odoo_list_db: True # default: False
+odoo_proxy_mode: False # default: True
 
 # Supported by official Odoo image only:
 
-odoo_list_db: "True" # default: "False"
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
-odoo_proxy_mode: "False" # default: "True"
 odoo_workers: 0 # default: 4
 odoo_conf: | # default: ""
   server_wide_modules = base,web,dbfilter_from_header
