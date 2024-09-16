@@ -1,4 +1,27 @@
 ---
 grafana_description: Grafana
 grafana_data_dir: /usr/share/{{ grafana_hostname }}
+grafana_volume_name: "{{ grafana_hostname }}"
+
+grafana_mail_enabled: "false"
+grafana_mail_from_name: Grafana
+grafana_mail_password: "{{ vault_grafana_mail_password }}"
+
+grafana_generic_oauth_enabled: "false"
+grafana_generic_oauth_name: Kecyloak
+grafana_generic_oauth_sign_up: "true"
 grafana_generic_oauth_scopes: profile
+
+grafana_azuread_enabled: "false"
+grafana_azuread_name: Azure AD
+grafana_azuread_sign_up: "true"
+grafana_azuread_auto_login: "false"
+grafana_azuread_client_secret: "{{ vault_grafana_azuread_client_secret }}"
+grafana_azuread_scopes: openid email profile
+grafana_azuread_auth_url: https://login.microsoftonline.com/{{ grafana_azuread_tenant_id }}/oauth2/v2.0/authorize
+grafana_azuread_token_url: https://login.microsoftonline.com/{{ grafana_azuread_tenant_id }}/oauth2/v2.0/token
+grafana_azuread_allowed_organizations: "{{ grafana_azuread_tenant_id }}"
+grafana_azuread_role_attribute_strict: "false"
+grafana_azuread_allow_assign_grafana_admin: "false"
+grafana_azuread_skip_org_role_sync: "false"
+grafana_azuread_use_pkce: "true"

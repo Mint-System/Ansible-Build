@@ -1,6 +1,6 @@
 # Packages role
 
-Set env vars and install packages and scripts.
+Set env vars and install packages.
 
 ## Usage
 
@@ -21,9 +21,11 @@ packages:
     version: 2:8.0.1453-1ubuntu1.3
 host_packages:
   - name: cifs_utils
-packages_snap:
+snap_packages:
   - name: ripgrep
-scripts:
+pip_packages:
+  - name: docker
+script_packages:
   - path: /usr/local/bin/hello-mom
     content: |
       echo "Hello Mom!"

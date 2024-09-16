@@ -22,7 +22,7 @@
 
 - name: Include {{ role_name }} snap tasks
   ansible.builtin.include_tasks: "{{ role_name }}_snap.yml"
-  when: packages_snap is defined and ansible_distribution == 'Ubuntu'
+  when: snap_packages is defined and ansible_distribution == 'Ubuntu'
   tags:
     - packages
 
@@ -44,8 +44,14 @@
   tags:
     - packages
 
-- name: Include scripts tasks
-  ansible.builtin.include_tasks: scripts.yml
-  when: scripts is defined
+- name: Include {{ role_name }} scripts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_scrips.yml"
+  when: packages_script is defined
+  tags:
+    - packages
+
+- name: Include {{ role_name }} scripts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_pip.yml"
+  when: pip_packages is defined
   tags:
     - packages

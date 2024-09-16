@@ -25,6 +25,63 @@
     - dashboard.yml
   notify: Restart {{ role_name }} container
 
+- name: Init {{ role_name }} env vars
+  ansible.builtin.set_fact:
+    grafana_env:
+      GF_SECURITY_ADMIN_USER: "{{ grafana_admin_user }}"
+      GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SERVER_DOMAIN: "{{ grafana_server_domain }}"
+      GF_SERVER_ROOT_URL: "{{ grafana_server_root_url }}"
+
+- name: Append SMTP env vars
+  ansible.builtin.set_fact:
+    grafana_env: "{{ grafana_env | combine(item) }}"
+  with_items:
+    - GF_SMTP_ENABLED: "{{ grafana_mail_enabled }}"
+    - GF_SMTP_HOST: "{{ grafana_mail_hostname }}"
+    - GF_SMTP_USER: "{{ grafana_mail_username }}"
+    - GF_SMTP_PASSWORD: "{{ grafana_mail_password }}"
+    - GF_SMTP_FROM_ADDRESS: "{{ grafana_mail_from }}"
+    - GF_SMTP_FROM_NAME: "{{ grafana_mail_from_name }}"
+  when: grafana_mail_enabled == "true"
+
+- name: Append OAuth env vars
+  ansible.builtin.set_fact:
+    grafana_env: "{{ grafana_env | combine(item) }}"
+  with_items:
+    - GF_AUTH_GENERIC_OAUTH_ENABLED: "{{ grafana_generic_oauth_enabled }}"
+    - GF_AUTH_GENERIC_OAUTH_NAME: "{{ grafana_generic_oauth_name }}"
+    - GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: "{{ grafana_generic_oauth_sign_up }}"
+    - GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "{{ grafana_generic_oauth_client_id }}"
+    - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "{{ grafana_generic_oauth_client_secret }}"
+    - GF_AUTH_GENERIC_OAUTH_SCOPES: "{{ grafana_generic_oauth_scopes }}"
+    - GF_AUTH_GENERIC_OAUTH_AUTH_URL: "{{ grafana_generic_oauth_auth_url }}"
+    - GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "{{ grafana_generic_oauth_token_url }}"
+    - GF_AUTH_GENERIC_OAUTH_API_URL: "{{ grafana_generic_oauth_api_url or '' }}"
+    - GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
+  when: grafana_generic_oauth_enabled == "true"
+
+- name: Append OAuth env vars
+  ansible.builtin.set_fact:
+    grafana_env: "{{ grafana_env | combine(item) }}"
+  with_items:
+    - GF_AUTH_AZUREAD_ENABLED: "{{ grafana_azuread_enabled }}"
+    - GF_AUTH_AZUREAD_NAME: "{{ grafana_azuread_name }}"
+    - GF_AUTH_AZUREAD_ALLOW_SIGN_UP: "{{ grafana_azuread_sign_up }}"
+    - GF_AUTH_AZUREAD_AUTO_LOGIN: "{{ grafana_azuread_auto_login }}"
+    - GF_AUTH_AZUREAD_CLIENT_ID: "{{ grafana_azuread_client_id }}"
+    - GF_AUTH_AZUREAD_CLIENT_SECRET: "{{ grafana_azuread_client_secret }}"
+    - GF_AUTH_AZUREAD_SCOPES: "{{ grafana_azuread_scopes }}"
+    - GF_AUTH_AZUREAD_AUTH_URL: "{{ grafana_azuread_auth_url }}"
+    - GF_AUTH_AZUREAD_TOKEN_URL: "{{ grafana_azuread_token_url }}"
+    - GF_AUTH_AZUREAD_ALLOWED_ORGANIZATIONS: "{{ grafana_azuread_allowed_organizations }}"
+    - GF_AUTH_AZUREAD_ROLE_ATTRIBUTE_STRICT: "{{ grafana_azuread_role_attribute_strict }}"
+    - GF_AUTH_AZUREAD_ALLOW_ASSIGN_GRAFANA_ADMIN: "{{ grafana_azuread_allow_assign_grafana_admin }}"
+    - GF_AUTH_AZUREAD_SKIP_ORG_ROLE_SYNC: "{{ grafana_azuread_skip_org_role_sync }}"
+    - GF_AUTH_AZUREAD_USE_PKCE: "{{ grafana_azuread_use_pkce }}"
+  when: grafana_azuread_enabled == "true"
+
 - name: Start {{ role_name }} container {{ grafana_hostname }}
   community.docker.docker_container:
     name: "{{ grafana_hostname }}"
@@ -33,28 +90,7 @@
     image: "{{ grafana_image }}"
     restart_policy: unless-stopped
     recreate: false
-    env:
-      GF_SECURITY_ADMIN_USER: "{{ grafana_admin_user }}"
-      GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
-      GF_USERS_ALLOW_SIGN_UP: "false"
-      GF_SMTP_ENABLED: "true"
-      GF_SMTP_HOST: "{{ grafana_mail_hostname }}"
-      GF_SMTP_USER: "{{ grafana_mail_username }}"
-      GF_SMTP_PASSWORD: "{{ grafana_mail_password }}"
-      GF_SMTP_FROM_ADDRESS: "{{ grafana_mail_from }}"
-      GF_SMTP_FROM_NAME: "{{ grafana_mail_from_name }}"
-      GF_SERVER_DOMAIN: "{{ grafana_server_domain }}"
-      GF_SERVER_ROOT_URL: "{{ grafana_server_root_url }}"
-      GF_AUTH_GENERIC_OAUTH_ENABLED: "{{ grafana_generic_oauth_enabled }}"
-      GF_AUTH_GENERIC_OAUTH_NAME: "{{ grafana_generic_oauth_name }}"
-      GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: "{{ grafana_generic_oauth_sign_up }}"
-      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "{{ grafana_generic_oauth_client_id }}"
-      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "{{ grafana_generic_oauth_client_secret }}"
-      GF_AUTH_GENERIC_OAUTH_SCOPES: "{{ grafana_generic_oauth_scopes }}"
-      GF_AUTH_GENERIC_OAUTH_AUTH_URL: "{{ grafana_generic_oauth_auth_url }}"
-      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "{{ grafana_generic_oauth_token_url }}"
-      GF_AUTH_GENERIC_OAUTH_API_URL: "{{ grafana_generic_oauth_api_url }}"
-      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
+    env: "{{ grafana_env }}"
     volumes:
       - "{{ grafana_volume_name }}:/var/lib/grafana"
       - "{{ grafana_data_dir }}/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml"

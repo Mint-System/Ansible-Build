@@ -15,6 +15,10 @@ prometheus_hostname: prom01
 prometheus_description: Monitoring # default: Prometheus
 prometheus_volume_name: prom_data01 # default: "{{ prometheus_hostname }}"
 prometheus_data_dir: /usr/share/prom # default: "/usr/share/{{ prometheus_hostname }}"
+prometheus_hosts: # default: groups['all']
+  - server1.example.com
+  - server2.example.com
+  - server3.example.com
 prometheus_port: 127.0.0.1:9999 # default: 127.0.0.1:9090
 prometheus_retention_time: "30d" # default: "15d"
 prometheus_etc_hosts: # defaults: {}
@@ -66,7 +70,7 @@ And include it in your playbook.
 
 ### Predefined srape configs
 
-The `prometheus.yml` template contains predefined srcape jobs that lookup proxy configurations in the Ansible inventory.
+The `prometheus.yml` template contains predefined srcape jobs that lookup proxy configurations of `prometheus_hosts` in the Ansible inventory.
 
 * **prometheus**: Target is `localhost:9090`.
 * **node-exporter https**: Targets are `nginx_proxies` with exporter `node`.

@@ -10,7 +10,7 @@
     name: "{{ item.name }}"
     classic: "{{ item.classic | default(false) }}"
     state: present
-  loop: "{{ packages_snap }}"
+  loop: "{{ snap_packages }}"
   when: item.version is not defined
 
 - name: Install versioned packages
@@ -18,5 +18,5 @@
     name: "{{ item.name }}={{ item.version }}"
     classic: "{{ item.classic | default(false) }}"
     state: present
-  loop: "{{ packages_snap }}"
+  loop: "{{ snap_packages }}"
   when: item.version is defined

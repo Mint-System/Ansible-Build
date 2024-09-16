@@ -10,11 +10,11 @@
 
 - name: Extract and filter blackbox target hostnames
   ansible.builtin.set_fact:
-    src_hostnames: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].src_hostname') | flatten }}"
+    src_hostnames: "{{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].src_hostname') | flatten }}"
 
 - name: Extract and filter blackbox target paths
   ansible.builtin.set_fact:
-    paths: "{{ groups['all'] | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].monitor') | flatten }}"
+    paths: "{{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].monitor') | flatten }}"
 
 - name: Generate blackbox target urls
   ansible.builtin.set_fact:

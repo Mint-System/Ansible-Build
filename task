@@ -14,6 +14,7 @@ printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "Command" "O
 echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-passwordfile" "[password]" "Generate a password file for Ansible vault."
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with pip."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with pip."
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "lint" "" "Lint Ansible roles and playbooks."
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-build" "" "Create tarball of collection."
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-publish" "" "Publish tarball to Ansible Galaxy."
@@ -58,18 +59,23 @@ function activate-venv() {
 }
 
 function install() {
-    echo "Setup Ansible log file."
+    echo "Setup Ansible log file"
     sudo touch /var/log/ansible.log
     sudo chown $USER: /var/log/ansible.log
 
     init-venv
     activate-venv
 
-    echo "Install Ansible and Python dependencies."
+    echo "Install Ansible and Python dependencies"
     sudo apt install graphviz
     pip install -r requirements.txt
 
     ansible-galaxy collection install community.general
+}
+
+function upgrade() {
+    echo "Update Ansible"
+    pip install --upgrade ansible
 }
 
 function update-docs() {
@@ -131,6 +137,9 @@ case "$1" in
         ;;
     install)
         install
+        ;;
+    upgrade)
+        upgrade
         ;;
     version)
         version
