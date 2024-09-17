@@ -9,7 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
-docker_hosts_enable: true # default: false
+docker_hosts_enable: false # default: true
 ```
 
 And include it in your playbook.
