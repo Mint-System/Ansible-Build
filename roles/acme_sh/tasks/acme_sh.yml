@@ -22,15 +22,22 @@
     acme_sh_env:
       FREEDNS_User: "{{ acme_sh_freedns_user }}"
       FREEDNS_Password: "{{ acme_sh_freedns_password }}"
+  when: acme_sh_freedns_user is defined and acme_sh_freedns_password is defined
+
+- name: Init {{ role_name }} env vars
+  ansible.builtin.set_fact:
+    acme_sh_env:
+      VERCEL_TOKEN: "{{ acme_sh_vercel_token }}"
+  when: acme_sh_vercel_token is defined
 
 - name: Issue {{ role_name }} certificates
   community.docker.docker_container:
-    name: "{{ item.src_hostname }}"
+    name: "{{ item.src_hostname | replace('*.', '') }}"
     labels:
       description: "{{ acme_sh_description }}"
     image: "{{ acme_sh_image }}"
     env: "{{ acme_sh_env }}"
     volumes:
       - "{{ acme_sh_data_dir }}:/acme.sh"
-    command: --register-account -m {{ acme_sh_email }} --issue --dns {{ item.dns }} -d {{ item.src_hostname }} --force
+    command: --register-account -m {{ acme_sh_email }} --issue --dns {{ item.dns }} -d {{ item.src_hostname }} --debug --output-insecure
   loop: "{{ acme_sh_certs }}"

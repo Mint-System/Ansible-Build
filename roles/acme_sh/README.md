@@ -9,6 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
+# https://hub.docker.com/r/neilpang/acme.sh
 acme_sh_image: neilpang/acme.sh
 acme_sh_hostname: acme01
 acme_sh_description: FreeDNS # default: Accme.sh
@@ -30,7 +31,13 @@ And include it in your playbook.
 
 ### Use FreeDNS
 
-To use the FreeDNS API set `dns: dns_freedns` in the proxy config and define these vars:
+To use the FreeDNS set `dns: dns_freedns` in the proxy config and define these vars:
 
 * `acme_sh_freedns_user`
-* `acme_sh_freedns_pasword`
+* `vault_acme_sh_freedns_password`
+
+### Use Vercel API
+
+To use the Vercel API set `dns: dns_vercel` in the proxy config and define these vars:
+
+* `vault_acme_sh_vercel_token`
