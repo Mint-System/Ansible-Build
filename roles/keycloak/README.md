@@ -12,7 +12,7 @@ Configure the role.
 # https://quay.io/repository/keycloak/keycloak
 keycloak_image: quay.io/keycloak/keycloak:22.0
 keycloak_build_image: true # default: false
-keycloak_build_include:
+keycloak_build_include: # default: []
   - url: https://github.com/inventage/keycloak-password-hashprovider-extension/releases/download/2.0.0/extension-password-hashprovider-2.0.0-202307200659-6-d59b2187.jar
     dest: /opt/keycloak/providers/hashprovider-extension.jar
   - url: https://repo1.maven.org/maven2/org/springframework/security/spring-security-crypto/6.1.3/spring-security-crypto-6.1.3.jar

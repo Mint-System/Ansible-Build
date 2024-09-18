@@ -1,5 +1,6 @@
 ---
 keycloak_build_image: false
+keycloak_build_include: []
 keycloak_description: Keycloak
 keycloak_state: started
 keycloak_data_dir: /usr/share/{{ keycloak_hostname }}
