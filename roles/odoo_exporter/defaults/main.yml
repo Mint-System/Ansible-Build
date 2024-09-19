@@ -1,0 +1,3 @@
+---
+odoo_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
+odoo_exporter_proxy_basic_auth_password: "{{ vault_odoo_exporter_proxy_basic_auth_password }}"

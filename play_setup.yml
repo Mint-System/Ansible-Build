@@ -144,3 +144,5 @@
       tags: timezone
     - role: meilisearch
       tags: meilisearch
+    - role: odoo_exporter
+      tags: odoo_exporter

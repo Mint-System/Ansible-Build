@@ -25,19 +25,21 @@ prometheus_etc_hosts: # defaults: {}
   "server.example.com": 10.42.5.2
 
 prometheus_node_exporter_basic_auth_username: node-exporter
-prometheus_node_exporter_basic_auth_password: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
+prometheus_node_exporter_basic_auth_password: # default: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
 prometheus_cadvisor_basic_auth_username: cadvisor
-prometheus_cadvisor_basic_auth_password: "{{ vault_prometheus_cadvisor_basic_auth_password }}"
+prometheus_cadvisor_basic_auth_password: # default: "{{ vault_prometheus_cadvisor_basic_auth_password }}"
 prometheus_nextcloud_exporter_basic_auth_username: nextcloud-exporter
-prometheus_nextcloud_exporter_basic_auth_password: "{{ vault_prometheus_nextcloud_exporter_basic_auth_password }}"
+prometheus_nextcloud_exporter_basic_auth_password: # default: "{{ vault_prometheus_nextcloud_exporter_basic_auth_password }}"
 prometheus_bigbluebutton_exporter_basic_auth_username: bigbluebutton-exporter
-prometheus_bigbluebutton_exporter_basic_auth_password: "{{ vault_prometheus_bigbluebutton_exporter_basic_auth_password }}"
+prometheus_bigbluebutton_exporter_basic_auth_password: # default: "{{ vault_prometheus_bigbluebutton_exporter_basic_auth_password }}"
 prometheus_postgres_exporter_basic_auth_username: postgres-exporter
-prometheus_postgres_exporter_basic_auth_password: "{{ vault_prometheus_postgres_exporter_basic_auth_password }}"
+prometheus_postgres_exporter_basic_auth_password: # default: "{{ vault_prometheus_postgres_exporter_basic_auth_password }}"
 prometheus_restic_server_basic_auth_username: restic-server
-prometheus_restic_server_basic_auth_password: "{{ vault_prometheus_restic_server_basic_auth_password }}"
+prometheus_restic_server_basic_auth_password: # default: "{{ vault_prometheus_restic_server_basic_auth_password }}"
 prometheus_mysqld_exporter_basic_auth_username: mysqld-exporter
-prometheus_mysqld_exporter_basic_auth_password: "{{ vault_prometheus_mysqld_exporter_basic_auth_password }}"
+prometheus_mysqld_exporter_basic_auth_password: # default: "{{ vault_prometheus_mysqld_exporter_basic_auth_password }}"
+prometheus_odoo_exporter_basic_auth_username: odoo-exporter
+prometheus_odoo_exporter_basic_auth_password: # default: "{{ vault_prometheus_odoo_exporter_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the exporter config:
@@ -47,7 +49,7 @@ nginx_proxies:
   - src_hostname: server.example.com
     ssl: true
     monitor: /
-    exporter: node,cadvsior,nextcloud,bigbluebutton,postgres,restic,mysqld
+    exporter: node,cadvsior,nextcloud,bigbluebutton,postgres,restic,mysqld,odoo
     options: |
       include /etc/nginx/conf.d/proxies/node-exporter.nginx;
       include /etc/nginx/conf.d/proxies/cadvisor.nginx;
@@ -55,6 +57,7 @@ nginx_proxies:
       include /etc/nginx/conf.d/proxies/bigbluebutton-exporter.nginx;
       include /etc/nginx/conf.d/proxies/postgres-exporter.nginx;
       include /etc/nginx/conf.d/proxies/mysqld-exporter.nginx;
+      include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
 ```
 
 

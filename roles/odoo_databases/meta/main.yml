@@ -1,6 +1,0 @@
----
-dependencies: # noqa 701
-  - role: odoo_scripts
-    tags:
-      - odoo_scripts
-      - depends

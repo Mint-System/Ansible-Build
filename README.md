@@ -102,7 +102,7 @@ List of all available Ansible roles.
 | [node_exporter](roles/node_exporter/README.md)                         | Deploy Node exporter container and install custom metric script. |
 | [odoo_apps](roles/odoo_apps/README.md)                                 | Install Odoo apps from file, url, public or private GitHub repo. |
 | [odoo_data](roles/odoo_data/README.md)                                 | Generate Odoo data modules.                                      |
-| [odoo_databases](roles/odoo_databases/README.md)                       | Configure Odoo databases.                                        |
+| [odoo_exporter](roles/odoo_exporter/README.md)                         | Add nginx config for Odoo exporter path.                         |
 | [odoo_enterprise](roles/odoo_enterprise/README.md)                     | Checkout the Odoo Enterprise git repository.                     |
 | [odoo_patches](roles/odoo_patches/README.md)                           | Apply custom Odoo patches.                                       |
 | [odoo_scripts](roles/odoo_scripts/README.md)                           | Install Odoo scripts.                                            |

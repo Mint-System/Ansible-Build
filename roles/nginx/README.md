@@ -87,7 +87,7 @@ nginx_proxies:
         root: intern.example.com
 
   - src_hostname: odoo.example.com
-    dest_hostname: odoo01
+    dest_hostname: odoo
     dest_port: 8069 # default: 80
     ssl: true  # default: false
     monitor: / # default: false
@@ -99,10 +99,7 @@ nginx_proxies:
         server: odoo17:8072
     options: |
       include /etc/letsencrypt/proxy-params.conf;
-      location /longpolling {
-        proxy_pass http://odoochat;
-        
-      }
+      include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
       client_max_body_size 32M;
       if ($request_method = OPTIONS) {
         add_header Access-Control-Allow-Origin "http://localhost:8080";
@@ -117,6 +114,14 @@ nginx_proxies:
       add_header Access-Control-Allow-Origin "http://localhost:8080";
       add_header Access-Control-Allow-Credentials true;
       proxy_cookie_path / "/; secure; HttpOnly; SameSite=None";
+    locations:
+      - path: /websocket
+        dest_hostname: odoochat
+        dest_port: 8072
+        options: |
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+          include /etc/letsencrypt/proxy-params.conf;
 ```
 
 And include it in your playbook.

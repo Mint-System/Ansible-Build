@@ -1,0 +1,25 @@
+---
+- name: Ensure nginx data dir exists
+  ansible.builtin.file:
+    path: "{{ odoo_exporter_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Fail if package {{ odoo_exporter_requires_package }} is not installed
+  ansible.builtin.fail:
+    msg: Package {{ odoo_exporter_requires_package }} is not installed!
+  when: odoo_exporter_requires_package not in ansible_facts.packages
+
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
+    path: "{{ odoo_exporter_nginx_data_dir }}/odoo-exporter.htpasswd"
+    name: "{{ odoo_exporter_proxy_basic_auth_username }}"
+    password: "{{ odoo_exporter_proxy_basic_auth_password }}"
+
+- name: Copy nginx {{ role_name }} conf
+  ansible.builtin.template:
+    src: odoo-exporter.nginx
+    dest: "{{ odoo_exporter_nginx_data_dir }}/odoo-exporter.nginx"

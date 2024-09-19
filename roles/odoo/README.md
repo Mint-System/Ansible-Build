@@ -64,9 +64,12 @@ nginx_proxies:
     dest_hostname: odoo01
     dest_port: 8069
     exporter: odoo
+    options: |
+      include /etc/letsencrypt/proxy-params.conf;
+      include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
     locations:
       - path: /websocket
-        dest_hostname: odoo04
+        dest_hostname: odoo01
         dest_port: 8072
         options: |
           proxy_set_header Upgrade $http_upgrade;
