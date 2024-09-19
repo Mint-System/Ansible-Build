@@ -21,7 +21,7 @@
 
 - name: Include {{ role_name }} check tasks
   ansible.builtin.include_tasks: "{{ role_name }}_check.yml"
-  when: certbot_image is defined
+  when: certbot_hostname is defined
   tags:
     - certbot
 
@@ -33,18 +33,18 @@
 
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: certbot_image is defined
+  when: certbot_hostname is defined
   tags:
     - certbot
 
 - name: Include {{ role_name }} renew tasks
   ansible.builtin.include_tasks: "{{ role_name }}_renew.yml"
-  when: certbot_image is defined
+  when: certbot_hostname is defined
   tags:
     - certbot
 
 - name: Include {{ role_name }} cleanup tasks
   ansible.builtin.include_tasks: "{{ role_name }}_cleanup.yml"
-  when: certbot_image is defined
+  when: certbot_hostname is defined
   tags:
     - certbot

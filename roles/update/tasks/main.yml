@@ -1,7 +1,7 @@
 ---
 - name: Show distribution
   ansible.builtin.debug:
-    msg: "Distribution: {{ ansible_distribution }}\nMajor Version: {{ ansible_distribution_major_version }}"
+    msg: "Distribution: {{ ansible_distribution }}\nMajor Version: {{ ansible_distribution_major_version }}\nPython Version: {{ ansible_python_version }}"
 
 - name: Include {{ role_name }} apt tasks
   ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
