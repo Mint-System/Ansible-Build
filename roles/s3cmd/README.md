@@ -15,11 +15,11 @@ s3cmd_access_key: EXO2677bc43796a0cff80b29b79
 s3cmd_secret_key: "{{ vault_s3cmd_secret_key }}"
 s3cmd_backup_set:
   - id: "disk2"
-    src: /mnt/kronos-disk2/
+    src: /mnt/sdb/
     target: kronos
     hour: "5"
-  - id: "disk1"
-    src: /mnt/kronos-disk1/
+  - id: "disk"
+    src: /mnt/sda/
     target: kronos
     hour: "3"
     disabled: true # default: false

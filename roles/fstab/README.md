@@ -14,7 +14,7 @@ fstab_credentials:
     password: "{{ vault_fstab_credentials_1_password }}"
     domain: domain
 fstab_mounts:
-  - path: /mnt/apollo-disk2
+  - path: /mnt/sdb
     src: /dev/disk/by-id/scsi-0HC_Volume_10321808
     opts: discard,nofail,defaults
     state: mounted
