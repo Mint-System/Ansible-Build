@@ -3,6 +3,11 @@
   community.docker.docker_volume:
     name: "{{ mysql_volume_name }}"
 
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ postgres_data_dir }}"
+    state: directory
+
 - name: Start {{ role_name }} container {{ mysql_hostname }}
   community.docker.docker_container:
     name: "{{ mysql_hostname }}"

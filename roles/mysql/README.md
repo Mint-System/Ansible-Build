@@ -14,6 +14,7 @@ mysql_image: mysql:5
 mysql_hostname: mysql01
 mysql_description: database for moodle # default: MySQL
 mysql_volume_name: mysql_data01 # default: "{{ mysql_hostname }}"
+mysql_data_dir: /usr/share/mysql # default: "/usr/share/{{ mysql_hostname }}"
 mysql_root_password: # default: "{{ vault_mysql_root_password }}"
 mysql_database: example
 mysql_user: example
