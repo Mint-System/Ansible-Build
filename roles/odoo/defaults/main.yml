@@ -5,7 +5,6 @@ odoo_timezone: Europe/Zurich
 odoo_description: Odoo
 odoo_state: started
 odoo_ports: []
-
 odoo_data_dir: /usr/share/{{ odoo_hostname }}
 odoo_volume_name: "{{ odoo_hostname }}"
 odoo_postgres_user: odoo
