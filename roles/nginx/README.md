@@ -39,7 +39,7 @@ nginx_proxies:
     dest_port: 8080 # default: 80
     limit_req_zone: one
     options: |
-      include /etc/letsencrypt/proxy-params.conf;
+      include /etc/nginx/conf.d/proxy-params.conf;
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
     ssl: true # default: false
 
@@ -62,7 +62,7 @@ nginx_proxies:
         dest_hostname: frappe-bench
         dest_port: 8000
         options: |
-          include /etc/letsencrypt/proxy-params.conf;
+          include /etc/nginx/conf.d/proxy-params.conf;
           proxy_set_header Host frappe-bench:8000;
           client_max_body_size 128M;
         limit_req_zone: one
@@ -70,7 +70,7 @@ nginx_proxies:
         dest_hostname: authserver
         dest_port: 8080 # default: 80
         options: |
-          include /etc/letsencrypt/proxy-params.conf;
+          include /etc/nginx/conf.d/proxy-params.conf;
           proxy_buffer_size 128k;
           proxy_buffers 4 256k;
           proxy_busy_buffers_size 256k;
@@ -98,7 +98,7 @@ nginx_proxies:
       - name: odoochat
         server: odoo17:8072
     options: |
-      include /etc/letsencrypt/proxy-params.conf;
+      include /etc/nginx/conf.d/proxy-params.conf;
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
       client_max_body_size 32M;
       if ($request_method = OPTIONS) {
@@ -121,7 +121,7 @@ nginx_proxies:
         options: |
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
-          include /etc/letsencrypt/proxy-params.conf;
+          include /etc/nginx/conf.d/proxy-params.conf;
 ```
 
 And include it in your playbook.

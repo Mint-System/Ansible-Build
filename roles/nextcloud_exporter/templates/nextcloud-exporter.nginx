@@ -2,5 +2,5 @@ location /nextcloud-exporter/metrics {
     auth_basic "{{ nextcloud_exporter_proxy_basic_auth_username }}";
     auth_basic_user_file /etc/nginx/conf.d/proxies/nextcloud-exporter.htpasswd;
     proxy_pass http://{{ nextcloud_exporter_hostname }}:9205/metrics;
-    include /etc/letsencrypt/proxy-params.conf;
+    include /etc/nginx/conf.d/proxy-params.conf;
 }

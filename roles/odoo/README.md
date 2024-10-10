@@ -16,8 +16,8 @@ odoo_replicas: 3 # default: 1
 odoo_timezone: Europe/Paris # default: Europe/Zurich
 odoo_description: Odoo14 # default: Odoo
 odoo_state: stopped # default: started
-odoo_ports:
- - "8069:8069" # default: "127.0.0.1:8069:8069"
+odoo_ports: # default: []
+ - "127.0.0.1:8069:8069"
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_volume_name: odoo_data01 # default: "{{ odoo_hostname}}"
 odoo_postgres_hostname: postgres01
@@ -65,7 +65,7 @@ nginx_proxies:
     dest_port: 8069
     exporter: odoo
     options: |
-      include /etc/letsencrypt/proxy-params.conf;
+      include /etc/nginx/conf.d/proxy-params.conf;
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
     locations:
       - path: /websocket
@@ -74,7 +74,7 @@ nginx_proxies:
         options: |
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
-          include /etc/letsencrypt/proxy-params.conf;
+          include /etc/nginx/conf.d/proxy-params.conf;
 ```
 
 ### Calculate workers
@@ -103,7 +103,7 @@ nginx_proxies:
     options: |
       location /longpolling {
         proxy_pass http://odoo01:8072;
-        include /etc/letsencrypt/proxy-params.conf;
+        include /etc/nginx/conf.d/proxy-params.conf;
       }
 ```
 

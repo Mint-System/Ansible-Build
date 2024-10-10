@@ -38,4 +38,3 @@
   loop:
     - options-ssl-nginx.conf
     - ssl-dhparams.pem
-    - proxy-params.conf

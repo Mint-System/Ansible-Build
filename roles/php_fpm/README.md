@@ -47,5 +47,5 @@ nginx_proxies:
     dest_hostname: php01
     dest_port: 8069
     options: |
-      include /etc/letsencrypt/proxy-params.conf;          
+      include /etc/nginx/conf.d/proxy-params.conf;          
 ```

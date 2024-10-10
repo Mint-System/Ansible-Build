@@ -31,13 +31,13 @@ server {
 
     location / {
         proxy_pass $PROXY_HOST:8069;
-        include /etc/letsencrypt/proxy-params.conf;
+        include /etc/nginx/conf.d/proxy-params.conf;
     }
 
     location /websocket {
         proxy_pass $PROXY_HOST:8072;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
-        include /etc/letsencrypt/proxy-params.conf;
+        include /etc/nginx/conf.d/proxy-params.conf;
     }
 }

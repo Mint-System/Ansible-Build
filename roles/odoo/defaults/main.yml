@@ -4,8 +4,7 @@ odoo_replicas: 1
 odoo_timezone: Europe/Zurich
 odoo_description: Odoo
 odoo_state: started
-odoo_ports:
-  - 127.0.0.1:8069:8069
+odoo_ports: []
 
 odoo_data_dir: /usr/share/{{ odoo_hostname }}
 odoo_volume_name: "{{ odoo_hostname }}"

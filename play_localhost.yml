@@ -35,3 +35,5 @@
       tags: vercel
     - role: docker_hosts
       tags: docker_hosts
+    - role: hosts
+      tags: hosts

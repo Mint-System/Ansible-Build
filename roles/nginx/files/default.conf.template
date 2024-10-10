@@ -22,6 +22,6 @@ server {
 
     location / {
         proxy_pass $PROXY_PASS;
-        include /etc/letsencrypt/proxy-params.conf;
+        include /etc/nginx/conf.d/proxy-params.conf;
     }
 }

@@ -4,14 +4,14 @@
   roles:
     - role: resolv
       tags: resolv
+    - role: fstab
+      tags: fstab
     - role: packages
       tags: packages
     - role: cargo
       tags: cargo
     - role: docker_swarm
       tags: docker_swarm
-    - role: fstab
-      tags: fstab
     - role: locale
       tags: locale
     - role: iam

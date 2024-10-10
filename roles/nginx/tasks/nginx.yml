@@ -4,6 +4,7 @@
     nginx_volumes:
       - "{{ nginx_data_dir }}/proxies:/etc/nginx/conf.d/proxies/:ro"
       - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
+      - "{{ nginx_data_dir }}/proxy-params.conf:/etc/nginx/conf.d/proxy-params.conf"
       - "{{ nginx_data_dir }}/static:/etc/nginx/conf.d/static/"
 
 - name: Append Certbot volume vars

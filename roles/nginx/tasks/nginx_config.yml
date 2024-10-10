@@ -4,6 +4,13 @@
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
+- name: Copy nginx conf files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ nginx_data_dir }}/"
+  loop:
+    - proxy-params.conf
+
 - name: Copy nginx default conf
   ansible.builtin.template:
     src: default.conf

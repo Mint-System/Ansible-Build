@@ -68,5 +68,5 @@ nginx_proxies:
     monitor: false
     options: |
       proxy_set_header Host $host;
-      include /etc/letsencrypt/proxy-params.conf;
+      include /etc/nginx/conf.d/proxy-params.conf;
 ```

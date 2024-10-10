@@ -40,7 +40,7 @@ nginx_proxies:
     ssl: true
     monitor: false
     options: |
-      include /etc/letsencrypt/proxy-params.conf;
+      include /etc/nginx/conf.d/proxy-params.conf;
       include /etc/nginx/conf.d/proxies/node-exporter.nginx;
       include /etc/nginx/conf.d/proxies/cadvisor.nginx;
       include /etc/nginx/conf.d/proxies/postgres-exporter.nginx;
@@ -49,5 +49,5 @@ nginx_proxies:
         dest_hostname: dozzle01
         dest_port: 8080
         options: |
-          include /etc/letsencrypt/proxy-params.conf;
+          include /etc/nginx/conf.d/proxy-params.conf;
 ```
