@@ -5,8 +5,8 @@
     dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
-    - run-cron-job
-    - list-cron-job
+    - cron-job-run
+    - cron-job-list
 
 - name: Gather package facts
   ansible.builtin.package_facts:

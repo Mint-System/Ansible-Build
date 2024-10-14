@@ -4,8 +4,8 @@ set -e
 REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
 SCRIPTS=(
-    run-cron-job
-    list-cron-job
+    cron-job-run
+    cron-job-list
 )
 
 for SCRIPT in ${SCRIPTS[@]}; do

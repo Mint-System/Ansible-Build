@@ -108,10 +108,10 @@
       tags: cadvisor
     - role: node_exporter
       tags: node_exporter
-    - role: restic_server
-      tags: restic_server
-    - role: grafana
-      tags: grafana
+    - role: mysqld_exporter
+      tags: mysqld_exporter
+    - role: odoo_exporter
+      tags: odoo_exporter
     - role: postgres_exporter
       tags: postgres_exporter
     - role: blackbox_exporter
@@ -122,6 +122,10 @@
       tags: loki
     - role: promtail
       tags: promtail
+    - role: grafana
+      tags: grafana
+    - role: restic_server
+      tags: restic_server
     - role: acme_sh
       tags: acme_sh
     - role: nginx
@@ -138,11 +142,7 @@
       tags: caddy
     - role: hosts
       tags: hosts
-    - role: mysqld_exporter
-      tags: mysqld_exporter
     - role: timezone
       tags: timezone
     - role: meilisearch
       tags: meilisearch
-    - role: odoo_exporter
-      tags: odoo_exporter

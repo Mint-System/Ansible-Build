@@ -1,4 +1,12 @@
 ---
+- name: Remove restic client scripts
+  ansible.builtin.file:
+    path: /usr/local/bin/{{ item }}
+    state: absent
+  loop:
+    - run-cron-job
+    - list-cron-job
+
 - name: Remove restic backup jobs
   ansible.builtin.cron:
     name: "{{ item.id }}"
@@ -12,3 +20,10 @@
     state: absent
   loop: "{{ postgres_backup_set }}"
   when: postgres_backup_set is defined
+
+- name: Remove odoo backup jobs
+  ansible.builtin.cron:
+    name: "{{ item.id }}"
+    state: absent
+  loop: "{{ odoo_backup_set }}"
+  when: odoo_backup_set is defined

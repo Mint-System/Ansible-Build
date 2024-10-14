@@ -9,7 +9,8 @@
     recreate: false
     volumes:
       - /:/host:ro,rslave
-    command: --collector.textfile.directory=/host/var/tmp --path.rootfs=/host
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+    command: --collector.textfile.directory=/host/var/tmp --path.rootfs=/host --collector.systemd
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

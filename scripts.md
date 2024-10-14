@@ -107,5 +107,5 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/restic_client/files/install | bash
 ```
 
-- run-cron-job
-- list-cron-job
+- cron-job-run
+- cron-job-list
