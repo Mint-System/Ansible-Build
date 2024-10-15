@@ -19,6 +19,11 @@ docker_build_dir: /tmp/build # defaults: /srv/build
 docker_log_driver: "local" # defaults: "json-file
 docker_log_max_size: "50m" # defaults: "10m"
 docker_log_max_file: "5" # defaults: "3"
+docker_login_username: janikvonrotz
+docker_login_password: # default: "{{ vault_docker_login_password }}"
+docker_login_users: # default: root
+  - git-bot
+
 # apt package manager
 docker_apt_url: "https://download.docker.com/linux/ubuntu/gpg"
 docker_apt_repo: "deb https://download.docker.com/linux/ubuntu xenial stable"
@@ -36,6 +41,7 @@ docker_packages:
   - name: python3-setuptools
   - name: docker-ce
     version: 5:19.03.8~3-0~ubuntu-xenial
+
 # yum package manager
 docker_yum_url: https://download.docker.com/linux/centos/docker-ce.repo
 docker_yum_repo: docker-ce-edge
@@ -46,10 +52,6 @@ docker_packages:
     version: 19.03.12
   - name: containerd.io
     version: 1.2.13
-docker_login_username: janikvonrotz
-docker_login_password: "{{ vault_docker_login_password }}"
-docker_login_users: # defaults: - root
-  - git-bot
 ```
 
 Include it in your playbook.

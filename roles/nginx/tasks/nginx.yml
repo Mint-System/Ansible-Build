@@ -1,11 +1,19 @@
 ---
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/{{ item }}
+    mode: +x
+  loop:
+    - docker-nginx-reload
+    - docker-nginx-enable
+    - parse-url
+    - get-public-ip
+
 - name: Init {{ role_name }} volume vars
   ansible.builtin.set_fact:
     nginx_volumes:
-      - "{{ nginx_data_dir }}/proxies:/etc/nginx/conf.d/proxies/:ro"
-      - "{{ nginx_data_dir }}/default.conf:/etc/nginx/conf.d/default.conf"
-      - "{{ nginx_data_dir }}/proxy-params.conf:/etc/nginx/conf.d/proxy-params.conf"
-      - "{{ nginx_data_dir }}/static:/etc/nginx/conf.d/static/"
+      - "{{ nginx_data_dir }}:/etc/nginx/conf.d"
 
 - name: Append Certbot volume vars
   ansible.builtin.set_fact:
@@ -35,14 +43,3 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ nginx_hostname }}|{{ role_name }}"
-
-- name: Copy {{ role_name }} scripts
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
-    mode: +x
-  loop:
-    - docker-nginx-reload
-    - docker-nginx-enable
-    - parse-url
-    - get-public-ip

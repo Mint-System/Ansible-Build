@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/collabora/code
-collabora_code_image: collabora/code:23.05.5.4.1
+collabora_code_image: collabora/code:24.04.8.2.1
 collabora_code_hostname: doc01
 collabora_code_server_name: doc.example.com
 collabora_code_aliasgroup1: next.example.com,cloud.example.com # default: ""

@@ -10,6 +10,8 @@
     dest: "{{ nginx_data_dir }}/"
   loop:
     - proxy-params.conf
+    - options-ssl-nginx.conf
+    - ssl-dhparams.pem
 
 - name: Copy nginx default conf
   ansible.builtin.template:
@@ -65,3 +67,5 @@
 - name: Test {{ role_name }} conf files
   ansible.builtin.command: docker exec {{ nginx_hostname }} nginx -t
   when: nginx_container.exists
+  tags:
+    - check

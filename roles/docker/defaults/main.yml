@@ -6,3 +6,4 @@ docker_log_max_size: 10m
 docker_log_max_file: "3"
 docker_login_users:
   - root
+docker_login_password: "{{ vault_docker_login_password }}"

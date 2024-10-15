@@ -30,7 +30,6 @@ odoo_list_db: True # default: False
 odoo_proxy_mode: False # default: True
 
 # Supported by official Odoo image only:
-
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200

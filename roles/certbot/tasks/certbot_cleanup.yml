@@ -30,11 +30,3 @@
     state: absent
   loop: "{{ certbot_managed_certs.stdout_lines }}"
   when: item not in managed_certs
-
-- name: Copy nginx ssl conf files
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ certbot_data_dir }}/"
-  loop:
-    - options-ssl-nginx.conf
-    - ssl-dhparams.pem

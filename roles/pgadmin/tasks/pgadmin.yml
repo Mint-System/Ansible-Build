@@ -12,6 +12,7 @@
   ansible.builtin.template:
     src: servers.json
     dest: "{{ pgadmin_data_dir }}/servers.json"
+  when: pgadmin_servers is defined
   notify: Restart {{ role_name }} container
 
 - name: Start {{ role_name }} container {{ pgadmin_hostname }}
