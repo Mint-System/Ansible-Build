@@ -11,6 +11,7 @@ Configure the role.
 ```yml
 odoo_image: mintsystem/odoo:16.0.20240603
 odoo_build_image: true # default: false
+odoo_build_pip_install: pyodbc # default: prometheus-client python-jose
 odoo_hostname: odoo01
 odoo_replicas: 3 # default: 1
 odoo_timezone: Europe/Paris # default: Europe/Zurich
