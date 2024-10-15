@@ -2,6 +2,12 @@
 - hosts: all
   become: true
   roles:
+    - role: hosts
+      tags: hosts
+    - role: timezone
+      tags: timezone
+    - role: locale
+      tags: locale
     - role: resolv
       tags: resolv
     - role: fstab
@@ -10,139 +16,27 @@
       tags: packages
     - role: cargo
       tags: cargo
-    - role: docker_swarm
-      tags: docker_swarm
-    - role: locale
-      tags: locale
     - role: iam
       tags: iam
+    - role: maintenance
+      tags: maintenance
     - role: update
       tags:
         - update
         - never
-    - role: maintenance
-      tags: maintenance
     - role: ufw
       tags: ufw
     - role: fail2ban
       tags: fail2ban
-    - role: restic_server
-      tags: restic_server
     - role: restic_client
       tags: restic_client
-    - role: s3cmd
-      tags: s3cmd
-    - role: docker_compose
-      tags: docker_compose
-    - role: innernet_server
-      tags: innernet_server
     - role: innernet_client
       tags: innernet_client
-    - role: systemd
-      tags: systemd
     - role: rclone
       tags: rclone
     - role: cron
       tags: cron
     - role: docker_hosts
       tags: docker_hosts
-    - role: jenkins
-      tags: jenkins
-    - role: dind
-      tags: dind
-    - role: debug
-      tags: debug
-    - role: postgres
-      tags: postgres
-    - role: mysql
-      tags: mysql
-    - role: bookstack
-      tags: bookstack
-    - role: nextcloud
-      tags: nextcloud
-    - role: matomo
-      tags: matomo
-    - role: fathom
-      tags: fathom
-    - role: keycloak
-      tags: keycloak
-    - role: wordpress
-      tags: wordpress
-    - role: pgadmin
-      tags: pgadmin
-    - role: moodle
-      tags: moodle
-    - role: birt
-      tags: birt
-    - role: gitea
-      tags: gitea
-    - role: remark42
-      tags: remark42
-    - role: mailhog
-      tags: mailhog
-    - role: dozzle
-      tags: dozzle
-    - role: superset
-      tags: superset
-    - role: simple_mail_forwarder
-      tags: simple_mail_forwarder
-    - role: postfix
-      tags: postfix
-    - role: dribdat
-      tags: dribdat
-    - role: keycloak
-      tags: keycloak
-    - role: pgadmin
-      tags: pgadmin
-    - role: coturn
-      tags: coturn
-    - role: git
-      tags: git
-    - role: docker_network
-      tags: docker_network
-    - role: docker_hosts
-      tags: docker_hosts
-    - role: php_fpm
-      tags: php_fpm
-    - role: cadvisor
-      tags: cadvisor
-    - role: node_exporter
-      tags: node_exporter
-    - role: mysqld_exporter
-      tags: mysqld_exporter
-    - role: odoo_exporter
-      tags: odoo_exporter
-    - role: postgres_exporter
-      tags: postgres_exporter
-    - role: blackbox_exporter
-      tags: blackbox_exporter
-    - role: prometheus
-      tags: prometheus
-    - role: loki
-      tags: loki
-    - role: promtail
-      tags: promtail
-    - role: grafana
-      tags: grafana
-    - role: restic_server
-      tags: restic_server
-    - role: acme_sh
-      tags: acme_sh
-    - role: nginx
-      tags: nginx
-    - role: nginx_waf
-      tags: nginx_waf
-    - role: simple_mail_forwarder
-      tags: simple_mail_forwarder
-    - role: keycloak_client
-      tags: keycloak_client
-    - role: htpasswd
-      tags: htpasswd
-    - role: caddy
-      tags: caddy
-    - role: hosts
-      tags: hosts
-    - role: timezone
-      tags: timezone
-    - role: meilisearch
-      tags: meilisearch
+    - role: docker_compose
+      tags: docker_compose

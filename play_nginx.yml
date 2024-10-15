@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - role: htpasswd
+      tags: htpasswd
+    - role: cadvisor
+      tags: cadvisor
+    - role: node_exporter
+      tags: node_exporter
+    - role: mysqld_exporter
+      tags: mysqld_exporter
+    - role: odoo_exporter
+      tags: odoo_exporter
+    - role: postgres_exporter
+      tags: postgres_exporter
+    - role: bigbluebutton_exporter
+      tags: bigbluebutton_exporter
+    - role: loki
+      tags: loki
+    - role: acme_sh
+      tags: acme_sh
+    - role: certbot
+      tags: certbot
+    - role: nginx
+      tags: nginx
+    - role: nginx_waf
+      tags: nginx_waf
+    - role: caddy
+      tags: caddy

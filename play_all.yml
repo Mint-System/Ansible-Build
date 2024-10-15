@@ -1,0 +1,82 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - role: debug
+      tags: debug
+    - role: restic_server
+      tags: restic_server
+    - role: s3cmd
+      tags: s3cmd
+    - role: innernet_server
+      tags: innernet_server
+    - role: systemd
+      tags: systemd
+    - role: jenkins
+      tags: jenkins
+    - role: dind
+      tags: dind
+    - role: postgres
+      tags: postgres
+    - role: mysql
+      tags: mysql
+    - role: bookstack
+      tags: bookstack
+    - role: matomo
+      tags: matomo
+    - role: fathom
+      tags: fathom
+    - role: keycloak
+      tags: keycloak
+    - role: wordpress
+      tags: wordpress
+    - role: pgadmin
+      tags: pgadmin
+    - role: moodle
+      tags: moodle
+    - role: birt
+      tags: birt
+    - role: gitea
+      tags: gitea
+    - role: remark42
+      tags: remark42
+    - role: mailhog
+      tags: mailhog
+    - role: dozzle
+      tags: dozzle
+    - role: superset
+      tags: superset
+    - role: simple_mail_forwarder
+      tags: simple_mail_forwarder
+    - role: postfix
+      tags: postfix
+    - role: dribdat
+      tags: dribdat
+    - role: keycloak
+      tags: keycloak
+    - role: pgadmin
+      tags: pgadmin
+    - role: coturn
+      tags: coturn
+    - role: git
+      tags: git
+    - role: php_fpm
+      tags: php_fpm
+    - role: blackbox_exporter
+      tags: blackbox_exporter
+    - role: prometheus
+      tags: prometheus
+    - role: promtail
+      tags: promtail
+    - role: grafana
+      tags: grafana
+    - role: restic_server
+      tags: restic_server
+    - role: htpasswd
+      tags: htpasswd
+    - role: simple_mail_forwarder
+      tags: simple_mail_forwarder
+    - role: keycloak_client
+      tags: keycloak_client
+    - role: meilisearch
+      tags: meilisearch
