@@ -1,6 +1,7 @@
 ---
 odoo_build_image: false
-odoo_build_pip_install: prometheus-client python-jose
+odoo_build_dockerfile: |
+  RUN python -m pip install prometheus-client python-jose
 odoo_replicas: 1
 odoo_timezone: Europe/Zurich
 odoo_description: Odoo
