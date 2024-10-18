@@ -11,6 +11,6 @@ SCRIPTS=(
 
 for SCRIPT in ${SCRIPTS[@]}; do
     echo "Install $SCRIPT script ..."
-    sudo curl -L "$REPOSITORY/master/roles/docker_volume/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+    sudo curl -L "$REPOSITORY/main/roles/docker_volume/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
     sudo chmod +x "/usr/local/bin/$SCRIPT"
 done
