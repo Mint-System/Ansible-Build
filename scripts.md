@@ -5,7 +5,7 @@ The following Ansible roles contain command line tools that can be used independ
 ## [ansible_scripts](role/ansible_scripts/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/ansible_scripts/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/ansible_scripts/files/install | bash
 ```
 
 - ansible-vault-get
@@ -13,7 +13,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [odoo_scripts](roles/odoo_scripts/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/odoo_scripts/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/odoo_scripts/files/install | bash
 ```
 
 - docker-odoo-backup
@@ -40,7 +40,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [nginx](roles/nginx/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/nginx/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/nginx/files/install | bash
 ```
 
 - docker-nginx-enable
@@ -51,7 +51,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [node_exporter](roles/node_exporter/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/node_exporter/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/node_exporter/files/install | bash
 ```
 
 - write-node-exporter-metric
@@ -59,7 +59,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [mysql](roles/mysql/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/mysql/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/mysql/files/install | bash
 ```
 
 - docker-mysql-backup
@@ -70,7 +70,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [grafana](roles/grafana/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/grafana/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/grafana/files/install | bash
 ```
 
 - grafana-backup
@@ -78,7 +78,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [postgres](roles/postgres/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/postgres/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/postgres/files/install | bash
 ```
 
 - docker-postgres-backup
@@ -93,7 +93,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [docker_volume](roles/docker_volume/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/docker_volume/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/docker_volume/files/install | bash
 ```
 
 - docker-volume-backup
@@ -103,7 +103,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [certbot](roles/certbot/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/certbot/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/certbot/files/install | bash
 ```
 
 - docker-certbot-delete
@@ -112,7 +112,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles
 ## [restic_client](roles/restic_client/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/restic_client/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/restic_client/files/install | bash
 ```
 
 - cron-job-run

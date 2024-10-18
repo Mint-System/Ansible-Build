@@ -101,4 +101,4 @@ grafana_azuread_scopes: openid # default: openid email profile
 
 The installation script requires that you have sudo access to root.
 
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/grafana/files/install | bash` in your terminal.
+Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/grafana/files/install | bash` in your terminal.

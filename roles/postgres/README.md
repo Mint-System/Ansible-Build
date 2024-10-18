@@ -71,4 +71,4 @@ And include it in your playbook.
 
 The installation script requires that you have sudo access to root.
 
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/postgres/files/install | bash` in your terminal.
+Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/postgres/files/install | bash` in your terminal.

@@ -49,7 +49,7 @@ The following tags are available:
 
 The installation script requires that you have sudo access to root.
 
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/master/roles/restic_client/files/install | bash` in your terminal.
+Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/restic_client/files/install | bash` in your terminal.
 
 ### Host filesystem mount
 
