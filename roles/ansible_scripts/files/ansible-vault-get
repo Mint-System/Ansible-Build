@@ -69,6 +69,7 @@ if [[ -z "$ANSIBLE_PATH" ]]; then
 fi
 
 cd "$ANSIBLE_PATH"
+source ./task source >/dev/null
 
 VAULT_FILE="$INVENTORY_PATH/host_vars/$HOST/vault.yml"
 
