@@ -1,0 +1,6 @@
+---
+- name: K3s server and agent
+  become: true
+  hosts: all
+  roles:
+    - role: k3s
