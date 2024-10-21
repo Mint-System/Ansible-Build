@@ -1,7 +1,6 @@
 ---
 - name: Localhost setup
   hosts: localhost
-  become: true
   connection: local
   roles:
     - role: odoo_scripts

@@ -1,11 +1,20 @@
 ---
 - name: K3s server and agent
-  become: true
   hosts: all
   roles:
     - role: ufw
       tags: ufw
-    - role: swap
-      tags: swap
     - role: k3s
       tags: k3s
+
+- name: K3s server
+  hosts: server
+  roles:
+    - role: k3s
+      tags: k3s_server
+
+- name: K3s agent
+  hosts: server
+  roles:
+    - role: k3s
+      tags: k3s_agent

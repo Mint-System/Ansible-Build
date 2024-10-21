@@ -1,7 +1,6 @@
 ---
 - name: Cleanup server
   hosts: all
-  become: true
   roles:
     - role: clean
       tags:

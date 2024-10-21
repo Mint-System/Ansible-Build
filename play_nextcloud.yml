@@ -1,7 +1,6 @@
 ---
 - name: Nextcloud setup
   hosts: all
-  become: true
   roles:
     - role: redis
       tags: redis

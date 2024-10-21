@@ -1,7 +1,6 @@
 ---
 - name: All services
   hosts: all
-  become: true
   roles:
     - role: debug
       tags: debug

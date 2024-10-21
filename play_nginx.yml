@@ -1,7 +1,6 @@
 ---
 - name: Nginx setup
   hosts: all
-  become: true
   roles:
     - role: htpasswd
       tags: htpasswd

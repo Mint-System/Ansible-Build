@@ -5,12 +5,12 @@
   tags:
     - k3s
 
-- name: Include {{ role_name }} tasks
+- name: Include {{ role_name }} server tasks
   ansible.builtin.include_tasks: "{{ role_name }}_server.yml"
   tags:
-    - k3s
+    - k3s_server
 
-- name: Include {{ role_name }} tasks
+- name: Include {{ role_name }} agent tasks
   ansible.builtin.include_tasks: "{{ role_name }}_agent.yml"
   tags:
-    - k3s
+    - k3s_agent
