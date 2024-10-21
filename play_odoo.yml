@@ -5,9 +5,7 @@
     - role: odoo
       tags: odoo
     - role: odoo_apps
-      tags:
-        - odoo_apps
-        - odoo_pip_packages
+      tags: odoo_apps
     - role: odoo_scripts
       tags: odoo_scripts
     - role: odoo_enterprise

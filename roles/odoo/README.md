@@ -115,6 +115,6 @@ Once workers are active the longpolling port moves from 8069 to 8072 and therefo
 Configure these vars when using the official Odoo image:
 
 ```yml
-odoo_revision: "16.0.20230612"
+odoo_revision: "16.0.20240603"
 odoo_image: odoo@sha256:df0276cdb0ff8bb7883058071daf898d90fdbf13045ae96d131584660878da84
 ```
