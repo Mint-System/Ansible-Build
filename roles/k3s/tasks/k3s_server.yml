@@ -14,3 +14,10 @@
     daemon_reload: true
     state: started
     enabled: true
+
+- name: Copy token to local tmp
+  ansible.builtin.fetch:
+    src: /var/lib/rancher/k3s/server/node-token
+    dest: /var/tmp/k3s_token
+    flat: true
+  changed_when: false

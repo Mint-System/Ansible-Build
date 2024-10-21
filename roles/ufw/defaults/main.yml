@@ -38,6 +38,10 @@ ufw_rules:
     - rule: allow
       port: "51820"
       proto: tcp
+  k3s:
+    - rule: allow
+      port: "6443"
+      proto: tcp
 ufw_profiles:
   - default
 ufw_enabled: false

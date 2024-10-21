@@ -1,17 +1,21 @@
 ---
+- name: Read token to var
+  ansible.builtin.command:
+    cmd: cat /var/lib/rancher/k3s/server/node-token 
+  register: k3s_token
+  delegate_to: localhost
+  changed_when: false
+
+# - name: Show token
+#   ansible.builtin.debug:
+#     msg: "K3s node token is {{ k3s_token.stdout }}"
+
 - name: Install {{ role_name }} agent
   ansible.builtin.command:
     cmd: k3s-install
   environment:
     K3S_KUBECONFIG_MODE: "644"
     INSTALL_K3S_EXEC: "agent"
-    K3S_TOKEN: "{{ k3s_token }}"
+    K3S_TOKEN: "{{ k3s_token.stdout }}"
     K3S_URL: "{{ k3s_url }}"
     INSTALL_K3S_VERSION: "{{ k3s_version }}"
-
-- name: Enable and check K3s service
-  ansible.builtin.systemd:
-    name: k3s
-    daemon_reload: true
-    state: started
-    enabled: true

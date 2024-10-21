@@ -45,5 +45,6 @@ The following tags are available:
 ### Setup cluster access
 
 ```bash
+sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 ```
