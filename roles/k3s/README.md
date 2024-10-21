@@ -10,6 +10,8 @@ Configure the role.
 
 ```yml
 k3s_version: v1.23.5
+k3s_token: # default: {{ vault_k3s_token }}
+k3s_url: https://192.168.178.20:6443
 ```
 
 And include it in your playbook.
@@ -37,3 +39,11 @@ The following tags are available:
 * k3s
 * k3s_sever
 * k3s_agent
+
+## Docs
+
+### Setup cluster access
+
+```bash
+cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+```
