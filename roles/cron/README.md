@@ -9,6 +9,7 @@ Configure the role.
 **vars.yml**
 
 ```yml
+cron_data_dir: /mnt/sdb/share/cron # default: /usr/share/{{ role_name }}
 cron_jobs:
   - name: Run cron scheduler
     command: curl https://moodle.example.com/admin/cron.php

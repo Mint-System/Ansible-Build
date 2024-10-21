@@ -8,12 +8,6 @@
     packages: "{{ packages + host_packages }}"
   when: host_packages is defined
 
-- name: Include {{ role_name }} tasks
-  ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: packages is defined
-  tags:
-    - packages
-
 - name: Include {{ role_name }} apt tasks
   ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
   when: packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Pop!_OS')

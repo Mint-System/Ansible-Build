@@ -3,4 +3,9 @@
   become: true
   hosts: all
   roles:
+    - role: ufw
+      tags: ufw
+    - role: swap
+      tags: swap
     - role: k3s
+      tags: k3s

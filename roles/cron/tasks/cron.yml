@@ -4,34 +4,22 @@
     path: "{{ cron_data_dir }}"
     state: directory
 
+- name: Add bin folder to cron PATH
+  ansible.builtin.cron:
+    name: PATH
+    env: true
+    job: "{{ package_path_var }}"
+
+- name: Add bin folder to system-wide $PATH
+  ansible.builtin.copy:
+    dest: /etc/profile.d/custom-path.sh
+    content: PATH=$PATH:{{ package_path_var }}
+
 - name: Copy {{ role_name }} scripts
   ansible.builtin.copy:
-    content: "{{ item.script }}"
-    dest: "{{ cron_data_dir }}/{{ item.script_name }}"
+    src: "{{ item }}"
+    dest: /usr/local/bin/{{ item }}
     mode: +x
-  loop: "{{ cron_jobs }}"
-  when: item.command == "script"
-
-- name: Setup {{ role_name }} script jobs
-  ansible.builtin.cron:
-    name: "{{ item.id }}"
-    user: "{{ item.user | default('root') }}"
-    hour: "{{ item.hour | default('*') }}"
-    minute: "{{ item.minute | default('*') }}"
-    job: '{{ cron_data_dir }}/{{ item.script_name }}; write-node-exporter-metric -c "Cron job {{ item.id }}" -v $?'
-    disabled: "{{ item.disabled | default(false) }}"
-    state: "{{ item.state | default('present') }}"
-  loop: "{{ cron_jobs }}"
-  when: item.command == "script"
-
-- name: Setup {{ role_name }} command jobs
-  ansible.builtin.cron:
-    name: "{{ item.name }}"
-    user: "{{ item.user | default('root') }}"
-    hour: "{{ item.hour | default('*') }}"
-    minute: "{{ item.minute | default('*') }}"
-    job: "{{ item.command }}"
-    disabled: "{{ item.disabled | default(false) }}"
-    state: "{{ item.state | default('present') }}"
-  loop: "{{ cron_jobs }}"
-  when: item.command != "script"
+  loop:
+    - cron-job-run
+    - cron-job-list

@@ -81,3 +81,5 @@
       tags: keycloak_client
     - role: meilisearch
       tags: meilisearch
+    - role: meilisync
+      tags: meilisync

@@ -13,6 +13,8 @@
       tags: resolv
     - role: fstab
       tags: fstab
+    - role: cron
+      tags: cron
     - role: packages
       tags: packages
     - role: cargo
@@ -35,8 +37,6 @@
       tags: innernet_client
     - role: rclone
       tags: rclone
-    - role: cron
-      tags: cron
     - role: docker_hosts
       tags: docker_hosts
     - role: docker_compose

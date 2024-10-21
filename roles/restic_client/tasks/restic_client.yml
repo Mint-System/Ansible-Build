@@ -1,13 +1,4 @@
 ---
-- name: Copy {{ role_name }} scripts
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
-    mode: +x
-  loop:
-    - cron-job-run
-    - cron-job-list
-
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto

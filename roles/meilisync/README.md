@@ -67,4 +67,3 @@ curl \
   -H "Authorization: Bearer test" \
   -X GET 'http://localhost:7700/indexes/users/documents'
 ```
-
