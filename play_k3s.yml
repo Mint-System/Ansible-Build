@@ -1,20 +1,16 @@
 ---
-- name: K3s server and agent
-  hosts: all
-  roles:
-    - role: ufw
-      tags: ufw
-    - role: k3s
-      tags: k3s
-
 - name: K3s server
   hosts: server
   roles:
     - role: k3s
-      tags: k3s_server
+  tags:
+    - k3s
+    - k3s_server
 
 - name: K3s agent
-  hosts: server
+  hosts: agent
   roles:
     - role: k3s
-      tags: k3s_agent
+  tags:
+    - k3s
+    - k3s_agent

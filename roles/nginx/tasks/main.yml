@@ -3,8 +3,8 @@
   ansible.builtin.include_tasks: "{{ role_name }}_config.yml"
   when: nginx_hostname is defined
   tags:
-    - nginx_config
     - nginx
+    - nginx_config
 
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"

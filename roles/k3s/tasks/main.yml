@@ -2,15 +2,11 @@
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: k3s_version is defined
-  tags:
-    - k3s
 
 - name: Include {{ role_name }} server tasks
   ansible.builtin.include_tasks: "{{ role_name }}_server.yml"
-  tags:
-    - k3s_server
+  when: '"server" in group_names'
 
 - name: Include {{ role_name }} agent tasks
   ansible.builtin.include_tasks: "{{ role_name }}_agent.yml"
-  tags:
-    - k3s_agent
+  when: '"agent" in group_names'
