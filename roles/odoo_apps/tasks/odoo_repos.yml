@@ -3,16 +3,31 @@
   ansible.builtin.set_fact:
     odoo_version: "{{ odoo_revision | regex_search('^[0-9][0-9]\\.[0-9]') }}"
 
-- name: Odoo repo ssh checkout
+- name: Show Odoo version
+  ansible.builtin.debug:
+    msg: "Odoo version: {{ odoo_version }}"
+
+# - name: Pull repo branch
+#   ansible.builtin.git:
+#     repo: "{{ item.url }}"
+#     dest: "{{ odoo_data_dir }}/{{ item.path }}"
+#     key_file: "{{ odoo_repo_key_file }}"
+#     version: "{{ odoo_version }}"
+#     single_branch: true
+#     accept_hostkey: true
+#     force: true
+#   when: item.url is regex('git@')
+#   loop: "{{ odoo_repos }}"
+
+- name: Checkout repo commit
   ansible.builtin.git:
     repo: "{{ item.url }}"
     dest: "{{ odoo_data_dir }}/{{ item.path }}"
     key_file: "{{ odoo_repo_key_file }}"
     version: "{{ item.version }}"
+    refspec: "+refs/heads/{{ odoo_version }}:refs/remotes/origin/{{ odoo_version }}"
     accept_hostkey: true
     force: true
-    refspec: "+refs/heads/{{ odoo_version }}:refs/remotes/origin/{{ odoo_version }}"
-    depth: 1
   when: item.url is regex('git@')
   loop: "{{ odoo_repos }}"
   notify: Restart odoo container

@@ -69,3 +69,10 @@ The following tags are available:
 cd /usr/share/odoo/enterprise
 sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git pull origin 16.0'
 ```
+
+### Checkout commit manually
+
+```bash
+cd /usr/share/odoo/enterprise
+sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git pull origin 16.0'
+```
