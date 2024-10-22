@@ -16,7 +16,7 @@ Help() {
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var."
   echo "  -d    Database name."
-  echo "  -o    Output directory with or without filename. Defaults to '/var/tmp'."
+  echo "  -o    Output directory. Defaults to '/var/tmp'."
   echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
   echo "  -t    Pass a bearer auth token."
   echo "  -s    Download SQL dump only."
@@ -59,19 +59,12 @@ done
 # Verify variables
 [[ "$ODOO_HOST" == http* ]]  || { echo "Parameter -h|host must start with 'http/s'" ; exit 1; }
 
-# Remove trailing slash in url
+# Remove trailing slash in url and output
 ODOO_HOST="${ODOO_HOST%/}"
-
-# Check if dir var is file or folder
-if [[ "${OUTPUT: -3}" =~ "zip|sql" ]]; then
-    DIR=$(dirname "$OUTPUT")
-    FILE=$(basename "$OUTPUT")
-else
-    DIR=$OUTPUT
-fi
+OUTPUT="${OUTPUT%/}"
 
 # Ensure output directory exists
-mkdir -p $DIR
+mkdir -p $OUTPUT
 
 # Ensure file name is set
 if [ -z "$FILE" ];then
@@ -84,7 +77,7 @@ if [ -z "$FILE" ];then
 fi
 
 # Set file path
-FILEPATH="${DIR}/${FILE}"
+FILEPATH="${OUTPUT}/${FILE}"
 
 echo "Backup database $DATABASE to $FILEPATH ..."
 
