@@ -65,14 +65,16 @@ The following tags are available:
 
 ### Pull repo manually
 
+Navigate into the repo directory on the server `cd /usr/share/odoo01/enterprise` and run:
+
 ```bash
-cd /usr/share/odoo/enterprise
 sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git pull origin 16.0'
 ```
 
 ### Checkout commit manually
 
+Navigate into the repo directory on the server `cd /usr/share/odoo01/enterprise` and run:
+
 ```bash
-cd /usr/share/odoo/enterprise
-sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git pull origin 16.0'
+sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git checkout 8638ccc9cc26b997caee852e266b7ecc6f7c632a'
 ```
