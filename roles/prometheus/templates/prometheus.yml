@@ -96,8 +96,8 @@ scrape_configs:
     honor_labels: true
     scheme: https
     basic_auth:
-      username: {{ prometheus_odoo_basic_auth_username }}
-      password: {{ prometheus_odoo_server_basic_auth_password }}
+      username: {{ prometheus_odoo_exporter_basic_auth_username }}
+      password: {{ prometheus_odoo_exporter_basic_auth_password }}
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `odoo`)].src_hostname') | flatten }}
 {% if blackbox_exporter_hostname is defined %}
