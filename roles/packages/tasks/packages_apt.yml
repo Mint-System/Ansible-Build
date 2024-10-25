@@ -8,13 +8,14 @@
   ansible.builtin.apt_key:
     url: "{{ item.key }}"
     state: present
-  when: item.key is defined
+  when: apt_repos is defined and item.key is defined
   loop: "{{ apt_repos }}"
 
 - name: Setup apt repositories
   ansible.builtin.apt_repository:
     repo: "deb  {{ item.name }} {{ codename.stdout }} contrib"
     state: present
+  when: apt_repos is defined
   loop: "{{ apt_repos }}"
 
 - name: Update apt-get repo and cache

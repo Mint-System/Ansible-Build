@@ -5,8 +5,14 @@
 
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
-    path: "{{ postgres_data_dir }}"
+    path: "{{ mysql_data_dir }}"
     state: directory
+
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: my.cnf
+    dest: "{{ mysql_data_dir }}/my.cnf"
+  notify: Restart {{ role_name }} container
 
 - name: Start {{ role_name }} container {{ mysql_hostname }}
   community.docker.docker_container:
@@ -22,6 +28,7 @@
       MYSQL_PASSWORD: "{{ mysql_password }}"
     volumes:
       - "{{ mysql_volume_name }}:/var/lib/mysql"
+      - "{{ mysql_data_dir }}/my.cnf:/etc/mysql/conf.d/my.cnf"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
