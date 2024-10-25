@@ -6,8 +6,6 @@ Deploy Commento container
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://docs.commento.io/installation/self-hosting/on-your-server/docker.html
 commento_image: registry.gitlab.com/commento/commento

@@ -6,8 +6,6 @@ Deploy cAdvisor container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://github.com/google/cadvisor
 cadvisor_image: gcr.io/google-containers/cadvisor:v0.47.2

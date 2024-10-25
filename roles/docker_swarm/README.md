@@ -6,10 +6,8 @@ Configures Docker Swarm.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
-docker_swarm_enable: true # default: false
+docker_swarm_enabled: true # default: false
 ```
 
 And include it in your playbook.

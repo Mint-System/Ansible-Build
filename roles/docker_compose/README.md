@@ -6,8 +6,6 @@ Deploy Docker Compose project.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 docker_compose_project_name: project01
 docker_compose_data_dir: /usr/share/compose01 # default: "/usr/share/{{ docker_compose_project_name }}"

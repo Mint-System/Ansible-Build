@@ -6,8 +6,6 @@ Deploy RabbitMQ container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://registry.hub.docker.com/_/rabbitmq/
 rabbitmq_image: rabbitmq:3.8-management

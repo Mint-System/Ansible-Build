@@ -6,8 +6,6 @@ Setup cron jobs.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 cron_data_dir: /mnt/sdb/share/cron # default: /usr/share/{{ role_name }}
 cron_jobs:

@@ -6,8 +6,6 @@ Deploy Loki container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/grafana/loki/
 loki_image: grafana/loki:2.3.0

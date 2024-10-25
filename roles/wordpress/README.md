@@ -6,8 +6,6 @@ Deploy WordPress container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/wordpress
 wordpress_image: wordpress:php7.4-apache

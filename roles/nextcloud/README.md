@@ -6,8 +6,6 @@ Deploy Nextcloud Docker container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/nextcloud/
 nextcloud_image: nextcloud:27-apache

@@ -6,8 +6,6 @@ Deploy Let's Encrypt certificates.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 certbot_image: certbot/certbot
 certbot_build_image: true # default: false

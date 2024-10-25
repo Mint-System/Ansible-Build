@@ -6,8 +6,6 @@ Deploy Logstash Docker container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 logstash_image: docker.elastic.co/logstash/logstash:7.6.1
 logstash_hostname: logst01

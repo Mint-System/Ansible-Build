@@ -6,8 +6,6 @@ Deploy Postfix relay host.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/boky/postfix
 postfix_image: boky/postfix:v3.4.0-alpine

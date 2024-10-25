@@ -6,8 +6,6 @@ Setup Rust toolchain and cargo package manager.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 cargo_enabled: true
 cargo_packages:
@@ -26,3 +24,6 @@ And include it in your playbook.
   roles:
   - role: cargo
 ```
+
+## Docs
+

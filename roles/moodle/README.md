@@ -6,8 +6,6 @@ Deploy Moodle Docker container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/bitnami/moodle
 moodle_image: bitnami/moodle:4.0

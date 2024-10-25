@@ -6,8 +6,6 @@ Deploy Keycloak container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://quay.io/repository/keycloak/keycloak
 keycloak_image: quay.io/keycloak/keycloak:22.0

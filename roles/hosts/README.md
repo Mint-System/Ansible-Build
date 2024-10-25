@@ -6,8 +6,6 @@ Add entries to hosts files.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 hosts:
   - ip: 172.17.4.15

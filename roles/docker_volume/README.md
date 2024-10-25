@@ -6,8 +6,6 @@ Configures a Docker volume.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 docker_volume_name: example_data01
 docker_volumes:

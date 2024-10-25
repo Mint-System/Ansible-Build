@@ -6,8 +6,6 @@ Configures UFW rules.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 ufw_enabled: true # default false
 ufw_profiles:

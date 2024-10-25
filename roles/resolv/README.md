@@ -6,8 +6,6 @@ Manage resolv configuration.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 resolv_enabled: true # default: false
 resolv_nameserver: 1.1.1.1

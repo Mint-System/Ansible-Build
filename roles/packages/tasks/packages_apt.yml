@@ -1,4 +1,22 @@
 ---
+- name: Get release codename
+  ansible.builtin.shell: "lsb_release -cs"
+  register: codename
+  changed_when: false
+
+- name: Add apt signing keys
+  ansible.builtin.apt_key:
+    url: "{{ item.key }}"
+    state: present
+  when: item.key is defined
+  loop: "{{ apt_repos }}"
+
+- name: Setup apt repositories
+  ansible.builtin.apt_repository:
+    repo: "deb  {{ item.name }} {{ codename.stdout }} contrib"
+    state: present
+  loop: "{{ apt_repos }}"
+
 - name: Update apt-get repo and cache
   ansible.builtin.apt:
     update_cache: true
@@ -24,3 +42,6 @@
     state: present
   loop: "{{ packages }}"
   when: item.version is defined
+
+
+

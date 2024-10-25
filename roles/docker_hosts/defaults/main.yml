@@ -1,2 +1,2 @@
 ---
-docker_hosts_enable: true
+docker_hosts_enabled: true

@@ -2,23 +2,29 @@
 - name: Download installer rustup
   ansible.builtin.get_url:
     url: https://static.rust-lang.org/rustup.sh
-    dest: ~/rustup.sh
-    mode: "0750"
+    dest: /var/tmp/rustup.sh
+
+- name: Ensure {{ role_name }} environment var
+  ansible.builtin.lineinfile:
+    dest: /etc/environment
+    state: present
+    regexp: ^CARGO_HOME=
+    line: "CARGO_HOME=/usr/local"
 
 - name: Run installer rustup
   ansible.builtin.command:
-    cmd: ./rustup.sh -y
-    chdir: "~"
+    cmd: /var/tmp/rustup.sh -y
     creates: /usr/local/bin/cargo
-  environment:
-    CARGO_HOME: /usr/local
+
+- name: Update cargo
+  ansible.builtin.command: rustup update stable
 
 - name: Register installed cargo crates
   ansible.builtin.command: cargo install --list
   register: installed_cargo_crates
   changed_when: false
 
-- name: Install cargo packages
+- name: Install cargo git packages
   ansible.builtin.command:
     cmd: cargo install --git {{ item.git }} --tag {{ item.tag }} {{ item.name }}
   when: item.name not in installed_cargo_crates.stdout

@@ -6,8 +6,6 @@ Deploy Kubernetes cluster with K3s.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 k3s_version: v1.23.5
 k3s_token: # default: {{ vault_k3s_token }}

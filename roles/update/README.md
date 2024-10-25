@@ -15,8 +15,6 @@ The Ansible Update role supports these package managers:
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 update: true
 reboot_allowed: true

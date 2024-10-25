@@ -6,8 +6,6 @@ Deploy OnlyOffice Document Server container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/onlyoffice/documentserver
 onlyoffice_documentserver_image: onlyoffice/documentserver:7.4

@@ -6,8 +6,6 @@ Sync files with RClone.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 rclone_sync:
 - id: "Run job sync folder"

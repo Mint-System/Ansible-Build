@@ -6,8 +6,6 @@ Maintains operating system and disk space.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 maintenance: true
 maintenance_job: true

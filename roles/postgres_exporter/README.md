@@ -6,8 +6,6 @@ Deploy PostgreSQL exporter container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/prometheuscommunity/postgres-exporter
 postgres_exporter_image: prometheuscommunity/postgres-exporter:v0.15.0

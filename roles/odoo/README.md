@@ -6,8 +6,6 @@ Deploy Odoo Docker container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 odoo_image: mintsystem/odoo:16.0.20240603
 odoo_build_image: true # default: false

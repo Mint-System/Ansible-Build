@@ -6,8 +6,6 @@ Deploy Jenkins container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/jenkins/jenkins
 jenkins_image: jenkins/jenkins:2.474-jdk17

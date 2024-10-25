@@ -6,8 +6,6 @@ Manage vercel domain and dns entries.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 vercel_token: "{{ vault_vercel_token }}"
 vercel_team_id: example-organization

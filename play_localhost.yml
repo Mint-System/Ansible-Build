@@ -21,8 +21,8 @@
       tags: postgres
     - role: cargo
       tags: cargo
-    - role: innernet_client
-      tags: innernet_client
+    - role: innernet
+      tags: innernet
     - role: maintenance
       tags: maintenance
     - role: rabbitmq

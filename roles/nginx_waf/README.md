@@ -10,8 +10,6 @@ This role requires the role `nginx` with tag `nginx_config`.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 nginx_waf_image: owasp/modsecurity-crs:3.3-nginx
 nginx_waf_descriptions: WAF for server1 # default: Nginx WAF

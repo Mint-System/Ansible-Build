@@ -6,8 +6,6 @@ Deploy Gitea container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/gitea/gitea/
 gitea_image: gitea/gitea:1.22.1

@@ -6,8 +6,6 @@ Deploy Nginx proxy with Certbot.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/nginx/
 nginx_image: nginx:1.25.2-alpine

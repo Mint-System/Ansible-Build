@@ -6,8 +6,6 @@ Deploy Metricbeat Docker container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 metricbeat_image: docker.elastic.co/beats/metricbeat:7.6.1
 metricbeat_hostname: metric01

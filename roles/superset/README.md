@@ -6,8 +6,6 @@ Deploy Apache Superset container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/apache/superset
 superset_image: apache/superset:latest

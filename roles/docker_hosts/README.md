@@ -6,10 +6,8 @@ Docker hostname resolver.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
-docker_hosts_enable: false # default: true
+docker_hosts_enabled: false # default: true
 ```
 
 And include it in your playbook.

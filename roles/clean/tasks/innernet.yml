@@ -1,0 +1,41 @@
+---
+- name: Remove innernet client
+  block:
+
+    - name: Remove invitation file
+      ansible.builtin.file:
+        path: /var/tmp/{{ innernet_client_peer_name }}.yml
+        state: absent
+
+    - name: Disable innernet service
+      ansible.builtin.systemd:
+        name: innernet@{{ innernet_client_network_name }}"
+        state: stopped
+        enabled: false
+
+    # FIXME: cannot confirm deletion
+    - name: Remove innernet client network
+      ansible.builtin.command:
+        cmd: innernet uninstall {{ innernet_client_network_name }}
+        removes: /var/lib/innernet/{{ innernet_client_network_name }}.json
+
+- name: Remove innernet server
+  block:
+
+    - name: Remove peer invitation files
+      ansible.builtin.file:
+        path: /var/tmp/{{ item.name }}.yml
+        state: absent
+      loop: "{{ innernet_server_peers }}"
+
+    - name: Disable innernet server service
+      ansible.builtin.systemd:
+        name: innernet-server@{{ innernet_server_network_name }}"
+        state: stopped
+        enabled: false
+
+    # FIXME: cannot confirm deletion
+    - name: Remove innernet server network
+      ansible.builtin.command:
+        cmd: innernet-server uninstall {{ innernet_server_network_name }}
+        removes: /var/lib/innernet-server/{{ innernet_server_network_name }}.db

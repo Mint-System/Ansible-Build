@@ -6,8 +6,6 @@ Deploy Docker in Docker container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/docker
 dind_image: docker:24.0.5-dind

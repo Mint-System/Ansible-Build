@@ -6,8 +6,6 @@ Deploy node-exporter container and install custom metric script.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/prom/node-exporter
 node_exporter_image: prom/node-exporter:v1.0.1

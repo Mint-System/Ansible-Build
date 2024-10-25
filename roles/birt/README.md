@@ -6,8 +6,6 @@ Deploy BIRT container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/phusion/baseimage
 birt_image: phusion/baseimage:0.9.18

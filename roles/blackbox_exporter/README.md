@@ -6,8 +6,6 @@ Deploy Blackbox exporter container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/prom/blackbox-exporter
 blackbox_exporter_image: prom/blackbox-exporter:v0.25.0

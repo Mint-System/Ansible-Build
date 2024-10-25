@@ -8,8 +8,6 @@
       tags: restic_server
     - role: s3cmd
       tags: s3cmd
-    - role: innernet_server
-      tags: innernet_server
     - role: systemd
       tags: systemd
     - role: jenkins

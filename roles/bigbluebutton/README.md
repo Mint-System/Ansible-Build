@@ -6,8 +6,6 @@ Configures an installed BigBlueButton instance.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://docs.bigbluebutton.org/2.3/install.html
 bigbluebutton_apt_repo_url: https://ubuntu.bigbluebutton.org/xenial-220/

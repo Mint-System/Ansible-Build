@@ -21,7 +21,7 @@
       ADMIN_PASSWD: "{{ remark42_secret }}"
       SITE: remark,{{ remark42_site }}
       AUTH_ANON: "{{ remark42_auth_anonymous }}"
-      AUTH_EMAIL_ENABLE: "{{ remark42_auth_email_enable }}"
+      AUTH_EMAIL_enabled: "{{ remark42_auth_email_enable }}"
       AUTH_EMAIL_FROM: "{{ remark42_auth_email_from }}"
       SMTP_HOST: "{{ remark42_smtp_host }}"
       SMTP_PORT: "{{ remark42_smtp_port }}"

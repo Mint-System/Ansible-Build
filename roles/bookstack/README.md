@@ -6,8 +6,6 @@ Deploy BookStack container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 bookstack_image: solidnerd/bookstack:0.27.5
 bookstack_hostname: book01

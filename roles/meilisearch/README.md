@@ -6,8 +6,6 @@ Deploy Meilisearch container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/getmeili/meilisearch
 meilisearch_image: getmeili/meilisearch:v1.10.1

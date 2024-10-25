@@ -6,8 +6,6 @@ Generate Odoo data modules.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_data:

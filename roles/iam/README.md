@@ -6,8 +6,6 @@ Configures users and groups.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 iam_root_password: "{{ vault_iam_root_password }}"
 iam_disallow_ssh_root_access: false # default: true

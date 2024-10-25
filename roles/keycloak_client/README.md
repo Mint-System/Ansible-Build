@@ -6,8 +6,6 @@ Configure Keycloak client.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://docs.ansible.com/ansible/latest/collections/community/general/keycloak_client_module.html
 keycloak_clients:

@@ -6,8 +6,6 @@ Deploy Elasticsearch Docker cluster.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://www.docker.elastic.co/r/elasticsearch
 elasticsearch_image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2

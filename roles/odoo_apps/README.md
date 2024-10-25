@@ -6,8 +6,6 @@ Install Odoo apps from file, url, public or private GitHub repos.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 odoo_hostname: odoo01
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"

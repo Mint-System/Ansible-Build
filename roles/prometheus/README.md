@@ -6,8 +6,6 @@ Deploy Prometheus container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/prom/prometheus
 prometheus_image: prom/prometheus:v2.54.1

@@ -6,8 +6,6 @@ Deploy Coturn cotainer.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/instrumentisto/coturn
 coturn_image: instrumentisto/coturn:4.5.2

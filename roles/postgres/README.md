@@ -6,8 +6,6 @@ Deploy PostgreSQL database container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:14-alpine

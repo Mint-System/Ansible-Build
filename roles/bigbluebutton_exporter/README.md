@@ -6,8 +6,6 @@ Deploy BigBlueButton exporter container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/greenstatic/bigbluebutton-exporter
 bigbluebutton_exporter_image: greenstatic/bigbluebutton-exporter:v0.6.0

@@ -6,8 +6,6 @@ Apply custom Odoo patches.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 odoo_patches:
   - name: odoo16_microsoft_outlook_expires_in_patch

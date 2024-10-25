@@ -6,8 +6,6 @@ Deploy dribdat container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/loleg/dribdat
 dribdat_image: loleg/dribdat:latest

@@ -6,8 +6,6 @@ Deploy Grafana container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/grafana/grafana/
 grafana_image: grafana/grafana:11.2.0

@@ -6,8 +6,6 @@ Deploy PHP-FPM container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/php
 php_fpm_image: php:8.3.1-fpm

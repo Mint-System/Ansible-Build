@@ -6,8 +6,6 @@ Install, update and remove Nextcloud apps.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 nextcloud_hostname: nextcloud01 # default: "/usr/share/{{ odoo_hostname }}"
 nextcloud_apps:

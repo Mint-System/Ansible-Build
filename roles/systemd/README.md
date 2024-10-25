@@ -6,8 +6,6 @@ Setup systemd service.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 systemd_units:
   - name: frappebench

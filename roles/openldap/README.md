@@ -6,8 +6,6 @@ Deploy OpenLDAP Docker container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 openldap_image: osixia/openldap:1.3.0
 openldap_hostname: ldap01

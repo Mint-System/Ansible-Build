@@ -6,8 +6,6 @@ Deploy Nextcloud exporter container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/xperimental/nextcloud-exporter
 nextcloud_exporter_image: xperimental/nextcloud-exporter:latest

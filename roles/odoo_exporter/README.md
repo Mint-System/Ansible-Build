@@ -6,8 +6,6 @@
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://www.odoo-wiki.org/prometheus-exporter.html
 odoo_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"

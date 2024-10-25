@@ -6,8 +6,6 @@ Checkout Git repositories.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 git_repositories:
   - repo: https://github.com/Digital-Cluster-Uri/Website

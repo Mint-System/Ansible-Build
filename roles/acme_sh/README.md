@@ -6,8 +6,6 @@ Issue & renew the free certificates.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/neilpang/acme.sh
 acme_sh_image: neilpang/acme.sh

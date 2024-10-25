@@ -6,8 +6,6 @@ Deploy Meilisync container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/long2ice/meilisync
 meilisync_image: long2ice/meilisync:main

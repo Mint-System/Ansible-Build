@@ -1,0 +1,12 @@
+---
+- name: Include {{ role_name }} server tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_server.yml"
+  when: innernet_server_network_name is defined
+  tags:
+    - innernet_server
+
+- name: Include {{ role_name }} client tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_client.yml"
+  when: innernet_client_network_name is defined
+  tags:
+    - innernet_client

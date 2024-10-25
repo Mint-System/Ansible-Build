@@ -2,11 +2,16 @@
 
 Set env vars and install packages.
 
+This role supports the following package types:
+
+* apt
+* dnf
+* yum
+* snap
+
 ## Usage
 
 Configure the role.
-
-**vars.yml**
 
 ```yml
 dnf_repos:
@@ -14,6 +19,10 @@ dnf_repos:
 yum_repos:
   - name: restic
     url: https://copr.fedorainfracloud.org/coprs/copart/restic/repo/epel-7/copart-restic-epel-7.repo
+apt_repos:
+  - name: https://tommie.github.io/innernet-debian/debian
+    key: https://tommie.github.io/innernet-debian/repository.asc
+
 packages:
   - name: zsh
   - name: restic
@@ -52,8 +61,9 @@ Or include it in another role.
 
 ## Docs
 
-This role supports the following package types:
-* apt
-* dnf
-* yum
-* snap
+### Remove apt repo manually
+
+
+```
+sudo add-apt-repository -r ppa:colingille/freshlight
+```

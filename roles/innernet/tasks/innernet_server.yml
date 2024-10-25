@@ -34,9 +34,15 @@
     creates: /var/tmp/{{ item.name }}.yml
   loop: "{{ innernet_server_peers }}"
 
-- name: Show inviation file
-  ansible.builtin.debug:
-    msg: "Run this command manually: ssh {{ ansible_host }} cat /var/tmp/{{ item.name }}.yml"
+# - name: Show inviation file
+#   ansible.builtin.debug:
+#     msg: "Run this command manually: ssh {{ ansible_host }} cat /var/tmp/{{ item.name }}.yml"
+#   loop: "{{ innernet_server_peers }}"
+
+- name: Fetch server peer invitation files
+  ansible.builtin.fetch:
+    src: /var/tmp/{{ item.name }}.yml
+    dest: /var/tmp/{{ item.name }}.yml
   loop: "{{ innernet_server_peers }}"
 
 - name: Enable innernet server service

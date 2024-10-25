@@ -6,8 +6,6 @@ Configure the fstab file.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 fstab_credentials:
   - username: sync

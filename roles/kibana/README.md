@@ -6,8 +6,6 @@ Deploy Kibana Docker container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 kibana_image: docker.elastic.co/kibana/kibana:7.6.1
 kibana_hostname: kibana01

@@ -6,8 +6,6 @@ Checkout the Odoo Enterprise git repository.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 odoo_revision: "16.0.20240603"
 odoo_enterprise_repo: git@gitlab.com:odoo/enterprise.git # default: "git@github.com:odoo/enterprise.git"

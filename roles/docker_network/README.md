@@ -6,8 +6,6 @@ Configures a Docker network.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 docker_network_name: example.com
 docker_network_driver: overlay # defaults: bridge

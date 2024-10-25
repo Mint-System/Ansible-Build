@@ -78,8 +78,7 @@ List of all available Ansible roles.
 | [htpasswd](roles/htpasswd/README.md)                                   | Configure .htpasswd basic auth file.                             |
 | [hosts](roles/hosts/README.md)                                         | Add entries to hosts files.                                      |
 | [iam](roles/iam/README.md)                                             | Configures users and groups.                                     |
-| [innernet_client](roles/innernet_client/README.md)                     | Setup WireGuard based internal network.                          |
-| [innernet_server](roles/innernet_server/README.md)                     | Setup WireGuard based internal network.                          |
+| [innernet](roles/innernet/README.md)                                   | Setup WireGuard based internal network.                          |
 | [jenkins](roles/jenkins/README.md)                                     | Deploy Jenkins container.                                        |
 | [keycloak_client](roles/keycloak_client/README.md)                     | Configure Keycloak client.                                       |
 | [k3s](roles/k3s/README.md)                                             | Deploy Kubernetes cluster with K3s.                              |

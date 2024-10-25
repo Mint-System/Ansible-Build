@@ -6,8 +6,6 @@ Deploy pgAdmin container
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/dpage/pgadmin4/
 pgadmin_image: dpage/pgadmin4:7.6

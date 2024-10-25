@@ -6,8 +6,6 @@ Deploy Matomo container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/matomo
 matomo_image: matomo:php:8.2-apache

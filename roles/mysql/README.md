@@ -6,8 +6,6 @@ Deploy MySQL database container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/mysql
 mysql_image: mysql:5

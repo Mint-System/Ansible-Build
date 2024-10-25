@@ -6,8 +6,6 @@ Configure .htpasswd basic auth file.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 htpasswd_name: users # default: "default"
 htpasswd_requires_package: python2-passlib # default: python3-passlib

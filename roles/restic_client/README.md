@@ -6,8 +6,6 @@ Configures Restic client backup jobs.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 restic_backup_dir: /tmp/backup # default: /var/tmp
 restic_repo: "restic.example.com/{{ inventory_hostname }}"

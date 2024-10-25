@@ -6,8 +6,6 @@ Deploy MariaDB database container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/mariadb
 mariadb_image: mariadb:10.7.1

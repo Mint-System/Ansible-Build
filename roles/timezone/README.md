@@ -6,8 +6,6 @@ Define timezone.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 timezone: "Europe/Zurich"
 ```

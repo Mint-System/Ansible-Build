@@ -32,8 +32,8 @@
       tags: fail2ban
     - role: restic_client
       tags: restic_client
-    - role: innernet_client
-      tags: innernet_client
+    - role: innernet
+      tags: innernet
     - role: rclone
       tags: rclone
     - role: docker_hosts

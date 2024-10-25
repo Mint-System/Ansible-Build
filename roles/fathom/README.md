@@ -6,8 +6,6 @@ Deploy Fathom container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 fathom_image: usefathom/fathom:version-1.2.1
 fathom_hostname: fathom01

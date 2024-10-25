@@ -6,8 +6,6 @@ Deploy Restic server container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/restic/rest-server
 restic_server_image: restic/rest-server:0.12.1

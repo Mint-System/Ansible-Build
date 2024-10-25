@@ -6,8 +6,6 @@ Deploy Promtail container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/grafana/promtail/
 promtail_image: grafana/promtail:2.3.0

@@ -6,8 +6,6 @@ Deploy Dozzle container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/amir20/dozzle
 dozzle_image: amir20/dozzle:v7.0.7

@@ -6,8 +6,6 @@ Deploy Redis container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/_/redis
 redis_image: redis:6.2.3

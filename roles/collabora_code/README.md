@@ -6,8 +6,6 @@ Deploy Collabora Online Development Edition (CODE) container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/collabora/code
 collabora_code_image: collabora/code:24.04.8.2.1
@@ -19,7 +17,7 @@ collabora_code_description: Collabora for Nextcloud # default: Collabora Code
 collabora_code_port: 9981 # default: 9980
 collabora_code_username: code # default: admin
 collabora_code_password: # default: "{{ vault_collabora_code_password }}"
-collabora_code_ssl_enable: false # default: true
+collabora_code_ssl_enabled: false # default: true
 ```
 
 And include it in your playbook.

@@ -6,8 +6,6 @@ Deploy Simple Mail Forwarder container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/zixia/simple-mail-forwarder
 simple_mail_forwarder_image: zixia/simple-mail-forwarder:1.4

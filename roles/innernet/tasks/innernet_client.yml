@@ -1,18 +1,18 @@
 ---
-- name: Gather package facts
-  ansible.builtin.package_facts:
-    manager: auto
+# - name: Gather package facts
+#   ansible.builtin.package_facts:
+#     manager: auto
 
-- name: Fail if package is not installed
-  ansible.builtin.fail:
-    msg: Package {{ item }} is not installed!
-  when: item not in ansible_facts.packages
-  loop:
-    - innernet
+# - name: Fail if package is not installed
+#   ansible.builtin.fail:
+#     msg: Package {{ item }} is not installed!
+#   when: item not in ansible_facts.packages
+#   loop:
+#     - innernet
 
 - name: Copy innernet client invitation file
   ansible.builtin.copy:
-    content: "{{ innernet_client_invitation_file }}"
+    src: "/var/tmp/{{ innernet_client_peer_name }}.yml"
     dest: /var/tmp/{{ innernet_client_peer_name }}.yml
   when: innernet_client_invitation_file is defined
 

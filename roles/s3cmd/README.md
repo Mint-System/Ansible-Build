@@ -6,8 +6,6 @@ Install and configure s3cmd.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 s3cmd_host_base: sos-ch-dk-2.exo.io
 s3cmd_host_bucket: kronos.sos-ch-dk-2.exo.io

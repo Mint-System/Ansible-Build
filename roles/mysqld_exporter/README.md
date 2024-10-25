@@ -6,8 +6,6 @@ Deploy MySQL exporter container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://hub.docker.com/r/prom/mysqld-exporter/
 mysqld_exporter_image: prom/mysqld-exporter:v0.15.1

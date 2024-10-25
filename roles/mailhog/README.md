@@ -6,8 +6,6 @@ Deploy MailHog container.
 
 Configure the role.
 
-**vars.yml**
-
 ```yml
 # https://registry.hub.docker.com/r/mailhog/mailhog/
 mailhog_image: mailhog/mailhog:latest
