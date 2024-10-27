@@ -35,11 +35,15 @@ Create an inventory and configure a role.
 
 [Ansbile Documentation > Build Your Inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)
 
-## Docs
+### Targets
+
+Some Ansible roles can be deployed to a  Linux Server or to Kubernetes Cluster.
+
+The role documentation show how to configure either deployment target.
 
 ### Roles
 
-List of all available Ansible roles.
+Have a look at the Ansible roles and checkout how to configure them.
 
 | Role                                                                   | Description                                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
@@ -135,11 +139,9 @@ List of all available Ansible roles.
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |
 | [wordpress](roles/wordpress/README.md)                                 | Deploy WordPress container.                                      |
 
-### Scripts
+### Deploy
 
-Various roles install command line tools that can be used independent of Ansible. See [scripts](./scripts.md) for details. 
-
-### Commands
+Deploy the roles to the target hosts with the following commands.
 
 List hosts in inventory.
 
@@ -225,6 +227,10 @@ List all Odoo databses.
 ansible all -i inventories/odoo -a "docker-postgres-list -c {{ postgres_hostname }}"
 ```
 
+## Development
+
+This section is about developing the Ansible Build project. 
+
 ### Quality
 
 Lint the project using Ansible lint.
@@ -268,7 +274,7 @@ volumes:
   - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
 ```
 
-### Guidelines
+### Docs
 
 Every role folder must contain a `README.md` file.
 
