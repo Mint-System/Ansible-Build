@@ -89,6 +89,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/p
 - docker-postgres-duplicate
 - docker-postgres-size
 - docker-postgres-shell
+- docker-postgres-upgrade
 
 ## [docker_volume](roles/docker_volume/README.md)
 

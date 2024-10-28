@@ -1,0 +1,121 @@
+#!/bin/bash
+set -e
+
+SCRIPT=$(basename "$0")
+VERSION="1.0.0"
+
+# Display Help
+Help() {
+    echo
+    echo "$SCRIPT"
+    echo
+    echo "Description: Upgrade Postgres Docker container."
+    echo "Syntax: $SCRIPT [-c|-s|-t|-i|-V|help]"
+    echo "Example: $SCRIPT -c postgres01 -s postgres:12-alpine -t postgres:14-alpine -i /var/tmp/postgres01/20241028094730.sql"
+    echo "options:"
+    echo "  -c    Docker container."
+    echo "  -s    Source image version."
+    echo "  -t    Target image version."
+    echo "  -i    Skip export and run import for dump only."
+    echo "  -V    Show $SCRIPT version."
+    echo "  help  Show $SCRIPT manual."
+    echo
+}
+
+# Show help and exit
+if [[ "$1" == "help" ]]; then
+    Help
+    exit
+fi
+
+# Process params
+while getopts ":c: :s: :t: :i: :V" opt; do
+    case $opt in
+        c) CONTAINER="$OPTARG";;
+        s) SOURCE_VERSION="$OPTARG";;
+        t) TARGET_VERSION="$OPTARG";;
+        i) DUMP_FILE="$OPTARG";;
+        r) REPLACE='true';;
+        V) echo "$SCRIPT version $VERSION"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        Help
+        exit;;
+    esac
+done
+
+# Verify variables
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$TARGET_VERSION" ]] && { echo "Parameter -t|target is empty" ; exit 1; }
+
+# Fallback to default
+SOURCE_VERSION=${SOURCE_VERSION:-"$TARGET_VERSION"}
+
+# Switch container name with id
+CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+[[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
+
+# Verify the source version is correct
+CURRENT_VERSION=$(docker inspect --format='{{.Config.Image}}' $CONTAINER_ID)
+if [[ "$CURRENT_VERSION" != "$SOURCE_VERSION" ]]; then
+    echo "$CONTAINER image is not $SOURCE_VERSION."
+    exit 1
+fi
+
+# Pull the target version image
+echo "Pulling $TARGET_VERSION ..."
+docker pull "$TARGET_VERSION"
+
+# If file is empty export databases
+if [[ -z "$DUMP_FILE" ]]; then
+
+    TIMESTAMP=$(date +%Y%m%d%H%M%S)
+    DUMP_FILE="/var/tmp/$CONTAINER/$TIMESTAMP.sql"
+
+    # Dump all databases
+    echo "Dumping all databases from $CONTAINER to $DUMP_FILE ..."
+    mkdir -p "/var/tmp/$CONTAINER"
+    docker exec $CONTAINER_ID /bin/bash -c "pg_dumpall -U \$POSTGRES_USER $DATABASE" > "$DUMP_FILE"
+
+    # Stop and remove the container and volumes
+    VOLUME_NAMES=$(docker inspect --format '{{ range .Mounts }}{{ .Name }} {{ end }} ' $CONTAINER_ID)
+    echo "Stopping and removing container $CONTAINER and volumes ${VOLUME_NAMES}: ..."
+    read -p "Woul you like to proceed with the deletion? [y/n] "
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        docker stop $CONTAINER_ID
+        docker rm $CONTAINER_ID
+        docker volume rm $VOLUME_NAMES
+    else
+        echo "Exiting script. Please restart the script."
+        exit
+    fi
+
+    # Halt the script and wait for new container to be deployed
+    echo "Please deploy the new container with name $CONTAINER and image $TARGET_VERSION."
+    read -p "Is the new container deployed and running? [y/n] "
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Continuing with database import."
+    else
+        echo "Exiting script. Please restart the script:"
+        echo "docker-compose-upgrade -c $CONTAINER -s $SOURCE_VERSION -t $TARGET_VERSION -i $DUMP_FILE"
+        exit
+    fi
+fi
+
+# Import all databases
+echo "Importing all databases from $DUMP_FILE to $CONTAINER"
+cat $DUMP_FILE | docker exec -i "$CONTAINER" /bin/bash -c "psql -U \$POSTGRES_USER"
+
+# Ensure access works
+POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")
+echo "Reset $POSTGRES_USER password for $CONTAINER ..."
+POSTGRES_PASSWORD=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_PASSWORD")
+docker exec $CONTAINER /bin/bash -c "psql -U \$POSTGRES_USER -c \"ALTER USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';\""
+
+# echo "Grant all privileges for $POSTGRES_USER onto $DATABASES ..."
+# DATABASES=$(docker-postgres-list -c "$CONTAINER")
+# for DATABASE in $DATABASES; do
+#     docker exec $CONTAINER /bin/bash -c "psql -U \$POSTGRES_USER -c \"GRANT ALL PRIVILEGES ON DATABASE \\\"$DATABASE\\\" TO $POSTGRES_USER;\""
+# done
