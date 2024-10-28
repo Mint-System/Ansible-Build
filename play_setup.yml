@@ -30,8 +30,8 @@
       tags: ufw
     - role: fail2ban
       tags: fail2ban
-    - role: restic_client
-      tags: restic_client
+    - role: restic
+      tags: restic
     - role: innernet
       tags: innernet
     - role: rclone

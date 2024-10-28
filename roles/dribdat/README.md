@@ -35,7 +35,7 @@ dribdat_s3_bucket: hack.example.com
 dribdat_s3_region: ch-dk-2
 dribdat_s3_https: https://sos-ch-dk-2.exo.io/hack.example.com
 dribdat_s3_endpoint: https://sos-ch-dk-2.exo.io
-dribdat_volume_backup_set: # See restic_backup_set var in role restic_client
+dribdat_volume_backup_set: # See restic_backup_set var in role restic
 ```
 
 And include it in your playbook.

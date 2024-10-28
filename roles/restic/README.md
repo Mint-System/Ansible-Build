@@ -1,6 +1,6 @@
-# Restic client role
+# Restic role
 
-Configures Restic client backup jobs.
+Configures Restic backup jobs.
 
 ## Usage
 
@@ -114,9 +114,9 @@ restic_backup_rotation:
 And include it in your playbook.
 
 ```yml
-- hosts: restic_client
+- hosts: restic
   roles:
-  - role: restic_client
+  - role: restic
 ```
 
 ## Docs
@@ -125,7 +125,7 @@ And include it in your playbook.
 
 The installation script requires that you have sudo access to root.
 
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/restic_client/files/install | bash` in your terminal.
+Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/restic/files/install | bash` in your terminal.
 
 ### Show restic version
 

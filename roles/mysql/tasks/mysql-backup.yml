@@ -12,7 +12,7 @@
 
 - name: Include docker {{ role_name }} backup from restic client role
   ansible.builtin.include_role:
-    name: restic_client
+    name: restic
   vars:
     restic_backup_set: "{{ mysql_backup_set }}"
   when: mysql_backup_set is defined

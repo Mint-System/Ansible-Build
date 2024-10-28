@@ -31,7 +31,7 @@
       - odoo_scripts
       - wordpress
       - pgadmin
-      - restic_client
+      - restic
       - commento
       - bigbluebutton
       - docker_compose

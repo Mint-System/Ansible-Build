@@ -110,10 +110,10 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/c
 - docker-certbot-delete
 - docker-certbot-create
 
-## [restic_client](roles/restic_client/README.md)
+## [restic](roles/restic/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/restic_client/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/restic/files/install | bash
 ```
 
 - cron-job-run

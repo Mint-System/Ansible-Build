@@ -24,7 +24,7 @@ odoo_volume_name: odoo_data01 # default: "{{ odoo_hostname}}"
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: example # default: odoo
 odoo_postgres_password: # default: "{{ vault_postgres_password }}"
-odoo_backup_set: # See restic_backup_set var in role restic_client
+odoo_backup_set: # See restic_backup_set var in role restic
 odoo_master_password: # default: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%h$ # default: ^%d$
 odoo_list_db: True # default: False

@@ -1,5 +1,5 @@
 ---
-- name: Remove restic client scripts
+- name: Remove restic scripts
   ansible.builtin.file:
     path: /usr/local/bin/{{ item }}
     state: absent

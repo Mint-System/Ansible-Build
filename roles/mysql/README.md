@@ -22,7 +22,7 @@ mysql_password: # default: "{{ vault_mysql_password }}"
 Backup databases.
 
 ```yml
-mysql_backup_set: # See restic_backup_set var in role restic_client
+mysql_backup_set: # See restic_backup_set var in role restic
   - id: "mysql dump wordpress"
     type: mysql-dump
     container: mysql01

@@ -63,7 +63,7 @@ digraph {
 	61 [label=dribdat]
 	62 [label=simple_mail_forwarder]
 	63 [label=bookstack]
-	64 [label=restic_client]
+	64 [label=restic]
 	65 [label=dozzle]
 	66 [label=grafana]
 	67 [label=systemd]

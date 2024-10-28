@@ -45,7 +45,7 @@
 
 - name: Include restic client role for docker compose backup
   ansible.builtin.include_role:
-    name: restic_client
+    name: restic
   vars:
     restic_backup_set: "{{ docker_compose_backup_set }}"
   when: docker_compose_backup_set is defined

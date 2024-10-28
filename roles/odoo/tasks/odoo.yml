@@ -123,8 +123,8 @@
 
 - name: Include {{ role_name }} backup from restic client role
   ansible.builtin.include_role:
-    name: restic_client
-    tasks_from: restic_client_odoo_backup
+    name: restic
+    tasks_from: restic_odoo_backup
   vars:
     restic_backup_set: "{{ odoo_backup_set }}"
   when: odoo_backup_set is defined

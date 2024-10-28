@@ -22,7 +22,7 @@ mariadb_command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unico
 Backup databases.
 
 ```yml
-mariadb_backup_set: # See restic_backup_set var in role restic_client
+mariadb_backup_set: # See restic_backup_set var in role restic
   - id: "mariadb dump frappe"
     type: mariadb-dump
     container: mariadb01

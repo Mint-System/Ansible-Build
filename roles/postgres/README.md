@@ -45,7 +45,7 @@ postgres_users:
 Backup databases.
 
 ```yml
-postgres_backup_set: # See restic_backup_set var in role restic_client
+postgres_backup_set: # See restic_backup_set var in role restic
   - id: "{{ postgres_hostname }} dump"
     type: postgres-dump
     container: "{{ postgres_hostname }}"
