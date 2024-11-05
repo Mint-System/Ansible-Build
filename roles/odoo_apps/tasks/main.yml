@@ -1,9 +1,9 @@
----
-- name: Include {{ role_name }} tasks
-  ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: odoo_apps is defined
-  tags:
-    - odoo_apps
+# ---
+# - name: Include {{ role_name }} tasks
+#   ansible.builtin.include_tasks: "{{ role_name }}.yml"
+#   when: odoo_apps is defined
+#   tags:
+#     - odoo_apps
 
 - name: Include odoo repos tasks
   ansible.builtin.include_tasks: odoo_repos.yml
