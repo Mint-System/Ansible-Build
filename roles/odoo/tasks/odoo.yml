@@ -17,7 +17,7 @@
     dest: "{{ odoo_data_dir }}/{{ item }}"
   loop:
     - odoo.conf
-  when: odoo_build_image.startswith('odoo')
+  when: odoo_image.startswith('odoo')
   notify: Restart {{ role_name }} container
 
 - name: Pull {{ role_name }} image
@@ -47,7 +47,7 @@
       - "{{ odoo_data_dir }}/addons:/mnt/addons"
       - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
       - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf"
-  when: odoo_build_image.startswith('odoo')
+  when: odoo_image.startswith('odoo')
 
 - name: Start {{ role_name }} container {{ odoo_hostname }}
   community.docker.docker_container:
