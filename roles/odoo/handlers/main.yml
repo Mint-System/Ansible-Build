@@ -22,3 +22,8 @@
     force_source: true
     force_tag: true
     state: present
+
+# FIXME: Add option to select all Odoo databases
+- name: Update odoo modules list
+  command: docker-odoo-shell -d shop-dev -c {{ odoo_hostname }} -p "env['base.module.update'].update_module()"
+  changed_when: false
