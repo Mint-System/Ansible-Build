@@ -6,7 +6,7 @@
 
 - name: Start {{ role_name }} container {{ n8n_hostname }}
   community.docker.docker_container:
-    name: "{{ n8n_hostname }}"
+    name: "{{ n8n_hostname }}-{{ item }}"
     labels:
       description: "{{ n8n_description }}"
     image: "{{ n8n_image }}"
@@ -15,7 +15,7 @@
     state: "{{ n8n_state }}"
     env:
       DB_TYPE: "{{ n8n_db_type }}"
-      DB_POSTGRESDB_DATABASE: "{{ n8n_postgresdb_database }}"
+      DB_POSTGRESDB_DATABASE: "{{ n8n_postgresdb_database }}-{{ item }}"
       DB_POSTGRESDB_HOST: "{{ n8n_postgresdb_host }}"
       DB_POSTGRESDB_PORT: "{{ n8n_postgresdb_port }}"
       DB_POSTGRESDB_USER: "{{ n8n_postgresdb_user }}"
@@ -32,3 +32,4 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ n8n_hostname }}|{{ role_name }}"
+  loop: "{{ n8n_replicas }}"

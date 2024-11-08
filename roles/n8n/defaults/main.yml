@@ -1,5 +1,8 @@
 ---
 n8n_build_image: false
+n8n_replicas:
+  - prod
+
 n8n_description: N8N
 n8n_state: started
 n8n_data_dir: /usr/share/{{ n8n_hostname }}

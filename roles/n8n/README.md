@@ -11,6 +11,9 @@ Configure the role.
 n8n_image: n8nio/n8n:1.67.1
 n8n_build_image: true # default: false
 n8n_hostname: n8n01
+n8n_replicas:
+  - int # default: prod
+  - prod
 n8n_description: Workflow Automation # default: N8N
 n8n_state: stopped # default: started
 n8n_data_dir: /usr/share/n8n # default: "/usr/share/{{ n8n_hostname }}"

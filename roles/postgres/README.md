@@ -20,24 +20,26 @@ postgres_ports:
   - 127.0.0.1:5433:5432 # default: []
 postgres_user: example
 postgres_password: # default: "{{ vault_postgres_password }}"
-postgres_db: example # default: "{{ postgres_user }}"
+postgres_dbs:
+  - example-prod # default: "{{ postgres_user }}"
+  - example-int
 postgres_wal_level: logical # default: replica
 postgres_max_connections: 200 # default: 100
 postgres_users:
   - name: dwh
     password: "{{ vault_postgres_users_dwh_password }}"
     grant_databases:
-     - odoo-main
+     - odoo-prod
      - odoo-int
      - odoo-dev
     connection_rules:
       - source: 95.15.213.106/24
-        database: odoo-main
+        database: odoo-prod
       - source: 95.15.213.106/24
         database: odoo-int
     revoke_tables:
       - name: hr_employee
-        database: odoo-main
+        database: odoo-prod
       - name: hr_employee
         database: odoo-int
 ```
