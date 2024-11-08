@@ -24,6 +24,7 @@
       GENERIC_TIMEZONE: "{{ n8n_timezone }}"
       TZ: "{{ n8n_timezone }}"
       N8N_SECURE_COOKIE: "{{ n8n_secure_cookie }}"
+      N8N_METRICS: "true"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
