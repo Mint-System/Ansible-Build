@@ -9,9 +9,9 @@ Help() {
   echo
   echo "$SCRIPT"
   echo
-  echo "Description: Restore docker postgres database."
-  echo "Syntax: $SCRIPT [-d|-f|-c|help]"
-  echo "Example: $SCRIPT -d odoo -f /tmp/patches/v14.0.1.6.0.sql -c postgres01"
+  echo "Description: Patch Docker Postgres database."
+  echo "Syntax: $SCRIPT [-c|-d|-f|help]"
+  echo "Example: $SCRIPT -c postgres01 -d odoo -f /tmp/patches/v14.0.1.6.0.sql"
   echo "options:"
   echo "  -d    Name of database."
   echo "  -f    Path to sql patch."
@@ -38,12 +38,10 @@ while getopts ":c: :d: :f:" opt; do
   esac
 done
 
-# Fallback to environment vars and default values
-: ${CONTAINER:='postgres'}
-
 # Verify variables
-[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
 
 # Get postgres user
 POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")

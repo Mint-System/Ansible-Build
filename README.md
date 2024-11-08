@@ -102,6 +102,7 @@ Have a look at the Ansible roles and checkout how to configure them.
 | [nextcloud_apps](roles/nextcloud_apps/README.md)                       | Install, update and remove Nextcloud apps.                       |
 | [nextcloud_exporter](roles/nextcloud_exporter/README.md)               | Deploy Nextcloud exporter container.                             |
 | [nextcloud](roles/nextcloud/README.md)                                 | Deploy Nextcloud container.                                      |
+| [n8n](roles/n8n/README.md)                                             | Deploy N8N container.                                            |
 | [nginx_waf](roles/nginx_waf/README.md)                                 | Deploy Nginx with ModSecurity and Core Rule Set.                 |
 | [nginx](roles/nginx/README.md)                                         | Deploy Nginx proxy with Certbot.                                 |
 | [node_exporter](roles/node_exporter/README.md)                         | Deploy Node exporter container and install custom metric script. |
@@ -127,7 +128,7 @@ Have a look at the Ansible roles and checkout how to configure them.
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
 | [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |
-| [restic](roles/restic/README.md)                         | Configure Restic backup jobs.                             |
+| [restic](roles/restic/README.md)                                       | Configure Restic backup jobs.                                    |
 | [restic_server](roles/restic_server/README.md)                         | Deploy Restic server container.                                  |
 | [s3cmd](roles/s3cmd/README.md)                                         | Install and configure s3cmd.                                     |
 | [simple_mail_forwarder](roles/simple_mail_forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |

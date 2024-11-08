@@ -1,0 +1,33 @@
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ n8n_data_dir }}"
+    state: directory
+
+- name: Start {{ role_name }} container {{ n8n_hostname }}
+  community.docker.docker_container:
+    name: "{{ n8n_hostname }}"
+    labels:
+      description: "{{ n8n_description }}"
+    image: "{{ n8n_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    state: "{{ n8n_state }}"
+    env:
+      DB_TYPE: "{{ n8n_db_type }}"
+      DB_POSTGRESDB_DATABASE: "{{ n8n_postgresdb_database }}"
+      DB_POSTGRESDB_HOST: "{{ n8n_postgresdb_host }}"
+      DB_POSTGRESDB_PORT: "{{ n8n_postgresdb_port }}"
+      DB_POSTGRESDB_USER: "{{ n8n_postgresdb_user }}"
+      DB_POSTGRESDB_SCHEMA: "{{ n8n_postgresdb_schema }}"
+      DB_POSTGRESDB_PASSWORD: "{{ n8n_postgresdb_password }}"
+      GENERIC_TIMEZONE: "{{ n8n_timezone }}"
+      TZ: "{{ n8n_timezone }}"
+      N8N_SECURE_COOKIE: "{{ n8n_secure_cookie }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ n8n_hostname }}|{{ role_name }}"

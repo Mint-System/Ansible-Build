@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/umputun/remark42
-remark42_image: umputun/remark42:v1.11.3
+remark42_image: umputun/remark42:v1.14.0
 remark42_description: Comments for website  # default: Remark42
 remark42_volume_name: remark_data01
 remark42_hostname: remark01

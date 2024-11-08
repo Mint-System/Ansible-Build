@@ -37,3 +37,7 @@
       tags: docker_hosts
     - role: hosts
       tags: hosts
+    - role: n8n
+      tags: n8n
+    - role: nginx
+      tags: nginx

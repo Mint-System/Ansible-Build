@@ -9,7 +9,7 @@ Help() {
   echo
   echo "$SCRIPT"
   echo
-  echo "Description: Backup docker postgres database."
+  echo "Description: Backup Docker Postgres database."
   echo "Syntax: $SCRIPT [-d|-a|-o|-c|help]"
   echo "Example: $SCRIPT -d postgres,odoo -o /tmp -c postgres01"
   echo "options:"
@@ -54,7 +54,6 @@ done
 # Verify variables
 [[ -z "$DATABASES" ]] && [[ "$ALL" == "false" ]] && { echo "Parameter -d or -a|databases or all must be set" ; exit 1; }
 [[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
 if $ALL ; then
   # Get all databases from docker container

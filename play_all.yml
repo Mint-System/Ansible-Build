@@ -80,3 +80,5 @@
       tags: meilisearch
     - role: meilisync
       tags: meilisync
+    - role: n8n
+      tags: n8n

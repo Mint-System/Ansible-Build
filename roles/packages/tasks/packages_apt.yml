@@ -1,6 +1,6 @@
 ---
 - name: Get release codename
-  ansible.builtin.shell: "lsb_release -cs"
+  ansible.builtin.command: lsb_release -cs
   register: codename
   changed_when: false
 
@@ -13,7 +13,7 @@
 
 - name: Setup apt repositories
   ansible.builtin.apt_repository:
-    repo: "deb  {{ item.name }} {{ codename.stdout }} contrib"
+    repo: deb  {{ item.name }} {{ codename.stdout }} contrib
     state: present
   when: apt_repos is defined
   loop: "{{ apt_repos }}"
@@ -43,6 +43,3 @@
     state: present
   loop: "{{ packages }}"
   when: item.version is defined
-
-
-

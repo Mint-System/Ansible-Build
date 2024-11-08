@@ -12,7 +12,7 @@
 
 - name: Copy innernet client invitation file
   ansible.builtin.copy:
-    src: "/var/tmp/{{ innernet_client_peer_name }}.yml"
+    src: /var/tmp/{{ innernet_client_peer_name }}.yml
     dest: /var/tmp/{{ innernet_client_peer_name }}.yml
   when: innernet_client_invitation_file is defined
 

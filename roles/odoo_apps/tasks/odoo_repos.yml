@@ -25,7 +25,7 @@
     dest: "{{ odoo_data_dir }}/{{ item.path }}"
     key_file: "{{ odoo_repo_key_file }}"
     version: "{{ item.version }}"
-    refspec: "+refs/heads/{{ odoo_version }}:refs/remotes/origin/{{ odoo_version }}"
+    refspec: +refs/heads/{{ odoo_version }}:refs/remotes/origin/{{ odoo_version }}
     accept_hostkey: true
     force: true
   when: item.url is regex('git@')
@@ -33,7 +33,7 @@
   notify: Restart odoo container
 
 - name: Add repo to git config
-  git_config:
+  community.general.git_config:
     name: safe.directory
     scope: global
     value: "{{ odoo_data_dir }}/{{ item.path }}"

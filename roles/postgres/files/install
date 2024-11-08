@@ -10,6 +10,7 @@ REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 
 SCRIPTS=(
     docker-postgres-backup
+    docker-postgres-create
     docker-postgres-list
     docker-postgres-restore
     docker-postgres-drop

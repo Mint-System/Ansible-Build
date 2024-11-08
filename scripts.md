@@ -82,6 +82,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/p
 ```
 
 - docker-postgres-backup
+- docker-postgres-create
 - docker-postgres-restore
 - docker-postgres-list
 - docker-postgres-drop

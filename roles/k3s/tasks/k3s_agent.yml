@@ -1,7 +1,7 @@
 ---
 - name: Read token to var
   ansible.builtin.command:
-    cmd: cat /var/lib/rancher/k3s/server/node-token 
+    cmd: cat /var/lib/rancher/k3s/server/node-token
   register: k3s_token
   delegate_to: localhost
   changed_when: false
@@ -15,7 +15,7 @@
     cmd: k3s-install
   environment:
     K3S_KUBECONFIG_MODE: "644"
-    INSTALL_K3S_EXEC: "agent"
+    INSTALL_K3S_EXEC: agent
     K3S_TOKEN: "{{ k3s_token.stdout }}"
     K3S_URL: "{{ k3s_url }}"
     INSTALL_K3S_VERSION: "{{ k3s_version }}"

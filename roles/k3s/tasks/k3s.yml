@@ -14,4 +14,3 @@
 #     cmd: /usr/local/bin/k3s-install
 #   environment:
 #     INSTALL_K3S_SKIP_START: "true"
-    

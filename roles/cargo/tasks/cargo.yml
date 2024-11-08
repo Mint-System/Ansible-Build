@@ -9,7 +9,7 @@
     dest: /etc/environment
     state: present
     regexp: ^CARGO_HOME=
-    line: "CARGO_HOME=/usr/local"
+    line: CARGO_HOME=/usr/local
 
 - name: Run installer rustup
   ansible.builtin.command:

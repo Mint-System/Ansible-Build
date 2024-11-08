@@ -1,7 +1,6 @@
 ---
 - name: Remove innernet client
   block:
-
     - name: Remove invitation file
       ansible.builtin.file:
         path: /var/tmp/{{ innernet_client_peer_name }}.yml
@@ -21,7 +20,6 @@
 
 - name: Remove innernet server
   block:
-
     - name: Remove peer invitation files
       ansible.builtin.file:
         path: /var/tmp/{{ item.name }}.yml

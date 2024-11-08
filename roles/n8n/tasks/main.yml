@@ -1,0 +1,20 @@
+---
+- name: On build set new image tag {{ role_name }}:{{ n8n_hostname }}
+  ansible.builtin.set_fact:
+    n8n_image: n8n:{{ n8n_hostname }}
+    n8n_build_image: "{{ n8n_image }}"
+  when: n8n_build_image and n8n_build_image != n8n_image
+  tags:
+    - n8n
+
+- name: Include {{ role_name }} build tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_build.yml"
+  when: n8n_build_image and n8n_build_image != n8n_image
+  tags:
+    - n8n
+
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: n8n_image is defined
+  tags:
+    - n8n

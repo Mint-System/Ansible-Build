@@ -11,8 +11,8 @@
 
 - name: Include {{ role_name }} raspberry tasks
   ansible.builtin.include_tasks: "{{ role_name }}_raspberry.yml"
-  when: "is_raspberrypi.rc == 0"
-  
+  when: is_raspberrypi.rc == 0
+
 - name: Include {{ role_name }} server tasks
   ansible.builtin.include_tasks: "{{ role_name }}_server.yml"
   when: '"server" in group_names'

@@ -9,7 +9,7 @@ Help() {
   echo
   echo "$SCRIPT"
   echo
-  echo "Description: Restore docker postgres database."
+  echo "Description: Restore Docker Postgres database."
   echo "Syntax: $SCRIPT [-c|-d|-f|-r|-i|help]"
   echo "Example: $SCRIPT -d odoo -f /tmp/dump.sql -c postgres01 -r"
   echo "options:"
@@ -55,7 +55,7 @@ FILENAME=$(basename -- "$FILE")
 
 # Verify variables
 [[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
 # Get postgres user
 POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")

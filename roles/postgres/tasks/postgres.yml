@@ -41,6 +41,7 @@
     mode: +x
   loop:
     - docker-postgres-backup
+    - docker-postgres-create
     - docker-postgres-restore
     - docker-postgres-list
     - docker-postgres-drop
