@@ -51,9 +51,8 @@
     - docker-postgres-shell
     - docker-postgres-upgrade
 
-- name: Create {{ role_name }} databases"
+- name: Create {{ role_name }} databases
   ansible.builtin.command: docker-postgres-create -c "{{ postgres_hostname }}" -d "{{ item.db }}"
-  ignore_errors: true
   loop: "{{ postgres_config_map }}"
   when: postgres_config_map|length > 0
 

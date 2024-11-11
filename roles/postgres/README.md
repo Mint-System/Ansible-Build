@@ -76,6 +76,14 @@ k8s_postgres_password: test
 k8s_postgres_db: example
 ```
 
+And include it in your localhost playbook.
+
+```yml
+- hosts: localhost
+  roles:
+  - role: postgres
+```
+
 ## Docs
 
 ### Install command line tools

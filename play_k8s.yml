@@ -15,3 +15,10 @@
   tags:
     - k3s
     - k3s_agent
+
+- name: K8s manifests
+  hosts: localhost
+  connection: local
+  roles:
+    - role: postgres
+      tags: postgres
