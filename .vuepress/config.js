@@ -14,7 +14,7 @@ export default defineUserConfig({
     head: [
         ['link', { rel: 'icon', href: '/icon.png' }]
     ],
-    pagePatterns: ['**/*.md', '!.vuepress', '!node_modules', '!tmp', '!venvmaster'],
+    pagePatterns: ['**/*.md', '!.vuepress', '!node_modules', '!tmp', '!venvmain'],
     theme: defaultTheme({
         logo: '/icon.png',
         repo: 'mint-system/ansible-build',
