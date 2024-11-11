@@ -35,12 +35,6 @@ Create an inventory and configure a role.
 
 [Ansbile Documentation > Build Your Inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)
 
-### Targets
-
-Some Ansible roles can be deployed to a  Linux Server or to Kubernetes Cluster.
-
-The role documentation show how to configure either deployment target.
-
 ### Roles
 
 Have a look at the Ansible roles and checkout how to configure them.
@@ -140,6 +134,12 @@ Have a look at the Ansible roles and checkout how to configure them.
 | [vercel](roles/vercel/README.md)                                       | Manage vercel domain and dns entries.                            |
 | [wordpress](roles/wordpress/README.md)                                 | Deploy WordPress container.                                      |
 
+### Targets
+
+All Ansible roles can be deployed to a Linux Server via SSH.
+
+Some Ansible roles can be deployed to a Kubernetes Cluster.
+
 ### Deploy
 
 Deploy the roles to the target hosts with the following commands.
@@ -226,6 +226,21 @@ List all Odoo databses.
 
 ```bash
 ansible all -i inventories/odoo -a "docker-postgres-list -c {{ postgres_hostname }}"
+```
+
+### Kubernetes
+
+Setup the following and the role's Kubernetes variables in your localhost inventory.
+
+```yml
+k8s_kubeconfig: /home/$USERNAME/.kube/config
+k8s_namespace: default
+```
+
+Run the Kubernetes playbook for localhost.
+
+```bash
+ansible-playbook -i inventories/k8s play_k8s.yml -l localhost
 ```
 
 ## Development
