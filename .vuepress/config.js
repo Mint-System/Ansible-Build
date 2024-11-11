@@ -1,6 +1,7 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defaultTheme } from '@vuepress/theme-default'
 import { searchPlugin } from '@vuepress/plugin-search'
+import { shikiPlugin } from '@vuepress/plugin-shiki'
 import { plausiblePlugin } from './plausible'
 import { defineUserConfig } from 'vuepress'
 
@@ -31,6 +32,9 @@ export default defineUserConfig({
         }),
         plausiblePlugin({
             'domain': 'ansible.build'
+        }),
+        shikiPlugin({
+            theme: 'dark-plus'
         }),
     ],
 })
