@@ -20,9 +20,9 @@ postgres_ports:
   - 127.0.0.1:5433:5432 # default: []
 postgres_user: example
 postgres_password: # default: "{{ vault_postgres_password }}"
-postgres_dbs:
-  - example-prod # default: "{{ postgres_user }}"
-  - example-int
+postgres_config_map: # default: - name: "{{ postgres_user }}"
+  - db: example-prod 
+  - db: example-int
 postgres_wal_level: logical # default: replica
 postgres_max_connections: 200 # default: 100
 postgres_users:
@@ -63,6 +63,17 @@ And include it in your playbook.
 - hosts: postgres
   roles:
   - role: postgres
+```
+
+### Kubernetes
+
+Configure the manifest.
+
+```yml
+k8s_postgres_image: postgres:16-alpine
+k8s_postgres_user: example
+k8s_postgres_password: test
+k8s_postgres_db: example
 ```
 
 ## Docs

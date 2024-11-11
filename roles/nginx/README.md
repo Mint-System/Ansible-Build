@@ -33,7 +33,9 @@ nginx_proxies:
 
   - src_hostname: www.example.com
     dest_hostname: webserver
-    dest_replicas: 3 # default: 1
+    dest_replicas: # default: []
+      - name: prod
+      - name: int
     dest_port: 8080 # default: 80
     limit_req_zone: one
     options: |

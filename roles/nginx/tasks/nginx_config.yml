@@ -26,7 +26,7 @@
     upstreams: "{{ item.upstreams | default(false) }}"
     src_hostname: "{{ item.src_hostname }}"
     dest_hostname: "{{ item.dest_hostname | default('') }}"
-    dest_replicas: "{{ item.dest_replicas | default(1) }}"
+    dest_replicas: "{{ item.dest_replicas | default([]) }}"
     dest_port: "{{ item.dest_port | default(80)  }}"
     options: "{{ item.options | default('') }}"
     redirect_hostname: "{{ item.redirect_hostname | default(false) }}"

@@ -3,23 +3,23 @@
   ansible.builtin.command: docker exec {{ odoo_hostname }} pip3 freeze
   register: result
   changed_when: false
-  when: odoo_replicas == 1
-
-- name: Get installed python packages by replica
-  ansible.builtin.command: docker exec {{ odoo_hostname }}_{{ item }} pip3 freeze
-  register: result_replicas
-  changed_when: false
-  with_sequence: start=1 end={{ odoo_replicas }}
-  when: odoo_replicas > 1
+  when: odoo_config_map|length == 1
 
 - name: Install missing pip packages
   ansible.builtin.command: docker exec {{ odoo_hostname }} pip3 install {{ item.name }}
-  when: odoo_replicas == 1 and item.name not in result.stdout
+  when: odoo_config_map|length == 1 and item.name not in result.stdout
   loop: "{{ odoo_pip_packages }}"
   notify: Restart odoo container
 
-- name: Install missing pip packages by replica
+- name: Get installed python packages by config map
+  ansible.builtin.command: docker exec {{ odoo_hostname }}-{{ item.name }} pip3 freeze
+  register: result_config_map
+  changed_when: false
+  loop: "{{ odoo_config_map }}"
+  when: odoo_config_map|length > 1
+
+- name: Install missing pip packages by config map
   ansible.builtin.command: docker exec {{ item.1.cmd[2] }} pip3 install {{ item.0.name }}
-  when: odoo_replicas > 1 and item.0.name not in item.1.stdout
-  loop: "{{ odoo_pip_packages | product(result_replicas.results) | list }}"
+  when: odoo_config_map|length > 1 and item.0.name not in item.1.stdout
+  loop: "{{ odoo_pip_packages | product(result_config_map.results) | list }}"
   notify: Restart odoo container

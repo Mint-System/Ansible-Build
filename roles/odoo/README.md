@@ -7,13 +7,16 @@ Deploy Odoo Docker container.
 Configure the role.
 
 ```yml
+# https://hub.docker.com/_/odoo/
 odoo_revision: "16.0.20240603
 odoo_image: mintsystem/odoo:16.0.20240603
 odoo_build_image: true # default: false
 odoo_build_dockerfile: | # default: RUN python -m pip install prometheus-client python-jose
   RUN python -m pip install prometheus-client python-jose pyodbc
 odoo_hostname: odoo01
-odoo_replicas: 3 # default: 1
+odoo_config_map: # default: - name: prod
+  - name: prod
+  - name: int
 odoo_timezone: Europe/Paris # default: Europe/Zurich
 odoo_description: Odoo14 # default: Odoo
 odoo_state: stopped # default: started

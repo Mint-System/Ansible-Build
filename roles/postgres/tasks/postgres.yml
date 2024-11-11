@@ -22,7 +22,7 @@
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_DB: "{{ postgres_dbs[0] }}"
+      POSTGRES_DB: "{{ postgres_config_map[0].db }}"
     command: [postgres, -c, " max_connections={{ postgres_max_connections }}"]
     volumes: "{{ postgres_volumes }}"
     ports: "{{ postgres_ports }}"
@@ -52,10 +52,10 @@
     - docker-postgres-upgrade
 
 - name: Create {{ role_name }} databases"
-  ansible.builtin.command: docker-postgres-create -c "{{ postgres_hostname }}" -d "{{ item }}"
+  ansible.builtin.command: docker-postgres-create -c "{{ postgres_hostname }}" -d "{{ item.db }}"
   ignore_errors: true
-  loop: "{{ postgres_dbs }}"
-  when: postgres_dbs|length > 0
+  loop: "{{ postgres_config_map }}"
+  when: postgres_config_map|length > 0
 
 - name: Include docker {{ role_name }} backup from restic client role
   ansible.builtin.include_role:

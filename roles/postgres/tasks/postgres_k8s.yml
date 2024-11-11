@@ -1,0 +1,12 @@
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ postgres_volume_name }}"
+  when: postgres_volume_name is defined
+
+- name: Ensure {{ role_name }} k8s dir exists
+  ansible.builtin.file:
+    path: "/srv/k8s/{{ role_name }}"
+    state: directory

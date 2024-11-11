@@ -38,8 +38,6 @@ odoo_repos:
   - path: addons/mint-system-server-tools
     url: git@github.com:Mint-System/Odoo-Apps-Server-Tools.git
     version: 16.0
-
-odoo_replicas: 2 # default: 1
 odoo_pip_packages:
   - name: python-jose
   - name: mock==3.0.5

@@ -24,3 +24,7 @@
 - name: Include {{ role_name }} users tasks
   ansible.builtin.include_tasks: "{{ role_name }}_users.yml"
   when: postgres_users is defined
+
+- name: Include {{ role_name }} k8s tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_k8s.yml"
+  when: k8s_postgres_image is defined

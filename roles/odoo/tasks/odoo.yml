@@ -81,11 +81,11 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ odoo_hostname }}|{{ role_name }}"
-  when: odoo_replicas == 1
+  when: odoo_config_map|length == 1
 
 - name: Start {{ role_name }} container {{ odoo_hostname }}
   community.docker.docker_container:
-    name: "{{ odoo_hostname }}_{{ item }}"
+    name: "{{ odoo_hostname }}-{{ item.name }}"
     labels:
       description: "{{ odoo_description }}"
     image: "{{ odoo_image }}"
@@ -101,7 +101,7 @@
       TZ: "{{ odoo_timezone }}"
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
-      DBFILTER: "{{ odoo_dbfilter }}"
+      DBFILTER: "{{ item.dbfilter | default(odoo_dbfilter) }}"
     volumes: "{{ odoo_volumes }}"
     networks:
       - name: "{{ docker_network_name }}"
@@ -110,8 +110,8 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ odoo_hostname }}|{{ role_name }}"
-  with_sequence: start=1 end={{ odoo_replicas }}
-  when: odoo_replicas > 1
+  loop: "{{ odoo_config_map }}"
+  when: odoo_config_map|length > 1
 
 - name: Ensure {{ role_name }} master password is in environment
   ansible.builtin.lineinfile:
