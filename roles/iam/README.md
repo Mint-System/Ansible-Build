@@ -1,6 +1,6 @@
 # IAM role
 
-Configures users and groups.
+Identity and Access Management. Configure user and groups.
 
 ## Usage
 
@@ -48,6 +48,22 @@ And include it in your playbook.
   - role: iam
 ```
 
+### Kubernetes
+
+Configure the manifest.
+
+```yml
+k8s_iam_service_account: k8s-deployer
+```
+
+And include it in your localhost playbook.
+
+```yml
+- hosts: localhost
+  roles:
+  - role: iam
+```
+
 ## Docs
 
 ### Set password manually
@@ -68,4 +84,13 @@ ssh-keygen -t ed25519 -C "$SSH_USERNAME" -f ./id_ed25519
 echo "vault_${SSH_USERNAME}_ssh_private_key: |"
 cat ./id_ed25519 | sed 's/^/    /'
 echo "ssh_public_key: $(cat ./id_ed25519.pub)"
+```
+
+### Get Kubernetes service account token
+
+The service account token ist stored as secret.
+
+```bash
+kubectl get secrets k8s-deployer -o json | jq -r '.data.token' | base64 --decode
+
 ```
