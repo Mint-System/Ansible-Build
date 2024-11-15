@@ -23,15 +23,31 @@ Navigate into the playbook folder.
 
 `cd Ansible-Build`
 
-Generate a password file for Ansible vault.
+Generate a Ansible vault id and password.
 
-`task generate-passwordfile $PASSWORD`
+`task generate-vault-password $VAULT_ID $PASSWORD`
+
+And create an `ansible.cfg` file with this content:
+
+```conf
+[defaults]
+log_path = /var/log/ansible.log
+callback_whitelist = profile_tasks
+stdout_callback = yaml
+display_skipped_hosts = false
+
+[galaxy]
+server_list = release_galaxy
+
+[galaxy_server.release_galaxy]
+url=https://galaxy.ansible.com/
+```
 
 Install Ansible and Python dependencies.
 
 `task install`
 
-Create an inventory and configure a role.
+Create an inventory folder and configure a role.
 
 [Ansbile Documentation > Build Your Inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)
 
@@ -139,6 +155,14 @@ Have a look at the Ansible roles and checkout how to configure them.
 All Ansible roles can be deployed to a Linux Server via SSH.
 
 Some Ansible roles can be deployed to a Kubernetes Cluster.
+
+### Ansible Vault
+
+If y'ou encrypt secrets with multiple vault identities, you can specificy the vault list in the `ansible.cfg` like this:
+
+```conf
+default_vault_identity_list = mint_system@.vault_pass_mint_system, sozialinfo@.vault_pass_sozialinfo
+```
 
 ### Deploy
 

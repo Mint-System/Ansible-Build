@@ -12,7 +12,7 @@ opt_width=10
 desc_width=45
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "Command" "Option" "Description"
 echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-passwordfile" "[password]" "Generate a password file for Ansible vault."
+printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-vault-password" "[vault id] [password]" "Generate a password file for Ansible vault."
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with pip."
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
 printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with pip."
@@ -39,12 +39,16 @@ if [[ -a ".env" ]]; then
     export $(cat .env | sed 's/^#.*//g' | xargs)
 fi
 
-function generate-passwordfile() {
+function generate-vault-password() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
-    export VAULTPASSWORD=$1
-    echo "$VAULTPASSWORD" > .vault_pass
-    chmod 600 .vault_pass
-    echo "Password file .vault_pass created."
+    if test -z "$2"; then echo "\$1 is empty"; exit; fi
+
+    export VAULT_ID=$1
+    export VAULTPASSWORD=$2
+    echo "$VAULTPASSWORD" > ".vault_pass_$VAULT_ID"
+    chmod 600 ".vault_pass_$VAULT_ID"
+    echo "Password file ".vault_pass_$VAULT_ID" created."
+    echo "The vault list entry is: ${VAULT_ID}@.vault_pass@${VAULT_ID}"
 }
 
 function init-venv() {
@@ -137,8 +141,8 @@ function galaxy-publish() {
 }
 
 case "$1" in
-    generate-passwordfile)
-        generate-passwordfile $2
+    generate-vault-password)
+        generate-vault-password "$2" "$3"
         ;;
     install)
         install
@@ -156,7 +160,7 @@ case "$1" in
         update-docs
         ;;
     list-hosts)
-        list-hosts $2
+        list-hosts "$2"
         ;;
     galaxy-build)
         galaxy-build
@@ -185,7 +189,7 @@ case "$1" in
         activate-venv
         ;;
     show-passwordless-sudo)
-        show-passwordless-sudo $2
+        show-passwordless-sudo "$2"
         ;;
     *)
         help task

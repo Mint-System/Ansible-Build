@@ -1,4 +1,4 @@
-.vault_pass
+.vault_pass*
 default.vim
 .DS_Store
 *.swp
@@ -14,3 +14,4 @@ tmp
 .obsidian/workspace.json
 .env
 __pycache__
+ansible.cfg
