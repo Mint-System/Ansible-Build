@@ -161,7 +161,20 @@ Some Ansible roles can be deployed to a Kubernetes Cluster.
 If y'ou encrypt secrets with multiple vault identities, you can specificy the vault list in the `ansible.cfg` like this:
 
 ```conf
-default_vault_identity_list = mint_system@.vault_pass_mint_system, sozialinfo@.vault_pass_sozialinfo
+[defaults]
+vault_identity_list = mint_system@.vault_pass_mint_system, sozialinfo@.vault_pass_sozialinfo
+```
+
+Or as an environment variable:
+
+```bash
+export ANSIBLE_VAULT_IDENTITY_LIST="mint_system@.vault_pass_mint_system, sozialinfo@.vault_pass_sozialinfo"
+```
+
+Alternatively you can configure the `--vault-id` parameter of the Ansible playbook command:
+
+```bash
+ansible-playbook --vault-id mint_system@.vault_pass_mint_system ...
 ```
 
 ### Deploy
@@ -327,39 +340,39 @@ Template for role vars:
 ```yml
 # Basics:
 # Url to Docker repsitory
-ROLENAME_image: URL
-ROLENAME_hostname: SHORTNAME + COUNTER
-ROLENAME_port:
-ROLENAME_volume_name: SHORTNAME_data + COUNTER
-ROLENAME_data_dir: /usr/share/SHORTNAME + COUNTER
+rolename_image:
+rolename_hostname:
+rolename_port:
+rolename_volume_name: "{{ rolename_hostname }}"
+rolename_data_dir: "/usr/share/{{ rolename_hostname }}"
 # Database connection:
-ROLENAME_db_type: mysql
-ROLENAME_db_user:
-ROLENAME_db_password: "{{ vault_ROLENAME_db_password }}"
-ROLENAME_db_hostname:
-ROLENAME_db_name:
+rolename_db_type:
+rolename_db_user:
+rolename_db_password: "{{ vault_rolename_db_password }}"
+rolename_db_hostname:
+rolename_db_name:
 # Credentials user:
-ROLENAME_user:
-ROLENAME_password: "{{ vault_ROLENAME_password }}"
+rolename_user:
+rolename_password: "{{ vault_rolename_password }}"
 # Credentials admin:
-ROLENAME_admin_user:
-ROLENAME_admin_password: "{{ vault_ROLENAME_admin_password }}"
+rolename_admin_user:
+rolename_admin_password: "{{ vault_rolename_admin_password }}"
 # Named database connection:
-ROLENAME_postgres_hostname:
-ROLENAME_postgres_user:
-ROLENAME_postgres_password: "{{ vault_ROLENAME_postgres_password }}"
-# SMTP
-ROLENAME_smtp_hostname:
-ROLENAME_smtp_auth:
-ROLENAME_smtp_secure:
-ROLENAME_smtp_port:
-ROLENAME_smtp_domain:
-ROLENAME_smtp_from:
-ROLENAME_smtp_username:
-ROLENAME_smtp_password:
+rolename_postgres_hostname:
+rolename_postgres_user:
+rolename_postgres_password: "{{ vault_rolename_postgres_password }}"
+# SMTP connection:
+rolename_smtp_hostname:
+rolename_smtp_auth:
+rolename_smtp_secure:
+rolename_smtp_port:
+rolename_smtp_domain:
+rolename_smtp_from:
+rolename_smtp_username:
+rolename_smtp_password:
 ```
 
-Role names must be lower case and may contain a `-`.
+Role names must be lower case and may contain an `_`.
 
 ### Role and Tags
 
@@ -406,8 +419,7 @@ Whenever a role is applied to the same host multiple times, you can create multi
 * **int**: Staging environment.
 * **dev**: Development and test environment.
 * **upgrade**: Upgrade environment.
-* **website**: Website environment.
-* **old**: Obsolete environment.
+* **dep**: Deprecated environment.
 
 Here is an example of an host with two aliases:
 
