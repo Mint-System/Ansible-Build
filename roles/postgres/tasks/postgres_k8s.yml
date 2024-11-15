@@ -1,13 +1,13 @@
 ---
 - name: Ensure {{ role_name }} k8s dir exists
   ansible.builtin.file:
-    path: "/srv/k8s/{{ role_name }}"
+    path: /srv/k8s/{{ role_name }}
     state: directory
 
 - name: Template {{ role_name }} k8s manifest files
   ansible.builtin.template:
     src: "{{ item }}"
-    dest: "/srv/k8s/{{ role_name }}/{{ item }}"
+    dest: /srv/k8s/{{ role_name }}/{{ item }}
   loop:
     - k8s_postgres.yaml
 
@@ -16,6 +16,6 @@
     kubeconfig: "{{ k8s_kubeconfig }}"
     namespace: "{{ k8s_namespace }}"
     state: present
-    src: "/srv/k8s/{{ role_name }}/{{ item }}"
+    src: /srv/k8s/{{ role_name }}/{{ item }}
   loop:
     - k8s_postgres.yaml
