@@ -43,3 +43,5 @@
       tags: n8n
     - role: nginx
       tags: nginx
+    - role: crowdsec
+      tags: crowdsec

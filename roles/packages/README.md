@@ -21,6 +21,7 @@ yum_repos:
     url: https://copr.fedorainfracloud.org/coprs/copart/restic/repo/epel-7/copart-restic-epel-7.repo
 apt_repos:
   - name: https://tommie.github.io/innernet-debian/debian
+    branch: contrib
     key: https://tommie.github.io/innernet-debian/repository.asc
 
 packages:

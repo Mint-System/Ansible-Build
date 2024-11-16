@@ -72,6 +72,7 @@ Have a look at the Ansible roles and checkout how to configure them.
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
 | [coturn](roles/coturn/README.md)                                       | Deploy Coturn cotainer.                                          |
 | [cron](roles/cron/README.md)                                           | Setup cron jobs.                                                 |
+| [crowdsec](roles/crowdsec/README.md)                                           | Deploy crowdsec container.                                                 |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
 | [dind](roles/dind/README.md)                                           | Deploy Docker in Docker container.                               |
 | [docker_compose](roles/docker_compose/README.md)                       | Deploy Docker Compose project.                                   |

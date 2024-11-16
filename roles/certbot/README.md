@@ -7,11 +7,14 @@ Deploy Let's Encrypt certificates.
 Configure the role.
 
 ```yml
+# https://hub.docker.com/r/certbot/certbot
 certbot_image: certbot/certbot
 certbot_build_image: true # default: false
 certbot_hostname: cert01
 certbot_data_dir: /usr/share/cert # default: "/usr/share/{{ certbot_hostname }}"
 certbot_email: info@example.com
+
+# https://hub.docker.com/_/nginx/
 nginx_image: nginx:1.25.2-alpine
 nginx_hostname: nginx01
 nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"

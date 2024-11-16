@@ -1,0 +1,6 @@
+---
+source: docker
+container_name_regexp:
+  - nginx.*
+labels:
+  type: nginx

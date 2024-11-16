@@ -1,0 +1,12 @@
+mode: iptables
+piddir: /var/run/
+update_frequency: 10s
+daemonize: true
+log_mode: file
+log_dir: /var/log/
+log_level: info
+api_url: http://{{ crowdsec_hostname }}:8080/
+api_key: {{ crowdsec_firewall_bouncer_api_key }}
+disable_ipv6: true
+iptables_chains:
+ - DOCKER-USER

@@ -19,3 +19,13 @@ And include it in your playbook.
   roles:
   - role: docker_network
 ```
+
+## Docs
+
+### IP tables
+
+The `docker-proxy` ceates NAT routes in the ip tables. To list them run:
+
+```
+sudo iptables -t nat -L DOCKER -n -v
+```

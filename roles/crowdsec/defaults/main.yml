@@ -1,0 +1,5 @@
+---
+crowdsec_description: CrowdSec
+crowdsec_data_dir: /usr/share/{{ crowdsec_hostname }}
+crowdsec_volume_name: "{{ crowdsec_hostname }}"
+crowdsec_bouncer_enabled: false

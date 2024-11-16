@@ -1,0 +1,39 @@
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ crowdsec_volume_name }}"
+
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ crowdsec_data_dir }}"
+    state: directory
+
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ crowdsec_data_dir }}/{{ item }}"
+  loop:
+    - acquis.yaml
+
+- name: Start {{ role_name }} container {{ crowdsec_hostname }}
+  community.docker.docker_container:
+    name: "{{ crowdsec_hostname }}"
+    labels:
+      description: "{{ crowdsec_description }}"
+    image: "{{ crowdsec_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    env:
+      COLLECTIONS: crowdsecurity/nginx
+      GID: ${GID-1000}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "{{ crowdsec_volume_name }}:/var/lib/crowdsec/data/"
+      - "{{ crowdsec_data_dir }}/acquis.yaml:/etc/crowdsec/acquis.yaml"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ crowdsec_hostname }}|{{ role_name }}"

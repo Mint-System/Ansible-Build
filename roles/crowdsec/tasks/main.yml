@@ -1,0 +1,12 @@
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: crowdsec_image is defined
+  tags:
+    - crowdsec
+
+- name: Include {{ role_name }} bouncer tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_bouncer.yml"
+  when: crowdsec_bouncer_enabled
+  tags:
+    - crowdsec

@@ -13,7 +13,7 @@
 
 - name: Setup apt repositories
   ansible.builtin.apt_repository:
-    repo: deb  {{ item.name }} {{ codename.stdout }} contrib
+    repo: deb {{ item.name }} {{ codename.stdout }} {{ item.branch }}
     state: present
   when: apt_repos is defined
   loop: "{{ apt_repos }}"
