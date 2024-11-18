@@ -94,6 +94,7 @@ scrape_configs:
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `mysqld`)].src_hostname') | flatten }}
 {% endif %}
+{% if prometheus_odoo_exporter_basic_auth_username is defined %}
   - job_name: odoo https
     metrics_path: "/metrics"
     scrape_interval: 60s
@@ -104,6 +105,7 @@ scrape_configs:
       password: {{ prometheus_odoo_exporter_basic_auth_password }}
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `odoo`)].src_hostname') | flatten }}
+{% endif %}
 {% if blackbox_exporter_hostname is defined %}
   - job_name: blackbox
     metrics_path: "/probe"
