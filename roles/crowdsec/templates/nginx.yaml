@@ -1,0 +1,12 @@
+---
+source: docker
+container_name_regexp:
+  - nginx.*
+labels:
+  type: nginx
+---
+filenames:
+  - /var/log/auth.log
+  - /var/log/syslog
+labels:
+  type: syslog

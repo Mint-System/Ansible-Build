@@ -9,15 +9,17 @@
 
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
-    path: "{{ crowdsec_data_dir }}"
+    path: "{{ crowdsec_data_dir }}/acquis.d"
     state: directory
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
     src: "{{ item }}"
-    dest: "{{ crowdsec_data_dir }}/{{ item }}"
+    dest: "{{ crowdsec_data_dir }}/acquis.d/{{ item }}"
   loop:
-    - acquis.yaml
+    - nginx.yaml
+    - syslog.yaml
+  notify: Restart {{ role_name }} container
 
 - name: Start {{ role_name }} container {{ crowdsec_hostname }}
   community.docker.docker_container:
@@ -35,9 +37,10 @@
       BOUNCER_KEY_firewall: "{{ vault_crowdsec_firewall_bouncer_key | default('') }}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log:/var/log:ro
       - "{{ crowdsec_volume_name }}:/var/lib/crowdsec/data/"
-      - "{{ crowdsec_data_dir }}/acquis.yaml:/etc/crowdsec/acquis.yaml"
       - "{{ crowdsec_volume_name }}_config:/etc/crowdsec/"
+      - "{{ crowdsec_data_dir }}/acquis.d:/etc/crowdsec/acquis.d/"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

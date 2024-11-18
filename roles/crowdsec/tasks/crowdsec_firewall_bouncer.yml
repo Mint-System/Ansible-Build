@@ -9,8 +9,13 @@
     name: packages
   vars:
     apt_repos:
-      - name: "https://packagecloud.io/crowdsec/crowdsec/ubuntu"
+      - name: https://packagecloud.io/crowdsec/crowdsec/ubuntu
         branch: main
-        key: "https://packagecloud.io/crowdsec/crowdsec/gpgkey"
+        key: https://packagecloud.io/crowdsec/crowdsec/gpgkey
     packages:
       - name: crowdsec-firewall-bouncer-iptables
+
+- name: Start {{ role_name }} firewall bouncer service
+  ansible.builtin.service:
+    name: crowdsec-firewall-bouncer
+    state: started

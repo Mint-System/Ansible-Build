@@ -178,6 +178,12 @@ Alternatively you can configure the `--vault-id` parameter of the Ansible playbo
 ansible-playbook --vault-id mint_system@.vault_pass_mint_system ...
 ```
 
+To decrypt single strings use vaults like this:
+
+```bash
+ansible-vault encrypt_string --encrypt-vault-id=sozialinfo '<secret>' --name 'vault<rolename_varname>'
+```
+
 ### Deploy
 
 Deploy the roles to the target hosts with the following commands.

@@ -84,3 +84,13 @@ Install the firewall bouncer:
 sudo apt update
 sudo apt install crowdsec-firewall-bouncer-iptables
 ```
+
+### Trigger an alert
+
+```bash
+pip install wapiti3
+```
+
+```bash
+wapiti -u http://odoo.local/
+```
