@@ -3,6 +3,10 @@
   community.docker.docker_volume:
     name: "{{ crowdsec_volume_name }}"
 
+- name: Create {{ role_name }} config volume
+  community.docker.docker_volume:
+    name: "{{ crowdsec_volume_name }}_config"
+
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
     path: "{{ crowdsec_data_dir }}"
@@ -26,10 +30,14 @@
     env:
       COLLECTIONS: crowdsecurity/nginx
       GID: ${GID-1000}
+      ENROLL_KEY: "{{ vault_crowdsec_enroll_key }}"
+      ENROLL_INSTANCE_NAME: "{{ inventory_hostname }}"
+      BOUNCER_KEY_firewall: "{{ vault_crowdsec_firewall_bouncer_key | default('') }}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - "{{ crowdsec_volume_name }}:/var/lib/crowdsec/data/"
       - "{{ crowdsec_data_dir }}/acquis.yaml:/etc/crowdsec/acquis.yaml"
+      - "{{ crowdsec_volume_name }}_config:/etc/crowdsec/"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

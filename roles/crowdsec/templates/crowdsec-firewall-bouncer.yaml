@@ -6,7 +6,7 @@ log_mode: file
 log_dir: /var/log/
 log_level: info
 api_url: http://{{ crowdsec_hostname }}:8080/
-api_key: {{ crowdsec_firewall_bouncer_api_key }}
+api_key: {{ vault_crowdsec_firewall_bouncer_key }}
 disable_ipv6: true
 iptables_chains:
  - DOCKER-USER

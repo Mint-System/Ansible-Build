@@ -13,7 +13,9 @@ crowdsec_hostname: crowdsec01
 crowdsec_description: Log Forwarder # default: CrowdSec
 crowdsec_volume_name: crowdsec01_data # default: "{{ crowdsec_hostname }}"
 crowdsec_data_dir: /usr/share/crowdsec # default: "/usr/share/{{ crowdsec_hostname }}"
-crowdsec_bouncer_enabled: true # default: false
+crowdsec_enroll_key: # default: "{{ vault_crowdsec_enroll_key }}
+crowdsec_firewall_bouncer_enabled: true # default: false
+crowdsec_firewall_bouncer_key: # default: "{{ vault_crowdsec_firewall_bouncer_key }}
 ```
 
 And include it in your playbook.
@@ -52,4 +54,33 @@ Show ip table entry.
 
 ```bash
 sudo iptables -L CROWDSEC_CHAIN
+```
+
+### Install bouncer manually
+
+Add apt signing key.
+
+```bash
+curl -fsSL https://packagecloud.io/crowdsec/crowdsec/gpgkey | gpg --dearmor > /etc/apt/keyrings/crowdsec_crowdsec-archive-keyring.gpg
+```
+
+Show release code name and add apt source.
+
+```bash
+CODENAME=$(lsb_release -cs)
+vi /etc/apt/sources.list.d/crowdsec_crowdsec.list
+```
+
+The content of the list:
+
+```
+deb [signed-by=/etc/apt/keyrings/crowdsec_crowdsec-archive-keyring.gpg] https://packagecloud.io/crowdsec/crowdsec/ubuntu $CODENAME main
+deb-src [signed-by=/etc/apt/keyrings/crowdsec_crowdsec-archive-keyring.gpg] https://packagecloud.io/crowdsec/crowdsec/ubuntu $CODENAME main
+```
+
+Install the firewall bouncer:
+
+```bash
+sudo apt update
+sudo apt install crowdsec-firewall-bouncer-iptables
 ```
