@@ -14,3 +14,18 @@ prometheus_postgres_exporter_basic_auth_password: "{{ vault_prometheus_postgres_
 prometheus_restic_server_basic_auth_password: "{{ vault_prometheus_restic_server_basic_auth_password }}"
 prometheus_mysqld_exporter_basic_auth_password: "{{ vault_prometheus_mysqld_exporter_basic_auth_password }}"
 prometheus_odoo_exporter_basic_auth_password: "{{ vault_prometheus_odoo_exporter_basic_auth_password }}"
+prometheus_rules: {}
+  # system.yml: |
+  #   {% raw %}
+  #   groups:
+  #   - name: system
+  #     rules:
+  #     - alert: InstanceDown
+  #       expr: "up == 0"
+  #       for: 5m
+  #       labels:
+  #         runbook_url: https://runbooks.prometheus-operator.dev/runbooks/general/targetdown/
+  #       annotations:
+  #         description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+  #         summary: "Instance {{ $labels.instance }} down"
+  #   {% endraw %}

@@ -1,4 +1,8 @@
 ---
+
+rule_files:
+  - "{{ prometheus_data_dir }}/rules/*"
+
 scrape_configs:
   - job_name: prometheus
     scrape_interval: 30s
