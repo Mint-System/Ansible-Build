@@ -8,6 +8,11 @@
     path: "{{ prometheus_data_dir }}"
     state: directory
 
+- name: Prepare {{ role_name }} rules dir
+  ansible.builtin.file:
+    path: "{{ prometheus_data_dir }}/rules"
+    state: "directory"
+
 - name: Extract and filter blackbox target hostnames
   ansible.builtin.set_fact:
     src_hostnames: "{{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].src_hostname') | flatten }}"
@@ -23,6 +28,12 @@
 - name: List blackbox targets
   ansible.builtin.debug:
     msg: "{{ targets }}"
+
+- name: Copy {{ role_name }} rules
+  ansible.builtin.copy:
+    dest: "{{ prometheus_data_dir }}/rules/{{ item }}"
+    content: "{{ lookup('ansible.builtin.template', 'rule.yml') }}"
+  loop: "{{ prometheus_rules.keys() }}"
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
@@ -41,6 +52,7 @@
     volumes:
       - "{{ prometheus_volume_name }}:/prometheus"
       - "{{ prometheus_data_dir }}/prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "{{ prometheus_data_dir }}/rules:/etc/prometheus/rules:ro"
     ports:
       - "{{ prometheus_port }}:9090"
     networks:
