@@ -19,29 +19,17 @@ See `task help` or [task](./task.md) for details about the project commands.
 
 ### Setup
 
-Navigate into the playbook folder.
+Navigate into the project folder.
 
 `cd Ansible-Build`
 
-Generate a Ansible vault id and password.
+Generate an Ansible vault id and password.
 
 `task generate-vault-password $VAULT_ID $PASSWORD`
 
-And create an `ansible.cfg` file with this content:
+Create an Ansible configuration from the template.
 
-```conf
-[defaults]
-log_path = /var/log/ansible.log
-callback_whitelist = profile_tasks
-stdout_callback = yaml
-display_skipped_hosts = false
-
-[galaxy]
-server_list = release_galaxy
-
-[galaxy_server.release_galaxy]
-url=https://galaxy.ansible.com/
-```
+`cp ansible.cfg.template ansible.cfg`
 
 Install Ansible and Python dependencies.
 
@@ -53,7 +41,7 @@ Create an inventory folder and configure a role.
 
 ### Roles
 
-Have a look at the Ansible roles and checkout how to configure them.
+Have a look at the Ansible roles and check how to configure them.
 
 | Role                                                                   | Description                                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
