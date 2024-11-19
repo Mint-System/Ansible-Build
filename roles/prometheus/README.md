@@ -89,5 +89,5 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 Select multiple inventories when deploying.
 
 ```bash
-ansible-playbook -i inventories/odoo -i inventories/nextcloud -i inventories/setup play_setup.yml -l prometheus -t prometheus
+ansible-playbook -i inventories/odoo -i inventories/nextcloud -i inventories/setup plays/setup.yml -l prometheus -t prometheus
 ```
