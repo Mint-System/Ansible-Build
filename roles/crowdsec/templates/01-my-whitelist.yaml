@@ -1,0 +1,6 @@
+name: my/whitelist
+description: "Whitelist events from my IP"
+whitelist:
+  reason: "My IP"
+  ip:
+    {{ crowdsec_whitelist_ip_addresses | indent(4) }}

@@ -14,6 +14,7 @@
   ansible.builtin.set_fact:
     nginx_volumes:
       - "{{ nginx_data_dir }}:/etc/nginx/conf.d"
+      # - "{{ nginx_data_dir }}/logs:/var/log/nginx"
 
 - name: Append Certbot volume vars
   ansible.builtin.set_fact:

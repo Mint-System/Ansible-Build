@@ -9,8 +9,11 @@
 
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
-    path: "{{ crowdsec_data_dir }}/acquis.d"
+    path: "{{ crowdsec_data_dir }}/{{ item }}"
     state: directory
+  loop:
+    - acquis.d
+    - parsers/s02-enrich
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
@@ -19,6 +22,15 @@
   loop:
     - nginx.yaml
     - syslog.yaml
+  notify: Restart {{ role_name }} container
+
+- name: Copy {{ role_name }} parser conf
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ crowdsec_data_dir }}/parsers/s02-enrich/{{ item }}"
+  loop:
+    - 01-my-whitelist.yaml
+  when: crowdsec_whitelist_ip_addresses is defined
   notify: Restart {{ role_name }} container
 
 - name: Start {{ role_name }} container {{ crowdsec_hostname }}
@@ -41,6 +53,7 @@
       - "{{ crowdsec_volume_name }}:/var/lib/crowdsec/data/"
       - "{{ crowdsec_volume_name }}_config:/etc/crowdsec/"
       - "{{ crowdsec_data_dir }}/acquis.d:/etc/crowdsec/acquis.d/"
+      - "{{ crowdsec_data_dir }}/parsers:/etc/crowdsec/parsers/"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

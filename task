@@ -1,35 +1,37 @@
 #!/bin/bash
 
 function help() {
-echo
-echo "$1 <command> [options]"
-echo
-echo "commands:"
-echo
+    echo
+    echo "$1 <command> [options]"
+    echo
+    echo "commands:"
+    echo
 
-cmd_width=24
-opt_width=10
-desc_width=45
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "Command" "Option" "Description"
-echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-vault-password" "[vault id] [password]" "Generate a password file for Ansible vault."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with pip."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with pip."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "lint" "" "Lint Ansible roles and playbooks."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-build" "" "Create tarball of collection."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-publish" "" "Publish tarball to Ansible Galaxy."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-install" "" "Install build dependencies."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-dev" "" "Start vuepress development server."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-build" "" "Create vuepress build."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-serve-build" "" "Serve vuepress build."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "update-docs" "" "Update project docs."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-hosts" "[path]" "Lists all hosts of an inventory."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
-printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
+    cmd_width=25
+    opt_width=25
+    desc_width=45
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "Command" "Option" "Description"
+    echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "encrypt-string" "[vault_id] [key:value]" "Generate encrypted string with Ansible Vault."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with pip."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with pip."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "lint" "" "Lint Ansible roles and playbooks."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-build" "" "Create tarball of collection."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-publish" "" "Publish tarball to Ansible Galaxy."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-install" "" "Install build dependencies."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-dev" "" "Start vuepress development server."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-build" "" "Create vuepress build."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-serve-build" "" "Serve vuepress build."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "update-docs" "" "Update project docs."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-hosts" "[path]" "Lists all hosts of an inventory."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
 
-echo
+    echo
 }
 
 # Set env vars
@@ -49,6 +51,26 @@ function generate-vault-password() {
     chmod 600 ".vault_pass_$VAULT_ID"
     echo "Password file ".vault_pass_$VAULT_ID" created."
     echo "The vault list entry is: ${VAULT_ID}@.vault_pass@${VAULT_ID}"
+}
+
+function encrypt-string() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    if test -z "$2"; then echo "\$2 is empty"; exit; fi
+
+    # Split multiline
+    STRING_KEY=$(echo "$2" | cut -d ':' -f 1)
+    STRING_VALUE=$(echo "$2" | cut -d ':' -f 2 | sed 's/^ *//')
+
+    echo "Found key: $STRING_KEY"
+    echo "Encrypting value: $STRING_VALUE"
+    ansible-vault encrypt_string --encrypt-vault-id="$1"  --name "$STRING_KEY" "$STRING_VALUE"
+}
+
+function convert-vault-file() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+
+    # python convert-vault-file "$1" "$2"
 }
 
 function init-venv() {
@@ -143,6 +165,12 @@ function galaxy-publish() {
 case "$1" in
     generate-vault-password)
         generate-vault-password "$2" "$3"
+        ;;
+    encrypt-string)
+        encrypt-string "$2" "$3"
+        ;;
+    convert-vault-file)
+        convert-vault-file "$2" "$3"
         ;;
     install)
         install

@@ -28,3 +28,5 @@
       tags: nginx_waf
     - role: caddy
       tags: caddy
+    - role: crowdsec
+      tags: crowdsec
