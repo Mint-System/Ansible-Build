@@ -9,12 +9,17 @@
     src: crowdsec-firewall-bouncer.yaml
     dest: /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
 
+- name: Get OS codename
+  ansible.builtin.shell: grep ^ID /etc/os-release | cut -d= -f2
+  register: os
+  changed_when: false
+
 - name: Install required {{ role_name }} packages
   ansible.builtin.include_role:
     name: packages
   vars:
     apt_repos:
-      - name: https://packagecloud.io/crowdsec/crowdsec/ubuntu
+      - name: https://packagecloud.io/crowdsec/crowdsec/{{ os.stdout | trim }}
         branch: main
         key: https://packagecloud.io/crowdsec/crowdsec/gpgkey
     packages:

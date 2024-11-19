@@ -22,6 +22,7 @@
   loop:
     - nginx.yaml
     - syslog.yaml
+    - journalctl.yaml
   notify: Restart {{ role_name }} container
 
 - name: Copy {{ role_name }} parser conf

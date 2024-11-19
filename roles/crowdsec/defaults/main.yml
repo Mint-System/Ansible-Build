@@ -3,3 +3,4 @@ crowdsec_description: CrowdSec
 crowdsec_data_dir: /usr/share/{{ crowdsec_hostname }}
 crowdsec_volume_name: "{{ crowdsec_hostname }}"
 crowdsec_firewall_bouncer_enabled: false
+crowdsec_firewall_bouncer_mode: iptables
