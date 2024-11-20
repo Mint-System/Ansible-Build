@@ -10,7 +10,7 @@
     dest: /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
 
 - name: Get OS codename
-  ansible.builtin.shell: grep ^ID /etc/os-release | cut -d= -f2
+  ansible.builtin.shell: grep ^ID= /etc/os-release | cut -d= -f2
   register: os
   changed_when: false
 
