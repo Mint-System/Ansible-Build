@@ -1,1 +1,5 @@
-{}
+{
+  "userIgnoreFilters": [
+    "node_modules/"
+  ]
+}

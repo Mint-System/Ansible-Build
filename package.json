@@ -28,6 +28,7 @@
     "@vuepress/plugin-search": "^2.0.0-rc.39",
     "@vuepress/plugin-shiki": "^2.0.0-rc.39",
     "@vuepress/theme-default": "^2.0.0-rc.39",
+    "mermaid": "^11.4.0",
     "vuepress": "^2.0.0-rc.14"
   }
 }

@@ -143,13 +143,18 @@ Have a look at the Ansible roles and check how to configure them.
 
 All Ansible roles can be deployed to a Linux Server via SSH.
 
+```mermaid
+flowchart TD
+	A[Host] -->|SSH| B[Server]
+```
+
 Some Ansible roles can be deployed to a Kubernetes Cluster.
 
 ### Ansible Vault
 
 If y'ou encrypt secrets with multiple vault identities, you can specificy the vault list in the `ansible.cfg` like this:
 
-```conf
+```toml
 [defaults]
 vault_identity_list = mint_system@.vault_pass_mint_system, sozialinfo@.vault_pass_sozialinfo
 ```

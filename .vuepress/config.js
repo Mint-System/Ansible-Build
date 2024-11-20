@@ -2,6 +2,7 @@ import { viteBundler } from '@vuepress/bundler-vite'
 import { defaultTheme } from '@vuepress/theme-default'
 import { searchPlugin } from '@vuepress/plugin-search'
 import { shikiPlugin } from '@vuepress/plugin-shiki'
+import { mermaidPlugin } from './mermaid'
 import { plausiblePlugin } from './plausible'
 import { defineUserConfig } from 'vuepress'
 
@@ -33,9 +34,10 @@ export default defineUserConfig({
         plausiblePlugin({
             'domain': 'ansible.build'
         }),
+        mermaidPlugin(),
         shikiPlugin({
             theme: 'catppuccin-latte',
-            langs: ['bash', 'yml', 'yaml', 'json', 'css', 'html', 'xml', 'groovy', 'py', 'python', 'sql', 'powershell', 'txt', 'csv', 'mermaid'],
+            langs: ['bash', 'yml', 'yaml', 'json', 'css', 'html', 'xml', 'groovy', 'py', 'python', 'sql', 'powershell', 'txt', 'csv', 'mermaid', 'md', 'markdown', 'toml', 'php'],
         }),
     ],
 })
