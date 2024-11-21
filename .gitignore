@@ -12,6 +12,7 @@ node_modules
 dist
 tmp
 .obsidian/workspace.json
+.obsidian/plugins
 .env
 __pycache__
 ansible.cfg
