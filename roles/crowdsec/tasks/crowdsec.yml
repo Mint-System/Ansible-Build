@@ -34,6 +34,19 @@
   when: crowdsec_whitelist_ip_addresses is defined
   notify: Restart {{ role_name }} container
 
+- name: Init {{ role_name }} env vars
+  ansible.builtin.set_fact:
+    crowdsec_env:
+      COLLECTIONS: crowdsecurity/nginx
+      GID: ${GID-1000}
+      ENROLL_KEY: "{{ vault_crowdsec_enroll_key }}"
+      ENROLL_INSTANCE_NAME: "{{ inventory_hostname }}"
+
+- name: Append bouncer env vars
+  ansible.builtin.set_fact:
+    crowdsec_env: "{{ crowdsec_env | combine('BOUNCER_KEY_firewall_' + item, vault_crowdsec_firewall_bouncer_key) }}"
+  loop: "{{ crowdsec_bouncer_hosts }}"
+
 - name: Start {{ role_name }} container {{ crowdsec_hostname }}
   community.docker.docker_container:
     name: "{{ crowdsec_hostname }}"
@@ -42,12 +55,7 @@
     image: "{{ crowdsec_image }}"
     restart_policy: unless-stopped
     recreate: false
-    env:
-      COLLECTIONS: crowdsecurity/nginx
-      GID: ${GID-1000}
-      ENROLL_KEY: "{{ vault_crowdsec_enroll_key }}"
-      ENROLL_INSTANCE_NAME: "{{ inventory_hostname }}"
-      BOUNCER_KEY_firewall: "{{ vault_crowdsec_firewall_bouncer_key | default('') }}"
+    env: "{{ crowdsec_env }}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/log:/var/log:ro

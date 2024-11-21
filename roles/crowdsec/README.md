@@ -14,8 +14,12 @@ crowdsec_description: Log Forwarder # default: CrowdSec
 crowdsec_volume_name: crowdsec01_data # default: "{{ crowdsec_hostname }}"
 crowdsec_data_dir: /usr/share/crowdsec # default: "/usr/share/{{ crowdsec_hostname }}"
 crowdsec_enroll_key: # default: "{{ vault_crowdsec_enroll_key }}
+crowdsec_bouncer_hosts: # default - "{{ inventory_hostname }}"
+  - server1
+  - server2
 crowdsec_firewall_bouncer_enabled: true # default: false
 crowdsec_firewall_bouncer_mode: nftables # default: iptables
+crowdsec_firewall_bouncer_api_url: https://sec.example.com/ # default: http://{{ crowdsec_hostname }}:8080/
 crowdsec_firewall_bouncer_key: # default: "{{ vault_crowdsec_firewall_bouncer_key }}
 crowdsec_whitelist_ip_addresses: |
   - "49.12.42.20" # atlas.mint-system.com

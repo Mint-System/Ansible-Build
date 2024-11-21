@@ -11,7 +11,7 @@
 - name: Prepare {{ role_name }} rules dir
   ansible.builtin.file:
     path: "{{ prometheus_data_dir }}/rules"
-    state: "directory"
+    state: directory
 
 - name: Extract and filter blackbox target hostnames
   ansible.builtin.set_fact:

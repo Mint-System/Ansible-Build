@@ -2,5 +2,8 @@
 crowdsec_description: CrowdSec
 crowdsec_data_dir: /usr/share/{{ crowdsec_hostname }}
 crowdsec_volume_name: "{{ crowdsec_hostname }}"
+crowdsec_bouncer_hosts:
+  - "{{ inventory_hostname }}"
 crowdsec_firewall_bouncer_enabled: false
 crowdsec_firewall_bouncer_mode: iptables
+crowdsec_firewall_bouncer_api_url: http://{{ crowdsec_hostname }}:8080/

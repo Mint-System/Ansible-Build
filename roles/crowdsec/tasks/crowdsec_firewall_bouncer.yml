@@ -1,7 +1,7 @@
 ---
 - name: Ensure {{ role_name }} firewall bouncer dir exists
   ansible.builtin.file:
-    path: "/etc/crowdsec/bouncers/"
+    path: /etc/crowdsec/bouncers/
     state: directory
 
 - name: Copy {{ role_name }} conf
