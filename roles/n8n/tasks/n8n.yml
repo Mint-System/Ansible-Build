@@ -1,8 +1,8 @@
 ---
-- name: Ensure {{ role_name }} data dir exists
-  ansible.builtin.file:
-    path: "{{ n8n_data_dir }}"
-    state: directory
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ n8n_volume_name }}-{{ item.name }}"
+  loop: "{{ n8n_config_map }}"
 
 - name: Start {{ role_name }} container {{ n8n_hostname }}
   community.docker.docker_container:
@@ -26,8 +26,9 @@
       N8N_SECURE_COOKIE: "{{ n8n_secure_cookie }}"
       N8N_METRICS: "true"
       WEBHOOK_URL: "{{ item.webhook_url }}"
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
     volumes:
-      - "{{ n8n_data_dir }}:/home/node/.n8n"
+      - "{{ n8n_volume_name }}-{{ item.name }}:/home/node/"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
