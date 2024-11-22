@@ -7,7 +7,7 @@ Deploy N8N container.
 Configure the role.
 
 ```yml
-# https://hub.docker.com/r/n8nio/n8n/tags
+# https://hub.docker.com/r/n8nio/n8n
 n8n_image: n8nio/n8n:1.67.1
 n8n_build_image: true # default: false
 n8n_hostname: n8n01
@@ -19,6 +19,7 @@ n8n_config_map:
 n8n_description: Workflow Automation # default: N8N
 n8n_state: stopped # default: started
 n8n_data_dir: /usr/share/n8n # default: "/usr/share/{{ n8n_hostname }}"
+n8n_volume_name: n8n_data01 # default: "{{ n8n_hostname }}"
 n8n_timezone: Europe/Paris # default: Europe/Zurich
 n8n_db_type: # default: postgresdb
 n8n_postgresdb_host: postgres01

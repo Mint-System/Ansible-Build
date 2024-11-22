@@ -26,6 +26,8 @@
       N8N_SECURE_COOKIE: "{{ n8n_secure_cookie }}"
       N8N_METRICS: "true"
       WEBHOOK_URL: "{{ item.webhook_url }}"
+    volumes:
+      - "{{ n8n_data_dir }}:/home/node/.n8n"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
