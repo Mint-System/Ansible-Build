@@ -41,3 +41,8 @@
       - moodle
       - redis
       - mailhog
+      - n8n
+      - rabbitmq
+      - pgadmin
+      - meilisearch
+      - crowdsec

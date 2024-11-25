@@ -1,0 +1,11 @@
+---
+- name: Remove rabbitmq container {{ rabbitmq_hostname }}
+  community.docker.docker_container:
+    name: "{{ rabbitmq_hostname }}"
+    state: absent
+
+- name: Remove rabbitmq data dir
+  ansible.builtin.file:
+    path: "{{ rabbitmq_data_dir }}"
+    state: absent
+  when: '"rabbitmq_data" in ansible_run_tags'

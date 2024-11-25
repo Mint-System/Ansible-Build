@@ -13,7 +13,7 @@ rabbitmq_build_image: true # default: false
 rabbitmq_description: Database for website # default: RabbitMQ
 rabbitmq_hostname: mq01
 rabbitmq_volume_name: mq_data01 # default: "{{ rabbitmq_hostname}}"
-rabbitmq_dir: /usr/share/mq # default: "/usr/share/{{ odoo_hostname }}"
+rabbitmq_data_dir: /usr/share/mq # default: "/usr/share/{{ odoo_hostname }}"
 rabbitmq_ports:
   - 127.0.0.1:5673:5672 # default: 127.0.0.1:5672:5672
   - 127.0.0.1:8080:15672

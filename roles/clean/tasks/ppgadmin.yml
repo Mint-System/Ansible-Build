@@ -1,0 +1,17 @@
+---
+- name: Remove pgadmin container {{ pgadmin_hostname }}
+  community.docker.docker_container:
+    name: "{{ pgadmin_hostname }}"
+    state: absent
+
+- name: Remove pgadmin data dir
+  ansible.builtin.file:
+    path: "{{ pgadmin_data_dir }}"
+    state: absent
+  when: '"pgadmin_data" in ansible_run_tags'
+
+- name: Remove pgadmin volume
+  community.docker.docker_volume:
+    name: "{{ pgadmin_volume_name }}"
+    state: absent
+  when: '"pgadmin_volume" in ansible_run_tags'

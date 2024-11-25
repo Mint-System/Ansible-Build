@@ -1,0 +1,17 @@
+---
+- name: Remove crowdsec container {{ crowdsec_hostname }}
+  community.docker.docker_container:
+    name: "{{ crowdsec_hostname }}"
+    state: absent
+
+- name: Remove crowdsec data dir
+  ansible.builtin.file:
+    path: "{{ crowdsec_data_dir }}"
+    state: absent
+  when: '"crowdsec_data" in ansible_run_tags'
+
+- name: Remove crowdsec volume
+  community.docker.docker_volume:
+    name: "{{ crowdsec_volume_name }}"
+    state: absent
+  when: '"crowdsec_volume" in ansible_run_tags'

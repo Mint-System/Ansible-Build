@@ -1,0 +1,11 @@
+---
+- name: Remove meilisearch container {{ meilisearch_hostname }}
+  community.docker.docker_container:
+    name: "{{ meilisearch_hostname }}"
+    state: absent
+
+- name: Remove meilisearch volume {{ meilisearch_volume_name }}
+  community.docker.docker_volume:
+    name: "{{ meilisearch_volume_name }}"
+    state: absent
+  when: '"meilisearch_volume" in ansible_run_tags'
