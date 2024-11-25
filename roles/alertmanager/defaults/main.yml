@@ -1,0 +1,29 @@
+---
+alertmanager_requires_package: python3-passlib
+alertmanager_hostname: alertmanager01
+alertmanager_port: 127.0.0.1:9093
+alertmanager_description: Alertmanager
+alertmanager_volume_name: "{{ alertmanager_hostname }}"
+alertmanager_data_dir: /usr/share/{{ alertmanager_hostname }}
+alertmanager_web_external_url: https://monitoring.example.org/alertmanager
+alertmanager_etc_hosts: {}
+alertmanager_proxy_basic_auth_username: alertmanager
+alertmanager_proxy_basic_auth_password: "{{ vault_alertmanager_proxy_basic_auth_password }}"
+alertmanager_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
+alertmanager_config:
+  route:
+    group_by: ['alertname']
+    group_wait: 30s
+    group_interval: 5m
+    repeat_interval: 1h
+    receiver: 'web.hook'
+  receivers:
+    - name: 'web.hook'
+      webhook_configs:
+        - url: 'http://127.0.0.1:5001/'
+  inhibit_rules:
+    - source_match:
+        severity: 'critical'
+      target_match:
+        severity: 'warning'
+      equal: ['alertname', 'dev', 'instance']

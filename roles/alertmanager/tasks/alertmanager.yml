@@ -1,0 +1,37 @@
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ alertmanager_volume_name }}"
+
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ alertmanager_data_dir }}"
+    state: directory
+
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: alertmanager.yml
+    dest: "{{ alertmanager_data_dir }}/"
+  notify: Restart {{ role_name }} container
+
+- name: Start {{ role_name }} container {{ alertmanager_hostname }}
+  community.docker.docker_container:
+    name: "{{ alertmanager_hostname }}"
+    labels:
+      description: "{{ alertmanager_description }}"
+    image: "{{ alertmanager_image }}"
+    restart_policy: unless-stopped
+    command: --storage.path=/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --web.external-url={{ alertmanager_web_external_url }}
+    volumes:
+      - "{{ alertmanager_volume_name }}:/alertmanager"
+      - "{{ alertmanager_data_dir }}/alertmanager.yml:/etc/alertmanager/alertmanager.yml"
+    ports:
+      - "{{ alertmanager_port }}:9093"
+    networks:
+      - name: "{{ docker_network_name }}"
+    etc_hosts: "{{ alertmanager_etc_hosts }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ alertmanager_hostname }}|{{ role_name }}"

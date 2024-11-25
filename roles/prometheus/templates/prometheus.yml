@@ -1,5 +1,10 @@
 ---
 
+{% if prometheus_alerting | length > 0 %}
+alerting:
+  {{ prometheus_alerting | to_nice_yaml(indent=2) |indent(2)}}
+{% endif %}
+
 rule_files:
   - "/etc/prometheus/rules/*"
 
@@ -10,6 +15,18 @@ scrape_configs:
     static_configs:
       - targets:
           - localhost:9090
+{% if prometheus_alertmanager_basic_auth_username is defined %}
+  - job_name: alertmanager
+    metrics_path: "/alertmanager/metrics"
+    scrape_interval: 30s
+    honor_labels: true
+    scheme: https
+    basic_auth:
+      username: {{ prometheus_alertmanager_basic_auth_username }}
+      password: {{ prometheus_alertmanager_basic_auth_password }}
+    static_configs:
+      - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `alertmanager`)].src_hostname') | flatten }}
+{% endif %}
 {% if prometheus_node_exporter_basic_auth_username is defined %}
   - job_name: node-exporter https
     metrics_path: "/node-exporter/metrics"
