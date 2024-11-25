@@ -12,7 +12,7 @@ Help() {
   echo
   echo "Description: Restore Odoo database."
   echo "Syntax: $SCRIPT [-p|-d|-f|-h|-r|-n|-m|-V|help]"
-  echo "Example: $SCRIPT -p secret -d odoo -f /tmp/odoo.sql -h https://odoo.example.org -r -m -n"
+  echo "Example: $SCRIPT -p secret -d odoo -f /tmp/odoo.sql -h https://odoo.example.com -r -m -n"
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
   echo "  -d    Database name. Defaults to filename."

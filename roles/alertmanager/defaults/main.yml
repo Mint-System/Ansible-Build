@@ -5,7 +5,7 @@ alertmanager_port: 127.0.0.1:9093
 alertmanager_description: Alertmanager
 alertmanager_volume_name: "{{ alertmanager_hostname }}"
 alertmanager_data_dir: /usr/share/{{ alertmanager_hostname }}
-alertmanager_web_external_url: https://monitoring.example.org/alertmanager
+alertmanager_web_external_url: https://monitoring.example.com/alertmanager
 alertmanager_etc_hosts: {}
 alertmanager_proxy_basic_auth_username: alertmanager
 alertmanager_proxy_basic_auth_password: "{{ vault_alertmanager_proxy_basic_auth_password }}"

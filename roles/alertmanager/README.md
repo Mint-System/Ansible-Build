@@ -10,7 +10,7 @@ Configure the role.
 alertmanager_image: prom/alertmanager:v0.27.0
 alertmanager_hostname: alertmanager01
 alertmanager_description: Alertmanager
-alertmanager_web_external_url: https://monitoring.example.org/alertmanager
+alertmanager_web_external_url: https://monitoring.example.com/alertmanager
 alertmanager_proxy_basic_auth_username: alertmanager
 alertmanager_proxy_basic_auth_password: "{{ vault_alertmanager_proxy_basic_auth_password }}"
 alertmanager_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
@@ -33,12 +33,23 @@ alertmanager_config:
       equal: ['alertname', 'dev', 'instance']
 ```
 
+And include it in your playbook.
+
+```yml
+- hosts: alertmanager
+  roles:
+  - role: alertmanager
+```
+
+## Docs
+
+### Alertmanager config
+
 Alertmanager is configured using the `alertmanager_config` variable. It accepts a alertmanager configuration as described [here](https://prometheus.io/docs/alerting/latest/configuration/)
 
+### Nginx config
 
 Ensure the nginx proxy includes the exporter config:
-
-And include it in your playbook.
 
 ```yml
 nginx_proxies:
@@ -55,10 +66,4 @@ nginx_proxies:
       include /etc/nginx/conf.d/proxies/mysqld-exporter.nginx;
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
       include /etc/nginx/conf.d/proxies/alertmanager.nginx;
-```
-
-```yml
-- hosts: alertmanager
-  roles:
-  - role: alertmanager
 ```

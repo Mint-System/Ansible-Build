@@ -43,9 +43,10 @@ Create an inventory folder and configure a role.
 
 Have a look at the Ansible roles and check how to configure them.
 
-| Role                                                                   | Description                                                      |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| [acme_sh](roles/acme_sh/README.md)                                     | Issue & renew the free certificates.                             |
+| Role                                         | Description                          |
+| -------------------------------------------- | ------------------------------------ |
+| [acme_sh](roles/acme_sh/README.md)           | Issue & renew the free certificates. |
+| [alertmanager](roles/alertmanager/README.md) | Deploy Alertmanager container.       |
 | [ansible_scripts](roles/ansible_scripts/README.md)                     | Install Ansible scripts.                                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
 | [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md)       | Deploy BigBlueButton exporter container.                         |

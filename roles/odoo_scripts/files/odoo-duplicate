@@ -13,7 +13,7 @@ Help() {
   echo
   echo "Description: Duplicate Odoo database."
   echo "Syntax: $SCRIPT [-p|-d|-h|-n|-V|help]"
-  echo "Example: $SCRIPT -p secret -d odoo -h https://odoo.example.org" -n odoo2
+  echo "Example: $SCRIPT -p secret -d odoo -h https://odoo.example.com" -n odoo2
   echo "options:"
   echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
   echo "  -d    Database name."
