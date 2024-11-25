@@ -75,9 +75,9 @@ nginx_proxies:
         dest_hostname: odoo01
         dest_port: 8072
         options: |
+          include /etc/nginx/conf.d/proxy-params.conf;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
-          include /etc/nginx/conf.d/proxy-params.conf;
 ```
 
 ### Calculate workers
