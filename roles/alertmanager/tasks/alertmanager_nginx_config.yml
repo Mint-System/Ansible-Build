@@ -1,0 +1,26 @@
+---
+- name: Ensure nginx data dir exists
+  ansible.builtin.file:
+    path: "{{ alertmanager_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Fail if package {{ alertmanager_requires_package }} is not installed
+  ansible.builtin.assert:
+    that:
+      - alertmanager_requires_package in ansible_facts.packages
+    fail_msg: Package {{ alertmanager_requires_package }} is not installed!
+
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
+    path: "{{ alertmanager_nginx_data_dir }}/alertmanager.htpasswd"
+    name: "{{ alertmanager_proxy_basic_auth_username }}"
+    password: "{{ alertmanager_proxy_basic_auth_password }}"
+
+- name: Copy nginx {{ role_name }} conf
+  ansible.builtin.template:
+    src: alertmanager.nginx
+    dest: "{{ alertmanager_nginx_data_dir }}/alertmanager.nginx"

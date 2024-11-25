@@ -6,6 +6,7 @@ prometheus_data_dir: /usr/share/{{ prometheus_hostname }}
 prometheus_hosts: "{{ groups['all'] }}"
 prometheus_etc_hosts: {}
 prometheus_retention_time: 15d
+prometheus_alertmanager_basic_auth_password: "{{ vault_prometheus_alertmanager_basic_auth_password }}"
 prometheus_node_exporter_basic_auth_password: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
 prometheus_cadvisor_basic_auth_password: "{{ vault_prometheus_cadvisor_basic_auth_password }}"
 prometheus_nextcloud_exporter_basic_auth_password: "{{ vault_prometheus_nextcloud_exporter_basic_auth_password }}"
@@ -14,6 +15,7 @@ prometheus_postgres_exporter_basic_auth_password: "{{ vault_prometheus_postgres_
 prometheus_restic_server_basic_auth_password: "{{ vault_prometheus_restic_server_basic_auth_password }}"
 prometheus_mysqld_exporter_basic_auth_password: "{{ vault_prometheus_mysqld_exporter_basic_auth_password }}"
 prometheus_odoo_exporter_basic_auth_password: "{{ vault_prometheus_odoo_exporter_basic_auth_password }}"
+prometheus_alerting: {}
 prometheus_rules: {}
   # system.yml: |
   #   {% raw %}

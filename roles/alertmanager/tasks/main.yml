@@ -1,0 +1,22 @@
+---
+
+- name: Make sure a {{ role_name }} password is configured
+  ansible.builtin.assert:
+    that:
+      - alertmanager_proxy_basic_auth_password is defined
+      - alertmanager_proxy_basic_auth_password | length >= 8
+    fail_msg: >
+      alertmanager_proxy_basic_auth_password is not defined or length is < 8
+
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: alertmanager_image is defined
+  tags:
+    - alertmanager
+
+- name: Include {{ role_name }} nginx config tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_nginx_config.yml"
+  when: alertmanager_image is defined
+  tags:
+    - alertmanager
+    - alertmanager_nginx_config
