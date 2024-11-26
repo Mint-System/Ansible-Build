@@ -59,12 +59,3 @@ Or include it in another role.
     packages:
       - "{{ docker_package }}"
 ```
-
-## Docs
-
-### Remove apt repo manually
-
-
-```
-sudo add-apt-repository -r ppa:colingille/freshlight
-```

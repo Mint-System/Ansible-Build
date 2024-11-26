@@ -11,6 +11,7 @@
 - name: Git ssh checkout
   ansible.builtin.git:
     repo: "{{ item.repo }}"
+    accept_newhostkey: true
     key_file: "{{ item.key_file }}"
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"
