@@ -7,8 +7,8 @@ Deploy dribdat container.
 Configure the role.
 
 ```yml
-# https://hub.docker.com/r/loleg/dribdat
-dribdat_image: loleg/dribdat:latest
+# https://hub.docker.com/r/dribdat/dribdat
+dribdat_image: dribdat/dribdat:latest
 dribdat_description: dribdat Server # default: dribdat
 dribdat_hostname: drib01
 dribdat_volume_name: drib01_data # default: "{{ dribdat_hostname }}"
