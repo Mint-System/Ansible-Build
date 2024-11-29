@@ -1,6 +1,6 @@
 server:
+  http_listen_address: 0.0.0.0
   http_listen_port: 9080
-  grpc_listen_port: 0
 
 positions:
   filename: /tmp/positions.yaml
@@ -9,14 +9,15 @@ clients:
   - url: https://{{ promtail_loki_basic_auth_username }}:{{ promtail_loki_basic_auth_password }}@{{ promtail_push_url }}
 
 scrape_configs:
+
 - job_name: containers
   static_configs:
   - targets:
       - localhost
     labels:
       job: containerlogs
-      instance: {{ ansible_host }}
       __path__: /var/lib/docker/containers/*/*log
+      instance: {{ ansible_host }}
 
   pipeline_stages:
   - json:
@@ -29,15 +30,17 @@ scrape_configs:
         tag:
       source: attrs
   - regex:
-      expression: (?P<container_name>(?:[^|]*[^|])).(?P<image_name>(?:[^|]*[^|]))
+      expression: (?P<image_name>(?:[^|]*[^|])).(?P<container_name>(?:[^|]*[^|])).(?P<image_id>(?:[^|]*[^|])).(?P<container_id>(?:[^|]*[^|]))
       source: tag
   - timestamp:
       format: RFC3339Nano
       source: time
   - labels:
-      #tag:
+      tag:
       stream:
-      container_name:
       image_name:
+      container_name:
+      image_id:
+      container_id:
   - output:
       source: output

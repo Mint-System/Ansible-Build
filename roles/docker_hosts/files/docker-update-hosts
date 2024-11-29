@@ -2,6 +2,7 @@
 set -e -u -o pipefail
 
 hosts_file=/etc/hosts
+
 begin_block="# BEGIN DOCKER CONTAINERS"
 end_block="# END DOCKER CONTAINERS"
 

@@ -8,7 +8,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/crowdsecurity/crowdsec
-crowdsec_image: crowdsecurity/crowdsec:v1.6.3
+crowdsec_image: crowdsecurity/crowdsec:v1.6.4
 crowdsec_hostname: crowdsec01
 crowdsec_description: Log Forwarder # default: CrowdSec
 crowdsec_volume_name: crowdsec01_data # default: "{{ crowdsec_hostname }}"
@@ -17,6 +17,7 @@ crowdsec_enroll_key: # default: "{{ vault_crowdsec_enroll_key }}
 crowdsec_bouncer_hosts: # default - "{{ inventory_hostname }}"
   - server1
   - server2
+
 crowdsec_firewall_bouncer_enabled: true # default: false
 crowdsec_firewall_bouncer_mode: nftables # default: iptables
 crowdsec_firewall_bouncer_api_url: https://sec.example.com/ # default: http://{{ crowdsec_hostname }}:8080/
