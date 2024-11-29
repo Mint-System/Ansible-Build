@@ -1,5 +1,4 @@
 ---
-- name: Restart {{ role_name }} container
-  community.docker.docker_container:
-    name: "{{ alertmanager_hostname }}"
-    restart: true
+
+- name: Reload {{ role_name }}
+  ansible.builtin.command: pkill -HUP alertmanager

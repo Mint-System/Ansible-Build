@@ -12,7 +12,7 @@
   ansible.builtin.template:
     src: alertmanager.yml
     dest: "{{ alertmanager_data_dir }}/"
-  notify: Restart {{ role_name }} container
+  notify: Reload {{ role_name }}
 
 - name: Start {{ role_name }} container {{ alertmanager_hostname }}
   community.docker.docker_container:

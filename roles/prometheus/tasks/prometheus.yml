@@ -34,12 +34,13 @@
     dest: "{{ prometheus_data_dir }}/rules/{{ item }}"
     content: "{{ lookup('ansible.builtin.template', 'rule.yml') }}"
   loop: "{{ prometheus_rules.keys() }}"
+  notify: Reload {{ role_name }}
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
     src: prometheus.yml
     dest: "{{ prometheus_data_dir }}/"
-  notify: Restart {{ role_name }} container
+  notify: Reload {{ role_name }}
 
 - name: Start {{ role_name }} container {{ prometheus_hostname }}
   community.docker.docker_container:
