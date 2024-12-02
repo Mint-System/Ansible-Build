@@ -68,3 +68,5 @@ docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
 # Init modules on database
 echo "Initializing modules $MODULES with langague $ODOO_LANGUAGE on database $DATABASE."
 $docker_exec_bash "odoo -i $MODULES -d $DATABASE --db_host \$HOST -r \$USER -w \$PASSWORD $WITHOUT_DEMO --load-language $ODOO_LANGUAGE --stop-after-init --no-http"
+
+echo "Modules initialized. Please restart the Odoo container/process."
