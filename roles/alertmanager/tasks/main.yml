@@ -1,5 +1,4 @@
 ---
-
 - name: Make sure a {{ role_name }} password is configured
   ansible.builtin.assert:
     that:

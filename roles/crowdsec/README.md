@@ -14,9 +14,6 @@ crowdsec_description: Log Forwarder # default: CrowdSec
 crowdsec_volume_name: crowdsec01_data # default: "{{ crowdsec_hostname }}"
 crowdsec_data_dir: /usr/share/crowdsec # default: "/usr/share/{{ crowdsec_hostname }}"
 crowdsec_enroll_key: # default: "{{ vault_crowdsec_enroll_key }}
-crowdsec_bouncer_hosts: # default - "{{ inventory_hostname }}"
-  - server1
-  - server2
 
 crowdsec_firewall_bouncer_enabled: true # default: false
 crowdsec_firewall_bouncer_mode: nftables # default: iptables

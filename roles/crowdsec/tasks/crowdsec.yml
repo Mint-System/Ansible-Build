@@ -44,11 +44,8 @@
 
 - name: Collect {{ role_name }} bouncer keys
   set_fact:
-    bouncer_key_env: "{{ 
-      groups['all'] | map('extract', hostvars) |
-      json_query('[?crowdsec_firewall_bouncer_enabled && crowdsec_firewall_bouncer_enabled==`true`].{key: inventory_hostname, value: vault_crowdsec_firewall_bouncer_key}') |
-      list
-    }}"
+    bouncer_key_env: "{{ groups['all'] | map('extract', hostvars) | json_query('[?crowdsec_firewall_bouncer_enabled && crowdsec_firewall_bouncer_enabled==`true`].{key:
+      inventory_hostname, value: vault_crowdsec_firewall_bouncer_key}') | list }}"
 
 - name: Append {{ role_name }} bouncer keys as env vars
   ansible.builtin.set_fact:
