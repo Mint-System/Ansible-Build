@@ -1,7 +1,7 @@
 ---
 odoo_build_image: false
 odoo_build_dockerfile: |
-  RUN python -m pip install prometheus-client python-jose
+  RUN python -m pip install prometheus-client
 odoo_config_map:
   - name: prod
 odoo_timezone: Europe/Zurich
@@ -10,7 +10,7 @@ odoo_state: started
 odoo_ports: []
 odoo_data_dir: /usr/share/{{ odoo_hostname }}
 odoo_volume_name: "{{ odoo_hostname }}"
-odoo_postgres_user: odoo
+odoo_postgres_user: "{{ postgres_user }}"
 odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%d$

@@ -72,6 +72,7 @@
       DBFILTER: "{{ odoo_dbfilter }}"
       LIST_DB: "{{ odoo_list_db }}"
       PROXY_MODE: "{{ odoo_proxy_mode }}"
+      PIP_INSTALL: "{{ odoo_pip_install | default('') }}"
     ports: "{{ odoo_ports | default([]) }}"
     volumes: "{{ odoo_volumes }}"
     networks:

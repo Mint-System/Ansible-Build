@@ -11,8 +11,8 @@ Configure the role.
 odoo_revision: "16.0.20240603"
 odoo_image: mintsystem/odoo:16.0.20240603
 odoo_build_image: true # default: false
-odoo_build_dockerfile: | # default: RUN python -m pip install prometheus-client python-jose
-  RUN python -m pip install prometheus-client python-jose pyodbc
+odoo_build_dockerfile: | # default: RUN python -m pip install prometheus-client
+  RUN python -m pip install prometheus-client python-jose
 odoo_hostname: odoo01
 odoo_config_map: # default: - name: prod
   - name: prod
@@ -25,19 +25,20 @@ odoo_ports: # default: []
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_volume_name: odoo_data01 # default: "{{ odoo_hostname}}"
 odoo_postgres_hostname: postgres01
-odoo_postgres_user: example # default: odoo
+odoo_postgres_user: odoo # default: {{ postgres_user }}"
 odoo_postgres_password: # default: "{{ vault_postgres_password }}"
 odoo_backup_set: # See restic_backup_set var in role restic
 odoo_master_password: # default: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%h$ # default: ^%d$
 odoo_list_db: True # default: False
 odoo_proxy_mode: False # default: True
+odoo_pip_install: prometheus_client
+odoo_workers: 0 # default: 4
 
 # Supported by official Odoo image only:
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
-odoo_workers: 0 # default: 4
 odoo_conf: | # default: ""
   server_wide_modules = base,web,dbfilter_from_header
 ```
