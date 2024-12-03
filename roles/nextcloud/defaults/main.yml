@@ -4,7 +4,9 @@ nextcloud_timezone: Europe/Zurich
 nextcloud_volume_name: "{{ nextcloud_hostname }}"
 nextcloud_trusted_domains: "{{ nextcloud_domain }}"
 nextcloud_build_image: false
-vault_nextcloud_postgres_password: "{{ vault_nextcloud_admin_password }}"
-nextcloud_postgres_password: "{{ vault_nextcloud_postgres_password }}"
-nextcloud_mysql_password: "{{ vault_nextcloud_mysql_password }}"
+nextcloud_admin_password: "{{ vault_nextcloud_admin_password }}"
+nextcloud_postgres_user: "{{ postgres_user }}"
+nextcloud_postgres_password: "{{ vault_postgres_password }}"
+nextcloud_mysql_user: "{{ mysql_user }}"
+nextcloud_mysql_password: "{{ vault_mysql_password }}"
 nextcloud_etc_hosts: {}

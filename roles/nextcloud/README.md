@@ -18,8 +18,8 @@ nextcloud_trusted_domains: nextcloud.example.com # default: "{{ nextcloud_domain
 nextcloud_admin_user: admin
 nextcloud_admin_password: # default: "{{ vault_nextcloud_admin_password }}"
 nextcloud_postgres_hostname: postgres01
-nextcloud_postgres_user: nextcloud
-nextcloud_postgres_password: # default: "{{ vault_nextcloud_postgres_password }}"
+nextcloud_postgres_user: nextcloud # default: "{{ postgres_user }}"
+nextcloud_postgres_password: # default: "{{ vault_postgres_password }}"
 nextcloud_postgres_db: nextcloud
 nextcloud_mail_hostname: mail.example.com
 nextcloud_mail_encryption: tls
@@ -49,8 +49,8 @@ Configure these vars to make a connection to a MySQL/MariaDB database:
 
 ```yaml
 nextcloud_mysql_hostname: mysql01
-nextcloud_mysql_user: nextcloud
-nextcloud_mysql_password: # default: "{{ vault_nextcloud_mysql_password }}"
+nextcloud_mysql_user: nextcloud # default: "{{ mysql_user }}"
+nextcloud_mysql_password: # default: "{{ vault_mysql_password }}"
 nextcloud_mysql_db: nextcloud
 ```
 
