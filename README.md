@@ -153,7 +153,7 @@ Some Ansible roles can be deployed to a Kubernetes Cluster.
 
 ### Ansible Vault
 
-If y'ou encrypt secrets with multiple vault identities, you can specificy the vault list in the `ansible.cfg` like this:
+If you encrypt secrets with multiple vault identities, you can specificy the vault list in the `ansible.cfg` like this:
 
 ```toml
 [defaults]
@@ -334,46 +334,25 @@ Every role folder must contain a `README.md` file.
 
 Mark fix-me-comments with `# FIXME: <your text>`.
 
-### Naming
+### Naming Conventions
+
+Role names must be lower case and may contain an `_`.
+
+Vars that are stored in vaults are prefixed with `vault_`.
 
 Template for role vars:
 
 ```yml
-# Basics:
 # Url to Docker repsitory
 rolename_image:
 rolename_hostname:
 rolename_port:
 rolename_volume_name: "{{ rolename_hostname }}"
 rolename_data_dir: "/usr/share/{{ rolename_hostname }}"
-# Database connection:
-rolename_db_type:
-rolename_db_user:
-rolename_db_password: "{{ vault_rolename_db_password }}"
-rolename_db_hostname:
-rolename_db_name:
-# Credentials user:
-rolename_user:
 rolename_password: "{{ vault_rolename_password }}"
-# Credentials admin:
-rolename_admin_user:
-rolename_admin_password: "{{ vault_rolename_admin_password }}"
-# Named database connection:
-rolename_postgres_hostname:
-rolename_postgres_user:
-rolename_postgres_password: "{{ vault_rolename_postgres_password }}"
-# SMTP connection:
-rolename_smtp_hostname:
-rolename_smtp_auth:
-rolename_smtp_secure:
-rolename_smtp_port:
-rolename_smtp_domain:
-rolename_smtp_from:
-rolename_smtp_username:
-rolename_smtp_password:
 ```
 
-Role names must be lower case and may contain an `_`.
+The reference roles are [postgres](roles/postgres/README.md) and [odoo](roles/odoo/README.md).
 
 ### Role and Tags
 
