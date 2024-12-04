@@ -44,8 +44,6 @@
     dest: "{{ odoo_apps_tmp_dir }}"
     remote_src: true
     list_files: true
-  # args:
-  #   creates: "{{ odoo_apps_tmp_dir }}/{{ item.name }}-{{ item.version }}"
   loop: "{{ downloaded_apps }}"
   when: item.changed
 

@@ -4,3 +4,9 @@
   when: acme_sh_hostname is defined
   tags:
     - acme_sh
+
+- name: Include {{ role_name }} renew tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_renew.yml"
+  when: acme_sh_hostname is defined
+  tags:
+    - acme_sh

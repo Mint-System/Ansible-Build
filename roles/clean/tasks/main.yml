@@ -1,10 +1,10 @@
 ---
 - name: Include cleanup tasks
   ansible.builtin.include_tasks: "{{ item }}.yml"
-  when: item in tasks
+  when: item in ansible_tags
   loop: "{{ ansible_run_tags }}"
   vars:
-    tasks:
+    ansible_tags:
       - certbot
       - nginx
       - modsecurity

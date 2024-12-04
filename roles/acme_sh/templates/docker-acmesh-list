@@ -1,0 +1,6 @@
+#!/bin/bash
+
+docker run --rm --name {{ acme_sh_hostname }}-tmp \
+--volume "{{ acme_sh_data_dir }}:/acme.sh" \
+{{ acme_sh_image }} \
+--list

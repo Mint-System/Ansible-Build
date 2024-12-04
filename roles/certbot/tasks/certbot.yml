@@ -4,15 +4,6 @@
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
-- name: Copy {{ certbot_hostname }} templated scripts
-  ansible.builtin.template:
-    src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
-    mode: +x
-  loop:
-    - docker-certbot-renew
-    - docker-certbot-list
-
 - name: Copy {{ role_name }} scripts
   ansible.builtin.copy:
     src: "{{ item }}"

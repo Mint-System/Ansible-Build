@@ -1,12 +1,12 @@
 ---
-- name: Copy {{ certbot_hostname }} templated scripts
+- name: Copy {{ acme_sh_hostname }} templated scripts
   ansible.builtin.template:
     src: "{{ item }}"
     dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
-    - docker-certbot-renew
-    - docker-certbot-list
+    - docker-acmesh-renew
+    - docker-acmesh-list
 
 - name: Register renew certs job
   ansible.builtin.cron:
@@ -14,4 +14,4 @@
     minute: "{{ 59 |random(seed=nginx_hostname) }}"
     hour: "0"
     weekday: "0"
-    job: docker-certbot-renew && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c "Renew certs for {{ nginx_hostname }}" -v $?
+    job: docker-acmesh-renew && docker restart {{ nginx_hostname }}; write-node-exporter-metric -c "Renew certs for {{ nginx_hostname }}" -v $?
