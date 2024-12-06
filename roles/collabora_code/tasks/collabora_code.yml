@@ -1,4 +1,9 @@
 ---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ collabora_code_data_dir }}"
+    state: directory
+
 - name: Start {{ role_name }} container {{ collabora_code_hostname }}
   community.docker.docker_container:
     name: "{{ collabora_code_hostname }}"
@@ -12,7 +17,7 @@
       server_name: "{{ collabora_code_server_name}}"
       aliasgroup1: "{{ collabora_code_aliasgroup1 }}"
       aliasgroup2: "{{ collabora_code_aliasgroup2 }}"
-      extra_params: --o:ssl.enable={{ collabora_code_ssl_enable }}
+      extra_params: --o:ssl.enable={{ collabora_code_ssl_enabled }}
     ports:
       - "{{ collabora_code_port }}:9980"
     networks:
@@ -22,3 +27,22 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ collabora_code_hostname }}|{{ role_name }}"
+
+# FIXME: It was not possible to mount /etc/coolwsd/coolwsd.xml from the container to the host
+
+- name: Copy coolwsd config file from container to data dir
+  ansible.builtin.command: docker cp {{ collabora_code_hostname }}:/etc/coolwsd/coolwsd.xml {{ collabora_code_data_dir }}
+
+- name: Update {{ role_name }} coolwsd config
+  ansible.builtin.replace:
+    path: "{{ collabora_code_data_dir }}/coolwsd.xml"
+    regexp: '<remote_font_config>\s*<url desc="URL of optional JSON file that lists fonts to be included in Online" type="string" default="">(.*?)</url>\s*</remote_font_config>'
+    replace: '<remote_font_config>\n        <url desc="URL of optional JSON file that lists fonts to be included in Online" type="string" default="">{{ collabora_code_remote_font_config_url }}</url>\n    </remote_font_config>'
+  when: collabora_code_remote_font_config_url is defined
+
+- name: Copy coolwsd config file from data dir to container
+  ansible.builtin.command: docker cp {{ collabora_code_data_dir }}/coolwsd.xml {{ collabora_code_hostname }}:/etc/coolwsd/coolwsd.xml
+  
+- name: Fix file permission after copy back
+  ansible.builtin.command: docker exec -u root {{ collabora_code_hostname }} chown cool:cool /etc/coolwsd/coolwsd.xml
+  notify: Restart {{ role_name }} container

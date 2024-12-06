@@ -1,6 +1,6 @@
 ---
 dependencies: # noqa 701
-  - role: nextcloud
+  - role: docker_network
     tags:
-      - nextcloud
+      - docker_network
       - depends

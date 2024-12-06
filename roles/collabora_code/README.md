@@ -10,6 +10,7 @@ Configure the role.
 # https://hub.docker.com/r/collabora/code
 collabora_code_image: collabora/code:24.04.8.2.1
 collabora_code_hostname: doc01
+collabora_code_data_dir: /usr/share/doc # default: /usr/share/{{ collabora_code_hostname }}
 collabora_code_server_name: doc.example.com
 collabora_code_aliasgroup1: next.example.com,cloud.example.com # default: ""
 collabora_code_aliasgroup2: cloud.example.com # default: ""
@@ -18,6 +19,7 @@ collabora_code_port: 9981 # default: 9980
 collabora_code_username: code # default: admin
 collabora_code_password: # default: "{{ vault_collabora_code_password }}"
 collabora_code_ssl_enabled: false # default: true
+collabora_code_remote_font_config_url: https://nextcloud.example.com/apps/richdocuments/settings/fonts.json
 ```
 
 And include it in your playbook.

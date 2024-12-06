@@ -1,6 +1,7 @@
 ---
 collabora_code_port: 9980
 collabora_code_description: Collabora Code
+collabora_code_data_dir: /usr/share/{{ collabora_code_hostname }}
 collabora_code_username: admin
 collabora_code_password: "{{ vault_collabora_code_password }}"
 collabora_code_aliasgroup1: ""
