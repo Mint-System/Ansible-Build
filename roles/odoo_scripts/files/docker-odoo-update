@@ -12,11 +12,12 @@ Help() {
     echo
     echo "Description: Update Odoo modules in Docker container."
     echo "Syntax: $SCRIPT [-c|-d|-u|-V|help]"
-    echo "Example: $SCRIPT -c odoo01 -d erp -u hr_timesheet "
+    echo "Example: $SCRIPT -c odoo01 -d erp -u hr_timesheet -o"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -d    Database name."
     echo "  -u    List of odoo modules to update."
+    echo "  -o    Overwrite tranlsations."
     echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
@@ -28,12 +29,16 @@ if [[ "$1" == "help" ]]; then
     exit
 fi
 
+# Set defaults
+OVERWRITE_TRANSLATIONS=""
+
 # Process params
-while getopts ":c: :d: :u: :V" opt; do
+while getopts ":c: :d: :u: :o :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
         u) MODULES="$OPTARG";;
+        o) OVERWRITE_TRANSLATIONS="--i18n-overwrite";;
         V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
@@ -59,5 +64,5 @@ docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
 
 # Update with Docker exec
 echo "Update modules $MODULES on database $DATABASE."
-$docker_exec_bash "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init --no-http"
+$docker_exec_bash "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init --no-http $OVERWRITE_TRANSLATIONS"
 
