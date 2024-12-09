@@ -34,13 +34,9 @@ odoo_list_db: True # default: False
 odoo_proxy_mode: False # default: True
 odoo_pip_install: prometheus_client
 odoo_workers: 0 # default: 4
-
-# Supported by official Odoo image only:
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
-odoo_conf: | # default: ""
-  server_wide_modules = base,web,dbfilter_from_header
 ```
 
 And include it in your playbook.
@@ -120,4 +116,6 @@ Configure these vars when using the official Odoo image:
 ```yml
 odoo_revision: "16.0.20240603"
 odoo_image: odoo@sha256:df0276cdb0ff8bb7883058071daf898d90fdbf13045ae96d131584660878da84
+odoo_conf: | # default: ""
+  server_wide_modules = base,web,dbfilter_from_header
 ```
