@@ -6,7 +6,6 @@ REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 SCRIPTS=(
     docker-nginx-enable
     docker-nginx-reload
-    parse-url
     get-public-ip
 )
 

@@ -45,7 +45,6 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/n
 
 - docker-nginx-enable
 - docker-nginx-reload
-- parse-url
 - get-public-ip
 
 ## [node_exporter](roles/node_exporter/README.md)
