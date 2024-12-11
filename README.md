@@ -43,10 +43,10 @@ Create an inventory folder and configure a role.
 
 Have a look at the Ansible roles and check how to configure them.
 
-| Role                                         | Description                          |
-| -------------------------------------------- | ------------------------------------ |
-| [acme_sh](roles/acme_sh/README.md)           | Issue & renew the free certificates. |
-| [alertmanager](roles/alertmanager/README.md) | Deploy Alertmanager container.       |
+| Role                                                                   | Description                                                      |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| [acme_sh](roles/acme_sh/README.md)                                     | Issue & renew the free certificates.                             |
+| [alertmanager](roles/alertmanager/README.md)                           | Deploy Alertmanager container.                                   |
 | [ansible_scripts](roles/ansible_scripts/README.md)                     | Install Ansible scripts.                                         |
 | [bigbluebutton](roles/bigbluebutton/README.md)                         | Install BigBlueButton with https and greenlight.                 |
 | [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md)       | Deploy BigBlueButton exporter container.                         |
@@ -92,6 +92,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [logstash](roles/logstash/README.md)                                   | Deploy Logstash Docker container.                                |
 | [loki](roles/loki/README.md)                                           | Deploy Loki container.                                           |
 | [mailhog](roles/mailhog/README.md)                                     | Deploy MailHog Docker container.                                 |
+| [mailpit](roles/mailpit/README.md)                                     | Deploy Mailpit Docker container.                                 |
 | [maintenance](roles/maintenance/README.md)                             | Maintain operating system and disk space.                        |
 | [mariadb](roles/mariadb/README.md)                                     | Deploy MariaDB database container.                               |
 | [matomo](roles/matomo/README.md)                                       | Deploy Matomo container.                                         |

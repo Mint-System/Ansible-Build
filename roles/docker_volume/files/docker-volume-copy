@@ -88,3 +88,6 @@ docker container run --rm \
     -v "$TARGET_VOLUME":/to \
     alpine ash -c "cd /to; mkdir -p .$TARGET_PATH; cd /from$SOURCE_PATH; cp -av . /to$TARGET_PATH" \
     > /dev/null && { echo "Docker volume copy has finished."; }
+
+echo "Fix ownership for $TARGET_PATH in container:"
+echo "docker exec -u root \$CONTAINER chown -R \$USER:\$GROUP /path/to$TARGET_PATH"

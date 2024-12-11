@@ -47,4 +47,4 @@ nginx_proxies:
 
 ### Odoo config
 
-To setup a outgoing mailhog connection simply use the hostname `mailogXX` and port `1025`. 
+To setup a outgoing mailhog connection simply use the hostname `mailhogXX` and port `1025`. 

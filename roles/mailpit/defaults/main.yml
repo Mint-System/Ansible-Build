@@ -1,0 +1,6 @@
+---
+mailpit_description: Mailpit
+mailpit_data_dir: /usr/share/{{ mailpit_hostname }}
+mailpit_users: []
+mailpit_webroot: /
+mailpit_timezone: Europe/Zurich

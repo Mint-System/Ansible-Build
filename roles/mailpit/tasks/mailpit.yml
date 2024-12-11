@@ -1,0 +1,30 @@
+---
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
+    path: "{{ mailpit_data_dir }}/auth"
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    crypt_scheme: bcrypt
+  loop: "{{ mailpit_users }}"
+
+- name: Start {{ role_name }} container {{ mailpit_hostname }}
+  community.docker.docker_container:
+    name: "{{ mailpit_hostname }}"
+    labels:
+      description: "{{ mailpit_description }}"
+    image: "{{ mailpit_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    env:
+      TZ: "{{ mailpit_timezone }}"
+      MP_UI_AUTH_FILE: "{{ '/etc/mailpit/auth' if mailpit_users else ''}}"
+    command: "--webroot {{ mailpit_webroot }}"
+    volumes:
+      - "{{ mailpit_data_dir }}/auth:/etc/mailpit/auth"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ mailpit_hostname }}|{{ role_name }}"
