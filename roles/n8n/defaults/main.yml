@@ -14,3 +14,7 @@ n8n_postgresdb_schema: public
 n8n_postgresdb_user: n8n
 n8n_postgresdb_password: "{{ vault_n8n_postgresdb_password }}"
 n8n_secure_cookie: "true"
+n8n_exporter_requires_package: "python3-passlib"
+n8n_exporter_proxy_basic_auth_username: n8n-exporter
+n8n_exporter_proxy_basic_auth_password: "{{ vault_n8n_exporter_proxy_basic_auth_password }}"
+n8n_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
