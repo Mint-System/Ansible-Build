@@ -50,7 +50,6 @@ function generate-vault-password() {
     echo "$VAULTPASSWORD" > ".vault_pass_$VAULT_ID"
     chmod 600 ".vault_pass_$VAULT_ID"
     echo "Password file ".vault_pass_$VAULT_ID" created."
-    echo "The vault list entry is: ${VAULT_ID}@.vault_pass@${VAULT_ID}"
 }
 
 function encrypt-string() {

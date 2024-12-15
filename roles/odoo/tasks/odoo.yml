@@ -104,6 +104,10 @@
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
       DBFILTER: "{{ item.dbfilter | default(odoo_dbfilter) }}"
+      LIST_DB: "{{ odoo_list_db }}"
+      PROXY_MODE: "{{ odoo_proxy_mode }}"
+      PIP_INSTALL: "{{ odoo_pip_install | default('') }}"
+      WORKERS: "{{ odoo_workers | int }}"
     volumes: "{{ odoo_volumes }}"
     networks:
       - name: "{{ docker_network_name }}"
