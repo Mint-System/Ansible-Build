@@ -41,13 +41,13 @@ while getopts ":c: :d: :V" opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: ${CONTAINER:='db'}
-: ${DATABASE:='odoo'}
+# Verify variables
+[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
 echo "Delete these assets on $CONTAINER for $DATABASE:"
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"select id,name from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"delete from ir_attachment where res_model='ir.ui.view' and name like '%assets_%';\""
+docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"SELECT id,name FROM ir_attachment WHERE res_model='ir.ui.view' and name like '%assets_%';\""
+docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"DELETE FROM ir_attachment WHERE res_model='ir.ui.view' and name like '%assets_%';\""
 
 echo "Restart the Odoo container".
 docker restart "$CONTAINER"

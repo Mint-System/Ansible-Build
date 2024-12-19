@@ -6,6 +6,7 @@ REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
 SCRIPTS=(
     docker-odoo-backup
     docker-odoo-clear-assets
+    docker-odoo-clear-views
     docker-odoo-cloc
     docker-odoo-drop
     docker-odoo-duplicate

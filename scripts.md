@@ -18,6 +18,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/o
 
 - docker-odoo-backup
 - docker-odoo-clear-assets
+- docker-odoo-clear-views
 - docker-odoo-cloc
 - docker-odoo-drop
 - docker-odoo-duplicate

@@ -13,7 +13,7 @@
     dest: "{{ odoo_data_dir }}/{{ item.path }}"
     key_file: "{{ odoo_repo_key_file }}"
     version: "{{ odoo_version }}"
-    single_branch: true
+    single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true
   when: item.url is regex('git@')
