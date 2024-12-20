@@ -39,12 +39,12 @@
     - packages
 
 - name: Include {{ role_name }} scripts tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_scrips.yml"
-  when: packages_script is defined
+  ansible.builtin.include_tasks: "{{ role_name }}_script.yml"
+  when: script_packages is defined
   tags:
     - packages
 
-- name: Include {{ role_name }} scripts tasks
+- name: Include {{ role_name }} pip tasks
   ansible.builtin.include_tasks: "{{ role_name }}_pip.yml"
   when: pip_packages is defined
   tags:

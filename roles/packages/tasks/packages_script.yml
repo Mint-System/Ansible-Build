@@ -4,4 +4,4 @@
     content: "{{ item.content }}"
     dest: "{{ item.path }}"
     mode: +x
-  loop: "{{ scripts }}"
+  loop: "{{ script_packages }}"
