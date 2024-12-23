@@ -30,8 +30,8 @@ odoo_postgres_password: # default: "{{ vault_postgres_password }}"
 odoo_backup_set: # See restic_backup_set var in role restic
 odoo_master_password: # default: "{{ vault_odoo_master_password }}"
 odoo_dbfilter: ^%h$ # default: ^%d$
-odoo_list_db: True # default: False
-odoo_proxy_mode: False # default: True
+odoo_list_db: "true" # default: "false"
+odoo_proxy_mode: "false" # default: "true"
 odoo_pip_install: prometheus_client
 odoo_workers: 0 # default: 4
 odoo_conf_limit_request: 4096 # default: 8192
