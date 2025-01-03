@@ -12,7 +12,7 @@ Help() {
     echo
     echo "Description: Uninstall Odoo modules in Docker container."
     echo "Syntax: $SCRIPT [-c|-d|-u|-V|help]"
-    echo "Example: $SCRIPT -c odoo01 -d erp -r hr_timesheet"
+    echo "Example: $SCRIPT -c odoo01 -d erp -u hr_timesheet"
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -d    Database name."
