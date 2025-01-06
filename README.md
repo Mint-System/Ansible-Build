@@ -1,5 +1,3 @@
-![logo](./logo.png)
-
 # Ansible Build
 
 The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks and roles.
