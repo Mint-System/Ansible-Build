@@ -36,4 +36,6 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ mysql_hostname }}|{{ role_name }}"
+    memory: "{{ mysql_memory_limit }}"
+    memory_swap:  "{{ mysql_memory_limit * 2 }}"
   when: mysql_volume_name is defined

@@ -4,3 +4,4 @@ mysql_volume_name: "{{ mysql_hostname }}"
 mysql_data_dir: /usr/share/{{ mysql_hostname }}
 mysql_password: "{{ vault_mysql_password }}"
 mysql_root_password: "{{ vault_mysql_root_password }}"
+mysql_memory_limit: 2147483648

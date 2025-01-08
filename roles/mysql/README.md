@@ -17,6 +17,7 @@ mysql_root_password: # default: "{{ vault_mysql_root_password }}"
 mysql_database: example
 mysql_user: example
 mysql_password: # default: "{{ vault_mysql_password }}"
+mysql_memory_limit: 4294967296 # default: 2147483648 (2 GB)
 ```
 
 Backup databases.
