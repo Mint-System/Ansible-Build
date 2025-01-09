@@ -1,7 +1,6 @@
 ---
 odoo_build_image: false
-odoo_build_dockerfile: |
-  RUN python -m pip install prometheus-client
+odoo_build_dockerfile: ""
 odoo_config_map:
   - name: prod
 odoo_timezone: Europe/Zurich

@@ -11,8 +11,8 @@ Configure the role.
 odoo_revision: "16.0.20240603"
 odoo_image: mintsystem/odoo:16.0.20240603
 odoo_build_image: true # default: false
-odoo_build_dockerfile: | # default: RUN python -m pip install prometheus-client
-  RUN python -m pip install prometheus-client python-jose
+odoo_build_dockerfile: | # default: ""
+  RUN python -m pip install prometheus-client
 odoo_hostname: odoo01
 odoo_config_map: # default: - name: prod
   - name: prod
