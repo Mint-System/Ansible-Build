@@ -37,12 +37,13 @@
   ansible.builtin.replace:
     path: "{{ collabora_code_data_dir }}/coolwsd.xml"
     regexp: '<remote_font_config>\s*<url desc="URL of optional JSON file that lists fonts to be included in Online" type="string" default="">(.*?)</url>\s*</remote_font_config>'
-    replace: '<remote_font_config>\n        <url desc="URL of optional JSON file that lists fonts to be included in Online" type="string" default="">{{ collabora_code_remote_font_config_url }}</url>\n    </remote_font_config>'
+    replace: '<remote_font_config>\n        <url desc="URL of optional JSON file that lists fonts to be included in Online" type="string" default="">{{ collabora_code_remote_font_config_url
+      }}</url>\n    </remote_font_config>'
   when: collabora_code_remote_font_config_url is defined
 
 - name: Copy coolwsd config file from data dir to container
   ansible.builtin.command: docker cp {{ collabora_code_data_dir }}/coolwsd.xml {{ collabora_code_hostname }}:/etc/coolwsd/coolwsd.xml
-  
+
 - name: Fix file permission after copy back
   ansible.builtin.command: docker exec -u root {{ collabora_code_hostname }} chown cool:cool /etc/coolwsd/coolwsd.xml
   notify: Restart {{ role_name }} container
