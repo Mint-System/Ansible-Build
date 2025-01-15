@@ -139,15 +139,41 @@ scrape_configs:
       - target_label: __address__
         replacement: {{ blackbox_exporter_hostname }}:9115
 {% endif %}
+<<<<<<< Updated upstream
 {% if prometheus_n8n_exporter_basic_auth_username is defined %}
   - job_name: n8n https
     metrics_path: "/metrics"
+=======
+{% if prometheus_n8n_exporter_proxy_basic_auth_username is defined %}
+  - job_name: n8n https
+    metrics_path: "/n8n-exporter/metrics"
+>>>>>>> Stashed changes
     scrape_interval: 30s
     honor_labels: true
     scheme: https
     basic_auth:
+<<<<<<< Updated upstream
       username: {{ prometheus_n8n_exporter_basic_auth_username }}
       password: {{ prometheus_n8n_exporter_basic_auth_password }}
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `n8n`)].src_hostname') | flatten }}
 {% endif %}
+=======
+      username: {{ prometheus_n8n_exporter_proxy_basic_auth_username }}
+      password: {{ prometheus_n8n_exporter_proxy_basic_auth_password }}
+    static_configs:
+      - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `n8n`)].src_hostname') | flatten }}
+{% endif %}
+{% if vault_prometheus_meilisearch_exporter_master_key is defined %}
+  - job_name: meilisearch https
+    metrics_path: "/metrics"
+    scrape_interval: 30s
+    honor_labels: true
+    scheme: https
+    authorization:
+      type: Bearer
+      credentials: {{ vault_prometheus_meilisearch_exporter_master_key }}
+    static_configs:
+      - targets: ['meilisearch.sozialinfo.ch']
+{% endif %}
+>>>>>>> Stashed changes
