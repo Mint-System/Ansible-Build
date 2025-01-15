@@ -17,7 +17,7 @@ cron_jobs:
   - id: "Run job sync folder"
     user: bot
     command: "script"
-    minute: "*/10"
+    minute: "*/10" # Every ten minutes
     script_name: hello-world
     script: |
       #!/bin/bash

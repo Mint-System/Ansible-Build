@@ -38,5 +38,5 @@
 - name: Cron job to run {{ role_name }} background jobs
   ansible.builtin.cron:
     name: Run write-docker-volume-metric job
-    minute: "*"
+    minute: "0"
     job: write-docker-volume-metric

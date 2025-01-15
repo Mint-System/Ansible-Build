@@ -38,6 +38,8 @@ prometheus_mysqld_exporter_basic_auth_username: mysqld-exporter
 prometheus_mysqld_exporter_basic_auth_password: # default: "{{ vault_prometheus_mysqld_exporter_basic_auth_password }}"
 prometheus_odoo_exporter_basic_auth_username: odoo-exporter
 prometheus_odoo_exporter_basic_auth_password: # default: "{{ vault_prometheus_odoo_exporter_basic_auth_password }}"
+prometheus_n8n_exporter_basic_auth_username: n8n-exporter
+prometheus_n8n_exporter_basic_auth_password: # default: "{{ vault_prometheus_n8n_exporter_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the exporter config:
@@ -56,6 +58,7 @@ nginx_proxies:
       include /etc/nginx/conf.d/proxies/postgres-exporter.nginx;
       include /etc/nginx/conf.d/proxies/mysqld-exporter.nginx;
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
+      include /etc/nginx/conf.d/proxies/n8n-exporter.nginx;
 ```
 
 
@@ -80,8 +83,9 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 * **bigbluebutton http**: Targets are `nginx_proxies` with exporter `bigbluebutton`.
 * **postgres https**:Targets are `nginx_proxies` with exporter `postgres`.
 * **restic-server https**: Targets are `nginx_proxies` with exporter `restic`.
-* **odoo https**: Targets are `nginx_proxies` with exporter `odoo`.
 * **mysqld https**: Targets are `nginx_proxies` with exporter `mysqld`.
+* **odoo https**: Targets are `nginx_proxies` with exporter `odoo`.
+* **n8n https**: Targets are `nginx_proxies` with exporter `n8n`.
 * **blackbox**: Targets are `nginx_proxies` with `monitor` not false and host is `blackbox01:9115`.
 
 ### Deploy Prometheus container
