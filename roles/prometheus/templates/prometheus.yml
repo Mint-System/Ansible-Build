@@ -139,11 +139,6 @@ scrape_configs:
       - target_label: __address__
         replacement: {{ blackbox_exporter_hostname }}:9115
 {% endif %}
-
-{% if prometheus_n8n_exporter_basic_auth_username is defined %}
-  - job_name: n8n https
-    metrics_path: "/metrics"
-
 {% if prometheus_n8n_exporter_proxy_basic_auth_username is defined %}
   - job_name: n8n https
     metrics_path: "/n8n-exporter/metrics"
@@ -151,11 +146,6 @@ scrape_configs:
     honor_labels: true
     scheme: https
     basic_auth:
-      username: {{ prometheus_n8n_exporter_basic_auth_username }}
-      password: {{ prometheus_n8n_exporter_basic_auth_password }}
-    static_configs:
-      - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `n8n`)].src_hostname') | flatten }}
-{% endif %}
       username: {{ prometheus_n8n_exporter_proxy_basic_auth_username }}
       password: {{ prometheus_n8n_exporter_proxy_basic_auth_password }}
     static_configs:
@@ -172,4 +162,16 @@ scrape_configs:
       credentials: {{ vault_prometheus_meilisearch_exporter_master_key }}
     static_configs:
       - targets: ['meilisearch.sozialinfo.ch']
+{% endif %}
+{% if prometheus_n8n_business_metrics_jobportal_username is defined %}
+  - job_name: n8n business metrics jobportal https
+    metrics_path: "/webhook/metrics-jobportal"
+    scrape_interval: 60s
+    honor_labels: true
+    scheme: https
+    basic_auth:
+      username: {{ prometheus_n8n_business_metrics_jobportal_username }}
+      password: {{ prometheus_n8n_business_metrics_jobportal_password }}
+    static_configs:
+      - targets: ['n8n.sozialinfo.ch']
 {% endif %}
