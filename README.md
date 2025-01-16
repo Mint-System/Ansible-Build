@@ -106,7 +106,8 @@ Have a look at the Ansible roles and check how to configure them.
 | [nginx_waf](roles/nginx_waf/README.md)                                 | Deploy Nginx with ModSecurity and Core Rule Set.                 |
 | [node_exporter](roles/node_exporter/README.md)                         | Deploy Node exporter container and install custom metric script. |
 | [odoo](roles/odoo/README.md)                                           | Deploy Odoo container.                                           |
-| [odoo_apps](roles/odoo_apps/README.md)                                 | Install Odoo apps from file, url, public or private GitHub repo. |
+| [odoo_apps](roles/odoo_apps/README.md)                                 | Install Odoo apps from file or url. |
+| [odoo_repos](roles/odoo_repos/README.md)                                 | Setup Odoo modules public or private GitHub repo. |
 | [odoo_data](roles/odoo_data/README.md)                                 | Generate Odoo data modules.                                      |
 | [odoo_enterprise](roles/odoo_enterprise/README.md)                     | Checkout the Odoo Enterprise git repository.                     |
 | [odoo_exporter](roles/odoo_exporter/README.md)                         | Add nginx config for Odoo exporter path.                         |
