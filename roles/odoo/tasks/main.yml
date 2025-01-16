@@ -1,9 +1,17 @@
 ---
 - name: On build set new image tag {{ role_name }}:{{ odoo_hostname }}
   ansible.builtin.set_fact:
-    odoo_image: odoo:{{ odoo_hostname }}
+    odoo_image: "odoo:{{ odoo_hostname }}"
     odoo_build_image: "{{ odoo_image }}"
-  when: odoo_build_image and odoo_build_image != odoo_image
+  when: odoo_build_image and odoo_image.startswith('odoo')
+  tags:
+    - odoo
+
+- name: On build set new image tag mintsystem:{{ odoo_hostname }}
+  ansible.builtin.set_fact:
+    odoo_image: "mintsytem:{{ odoo_hostname }}"
+    odoo_build_image: "{{ odoo_image }}"
+  when: odoo_build_image and odoo_image.startswith('mintsystem')
   tags:
     - odoo
 

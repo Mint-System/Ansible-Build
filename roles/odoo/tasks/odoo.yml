@@ -11,14 +11,14 @@
     path: "{{ odoo_data_dir }}/enterprise"
     state: directory
 
-# - name: Copy {{ role_name }} conf
-#   ansible.builtin.template:
-#     src: "{{ item }}"
-#     dest: "{{ odoo_data_dir }}/{{ item }}"
-#   loop:
-#     - odoo.conf
-#   when: odoo_image.startswith('odoo')
-#   notify: Restart {{ role_name }} container
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ odoo_data_dir }}/{{ item }}"
+  loop:
+    - odoo.conf
+  when: odoo_image.startswith('odoo')
+  notify: Restart {{ role_name }} container
 
 - name: Pull {{ role_name }} image
   community.docker.docker_image:
@@ -40,14 +40,14 @@
       - "{{ odoo_data_dir }}/addons:/mnt/addons"
       - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
 
-# - name: Define {{ role_name }} volumes for odoo image
-#   ansible.builtin.set_fact:
-#     odoo_volumes:
-#       - "{{ odoo_volume_name }}:/var/lib/odoo"
-#       - "{{ odoo_data_dir }}/addons:/mnt/addons"
-#       - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
-#       - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf"
-#   when: odoo_image.startswith('odoo')
+- name: Define {{ role_name }} volumes for odoo image
+  ansible.builtin.set_fact:
+    odoo_volumes:
+      - "{{ odoo_volume_name }}:/var/lib/odoo"
+      - "{{ odoo_data_dir }}/addons:/mnt/addons"
+      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
+      - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf"
+  when: odoo_image.startswith('odoo')
 
 - name: Start {{ role_name }} container {{ odoo_hostname }}
   community.docker.docker_container:
