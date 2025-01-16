@@ -1,0 +1,2 @@
+---
+odoo_data_dir: /usr/share/{{ odoo_hostname }}

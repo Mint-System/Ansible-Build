@@ -1,3 +1,0 @@
----
-- name: Restart {{ role_name }} container
-  import_tasks: ../../odoo/handlers/odoo-handlers.yml
