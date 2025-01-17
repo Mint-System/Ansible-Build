@@ -84,3 +84,5 @@
       tags: n8n
     - role: mailpit
       tags: mailpit
+    - role: metabase
+      tags: metabase

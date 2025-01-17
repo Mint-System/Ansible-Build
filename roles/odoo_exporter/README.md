@@ -13,7 +13,7 @@ odoo_exporter_proxy_basic_auth_username: odoo-exporter
 odoo_exporter_proxy_basic_auth_password: # default: "{{ vault_odoo_exporter_proxy_basic_auth_password }}"
 ```
 
-Ensure the nginx proxy includes the node-exporter config:
+Ensure the nginx proxy includes the odoo-exporter config:
 
 ```yml
 nginx_proxies:

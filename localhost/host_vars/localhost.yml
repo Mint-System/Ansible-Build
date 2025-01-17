@@ -1,0 +1,119 @@
+docker_network_name: mint-system.com
+ansible_become: true
+ufw_enabled: false
+hosts:
+  - ip: 127.0.0.1
+    name: n8n.local odoo.local metabase.local
+  - ip: 10.101.16.2
+    name: erp.brunner-innovation.swiss erp-dev.brunner-innovation.swiss gaia.mint-system.com
+
+# https://registry.hub.docker.com/_/rabbitmq/
+rabbitmq_image: rabbitmq:3.8-management
+rabbitmq_hostname: mq01
+rabbitmq_data_dir: "/usr/share/{{ odoo_hostname }}"
+rabbitmq_ports:
+  - 127.0.0.1:5672:5672
+  - 127.0.0.1:8080:15672
+rabbitmq_user: admin
+rabbitmq_password: admin
+
+# https://hub.docker.com/_/postgres
+postgres_image: postgres:14
+# postgres_build_image: true # default: false
+postgres_hostname: postgres01
+postgres_user: example
+postgres_config_map:
+  - db: metabase-prod
+  - db: odoo-prod
+  - db: odoo-int
+postgres_password: test
+postgres_wal_level: logical
+
+# https://hub.docker.com/r/getmeili/meilisearch
+meilisearch_image: getmeili/meilisearch:v1.10.1
+meilisearch_hostname: meili01
+meilisearch_volume_name: "{{ meilisearch_hostname }}"
+meilisearch_master_key: "test"
+meilisearch_network_mode: host
+meilisearch_task_webhook: http://host.docker.internal:8069/meilisearch/task-webhook
+meilisearch_etc_hosts:
+  "host.docker.internal": host-gateway
+
+# https://hub.docker.com/r/dpage/pgadmin4/
+pgadmin_image: dpage/pgadmin4:7.6
+pgadmin_hostname: pgadmin01
+pgadmin_user: admin@example.com
+pgadmin_password: example
+pgadmin_servers:
+  - name: Postgres
+    host: postgres01
+    username: example
+pgadmin_data_dir: /usr/share/{{ pgadmin_hostname }}
+pgadmin_volume_name: "{{ pgadmin_hostname }}"
+
+# https://hub.docker.com/r/n8nio/n8n/tags
+n8n_image: n8nio/n8n:1.67.1
+n8n_hostname: n8n01
+n8n_postgresdb_host: postgres01
+n8n_postgresdb_user: example
+n8n_postgresdb_password: test
+n8n_secure_cookie: "false"
+n8n_config_map:
+  - name: prod
+    webhook_url: ""
+
+# https://hub.docker.com/_/nginx/
+nginx_image: nginx:1.26.2-alpine
+nginx_hostname: nginx01
+nginx_http_options: |
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }
+nginx_proxies:
+  - src_hostname: metabase.local
+    dest_hostname: metabase01-prod
+    dest_port: 3000
+  - src_hostname: n8n.local
+    dest_hostname: n8n01-prod
+    dest_port: 5678
+  - src_hostname: odoo.local
+    dest_hostname: odoo01-prod
+    dest_port: 8069
+    locations:
+      - path: /websocket
+        dest_hostname: odoo01-prod
+        dest_port: 8072
+        options: |
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+          include /etc/nginx/conf.d/proxy-params.conf;
+
+# https://hub.docker.com/_/odoo/
+odoo_revision: "18.0.20250106"
+odoo_image: mintsystem/odoo:18.0.20250106
+odoo_build_image: true
+odoo_build_dockerfile: |
+  USER root
+  RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+  RUN curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
+  RUN apt-get update
+  RUN ACCEPT_EULA=Y apt-get install -y unixodbc msodbcsql18
+  USER odoo
+  RUN uv pip install prometheus-client python-jose pyodbc pymssql
+odoo_hostname: odoo01
+odoo_description: Odoo18
+odoo_master_password: odoo
+odoo_postgres_user: example
+odoo_postgres_password: test
+odoo_config_map:
+  - name: prod
+  - name: int
+odoo_postgres_hostname: "{{ postgres_hostname }}"
+
+# https://hub.docker.com/r/metabase/metabase
+metabase_image: metabase/metabase:v0.51.12.1
+metabase_hostname: metabase01
+metabase_db_host: postgres01
+metabase_db_user: test
+metabase_db_pass: test

@@ -1,9 +1,4 @@
 ---
-- name: Create {{ role_name }} volume
-  community.docker.docker_volume:
-    name: "{{ metabase_volume_name }}-{{ item.name }}"
-  loop: "{{ metabase_config_map }}"
-
 - name: Start {{ role_name }} container {{ metabase_hostname }}
   community.docker.docker_container:
     name: "{{ metabase_hostname }}-{{ item.name }}"
@@ -14,21 +9,13 @@
     recreate: false
     state: "{{ metabase_state }}"
     env:
-      DB_TYPE: "{{ metabase_db_type }}"
-      DB_POSTGRESDB_DATABASE: "{{ metabase_postgresdb_database }}-{{ item.name }}"
-      DB_POSTGRESDB_HOST: "{{ metabase_postgresdb_host }}"
-      DB_POSTGRESDB_PORT: "{{ metabase_postgresdb_port }}"
-      DB_POSTGRESDB_USER: "{{ metabase_postgresdb_user }}"
-      DB_POSTGRESDB_SCHEMA: "{{ metabase_postgresdb_schema }}"
-      DB_POSTGRESDB_PASSWORD: "{{ metabase_postgresdb_password }}"
-      GENERIC_TIMEZONE: "{{ metabase_timezone }}"
+      MB_DB_TYPE: "{{ metabase_db_type }}"
+      MB_DB_DBNAME: "{{ metabase_db_dbname }}-{{ item.name }}"
+      MB_DB_PORT: "{{ metabase_db_port }}"
+      MB_DB_USER: "{{ metabase_db_user }}"
+      MB_DB_PASS: "{{ metabase_db_pass }}"
+      MB_DB_HOST: "{{ metabase_db_host }}"
       TZ: "{{ metabase_timezone }}"
-      N8N_SECURE_COOKIE: "{{ metabase_secure_cookie }}"
-      N8N_METRICS: "true"
-      WEBHOOK_URL: "{{ item.webhook_url }}"
-      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
-    volumes:
-      - "{{ metabase_volume_name }}-{{ item.name }}:/home/node/"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

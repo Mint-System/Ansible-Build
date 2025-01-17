@@ -45,3 +45,5 @@
       tags: nginx
     - role: crowdsec
       tags: crowdsec
+    - role: metabase
+      tags: metabase

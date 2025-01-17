@@ -1,20 +1,11 @@
 ---
 metabase_build_image: false
-metabase_config_map:
-  - name: prod
-    webhook_url: ""
-metabase_description: metabase
+metabase_config_map: [name: prod]
+metabase_description: Metabase
 metabase_state: started
-metabase_volume_name: "{{ metabase_hostname }}"
 metabase_timezone: Europe/Zurich
-metabase_db_type: postgresdb
-metabase_postgresdb_port: "5432"
-metabase_postgresdb_database: metabase
-metabase_postgresdb_schema: public
+metabase_db_type: postgres
+metabase_db_port: "5432"
+metabase_db_dbname: metabase
 metabase_postgresdb_user: metabase
-metabase_postgresdb_password: "{{ vault_metabase_postgresdb_password }}"
-metabase_secure_cookie: "true"
-metabase_exporter_requires_package: "python3-passlib"
-metabase_exporter_proxy_basic_auth_username: metabase-exporter
-metabase_exporter_proxy_basic_auth_password: "{{ vault_metabase_exporter_proxy_basic_auth_password }}"
-metabase_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
+metabase_postgresdb_pass: "{{ vault_metabase_postgresdb_pass }}"

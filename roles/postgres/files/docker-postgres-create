@@ -52,5 +52,5 @@ if [[ "$DATABASES"  =~ "$DATABASE" ]]; then
 fi
 
 echo "Create Postgres database $DATABASE ..."
-docker exec -i $CONTAINER /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -c \"CREATE DATABASE $DATABASE;\""
+docker exec -i $CONTAINER /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -c 'CREATE DATABASE \"$DATABASE\";'"
 echo "Database $DATABASE has been created."

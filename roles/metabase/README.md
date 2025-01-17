@@ -7,27 +7,21 @@ Deploy Metabase container.
 Configure the role.
 
 ```yml
-# https://hub.docker.com/r/metabaseio/metabase
-metabase_image: metabaseio/metabase:1.67.1
+# https://hub.docker.com/r/metabase/metabase
+metabase_image: metabase/metabase:v0.51.12.1
 metabase_build_image: true # default: false
 metabase_hostname: metabase01
-metabase_description: Workflow Automation # default: N8N
+metabase_description: Business Intelligence # default: Metabase
 metabase_state: stopped # default: started
-metabase_volume_name: metabase_data01 # default: "{{ metabase_hostname }}"
-metabase_config_map:
+metabase_config_map: # default: [ name: prod ]
   - name: prod
-    webhook_url: https://metabase.example.com/
   - name: int
-    webhook_url: https://metabase-int.example.com/
 metabase_timezone: Europe/Paris # default: Europe/Zurich
-metabase_db_type: # default: postgresdb
-metabase_postgresdb_host: postgres01
-metabase_postgresdb_port: # default: "5432"
-metabase_postgresdb_database: workflow # default: metabase
-metabase_postgresdb_schema: metabase # default: public
-metabase_postgresdb_user: workflow # default: metabase
-metabase_postgresdb_password: # default: "{{ vault_metabase_postgresdb_password }}"
-metabase_secure_cookie: "false" # default: "true"
+metabase_db_host: postgres01
+metabase_db_port: 2345 # default: "5432"
+metabase_db_dbname: bi # default: metabase
+metabase_db_user: bi # default: metabase
+metabase_db_pass: # default: "{{ vault_metabase_db_pass }}"
 ```
 
 And include it in your playbook.

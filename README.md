@@ -95,10 +95,12 @@ Have a look at the Ansible roles and check how to configure them.
 | [mariadb](roles/mariadb/README.md)                                     | Deploy MariaDB database container.                               |
 | [matomo](roles/matomo/README.md)                                       | Deploy Matomo container.                                         |
 | [meilisearch](roles/meilisearch/README.md)                             | Deploy Meilisearch container.                                    |
+| [metabase](roles/metabase/README.md)                                   | Deploy Metabase Docker container.                                |
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |
 | [n8n](roles/n8n/README.md)                                             | Deploy N8N container.                                            |
+| [n8n_exporter](roles/n8n_exporter/README.md)                           | Add nginx config for N8N exporter path.                          |
 | [nextcloud](roles/nextcloud/README.md)                                 | Deploy Nextcloud container.                                      |
 | [nextcloud_apps](roles/nextcloud_apps/README.md)                       | Install, update and remove Nextcloud apps.                       |
 | [nextcloud_exporter](roles/nextcloud_exporter/README.md)               | Deploy Nextcloud exporter container.                             |
