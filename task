@@ -154,19 +154,12 @@ function galaxy-publish() {
 
 function test() {
     activate-venv
-    ansible-playbook -i localhost plays/localhost.yml
-
     if [ "$1" = "clean" ]; then
-        echo "Cleanup server"
-        ansible-playbook -i localhost plays/clean.yml -i odoo,odoo_data,odoo_volume,\
-        postgres,postgres_data,postgres_volume,\
-        rabbitmq,rabbitmq_data,rabbitmq_volume,\
-        meilisearch,meilisearch_data,meilisearch_volume,\
-        pgadmin,pgadmin_data,pgadmin_volume,\
-        n8n,n8n_data,n8n_volume,\
-        nginx,nginx_data,nginx_volume,\
-        crowdsec,crowdsec_data,crowdsec_volume,\
-        metabase,metabase_data,metabase_volume
+        echo "Cleanup localhost"
+        ansible-playbook -i localhost plays/clean.yml -t odoo,odoo_data,odoo_volume,postgres,postgres_data,postgres_volume,meilisearch,meilisearch_data,meilisearch_volume,pgadmin,pgadmin_data,pgadmin_volume,n8n,n8n_data,n8n_volume,nginx,nginx_data,nginx_volume,metabase,metabase_data,metabase_volume
+    else
+        echo "Setup localhost"
+        ansible-playbook -i localhost plays/localhost.yml --skip-tags check
     fi
 }
 

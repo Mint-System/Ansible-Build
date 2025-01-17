@@ -7,3 +7,4 @@ odoo_config_map:
   - name: prod
 odoo_volume_name: "{{ odoo_hostname }}"
 postgres_volume_name: "{{ postgres_hostname }}"
+nginx_data_dir: "/usr/share/{{ nginx_hostname }}"

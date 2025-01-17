@@ -7,16 +7,6 @@ hosts:
   - ip: 10.101.16.2
     name: erp.brunner-innovation.swiss erp-dev.brunner-innovation.swiss gaia.mint-system.com
 
-# https://registry.hub.docker.com/_/rabbitmq/
-rabbitmq_image: rabbitmq:3.8-management
-rabbitmq_hostname: mq01
-rabbitmq_data_dir: "/usr/share/{{ odoo_hostname }}"
-rabbitmq_ports:
-  - 127.0.0.1:5672:5672
-  - 127.0.0.1:8080:15672
-rabbitmq_user: admin
-rabbitmq_password: admin
-
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:14
 # postgres_build_image: true # default: false
@@ -70,6 +60,8 @@ nginx_http_options: |
     default upgrade;
     '' close;
   }
+nginx_ports:
+  - 8080:80
 nginx_proxies:
   - src_hostname: metabase.local
     dest_hostname: metabase01-prod
@@ -115,5 +107,5 @@ odoo_postgres_hostname: "{{ postgres_hostname }}"
 metabase_image: metabase/metabase:v0.51.12.1
 metabase_hostname: metabase01
 metabase_db_host: postgres01
-metabase_db_user: test
+metabase_db_user: example
 metabase_db_pass: test

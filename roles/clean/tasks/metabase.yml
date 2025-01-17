@@ -1,0 +1,6 @@
+---
+- name: Remove metabase container {{ metabase_hostname }}
+  community.docker.docker_container:
+    name: "{{ metabase_hostname }}-{{ item.name}}"
+    state: absent
+  loop: "{{ metabase_config_map }}"
