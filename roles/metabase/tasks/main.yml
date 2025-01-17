@@ -1,0 +1,20 @@
+---
+- name: On build set new image tag {{ role_name }}:{{ metabase_hostname }}
+  ansible.builtin.set_fact:
+    metabase_image: metabase:{{ metabase_hostname }}
+    metabase_build_image: "{{ metabase_image }}"
+  when: metabase_build_image and metabase_build_image != metabase_image
+  tags:
+    - metabase
+
+- name: Include {{ role_name }} build tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_build.yml"
+  when: metabase_build_image and metabase_build_image != metabase_image
+  tags:
+    - metabase
+
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: metabase_image is defined
+  tags:
+    - metabase

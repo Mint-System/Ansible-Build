@@ -1,0 +1,39 @@
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ metabase_volume_name }}-{{ item.name }}"
+  loop: "{{ metabase_config_map }}"
+
+- name: Start {{ role_name }} container {{ metabase_hostname }}
+  community.docker.docker_container:
+    name: "{{ metabase_hostname }}-{{ item.name }}"
+    labels:
+      description: "{{ metabase_description }}"
+    image: "{{ metabase_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    state: "{{ metabase_state }}"
+    env:
+      DB_TYPE: "{{ metabase_db_type }}"
+      DB_POSTGRESDB_DATABASE: "{{ metabase_postgresdb_database }}-{{ item.name }}"
+      DB_POSTGRESDB_HOST: "{{ metabase_postgresdb_host }}"
+      DB_POSTGRESDB_PORT: "{{ metabase_postgresdb_port }}"
+      DB_POSTGRESDB_USER: "{{ metabase_postgresdb_user }}"
+      DB_POSTGRESDB_SCHEMA: "{{ metabase_postgresdb_schema }}"
+      DB_POSTGRESDB_PASSWORD: "{{ metabase_postgresdb_password }}"
+      GENERIC_TIMEZONE: "{{ metabase_timezone }}"
+      TZ: "{{ metabase_timezone }}"
+      N8N_SECURE_COOKIE: "{{ metabase_secure_cookie }}"
+      N8N_METRICS: "true"
+      WEBHOOK_URL: "{{ item.webhook_url }}"
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+    volumes:
+      - "{{ metabase_volume_name }}-{{ item.name }}:/home/node/"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ metabase_hostname }}|{{ role_name }}"
+  loop: "{{ metabase_config_map }}"

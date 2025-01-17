@@ -43,7 +43,7 @@ done
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
 # Get existing databases
-DATABASES=$(docker-postgres-list -c $CONTAINER)
+DATABASES=$(docker-postgres-list -c "$CONTAINER")
 
 # Create database if not exists
 if [[ "$DATABASES"  =~ "$DATABASE" ]]; then
@@ -52,5 +52,5 @@ if [[ "$DATABASES"  =~ "$DATABASE" ]]; then
 fi
 
 echo "Create Postgres database $DATABASE ..."
-docker exec -i $CONTAINER /bin/bash -c "createdb -U\$POSTGRES_USER $DATABASE"
+docker exec -i $CONTAINER /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -c \"CREATE DATABASE $DATABASE;\""
 echo "Database $DATABASE has been created."

@@ -1,0 +1,1 @@
+FROM {{ metabase_build_image }}

@@ -1,0 +1,16 @@
+---
+- name: Restart {{ role_name }} container
+  community.docker.docker_container:
+    name: "{{ metabase_hostname }}"
+    restart: true
+
+- name: Build {{ role_name }} custom image
+  community.docker.docker_image:
+    name: "{{ metabase_image }}"
+    build:
+      path: "{{ docker_build_dir }}/{{ metabase_hostname }}"
+      pull: true
+    source: build
+    force_source: true
+    force_tag: true
+    state: present

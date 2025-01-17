@@ -18,6 +18,7 @@
   when: n8n_image is defined
   tags:
     - n8n
+
 - name: Include {{ role_name }} nginx config tasks
   ansible.builtin.include_tasks: "{{ role_name }}_exporter_nginx_config.yml"
   when: n8n_image is defined
