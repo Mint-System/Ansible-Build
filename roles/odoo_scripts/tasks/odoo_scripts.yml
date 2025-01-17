@@ -20,6 +20,7 @@
     - docker-odoo-update
     - docker-odoo-user
     - docker-odoo-neutralize
+    - docker-odoo-rename
     - docker-odoo-upgrade
     - odoo-backup
     - odoo-drop

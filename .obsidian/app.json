@@ -1,6 +1,5 @@
 {
   "userIgnoreFilters": [
-    "node_modules/",
     "venvmain/"
   ]
 }
