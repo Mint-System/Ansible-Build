@@ -12,6 +12,6 @@ pushgateway_hostname: pushgateway01
 pushgateway_args:
   - --web.listen-address={{ pushgateway_port }}
   #- --web.external-url= 
-  #- --web.route-prefix="" 
+  - --web.route-prefix="/pushgateway" 
   - --persistence.file=/pushgateway/state
 
