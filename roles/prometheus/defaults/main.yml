@@ -15,6 +15,7 @@ prometheus_postgres_exporter_basic_auth_password: "{{ vault_prometheus_postgres_
 prometheus_restic_server_basic_auth_password: "{{ vault_prometheus_restic_server_basic_auth_password }}"
 prometheus_mysqld_exporter_basic_auth_password: "{{ vault_prometheus_mysqld_exporter_basic_auth_password }}"
 prometheus_odoo_exporter_basic_auth_password: "{{ vault_prometheus_odoo_exporter_basic_auth_password }}"
+prometheus_n8n_exporter_proxy_basic_auth_password: "'{{ vault_prometheus_n8n_exporter_proxy_basic_auth_password }}'"
 prometheus_alerting: {}
 prometheus_rules: {}
   # system.yml: |
