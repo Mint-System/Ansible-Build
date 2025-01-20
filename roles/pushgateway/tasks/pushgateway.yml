@@ -1,0 +1,31 @@
+---
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ pushgateway_volume_name }}"
+
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ pushgateway_data_dir }}"
+    state: directory
+
+- name: Start {{ role_name }} container {{ pushgateway_hostname }}
+  community.docker.docker_container:
+    name: "{{ pushgateway_hostname }}"
+    labels:
+      description: "{{ pushgateway_description }}"
+    image: "{{ pushgateway_image }}"
+    restart_policy: unless-stopped
+    command: "{{ pushgateway_args | join(' ') }}"
+    volumes:
+      - "{{ pushgateway_volume_name }}:/pushgateway"
+    ports:
+      - "{{ pushgateway_port }}:9091"
+    networks:
+      - name: "{{ docker_network_name }}"
+    network_mode: bridge
+    etc_hosts: "{{ pushgateway_etc_hosts }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ pushgateway_hostname }}|{{ role_name }}"

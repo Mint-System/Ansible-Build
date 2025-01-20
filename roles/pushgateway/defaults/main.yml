@@ -1,0 +1,16 @@
+---
+pushgateway_port: 127.0.0.1:9091
+pushgateway_description: Pushgateway
+pushgateway_volume_name: "{{ pushgateway_hostname }}"
+pushgateway_data_dir: /usr/share/{{ pushgateway_hostname }}
+pushgateway_etc_hosts: {}
+pushgateway_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
+pushgateway_requires_package: python3-passlib
+pushgateway_proxy_basic_auth_username: pushgateway
+pushgateway_proxy_basic_auth_password: "{{ vault_pushgateway_proxy_basic_auth_password}}"
+pushgateway_args:
+  - --web.listen-address={{ pushgateway_port }}
+  #- --web.external-url= 
+  #- --web.route-prefix="" 
+  - --persistence.file=/pushgateway/state
+
