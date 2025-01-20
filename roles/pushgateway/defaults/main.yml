@@ -8,6 +8,7 @@ pushgateway_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
 pushgateway_requires_package: python3-passlib
 pushgateway_proxy_basic_auth_username: pushgateway
 pushgateway_proxy_basic_auth_password: "{{ vault_pushgateway_proxy_basic_auth_password}}"
+pushgateway_hostname: pushgateway01
 pushgateway_args:
   - --web.listen-address={{ pushgateway_port }}
   #- --web.external-url= 
