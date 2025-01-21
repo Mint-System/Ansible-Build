@@ -7,5 +7,5 @@ metabase_timezone: Europe/Zurich
 metabase_db_type: postgres
 metabase_db_port: "5432"
 metabase_db_dbname: metabase
-metabase_postgresdb_user: metabase
-metabase_postgresdb_pass: "{{ vault_metabase_postgresdb_pass }}"
+metabase_db_user: metabase
+metabase_db_pass: "{{ vault_metabase_db_pass }}"

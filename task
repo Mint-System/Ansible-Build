@@ -163,68 +163,38 @@ function test() {
     fi
 }
 
-case "$1" in
-    generate-vault-password)
-        generate-vault-password "$2" "$3"
-        ;;
-    encrypt-string)
-        encrypt-string "$2" "$3"
-        ;;
-    convert-vault-file)
-        convert-vault-file "$2" "$3"
-        ;;
-    install)
-        install
-        ;;
-    install-exo)
-        install-exo
-        ;;
-    upgrade)
-        upgrade
-        ;;
-    version)
-        version
-        ;;
-    update-docs)
-        update-docs
-        ;;
-    list-hosts)
-        list-hosts "$2"
-        ;;
-    galaxy-build)
-        galaxy-build
-        ;;
-    galaxy-publish)
-        galaxy-publish
-        ;;
-    node-install)
-        npm install
-        ;;
-    node-dev)
-        npm run dev
-        ;;
-    node-build)
-        npm run build
-        ;;
-    node-serve-build)
-        cd .vuepress/dist
-        npx serve
-        ;;
-    lint)
-        activate-venv
-        ansible-lint --write --offline roles/*
-        ;;
-    source)
-        activate-venv
-        ;;
-    test)
-        test "$2"
-        ;;
-    show-passwordless-sudo)
-        show-passwordless-sudo "$2"
-        ;;
-    *)
-        help task
-        exit 1
-        ;;
-esac
+if declare -f "$1" > /dev/null; then
+    "$1" "${@:2}"
+else
+    case "$1" in
+        help)
+            help task
+            exit 1
+            ;;
+        node-install)
+            npm install
+            ;;
+        node-dev)
+            npm run dev
+            ;;
+        node-build)
+            npm run build
+            ;;
+        node-serve-build)
+            cd .vuepress/dist
+            npx serve
+            ;;
+        lint)
+            activate-venv
+            ansible-lint --write --offline roles/*
+            ;;
+        source)
+            activate-venv
+            ;;
+        *)
+            echo "Unknown command: $1"
+            help task
+            exit 1
+            ;;
+    esac
+fi
