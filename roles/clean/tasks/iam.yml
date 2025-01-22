@@ -1,0 +1,8 @@
+---
+- name: Remove users
+  ansible.builtin.user:
+    user: "{{ item.username }}"
+    state: absent
+    remove: true
+  loop: "{{ iam_users }}"
+  when: item.state is defined and item.state == 'absent'

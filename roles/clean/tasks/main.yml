@@ -47,3 +47,4 @@
       - meilisearch
       - crowdsec
       - metabase
+      - iam

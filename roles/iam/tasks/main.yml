@@ -10,6 +10,14 @@
     iam_users: "{{ iam_users + host_iam_users }}"
   when: host_iam_users is defined
 
+- name: Remove absent users
+  set_fact:
+    iam_users: "{{ iam_users | rejectattr('state', 'equalto', 'absent') }}"
+
+- name: Filter users that don't match host
+  set_fact:
+    iam_users: "{{ iam_users | selectattr('hosts', 'defined') | selectattr('hosts', 'contains', inventory_hostname_short) }}"
+
 - name: Include users tasks
   ansible.builtin.include_tasks: users.yml
   when: iam_users is defined

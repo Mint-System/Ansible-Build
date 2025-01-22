@@ -12,9 +12,7 @@
     shell: "{{ item.shell | default('/bin/bash') }}"
     groups: "{{ item.groups | default('') }}"
     append: true
-    state: "{{ item.state | default('present') }}"
   loop: "{{ iam_users }}"
-  when: item.hosts is defined and inventory_hostname_short in item.hosts
 
 # FIXME: Passwort does not work if not set manually
 - name: Set user passwords
@@ -27,7 +25,6 @@
 - name: Set authorized key
   ansible.posix.authorized_key:
     user: "{{ item.username }}"
-    state: "{{ item.state | default('present') }}"
     key: "{{ item.ssh_public_key }}"
   loop: "{{ iam_users }}"
   when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_public_key is defined
@@ -41,11 +38,3 @@
     mode: "0700"
   loop: "{{ iam_users }}"
   when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_private_key is defined
-
-- name: Remove users
-  ansible.builtin.user:
-    user: "{{ item.username }}"
-    state: absent
-    remove: true
-  loop: "{{ iam_users }}"
-  when: item.hosts is defined and inventory_hostname_short in item.hosts and item.state is defined and item.state == 'absent'
