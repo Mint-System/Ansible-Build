@@ -1,4 +1,7 @@
-# Ansible Build
+Ansible Build
+=============
+
+[![.github/workflows/test.yml](https://github.com/Mint-System/Ansible-Build/actions/workflows/test.yml/badge.svg)](https://github.com/Mint-System/Ansible-Build/actions/workflows/test.yml)
 
 The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks and roles.
 
