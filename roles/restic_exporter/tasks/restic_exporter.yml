@@ -1,0 +1,25 @@
+---
+- name: Ensure nginx data dir exists
+  ansible.builtin.file:
+    path: "{{ restic_exporter_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Fail if package {{ restic_exporter_requires_package }} is not installed
+  ansible.builtin.fail:
+    msg: Package {{ restic_exporter_requires_package }} is not installed!
+  when: restic_exporter_requires_package not in ansible_facts.packages
+
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
+    path: "{{ restic_exporter_nginx_data_dir }}/restic-exporter.htpasswd"
+    name: "{{ restic_exporter_proxy_basic_auth_username }}"
+    password: "{{ restic_exporter_proxy_basic_auth_password }}"
+
+- name: Copy nginx {{ role_name }} conf
+  ansible.builtin.template:
+    src: restic-exporter.nginx
+    dest: "{{ restic_exporter_nginx_data_dir }}/restic-exporter.nginx"

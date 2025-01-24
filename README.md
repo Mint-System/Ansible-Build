@@ -132,6 +132,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |
 | [restic](roles/restic/README.md)                                       | Configure Restic backup jobs.                                    |
 | [restic_server](roles/restic_server/README.md)                         | Deploy Restic server container.                                  |
+| [restic_exporter](roles/restic_exporter/README.md)                     | Add nginx config for Restic exporter path.                       |
 | [s3cmd](roles/s3cmd/README.md)                                         | Install and configure s3cmd.                                     |
 | [simple_mail_forwarder](roles/simple_mail_forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
 | [superset](roles/superset/README.md)                                   | Deploy Apache Superset container.                                |

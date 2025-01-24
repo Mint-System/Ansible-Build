@@ -1,7 +1,5 @@
 ---
+restic_server_description: Restic Server
 restic_server_requires_package: python3-passlib
 restic_server_user: restic
-restic_server_description: Restic Server
-restic_server_proxy_basic_auth_username: restic-server
-restic_server_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
-restic_server_basic_auth: "{{ restic_server_user }}:{{ restic_server_password }}"
+restic_server_password: "{{ vault_restic_server_password }}"

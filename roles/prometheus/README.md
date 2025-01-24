@@ -32,8 +32,8 @@ prometheus_bigbluebutton_exporter_basic_auth_username: bigbluebutton-exporter
 prometheus_bigbluebutton_exporter_basic_auth_password: # default: "{{ vault_prometheus_bigbluebutton_exporter_basic_auth_password }}"
 prometheus_postgres_exporter_basic_auth_username: postgres-exporter
 prometheus_postgres_exporter_basic_auth_password: # default: "{{ vault_prometheus_postgres_exporter_basic_auth_password }}"
-prometheus_restic_server_basic_auth_username: restic-server
-prometheus_restic_server_basic_auth_password: # default: "{{ vault_prometheus_restic_server_basic_auth_password }}"
+prometheus_restic_exporter_basic_auth_username: restic-exporter
+prometheus_restic_exporter_basic_auth_password: # default: "{{ vault_prometheus_restic_server_basic_auth_password }}"
 prometheus_mysqld_exporter_basic_auth_username: mysqld-exporter
 prometheus_mysqld_exporter_basic_auth_password: # default: "{{ vault_prometheus_mysqld_exporter_basic_auth_password }}"
 prometheus_odoo_exporter_basic_auth_username: odoo-exporter
@@ -56,6 +56,7 @@ nginx_proxies:
       include /etc/nginx/conf.d/proxies/nextcloud-exporter.nginx;
       include /etc/nginx/conf.d/proxies/bigbluebutton-exporter.nginx;
       include /etc/nginx/conf.d/proxies/postgres-exporter.nginx;
+      include /etc/nginx/conf.d/proxies/restic-exporter.nginx;
       include /etc/nginx/conf.d/proxies/mysqld-exporter.nginx;
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
       include /etc/nginx/conf.d/proxies/n8n-exporter.nginx;
@@ -82,7 +83,7 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 * **nextcloud https**: Targets are `nginx_proxies` with exporter `nextcloud`.
 * **bigbluebutton http**: Targets are `nginx_proxies` with exporter `bigbluebutton`.
 * **postgres https**:Targets are `nginx_proxies` with exporter `postgres`.
-* **restic-server https**: Targets are `nginx_proxies` with exporter `restic`.
+* **restic https**: Targets are `nginx_proxies` with exporter `restic`.
 * **mysqld https**: Targets are `nginx_proxies` with exporter `mysqld`.
 * **odoo https**: Targets are `nginx_proxies` with exporter `odoo`.
 * **n8n https**: Targets are `nginx_proxies` with exporter `n8n`.

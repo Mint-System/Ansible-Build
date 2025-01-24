@@ -18,6 +18,8 @@
       tags: bigbluebutton_exporter
     - role: n8n_exporter
       tags: n8n_exporter
+    - role: restic_exporter
+      tags: restic_exporter
     - role: loki
       tags: loki
     - role: acme_sh

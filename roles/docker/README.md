@@ -19,7 +19,7 @@ docker_build_dir: /tmp/build # defaults: /srv/build
 docker_log_driver: "local" # defaults: "json-file
 docker_log_max_size: "50m" # defaults: "10m"
 docker_log_max_file: "5" # defaults: "3"
-docker_login_username: janikvonrotz
+docker_login_username: example
 docker_login_password: # default: "{{ vault_docker_login_password }}"
 docker_login_users: # default: root
   - git-bot
