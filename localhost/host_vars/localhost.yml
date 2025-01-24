@@ -81,7 +81,7 @@ nginx_proxies:
           proxy_set_header Connection $connection_upgrade;
           include /etc/nginx/conf.d/proxy-params.conf;
 
-# https://hub.docker.com/_/odoo/
+# https://hub.docker.com/r/mintsystem/odoo/
 odoo_revision: "18.0.20250106"
 odoo_image: mintsystem/odoo:18.0.20250106
 odoo_build_image: true

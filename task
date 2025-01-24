@@ -154,6 +154,7 @@ function galaxy-publish() {
 
 function test() {
     activate-venv
+    version
     if [ "$1" = "clean" ]; then
         echo "Cleanup localhost"
         ansible-playbook -i localhost plays/clean.yml -t odoo,odoo_data,odoo_volume,postgres,postgres_data,postgres_volume,meilisearch,meilisearch_data,meilisearch_volume,pgadmin,pgadmin_data,pgadmin_volume,n8n,n8n_data,n8n_volume,nginx,nginx_data,nginx_volume,metabase,metabase_data,metabase_volume
