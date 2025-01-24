@@ -1,5 +1,4 @@
 [defaults]
-vault_identity_list = mint_system@.vault_pass_mint_system, sozialinfo@.vault_pass_sozialinfo
 roles_path = ./roles
 log_path = /var/log/ansible.log
 callback_whitelist = profile_tasks
