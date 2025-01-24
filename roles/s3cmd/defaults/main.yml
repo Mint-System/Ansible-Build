@@ -1,0 +1,2 @@
+---
+s3cmd_secret_key: "{{ vault_s3cmd_secret_key }}"

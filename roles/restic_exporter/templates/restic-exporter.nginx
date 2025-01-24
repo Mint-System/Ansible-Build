@@ -1,6 +1,6 @@
 location /restic-server/ {
     auth_basic "{{ restic_exporter_proxy_basic_auth_username }}";
-    auth_basic_user_file /etc/nginx/conf.d/proxies/restic-server.htpasswd;
+    auth_basic_user_file /etc/nginx/conf.d/proxies/restic-exporter.htpasswd;
     proxy_pass http://{{ restic_server_hostname }}:8000/;
     include /etc/nginx/conf.d/proxy-params.conf;
 }

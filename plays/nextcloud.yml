@@ -10,8 +10,6 @@
       tags: nextcloud_apps
     - role: onlyoffice_documentserver
       tags: onlyoffice_documentserver
-    - role: nextcloud_exporter
-      tags: nextcloud_exporter
     - role: elasticsearch
       tags: elasticsearch
     - role: collabora_code
