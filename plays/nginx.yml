@@ -16,6 +16,8 @@
       tags: postgres_exporter
     - role: bigbluebutton_exporter
       tags: bigbluebutton_exporter
+    - role: nextcloud_exporter
+      tags: nextcloud_exporter
     - role: n8n_exporter
       tags: n8n_exporter
     - role: restic_exporter
