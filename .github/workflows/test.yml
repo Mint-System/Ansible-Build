@@ -18,5 +18,7 @@ jobs:
         uses: astral-sh/setup-uv@v5
       - name: Run task install
         run: ./task install
+      - name: Copy ansible config
+        run: cp ansible.cfg.template ansible.cfg
       - name: Run task test
         run: ./task test
