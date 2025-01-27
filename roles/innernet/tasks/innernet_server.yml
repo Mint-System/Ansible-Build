@@ -8,7 +8,6 @@
     msg: Package {{ item }} is not installed!
   when: item not in ansible_facts.packages
   loop:
-    - innernet
     - innernet-server
 
 - name: Setup innernet server
@@ -33,11 +32,6 @@
       --save-config /var/tmp/{{ item.name }}.yml --invite-expires 14d --yes {{ innernet_server_network_name }}
     creates: /var/tmp/{{ item.name }}.yml
   loop: "{{ innernet_server_peers }}"
-
-# - name: Show inviation file
-#   ansible.builtin.debug:
-#     msg: "Run this command manually: ssh {{ ansible_host }} cat /var/tmp/{{ item.name }}.yml"
-#   loop: "{{ innernet_server_peers }}"
 
 - name: Fetch server peer invitation files
   ansible.builtin.fetch:

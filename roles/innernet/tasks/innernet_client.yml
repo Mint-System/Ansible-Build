@@ -1,15 +1,4 @@
 ---
-# - name: Gather package facts
-#   ansible.builtin.package_facts:
-#     manager: auto
-
-# - name: Fail if package is not installed
-#   ansible.builtin.fail:
-#     msg: Package {{ item }} is not installed!
-#   when: item not in ansible_facts.packages
-#   loop:
-#     - innernet
-
 - name: Copy innernet client invitation file
   ansible.builtin.copy:
     src: /var/tmp/{{ innernet_client_peer_name }}.yml
@@ -27,11 +16,6 @@
     cmd: innernet install /var/tmp/{{ innernet_client_peer_name }}.yml --name {{ innernet_client_network_name }} --hosts-path /etc/hosts --delete-invite
   ignore_errors: true # FIXME: Cannot check if interface is down
   when: innernet_client_invitation_file is defined and innernet_client_network_name not in innernet_status.stdout
-
-# - name: "Stop innernet@{{ innernet_client_network_name }} service"
-#   systemd:
-#     name: innernet@{{ innernet_client_network_name }}"
-#     state: stopped
 
 - name: Enable and (re)start innernet@{{ innernet_client_network_name }} service
   ansible.builtin.systemd:
