@@ -139,6 +139,7 @@ scrape_configs:
       - target_label: __address__
         replacement: {{ blackbox_exporter_hostname }}:9115
 {% endif %}
+
 {% if prometheus_n8n_exporter_proxy_basic_auth_username is defined %}
   - job_name: n8n https
     metrics_path: "/n8n-exporter/metrics"
