@@ -11,6 +11,7 @@
   loop:
     - Dockerfile
     - .dockerignore
+    - php-matomo.ini
   notify: Build {{ role_name }} custom image
 
 - name: Flush handlers

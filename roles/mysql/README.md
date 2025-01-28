@@ -8,7 +8,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/mysql
-mysql_image: mysql:5
+mysql_image: mysql:8
 mysql_hostname: mysql01
 mysql_description: database for moodle # default: MySQL
 mysql_volume_name: mysql_data01 # default: "{{ mysql_hostname }}"
