@@ -23,7 +23,7 @@
 
 - name: Generate blackbox target urls
   ansible.builtin.set_fact:
-    targets: "{{ src_hostnames | zip(paths) | map('join', '') | map('regex_replace', '^(.*)$', 'https://\\1') }}"
+    targets: "{{ src_hostnames | zip(paths) | map('join', '') | map('regex_replace', '^(.*)$', 'https://\\1') | sort }}"
 
 - name: List blackbox targets
   ansible.builtin.debug:
