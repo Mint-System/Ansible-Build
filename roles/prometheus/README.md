@@ -42,14 +42,14 @@ prometheus_n8n_exporter_basic_auth_username: n8n-exporter
 prometheus_n8n_exporter_basic_auth_password: # default: "{{ vault_prometheus_n8n_exporter_basic_auth_password }}"
 ```
 
-Ensure the nginx proxy includes the exporter config:
+Ensure the targets nginx proxy includes the exporter config:
 
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
     ssl: true
     monitor: /
-    exporter: node,cadvsior,nextcloud,bigbluebutton,postgres,restic,mysqld,odoo
+    exporter: node,cadvsior,nextcloud,bigbluebutton,postgres,restic,mysqld,odoo,n8n
     options: |
       include /etc/nginx/conf.d/proxies/node-exporter.nginx;
       include /etc/nginx/conf.d/proxies/cadvisor.nginx;

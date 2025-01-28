@@ -7,9 +7,9 @@ function help() {
     echo "commands:"
     echo
 
-    cmd_width=25
-    opt_width=25
-    desc_width=45
+    cmd_width=23
+    opt_width=22
+    desc_width=70
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "Command" "Option" "Description"
     echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
@@ -29,14 +29,16 @@ function help() {
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-hosts" "[path]" "Lists all hosts of an inventory."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "llm-update" "[path]" "Feed role files with prompt to LLM and apply updates with git path."
 
     echo
 }
 
 # Set env vars
 GIT_BRANCH=$(git symbolic-ref --short -q HEAD)
+LLM_MODEL=${LLM_MODEL:="deepseek-coder"}
 
 if [[ -a ".env" ]]; then
     export $(cat .env | sed 's/^#.*//g' | xargs)
@@ -152,7 +154,7 @@ function galaxy-publish() {
     ansible-galaxy collection publish tmp/$NAMESPACE-$NAME-$VERSION.tar.gz --token "$GALAXY_API_TOKEN"
 }
 
-function test() {
+function test-localhost() {
     activate-venv
     version
     if [ "$1" = "clean" ]; then
@@ -162,6 +164,16 @@ function test() {
         echo "Setup localhost"
         ansible-playbook -i localhost plays/localhost.yml --skip-tags check
     fi
+}
+
+function llm-update() {
+    if test -z "$1"; then 
+        echo "\$1 is empty."; 
+        exit 1; 
+    fi
+
+    # Get list of files
+    FILES=$(find "$1" -type f -name "*.yml")
 }
 
 if declare -f "$1" > /dev/null; then
