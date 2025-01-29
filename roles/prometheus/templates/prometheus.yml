@@ -162,7 +162,6 @@ scrape_configs:
     authorization:
       type: Bearer
       credentials: {{ prometheus_meilisearch_exporter_api_key }}
-      credentials: {{ prometheus_meilisearch_exporter_api_key }}
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `meilisearch`)].src_hostname') | flatten }}
 {% endif %}
