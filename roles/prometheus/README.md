@@ -40,6 +40,7 @@ prometheus_odoo_exporter_basic_auth_username: odoo-exporter
 prometheus_odoo_exporter_basic_auth_password: # default: "{{ vault_prometheus_odoo_exporter_basic_auth_password }}"
 prometheus_n8n_exporter_basic_auth_username: n8n-exporter
 prometheus_n8n_exporter_basic_auth_password: # default: "{{ vault_prometheus_n8n_exporter_basic_auth_password }}"
+prometheus_meilisearch_exporter_api_key: "{{ vault_prometheus_meilisearch_exporter_api_key }}"
 ```
 
 Ensure the targets nginx proxy includes the exporter config:
