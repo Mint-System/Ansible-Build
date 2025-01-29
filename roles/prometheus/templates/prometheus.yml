@@ -154,7 +154,6 @@ scrape_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `n8n`)].src_hostname') | flatten }}
 {% endif %}
 {% if prometheus_meilisearch_exporter_api_key is defined %}
-{% if prometheus_meilisearch_exporter_api_key is defined %}
   - job_name: meilisearch https
     metrics_path: "/metrics"
     scrape_interval: 30s
