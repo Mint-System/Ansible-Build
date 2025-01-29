@@ -167,3 +167,4 @@ scrape_configs:
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `meilisearch`)].src_hostname') | flatten }}
 {% endif %}
+  {{ prometheus_custom_scrapers | indent(2) }}
