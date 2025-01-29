@@ -8,7 +8,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/prom/mysqld-exporter/
-mysqld_exporter_image: prom/mysqld-exporter:v0.15.1
+mysqld_exporter_image: prom/mysqld-exporter:v0.16.0
 mysqld_exporter_hostname: myexport01
 mysqld_exporter_description: Database metric for mysql01 # default: "MySQL Exporter {{ mysqld_exporter_server }}"
 mysqld_exporter_data_dir: /usr/share/myexport # default: "/usr/share/{{ mysqld_exporter_hostname }}"

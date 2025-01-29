@@ -8,7 +8,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/grafana/loki/
-loki_image: grafana/loki:2.3.0
+loki_image: grafana/loki
 loki_hostname: loki01
 loki_description: log index for grafana # default: Loki
 loki_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"

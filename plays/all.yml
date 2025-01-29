@@ -66,6 +66,8 @@
       tags: prometheus
     - role: promtail
       tags: promtail
+    - role: loki
+      tags: loki
     - role: grafana
       tags: grafana
     - role: restic_server

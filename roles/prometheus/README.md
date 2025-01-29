@@ -96,3 +96,14 @@ Select multiple inventories when deploying.
 ```bash
 ansible-playbook -i inventories/odoo -i inventories/nextcloud -i inventories/setup plays/setup.yml -l prometheus -t prometheus
 ```
+
+### Clear Prometheus data
+
+Remove container and volume.
+
+```bash
+docker rm -f prom01
+docker volume rm prom01
+```
+
+Then redeploy.

@@ -14,7 +14,7 @@ function help() {
     echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "encrypt-string" "[vault_id] [key:value]" "Generate encrypted string with Ansible Vault."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with uv."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with uv."
@@ -63,8 +63,10 @@ function encrypt-string() {
     STRING_KEY=$(echo "$2" | cut -d ':' -f 1)
     STRING_VALUE=$(echo "$2" | cut -d ':' -f 2 | sed 's/^ *//')
 
-    echo "Found key: $STRING_KEY"
-    echo "Encrypting value: $STRING_VALUE"
+    if [ "$3" != "-q" ]; then 
+        echo "Found key: $STRING_KEY"
+        echo "Encrypting value: $STRING_VALUE"
+    fi
     ansible-vault encrypt_string --encrypt-vault-id="$1"  --name "$STRING_KEY" "$STRING_VALUE"
 }
 
