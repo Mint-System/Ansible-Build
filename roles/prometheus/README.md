@@ -74,7 +74,7 @@ And include it in your playbook.
 
 ## Docs
 
-### Predefined srape configs
+### Predefined scrape configs
 
 The `prometheus.yml` template contains predefined srcape jobs that lookup proxy configurations of `prometheus_hosts` in the Ansible inventory.
 
@@ -89,6 +89,24 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 * **odoo https**: Targets are `nginx_proxies` with exporter `odoo`.
 * **n8n https**: Targets are `nginx_proxies` with exporter `n8n`.
 * **blackbox**: Targets are `nginx_proxies` with `monitor` not false and host is `blackbox01:9115`.
+
+### Custom scrapers
+
+override the variable `prometheus_custom_scrapers` 
+example:
+```
+prometheus_custom_scrapers: |
+  - job_name: n8n business metrics https
+    metrics_path: "/webhook/metrics"
+    scrape_interval: 60s
+    honor_labels: true
+    scheme: https
+    basic_auth:
+      username: {{ prometheus_n8n_business_metrics_username }}
+      password: {{ prometheus_n8n_business_metrics_password }}
+    static_configs:
+      - targets: ['n8n.example.com']
+```
 
 ### Deploy Prometheus container
 

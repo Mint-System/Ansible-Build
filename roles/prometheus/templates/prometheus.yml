@@ -139,7 +139,6 @@ scrape_configs:
       - target_label: __address__
         replacement: {{ blackbox_exporter_hostname }}:9115
 {% endif %}
-
 {% if prometheus_n8n_exporter_proxy_basic_auth_username is defined %}
   - job_name: n8n https
     metrics_path: "/n8n-exporter/metrics"
@@ -164,3 +163,4 @@ scrape_configs:
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `meilisearch`)].src_hostname') | flatten }}
 {% endif %}
+  {{ prometheus_custom_scrapers | indent(2) }}
