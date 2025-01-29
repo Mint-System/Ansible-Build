@@ -25,7 +25,6 @@ function help() {
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-dev" "" "Start vuepress development server."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-build" "" "Create vuepress build."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-serve-build" "" "Serve vuepress build."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "update-docs" "" "Update project docs."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-hosts" "[path]" "Lists all hosts of an inventory."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
@@ -98,7 +97,6 @@ function install() {
     activate-venv
 
     echo "Install Ansible and Python dependencies"
-    sudo apt install graphviz
     uv pip install -r requirements.txt
 
     ansible-galaxy collection install community.general
@@ -111,12 +109,6 @@ function install-exo() {
 function upgrade() {
     echo "Update Ansible"
     uv pip install --upgrade ansible
-}
-
-function update-docs() {
-    activate-venv
-    python3 ./library/graph.py
-    echo "Update docs success."
 }
 
 function list-hosts() {
