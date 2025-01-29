@@ -58,7 +58,6 @@
       - "{{ prometheus_port }}:9090"
     networks:
       - name: "{{ docker_network_name }}"
-    network_mode: bridge
     etc_hosts: "{{ prometheus_etc_hosts }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
