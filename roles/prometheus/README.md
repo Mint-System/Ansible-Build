@@ -40,8 +40,9 @@ prometheus_odoo_exporter_basic_auth_username: odoo-exporter
 prometheus_odoo_exporter_basic_auth_password: # default: "{{ vault_prometheus_odoo_exporter_basic_auth_password }}"
 prometheus_n8n_exporter_basic_auth_username: n8n-exporter
 prometheus_n8n_exporter_basic_auth_password: # default: "{{ vault_prometheus_n8n_exporter_basic_auth_password }}"
+prometheus_uptime_kuma_exporter_basic_auth_username: uptime-kuma-exporter
+prometheus_uptime_kuma_exporter_basic_auth_password: # default: "{{ vault_prometheus_uptime_kuma_exporter_basic_auth_password }}"
 prometheus_meilisearch_exporter_api_key: "{{ vault_prometheus_meilisearch_exporter_api_key }}"
-prometheus_uptime_kuma_exporter_password: "{{ vault_prometheus_uptime_kuma_exporter_password }}"
 ```
 
 Ensure the targets nginx proxy includes the exporter config:
@@ -89,13 +90,15 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 * **mysqld https**: Targets are `nginx_proxies` with exporter `mysqld`.
 * **odoo https**: Targets are `nginx_proxies` with exporter `odoo`.
 * **n8n https**: Targets are `nginx_proxies` with exporter `n8n`.
+* **uptime-kuma https**: Targets are `nginx_proxies` with exporter `uptime-kuma`.
+* **meilisearch https**: Targets are `nginx_proxies` with exporter `meilisearch`.
 * **blackbox**: Targets are `nginx_proxies` with `monitor` not false and host is `blackbox01:9115`.
 
 ### Custom scrapers
 
-override the variable `prometheus_custom_scrapers` 
-example:
-```
+Set the `prometheus_custom_scrapers` variable with you job definition:
+
+```yml
 prometheus_custom_scrapers: |
   - job_name: n8n business metrics https
     metrics_path: "/webhook/metrics"
