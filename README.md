@@ -7,7 +7,7 @@ The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks a
 
 ## Requirements
 
-* Install Python 3.11+ with [uv](https://docs.astral.sh/uv/)
+* Setup [uv](https://docs.astral.sh/uv/)
 * bash/zsh alias `task='./task'` with optional [completion](https://github.com/janikvonrotz/dotfiles/blob/master/oh-my-zsh-completions/_task)
 
 ## Usage
