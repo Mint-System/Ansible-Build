@@ -17,6 +17,7 @@ prometheus_mysqld_exporter_basic_auth_password: "{{ vault_prometheus_mysqld_expo
 prometheus_odoo_exporter_basic_auth_password: "{{ vault_prometheus_odoo_exporter_basic_auth_password }}"
 prometheus_n8n_exporter_proxy_basic_auth_password: "'{{ vault_prometheus_n8n_exporter_proxy_basic_auth_password }}'"
 prometheus_meilisearch_exporter_api_key: "{{ vault_prometheus_meilisearch_exporter_api_key }}"
+prometheus_uptime_kuma_exporter_password: "{{ vault_prometheus_uptime_kuma_exporter_password }}"
 prometheus_alerting: {}
 prometheus_rules: {}
 prometheus_custom_scrapers: ""
