@@ -1,2 +1,0 @@
-{{ ansible_managed | comment }}
-{{ prometheus_rules[item] | from_yaml | to_nice_yaml(indent=2) }}
