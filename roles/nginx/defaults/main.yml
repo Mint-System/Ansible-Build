@@ -4,4 +4,4 @@ nginx_ports:
   - 443:443
 nginx_description: Nginx
 nginx_data_dir: "/usr/share/{{ nginx_hostname }}"
-nginx_cache_enabled: true
+nginx_cache_enabled: false

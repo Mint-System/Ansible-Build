@@ -7,8 +7,8 @@ Maintains operating system and disk space.
 Configure the role.
 
 ```yml
-maintenance: true
-maintenance_job: true
+maintenance: true # default: false
+maintenance_job: true # default: false
 ```
 
 And include it in your playbook.

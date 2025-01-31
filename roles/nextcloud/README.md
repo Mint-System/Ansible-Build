@@ -86,3 +86,11 @@ When Nextcloud is thowing an *Internal Server Error* without details in the log,
 ```
 docker exec --user www-data nextcloud01 php occ
 ```
+
+### Exit maintenance mode
+
+Disable the maintenance mode with the occ cli.
+
+```bash
+docker exec -u www-data -it nextcloud01 php occ maintenance:mode --off
+```
