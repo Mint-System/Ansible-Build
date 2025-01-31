@@ -130,3 +130,13 @@ docker volume rm prom01
 ```
 
 Then redeploy.
+
+### Remove timeseries metrics
+
+Use the prometheus web api to delete a time series.
+
+```bash
+curl -X POST -g 'http://prom01:9090/api/v1/admin/tsdb/delete_series?match[]={instance="https://n8n.example.com"}'
+```
+
+Then restart the container.
