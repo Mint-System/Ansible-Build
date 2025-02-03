@@ -1,0 +1,5 @@
+---
+crowdsec_firewall_bouncer_enabled: false
+crowdsec_firewall_bouncer_mode: iptables
+crowdsec_firewall_bouncer_api_url: http://{{ crowdsec_hostname }}:8080/
+crowdsec_firewall_bouncer_key: "{{ vault_crowdsec_firewall_bouncer_key }}"

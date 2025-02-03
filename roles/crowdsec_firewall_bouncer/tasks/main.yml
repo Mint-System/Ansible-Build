@@ -1,0 +1,6 @@
+---
+- name: Include {{ role_name }} firewall bouncer tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: crowdsec_firewall_bouncer_enabled
+  tags:
+    - crowdsec_firewall_bouncer

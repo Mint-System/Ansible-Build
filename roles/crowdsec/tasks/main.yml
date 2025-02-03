@@ -4,9 +4,3 @@
   when: crowdsec_image is defined
   tags:
     - crowdsec
-
-- name: Include {{ role_name }} firewall bouncer tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_firewall_bouncer.yml"
-  when: crowdsec_firewall_bouncer_enabled
-  tags:
-    - crowdsec

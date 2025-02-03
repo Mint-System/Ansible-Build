@@ -36,3 +36,5 @@
       tags: caddy
     - role: crowdsec
       tags: crowdsec
+    - role: crowdsec_firewall_bouncer
+      tags: crowdsec_firewall_bouncer

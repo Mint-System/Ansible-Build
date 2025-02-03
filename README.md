@@ -62,7 +62,8 @@ Have a look at the Ansible roles and check how to configure them.
 | [commento](roles/commento/README.md)                                   | Deploy Commento container.                                       |
 | [coturn](roles/coturn/README.md)                                       | Deploy Coturn cotainer.                                          |
 | [cron](roles/cron/README.md)                                           | Setup cron jobs.                                                 |
-| [crowdsec](roles/crowdsec/README.md)                                   | Deploy crowdsec container.                                       |
+| [crowdsec](roles/crowdsec/README.md)                                   | Deploy CrowdSec container.                                       |
+| [crowdsec_firewall_bouncer](roles/crowdsec_firewall_bouncer/README.md) | Deploy CrowdSec Firewall Bouncer.                                |
 | [debug](roles/debug/README.md)                                         | Debug Ansible variables.                                         |
 | [dind](roles/dind/README.md)                                           | Deploy Docker in Docker container.                               |
 | [docker](roles/docker/README.md)                                       | Install Docker for Ubuntu and CentOS.                            |
