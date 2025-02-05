@@ -9,3 +9,9 @@ odoo_volume_name: "{{ odoo_hostname }}"
 postgres_volume_name: "{{ postgres_hostname }}"
 nginx_data_dir: "/usr/share/{{ nginx_hostname }}"
 metabase_config_map: [name: prod]
+loki_data_dir: /usr/share/{{ loki_hostname }}
+promtail_data_dir: /usr/share/{{ promtail_hostname }}
+grafana_data_dir: /usr/share/{{ grafana_hostname }}
+grafana_volume_name: "{{ grafana_hostname }}"
+prometheus_volume_name: "{{ prometheus_hostname }}"
+prometheus_data_dir: /usr/share/{{ prometheus_hostname }}

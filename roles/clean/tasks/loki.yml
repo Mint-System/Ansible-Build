@@ -1,0 +1,11 @@
+---
+- name: Remove loki container {{ loki_hostname }}
+  community.docker.docker_container:
+    name: "{{ loki_hostname }}"
+    state: absent
+
+- name: Remove loki data dir
+  ansible.builtin.file:
+    path: "{{ loki_data_dir }}"
+    state: absent
+  when: '"loki_data" in ansible_run_tags'

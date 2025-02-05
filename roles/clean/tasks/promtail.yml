@@ -1,0 +1,11 @@
+---
+- name: Remove promtail container {{ promtail_hostname }}
+  community.docker.docker_container:
+    name: "{{ promtail_hostname }}"
+    state: absent
+
+- name: Remove promtail data dir
+  ansible.builtin.file:
+    path: "{{ promtail_data_dir }}"
+    state: absent
+  when: '"promtail_data" in ansible_run_tags'

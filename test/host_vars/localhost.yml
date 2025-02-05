@@ -3,7 +3,7 @@ ansible_become: true
 ufw_enabled: false
 hosts:
   - ip: 127.0.0.1
-    name: n8n.local odoo.local metabase.local
+    name: n8n.local odoo.local metabase.local grafana.local
   - ip: 10.101.16.2
     name: erp.brunner-innovation.swiss erp-dev.brunner-innovation.swiss gaia.mint-system.com
 
@@ -80,6 +80,9 @@ nginx_proxies:
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
           include /etc/nginx/conf.d/proxy-params.conf;
+  - src_hostname: grafana.local
+    dest_hostname: grafana01
+    dest_port: 3000
 
 # https://hub.docker.com/r/mintsystem/odoo/
 odoo_revision: "18.0.20250106"
@@ -109,3 +112,25 @@ metabase_hostname: metabase01
 metabase_db_host: postgres01
 metabase_db_user: example
 metabase_db_pass: test
+
+# https://hub.docker.com/r/prom/prometheus
+prometheus_image: prom/prometheus:v2.54.1
+prometheus_hostname: prom01
+
+# https://hub.docker.com/r/grafana/loki/
+loki_image: grafana/loki:3.3.2
+loki_hostname: loki01
+
+# https://hub.docker.com/r/grafana/promtail/
+promtail_image: grafana/promtail:3.3.2
+promtail_hostname: promtail01
+promtail_push_url: http://loki01:3100/loki/api/v1/push
+
+# https://hub.docker.com/r/grafana/grafana/
+grafana_image: grafana/grafana:11.2.0
+grafana_hostname: grafana01
+grafana_admin_user: admin
+grafana_admin_password: admin
+grafana_prometheus_hostname: prom01
+grafana_server_domain: "grafana.local"
+grafana_server_root_url: "http://grafana.local"

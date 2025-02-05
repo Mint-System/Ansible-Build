@@ -1,6 +1,7 @@
 ---
 loki_requires_package: python3-passlib
 loki_description: Loki
-loki_proxy_basic_auth_username: loki
-loki_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
 loki_data_dir: /usr/share/{{ loki_hostname }}
+loki_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
+loki_proxy_basic_auth_username: loki
+loki_proxy_basic_auth_password: "{{ vault_loki_proxy_basic_auth_password }}"

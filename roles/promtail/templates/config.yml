@@ -8,7 +8,11 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
+{% if promtail_loki_basic_auth_password is defined -%}
   - url: https://{{ promtail_loki_basic_auth_username }}:{{ promtail_loki_basic_auth_password }}@{{ promtail_push_url }}
+{% else -%}
+  - url: {{ promtail_push_url }}
+{% endif -%}
 
 scrape_configs:
 

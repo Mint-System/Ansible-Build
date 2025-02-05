@@ -14,7 +14,7 @@ bigbluebutton_exporter_description: Host metric for server1 # default: BigBlueBu
 bigbluebutton_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 bigbluebutton_exporter_requires_package: python2-passlib # default: python3-passlib
 bigbluebutton_exporter_proxy_basic_auth_username: exporter # default: bigbluebutton-exporter
-bigbluebutton_exporter_proxy_basic_auth_password: "{{ vault_bigbluebutton_exporter_proxy_basic_auth_password }}"
+bigbluebutton_exporter_proxy_basic_auth_password: # default: "{{ vault_bigbluebutton_exporter_proxy_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the bigbluebutton-exporter config:

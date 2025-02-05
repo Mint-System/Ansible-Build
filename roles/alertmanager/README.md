@@ -12,7 +12,7 @@ alertmanager_hostname: alertmanager01
 alertmanager_description: Alertmanager
 alertmanager_web_external_url: https://monitoring.example.com/alertmanager
 alertmanager_proxy_basic_auth_username: alertmanager
-alertmanager_proxy_basic_auth_password: "{{ vault_alertmanager_proxy_basic_auth_password }}"
+alertmanager_proxy_basic_auth_password: # default: "{{ vault_alertmanager_proxy_basic_auth_password }}"
 alertmanager_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 alertmanager_config:
   route:

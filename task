@@ -154,7 +154,17 @@ function test-localhost() {
     version
     if [ "$1" = "clean" ]; then
         echo "Cleanup localhost"
-        ansible-playbook -i test plays/clean.yml -t odoo,odoo_data,odoo_volume,postgres,postgres_data,postgres_volume,meilisearch,meilisearch_data,meilisearch_volume,pgadmin,pgadmin_data,pgadmin_volume,n8n,n8n_data,n8n_volume,nginx,nginx_data,nginx_volume,metabase,metabase_data,metabase_volume
+        ansible-playbook -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
+            postgres,postgres_data,postgres_volume,\
+            meilisearch,meilisearch_data,meilisearch_volume,\
+            pgadmin,pgadmin_data,pgadmin_volume,\
+            n8n,n8n_data,n8n_volume,\
+            nginx,nginx_data,nginx_volume,\
+            metabase,metabase_data,metabase_volume,\
+            prometheus,prometheus_data,prometheus_volume,\
+            grafana,grafana_data,grafana_volume,\
+            loki,loki_data,loki_volume,\
+            promtail,promtail_data,promatil_volume"
     else
         echo "Setup localhost"
         ansible-playbook -i test plays/localhost.yml --skip-tags check

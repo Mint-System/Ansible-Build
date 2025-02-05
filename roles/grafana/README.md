@@ -14,7 +14,7 @@ grafana_description: Prometheus dashboard # default: Grafana
 grafana_data_dir: /usr/share/graf # default: "/usr/share/{{ grafana_hostname }}"
 grafana_volume_name: grafana_data01 # default: "{{ grafana_hostname }}"
 grafana_admin_user: admin
-grafana_admin_password: "{{ vault_grafana_admin_password }}"
+grafana_admin_password: # default: "{{ vault_grafana_admin_password }}"
 grafana_prometheus_hostname: prom01
 grafana_server_domain: "monitor.example.com"
 grafana_server_root_url: "https://monitor.example.com"

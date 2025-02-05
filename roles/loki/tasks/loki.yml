@@ -22,7 +22,7 @@
     recreate: false
     volumes:
       - "{{ loki_data_dir }}:/etc/loki"
-    command: -config.file=/etc/loki/local-config.yml
+    command: -config.file=/etc/loki/local-config.yml -config.expand-env=true
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"

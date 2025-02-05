@@ -2,6 +2,7 @@
 grafana_description: Grafana
 grafana_data_dir: /usr/share/{{ grafana_hostname }}
 grafana_volume_name: "{{ grafana_hostname }}"
+grafana_admin_password: "{{ vault_grafana_admin_password }}"
 
 grafana_mail_enabled: "false"
 grafana_mail_from_name: Grafana
