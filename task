@@ -18,6 +18,7 @@ function help() {
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with uv."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with uv."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "llm-update" "[path][prompt]" "Feed role files with prompt to LLM and apply file changes."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "lint" "" "Lint Ansible roles and playbooks."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-build" "" "Create tarball of collection."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-publish" "" "Publish tarball to Ansible Galaxy."
@@ -160,14 +161,87 @@ function test-localhost() {
     fi
 }
 
+# LLM Commands
+
 function llm-update() {
     if test -z "$1"; then 
         echo "\$1 is empty."; 
         exit 1; 
     fi
 
-    # Get list of files
-    FILES=$(find "$1" -type f -name "*.yml")
+    # Get files from path
+    FILES=$(find "$1" -type f \( -name "*.md" -o -name "*.yml" -o -name "*.yaml" \))
+    echo -e "Loaded these files into prompt:\n\n$FILES\n"
+
+    # Prompt task description
+    if [ -z "$2" ]; then
+        read -p "Enter the task description: " TASK_DESCRIPTION
+    else
+        TASK_DESCRIPTION="$2"
+    fi
+
+    # Prepare the files content for prompt
+    FILE_CONTENTS=""
+    for FILE in $FILES; do
+        FILE_CONTENTS+="<<<$FILE>>>
+$(cat "$FILE")
+
+"
+    done
+
+    # Define prompt content
+    PROMPT_FILE="tmp/llm_update"
+    echo -e "\nWrite prompt to $PROMPT_FILE."
+    cat << EOF > "$PROMPT_FILE"
+Look at the code files below and do the following:
+
+$TASK_DESCRIPTION
+
+Output all files that you need to change in full again, including your changes. 
+In the same format as I provide the files below. Under no circumstances output any other text, 
+no additional infos, no code formatting chars. Only the code in the given format.
+
+Here are the files:
+
+$FILE_CONTENTS
+EOF
+
+    # Run the llm command
+    echo -e "Send prompt and wait for the response of the $LLM_MODEL LLM."
+    RESULT=$(cat "$PROMPT_FILE" | llm -m "$LLM_MODEL")
+
+    # Check if result is empty
+    if [ -z "$RESULT" ]; then
+        echo "No response from the model. Exiting."
+        exit 1
+    fi
+
+    # Save the result to a file
+    RESULT_FILE="tmp/llm_update_result"
+    echo "$RESULT" > "$RESULT_FILE"
+    echo -e "Saved response to $RESULT_FILE.\n"
+
+    # Show a preview of result file
+    less "$RESULT_FILE"
+
+    # Ask for confirmation before updating files
+    read -p "Do you want to apply these updates to the files? (y/n): " CONFIRM
+    if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
+        exit 0
+    fi
+
+    # Parse the response from the file and update the files directly
+    echo -e "Parsing the response and updating files...\n"
+    CURRENT_FILE=""
+    while IFS= read -r LINE; do
+        if [[ $LINE =~ ^"<<<"(.*)">>>" ]]; then
+            CURRENT_FILE="${BASH_REMATCH[1]}"
+            echo "Update file $CURRENT_FILE."
+            > "$CURRENT_FILE"
+        elif [[ -n $CURRENT_FILE ]]; then
+            echo "$LINE" >> "$CURRENT_FILE"
+        fi
+    done < "$RESULT_FILE"
 }
 
 if declare -f "$1" > /dev/null; then

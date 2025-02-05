@@ -83,6 +83,7 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ odoo_hostname }}|{{ role_name }}"
+    network_mode: bridge
   when: odoo_config_map|length == 1
 
 - name: Start {{ role_name }} container {{ odoo_hostname }}
@@ -116,6 +117,7 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ odoo_hostname }}|{{ role_name }}"
+    network_mode: bridge
   loop: "{{ odoo_config_map }}"
   when: odoo_config_map|length > 1
 
