@@ -16,6 +16,8 @@ pushgateway_data_dir: /usr/share/pushgw # default: "/usr/share/{{ pushgateway_ho
 pushgateway_port: 127.0.0.1:9091 # default: 127.0.0.1:9091
 pushgateway_etc_hosts: # defaults: {}
   "server.example.com": 10.42.5.2
+pushgateway_proxy_basic_auth_username: metric # default: pushgateway
+pushgateway_proxy_basic_auth_password: # default: "{{ vault_pushgateway_proxy_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the exporter config:
