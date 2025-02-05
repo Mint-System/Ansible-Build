@@ -56,7 +56,8 @@ Save and test the connection.
 Send test data to push api with with curl.
 
 ```bash
-curl -v -H "Content-Type: application/json" -XPOST -s "http://loki01:3100/loki/api/v1/push" --data-raw \
+curl -H "Content-Type: application/json" -XPOST -s "https://monitor.example.com/loki/api/v1/push" \
+  --data-raw \
   '{"streams": [{ "stream": { "foo": "bar2" }, "values": [ [ "1570818238000000000", "fizzbuzz" ] ] }]}'
 ```
 
@@ -64,8 +65,8 @@ curl -v -H "Content-Type: application/json" -XPOST -s "http://loki01:3100/loki/a
 Send test data to push api with with curl with basic auth.
 
 ```bash
-curl -v -H "Content-Type: application/json" -XPOST -s "https://monitor.example.com/loki/api/v1/push" \
+curl -H "Content-Type: application/json" -XPOST -s "https://monitor.example.com/loki/api/v1/push" \
   -u loki:$BASIC_AUTH_PASSWORD \
   --data-raw \
-  '{"streams": [{ "stream": { "foo": "bar2" }, "values": [ [ "1570818238000000000", "fizzbuzz" ] ] }]}' 
+  '{"streams": [{ "stream": { "foo": "bar2" }, "values": [ [ "1570818238000000000", "fizzbuzz" ] ] }]}'
 ```
