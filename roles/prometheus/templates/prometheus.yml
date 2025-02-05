@@ -175,4 +175,16 @@ scrape_configs:
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `meilisearch`)].src_hostname') | flatten }}
 {% endif %}
+{% if pushgateway_proxy_basic_auth_username is defined %}
+  - job_name: pushgateway https
+    metrics_path: "/pushgateway/metrics"
+    scrape_interval: 15s
+    honor_labels: true
+    scheme: https
+    basic_auth:
+      username: {{ pushgateway_proxy_basic_auth_username }}
+      password: {{ pushgateway_proxy_basic_auth_password }}
+    static_configs:
+      - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `pushgateway`)].src_hostname') | flatten }}
+{% endif %}
   {{ prometheus_custom_scrapers | indent(2) }}

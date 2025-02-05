@@ -1,0 +1,26 @@
+---
+- name: Ensure nginx data dir exists
+  ansible.builtin.file:
+    path: "{{ pushgateway_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Fail if package {{ pushgateway_requires_package }} is not installed
+  ansible.builtin.assert:
+    that:
+      - pushgateway_requires_package in ansible_facts.packages
+    fail_msg: Package {{ pushgateway_requires_package }} is not installed!
+
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
+    path: "{{ pushgateway_nginx_data_dir }}/pushgateway.htpasswd"
+    name: "{{ pushgateway_proxy_basic_auth_username }}"
+    password: "{{ pushgateway_proxy_basic_auth_password }}"
+
+- name: Copy nginx {{ role_name }} conf
+  ansible.builtin.template:
+    src: pushgateway.nginx
+    dest: "{{ pushgateway_nginx_data_dir }}/pushgateway.nginx"

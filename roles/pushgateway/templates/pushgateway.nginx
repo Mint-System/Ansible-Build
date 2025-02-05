@@ -1,0 +1,6 @@
+location /pushgateway/ {
+    auth_basic "{{ pushgateway_proxy_basic_auth_username }}";
+    auth_basic_user_file /etc/nginx/conf.d/proxies/pushgateway.htpasswd;
+    proxy_pass http://{{ pushgateway_hostname }}:9091;
+    include /etc/nginx/conf.d/proxy-params.conf;
+}
