@@ -5,6 +5,8 @@ prometheus_volume_name: "{{ prometheus_hostname }}"
 prometheus_data_dir: /usr/share/{{ prometheus_hostname }}
 prometheus_hosts: "{{ groups['all'] }}"
 prometheus_etc_hosts: {}
+prometheus_proxy_basic_auth_username: prometheus
+prometheus_proxy_basic_auth_password: "{{ vault_prometheus_proxy_basic_auth_password }}"
 prometheus_retention_time: 15d
 prometheus_alertmanager_basic_auth_password: "{{ vault_prometheus_alertmanager_basic_auth_password }}"
 prometheus_node_exporter_basic_auth_password: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
