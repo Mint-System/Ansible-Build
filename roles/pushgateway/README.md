@@ -48,7 +48,7 @@ And include it in your playbook.
 
 ## Docs
 
-Pushgateway is used to monitor cronjobs like the main loop from n8n, or maybe job search abo cronjob
+Pushgateway is used to monitor cronjobs
 
 ### Deploy Pushgateway container
 
