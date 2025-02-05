@@ -1,0 +1,16 @@
+---
+- name: Ensure nginx data dir exists
+  ansible.builtin.file:
+    path: "{{ nginx_data_dir }}/proxies"
+    state: directory
+
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
+    path: "{{ nginx_data_dir }}/proxies/prometheus.htpasswd"
+    name: "{{ prometheus_proxy_basic_auth_username }}"
+    password: "{{ prometheus_proxy_basic_auth_password }}"
+
+- name: Copy nginx {{ role_name }} conf
+  ansible.builtin.template:
+    src: prometheus.nginx
+    dest: "{{ nginx_data_dir }}/proxies/prometheus.nginx"

@@ -21,6 +21,8 @@ prometheus_port: 127.0.0.1:9999 # default: 127.0.0.1:9090
 prometheus_retention_time: "30d" # default: "15d"
 prometheus_etc_hosts: # defaults: {}
   "server.example.com": 10.42.5.2
+prometheus_proxy_basic_auth_username: metric # default: prometheus
+prometheus_proxy_basic_auth_password: # default: "{{ vault_prometheus_proxy_basic_auth_password }}"
 
 prometheus_node_exporter_basic_auth_username: node-exporter
 prometheus_node_exporter_basic_auth_password: # default: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
