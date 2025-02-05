@@ -2,5 +2,4 @@ location /metrics {
     auth_basic "{{ odoo_exporter_proxy_basic_auth_username }}";
     auth_basic_user_file /etc/nginx/conf.d/proxies/odoo-exporter.htpasswd;
     proxy_pass http://{{ odoo_hostname }}:8069;
-    include /etc/nginx/conf.d/proxy-params.conf;
 }

@@ -2,5 +2,4 @@ location /loki/api/v1/push {
     auth_basic "{{ loki_proxy_basic_auth_username }}";
     auth_basic_user_file /etc/nginx/conf.d/proxies/loki.htpasswd;
     proxy_pass http://{{ loki_hostname }}:3100/loki/api/v1/push;
-    include /etc/nginx/conf.d/proxy-params.conf;
 }

@@ -2,5 +2,4 @@ location /n8n-exporter/metrics {
     auth_basic "{{ n8n_exporter_proxy_basic_auth_username }}";
     auth_basic_user_file /etc/nginx/conf.d/proxies/n8n-exporter.htpasswd;
     proxy_pass http://{{ n8n_exporter_hostname }}:5678/metrics;
-    include /etc/nginx/conf.d/proxy-params.conf;
 }
