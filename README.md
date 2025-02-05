@@ -8,7 +8,7 @@ The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks a
 ## Requirements
 
 * Setup [uv](https://docs.astral.sh/uv/)
-* bash/zsh alias `task='./task'` with optional [completion](https://github.com/janikvonrotz/dotfiles/blob/master/oh-my-zsh-completions/_task)
+* bash/zsh alias `task='./task'` with optional [completion](https://taskfile.build/#completion)
 
 ## Usage
 
