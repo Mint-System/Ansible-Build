@@ -102,7 +102,7 @@ nginx_proxies:
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
       client_max_body_size 32M;
       if ($request_method = OPTIONS) {
-        add_header Access-Control-Allow-Origin "http://localhost:8080";
+        add_header Access-Control-Allow-Origin "$http_origin";
         add_header Access-Control-Allow-Credentials true;
         add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS";
         add_header Access-Control-Allow-Headers "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With";
@@ -111,9 +111,10 @@ nginx_proxies:
         add_header Content-Length 0;
         return 204;
       }
-      add_header Access-Control-Allow-Origin "http://localhost:8080";
-      add_header Access-Control-Allow-Credentials true;
-      proxy_cookie_path / "/; secure; HttpOnly; SameSite=None";
+      add_header 'Access-Control-Allow-Origin' "$http_origin";
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+      add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With,X-API-Key';
     locations:
       - path: /websocket
         dest_hostname: odoochat
