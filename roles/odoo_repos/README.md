@@ -10,6 +10,7 @@ Configure the role.
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_revision: "16.0.20240603"
 odoo_repo_key_file: /home/bot/.ssh/id_ed25519
+github_personal_access_token: # default: "{{ vault_github_personal_access_token }}"
 odoo_repos:
   - path: enterprise
     url: git@github.com:odoo/enterprise.git
@@ -38,6 +39,18 @@ The following tags are available:
 * odoo_repos
 
 ## Docs
+
+### Clone with http url
+
+
+To clone private repos with an http url set the `vault_github_personal_access_token` var and define `github_username`. Use the following format to clone repos with http:
+
+```yml
+odoo_repos:
+  - path: enterprise
+    url: https://{{ github_username }}:{{ github_personal_access_token }}@github.com/odoo/enterprise.git
+    version: 8638ccc9cc26b997caee852e266b7ecc6f7c632a
+```
 
 ### Pull repo manually
 
