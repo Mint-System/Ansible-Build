@@ -1,2 +1,3 @@
 ---
 odoo_data_dir: /usr/share/{{ odoo_hostname }}
+github_personal_access_token: "{{ vault_github_personal_access_token }}"

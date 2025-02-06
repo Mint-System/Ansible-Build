@@ -7,7 +7,7 @@ Deploy Odoo Docker container.
 Configure the role.
 
 ```yml
-# https://hub.docker.com/_/odoo/
+# https://hub.docker.com/r/mintsystem/odoo/
 odoo_revision: "16.0.20240603"
 odoo_image: mintsystem/odoo:16.0.20240603
 odoo_build_image: true # default: false
@@ -114,6 +114,7 @@ Once workers are active the longpolling port moves from 8069 to 8072 and therefo
 Configure these vars when using the official Odoo image:
 
 ```yml
+# https://hub.docker.com/_/odoo/
 odoo_revision: "16.0.20240603"
 odoo_image: odoo@sha256:df0276cdb0ff8bb7883058071daf898d90fdbf13045ae96d131584660878da84
 odoo_conf: | # default: ""
