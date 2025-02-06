@@ -27,6 +27,15 @@ nginx_proxies:
     options: |
       include /etc/nginx/conf.d/proxies/loki.nginx;
 ```
+or if loki runs on a dedicated domain
+
+```yml
+nginx_proxies:
+  - src_hostname: server.example.com
+    ssl: true
+    options: |
+      include /etc/nginx/conf.d/proxies/loki-dedicated-domain.nginx;
+```
 
 And include it in your playbook.
 

@@ -161,7 +161,7 @@ scrape_configs:
       username: {{ prometheus_uptime_kuma_exporter_basic_auth_username }}
       password: {{ prometheus_uptime_kuma_exporter_basic_auth_password }}
     static_configs:
-      - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `uptime-kuma`)].src_hostname') | flatten }}
+      - targets: ['{{ uptime_kuma_hostname }}']
 {% endif %}
 {% if prometheus_meilisearch_exporter_api_key is defined %}
   - job_name: meilisearch https
