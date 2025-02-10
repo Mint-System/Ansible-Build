@@ -2,6 +2,8 @@
 
 Install Odoo apps from file or url.
 
+#DEPRECATED: Use the [Odoo Repos](../odoo_repos/README.md) role instead.
+
 ## Usage
 
 Configure the role.
