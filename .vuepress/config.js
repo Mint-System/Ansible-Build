@@ -24,7 +24,8 @@ export default defineUserConfig({
         navbar: [
             { text: 'Home', link: '/' },
             { text: 'Scripts', link: '/scripts' },
-            { text: 'Mint System', link: 'https://www.mint-system.ch' }
+            { text: 'Mint System', link: 'https://www.mint-system.ch' },
+            { text: 'Chat', link: 'https://matrix.to/#/#ansible-build:mint-system.ch' }
         ],
     }),
     plugins: [
