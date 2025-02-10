@@ -2,6 +2,8 @@
 
 Apply custom Odoo patches.
 
+#DEPRECATED: This role is no longer maintained.
+
 ## Usage
 
 Configure the role.
