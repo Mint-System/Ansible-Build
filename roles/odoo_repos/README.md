@@ -34,10 +34,6 @@ And include it in your playbook.
   - role: odoo_repos
 ```
 
-The following tags are available:
-
-* odoo_repos
-
 ## Docs
 
 ### Clone with http url
