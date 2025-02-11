@@ -4,7 +4,7 @@ Deploy Odoo Docker container.
 
 ## Usage
 
-This role suports to Docker images.
+This role suports two Docker images.
 
 * Mint System Odoo: <https://hub.docker.com/r/mintsystem/odoo/>
 * Odoo: <https://hub.docker.com/_/odoo>
@@ -44,7 +44,9 @@ odoo_conf_limit_time_real: 600 # default: 1200
 odoo_backup_set: # See restic_backup_set var in role restic
 ```
 
-### Offical Image
+### Odoo
+
+Configure the role.
 
 ```yml
 # https://hub.docker.com/_/odoo/
