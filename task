@@ -180,7 +180,7 @@ function llm-update() {
     fi
 
     # Get files from path
-    FILES=$(find "$1" -type f \( -name "*.md" -o -name "*.yml" -o -name "*.yaml" \))
+    FILES=$(find "$1" -type f \( -name "*.md" -o -name "*.yml" -o -name "*.yaml" -o -name "*.conf" -o -name "*.nginx" \))
     echo -e "Loaded these files into prompt:\n\n$FILES\n"
 
     # Prompt task description
