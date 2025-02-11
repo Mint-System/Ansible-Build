@@ -28,25 +28,12 @@ scrape_configs:
   pipeline_stages:
   - json:
       expressions:
-        output: log
         stream: stream
-        attrs:
-  - json:
-      expressions:
-        tag:
-      source: attrs
+        attrs: attrs
+        tag: attrs.tag
   - regex:
-      expression: (?P<image_name>(?:[^|]*[^|])).(?P<container_name>(?:[^|]*[^|])).(?P<image_id>(?:[^|]*[^|])).(?P<container_id>(?:[^|]*[^|]))
-      source: tag
-  - timestamp:
-      format: RFC3339Nano
-      source: time
+      expression: (?P<container_name>(?:[^|]*[^|]))
+      source: "tag"
   - labels:
-      tag:
       stream:
-      image_name:
       container_name:
-      image_id:
-      container_id:
-  - output:
-      source: output

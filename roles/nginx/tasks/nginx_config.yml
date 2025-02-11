@@ -18,6 +18,15 @@
     src: default.conf
     dest: "{{ nginx_data_dir }}/default.conf"
 
+- name: Get list of running container names
+  ansible.builtin.command: docker ps --format "{% raw %}{{.Names}}{% endraw %}"
+  register: running_containers
+  changed_when: false
+
+- name: Filter proxies hostname against container names
+  set_fact:
+    nginx_proxies: "{{ nginx_proxies | selectattr('dest_hostname', 'in', running_containers.stdout_lines) | list }}"
+
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
     src: nginx-proxy.conf
@@ -59,13 +68,7 @@
   loop: "{{ nginx_proxy_conf_files.stdout_lines }}"
   when: item not in managed_files
 
-- name: Get infos on container {{ nginx_hostname }}
-  community.docker.docker_container_info:
-    name: "{{ nginx_hostname }}"
-  register: nginx_container
-
 - name: Test {{ role_name }} conf files
   ansible.builtin.command: docker exec {{ nginx_hostname }} nginx -t
-  when: nginx_container.exists
   tags:
     - check
