@@ -2,6 +2,8 @@
 
 Deploy Elasticsearch Docker cluster.
 
+#DEPRECATED: This role is no longer maintained.
+
 ## Usage
 
 Configure the role.
@@ -61,17 +63,19 @@ And include it in your playbook.
 ## Development
 
 ### Encrypting communications between nodes in a cluster
-edit
 
 Generate key material for node communication.
 
 ```bash
 # Log into elastic container
 docker exec -it elastic01 /bin/bash
+
 # Create ca certificate without password
 elasticsearch-certutil ca
+
 # Create node certificate wihtout password
 elasticsearch-certutil  cert --ca elastic-stack-ca.p12
+
 # Copy these files into the files folder of the elasticsearch role
 # Encrypt files with Ansible vault
 ansible-vault encrypt roles/elasticsearch/files/elastic-certificates.p12
