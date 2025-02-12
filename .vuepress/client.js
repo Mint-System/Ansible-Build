@@ -1,4 +1,5 @@
 import { defineClientConfig } from '@vuepress/client'
+import './style.css'
 
 const { domain = undefined } = __PLAUSIBLE_OPTIONS__
 

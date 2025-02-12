@@ -39,6 +39,6 @@ export default defineUserConfig({
         shikiPlugin({
             theme: 'catppuccin-latte',
             langs: ['bash', 'yml', 'yaml', 'json', 'css', 'html', 'xml', 'groovy', 'py', 'python', 'sql', 'powershell', 'txt', 'csv', 'mermaid', 'md', 'markdown', 'toml', 'php'],
-        }),
+        })
     ],
 })

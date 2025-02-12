@@ -1,0 +1,23 @@
+@media (min-width: 960px) {
+    .table-of-contents {
+        position: fixed;
+        right: 0px;
+        top: 57px;
+        width: 200px;
+        background: rgba(255, 255, 255, 0.9);
+        z-index: 1000;
+        border: 1px solid var(--vp-c-border);
+    }
+
+    .table-of-contents ul {
+        list-style: none;
+    }
+    
+    .table-of-contents a {
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1.4;
+        text-decoration: none!important;
+    }
+}
+
