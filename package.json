@@ -25,10 +25,13 @@
   "homepage": "https://github.com/Mint-System/Ansible-Build#readme",
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.19",
+    "@vuepress/client": "2.0.0-rc.19",
     "@vuepress/plugin-search": "2.0.0-rc.74",
     "@vuepress/plugin-shiki": "2.0.0-rc.76",
     "@vuepress/theme-default": "2.0.0-rc.76",
+    "@vuepress/utils": "2.0.0-rc.2",
     "mermaid": "^11.4.1",
+    "sass-embedded": "^1.83.4",
     "vue": "^3.5.13",
     "vuepress": "2.0.0-rc.19"
   }
