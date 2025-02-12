@@ -22,7 +22,8 @@
     recreate: false
     state: "{{ promtail_state }}"
     volumes:
-      - "{{ docker_data_dir }}:/var/lib/docker:ro"
+      - "{{ docker_data_dir }}/containers:/var/lib/docker/containers:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
       - "{{ promtail_data_dir }}:/etc/promtail"
     command: -config.file=/etc/promtail/config.yml
     networks:
