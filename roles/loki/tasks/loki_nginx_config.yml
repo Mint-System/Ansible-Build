@@ -23,8 +23,3 @@
   ansible.builtin.template:
     src: loki.nginx
     dest: "{{ loki_nginx_data_dir }}/loki.nginx"
-
-- name: Copy nginx {{ role_name }} conf if loki runs on dedicated domain
-  ansible.builtin.template:
-    src: loki-dedicated-domain.nginx
-    dest: "{{ loki_nginx_data_dir }}/loki-dedicated-domain.nginx"
