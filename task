@@ -15,6 +15,7 @@ function help() {
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "decrypt-secret" "[vault_id]" "Decrypt encrypted string."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with uv."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with uv."
@@ -68,6 +69,12 @@ function encrypt-string() {
         echo "Encrypting value: $STRING_VALUE"
     fi
     ansible-vault encrypt_string --encrypt-vault-id="$1"  --name "$STRING_KEY" "$STRING_VALUE"
+}
+
+function decrypt-secret() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    echo "Enter the encrypted yaml content of your secret and confirm with ctrl + d:"
+    ansible-vault decrypt --vault-id="$1"
 }
 
 function convert-vault-file() {
