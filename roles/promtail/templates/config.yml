@@ -1,8 +1,8 @@
 #FROM: https://github.com/grafana/loki/blob/v3.3.2/clients/cmd/promtail/promtail-local-config.yaml
 
 server:
-  http_listen_address: 0.0.0.0
   http_listen_port: 9080
+  grpc_listen_port: 0
 
 positions:
   filename: /tmp/positions.yaml
