@@ -24,11 +24,12 @@
   },
   "homepage": "https://github.com/Mint-System/Ansible-Build#readme",
   "devDependencies": {
-    "@vuepress/bundler-vite": "^2.0.0-rc.14",
-    "@vuepress/plugin-search": "^2.0.0-rc.39",
-    "@vuepress/plugin-shiki": "^2.0.0-rc.39",
-    "@vuepress/theme-default": "^2.0.0-rc.39",
-    "mermaid": "^11.4.0",
-    "vuepress": "^2.0.0-rc.14"
+    "@vuepress/bundler-vite": "2.0.0-rc.19",
+    "@vuepress/plugin-search": "2.0.0-rc.74",
+    "@vuepress/plugin-shiki": "2.0.0-rc.76",
+    "@vuepress/theme-default": "2.0.0-rc.76",
+    "mermaid": "^11.4.1",
+    "vue": "^3.5.13",
+    "vuepress": "2.0.0-rc.19"
   }
 }
