@@ -15,15 +15,15 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/mintsystem/odoo/
-odoo_revision: "16.0.20240603"
-odoo_image: mintsystem/odoo:16.0.20240603
+odoo_revision: "16.0.20250207"
+odoo_image: mintsystem/odoo:16.0.20250207
 odoo_build_image: true # default: false
 odoo_hostname: odoo01
 odoo_config_map: # default: - name: prod
   - name: prod
   - name: int
 odoo_timezone: Europe/Paris # default: Europe/Zurich
-odoo_description: Odoo14 # default: Odoo
+odoo_description: Odoo16 # default: Odoo
 odoo_state: stopped # default: started
 odoo_ports: # default: []
  - "127.0.0.1:8069:8069"
@@ -50,8 +50,8 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/odoo/
-odoo_revision: "16.0.20240603"
-odoo_image: odoo:16.0-20240603
+odoo_revision: "16.0.20250207"
+odoo_image: odoo:16.0-20250207
 odoo_build_image: true # default: false
 odoo_build_dockerfile: | # default: ""
   RUN pip install prometheus-client
@@ -60,7 +60,7 @@ odoo_config_map: # default: - name: prod
   - name: prod
   - name: int
 odoo_timezone: Europe/Paris # default: Europe/Zurich
-odoo_description: Odoo14 # default: Odoo
+odoo_description: Odoo16 # default: Odoo
 odoo_state: stopped # default: started
 odoo_ports: # default: []
  - "127.0.0.1:8069:8069"
