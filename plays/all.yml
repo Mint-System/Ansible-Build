@@ -70,6 +70,8 @@
       tags: loki
     - role: grafana
       tags: grafana
+    - role: alertmanager
+      tags: alertmanager
     - role: restic_server
       tags: restic_server
     - role: htpasswd
