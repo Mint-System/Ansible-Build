@@ -2,6 +2,8 @@
 - name: Server setup
   hosts: all
   roles:
+    - role: motd
+      tags: motd
     - role: hosts
       tags: hosts
     - role: timezone

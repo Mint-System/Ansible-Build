@@ -102,6 +102,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [metabase](roles/metabase/README.md)                                   | Deploy Metabase Docker container.                                |
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
+| [motd](roles/motd/README.md)                                           | Set message of the day.                                         |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |
 | [n8n](roles/n8n/README.md)                                             | Deploy N8N container.                                            |
 | [n8n_exporter](roles/n8n_exporter/README.md)                           | Add nginx config for N8N exporter path.                          |
