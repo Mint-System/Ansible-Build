@@ -9,6 +9,8 @@ Configure the role.
 ```yml
 nextcloud_hostname: nextcloud01 # default: "/usr/share/{{ odoo_hostname }}"
 nextcloud_apps:
+  - name: activity
+    state: present
   - name: calendar
     state: present
   - name: files_external
@@ -22,7 +24,7 @@ nextcloud_apps:
 And include it in your playbook.
 
 ```yml
-- hosts: nextclcoud-apps
+- hosts: nextclcoud_apps
   roles:
   - role: nextcloud_apps
 ```
