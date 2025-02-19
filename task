@@ -107,22 +107,26 @@ show-vault-file() {
     TEMP_FILE=$(mktemp)
     TEMP_ENTRY_FILE=$(mktemp)
 
-    yq -r 'to_entries | .[] | .key + ":" + (.value | @json)' "$FILE_PATH" | while IFS= read -r LINE; do
-        KEY=$(echo "$LINE" | cut -d':' -f1)
-        VALUE=$(echo "$LINE" | cut -d':' -f2-)
+    if head -n 1 "$FILE_PATH" | grep -q "^\$ANSIBLE_VAULT;1.2;AES256;$VAULT_ID"; then
+        ansible-vault decrypt --output="$TEMP_FILE" "$FILE_PATH" 2>/dev/null
+    else
+        yq -r 'to_entries | .[] | .key + ":" + (.value | @json)' "$FILE_PATH" | while IFS= read -r LINE; do
+            KEY=$(echo "$LINE" | cut -d':' -f1)
+            VALUE=$(echo "$LINE" | cut -d':' -f2-)
 
-        # Store value in temporary file
-        (echo -e "$VALUE" | sed 's|\"||g')  > "$TEMP_ENTRY_FILE"
+            # Store value in temporary file
+            (echo -e "$VALUE" | sed 's|\"||g')  > "$TEMP_ENTRY_FILE"
 
-        # Decrypt temporary file
-        ansible-vault decrypt "$TEMP_ENTRY_FILE" 2>/dev/null
+            # Decrypt temporary file
+            ansible-vault decrypt "$TEMP_ENTRY_FILE" 2>/dev/null
 
-        # Pipe content of temporary file
-        DECRYPTED=$(cat "$TEMP_ENTRY_FILE")
-        echo -e "$KEY: $DECRYPTED\n" >> "$TEMP_FILE"
-    done
+            # Pipe content of temporary file
+            DECRYPTED=$(cat "$TEMP_ENTRY_FILE")
+            echo -e "$KEY: $DECRYPTED\n" >> "$TEMP_FILE"
+        done
+    fi
 
-    less "$TEMP_FILE"
+    batcat --paging=always "$TEMP_FILE"
     rm -f "$TEMP_FILE"
     rm -f "$TEMP_ENTRY_FILE"
 }
