@@ -59,5 +59,6 @@
   community.general.git_config:
     name: safe.directory
     scope: global
+    add_mode: add
     value: "{{ odoo_data_dir }}/{{ item.path }}"
   loop: "{{ odoo_repos }}"
