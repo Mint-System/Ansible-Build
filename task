@@ -14,8 +14,8 @@ function help() {
     echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "decrypt-secret" "[vault_id]" "Decrypt encrypted string."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with uv."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with uv."
@@ -71,18 +71,62 @@ function encrypt-string() {
     ansible-vault encrypt_string --encrypt-vault-id="$1"  --name "$STRING_KEY" "$STRING_VALUE"
 }
 
-function decrypt-secret() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
-    echo "Enter the encrypted yaml content of your secret and confirm with ctrl + d:"
-    ansible-vault decrypt --vault-id="$1"
-}
-
 function convert-vault-file() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    if test -z "$2"; then echo "\$2 is empty"; exit; fi
 
-    # python convert-vault-file "$1" "$2"
+    VAULT_ID=$1
+    FILE_PATH=$2
+    TEMP_FILE=$(mktemp)
+
+    # Decrypt the vault file
+    ansible-vault decrypt --output="$FILE_PATH" "$FILE_PATH"
+
+    # Process each key-value pair
+    yq -r 'to_entries | .[] | .key + ":" + (.value | @json)' "$FILE_PATH" | while IFS= read -r LINE; do
+        KEY=$(echo "$LINE" | cut -d':' -f1)
+        VALUE=$(echo "$LINE" | cut -d':' -f2-)
+        VALUE=$(echo "$VALUE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//')
+        
+        # Re-encrypt the key-value pair
+        ENCYRPTED=$(ansible-vault encrypt_string --encrypt-vault-id="$VAULT_ID" --name "$KEY" "$VALUE" 2>/dev/null)
+        echo "$ENCYRPTED" >> "$TEMP_FILE"
+    done
+
+    # Move temp file to vault file
+    mv "$TEMP_FILE" "$FILE_PATH"
+    echo "Converted file saved as $FILE_PATH"
 }
+
+show-vault-file() {
+    if test -z "$1"; then echo "\$1 is empty"; exit 1; fi
+    if test -z "$2"; then echo "\$2 is empty"; exit 1; fi
+
+    VAULT_ID="$1"
+    FILE_PATH="$2"
+    TEMP_FILE=$(mktemp)
+    TEMP_ENTRY_FILE=$(mktemp)
+
+    yq -r 'to_entries | .[] | .key + ":" + (.value | @json)' "$FILE_PATH" | while IFS= read -r LINE; do
+        KEY=$(echo "$LINE" | cut -d':' -f1)
+        VALUE=$(echo "$LINE" | cut -d':' -f2-)
+
+        # Store value in temporary file
+        (echo -e "$VALUE" | sed 's|\"||g')  > "$TEMP_ENTRY_FILE"
+
+        # Decrypt temporary file
+        ansible-vault decrypt "$TEMP_ENTRY_FILE" 2>/dev/null
+
+        # Pipe content of temporary file
+        DECRYPTED=$(cat "$TEMP_ENTRY_FILE")
+        echo -e "$KEY: $DECRYPTED\n" >> "$TEMP_FILE"
+    done
+
+    less "$TEMP_FILE"
+    rm -f "$TEMP_FILE"
+    rm -f "$TEMP_ENTRY_FILE"
+}
+
 
 function init-venv() {
     if [ ! -d "venv$GIT_BRANCH" ]; then
