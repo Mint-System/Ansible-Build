@@ -55,7 +55,7 @@ done
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
 # Switch container name with id
-CONTAINER_ID=$(docker ps -f "name=$CONTAINER" -q | tail -n1)
+CONTAINER_ID=$(docker ps -f "name=${CONTAINER}$" -q | tail -n1)
 [[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
 
 # Append commit command if forced
