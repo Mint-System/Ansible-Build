@@ -1,11 +1,6 @@
 #!/bin/bash
 set -e
 
-# Check requiremements
-command -v rsync >/dev/null 2>&1 || { echo >&2 "rsync not found."; exit 1; }
-command -v ssh-keygen >/dev/null 2>&1 || { echo >&2 "ssh-keygen not found."; exit 1; }
-command -v psql >/dev/null 2>&1 || { echo >&2 "psql not found."; exit 1; }
-
 SCRIPT=$(basename "$0")
 VERSION="1.0.0"
 
@@ -16,7 +11,7 @@ Help() {
     echo
     echo "Description: Run Odoo upgrade scripts for target PostgreSQL database."
     echo "Syntax: $SCRIPT [-c|-s|-t|-r|-u|-V|help]"
-    echo "Example: $SCRIPT -c postgres01 -h localhost -p 6543 -d erp -s 16.0 -t 17.0 -m test -l MXXXXXXXXX"
+    echo "Example: $SCRIPT -c postgres01 -h localhost -p 2345 -d erp -s 16.0 -t 17.0 -m test -l MXXXXXXXXX"
     echo "options:"
     echo "  -c    PostgreSQL container. Defaults to 'postgres'."
     echo "  -h    PostgreSQL hostname. Defaults to container name."
@@ -36,6 +31,12 @@ if [[ "$1" == "help" ]]; then
     Help
     exit
 fi
+
+# Check requiremements
+command -v rsync >/dev/null 2>&1 || { echo >&2 "rsync not found: apt-get install rsync"; exit 1; }
+command -v ssh-keygen >/dev/null 2>&1 || { echo >&2 "ssh-keygen not found: apt-get install openssh-client"; exit 1; }
+command -v psql >/dev/null 2>&1 || { echo >&2 "psql not found: apt-get install postgresql-client-1X"; exit 1; } # 
+command -v python3 >/dev/null 2>&1 || { echo >&2 "python3 not found: apt-get install python3"; exit 1; } # 
 
 # Process params
 while getopts ":c: :h: :p: :d: :s: :t: :m: :l: :V" opt; do
@@ -76,14 +77,14 @@ export PGHOST
 export PGUSER
 export PGPASSWORD
 
-#FIXME: Run the commands below in a custom Docker container. Get rid of the hostname parameter.
+#FIXME: Run the commands below in a custom Docker container. Get rid of the hostname parameter and dependencies.
 
 NEW_DATABASE="${DATABASE}_${ODOO_TARGET_VERSION}"
 echo "Run upgrade script for database $DATABASE in $MODE mode."
 echo "The database will be upgraded from $ODOO_CURRENT_VERSION to $ODOO_TARGET_VERSION."
 if [ -z "$LICENSE" ]; then
-    python <(curl -s https://upgrade.odoo.com/upgrade) "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "$NEW_DATABASE"
+    python3 <(curl -s https://upgrade.odoo.com/upgrade) "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "upgrade"
 else
-    python <(curl -s https://upgrade.odoo.com/upgrade) "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "$NEW_DATABASE" -c "$LICENSE"
+    python3 <(curl -s https://upgrade.odoo.com/upgrade) "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "upgrade" -c "$LICENSE"
 fi
-echo "The upgrade has been successful. The upgraded database has been restored as $NEW_DATABASE."
+echo "The upgrade has been successful. The upgraded database has been restored as 'upgrade'."
