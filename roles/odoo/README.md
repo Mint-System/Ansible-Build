@@ -23,7 +23,7 @@ odoo_config_map: # default: - name: prod
   - name: prod
   - name: int
 odoo_timezone: Europe/Paris # default: Europe/Zurich
-odoo_description: Odoo16 # default: Odoo
+odoo_description: Odoo 16 # default: Odoo
 odoo_state: stopped # default: started
 odoo_ports: # default: []
  - "127.0.0.1:8069:8069"
@@ -60,7 +60,7 @@ odoo_config_map: # default: - name: prod
   - name: prod
   - name: int
 odoo_timezone: Europe/Paris # default: Europe/Zurich
-odoo_description: Odoo16 # default: Odoo
+odoo_description: Odoo 16 # default: Odoo
 odoo_state: stopped # default: started
 odoo_ports: # default: []
  - "127.0.0.1:8069:8069"
