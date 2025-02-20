@@ -2,14 +2,14 @@
 
 The following Ansible roles contain command line tools that can be used independent of Ansible.
 
-## [ansible_scripts](role/ansible_scripts/README.md)
+## [ansible_scripts](roles/ansible_scripts/README.md)
 
 ```bash
 curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/ansible_scripts/files/install | bash
 ```
 
 - ansible-vault-get
-  
+
 ## [odoo_scripts](roles/odoo_scripts/README.md)
 
 ```bash
