@@ -23,9 +23,9 @@
   register: running_containers
   changed_when: false
 
-- name: Filter proxies hostname against container names
-  set_fact:
-    nginx_proxies: "{{ nginx_proxies | selectattr('dest_hostname', 'in', running_containers.stdout_lines) | list }}"
+# - name: Filter proxies hostname against container names
+#   set_fact:
+#     nginx_proxies: "{{ nginx_proxies | selectattr('dest_hostname', 'in', running_containers.stdout_lines) | list }}"
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
