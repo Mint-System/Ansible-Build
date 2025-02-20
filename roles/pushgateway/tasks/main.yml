@@ -7,7 +7,7 @@
 
 - name: Include {{ role_name }} nginx config tasks
   ansible.builtin.include_tasks: "{{ role_name }}_nginx_config.yml"
-  when: pushgateway_image is defined
+  when: pushgateway_hostname is defined
   tags:
     - pushgateway
     - pushgateway_nginx_config

@@ -7,7 +7,7 @@
 
 - name: Include {{ role_name }} nginx config tasks
   ansible.builtin.include_tasks: "{{ role_name }}_nginx_config.yml"
-  when: postgres_exporter_proxy_basic_auth_password is defined
+  when: postgres_exporter_hostname is defined
   tags:
     - postgres_exporter
     - postgres_exporter_nginx_config
