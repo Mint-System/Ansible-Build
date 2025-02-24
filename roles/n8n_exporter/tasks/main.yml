@@ -1,6 +1,6 @@
 ---
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: n8n_hostname is defined
+  when: n8n_exporter_proxy_basic_auth_password is defined
   tags:
     - n8n_exporter
