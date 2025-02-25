@@ -48,7 +48,7 @@ Setup this Nginx configuration for the `n8n01-prod` host:
 nginx_proxies:
   - src_hostname: n8n.example.com
     dest_hostname: n8n01-prod
-    dest_port: 3000
+    dest_port: 5678
     ssl: true
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;
