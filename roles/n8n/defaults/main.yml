@@ -1,8 +1,5 @@
 ---
 n8n_build_image: false
-n8n_config_map:
-  - name: prod
-    webhook_url: ""
 n8n_description: N8N
 n8n_state: started
 n8n_volume_name: "{{ n8n_hostname }}"
