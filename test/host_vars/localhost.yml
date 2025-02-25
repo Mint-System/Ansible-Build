@@ -97,7 +97,7 @@ odoo_build_dockerfile: |
   USER odoo
   RUN uv pip install prometheus-client python-jose pyodbc pymssql
 odoo_hostname: odoo01
-odoo_description: Odoo18
+odoo_description: Odoo 18
 odoo_master_password: odoo
 odoo_postgres_user: example
 odoo_postgres_password: test
