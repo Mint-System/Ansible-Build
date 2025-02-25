@@ -83,7 +83,7 @@ function convert-vault-file() {
     ansible-vault decrypt --output="$FILE_PATH" "$FILE_PATH"
 
     # Process each key-value pair
-    yq -r 'to_entries | .[] | .key + ":" + (.value | @json)' "$FILE_PATH" | while IFS= read -r LINE; do
+    yq eval '.' "$FILE_PATH" | while IFS= read -r LINE; do
         KEY=$(echo "$LINE" | cut -d':' -f1)
         VALUE=$(echo "$LINE" | cut -d':' -f2-)
         VALUE=$(echo "$VALUE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//')
@@ -108,22 +108,25 @@ show-vault-file() {
     TEMP_ENTRY_FILE=$(mktemp)
 
     if head -n 1 "$FILE_PATH" | grep -q "^\$ANSIBLE_VAULT;1.2;AES256;$VAULT_ID"; then
-        ansible-vault decrypt --output="$TEMP_FILE" "$FILE_PATH" 2>/dev/null
+        ansible-vault decrypt --output="$TEMP_FILE" "$FILE_PATH"
     else
-        yq -r 'to_entries | .[] | .key + ":" + (.value | @json)' "$FILE_PATH" | while IFS= read -r LINE; do
-            KEY=$(echo "$LINE" | cut -d':' -f1)
-            VALUE=$(echo "$LINE" | cut -d':' -f2-)
-
-            # Store value in temporary file
-            (echo -e "$VALUE" | sed 's|\"||g')  > "$TEMP_ENTRY_FILE"
-
-            # Decrypt temporary file
-            ansible-vault decrypt "$TEMP_ENTRY_FILE" 2>/dev/null
-
-            # Pipe content of temporary file
-            DECRYPTED=$(cat "$TEMP_ENTRY_FILE")
-            echo -e "$KEY: $DECRYPTED\n" >> "$TEMP_FILE"
-        done
+        WRITE_FINISHED=false
+        while IFS= read -r LINE; do
+            if [[ "$LINE" =~ "!vault" ]]; then
+                if [ "$WRITE_FINISHED" ] && [ -s "$TEMP_ENTRY_FILE" ]; then
+                    ansible-vault decrypt "$TEMP_ENTRY_FILE"
+                    KEY=$(echo "$LINE" | cut -d':' -f1)
+                    VALUE=$(cat "$TEMP_ENTRY_FILE")
+                    echo "$KEY: $VALUE" >> "$TEMP_FILE"
+                fi
+                : > "$TEMP_ENTRY_FILE"
+                WRITE_FINISHED=true
+            else
+                if [ "$WRITE_FINISHED" ]; then
+                    echo "$LINE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//' >> "$TEMP_ENTRY_FILE"
+                fi
+            fi
+        done < "$FILE_PATH"
     fi
 
     batcat --paging=always "$TEMP_FILE"
@@ -187,9 +190,9 @@ function show-passwordless-sudo() {
 
 function galaxy-build() {
     activate-venv
-    VERSION=$(yq -r .version galaxy.yml)
-    NAMESPACE=$(yq -r .namespace galaxy.yml)
-    NAME=$(yq -r .name galaxy.yml)
+    VERSION=$(yq eval '.version' galaxy.yml)
+    NAMESPACE=$(yq eval '.namespace' galaxy.yml)
+    NAME=$(yq eval '.name' galaxy.yml)
     
     ansible-galaxy collection build
     mv $NAMESPACE-$NAME-$VERSION.tar.gz tmp/
@@ -197,9 +200,9 @@ function galaxy-build() {
 
 function galaxy-publish() {
     activate-venv
-    VERSION=$(yq -r .version galaxy.yml)
-    NAMESPACE=$(yq -r .namespace galaxy.yml)
-    NAME=$(yq -r .name galaxy.yml)
+    VERSION=$(yq eval '.version' galaxy.yml)
+    NAMESPACE=$(yq eval '.namespace' galaxy.yml)
+    NAME=$(yq eval '.name' galaxy.yml)
 
     ansible-galaxy collection publish tmp/$NAMESPACE-$NAME-$VERSION.tar.gz --token "$GALAXY_API_TOKEN"
 }
