@@ -1,6 +1,6 @@
 # resolv role
 
-Manage resolv configuration.
+Manage DNS configuration.
 
 ## Usage
 
@@ -8,6 +8,8 @@ Configure the role.
 
 ```yml
 resolv_enabled: true # default: false
+resolv_dns: 9.9.9.9 149.112.112.112"
+resolv_fallback_dns: "2620:fe::fe 2620:fe::9"
 resolv_nameserver: 1.1.1.1
 resolv_domain_name: test.example.com
 resolv_domain_search:
@@ -22,7 +24,7 @@ resolv_hosts:
 And include it in your playbook.
 
 ```yml
-- hosts: system
+- hosts: resolv
   roles:
-  - role: system
+  - role: resolv
 ```

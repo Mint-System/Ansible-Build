@@ -3,6 +3,8 @@
   hosts: localhost
   connection: local
   roles:
+    - role: resolv
+      tags: resolv
     - role: odoo
       tags: odoo
     - role: odoo_scripts

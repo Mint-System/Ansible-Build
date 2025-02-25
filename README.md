@@ -134,7 +134,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [rclone](roles/rclone/README.md)                                       | Sync files with RClone.                                          |
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
-| [resolv](roles/resolv/README.md)                                       | Manage resolv configuration.                                     |
+| [resolv](roles/resolv/README.md)                                       | Manage DNS configuration.                                        |
 | [restic](roles/restic/README.md)                                       | Configure Restic backup jobs.                                    |
 | [restic_server](roles/restic_server/README.md)                         | Deploy Restic server container.                                  |
 | [restic_exporter](roles/restic_exporter/README.md)                     | Add nginx config for Restic exporter path.                       |

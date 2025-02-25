@@ -1,4 +1,22 @@
 ---
+- name: Configure systemd DNS
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    state: present
+    line: "DNS={{ resolv_dns }}"
+    backup: true
+  when: resolv_dns is defined
+  notify: Restart and test systemd-resolved
+
+- name: Configure systemd fallback DNS
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    state: present
+    line: "FallbackDNS={{ resolv_fallback_dns }}"
+    backup: true
+  when: resolv_fallback_dns is defined
+  notify: Restart and test systemd-resolved
+
 - name: Configure DNS server
   lineinfile:
     path: /etc/resolv.conf
