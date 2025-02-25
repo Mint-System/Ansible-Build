@@ -6,7 +6,7 @@
     line: "DNS={{ resolv_dns }}"
     backup: true
   when: resolv_dns is defined
-  notify: Restart and test systemd-resolved
+  notify: Restart systemd-resolved
 
 - name: Configure systemd fallback DNS
   lineinfile:
@@ -15,7 +15,7 @@
     line: "FallbackDNS={{ resolv_fallback_dns }}"
     backup: true
   when: resolv_fallback_dns is defined
-  notify: Restart and test systemd-resolved
+  notify: Restart systemd-resolved
 
 - name: Configure DNS server
   lineinfile:

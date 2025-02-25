@@ -1,15 +1,5 @@
 ---
-- name: Restart and test systemd-resolved
-  when: resolv_dns is defined or resolv_fallback_dns is defined
-  block:
-    - name: Restart systemd-resolved
-      systemd:
-        name: systemd-resolved
-        state: restarted
-      when: resolv_dns is defined or resolv_fallback_dns is defined
-
-    - name: Test DNS resolution after restart
-      command: resolvectl query example.com
-      register: dns_test_result
-      failed_when: dns_test_result.rc != 0
-      changed_when: false
+- name: Restart systemd-resolved
+  systemd:
+    name: systemd-resolved
+    state: restarted
