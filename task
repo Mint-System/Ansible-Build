@@ -19,20 +19,20 @@ function help() {
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with uv."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with uv."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "llm-update" "[path][prompt]" "Feed role files with prompt to LLM and apply file changes."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "update-with-llm" "[path][prompt]" "Feed role files with prompt to LLM and apply file changes."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "lint" "" "Lint Ansible roles and playbooks."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-build" "" "Create tarball of collection."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "galaxy-publish" "" "Publish tarball to Ansible Galaxy."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-install" "" "Install build dependencies."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-dev" "" "Start vuepress development server."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-build" "" "Create vuepress build."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "node-serve-build" "" "Serve vuepress build."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "build-galaxy" "" "Create tarball of collection."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-node" "" "Install build dependencies."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "dev-node" "" "Start vuepress development server."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "build-node" "" "Create vuepress build."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "serve-node-build" "" "Serve vuepress build."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-hosts" "[path]" "Lists all hosts of an inventory."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test-scripts" "" "Install and test scripts."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "llm-update" "[path]" "Feed role files with prompt to LLM and apply updates with git path."
 
     echo
 }
@@ -44,6 +44,8 @@ LLM_MODEL=${LLM_MODEL:="deepseek-coder"}
 if [[ -a ".env" ]]; then
     export $(cat .env | sed 's/^#.*//g' | xargs)
 fi
+
+# Ansible Vault commands
 
 function generate-vault-password() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
@@ -134,6 +136,7 @@ show-vault-file() {
     rm -f "$TEMP_PART_FILE"
 }
 
+# Environment commands
 
 function init-venv() {
     if [ ! -d "venv$GIT_BRANCH" ]; then
@@ -165,18 +168,6 @@ function install-exo() {
     curl -fsSL https://raw.githubusercontent.com/exoscale/cli/master/install-latest.sh | sh
 }
 
-function upgrade() {
-    echo "Update Ansible"
-    uv pip install --upgrade ansible
-}
-
-function list-hosts() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
-
-    activate-venv
-    ansible -i $1 all --list-hosts
-}
-
 function version() {
     activate-venv
     uv --version
@@ -188,7 +179,25 @@ function show-passwordless-sudo() {
     echo "echo \"$USER ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
 }
 
-function galaxy-build() {
+# Ansible commands
+
+function upgrade() {
+    echo "Update Ansible"
+    uv pip install --upgrade ansible
+}
+
+# Ansible Invenotry commands
+
+function list-hosts() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+
+    activate-venv
+    ansible -i $1 all --list-hosts
+}
+
+# Ansible Galaxy commands
+
+function build-galaxy() {
     activate-venv
     VERSION=$(yq eval '.version' galaxy.yml)
     NAMESPACE=$(yq eval '.namespace' galaxy.yml)
@@ -198,7 +207,7 @@ function galaxy-build() {
     mv $NAMESPACE-$NAME-$VERSION.tar.gz tmp/
 }
 
-function galaxy-publish() {
+function publish-galaxy() {
     activate-venv
     VERSION=$(yq eval '.version' galaxy.yml)
     NAMESPACE=$(yq eval '.namespace' galaxy.yml)
@@ -206,6 +215,8 @@ function galaxy-publish() {
 
     ansible-galaxy collection publish tmp/$NAMESPACE-$NAME-$VERSION.tar.gz --token "$GALAXY_API_TOKEN"
 }
+
+# Test commands
 
 function test-localhost() {
     activate-venv
@@ -229,9 +240,13 @@ function test-localhost() {
     fi
 }
 
+function test-scripts() {
+    echo "Install cron scripts"
+}
+
 # LLM Commands
 
-function llm-update() {
+function update-with-llm() {
     if test -z "$1"; then 
         echo "\$1 is empty."; 
         exit 1; 
@@ -320,16 +335,16 @@ else
             help task
             exit 1
             ;;
-        node-install)
+        install-node)
             npm install
             ;;
-        node-dev)
+        dev-node)
             npm run dev
             ;;
-        node-build)
+        build-node)
             npm run build
             ;;
-        node-serve-build)
+        serve-node-build)
             cd .vuepress/dist
             npx serve
             ;;

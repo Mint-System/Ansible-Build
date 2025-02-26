@@ -47,4 +47,4 @@ done
 : ${CRONTAB_USERNAME:="$USERNAME"}
 
 # Fetch and list the Ansible jobs from the crontab
-sudo crontab -u "$CRONTAB_USERNAME"  -l | grep '^#Ansible: ' | sed 's/^#Ansible: //'
+sudo crontab -u "$CRONTAB_USERNAME" -l | awk '/^#Ansible: / {getline nextline; print $1, $2, $3, $4, $5}'

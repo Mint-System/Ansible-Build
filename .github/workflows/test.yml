@@ -22,3 +22,5 @@ jobs:
         run: cp ansible.cfg.template ansible.cfg
       - name: Run task test-localhost
         run: ./task test-localhost
+      - name: Run task test-scripts
+        run: ./task test-scripts
