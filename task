@@ -105,7 +105,7 @@ show-vault-file() {
     VAULT_ID="$1"
     FILE_PATH="$2"
     TEMP_FILE=$(mktemp)
-    TEMP_ENTRY_FILE=$(mktemp)
+    TEMP_PART_FILE=$(mktemp)
 
     if head -n 1 "$FILE_PATH" | grep -q "^\$ANSIBLE_VAULT;1.2;AES256;$VAULT_ID"; then
         ansible-vault decrypt --output="$TEMP_FILE" "$FILE_PATH"
@@ -113,17 +113,17 @@ show-vault-file() {
         WRITE_FINISHED=false
         while IFS= read -r LINE; do
             if [[ "$LINE" =~ "!vault" ]]; then
-                if [ "$WRITE_FINISHED" ] && [ -s "$TEMP_ENTRY_FILE" ]; then
-                    ansible-vault decrypt "$TEMP_ENTRY_FILE"
+                if [ "$WRITE_FINISHED" ] && [ -s "$TEMP_PART_FILE" ]; then
+                    ansible-vault decrypt "$TEMP_PART_FILE"
                     KEY=$(echo "$LINE" | cut -d':' -f1)
-                    VALUE=$(cat "$TEMP_ENTRY_FILE")
+                    VALUE=$(cat "$TEMP_PART_FILE")
                     echo "$KEY: $VALUE" >> "$TEMP_FILE"
                 fi
-                : > "$TEMP_ENTRY_FILE"
+                : > "$TEMP_PART_FILE"
                 WRITE_FINISHED=true
             else
                 if [ "$WRITE_FINISHED" ]; then
-                    echo "$LINE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//' >> "$TEMP_ENTRY_FILE"
+                    echo "$LINE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//' >> "$TEMP_PART_FILE"
                 fi
             fi
         done < "$FILE_PATH"
@@ -131,7 +131,7 @@ show-vault-file() {
 
     batcat --paging=always "$TEMP_FILE"
     rm -f "$TEMP_FILE"
-    rm -f "$TEMP_ENTRY_FILE"
+    rm -f "$TEMP_PART_FILE"
 }
 
 
