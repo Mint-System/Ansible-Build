@@ -11,7 +11,7 @@ grafana_mail_password: "{{ vault_grafana_mail_password }}"
 grafana_generic_oauth_enabled: "false"
 grafana_generic_oauth_name: Kecyloak
 grafana_generic_oauth_sign_up: "true"
-grafana_generic_oauth_scopes: profile
+grafana_generic_oauth_scopes: "openid profile email"
 
 grafana_azuread_enabled: "false"
 grafana_azuread_name: Azure AD
