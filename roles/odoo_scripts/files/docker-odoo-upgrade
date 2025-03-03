@@ -67,7 +67,7 @@ done
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 [[ -z "$ODOO_CURRENT_VERSION" ]] && { echo "Parameter -s|current version is empty" ; exit 1; }
-[[ -z "$DATANEW_DATABASEBASE" ]] && { echo "Parameter -n|new database is empty" ; exit 1; }
+[[ -z "$NEW_DATABASE" ]] && { echo "Parameter -n|new database is empty" ; exit 1; }
 [[ -z "$ODOO_TARGET_VERSION" ]] && { echo "Parameter -t|target version is empty" ; exit 1; }
 
 # Retrieve database credentials
