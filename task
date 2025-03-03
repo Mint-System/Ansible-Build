@@ -241,7 +241,19 @@ function test-localhost() {
 }
 
 function test-scripts() {
+    set -e
+    activate-venv
+
     echo "Install cron scripts"
+    sudo ./roles/cron/files/install
+
+    # Add cron job
+    ansible localhost -m ansible.builtin.cron -a 'name="test" minute="0" hour="*/6" job="echo \"test\""' --become
+
+    # List cron job and compare output
+    [[ "$(cron-job-list)" == "0 */6 * * * test" ]]
+
+    
 }
 
 # LLM Commands
