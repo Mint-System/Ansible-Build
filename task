@@ -31,7 +31,7 @@ function help() {
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test-scripts" "" "Install and test scripts."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test-scripts" "[clean]" "Install and test scripts."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
 
     echo
@@ -244,16 +244,19 @@ function test-scripts() {
     set -e
     activate-venv
 
-    echo "Install cron scripts"
-    sudo ./roles/cron/files/install
+    if [ "$1" = "clean" ]; then
+        echo "Cleanup localhost"
+        ansible localhost -m ansible.builtin.cron -a 'name="test" state="absent"'
+    else
+        echo "Install cron scripts"
+        sudo ./roles/cron/files/install
 
-    # Add cron job
-    ansible localhost -m ansible.builtin.cron -a 'name="test" minute="0" hour="*/6" job="echo \"test\""' --become
+        # Add cron job
+        ansible localhost -m ansible.builtin.cron -a 'name="test" minute="0" hour="*/6" job="echo \"test\""'
 
-    # List cron job and compare output
-    [[ "$(cron-job-list)" == "0 */6 * * * test" ]]
-
-    
+        # List cron job and compare output
+        [[ "$(cron-job-list)" == "0 */6 * * * test" ]]
+    fi
 }
 
 # LLM Commands
