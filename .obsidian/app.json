@@ -1,5 +1,7 @@
 {
   "userIgnoreFilters": [
-    "venvmain/"
-  ]
+    "node_modules",
+    "venvmain"
+  ],
+  "strictLineBreaks": true
 }
