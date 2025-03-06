@@ -27,6 +27,7 @@ function help() {
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "dev-node" "" "Start vuepress development server."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "build-node" "" "Create vuepress build."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "serve-node-build" "" "Serve vuepress build."
+    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-vault" "" "Lists vault identities."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-hosts" "[path]" "Lists all hosts of an inventory."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
     printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
@@ -46,6 +47,10 @@ if [[ -a ".env" ]]; then
 fi
 
 # Ansible Vault commands
+
+function list-vault() {
+    grep 'vault_identity_list' ansible.cfg | sed 's/^vault_identity_list = //' | tr ',' '\n' | sed '/^$/d'
+}
 
 function generate-vault-password() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
