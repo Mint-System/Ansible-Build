@@ -7,10 +7,6 @@ hosts:
   - ip: 10.101.16.2
     name: erp.brunner-innovation.swiss erp-dev.brunner-innovation.swiss gaia.mint-system.com
 
-resolv_enabled: true
-resolv_dns: 9.9.9.9 149.112.112.112"
-resolv_fallback_dns: "2620:fe::fe 2620:fe::9"
-
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:14
 # postgres_build_image: true # default: false

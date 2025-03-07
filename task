@@ -86,7 +86,8 @@ function encrypt-string() {
 function convert-vault-file() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
     if test -z "$2"; then echo "\$2 is empty"; exit; fi
-
+    activate-venv
+    
     VAULT_ID=$1
     FILE_PATH=$2
     TEMP_FILE=$(mktemp)
