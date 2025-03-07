@@ -299,6 +299,7 @@ $(cat "$FILE")
     done
 
     # Define prompt content
+    mkdir -p tmp
     PROMPT_FILE="tmp/llm_update"
     echo -e "\nWrite prompt to $PROMPT_FILE."
     cat << EOF > "$PROMPT_FILE"
