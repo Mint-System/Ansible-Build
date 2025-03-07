@@ -72,6 +72,7 @@
       DBFILTER: "{{ odoo_dbfilter }}"
       LIST_DB: "{{ odoo_list_db }}"
       PROXY_MODE: "{{ odoo_proxy_mode }}"
+      SERVER_WIDE_MODULES: "{{ odoo_server_wide_modules | default('') }}"
       PYTHON_INSTALL: "{{ odoo_python_install | default('') }}"
       WORKERS: "{{ odoo_workers | int }}"
     ports: "{{ odoo_ports | default([]) }}"
