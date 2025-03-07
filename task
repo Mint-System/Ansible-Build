@@ -7,33 +7,38 @@ function help() {
     echo "commands:"
     echo
 
-    cmd_width=23
-    opt_width=22
-    desc_width=70
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "Command" "Option" "Description"
-    echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install" "" "Install Ansible and dependencies with uv."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-exo" "" "Install Exoscale CLI."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "upgrade" "" "Upgrade Ansible and dependencies with uv."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "update-with-llm" "[path][prompt]" "Feed role files with prompt to LLM and apply file changes."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "lint" "" "Lint Ansible roles and playbooks."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "build-galaxy" "" "Create tarball of collection."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "install-node" "" "Install build dependencies."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "dev-node" "" "Start vuepress development server."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "build-node" "" "Create vuepress build."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "serve-node-build" "" "Serve vuepress build."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-vault" "" "Lists vault identities."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "list-hosts" "[path]" "Lists all hosts of an inventory."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "version" "" "Show tool versions."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "source" "" "Source the Python virtual env."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "test-scripts" "[clean]" "Install and test scripts."
-    printf "| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
+    CMD_WIDTH=23
+    OPT_WIDTH=22
+    DESC_WIDTH=70
+    COLUMN="| %-${CMD_WIDTH}s | %-${OPT_WIDTH}s | %-${DESC_WIDTH}s |\n"
+
+    # Print table header
+    printf "$COLUMN" "Command" "Option" "Description"
+    echo "|$(printf '%*s' $((CMD_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((OPT_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((DESC_WIDTH + 2)) '' | tr ' ' '-')|"
+
+    # Print table rows
+    printf "$COLUMN" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
+    printf "$COLUMN" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
+    printf "$COLUMN" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
+    printf "$COLUMN" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
+    printf "$COLUMN" "install" "" "Install Ansible and dependencies with uv."
+    printf "$COLUMN" "install-exo" "" "Install Exoscale CLI."
+    printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
+    printf "$COLUMN" "update-with-llm" "[path][prompt]" "Update files with LLM prompt."
+    printf "$COLUMN" "lint" "" "Lint Ansible roles and playbooks."
+    printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
+    printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
+    printf "$COLUMN" "install-node" "" "Install build dependencies."
+    printf "$COLUMN" "dev-node" "" "Start vuepress development server."
+    printf "$COLUMN" "build-node" "" "Create vuepress build."
+    printf "$COLUMN" "serve-node-build" "" "Serve vuepress build."
+    printf "$COLUMN" "list-vault" "" "Lists vault identities."
+    printf "$COLUMN" "list-hosts" "[path]" "Lists all hosts of an inventory."
+    printf "$COLUMN" "version" "" "Show tool versions."
+    printf "$COLUMN" "source" "" "Source the Python virtual env."
+    printf "$COLUMN" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
+    printf "$COLUMN" "test-scripts" "[clean]" "Install and test scripts."
+    printf "$COLUMN" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
 
     echo
 }
