@@ -14,7 +14,7 @@ Help() {
     echo "Syntax: $SCRIPT [-v|-f|-V|help]"
     echo "Example: $SCRIPT -v postgres_data01 -f /var/tmp/postgres_data01.tar"
     echo "options:"
-    echo "  -V    Volume name. Defaults to tar file name."
+    echo "  -v    Volume name. Defaults to tar file name."
     echo "  -f    Path to tar file."
     echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."

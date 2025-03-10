@@ -277,7 +277,7 @@ function test-scripts() {
         ansible-playbook -i test plays/localhost.yml -t postgres
 
         docker-postgres-create -c postgres01 -d test
-        docker-postgres-list -c postgres01 | grep test
+        docker-postgres-list -c postgres01 | grep "test"
         docker-postgres-shell -c postgres01 -d test -s 'CREATE TABLE example(id int);'
         docker-postgres-duplicate -c postgres01 -s test -t example
         docker-postgres-drop -c postgres01 -d test
@@ -307,6 +307,14 @@ function test-scripts() {
         docker exec odoo01-int git-clone-addons
         docker restart odoo01-int
         docker-odoo-init -c odoo01-int -d odoo-int -i partner_firstname
+
+        echo -e "\033[38;5;214mTEST\033[0m: Test docker volume scripts"
+        docker-volume-backup -c postgres01 -v postgres01
+        docker rm -f postgres01
+        docker volume rm postgres01
+        docker-volume-restore -v postgres01 -f /var/tmp/postgres01/postgres01.tar
+        ansible-playbook -i test plays/localhost.yml -t postgres --skip-tags depends
+        docker-postgres-list -c postgres01 | grep "test"
     fi
 }
 
