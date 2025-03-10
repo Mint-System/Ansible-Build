@@ -258,8 +258,10 @@ function test-scripts() {
     if [ "$1" = "clean" ]; then
         echo "Cleanup localhost"
         ansible localhost -m ansible.builtin.cron -a 'name="test" state="absent"'
+        ansible-playbook -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
+            postgres,postgres_data,postgres_volume"
     else
-        echo "Install cron scripts"
+        echo -e "\033[38;5;214mTEST\033[0m: Test restic scripts"
         sudo ./roles/cron/files/install
 
         # Add cron job
@@ -267,6 +269,44 @@ function test-scripts() {
 
         # List cron job and compare output
         [[ "$(cron-job-list)" == "0 */6 * * * test" ]]
+
+        echo -e "\033[38;5;214mTEST\033[0m: Test postgres scripts"
+        sudo ./roles/postgres/files/install
+
+        # Start postgres container
+        ansible-playbook -i test plays/localhost.yml -t postgres
+
+        docker-postgres-create -c postgres01 -d test
+        docker-postgres-list -c postgres01 | grep test
+        docker-postgres-shell -c postgres01 -d test -s 'CREATE TABLE example(id int);'
+        docker-postgres-duplicate -c postgres01 -s test -t example
+        docker-postgres-drop -c postgres01 -d test
+        docker-postgres-size -c postgres01 -d example | grep "0 bytes"
+        docker-postgres-backup -c postgres01 -d example
+        docker-postgres-restore -c postgres01 -f /var/tmp/postgres01/example.sql -d test -i 
+        docker-postgres-size -c postgres01 -d test | grep "0 bytes"
+        mkdir -p tmp
+        echo 'DROP TABLE example;' > tmp/drop.sql
+        docker-postgres-patch -c postgres01 -d test -f ./tmp/drop.sql
+        # docker-postgres-shell -c postgres01 -d test -s '\dt' | grep "Did not find any relations."
+    
+        echo -e "\033[38;5;214mTEST\033[0m: Test odoo scripts"
+        sudo ./roles/odoo_scripts/files/install
+
+        # Start odoo container
+        ansible-playbook -i test plays/localhost.yml -t odoo --skip-tags depends
+
+        docker-odoo-init -c odoo01-prod -d odoo-prod -i contacts -w
+        docker-odoo-rename -c odoo01-prod -s odoo-prod -t odoo
+        docker-odoo-list -c odoo01-prod | grep "odoo$"
+        docker-odoo-user -c odoo01-prod -d odoo -a list | grep "admin"
+        docker-odoo-drop -c odoo01-int -d odoo-int
+        docker-odoo-duplicate -c odoo01-prod -s odoo -t odoo-int
+        docker-odoo-neutralize -c odoo01-int -d odoo-int
+
+        docker exec odoo01-int git-clone-addons
+        docker restart odoo01-int
+        docker-odoo-init -c odoo01-int -d odoo-int -i partner_firstname
     fi
 }
 

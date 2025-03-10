@@ -67,6 +67,7 @@
       PGUSER: "{{ odoo_postgres_user }}"
       PGPASSWORD: "{{ odoo_postgres_password }}"
       TZ: "{{ odoo_timezone }}"
+      ADDONS_GIT_REPOS: "{{ odoo_addons_git_repos | default([]) }}"
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
       DBFILTER: "{{ odoo_dbfilter }}"
@@ -103,6 +104,7 @@
       PGUSER: "{{ odoo_postgres_user }}"
       PGPASSWORD: "{{ odoo_postgres_password }}"
       TZ: "{{ odoo_timezone }}"
+      ADDONS_GIT_REPOS: "{{ odoo_addons_git_repos | default([]) }}"
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
       DBFILTER: "{{ item.dbfilter | default(odoo_dbfilter) }}"
