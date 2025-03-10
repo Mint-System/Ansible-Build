@@ -23,6 +23,7 @@
     volumes:
       - "{{ loki_data_dir }}:/etc/loki"
     command: -config.file=/etc/loki/local-config.yml -config.expand-env=true
+    network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
