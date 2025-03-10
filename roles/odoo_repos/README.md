@@ -17,13 +17,13 @@ odoo_repos:
     version: 937dc76d00362181fae12e623758d18321e15e5e
   - path: addons/partner-contact
     url: git@github.com:OCA/partner-contact.git
-    version: 16.0
+    version: 16.0 # default: version of odoo_revision
   - path: addons/web
     url: git@github.com:OCA/web.git
-    version: 16.0
   - path: addons/mint-system-server-tools
     url: git@github.com:Mint-System/Odoo-Apps-Server-Tools.git
-    version: 16.0
+    head: 17.0-mig-session_db # default: version of odoo_revision
+    single_branch: false
 ```
 
 And include it in your playbook.
