@@ -1,0 +1,18 @@
+_docker_odoo_completion() {
+    local cur prev opts containers
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    # If completing after -c, suggest running Docker container names
+    if [[ "$prev" == "-c" ]]; then
+        CONTAINERS=$(docker ps --format "{{.Names}}")
+        COMPREPLY=( $(compgen -W "$CONTAINERS" -- "$cur") )
+        return 0
+    fi
+}
+
+# Apply to all scripts starting with "docker-odoo-"
+for script in $(compgen -c | grep -E '^docker-odoo-'); do
+    complete -F _docker_odoo_completion "$script"
+done

@@ -34,3 +34,9 @@
     state: absent
   loop:
     - docker-odoo-install
+
+- name: Copy docker-odoo completion script
+  ansible.builtin.copy:
+    src: docker-odoo
+    dest: /etc/bash_completion.d/docker-odoo
+    mode: +x
