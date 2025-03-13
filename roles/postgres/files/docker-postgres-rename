@@ -9,7 +9,7 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: Rename Odoo database in container."
+    echo "Description: Rename Postgres database in container."
     echo "Syntax: $SCRIPT [-c|-s|-t|-r|-V|help]"
     echo "Example: $SCRIPT -c odoo06 -s odoo -t odoo-int -r"
     echo "options:"
@@ -48,7 +48,7 @@ while getopts ":c: :s: :t: :V" opt; do
 done
 
 # Fallback to environment vars and default values
-: "${CONTAINER:=odoo}"
+: "${CONTAINER:=postgres}"
 
 # Verify variables
 [[ -z "$SOURCE_DATABASE" ]] && { echo "Parameter -s|source is empty" ; exit 1; }
@@ -59,24 +59,15 @@ done
 CONTAINER_ID=$(docker ps -f "name=${CONTAINER}$" -q | tail -n1)
 [[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
 
-# Set alias
-docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
-docker_exec_root_bash="docker exec --user root $CONTAINER_ID /bin/bash -c"
-
 # Drop target database
 if $REPLACE; then
-    docker-odoo-drop -c "$CONTAINER" -d "$TARGET_DATABASE"
+    docker-postgres-drop -c "$CONTAINER" -d "$TARGET_DATABASE"
 fi
 
 # Kill datbase connections
 echo "Kill database connections on $SOURCE_DATABASE."
 QUERY="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$SOURCE_DATABASE';"
-$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
-
-echo "Rename filestore from $SOURCE_DATABASE to $TARGET_DATABASE."
-$docker_exec_root_bash "mv /var/lib/odoo/filestore/$SOURCE_DATABASE /var/lib/odoo/filestore/$TARGET_DATABASE"
+docker exec $CONTAINER_ID /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c \"$QUERY\""
 
 echo "Rename database from $SOURCE_DATABASE to $TARGET_DATABASE."
-$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c 'ALTER DATABASE \"$SOURCE_DATABASE\" RENAME TO \"$TARGET_DATABASE\";'"
-
-echo "Rename database from $SOURCE_DATABASE to $TARGET_DATABASE finished."
+docker exec $CONTAINER_ID /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c 'ALTER DATABASE \"$SOURCE_DATABASE\" RENAME TO \"$TARGET_DATABASE\";'"

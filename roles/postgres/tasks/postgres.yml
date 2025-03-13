@@ -50,6 +50,7 @@
     - docker-postgres-size
     - docker-postgres-shell
     - docker-postgres-upgrade
+    - docker-postgres-rename
 
 - name: Create {{ role_name }} databases
   ansible.builtin.command: docker-postgres-create -c "{{ postgres_hostname }}" -d "{{ item.db }}"

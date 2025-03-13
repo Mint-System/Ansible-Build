@@ -19,6 +19,7 @@ SCRIPTS=(
     docker-postgres-size
     docker-postgres-shell
     docker-postgres-upgrade
+    docker-postgres-rename
 )
 
 for SCRIPT in ${SCRIPTS[@]}; do

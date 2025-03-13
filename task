@@ -288,7 +288,7 @@ function test-scripts() {
         mkdir -p tmp
         echo 'DROP TABLE example;' > tmp/drop.sql
         docker-postgres-patch -c postgres01 -d test -f ./tmp/drop.sql
-        # docker-postgres-shell -c postgres01 -d test -s '\dt' | grep "Did not find any relations."
+        docker-postgres-rename -c postgres01 -s test -t example -r
     
         echo -e "\033[38;5;214mTEST\033[0m: Test odoo scripts"
         sudo ./roles/odoo_scripts/files/install
