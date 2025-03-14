@@ -11,8 +11,9 @@ node_modules
 .cache
 dist
 tmp
+.obsidian/appearance.json
+.obsidian/graph.json
 .obsidian/workspace.json
-.obsidian/plugins
 .env
 __pycache__
 ansible.cfg
