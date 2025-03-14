@@ -36,9 +36,11 @@ snap_packages:
 pip_packages:
   - name: docker
 script_packages:
-  - path: /usr/local/bin/hello-mom
+  - dest: /usr/local/bin/hello-mom
     content: |
       echo "Hello Mom!"
+  - dest: /usr/local/bin/hello-dad
+    src: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/hello-dad.sh"
 ```
 
 Include it in your playbook.

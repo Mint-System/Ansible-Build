@@ -1,7 +1,16 @@
 ---
-- name: Copy scripts
+- name: Copy scripts from content
   ansible.builtin.copy:
     content: "{{ item.content }}"
     dest: "{{ item.path }}"
     mode: +x
   loop: "{{ script_packages }}"
+  when: item.content is defined
+
+- name: Copy scripts from path
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: +x
+  loop: "{{ script_packages }}"
+  when: item.src is defined
