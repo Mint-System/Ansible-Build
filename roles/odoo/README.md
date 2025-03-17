@@ -118,6 +118,10 @@ nginx_proxies:
           include /etc/nginx/conf.d/proxy-params.conf;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
+      - path: /website/info
+        options:
+          |
+          deny all;
 ```
 
 ### Calculate workers

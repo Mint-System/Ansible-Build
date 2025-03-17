@@ -248,6 +248,13 @@ function test-localhost() {
     else
         echo "Setup localhost"
         ansible-playbook -i test plays/localhost.yml --skip-tags check
+
+        echo "Curl the services and check HTTP code."
+        [[ $(curl -o /dev/null -s -w "%{http_code}" -L "http://n8n.local:8080") -eq 200 ]]
+        [[ $(curl -o /dev/null -s -w "%{http_code}" -L "http://odoo.local:8080") -eq 200 ]]
+        [[ $(curl -o /dev/null -s -w "%{http_code}" -L "http://odoo.local:8080/website/info") -eq 403 ]]
+        [[ $(curl -o /dev/null -s -w "%{http_code}" -L "http://metabase.local:8080") -eq 200 ]]
+        [[ $(curl -o /dev/null -s -w "%{http_code}" -L "http://grafana.local:8080") -eq 200 ]]
     fi
 }
 

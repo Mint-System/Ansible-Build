@@ -14,6 +14,7 @@ postgres_hostname: postgres01
 postgres_user: example
 postgres_config_map:
   - db: metabase-prod
+  - db: n8n-prod
   - db: odoo-prod
   - db: odoo-int
 postgres_password: test
@@ -80,6 +81,10 @@ nginx_proxies:
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
           include /etc/nginx/conf.d/proxy-params.conf;
+      - path: /website/info
+        options:
+          |
+          deny all;
   - src_hostname: grafana.local
     dest_hostname: grafana01
     dest_port: 3000
