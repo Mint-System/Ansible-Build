@@ -12,7 +12,7 @@ Help() {
     echo
     echo "Description: Run python code in Odoo container."
     echo "Syntax: $SCRIPT [-c|-d|-p|-f|-V|help]"
-    echo "Example: $SCRIPT -d erp-dev -c odoo06 -p \"print(env.user.name)\""
+    echo "Example: $SCRIPT -d erp-dev -c odoo06 -p 'print(env.user.name)'
     echo "options:"
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -d    Database name."
@@ -58,13 +58,16 @@ done
 CONTAINER_ID=$(docker ps -f "name=${CONTAINER}$" -q | tail -n1)
 [[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
 
+# Escape quotes
+CODE=$(echo "$CODE" | sed 's/"/\\"/g' | sed "s/'/\\'/g")
+
 # Append commit command if forced
 if $FORCE; then
     CODE="${CODE};self.env.cr.commit()"
 fi
 
 if [[ -n $CODE ]]; then
-    echo "Execute code in container $CONTAINER on database $DATABASE." 
+    echo "Execute code in container $CONTAINER on database $DATABASE." >&2
     docker exec $CONTAINER_ID bash -c "echo \"$CODE\" | odoo shell -d $DATABASE --db_host=\$HOST -r \$USER -w \$PASSWORD --no-http"
 else
     echo "Start odoo shell in container $CONTAINER on database $DATABASE." 
@@ -72,5 +75,5 @@ else
 fi
 
 if $FORCE; then
-    echo "Changes to the database have been committed."
+    echo "Changes to the database have been committed." >&2
 fi

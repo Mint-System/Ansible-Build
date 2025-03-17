@@ -303,10 +303,11 @@ function test-scripts() {
         docker-odoo-drop -c odoo01-int -d odoo-int
         docker-odoo-duplicate -c odoo01-prod -s odoo -t odoo-int
         docker-odoo-neutralize -c odoo01-int -d odoo-int
-
         docker exec odoo01-int git-clone-addons
         docker restart odoo01-int
         docker-odoo-init -c odoo01-int -d odoo-int -i partner_firstname
+        docker-odoo-shell -c odoo01-int -d odoo-int -f -p 'env["res.partner"].browse(1).write({"name": "admint"})'
+        [[ "admint" == $(docker-odoo-shell -c odoo01-int -d odoo-int -p 'print(env["res.partner"].browse(1).name)') ]]
 
         echo -e "\033[38;5;214mTEST\033[0m: Test docker volume scripts"
         docker-volume-backup -c postgres01 -v postgres01
