@@ -25,7 +25,6 @@ SCRIPTS=(
     odoo-drop
     odoo-duplicate
     odoo-restore
-    odoo-user
 )
 
 for SCRIPT in ${SCRIPTS[@]}; do

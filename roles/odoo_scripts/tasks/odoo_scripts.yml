@@ -26,7 +26,6 @@
     - odoo-drop
     - odoo-duplicate
     - odoo-restore
-    - odoo-user
 
 - name: Remove deprecated {{ role_name }}
   ansible.builtin.file:

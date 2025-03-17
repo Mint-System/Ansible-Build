@@ -37,7 +37,6 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/o
 - odoo-drop
 - odoo-duplicate
 - odoo-restore
-- odoo-user
 
 ## [nginx](roles/nginx/README.md)
 

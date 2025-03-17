@@ -12,13 +12,13 @@ Help() {
     echo
     echo "Description: Backup Odoo database from container."
     echo "Syntax: $SCRIPT [-d|-c|-f|-r|-u|-V|help]"
-    echo "Example: $SCRIPT -d erp-dev -c odoo06 -f tmp/erp.zip -r"
+    echo "Example: $SCRIPT -d erp-dev -c postgres01 -f tmp/erp.zip -r -p ~/.local/share/Odoo/filestore"
     echo "options:"
     echo "  -d    Database name. Defaults to filename."
-    echo "  -c    Odoo container. Defaults to 'odoo'."
+    echo "  -c    Postgres container. Defaults to 'odoo'."
     echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'."
     echo "  -r    Replace existing database."
-    echo "  -u    Update database uuid."
+    echo "  -p    Path to the filestore. Defaults to '~/.local/share/Odoo/filestore'"
     echo "  -V    Show $SCRIPT version."
     echo "  help  Show $SCRIPT manual."
     echo
@@ -35,16 +35,15 @@ command -v uuidgen >/dev/null 2>&1 || { echo >&2 "uuidgen not found: apt-get ins
 
 # Initialise option flag with a false value
 REPLACE='false'
-UPDATE='false'
 
 # Process params
-while getopts ":c: :d: :f: :r :u :V" opt; do
+while getopts ":c: :d: :f: :r :p :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
         d) DATABASE="$OPTARG";;
         f) FILE="$OPTARG";;
         r) REPLACE='true';;
-        u) UPDATE='true';;
+        p) FILESTORE_PATH='true';;
         V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
@@ -55,8 +54,9 @@ while getopts ":c: :d: :f: :r :u :V" opt; do
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='odoo'}
+: ${CONTAINER:='postgres'}
 : ${FILE:='/var/tmp/odoo.zip'}
+: ${FILESTORE_PATH:='~/.local/share/Odoo/filestore'}
 
 # Get file and directory name
 DIR=`dirname "$FILE"`
@@ -77,39 +77,26 @@ unzip -q -o $FILENAME
 
 # Clear database
 if $REPLACE; then
-    docker-odoo-drop -c "$CONTAINER" -d "$DATABASE"
+    echo "Remove filestore $FILESTORE_PATH/$DATABASE."
+    rm -rf "$FILESTORE_PATH/$DATABASE"
+    docker-postgres-drop -c "$CONTAINER" -d "$DATABASE"
 fi
 
-# Copy filestore and dump
-echo "Copy filestore and dump."
-$docker_exec_root_bash 'mkdir -p /var/lib/odoo/filestore'
-docker cp filestore/ "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
-docker cp dump.sql "$CONTAINER:/var/lib/odoo/"
-
-# Set filestore ownership
-echo "Set filestore ownership."
-$docker_exec_root_bash 'chown -R odoo:odoo /var/lib/odoo/filestore/$DATABASE'
+# Copy filestore
+echo "Move filestore."
+mv filestore "$FILESTORE_PATH/$DATABASE"
 
 # Create database
 echo "Create database $DATABASE."
-$docker_exec_bash 'PGPASSWORD="$PASSWORD" createdb -h $HOST -U $USER -T template0 $DATABASE'
+docker exec "$CONTAINER" /bin/bash -c "createdb -U \$POSTGRES_USER -T template0 $DATABASE"
 
 # Restore database
 echo "Restore database from $DATABASE."
-$docker_exec_bash 'PGPASSWORD="$PASSWORD" psql -q -h $HOST -U $USER $DATABASE -f /var/lib/odoo/dump.sql' 
+docker-postgres-restore -c "$CONTAINER" -d "$DATABASE" -f 
 
 # Remove source files
 echo "Cleanup source files."
-$docker_exec_bash 'rm /var/lib/odoo/dump.sql'
 rm -rf dump.sql filestore
-
-# Update database uuid
-if $UPDATE; then
-    UUID=$(uuidgen)
-    echo "Update database uuid."
-    QUERY="UPDATE ir_config_parameter SET value = '$UUID' WHERE key = 'database.uuid';"
-    $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE -c \"$QUERY\""
-fi
 
 # Notify if backup has finished
 echo "The restore for Odoo database $DATABASE has finished."

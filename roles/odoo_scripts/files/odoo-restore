@@ -72,18 +72,7 @@ if [[ "${FILE: -3}" =~ "zip" ]]; then
 fi
 
 if $REPLACE; then
-  
-    # Ask for confirmation
-    read -p "Please confirm the deletion of $DATABASE on $ODOO_HOST (y/n)? " REPLY
-    if [[ $REPLY == y ]]; then
-    echo "Deleting Odoo database $DATABASE ..."
-
-    curl \
-        --silent \
-        -F "master_pwd=${PASSWORD}" \
-        -F "name=${DATABASE}" \
-        ${ODOO_HOST%/}/web/database/drop | grep -q -E 'Internal Server Error|Redirecting...'
-    fi
+  odoo-drop -p "$ODOO_MASTER_PASSWORD" -d "$DATABASE" -h "$ODOO_HOST"
 fi
 
 # Start restore
