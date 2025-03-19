@@ -10,7 +10,7 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: Backup Odoo database from container."
+    echo "Description: Restore Odoo database from container."
     echo "Syntax: $SCRIPT [-d|-c|-f|-r|-u|-V|help]"
     echo "Example: $SCRIPT -d erp-dev -c postgres01 -f tmp/erp.zip -r -p ~/.local/share/Odoo/filestore"
     echo "options:"
@@ -92,7 +92,7 @@ docker exec "$CONTAINER" /bin/bash -c "createdb -U \$POSTGRES_USER -T template0 
 
 # Restore database
 echo "Restore database from $DATABASE."
-docker-postgres-restore -c "$CONTAINER" -d "$DATABASE" -f 
+docker-postgres-restore -c "$CONTAINER" -d "$DATABASE" -f ./dump.sql
 
 # Remove source files
 echo "Cleanup source files."

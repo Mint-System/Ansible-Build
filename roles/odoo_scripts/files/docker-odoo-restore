@@ -10,7 +10,7 @@ Help() {
     echo
     echo "$SCRIPT"
     echo
-    echo "Description: Backup Odoo database from container."
+    echo "Description: Restore Odoo database from zip file."
     echo "Syntax: $SCRIPT [-d|-c|-f|-r|-u|-V|help]"
     echo "Example: $SCRIPT -d erp-dev -c odoo06 -f tmp/erp.zip -r"
     echo "options:"
@@ -77,9 +77,8 @@ if $REPLACE; then
 fi
 
 # Copy filestore and dump
-echo "Copy filestore and dump."
+echo "Copy filestore."
 docker cp filestore/ "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
-docker cp dump.sql "$CONTAINER:/var/lib/odoo/"
 
 # Create database
 echo "Create database $DATABASE."
@@ -88,10 +87,10 @@ docker exec $CONTAINER /bin/bash -c "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOS
 # Restore database
 echo "Restore database from $DATABASE."
 docker exec $CONTAINER /bin/bash -ch "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER $DATABASE -f /var/lib/odoo/dump.sql"
+cat ./dump.sql | docker exec $CONTAINER /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE"
 
 # Remove source files
 echo "Cleanup source files."
-docker exec $CONTAINER /bin/bash -c 'rm /var/lib/odoo/dump.sql'
 rm -rf dump.sql filestore
 
 # Update database uuid
