@@ -23,7 +23,7 @@ jobs:
       - name: Run task container-login
         run: ./task container-login
         env:
-          DOCKER_USERNAME: ${{ env.DOCKER_USERNAME }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - name: Run task test-localhost
         run: ./task test-localhost
