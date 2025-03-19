@@ -21,7 +21,10 @@ jobs:
       - name: Copy ansible config
         run: cp ansible.cfg.template ansible.cfg
       - name: Run task container-login
-        run: ./task container-login ${{ env.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+        run: ./task container-login
+        env:
+          DOCKER_USERNAME: ${{ env.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - name: Run task test-localhost
         run: ./task test-localhost
       - name: Run task test-scripts
