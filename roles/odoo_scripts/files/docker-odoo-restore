@@ -86,7 +86,6 @@ docker exec $CONTAINER /bin/bash -c "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOS
 
 # Restore database
 echo "Restore database from $DATABASE."
-docker exec $CONTAINER /bin/bash -ch "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER $DATABASE -f /var/lib/odoo/dump.sql"
 cat ./dump.sql | docker exec $CONTAINER /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE"
 
 # Remove source files

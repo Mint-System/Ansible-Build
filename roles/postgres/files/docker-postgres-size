@@ -32,7 +32,7 @@ while getopts ":c: :d:" opt; do
     d) DATABASE="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
-    exit;;
+    exit 1;;
   esac
 done
 

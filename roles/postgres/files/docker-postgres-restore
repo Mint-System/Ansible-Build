@@ -44,7 +44,7 @@ while getopts ":c: :d: :f: :r :i" opt; do
     i) CREATE='true';;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
-    exit;;
+    exit 1;;
   esac
 done
 

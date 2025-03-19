@@ -35,7 +35,7 @@ while getopts ":n: :h:" opt; do
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
-    exit;;
+    exit 1;;
   esac
 done
 

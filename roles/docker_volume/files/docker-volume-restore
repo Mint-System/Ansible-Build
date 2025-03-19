@@ -28,16 +28,17 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":v: :f:" opt; do
+while getopts "v:f:V" opt; do
     case $opt in
         v) VOLUME="$OPTARG";;
         f) FILE="$OPTARG";;
         V) echo "$SCRIPT version $VERSION"
-        exit 0
+           exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
-        exit;;
+            Help
+            exit 1
+        ;;
     esac
 done
 
@@ -47,14 +48,15 @@ done
 # Fallback to environment vars and default values
 FILENAME=$(basename -- "$FILE")
 DIR=$(dirname "$FILE")
-: ${VOLUME:="${FILENAME%%.*}"}
+: "${VOLUME:="${FILENAME%%.*}"}"
 
 # Warning
 echo "Make sure to stop the attached containers before running the restore."
 
 # Restore dump for volume
 echo "Run restore $DIR/$FILENAME to Docker volume $VOLUME ..."
-docker run --rm -v $VOLUME:/_data -v ${DIR}:/restore ubuntu bash -c "cd /_data && rm -rf ./* && tar xvf /restore/$FILENAME --strip 1"
+docker run --rm -v "$VOLUME:/_data" -v "$DIR:/restore" ubuntu bash -c "
+    shopt -s dotglob && cd /_data && rm -rf -- * || true && tar xf /restore/$FILENAME --strip 1"
 
 # Notify if restore has finished
 echo "The Docker volume restore has finished."

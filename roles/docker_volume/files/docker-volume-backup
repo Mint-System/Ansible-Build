@@ -51,7 +51,7 @@ while getopts ":c: :a :v: :e: :o: :V" opt; do
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
         Help
-        exit;;
+        exit 1;;
     esac
 done
 
@@ -91,7 +91,6 @@ for VOLUME in "${VOLUME_LIST[@]}"; do
     if [[ -n "$EXCLUDE" ]]; then
         echo "Run backup for Docker volume $VOLUME with the exclude option."
         docker run --rm -v "$VOLUME:/_data" -v "${DIR}/${CONTAINER}:/backup" ubuntu tar --exclude="$EXCLUDE" -cf "/backup/$VOLUME.tar" /_data
-        # FIXME: Estimate time with pv: /bin/bash -c "tar cf - /_data | pv -s $(du -sb /_data | awk '{print $1}') > /backup/$VOLUME.tar"
     else
         echo "Run backup for Docker volume $VOLUME."
         docker run --rm -v "$VOLUME:/_data" -v "${DIR}/${CONTAINER}:/backup" ubuntu tar cf "/backup/$VOLUME.tar" /_data
