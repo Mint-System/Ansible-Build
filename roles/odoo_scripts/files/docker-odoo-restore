@@ -86,7 +86,7 @@ docker exec $CONTAINER /bin/bash -c "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOS
 
 # Restore database
 echo "Restore database from $DATABASE."
-cat ./dump.sql | docker exec $CONTAINER /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE"
+cat ./dump.sql | docker exec -i $CONTAINER /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE"
 
 # Remove source files
 echo "Cleanup source files."

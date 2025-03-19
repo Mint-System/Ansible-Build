@@ -31,6 +31,7 @@ function help() {
     printf "$COLUMN" "install-node" "" "Install build dependencies."
     printf "$COLUMN" "dev-node" "" "Start vuepress development server."
     printf "$COLUMN" "play" "" "Run ansible-playbook command."
+    printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
     printf "$COLUMN" "build-node" "" "Create vuepress build."
     printf "$COLUMN" "serve-node-build" "" "Serve vuepress build."
     printf "$COLUMN" "list-vault" "" "Lists vault identities."
@@ -149,6 +150,14 @@ show-vault-file() {
 }
 
 # Environment commands
+
+function container-login() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    if test -z "$2"; then echo "\$1 is empty"; exit; fi
+
+    echo "Docker login with username $1."
+    echo "$2" | docker login -u "$1" --password-stdin
+}
 
 function init-venv() {
     if [ ! -d "venv$GIT_BRANCH" ]; then
