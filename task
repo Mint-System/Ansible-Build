@@ -30,7 +30,7 @@ function help() {
     printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
     printf "$COLUMN" "install-node" "" "Install build dependencies."
     printf "$COLUMN" "dev-node" "" "Start vuepress development server."
-    printf "$COLUMN" "play" "" "Run task play command."
+    printf "$COLUMN" "play" "" "Run ansible-playbook command."
     printf "$COLUMN" "build-node" "" "Create vuepress build."
     printf "$COLUMN" "serve-node-build" "" "Serve vuepress build."
     printf "$COLUMN" "list-vault" "" "Lists vault identities."
@@ -240,7 +240,7 @@ function test-localhost() {
     version
     if [ "$1" = "clean" ]; then
         echo "Cleanup localhost"
-        task play -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
+        ansible-playbook -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
             postgres,postgres_data,postgres_volume,\
             meilisearch,meilisearch_data,meilisearch_volume,\
             pgadmin,pgadmin_data,pgadmin_volume,\
@@ -253,7 +253,7 @@ function test-localhost() {
             promtail,promtail_data,promatil_volume"
     else
         echo "Setup localhost"
-        task play -i test plays/localhost.yml --skip-tags check
+        ansible-playbook -i test plays/localhost.yml --skip-tags check
 
         echo "Curl the services and check HTTP code."
         [[ $(curl -o /dev/null -s -w "%{http_code}" -L "http://n8n.local:8080") -eq 200 ]]
@@ -271,7 +271,7 @@ function test-scripts() {
     if [ "$1" = "clean" ]; then
         echo "Cleanup localhost"
         ansible localhost -m ansible.builtin.cron -a 'name="test" state="absent"'
-        task play -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
+        ansible-playbook -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
             postgres,postgres_data,postgres_volume"
     else
         echo -e "\033[38;5;214mTEST\033[0m: Test restic scripts"
@@ -287,7 +287,7 @@ function test-scripts() {
         sudo ./roles/postgres/files/install
 
         # Start postgres container
-        task play -i test plays/localhost.yml -t postgres
+        ansible-playbook -i test plays/localhost.yml -t postgres
 
         docker-postgres-create -c postgres01 -d test
         docker-postgres-list -c postgres01 | grep "test"
@@ -307,7 +307,7 @@ function test-scripts() {
         sudo ./roles/odoo_scripts/files/install
 
         # Start odoo container
-        task play -i test plays/localhost.yml -t odoo --skip-tags depends
+        ansible-playbook -i test plays/localhost.yml -t odoo --skip-tags depends
 
         docker-odoo-init -c odoo01-prod -d odoo-prod -i contacts -w
         docker-odoo-rename -c odoo01-prod -s odoo-prod -t odoo
@@ -327,7 +327,7 @@ function test-scripts() {
         docker rm -f postgres01
         docker volume rm postgres01
         docker-volume-restore -v postgres01 -f /var/tmp/postgres01/postgres01.tar
-        task play -i test plays/localhost.yml -t postgres --skip-tags depends
+        ansible-playbook -i test plays/localhost.yml -t postgres --skip-tags depends
         docker-postgres-list -c postgres01 | grep "test"
     fi
 }
