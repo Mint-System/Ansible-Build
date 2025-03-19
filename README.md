@@ -177,7 +177,7 @@ export ANSIBLE_VAULT_IDENTITY_LIST="mint_system@.vault_pass_mint_system, soziali
 Alternatively you can configure the `--vault-id` parameter of the Ansible playbook command:
 
 ```bash
-ansible-playbook --vault-id mint_system@.vault_pass_mint_system ...
+task play --vault-id mint_system@.vault_pass_mint_system ...
 ```
 
 To decrypt single strings run this command:
@@ -211,61 +211,61 @@ ansible all -m ping -i inventories/odoo
 Deploy multiple inventories.
 
 ```bash
-ansible-playbook -i inventories/setup -i inventories/odoo plays/odoo.yml
+task play -i inventories/setup -i inventories/odoo plays/odoo.yml
 ```
 
 Deploy Odoo stack.
 
 ```bash
-ansible-playbook -i inventories/odoo plays/odoo.yml
+task play -i inventories/odoo plays/odoo.yml
 ```
 
 Deploy role only.
 
 ```bash
-ansible-playbook -i inventories/odoo plays/odoo.yml -t postgres
+task play -i inventories/odoo plays/odoo.yml -t postgres
 ```
 
 Deploy without dependencies.
 
 ```bash
-ansible-playbook -i inventories/setup plays/setup.yml --skip-tags depends
+task play -i inventories/setup plays/setup.yml --skip-tags depends
 ```
 
 Deploy role to specific host.
 
 ```bash
-ansible-playbook -i inventories/setup plays/setup.yml -t docker -l host.example.com
+task play -i inventories/setup plays/setup.yml -t docker -l host.example.com
 ```
 
 Deploy role to specific group with non-default user.
 
 ```bash
-ansible-playbook -i inventories/setup plays/setup.yml -t docker -l host.example.com -u username
+task play -i inventories/setup plays/setup.yml -t docker -l host.example.com -u username
 ```
 
 Clean Odoo stack.
 
 ```bash
-ansible-playbook -i inventories/odoo plays/clean.yml.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
+task play -i inventories/odoo plays/clean.yml.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
 ```
 
 Clean role only.
 
 ```bash
-ansible-playbook -i inventories/setup plays/clean.yml.yml -t docker_network
+task play -i inventories/setup plays/clean.yml.yml -t docker_network
 ```
 
 Clean dry run.
 
 ```bash
-ansible-playbook -i inventories/odoo plays/odoo.yml -t odoo --check
+task play -i inventories/odoo plays/odoo.yml -t odoo --check
 ```
 
 Install odoo_scripts and odoo_apps locally.
 
 ```bash
-ansible-playbook -i inventories/setup plays/localhost.yml.yml --skip-tags depends
+task play -i inventories/setup plays/localhost.yml.yml --skip-tags depends
 ```
 
 List all Odoo databses.
@@ -286,7 +286,7 @@ k8s_namespace: default
 Run the Kubernetes playbook for localhost.
 
 ```bash
-ansible-playbook -i inventories/k8s plays/k8s.yml.yml -l localhost
+task play -i inventories/k8s plays/k8s.yml.yml -l localhost
 ```
 
 ## Development
