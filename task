@@ -153,14 +153,14 @@ show-vault-file() {
 
 function container-login() {
     if [ -n "$1" ]; then
-        DOCKER_USERNAME="$1"
+        CONTAINER_REGISTRY_USERNAME="$1"
     fi
     if [ -n "$2" ]; then
-        DOCKER_PASSWORD="$2"
+        CONTAINER_REGISTRY_PASSWORD="$2"
     fi
 
     echo "Docker login with username $1."
-    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    echo "$CONTAINER_REGISTRY_PASSWORD" | docker login -u "$CONTAINER_REGISTRY_USERNAME" --password-stdin
 }
 
 function init-venv() {
