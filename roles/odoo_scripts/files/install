@@ -27,12 +27,22 @@ SCRIPTS=(
     odoo-restore
 )
 
+INSTALL_DIR="/usr/local/bin"
+COMPLETION_DIR="/etc/bash_completion.d"
+
+if [[ "$1" == "--user" ]]; then
+    INSTALL_DIR="$HOME/bin"
+    COMPLETION_DIR="$HOME/.bash_completion.d"
+    mkdir -p "$INSTALL_DIR" "$COMPLETION_DIR"
+    echo "Installing scripts in $INSTALL_DIR"
+fi
+
 for SCRIPT in ${SCRIPTS[@]}; do
-    echo "Install $SCRIPT script ..."
-    sudo curl -L "$REPOSITORY/main/roles/odoo_scripts/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-    sudo chmod +x "/usr/local/bin/$SCRIPT"
+    echo "Installing $SCRIPT ..."
+    curl -L "$REPOSITORY/main/roles/odoo_scripts/files/$SCRIPT" -o "$INSTALL_DIR/$SCRIPT"
+    chmod +x "$INSTALL_DIR/$SCRIPT"
 done
 
-echo "Install docker-odoo completion scripts ..."
-sudo curl -L "$REPOSITORY/main/roles/odoo_scripts/files/docker-odoo" -o "/etc/bash_completion.d/docker-odoo"
-sudo chmod +x "/etc/bash_completion.d/docker-odoo"
+echo "Installing docker-odoo completion scripts ..."
+curl -L "$REPOSITORY/main/roles/odoo_scripts/files/docker-odoo" -o "$COMPLETION_DIR/docker-odoo"
+chmod +x "$COMPLETION_DIR/docker-odoo"

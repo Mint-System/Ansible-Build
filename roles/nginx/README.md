@@ -140,12 +140,6 @@ The following tags are available:
 
 ## Docs
 
-### Install command line tools
-
-The installation script requires that you have sudo access to root.
-
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/nginx/files/install | bash` in your terminal.
-
 ### Use with Certbot
 
 To generate ssl certificates with Certbot define the `certbot_data_dir`.

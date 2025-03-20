@@ -121,12 +121,6 @@ And include it in your playbook.
 
 ## Docs
 
-### Install command line tools
-
-The installation script requires that you have sudo access to root.
-
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/restic/files/install | bash` in your terminal.
-
 ### Show restic version
 
 Show restic version for alls hosts.

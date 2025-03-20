@@ -44,12 +44,6 @@ And include it in your playbook.
 
 ## Docs
 
-### Install command line tools
-
-The installation script requires that you have sudo access to root.
-
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/mysql/files/install | bash` in your terminal.
-
 ### Execute sql query in container
 
 Enter the mysql cli with `docker exec -it mysql01 sh -c 'mysql -u root -p"$MYSQL_ROOT_PASSWORD"'` and run the query:

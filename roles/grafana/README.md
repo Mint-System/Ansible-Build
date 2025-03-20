@@ -94,9 +94,3 @@ grafana_azuread_client_id: $CLIENT_ID
 grafana_azuread_client_secret: # default: "{{ vault_grafana_azuread_client_secret }}"
 grafana_azuread_scopes: openid # default: openid email profile
 ```
-
-### Install command line tools
-
-The installation script requires that you have sudo access to root.
-
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/grafana/files/install | bash` in your terminal.

@@ -13,7 +13,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/a
 ## [odoo_scripts](roles/odoo_scripts/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/odoo_scripts/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/odoo_scripts/files/install | bash -s -- --user
 ```
 
 - docker-odoo-backup
@@ -78,7 +78,7 @@ curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/g
 ## [postgres](roles/postgres/README.md)
 
 ```bash
-curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/postgres/files/install | bash
+curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/postgres/files/install | bash -s -- --user
 ```
 
 - docker-postgres-backup
