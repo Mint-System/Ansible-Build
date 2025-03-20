@@ -90,3 +90,5 @@
       tags: mailpit
     - role: metabase
       tags: metabase
+    - role: ollama
+      tags: ollama

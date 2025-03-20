@@ -54,6 +54,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [birt](roles/birt/README.md)                                           | Deploy BIRT container.                                           |
 | [blackbox_exporter](roles/blackbox_exporter/README.md)                 | Deploy Blackbox exporter container.                              |
 | [bookstack](roles/bookstack/README.md)                                 | Deploy BookStack container.                                      |
+| [caddy](roles/caddy/README.md)                                         | Deploy Caddy container.                                          |
 | [cadvisor](roles/cadvisor/README.md)                                   | Deploy cAdvisor Docker container.                                |
 | [cargo](roles/cargo/README.md)                                         | Setup Rust toolchain and cargo package manager.                  |
 | [certbot](roles/certbot/README.md)                                     | Deploy Let's Encrypt certificates.                               |
@@ -90,6 +91,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [keycloak](roles/keycloak/README.md)                                   | Deploy Keycloak Docker container.                                |
 | [keycloak_client](roles/keycloak_client/README.md)                     | Configure Keycloak client.                                       |
 | [kibana](roles/elasticsearch/README.md)                                | Deploy Kibana Docker container.                                  |
+| [kibana](roles/kibana/README.md)                                       | Deploy Kibana Docker container.                                  |
 | [locale](roles/locale/README.md)                                       | Set system locale.                                               |
 | [logstash](roles/logstash/README.md)                                   | Deploy Logstash Docker container.                                |
 | [loki](roles/loki/README.md)                                           | Deploy Loki container.                                           |
@@ -99,11 +101,13 @@ Have a look at the Ansible roles and check how to configure them.
 | [mariadb](roles/mariadb/README.md)                                     | Deploy MariaDB database container.                               |
 | [matomo](roles/matomo/README.md)                                       | Deploy Matomo container.                                         |
 | [meilisearch](roles/meilisearch/README.md)                             | Deploy Meilisearch container.                                    |
+| [meilisync](roles/meilisync/README.md)                                 | Deploy Meilisync container.                                      |
 | [metabase](roles/metabase/README.md)                                   | Deploy Metabase Docker container.                                |
 | [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
-| [motd](roles/motd/README.md)                                           | Set message of the day.                                         |
+| [motd](roles/motd/README.md)                                           | Set message of the day.                                          |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |
+| [mysqld_exporter](roles/mysqld_exporter/README.md)                     | Deploy MySQL exporter container.                                 |
 | [n8n](roles/n8n/README.md)                                             | Deploy N8N container.                                            |
 | [n8n_exporter](roles/n8n_exporter/README.md)                           | Add nginx config for N8N exporter path.                          |
 | [nextcloud](roles/nextcloud/README.md)                                 | Deploy Nextcloud container.                                      |
@@ -120,6 +124,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [odoo_patches](roles/odoo_patches/README.md)                           | Apply custom Odoo patches.                                       |
 | [odoo_repos](roles/odoo_repos/README.md)                               | Setup Odoo modules public or private GitHub repo.                |
 | [odoo_scripts](roles/odoo_scripts/README.md)                           | Install Odoo scripts.                                            |
+| [ollama](roles/ollama/README.md)                                       | Setup Ollama and deploy models.                                  |
 | [onlyoffice_documentserver](roles/onlyoffice_documentserver/README.md) | Deploy OnlyOffice Document Server container.                     |
 | [openldap](roles/openldap/README.md)                                   | Deploy OpenLDAP Docker container.                                |
 | [packages](roles/packages/README.md)                                   | Set env vars and install packages.                               |
@@ -130,14 +135,15 @@ Have a look at the Ansible roles and check how to configure them.
 | [postgres_exporter](roles/postgres_exporter/README.md)                 | Deploy PostgreSQL exporter container.                            |
 | [prometheus](roles/prometheus/README.md)                               | Deploy Prometheus Docker container.                              |
 | [promtail](roles/promtail/README.md)                                   | Deploy Promtail container.                                       |
+| [pushgateway](roles/pushgateway/README.md)                             | Deploy Pushgateway container.                                    |
 | [rabbit](roles/rabbitmq/README.md)                                     | Deploy RabbitMQ container.                                       |
 | [rclone](roles/rclone/README.md)                                       | Sync files with RClone.                                          |
 | [redis](roles/redis/README.md)                                         | Deploy Redis container.                                          |
 | [remark42](roles/remark42/README.md)                                   | Deploy Remark42 container.                                       |
 | [resolv](roles/resolv/README.md)                                       | Manage DNS configuration.                                        |
 | [restic](roles/restic/README.md)                                       | Configure Restic backup jobs.                                    |
-| [restic_server](roles/restic_server/README.md)                         | Deploy Restic server container.                                  |
 | [restic_exporter](roles/restic_exporter/README.md)                     | Add nginx config for Restic exporter path.                       |
+| [restic_server](roles/restic_server/README.md)                         | Deploy Restic server container.                                  |
 | [s3cmd](roles/s3cmd/README.md)                                         | Install and configure s3cmd.                                     |
 | [simple_mail_forwarder](roles/simple_mail_forwarder/README.md)         | Deploy Simple Mail Forwarder container container.                |
 | [superset](roles/superset/README.md)                                   | Deploy Apache Superset container.                                |

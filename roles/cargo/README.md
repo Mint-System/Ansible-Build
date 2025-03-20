@@ -24,6 +24,3 @@ And include it in your playbook.
   roles:
   - role: cargo
 ```
-
-## Docs
-

@@ -1,0 +1,19 @@
+---
+- name: Download {{ role_name }} installer
+  ansible.builtin.get_url:
+    url: https://ollama.com/install.sh
+    dest: /var/tmp/install.sh'
+
+- name: Ensure {{ role_name }} installer is executable
+  ansible.builtin.file:
+    path: /var/tmp/install.sh
+    mode: '0755'
+
+- name: Run {{ role_name }} installer
+  ansible.builtin.command:
+    cmd: /var/tmp/install.sh
+    creates: /usr/local/bin/ollama
+
+- name: Pull {{ role_name }} models
+  ansible.builtin.command: ollama pull {{ item.name }}
+  loop: "{{ ollama_models }}"

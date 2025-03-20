@@ -8,16 +8,16 @@
       tags: hosts
     - role: timezone
       tags: timezone
-    - role: locale
-      tags: locale
     - role: resolv
       tags: resolv
     - role: fstab
       tags: fstab
-    - role: cron
-      tags: cron
     - role: packages
       tags: packages
+    - role: cron
+      tags: cron
+    - role: locale
+      tags: locale
     - role: cargo
       tags: cargo
     - role: iam

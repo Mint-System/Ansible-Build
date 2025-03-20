@@ -1,4 +1,4 @@
-# Prometheus role
+# Pushgateway role
 
 Deploy Pushgateway container.
 
