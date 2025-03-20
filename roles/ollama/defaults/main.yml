@@ -1,0 +1,2 @@
+ollama_api_key: "{{ vault_ollama_api_key }}"
+openweb_ui_description: LLM Chat

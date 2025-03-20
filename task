@@ -73,7 +73,8 @@ function generate-vault-password() {
 function encrypt-string() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
     if test -z "$2"; then echo "\$2 is empty"; exit; fi
-
+    activate-venv
+    
     # Split multiline
     STRING_KEY=$(echo "$2" | cut -d ':' -f 1)
     STRING_VALUE=$(echo "$2" | cut -d ':' -f 2 | sed 's/^ *//')

@@ -1,0 +1,19 @@
+---
+- name: Start {{ role_name }} container
+  community.docker.docker_container:
+    name: "{{ openweb_ui_hostname }}"
+    labels:
+      description: "{{ openweb_ui_description }}"
+    image: "{{ openweb_ui_image }}"
+    restart_policy: unless-stopped
+    recreate: false
+    env:
+      OLLAMA_API_BASE_URL="http://{{ ansible_host }}:11434"
+    ports: "{{ openweb_ui_ports | default([]) }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ openweb_ui_hostname }}|{{ role_name }}"

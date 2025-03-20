@@ -7,7 +7,7 @@
 - name: Ensure {{ role_name }} installer is executable
   ansible.builtin.file:
     path: /var/tmp/install.sh
-    mode: '0755'
+    mode: "0755"
 
 - name: Run {{ role_name }} installer
   ansible.builtin.command:
@@ -16,4 +16,28 @@
 
 - name: Pull {{ role_name }} models
   ansible.builtin.command: ollama pull {{ item.name }}
+  loop: "{{ ollama_models }}"
+
+
+- name: Create systemd service for {{ role_name }}
+  ansible.builtin.template:
+    src: ollama.service
+    dest: /etc/systemd/system/ollama.service
+    mode: "0644"
+
+- name: Reload systemd and start {{ role_name }} service
+  ansible.builtin.systemd:
+    name: ollama.service
+    state: restarted
+    enabled: yes
+
+- name: Show LLM cli api key
+  ansible.builtin.debug:
+    msg: |
+      export OLLAMA_API_KEY={{ vault_ollama_api_key }}
+
+- name: Show LLM cli host url
+  ansible.builtin.debug:
+    msg: |
+      export OLLAMA_HOST="https://{{ ansible_host }}:11434"
   loop: "{{ ollama_models }}"
