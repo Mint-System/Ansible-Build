@@ -2,7 +2,7 @@
 set -e
 
 SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+VERSION="2.0.0"
 
 # Display Help
 Help() {
@@ -32,12 +32,6 @@ if [[ "$1" == "help" ]]; then
     exit
 fi
 
-# Check requiremements
-command -v rsync >/dev/null 2>&1 || { echo >&2 "rsync not found: apt-get install rsync"; exit 1; }
-command -v ssh-keygen >/dev/null 2>&1 || { echo >&2 "ssh-keygen not found: apt-get install openssh-client"; exit 1; }
-command -v psql >/dev/null 2>&1 || { echo >&2 "psql not found: apt-get install postgresql-client-1X"; exit 1; } # 
-command -v python3 >/dev/null 2>&1 || { echo >&2 "python3 not found: apt-get install python3"; exit 1; } # 
-
 # Process params
 while getopts ":c: :h: :d: :s: :n: :t: :m: :l: :V" opt; do
     case $opt in
@@ -61,7 +55,6 @@ done
 # Fallback to environment vars and default values
 : "${CONTAINER:=postgres}"
 : "${HOSTNAME:=$CONTAINER}"
-: "${CONTAINER:=5432}"
 : "${MODE:=test}"
 
 # Verify variables
@@ -70,19 +63,29 @@ done
 [[ -z "$NEW_DATABASE" ]] && { echo "Parameter -n|new database is empty" ; exit 1; }
 [[ -z "$ODOO_TARGET_VERSION" ]] && { echo "Parameter -t|target version is empty" ; exit 1; }
 
-# Retrieve database credentials
+# Retrieve container info
+NETWORK_ID=$(docker inspect --format '{{range .NetworkSettings.Networks}}{{.NetworkID}}{{end}}' "$CONTAINER")
+NETWORK=$(docker network inspect --format '{{.Name}}' "$NETWORK_ID")
 PGHOST="$HOSTNAME"
 PGUSER=$(docker exec "$CONTAINER" /bin/bash -c "echo \$POSTGRES_USER")
 PGPASSWORD=$(docker exec "$CONTAINER" /bin/bash -c "echo \$POSTGRES_PASSWORD")
+export NETWORK
 export PGHOST
 export PGUSER
 export PGPASSWORD
 
+function odoo-upgrade() {
+    docker run -it \
+        -e PGHOST="$PGHOST" -e PGUSER="$PGUSER" -e PGPASSWORD="$PGPASSWORD" \
+        --network="$NETWORK" mintsystem/odoo-upgrade \
+        upgrade "$@"
+}
+
 echo "Run upgrade script for database $DATABASE in $MODE mode."
 echo "The database will be upgraded from $ODOO_CURRENT_VERSION to $ODOO_TARGET_VERSION."
 if [ -z "$LICENSE" ]; then
-    python3 <(curl -s https://upgrade.odoo.com/upgrade) "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "$NEW_DATABASE"
+    odoo-upgrade "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "$NEW_DATABASE"
 else
-    python3 <(curl -s https://upgrade.odoo.com/upgrade) "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "$NEW_DATABASE" -c "$LICENSE"
+    odoo-upgrade "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "$NEW_DATABASE" -c "$LICENSE"
 fi
 echo "The upgrade has been successful. The upgraded database has been restored as '$NEW_DATABASE'."
