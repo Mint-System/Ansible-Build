@@ -57,3 +57,5 @@
       tags: grafana
     - role: nginx
       tags: nginx
+    - role: s3cmd
+      tags: s3cmd
