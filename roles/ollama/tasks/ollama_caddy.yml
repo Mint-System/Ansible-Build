@@ -1,0 +1,5 @@
+---
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: Caddyfile
+    dest: "{{ data_dir }}/caddy/{{ ollama_hostname }}"

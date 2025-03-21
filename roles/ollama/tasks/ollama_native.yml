@@ -1,0 +1,41 @@
+---
+- name: Download {{ role_name }} installer
+  ansible.builtin.get_url:
+    url: https://ollama.com/install.sh
+    dest: /var/tmp/install.sh
+
+- name: Ensure {{ role_name }} installer is executable
+  ansible.builtin.file:
+    path: /var/tmp/install.sh
+    mode: "0755"
+
+- name: Run {{ role_name }} installer
+  ansible.builtin.command:
+    cmd: /var/tmp/install.sh
+    creates: /usr/local/bin/ollama
+
+- name: Pull {{ role_name }} models
+  ansible.builtin.command: ollama pull {{ item.name }}
+  loop: "{{ ollama_models }}"
+
+- name: Create systemd service for {{ role_name }}
+  ansible.builtin.template:
+    src: ollama.service
+    dest: /etc/systemd/system/ollama.service
+    mode: "0644"
+
+- name: Enable {{ role_name }} service
+  ansible.builtin.systemd:
+    name: ollama.service
+    enabled: yes
+
+- name: Show LLM cli api key
+  ansible.builtin.debug:
+    msg: |
+      export OLLAMA_API_KEY={{ vault_ollama_api_key }}
+
+- name: Show LLM cli host url
+  ansible.builtin.debug:
+    msg: |
+      export OLLAMA_HOST="https://{{ ansible_host }}:11434"
+  loop: "{{ ollama_models }}"

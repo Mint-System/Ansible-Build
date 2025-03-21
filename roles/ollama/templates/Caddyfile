@@ -1,0 +1,19 @@
+:443 {
+    @apiAuth {
+        header Authorization "Bearer {{ ollama_api_key }}"
+    }
+
+    reverse_proxy @apiAuth  {
+        header_up Host 11434
+    }
+
+    @unauthorized {
+        not {
+            header Authorization "Bearer {{ ollama_api_key }}"
+        }
+    }
+
+    respond @unauthorized "Unauthorized" 401 {
+        close
+    }
+}

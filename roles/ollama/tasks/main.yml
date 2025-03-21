@@ -1,7 +1,13 @@
 ---
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: ollama_enabled
+  when: ollama_image is defined
+  tags:
+    - ollama
+
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_native.yml"
+  when: ollama_native
   tags:
     - ollama
 
