@@ -34,15 +34,14 @@ if [[ "$1" == "--user" ]]; then
     INSTALL_DIR="$HOME/bin"
     COMPLETION_DIR="$HOME/.bash_completion.d"
     mkdir -p "$INSTALL_DIR" "$COMPLETION_DIR"
-    echo "Installing scripts in $INSTALL_DIR"
 fi
 
 for SCRIPT in ${SCRIPTS[@]}; do
-    echo "Installing $SCRIPT ..."
+    echo "Installing $SCRIPT in $INSTALL_DIR ..."
     curl -L "$REPOSITORY/main/roles/odoo_scripts/files/$SCRIPT" -o "$INSTALL_DIR/$SCRIPT"
     chmod +x "$INSTALL_DIR/$SCRIPT"
 done
 
-echo "Installing docker-odoo completion scripts ..."
+echo "Installing docker-odoo completion scripts in $COMPLETION_DIR ..."
 curl -L "$REPOSITORY/main/roles/odoo_scripts/files/docker-odoo" -o "$COMPLETION_DIR/docker-odoo"
 chmod +x "$COMPLETION_DIR/docker-odoo"
