@@ -72,13 +72,11 @@ done
 
 # Retrieve database credentials
 PGHOST="$HOSTNAME"
-PGUSER=$(docker exec $CONTAINER /bin/bash -c "echo \$POSTGRES_USER")
-PGPASSWORD=$(docker exec $CONTAINER /bin/bash -c "echo \$POSTGRES_PASSWORD")
+PGUSER=$(docker exec "$CONTAINER" /bin/bash -c "echo \$POSTGRES_USER")
+PGPASSWORD=$(docker exec "$CONTAINER" /bin/bash -c "echo \$POSTGRES_PASSWORD")
 export PGHOST
 export PGUSER
 export PGPASSWORD
-
-#FIXME: Run the commands below in a custom Docker container. Get rid of the hostname parameter and dependencies.
 
 echo "Run upgrade script for database $DATABASE in $MODE mode."
 echo "The database will be upgraded from $ODOO_CURRENT_VERSION to $ODOO_TARGET_VERSION."
