@@ -451,7 +451,7 @@ function dev-vuepress() {
 }
 
 function build-vuepress() {
-    # pnpm run build
+    pnpm run build
 
     echo "Create vuepress script folders"
     mkdir -p .vuepress/dist/ansible_scripts
