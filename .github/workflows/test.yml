@@ -30,4 +30,4 @@ jobs:
       - name: Run task test-scripts
         run: ./task test-scripts
         env:
-          ODOO_SUBSCRIPTION_CODE: ${{ secrets.ODOO_SUBSCRIPTION_CODE }}
+          ODOO_ENTERPRISE_CODE: ${{ secrets.ODOO_ENTERPRISE_CODE }}

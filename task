@@ -341,7 +341,7 @@ function test-scripts() {
         docker-odoo-init -c odoo01-int -d odoo-int -i partner_firstname
         docker-odoo-shell -c odoo01-int -d odoo-int -f -p 'env["res.partner"].browse(1).write({"name": "admint"})'
         [[ "admint" == $(docker-odoo-shell -c odoo01-int -d odoo-int -p 'print(env["res.partner"].browse(1).name)') ]]
-        docker-odoo-upgrade -c postgres01 -d odoo-int -s "17.0" -n upgrade -t "18.0" -m test -l "$ODOO_SUBSCRIPTION_CODE"
+        docker-odoo-upgrade -c postgres01 -d odoo-int -s "17.0" -n upgrade -t "18.0" -m test -l "$ODOO_ENTERPRISE_CODE"
 
         echo -e "\033[38;5;214mTEST\033[0m: Test docker volume scripts"
         docker stop postgres01

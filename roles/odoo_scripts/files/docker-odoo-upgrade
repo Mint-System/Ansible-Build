@@ -40,7 +40,7 @@ while getopts ":c: :d: :s: :n: :t: :m: :l: :V" opt; do
         n) TARGET_DATABASE="$OPTARG";;
         t) TARGET_ODOO_VERSION="$OPTARG";;
         m) MODE="$OPTARG";;
-        l) ODOO_SUBSCRIPTION_CODE="$OPTARG";;
+        l) ODOO_ENTERPRISE_CODE="$OPTARG";;
         V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
@@ -78,9 +78,9 @@ function odoo-upgrade() {
 
 echo "Run upgrade script for database $DATABASE in $MODE mode."
 echo "The database will be upgraded from $ODOO_VERSION to $TARGET_ODOO_VERSION."
-if [ -z "$ODOO_SUBSCRIPTION_CODE" ]; then
+if [ -z "$ODOO_ENTERPRISE_CODE" ]; then
     odoo-upgrade "$MODE" -d "$DATABASE" -t "$TARGET_ODOO_VERSION" -r "$TARGET_DATABASE"
 else
-    odoo-upgrade "$MODE" -d "$DATABASE" -t "$TARGET_ODOO_VERSION" -r "$TARGET_DATABASE" -c "$ODOO_SUBSCRIPTION_CODE"
+    odoo-upgrade "$MODE" -d "$DATABASE" -t "$TARGET_ODOO_VERSION" -r "$TARGET_DATABASE" -c "$ODOO_ENTERPRISE_CODE"
 fi
 echo "The upgrade has been successful. The upgraded database has been restored as '$TARGET_DATABASE'."
