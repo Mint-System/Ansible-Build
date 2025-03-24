@@ -72,8 +72,7 @@ export PGUSER
 export PGPASSWORD 
 
 function odoo-upgrade() {
-    docker run -it \
-        -e PGHOST="$PGHOST" -e PGUSER="$PGUSER" -e PGPASSWORD="$PGPASSWORD" \
+    docker run -e PGHOST="$PGHOST" -e PGUSER="$PGUSER" -e PGPASSWORD="$PGPASSWORD" \
         --network="$NETWORK" mintsystem/odoo-upgrade "$@"
 }
 

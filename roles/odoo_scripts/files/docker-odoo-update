@@ -59,10 +59,7 @@ done
 CONTAINER_ID=$(docker ps -f "name=${CONTAINER}$" -q | tail -n1)
 [[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
 
-# Set alias
-docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
-
 # Update with Docker exec
 echo "Update modules $MODULES on database $DATABASE."
-$docker_exec_bash "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init --no-http $OVERWRITE_TRANSLATIONS"
+docker exec $CONTAINER_ID /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init --no-http $OVERWRITE_TRANSLATIONS"
 
