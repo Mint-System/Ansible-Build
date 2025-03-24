@@ -1,9 +1,29 @@
 ---
+- name: Mark oh-my-zsh directory as safe for Git
+  ansible.builtin.command:
+    cmd: git config --global --add safe.directory /home/{{ item.username }}/.oh-my-zsh
+  become: true
+  become_user: "{{ item.username }}"
+  when: item.shell is defined and item.shell == '/bin/zsh' and item.hosts is defined and inventory_hostname_short in item.hosts
+  loop: "{{ iam_users }}"
+
+- name: Ensure correct ownership for oh-my-zsh directory
+  ansible.builtin.file:
+    path: "/home/{{ item.username }}/.oh-my-zsh"
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0755"
+  when: item.shell is defined and item.shell == '/bin/zsh' and item.hosts is defined and inventory_hostname_short in item.hosts
+  loop: "{{ iam_users }}"
+
 - name: Cloning oh-my-zsh for user
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh
     dest: /home/{{ item.username }}/.oh-my-zsh
     version: master
+  become: true
+  become_user: "{{ item.username }}"
   when: item.shell is defined and item.shell == '/bin/zsh' and item.hosts is defined and inventory_hostname_short in item.hosts
   loop: "{{ iam_users }}"
 

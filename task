@@ -7,8 +7,8 @@ function help() {
     echo "commands:"
     echo
 
-    CMD_WIDTH=23
-    OPT_WIDTH=22
+    CMD_WIDTH=24
+    OPT_WIDTH=24
     DESC_WIDTH=70
     COLUMN="| %-${CMD_WIDTH}s | %-${OPT_WIDTH}s | %-${DESC_WIDTH}s |\n"
 
@@ -117,6 +117,7 @@ function convert-vault-file() {
 show-vault-file() {
     if test -z "$1"; then echo "\$1 is empty"; exit 1; fi
     if test -z "$2"; then echo "\$2 is empty"; exit 1; fi
+    activate-venv
 
     VAULT_ID="$1"
     FILE_PATH="$2"
