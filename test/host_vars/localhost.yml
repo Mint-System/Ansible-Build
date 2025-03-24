@@ -90,8 +90,8 @@ nginx_proxies:
     dest_port: 3000
 
 # https://hub.docker.com/r/mintsystem/odoo/
-odoo_revision: "18.0"
-odoo_image: mintsystem/odoo:18.0
+odoo_revision: "17.0"
+odoo_image: mintsystem/odoo:17.0
 odoo_build_image: true
 odoo_build_dockerfile: |
   RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
@@ -100,14 +100,14 @@ odoo_build_dockerfile: |
   RUN ACCEPT_EULA=Y apt-get install -y unixodbc msodbcsql18
   RUN uv pip install prometheus-client python-jose pyodbc pymssql
 odoo_hostname: odoo01
-odoo_description: Odoo 18
+odoo_description: Odoo 17
 odoo_master_password: odoo
 odoo_postgres_user: example
 odoo_postgres_password: test
 odoo_config_map:
   - name: prod
   - name: int
-odoo_addons_git_repos: https://github.com/OCA/partner-contact.git#18.0
+odoo_addons_git_repos: https://github.com/OCA/partner-contact.git#17.0
 odoo_postgres_hostname: "{{ postgres_hostname }}"
 
 # https://hub.docker.com/r/metabase/metabase

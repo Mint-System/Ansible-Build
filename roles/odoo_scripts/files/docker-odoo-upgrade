@@ -14,7 +14,6 @@ Help() {
     echo "Example: $SCRIPT -c postgres01 -h localhost -d erp -s 16.0 -n upgrade -t 17.0 -m test -l MXXXXXXXXX"
     echo "options:"
     echo "  -c    PostgreSQL container. Defaults to 'postgres'."
-    echo "  -h    PostgreSQL hostname. Defaults to container name."
     echo "  -d    Current database name."
     echo "  -s    Current Odoo version."
     echo "  -n    Target database name."
@@ -33,16 +32,15 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":c: :h: :d: :s: :n: :t: :m: :l: :V" opt; do
+while getopts ":c: :d: :s: :n: :t: :m: :l: :V" opt; do
     case $opt in
         c) CONTAINER="$OPTARG";;
-        h) HOSTNAME="$OPTARG";;
         d) DATABASE="$OPTARG";;
-        s) ODOO_CURRENT_VERSION="$OPTARG";;
-        n) NEW_DATABASE="$OPTARG";;
-        t) ODOO_TARGET_VERSION="$OPTARG";;
+        s) ODOO_VERSION="$OPTARG";;
+        n) TARGET_DATABASE="$OPTARG";;
+        t) TARGET_ODOO_VERSION="$OPTARG";;
         m) MODE="$OPTARG";;
-        l) LICENSE="$OPTARG";;
+        l) ODOO_SUBSCRIPTION_CODE="$OPTARG";;
         V) echo "$SCRIPT version $VERSION"
         exit 0
         ;;
@@ -54,38 +52,36 @@ done
 
 # Fallback to environment vars and default values
 : "${CONTAINER:=postgres}"
-: "${HOSTNAME:=$CONTAINER}"
 : "${MODE:=test}"
 
 # Verify variables
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$ODOO_CURRENT_VERSION" ]] && { echo "Parameter -s|current version is empty" ; exit 1; }
-[[ -z "$NEW_DATABASE" ]] && { echo "Parameter -n|new database is empty" ; exit 1; }
-[[ -z "$ODOO_TARGET_VERSION" ]] && { echo "Parameter -t|target version is empty" ; exit 1; }
+[[ -z "$ODOO_VERSION" ]] && { echo "Parameter -s|current version is empty" ; exit 1; }
+[[ -z "$TARGET_DATABASE" ]] && { echo "Parameter -n|new database is empty" ; exit 1; }
+[[ -z "$TARGET_ODOO_VERSION" ]] && { echo "Parameter -t|target version is empty" ; exit 1; }
 
 # Retrieve container info
 NETWORK_ID=$(docker inspect --format '{{range .NetworkSettings.Networks}}{{.NetworkID}}{{end}}' "$CONTAINER")
 NETWORK=$(docker network inspect --format '{{.Name}}' "$NETWORK_ID")
-PGHOST="$HOSTNAME"
+PGHOST="$CONTAINER"
 PGUSER=$(docker exec "$CONTAINER" /bin/bash -c "echo \$POSTGRES_USER")
 PGPASSWORD=$(docker exec "$CONTAINER" /bin/bash -c "echo \$POSTGRES_PASSWORD")
 export NETWORK
 export PGHOST
 export PGUSER
-export PGPASSWORD
+export PGPASSWORD 
 
 function odoo-upgrade() {
     docker run -it \
         -e PGHOST="$PGHOST" -e PGUSER="$PGUSER" -e PGPASSWORD="$PGPASSWORD" \
-        --network="$NETWORK" mintsystem/odoo-upgrade \
-        upgrade "$@"
+        --network="$NETWORK" mintsystem/odoo-upgrade "$@"
 }
 
 echo "Run upgrade script for database $DATABASE in $MODE mode."
-echo "The database will be upgraded from $ODOO_CURRENT_VERSION to $ODOO_TARGET_VERSION."
-if [ -z "$LICENSE" ]; then
-    odoo-upgrade "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "$NEW_DATABASE"
+echo "The database will be upgraded from $ODOO_VERSION to $TARGET_ODOO_VERSION."
+if [ -z "$ODOO_SUBSCRIPTION_CODE" ]; then
+    odoo-upgrade "$MODE" -d "$DATABASE" -t "$TARGET_ODOO_VERSION" -r "$TARGET_DATABASE"
 else
-    odoo-upgrade "$MODE" -d "$DATABASE" -t "$ODOO_TARGET_VERSION" -r "$NEW_DATABASE" -c "$LICENSE"
+    odoo-upgrade "$MODE" -d "$DATABASE" -t "$TARGET_ODOO_VERSION" -r "$TARGET_DATABASE" -c "$ODOO_SUBSCRIPTION_CODE"
 fi
-echo "The upgrade has been successful. The upgraded database has been restored as '$NEW_DATABASE'."
+echo "The upgrade has been successful. The upgraded database has been restored as '$TARGET_DATABASE'."
