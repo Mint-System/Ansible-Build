@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
+REPOSITORY=https://ansible.build
 
 SCRIPTS=(
     docker-odoo-backup
@@ -38,10 +38,10 @@ fi
 
 for SCRIPT in ${SCRIPTS[@]}; do
     echo "Installing $SCRIPT in $INSTALL_DIR ..."
-    curl -L "$REPOSITORY/main/roles/odoo_scripts/files/$SCRIPT" -o "$INSTALL_DIR/$SCRIPT"
+    curl -L "$REPOSITORY/odoo_scripts/$SCRIPT" -o "$INSTALL_DIR/$SCRIPT"
     chmod +x "$INSTALL_DIR/$SCRIPT"
 done
 
 echo "Installing docker-odoo completion scripts in $COMPLETION_DIR ..."
-curl -L "$REPOSITORY/main/roles/odoo_scripts/files/docker-odoo" -o "$COMPLETION_DIR/docker-odoo"
+curl -L "$REPOSITORY/odoo_scripts/docker-odoo" -o "$COMPLETION_DIR/docker-odoo"
 chmod +x "$COMPLETION_DIR/docker-odoo"

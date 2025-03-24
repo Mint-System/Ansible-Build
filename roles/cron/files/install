@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-REPOSITORY=https://raw.githubusercontent.com/mint-system/ansible-build
+REPOSITORY=https://ansible.build
 
 SCRIPTS=(
     cron-job-run
@@ -16,7 +16,7 @@ for SCRIPT in ${SCRIPTS[@]}; do
         cp "$SCRIPT_DIR/$SCRIPT" "/usr/local/bin/$SCRIPT"
     else
         echo "Download $SCRIPT script ..."
-        sudo curl -L "$REPOSITORY/main/roles/cron/files/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+        sudo curl -L "$REPOSITORY/cron/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
     fi
     sudo chmod +x "/usr/local/bin/$SCRIPT"
 done

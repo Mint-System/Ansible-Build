@@ -28,12 +28,12 @@ function help() {
     printf "$COLUMN" "lint" "" "Lint Ansible roles and playbooks."
     printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
     printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
-    printf "$COLUMN" "install-node" "" "Install build dependencies."
-    printf "$COLUMN" "dev-node" "" "Start vuepress development server."
+    printf "$COLUMN" "install-vuepress" "" "Install build dependencies."
+    printf "$COLUMN" "dev-vueress" "" "Start vuepress development server."
     printf "$COLUMN" "play" "" "Run ansible-playbook command."
     printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
-    printf "$COLUMN" "build-node" "" "Create vuepress build."
-    printf "$COLUMN" "serve-node-build" "" "Serve vuepress build."
+    printf "$COLUMN" "build-vuepress" "" "Create vuepress build."
+    printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
     printf "$COLUMN" "list-vault" "" "Lists vault identities."
     printf "$COLUMN" "list-hosts" "[path]" "Lists all hosts of an inventory."
     printf "$COLUMN" "version" "" "Show tool versions."
@@ -216,6 +216,11 @@ function play() {
 function upgrade() {
     echo "Update Ansible"
     uv pip install --upgrade ansible
+}
+
+function lint() {
+    activate-venv
+    ansible-lint --write --offline roles/*
 }
 
 # Ansible Invenotry commands
@@ -435,31 +440,53 @@ EOF
     done < "$RESULT_FILE"
 }
 
+# Docs commands
+
+function install-vuepress() {
+    pnpm install
+}
+
+function dev-vuepress() {
+    pnpm run dev
+}
+
+function build-vuepress() {
+    # pnpm run build
+
+    echo "Create vuepress script folders"
+    mkdir -p .vuepress/dist/ansible_scripts
+    mkdir -p .vuepress/dist/odoo_scripts
+    mkdir -p .vuepress/dist/nginx
+    mkdir -p .vuepress/dist/node_exporter
+    mkdir -p .vuepress/dist/mysql
+    mkdir -p .vuepress/dist/grafana
+    mkdir -p .vuepress/dist/postgres
+    mkdir -p .vuepress/dist/docker_volume
+    mkdir -p .vuepress/dist/certbot
+    mkdir -p .vuepress/dist/cron
+
+    echo "Copy script files to vuepress folder"
+    cp roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts 
+    cp roles/odoo_scripts/files/* .vuepress/dist/odoo_scripts 
+    cp roles/nginx/files/* .vuepress/dist/nginx 
+    cp roles/node_exporter/files/* .vuepress/dist/node_exporter 
+    cp roles/mysql/files/* .vuepress/dist/mysql 
+    cp roles/grafana/files/* .vuepress/dist/grafana 
+    cp roles/postgres/files/* .vuepress/dist/postgres 
+    cp roles/docker_volume/files/* .vuepress/dist/docker_volume 
+    cp roles/certbot/files/* .vuepress/dist/certbot 
+    cp roles/cron/files/* .vuepress/dist/cron 
+}
+
+function serve-vuepress() {
+    cd .vuepress/dist
+    npx serve
+}
+
 if declare -f "$1" > /dev/null; then
     "$1" "${@:2}"
 else
     case "$1" in
-        help)
-            help task
-            exit 1
-            ;;
-        install-node)
-            npm install
-            ;;
-        dev-node)
-            npm run dev
-            ;;
-        build-node)
-            npm run build
-            ;;
-        serve-node-build)
-            cd .vuepress/dist
-            npx serve
-            ;;
-        lint)
-            activate-venv
-            ansible-lint --write --offline roles/*
-            ;;
         source)
             activate-venv
             ;;
