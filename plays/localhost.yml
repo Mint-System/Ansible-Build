@@ -11,8 +11,8 @@
       tags: odoo_scripts
     - role: odoo_apps
       tags: odoo_apps
-    - role: docker_compose
-      tags: docker_compose
+    - role: iam
+      tags: iam
     - role: clean
       tags: clean
     - role: meilisync

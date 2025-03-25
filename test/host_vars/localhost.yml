@@ -7,6 +7,21 @@ hosts:
   - ip: 10.101.16.2
     name: erp.brunner-innovation.swiss erp-dev.brunner-innovation.swiss gaia.mint-system.com
 
+iam_groups:
+  - name: wheel
+    sudoers_commands: ALL
+  - name: operators
+    sudoers_commands: /usr/bin/docker ps, /usr/bin/docker start *,  /usr/bin/docker stop *, /usr/bin/docker restart *
+iam_users:
+  - username: admin
+    state: present
+    groups: wheel,docker
+    hosts: "{{ groups.all }}"
+  - username: operator
+    state: present
+    groups: operators
+    hosts: "{{ groups.all }}"
+
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:14-alpine
 # postgres_build_image: true # default: false

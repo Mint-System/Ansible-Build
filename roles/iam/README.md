@@ -12,11 +12,13 @@ iam_disallow_ssh_root_access: false # default: true
 iam_allow_ssh_password_authentication: true # default: false
 iam_groups:
   - name: wheel
-    add_group_to_sudoers: true
+    sudoers_commands: ALL
   - name: guests
-    add_group_to_sudoers: false
+  - name: operators
+    sudoers_commands: /usr/bin/docker ps, /usr/bin/docker start *,  /usr/bin/docker stop *, /usr/bin/docker restart *
 iam_users:
   - username: admin
+    state: present
     comment: "Administrator"
     ssh_public_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups: wheel,docker
@@ -26,7 +28,12 @@ iam_users:
     hosts:
       - server1
       - server2
+  - username: operator
+    state: present
+    groups: operators
+    hosts: "{{ groups.all }}"
   - username: bot
+    state: present
     comment: "Bot Example"
     ssh_public_key: "ssh-ed25519 ANzaC1yc2EA...KHgKLVcBaeKQ== bot@example.com"
     ssh_private_key: "{{ vault_bot_ssh_private_key }}"
@@ -34,6 +41,7 @@ iam_users:
       - server1
 host_iam_users:
   - username: bobmeyer
+    state: present
     comment: "Bob Meyer"
     passwort: "{{ vault_iam_users_bobmeyer_password }}"
     hosts:
