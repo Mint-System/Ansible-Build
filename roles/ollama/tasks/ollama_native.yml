@@ -27,7 +27,7 @@
 - name: Enable {{ role_name }} service
   ansible.builtin.systemd:
     name: ollama.service
-    enabled: yes
+    enabled: true
 
 - name: Show LLM cli api key
   ansible.builtin.debug:

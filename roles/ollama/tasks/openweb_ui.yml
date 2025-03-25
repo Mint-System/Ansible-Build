@@ -7,9 +7,7 @@
     image: "{{ openweb_ui_image }}"
     restart_policy: unless-stopped
     recreate: false
-    env:
-      OLLAMA_BASE_URL="http://{{ ansible_host }}:11434"
-      WEBUI_AUTH=False
+    env: OLLAMA_BASE_URL="http://{{ ansible_host }}:11434" WEBUI_AUTH=False
     ports: "{{ openweb_ui_ports | default([]) }}"
     networks:
       - name: "{{ docker_network_name }}"

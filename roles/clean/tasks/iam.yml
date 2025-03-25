@@ -6,4 +6,4 @@
     remove: true
     force: true
   loop: "{{ iam_users }}"
-  when: item.hosts is defined and inventory_hostname_short in item.hosts
+  when: item.hosts is defined and inventory_hostname_short in item.hosts and item.state == 'absent'

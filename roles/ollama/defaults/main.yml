@@ -1,3 +1,4 @@
+---
 ollama_description: Ollama
 ollama_native: false
 ollama_api_key: "{{ vault_ollama_api_key }}"
