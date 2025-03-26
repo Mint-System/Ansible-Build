@@ -123,11 +123,3 @@
     network_mode: bridge
   loop: "{{ odoo_config_map }}"
   when: odoo_config_map|length > 1
-
-- name: Ensure {{ role_name }} master password is in environment
-  ansible.builtin.lineinfile:
-    dest: /etc/environment
-    state: present
-    regexp: ^ODOO_MASTER_PASSWORD=
-    line: ODOO_MASTER_PASSWORD={{ odoo_master_password }}
-  when: odoo_master_password is defined
