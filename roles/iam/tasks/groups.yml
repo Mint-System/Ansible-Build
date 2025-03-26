@@ -26,7 +26,7 @@
     regexp: ^PermitRootLogin
     line: PermitRootLogin no
     state: present
-    validate: "/usr/sbin/sshd -t"
+    validate: "/usr/sbin/sshd -t -f %s"
   notify: Restart ssh service
   when:
     - sshd_config_stat.stat.exists
@@ -38,7 +38,7 @@
     regexp: ^PasswordAuthentication
     line: PasswordAuthentication yes
     state: present
-    validate: "/usr/sbin/sshd -t"
+    validate: "/usr/sbin/sshd -t -f %s"
   notify: Restart ssh service
   when:
     - sshd_config_stat.stat.exists
@@ -50,7 +50,7 @@
     regexp: ^PasswordAuthentication
     line: PasswordAuthentication no
     state: present
-    validate: "/usr/sbin/sshd -t"
+    validate: "/usr/sbin/sshd -t -f %s"
   notify: Restart ssh service
   when:
     - sshd_config_stat.stat.exists
