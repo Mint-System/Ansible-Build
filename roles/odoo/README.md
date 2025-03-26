@@ -43,7 +43,6 @@ odoo_workers: 0 # default: 4
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
-odoo_backup_set: # See restic_backup_set var in role restic
 ```
 
 ### Odoo
@@ -79,7 +78,6 @@ odoo_workers: 0 # default: 4
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
-odoo_backup_set: # See restic_backup_set var in role restic
 ```
 
 And include it in your playbook.

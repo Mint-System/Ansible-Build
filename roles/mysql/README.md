@@ -18,20 +18,7 @@ mysql_database: example
 mysql_user: example
 mysql_password: # default: "{{ vault_mysql_password }}"
 mysql_memory_limit: 4294967296 # default: 2147483648 (2 GB)
-```
-
-Backup databases.
-
-```yml
 mysql_backup_set: # See restic_backup_set var in role restic
-  - id: "mysql dump wordpress"
-    type: mysql-dump
-    container: mysql01
-    databases: moodle 
-    tags:
-      - mysql
-      - mysql01
-    hour: "1"
 ```
 
 And include it in your playbook.
@@ -41,6 +28,11 @@ And include it in your playbook.
   roles:
   - role: mysql
 ```
+
+The following tags are available:
+
+* mysql
+* mysql_backup
 
 ## Docs
 

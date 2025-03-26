@@ -7,7 +7,7 @@ Configures Restic backup jobs.
 Configure the role.
 
 ```yml
-restic_backup_dir: /tmp/backup # default: /var/tmp
+restic_backup_dir: /srv/backup # default: /var/backup
 restic_repo: "restic.example.com/{{ inventory_hostname }}"
 restic_repo_password: # default: "{{ vault_restic_repo_password }}"
 restic_rest_user: rest-user # default: restic
@@ -135,7 +135,7 @@ Set these env vars for local repsitory:
 
 ```yaml
 restic_repo_type: local # default: rest
-restic_repo: /home/Backuplocal
+restic_repo: /home/backup
 ```
 
 ### Delete all snaphots

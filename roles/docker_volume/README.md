@@ -21,3 +21,8 @@ And include it in your playbook.
   roles:
   - role: docker_volume
 ```
+
+The following tags are available:
+
+* docker_volume
+* docker_volume_backup

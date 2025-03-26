@@ -4,3 +4,16 @@
   when: docker_compose_project_name is defined
   tags:
     - docker_compose
+
+- name: Include {{ role_name }} backup from restic client role
+  ansible.builtin.include_role:
+    name: restic
+    apply:
+      tags:
+        - docker_compose_backup
+  vars:
+    restic_backup_set: "{{ docker_compose_backup_set }}"
+  when: docker_compose_backup_set is defined
+  tags:
+    - restic
+    - docker_compose_backup

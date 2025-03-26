@@ -26,3 +26,13 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ mariadb_hostname }}|{{ role_name }}"
   when: mariadb_volume_name is defined
+
+- name: Copy backup scripts
+  ansible.builtin.copy:
+    src: ../../mysql/files/{{ item }}
+    dest: /usr/local/bin/{{ item }}
+    mode: +x
+  loop:
+    - docker-mysql-backup
+    - docker-mysql-list
+    - docker-mysql-restore

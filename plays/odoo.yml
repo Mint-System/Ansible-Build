@@ -9,7 +9,6 @@
     - role: odoo_repos
       tags: odoo_repos
     - role: odoo_scripts
-      tags: odoo_scripts
     - role: odoo_enterprise
       tags: odoo_enterprise
     - role: odoo_data

@@ -21,6 +21,5 @@
   connection: local
   roles:
     - role: postgres
-      tags: postgres
     - role: iam
       tags: iam

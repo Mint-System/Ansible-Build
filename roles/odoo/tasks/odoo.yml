@@ -131,11 +131,3 @@
     regexp: ^ODOO_MASTER_PASSWORD=
     line: ODOO_MASTER_PASSWORD={{ odoo_master_password }}
   when: odoo_master_password is defined
-
-- name: Include {{ role_name }} backup from restic client role
-  ansible.builtin.include_role:
-    name: restic
-    tasks_from: restic_odoo_backup
-  vars:
-    restic_backup_set: "{{ odoo_backup_set }}"
-  when: odoo_backup_set is defined

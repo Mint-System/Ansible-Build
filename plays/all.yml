@@ -15,9 +15,8 @@
     - role: dind
       tags: dind
     - role: postgres
-      tags: postgres
+    - role: mariadb
     - role: mysql
-      tags: mysql
     - role: bookstack
       tags: bookstack
     - role: matomo

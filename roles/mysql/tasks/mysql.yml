@@ -39,3 +39,14 @@
     memory: "{{ mysql_memory_limit }}"
     memory_swap: "{{ mysql_memory_limit * 2 }}"
   when: mysql_volume_name is defined
+
+- name: Copy backup scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/{{ item }}
+    mode: +x
+  loop:
+    - docker-mysql-backup
+    - docker-mysql-list
+    - docker-mysql-restore
+    - docker-mysql-drop

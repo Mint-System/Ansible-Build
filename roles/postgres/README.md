@@ -42,11 +42,6 @@ postgres_users:
         database: odoo-prod
       - name: hr_employee
         database: odoo-int
-```
-
-Backup databases.
-
-```yml
 postgres_backup_set: # See restic_backup_set var in role restic
   - id: "{{ postgres_hostname }} dump"
     type: postgres-dump
@@ -64,6 +59,11 @@ And include it in your playbook.
   roles:
   - role: postgres
 ```
+
+The following tags are available:
+
+* postgres
+* postgres_backup
 
 ### Kubernetes
 

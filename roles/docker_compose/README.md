@@ -196,3 +196,8 @@ And include it in your playbook.
   roles:
   - role: docker_compose
 ```
+
+The following tags are available:
+
+* docker_compose
+* docker_compose_backup
