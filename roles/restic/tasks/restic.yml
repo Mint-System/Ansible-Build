@@ -12,8 +12,8 @@
   ansible.builtin.file:
     path: "{{ restic_backup_dir }}"
     state: directory
-    owner: root
-    group: root
+    owner: "{{ restic_owner }}"
+    group: "{{ restic_group }}"
     mode: "0700"
 
 - name: Set {{ role_name }} rest env
@@ -28,18 +28,13 @@
     restic_repository: "{{ restic_repo }}"
   when: restic_repo_type == 'local'
 
-- name: Ensure {{ role_name }} environment vars exists
-  ansible.builtin.lineinfile:
-    dest: /etc/environment
-    state: present
-    regexp: ^{{ item.key }}=
-    line: "{{ item.key }}={{ item.value }}"
-  no_log: true
-  loop:
-    - key: RESTIC_PASSWORD
-      value: "{{ restic_password }}"
-    - key: RESTIC_REPOSITORY
-      value: "{{ restic_repository }}"
+- name: Setup {{ role_name }} wrapper script for main repo
+  ansible.builtin.template:
+    dest: /usr/local/bin/restic-main
+    src: restic-main
+    owner: "{{ restic_owner }}"
+    group: "{{ restic_group }}"
+    mode: "0750"
 
 - name: Check if repo is initialized
   ansible.builtin.command: restic snapshots

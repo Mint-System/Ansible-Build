@@ -8,6 +8,8 @@ Configure the role.
 
 ```yml
 restic_backup_dir: /srv/backup # default: /var/backup
+restic_owner: backup # default: root
+restic_group: backup # default: root
 restic_repo: "restic.example.com/{{ inventory_hostname }}"
 restic_repo_password: # default: "{{ vault_restic_repo_password }}"
 restic_rest_user: rest-user # default: restic

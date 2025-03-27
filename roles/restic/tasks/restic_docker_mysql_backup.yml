@@ -4,7 +4,7 @@
     name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} -o {{ restic_backup_dir }} && restic backup {{ restic_backup_dir }}/{{ item.container
+    job: docker-mysql-backup -c {{ item.container }} -d {{ item.databases }} -o {{ restic_backup_dir }} && restic-main backup {{ restic_backup_dir }}/{{ item.container
       }} --tag {{ item.tags | join(' --tag ') }} {{ '--help' if not (item.upload | default(true)) else '' }}; write-node-exporter-metric -c '{{ item.id }}' -v $?
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
@@ -16,7 +16,7 @@
     name: "{{ item.id }}"
     hour: "{{ item.hour }}"
     minute: "{{ 59 |random(seed=item.id) }}"
-    job: docker-mysql-backup -c {{ item.container }} -o {{ restic_backup_dir }} -a && restic backup {{ restic_backup_dir }}/{{ item.container }} --tag {{ item.tags
+    job: docker-mysql-backup -c {{ item.container }} -o {{ restic_backup_dir }} -a && restic-main backup {{ restic_backup_dir }}/{{ item.container }} --tag {{ item.tags
       | join(' --tag ') }} {{ '--help' if not (item.upload | default(true)) else '' }}; write-node-exporter-metric -c '{{ item.id }}' -v $?
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
