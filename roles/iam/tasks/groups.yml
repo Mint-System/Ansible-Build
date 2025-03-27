@@ -15,10 +15,10 @@
   when: item.sudoers_commands is defined
   loop: "{{ iam_groups }}"
 
-- name: Check if /etc/ssh/sshd_config exists
+- name: Check if sshd exists
   ansible.builtin.stat:
-    path: /etc/ssh/sshd_config
-  register: sshd_config_stat
+    path: /run/sshd
+  register: sshd_stat
 
 - name: Disallow root ssh access
   ansible.builtin.lineinfile:
@@ -29,7 +29,7 @@
     validate: "/usr/sbin/sshd -t -f %s"
   notify: Restart ssh service
   when:
-    - sshd_config_stat.stat.exists
+    - sshd_stat.stat.exists
     - iam_disallow_ssh_root_access
 
 - name: Enable ssh password authentication
@@ -41,7 +41,7 @@
     validate: "/usr/sbin/sshd -t -f %s"
   notify: Restart ssh service
   when:
-    - sshd_config_stat.stat.exists
+    - sshd_stat.stat.exists
     - iam_allow_ssh_password_authentication
 
 - name: Disable ssh password authentication
@@ -53,5 +53,5 @@
     validate: "/usr/sbin/sshd -t -f %s"
   notify: Restart ssh service
   when:
-    - sshd_config_stat.stat.exists
+    - sshd_stat.stat.exists
     - not iam_allow_ssh_password_authentication
