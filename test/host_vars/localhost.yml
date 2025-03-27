@@ -1,5 +1,6 @@
 docker_network_name: mint-system.com
 ansible_become: true
+iam_disallow_ssh_root_access: false
 ufw_enabled: false
 hosts:
   - ip: 127.0.0.1
