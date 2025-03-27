@@ -22,7 +22,7 @@
     - role: packages
       tags: packages
     - role: postgres
-      tags: postges
+      tags: postgres
     - role: cargo
       tags: cargo
     - role: innernet
