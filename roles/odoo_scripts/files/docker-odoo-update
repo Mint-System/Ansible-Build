@@ -61,5 +61,5 @@ CONTAINER_ID=$(docker ps -f "name=${CONTAINER}" -q | tail -n1)
 
 # Update with Docker exec
 echo "Update modules $MODULES on database $DATABASE."
-docker exec $CONTAINER_ID /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \$PASSWORD --stop-after-init --no-http $OVERWRITE_TRANSLATIONS"
+docker exec "$CONTAINER_ID" /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host \$HOST -r \$USER -w \"\$PASSWORD\" --stop-after-init --no-http $OVERWRITE_TRANSLATIONS"
 
