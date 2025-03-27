@@ -9,8 +9,16 @@ SCRIPTS=(
     docker-volume-copy
 )
 
+INSTALL_DIR="/usr/local/bin"
+
+if [[ "$1" == "--user" ]]; then
+    INSTALL_DIR="$HOME/bin"
+    mkdir -p "$INSTALL_DIR"
+    echo "Installing scripts in $INSTALL_DIR"
+fi
+
 for SCRIPT in ${SCRIPTS[@]}; do
-    echo "Install $SCRIPT script ..."
-    sudo curl -L "$REPOSITORY/docker_volume/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-    sudo chmod +x "/usr/local/bin/$SCRIPT"
+    echo "Installing $SCRIPT ..."
+    curl -L "$REPOSITORY/docker_volume/$SCRIPT" -o "$INSTALL_DIR/$SCRIPT"
+    chmod +x "$INSTALL_DIR/$SCRIPT"
 done

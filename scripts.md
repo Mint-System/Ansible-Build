@@ -32,7 +32,7 @@ curl -L https://ansible.build/certbot/install | bash
 ## [docker_volume](roles/docker_volume/README.md)
 
 ```bash
-curl -L https://ansible.build/docker_volume/install | bash
+curl -L https://ansible.build/docker_volume/install | bash -s -- --user
 ```
 
 - docker-volume-backup
