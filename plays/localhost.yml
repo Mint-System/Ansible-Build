@@ -59,3 +59,5 @@
       tags: nginx
     - role: s3cmd
       tags: s3cmd
+    - role: docker_compose
+      tags: docker_compose

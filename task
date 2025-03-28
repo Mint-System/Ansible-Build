@@ -270,7 +270,8 @@ function test-localhost() {
             prometheus,prometheus_data,prometheus_volume,\
             grafana,grafana_data,grafana_volume,\
             loki,loki_data,loki_volume,\
-            promtail,promtail_data,promatil_volume"
+            promtail,promtail_data,promatil_volume,\
+            docker_compose,docker_compose_data"
     else
         echo "Setup localhost"
         ansible-playbook -i test plays/localhost.yml --skip-tags check

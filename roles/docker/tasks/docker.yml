@@ -3,6 +3,15 @@
   ansible.builtin.file:
     path: "{{ docker_data_dir }}"
     state: directory
+    group: "{{ docker_group }}"
+    mode: "0710"
+
+- name: Ensure {{ role_name }} build dir exists
+  ansible.builtin.file:
+    path: "{{ docker_build_dir }}"
+    state: directory
+    group: "{{ docker_group }}"
+    mode: "0770"
 
 - name: Ensure {{ role_name }} config dir exists
   ansible.builtin.file:

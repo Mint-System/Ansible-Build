@@ -16,6 +16,7 @@ Configure all depending roles.
 docker_dns: "[\"172.17.4.1\", \"8.8.8.8\"]"
 docker_data_dir: /mnt/sdb/docker # defaults: /var/lib/docker
 docker_build_dir: /tmp/build # defaults: /srv/build
+docker_group: container # default: docker
 docker_log_driver: "local" # defaults: "json-file
 docker_log_max_size: "50m" # defaults: "10m"
 docker_log_max_file: "5" # defaults: "3"

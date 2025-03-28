@@ -99,7 +99,7 @@ if [[ -z "$DUMP_FILE" ]]; then
         echo "Continuing with database import."
     else
         echo "Exiting script. Please restart the script:"
-        echo "docker-compose-upgrade -c $CONTAINER -s $SOURCE_VERSION -t $TARGET_VERSION -i $DUMP_FILE"
+        echo "docker-postgres-upgrade -c $CONTAINER -s $SOURCE_VERSION -t $TARGET_VERSION -i $DUMP_FILE"
         exit
     fi
 fi

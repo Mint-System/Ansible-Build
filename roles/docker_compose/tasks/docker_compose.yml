@@ -1,27 +1,10 @@
 ---
-- name: Check current {{ role_name }} version
-  ansible.builtin.command: /usr/local/bin/docker-compose --version
-  register: docker_compose_vsn
-  changed_when: false
-  failed_when: false
-
-- name: Set current {{ role_name }} version
-  ansible.builtin.set_fact:
-    docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
-  when: docker_compose_vsn.stdout | regex_search("version")
-
-- name: Install {{ role_name }} {{ docker_compose_version }}
-  ansible.builtin.get_url:
-    url: https://github.com/docker/compose/releases/download/v{{ docker_compose_version }}/docker-compose-Linux-x86_64
-    dest: /usr/local/bin/docker-compose
-    force: true
-    mode: u+rx,g+rx
-  when: docker_compose_current_version is not defined or docker_compose_current_version != docker_compose_version
-
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
     path: "{{ docker_compose_data_dir }}"
     state: directory
+    group: "{{ docker_group }}"
+    mode: "0770"
 
 - name: Copy {{ role_name }} dotenv
   ansible.builtin.template:
@@ -44,7 +27,7 @@
   when: docker_compose_volumes is defined
 
 - name: Start {{ role_name }} project
-  ansible.builtin.command: /usr/local/bin/docker-compose -p {{ docker_compose_project_name }} up -d
+  ansible.builtin.command: docker compose -p {{ docker_compose_project_name }} up -d
   args:
     chdir: "{{ docker_compose_data_dir }}"
   register: result

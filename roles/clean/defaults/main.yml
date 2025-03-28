@@ -15,3 +15,4 @@ grafana_data_dir: /usr/share/{{ grafana_hostname }}
 grafana_volume_name: "{{ grafana_hostname }}"
 prometheus_volume_name: "{{ prometheus_hostname }}"
 prometheus_data_dir: /usr/share/{{ prometheus_hostname }}
+docker_compose_data_dir: /srv/compose/{{ docker_compose_project_name }}

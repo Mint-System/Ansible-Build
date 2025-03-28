@@ -153,3 +153,28 @@ grafana_admin_password: admin
 grafana_prometheus_hostname: prom01
 grafana_server_domain: "grafana.local"
 grafana_server_root_url: "http://grafana.local"
+
+docker_compose_project_name: project01
+docker_compose_dotenv: |
+  POSTGRES_PASSWORD=postgres
+docker_compose_definition:
+  services:
+    db:
+      image: postgres
+      volumes:
+        - ./data/db:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+    web:
+      image: django
+      command: python -m http.server
+      ports:
+        - "8000:8000"
+      environment:
+        - POSTGRES_NAME=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      depends_on:
+        - db
