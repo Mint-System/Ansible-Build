@@ -43,11 +43,14 @@ while getopts ":u: :V" opt; do
   esac
 done
 
-# Fallback to environment vars and default values
-: ${CRONTAB_USERNAME:="$USERNAME"}
-
-# Fetch and list the Ansible jobs from the crontab
 sudo crontab -u "$CRONTAB_USERNAME" -l | awk '
   BEGIN { job_num = 1 }
-  /^#Ansible: / {name=$2; getline; printf "[%d] %s %s %s %s %s %s\n", job_num++, $1, $2, $3, $4, $5, name }
+  /^#Ansible: / {
+    # Capture the full job name (everything after "#Ansible: ")
+    sub(/^#Ansible: /, "", $0);
+    job_name = $0;
+    getline;
+    print "[" job_num "]", $1, $2, $3, $4, $5, job_name;
+    job_num++;
+  }
 '
