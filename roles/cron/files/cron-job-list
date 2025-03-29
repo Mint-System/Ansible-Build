@@ -15,7 +15,7 @@ Help() {
   echo "Example: $SCRIPT -u root"
   echo "options:"
   echo "  -u    Specify username of crontab."
-  echo "  -v    Show $SCRIPT version."
+  echo "  -V    Show $SCRIPT version."
   echo "  help  Show $SCRIPT manual."
   echo
 }
@@ -47,4 +47,7 @@ done
 : ${CRONTAB_USERNAME:="$USERNAME"}
 
 # Fetch and list the Ansible jobs from the crontab
-sudo crontab -u "$CRONTAB_USERNAME" -l | awk '/^#Ansible: / {name=$2; getline; print $1, $2, $3, $4, $5, name}'
+sudo crontab -u "$CRONTAB_USERNAME" -l | awk '
+  BEGIN { job_num = 1 }
+  /^#Ansible: / {name=$2; getline; printf "[%d] %s %s %s %s %s %s\n", job_num++, $1, $2, $3, $4, $5, name }
+'

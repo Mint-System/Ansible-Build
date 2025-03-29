@@ -302,7 +302,8 @@ function test-scripts() {
         ansible localhost -m ansible.builtin.cron -a 'name="test" minute="0" hour="*/6" job="echo \"test\""'
 
         # List cron job and compare output
-        [[ "$(cron-job-list)" == "0 */6 * * * test" ]]
+        [[ "$(cron-job-list)" == "[1] 0 */6 * * * test" ]]
+        cron-job-run -i 1
 
         echo -e "\033[38;5;214mTEST\033[0m: Test postgres scripts"
         sudo ./roles/postgres/files/install

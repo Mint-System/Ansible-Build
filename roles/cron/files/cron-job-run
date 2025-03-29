@@ -3,7 +3,7 @@ set -e
 
 # Get script name
 SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+VERSION="1.1.0"
 
 # Display Help
 Help() {
@@ -11,11 +11,12 @@ Help() {
   echo "$SCRIPT"
   echo
   echo "Description: Run jobs from crontab managed by Ansible."
-  echo "Syntax: $SCRIPT [-n|-V|help]"
+  echo "Syntax: $SCRIPT [-n|-i|-V|help]"
   echo "Example: $SCRIPT -n 'Renew certs for nginx08'"
   echo "options:"
-  echo "  -n    Name of Ansible cron job"
-  echo "  -v    Show $SCRIPT version."
+  echo "  -n    Name of Ansible cron job."
+  echo "  -id   ID of the Ansible cron job."
+  echo "  -V    Show $SCRIPT version."
   echo "  help  Show $SCRIPT manual."
   echo
 }
@@ -27,9 +28,10 @@ if [[ "$1" == "help" ]]; then
 fi
 
 # Process params
-while getopts ":n: :h:" opt; do
+while getopts ":n: :i: :V" opt; do
   case $opt in
     n) ANSIBLE_CRON_NAME="#Ansible: $OPTARG";;
+    i) ANSIBLE_CRON_ID=$OPTARG;;
     V) echo "$SCRIPT version $VERSION"
     exit 0
     ;;
@@ -39,16 +41,31 @@ while getopts ":n: :h:" opt; do
   esac
 done
 
-[[ -z "$ANSIBLE_CRON_NAME" ]] && { echo "Parameter -n|name is empty" ; exit 1; }
+if [[ -z "$ANSIBLE_CRON_NAME" && -z "$ANSIBLE_CRON_ID" ]]; then
+  echo "Error: You must specify either -n <name> or -i <id>."
+  exit 1
+fi
 
-# Get Path definitions
-# PATH=$(crontab -l | grep "PATH=" | cut -d'=' -f2-)
+ANSIBLE_CRON_JOBS=$(crontab -l | awk '
+  BEGIN { job_num = 1 }
+  /^#Ansible: / {
+    name=$2;
+    getline;
+    print job_num++ "|" name "|" substr($0, index($0, $6));
+  }
+')
 
-# Get command from crontab by Ansible cron name
-COMMAND=$(crontab -l | grep "$ANSIBLE_CRON_NAME" -a1 | tail -n 1 | cut -d' ' -f6-)
+if [[ -n "$ANSIBLE_CRON_NAME" ]]; then
+  COMMAND=$(echo "$ANSIBLE_CRON_JOBS" | awk -F'|' -v name="$ANSIBLE_CRON_NAME" '$2 == name { print $3 }')
+elif [[ -n "$ANSIBLE_CRON_ID" ]]; then
+  COMMAND=$(echo "$ANSIBLE_CRON_JOBS" | awk -F'|' -v id="$ANSIBLE_CRON_ID" '$1 == id { print $3 }')
+fi
 
-[[ -z "$COMMAND" ]] && { echo "Cron job not found. Maybe try another user?" ; exit 1; }
+if [[ -z "$COMMAND" ]]; then
+  echo "Error: Cron job not found. Maybe try another user?"
+  exit 1
+fi
 
-echo "Run command: $COMMAND"
+echo "Running command: $COMMAND"
 echo ""
-eval $COMMAND
+eval "$COMMAND"
