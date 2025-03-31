@@ -8,6 +8,8 @@ odoo_description: Odoo
 odoo_state: started
 odoo_ports: []
 odoo_data_dir: /usr/share/{{ odoo_hostname }}
+odoo_owner: root
+odoo_group: root
 odoo_volume_name: "{{ odoo_hostname }}"
 odoo_postgres_user: "{{ postgres_user }}"
 odoo_postgres_password: "{{ vault_postgres_password }}"

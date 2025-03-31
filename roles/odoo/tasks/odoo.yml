@@ -10,6 +10,8 @@
   ansible.builtin.file:
     path: "{{ odoo_data_dir }}/enterprise"
     state: directory
+    owner: "{{ odoo_owner }}"
+    group: "{{ odoo_group }}"
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
