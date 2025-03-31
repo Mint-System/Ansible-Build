@@ -75,9 +75,9 @@ grafana_generic_oauth_sign_up: "false" # default: "true"
 grafana_generic_oauth_client_id: "monitor.example.com"
 grafana_generic_oauth_client_secret: "{{ vault_grafana_generic_oauth_client_secret }}"
 grafana_generic_oauth_scopes: email # default: openid profile email
-grafana_generic_oauth_auth_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/auth"
-grafana_generic_oauth_token_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/token"
-grafana_generic_oauth_api_url: "https://login.example.com/auth/realms/example.com/protocol/openid-connect/userinfo"
+grafana_generic_oauth_auth_url: "https://login.example.com/realms/example.com/protocol/openid-connect/auth"
+grafana_generic_oauth_token_url: "https://login.example.com/realms/example.com/protocol/openid-connect/token"
+grafana_generic_oauth_api_url: "https://login.example.com/realms/example.com/protocol/openid-connect/userinfo"
 ```
 
 ### OAuth-Login with Azure

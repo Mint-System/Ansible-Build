@@ -10,7 +10,7 @@ Configure the role.
 # https://docs.ansible.com/ansible/latest/collections/community/general/keycloak_client_module.html
 keycloak_clients:
   - auth_client_id: admin-cli # default: admin-cli
-    auth_keycloak_url: https://login.example.com/auth/
+    auth_keycloak_url: https://login.example.com/
     auth_realm: master # default: master
     auth_username: login@example.com
     auth_password: "{{ vault_keycloakd_client_0_auth_password }}"

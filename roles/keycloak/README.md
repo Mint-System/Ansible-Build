@@ -60,9 +60,7 @@ Run `kcadm.sh` commands.
 ```bash
 ./kcadm.sh get clients -r master --fields id,clientId
 ./kcadm.sh create clear-user-cache -r master -s realm=master
-# ...
 ```
-
 
 ### Additonal Hash-Providers
 

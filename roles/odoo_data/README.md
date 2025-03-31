@@ -35,13 +35,10 @@ odoo_data:
       enabled:
         type: eval
         value: "True"
-      x_keycloak:
-        type: eval
-        value: "True"
       css_class: fa fa-fw fa-sign-in text-primary
-      auth_endpoint: https://login.mint-system.ch/auth/realms/mint-system.ch/protocol/openid-connect/auth
+      auth_endpoint: https://login.mint-system.ch/realms/mint-system.ch/protocol/openid-connect/auth
       scope: profile
-      validation_endpoint: https://login.mint-system.ch/auth/realms/mint-system.ch/protocol/openid-connect/userinfo
+      validation_endpoint: https://login.mint-system.ch/realms/mint-system.ch/protocol/openid-connect/userinfo
 ```
 
 Include the role in your playbook.
