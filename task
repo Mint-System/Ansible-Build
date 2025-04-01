@@ -20,6 +20,8 @@ function help() {
     printf "$COLUMN" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
     printf "$COLUMN" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
     printf "$COLUMN" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
+    printf "$COLUMN" "decrypt-file" "[path]" "Decrypt Ansible Vault file."
+    printf "$COLUMN" "encrypt-file" "[vault_id] [path]" "Encrypt file with Ansible Vault."
     printf "$COLUMN" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
     printf "$COLUMN" "install" "" "Install Ansible and dependencies with uv."
     printf "$COLUMN" "install-exo" "" "Install Exoscale CLI."
@@ -55,6 +57,21 @@ if [[ -a ".env" ]]; then
 fi
 
 # Ansible Vault commands
+
+function decrypt-file() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    activate-venv
+    echo "Decrypt file $1."
+    ansible-vault decrypt --output="$1" "$1"
+}
+
+function encrypt-file() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    if test -z "$2"; then echo "\$1 is empty"; exit; fi
+    activate-venv
+    echo "Encrypt file $2 with vault id $1."
+    ansible-vault encrypt --encrypt-vault-id="$1" "$2" 
+}
 
 function list-vault() {
     grep 'vault_identity_list' ansible.cfg | sed 's/^vault_identity_list = //' | tr ',' '\n' | sed '/^$/d'
