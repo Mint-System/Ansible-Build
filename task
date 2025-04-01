@@ -31,6 +31,7 @@ function help() {
     printf "$COLUMN" "install-vuepress" "" "Install build dependencies."
     printf "$COLUMN" "dev-vueress" "" "Start vuepress development server."
     printf "$COLUMN" "play" "" "Run ansible-playbook command."
+    printf "$COLUMN" "pull-repos" "" "Pull git repos in inventories folder."
     printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
     printf "$COLUMN" "build-vuepress" "" "Create vuepress build."
     printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
@@ -223,13 +224,21 @@ function lint() {
     ansible-lint --write --offline roles/*
 }
 
-# Ansible Invenotry commands
+# Ansible Inventory commands
 
 function list-hosts() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
 
     activate-venv
     ansible -i $1 all --list-hosts
+}
+
+function pull-repos() {
+    for GIT_FOLDER in $(find inventories -name .git); do
+        REPO=$(dirname "$GIT_FOLDER")
+        echo "Pull repo $REPO."
+        git -C "$REPO" pull
+    done
 }
 
 # Ansible Galaxy commands
