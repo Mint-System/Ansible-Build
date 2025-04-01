@@ -1,6 +1,6 @@
 ---
 dependencies: # noqa 701
-  - role: prometheus
+  - role: docker
     tags:
-      - prometheus
+      - docker
       - depends

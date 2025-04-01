@@ -128,7 +128,7 @@ scrape_configs:
     metrics_path: "/probe"
     scrape_interval: 60s
     params:
-      module: [http_401_unauth]
+      module: [http]
     static_configs:
       - targets: {{ targets }}
     relabel_configs:

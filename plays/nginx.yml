@@ -14,6 +14,8 @@
       tags: odoo_exporter
     - role: postgres_exporter
       tags: postgres_exporter
+    - role: blackbox_exporter
+      tags: blackbox_exporter
     - role: bigbluebutton_exporter
       tags: bigbluebutton_exporter
     - role: nextcloud_exporter
@@ -26,6 +28,10 @@
       tags: promtail
     - role: loki
       tags: loki
+    - role: grafana
+      tags: grafana
+    - role: prometheus
+      tags: prometheus
     - role: acme_sh
       tags: acme_sh
     - role: certbot

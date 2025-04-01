@@ -1,39 +1,9 @@
 ---
 modules:
-  http_2xx:
-    prober: http
-  http_post_2xx:
+  http:
     prober: http
     http:
-      method: POST
-  tcp_connect:
-    prober: tcp
-  pop3s_banner:
-    prober: tcp
-    tcp:
-      query_response:
-        - expect: ^+OK
-      tls: true
-      tls_config:
-        insecure_skip_verify: false
-  ssh_banner:
-    prober: tcp
-    tcp:
-      query_response:
-        - expect: ^SSH-2.0-
-        - send: SSH-2.0-blackbox-ssh-check
-  irc_banner:
-    prober: tcp
-    tcp:
-      query_response:
-        - send: NICK prober
-        - send: USER prober prober prober :prober
-        - expect: PING :([^ ]+)
-          send: PONG ${1}
-        - expect: ^:[^ ]+ 001
-  icmp:
-    prober: icmp
-  http_401_unauth:
-    prober: http
-    http:
+      follow_redirects: true
       valid_status_codes: [403, 401, 200]
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: false
