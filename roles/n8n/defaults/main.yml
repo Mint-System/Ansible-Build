@@ -3,6 +3,9 @@ n8n_build_image: false
 n8n_description: N8N
 n8n_state: started
 n8n_volume_name: "{{ n8n_hostname }}"
+n8n_data_dir: "/usr/share/{{ n8n_hostname }}"
+n8n_owner: root
+n8n_group: root
 n8n_timezone: Europe/Zurich
 n8n_db_type: postgresdb
 n8n_postgresdb_port: "5432"
