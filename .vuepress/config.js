@@ -25,7 +25,7 @@ export default defineUserConfig({
             { text: 'Home', link: '/' },
             { text: 'Scripts', link: '/scripts' },
             { text: 'Mint System', link: 'https://www.mint-system.ch' },
-            { text: 'Chat', link: 'https://matrix.to/#/#ansible-build:mint-system.ch' }
+            { text: 'Chat', link: 'https://matrix.to/#/!BgzMVlwDExHDQPPdKJ:mint-system.ch?via=mint-system.ch' }
         ],
     }),
     plugins: [
