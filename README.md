@@ -268,12 +268,6 @@ Clean dry run.
 task play -i inventories/odoo plays/odoo.yml -t odoo --check
 ```
 
-Install odoo_scripts and odoo_apps locally.
-
-```bash
-task play -i inventories/setup plays/localhost.yml.yml --skip-tags depends
-```
-
 List all Odoo databses.
 
 ```bash
@@ -372,7 +366,7 @@ The reference roles are [postgres](roles/postgres/README.md) and [odoo](roles/od
 
 Roles can have multiple tags.
 
-**example one tag**
+**Example one tag**
 
 To define a Postgres role, you would:
 
@@ -380,7 +374,7 @@ To define a Postgres role, you would:
 - Assign the tag `postgres`
 - Create a task file `postgres.yml`
 
-**example multiple tags**
+**Example multiple tags**
 
 To define a Nginx role with a config tag, you would:
 

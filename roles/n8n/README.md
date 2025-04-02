@@ -54,3 +54,11 @@ nginx_proxies:
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;
 ```
+
+### Deploy selected config map
+
+Run `ansible-playbook` with extra variables and set the `cm_name` (config map name) with the name of the config map.
+
+```bash
+task play -i inventories/setup plays/all.yml -t n8n -e "cm_name=int"
+```
