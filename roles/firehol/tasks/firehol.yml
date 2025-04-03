@@ -4,6 +4,12 @@
     path: "{{ firehol_data_dir }}"
     state: directory
 
+- name: Ensure FIREHOL_BLACKLIST chain exists
+  iptables:
+    chain: FIREHOL_BLACKLIST
+    state: present
+    table: filter
+
 - name: Attach FIREHOL_BLACKLIST to INPUT
   iptables:
     chain: INPUT
