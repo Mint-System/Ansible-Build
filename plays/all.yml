@@ -94,3 +94,5 @@
       tags: metabase
     - role: ollama
       tags: ollama
+    - role: firehol
+      tags: firehol

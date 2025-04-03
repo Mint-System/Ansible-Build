@@ -45,3 +45,4 @@
       - iam
       - loki
       - promtail
+      - fail2ban

@@ -36,3 +36,18 @@ Check if iptable rules work.
 IP="216.21.8.0/22"
 sudo iptables -C FIREHOL_BLACKLIST -s $IP -j DROP && echo "Blocked" || echo "Not blocked"
 ```
+
+### Chain does not exists
+
+If you get the following error:
+
+```
+iptables v1.8.4 (nf_tables): Chain 'FIREHOL_BLACKLIST' does not exist
+Try `iptables -h' or 'iptables --help' for more information.
+```
+
+You have to create the table manually
+
+```bash
+sudo iptables -N FIREHOL_BLACKLIST
+```

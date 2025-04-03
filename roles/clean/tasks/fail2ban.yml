@@ -1,0 +1,12 @@
+---
+- name: Ensure fail2ban deamon is absent
+  ansible.builtin.service:
+    name: fail2ban
+    state: stopped
+    enabled: false
+
+- name: Remove apt packages
+  ansible.builtin.apt:
+    name: "{{ item.name }}"
+    state: absent
+  loop: "{{ fail2ban_packages }}"

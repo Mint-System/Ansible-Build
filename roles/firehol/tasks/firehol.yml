@@ -15,6 +15,7 @@
     chain: INPUT
     jump: FIREHOL_BLACKLIST
     action: insert
+    table: filter
 
 - name: Copy {{ role_name }} scripts
   ansible.builtin.copy:
