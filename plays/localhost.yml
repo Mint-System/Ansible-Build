@@ -61,3 +61,5 @@
       tags: s3cmd
     - role: docker_compose
       tags: docker_compose
+    - role: firehol
+      tags: firehol

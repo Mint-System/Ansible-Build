@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+BLACKLIST="/etc/firehol/firehol_level1.netset"
+
+if [[ ! -f "$BLACKLIST" ]]; then
+    echo "Blacklist file not found: $BLACKLIST"
+    exit 1
+fi
+
+echo "Apply FireHOL level 1 blacklist (Incoming Only)."
+
+while IFS= read -r line; do
+    [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue  # Skip comments and empty lines
+    ip=$(echo "$line" | cut -d'/' -f1)  # Extract IP (ignores CIDR notation)
+
+    # Skip private and reserved IP ranges
+    if [[ "$ip" =~ ^(127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.) ]]; then
+        echo "Skipping private IP: $ip"
+        continue
+    fi
+
+    sudo iptables -C FIREHOL_BLACKLIST -s "$line" -j DROP 2>/dev/null || \
+    sudo iptables -A FIREHOL_BLACKLIST -s "$line" -j DROP
+done < "$BLACKLIST"
+
+echo "Blacklist applied."

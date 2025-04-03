@@ -1,0 +1,6 @@
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: firehol_data_dir is defined
+  tags:
+    - firehol

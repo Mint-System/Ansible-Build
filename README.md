@@ -78,6 +78,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [elasticsearch](roles/elasticsearch/README.md)                         | Deploy Elasticsearch Docker cluster.                             |
 | [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
 | [fathom](roles/fathom/README.md)                                       | Deploy Fathom container.                                         |
+| [firehol](roles/firehol/README.md)                                     | Setup FireHOL ip blacklists.                                     |
 | [fstab](roles/fstab/README.md)                                         | Configure the fstab file.                                        |
 | [git](roles/git/README.md)                                             | Checkout Git repositories.                                       |
 | [gitea](roles/gitea/README.md)                                         | Deploy Gitea container.                                          |

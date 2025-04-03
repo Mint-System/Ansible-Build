@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+URL="https://iplists.firehol.org/files/firehol_level1.netset"
+DEST="/etc/firehol/firehol_level1.netset"
+
+mkdir -p /etc/firehol
+
+echo "Download FireHOL Level 1 blacklist."
+curl -sSL "$URL" -o "$DEST"
+
+echo "Blacklist saved to $DEST"
+
+echo "Blacklist ip count: $(cat $DEST | wc -l )"

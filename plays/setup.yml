@@ -30,8 +30,8 @@
         - never
     - role: ufw
       tags: ufw
-    - role: fail2ban
-      tags: fail2ban
+    - role: firehol
+      tags: firehol
     - role: restic
       tags: restic
     - role: innernet

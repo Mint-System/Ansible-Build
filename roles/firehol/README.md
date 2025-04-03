@@ -1,0 +1,38 @@
+# FireHOL role
+
+Setup FireHOL ip blacklists.
+
+## Usage
+
+Configure the role.
+
+```yml
+firehol_enabled: true # default: false
+firehol_data_dir: /usr/share/firehol # default: /etc/firehol
+```
+
+And include it in your playbook.
+
+```yml
+- hosts: firehol
+  roles:
+  - role: firehol
+```
+
+## Docs
+
+### Test ip blocklist
+
+Check if host ip is in applied blacklist.
+
+```bash
+sudo iptables -S FIREHOL_BLACKLIST | grep "$(hostname -I | awk '{print $1}')"
+sudo iptables -S FIREHOL_BLACKLIST | grep "216.21.8.0"
+```
+
+Check if iptable rules work.
+
+```bash
+IP="216.21.8.0/22"
+sudo iptables -C FIREHOL_BLACKLIST -s $IP -j DROP && echo "Blocked" || echo "Not blocked"
+```

@@ -1,0 +1,32 @@
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ firehol_data_dir }}"
+    state: directory
+
+- name: Attach FIREHOL_BLACKLIST to INPUT
+  iptables:
+    chain: INPUT
+    jump: FIREHOL_BLACKLIST
+    action: insert
+
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/{{ item }}
+    mode: +x
+  loop:
+    - firehol-pull
+    - firehol-apply
+    - firehol-remove
+
+# - name: Apply FireHOL blacklist
+#   ansible.builtin.command:
+#     cmd: firehol-apply
+
+- name: Register {{ role_name }} update job
+  ansible.builtin.cron:
+    name: Update FireHOL blacklist
+    hour: "22"
+    minute: "{{ 59 |random(seed=ansible_host) }}"
+    job: firehol-pull && firehol-apply; write-node-exporter-metric -c "Update FireHOL blacklist" -v $?

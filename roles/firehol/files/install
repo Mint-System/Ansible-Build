@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+REPOSITORY=https://ansible.build
+
+SCRIPTS=(
+    firehol-pull
+    firehol-apply
+    firehol-remove
+)
+
+SCRIPT_DIR=$(dirname "$0")
+for SCRIPT in ${SCRIPTS[@]}; do
+
+    if test -f "$SCRIPT_DIR/$SCRIPT"; then
+        echo "Copy $SCRIPT script ..."
+        cp "$SCRIPT_DIR/$SCRIPT" "/usr/local/bin/$SCRIPT"
+    else
+        echo "Download $SCRIPT script ..."
+        sudo curl -L "$REPOSITORY/cron/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+    fi
+    sudo chmod +x "/usr/local/bin/$SCRIPT"
+done
