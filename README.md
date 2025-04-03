@@ -75,7 +75,6 @@ Have a look at the Ansible roles and check how to configure them.
 | [docker_volume](roles/docker_volume/README.md)                         | Configure Docker volume.                                         |
 | [dozzle](roles/dozzle/README.md)                                       | Deploy Dozzle container.                                         |
 | [dribdat](roles/dribdat/README.md)                                     | Deploy dribdat container.                                        |
-| [elasticsearch](roles/elasticsearch/README.md)                         | Deploy Elasticsearch Docker cluster.                             |
 | [fail2ban](roles/fail2ban/README.md)                                   | Install and configure fail2ban.                                  |
 | [fathom](roles/fathom/README.md)                                       | Deploy Fathom container.                                         |
 | [firehol](roles/firehol/README.md)                                     | Setup FireHOL ip blacklists.                                     |
@@ -91,10 +90,7 @@ Have a look at the Ansible roles and check how to configure them.
 | [k3s](roles/k3s/README.md)                                             | Deploy Kubernetes cluster with K3s.                              |
 | [keycloak](roles/keycloak/README.md)                                   | Deploy Keycloak Docker container.                                |
 | [keycloak_client](roles/keycloak_client/README.md)                     | Configure Keycloak client.                                       |
-| [kibana](roles/elasticsearch/README.md)                                | Deploy Kibana Docker container.                                  |
-| [kibana](roles/kibana/README.md)                                       | Deploy Kibana Docker container.                                  |
 | [locale](roles/locale/README.md)                                       | Set system locale.                                               |
-| [logstash](roles/logstash/README.md)                                   | Deploy Logstash Docker container.                                |
 | [loki](roles/loki/README.md)                                           | Deploy Loki container.                                           |
 | [mailhog](roles/mailhog/README.md)                                     | Deploy MailHog Docker container.                                 |
 | [mailpit](roles/mailpit/README.md)                                     | Deploy Mailpit Docker container.                                 |
@@ -104,7 +100,6 @@ Have a look at the Ansible roles and check how to configure them.
 | [meilisearch](roles/meilisearch/README.md)                             | Deploy Meilisearch container.                                    |
 | [meilisync](roles/meilisync/README.md)                                 | Deploy Meilisync container.                                      |
 | [metabase](roles/metabase/README.md)                                   | Deploy Metabase Docker container.                                |
-| [metricbeat](roles/metricbeat/README.md)                               | Deploy Metricbeat Docker container.                              |
 | [moodle](roles/moodle/README.md)                                       | Deploy Moodle container.                                         |
 | [motd](roles/motd/README.md)                                           | Set message of the day.                                          |
 | [mysql](roles/mysql/README.md)                                         | Deploy MySQL database container.                                 |

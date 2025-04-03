@@ -10,7 +10,5 @@
       tags: nextcloud_apps
     - role: onlyoffice_documentserver
       tags: onlyoffice_documentserver
-    - role: elasticsearch
-      tags: elasticsearch
     - role: collabora_code
       tags: collabora_code

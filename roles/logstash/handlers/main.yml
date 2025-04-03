@@ -1,5 +1,0 @@
----
-- name: Restart {{ role_name }} container
-  community.docker.docker_container:
-    name: "{{ logstash_hostname }}"
-    restart: true
