@@ -1,2 +1,3 @@
 ---
+firehol_enabled: false
 firehol_data_dir: /etc/firehol
