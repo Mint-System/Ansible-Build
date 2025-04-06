@@ -1,13 +1,22 @@
 ---
+- name: Check if docker_compose data dir exists
+  ansible.builtin.stat:
+    path: "{{ docker_compose_data_dir }}"
+  register: compose_data_dir_stat
+  when: '"docker_compose_data" in ansible_run_tags'
+
 - name: Remove docker_compose project
   ansible.builtin.command: docker compose -p {{ docker_compose_project_name }} down -v
   args:
     chdir: "{{ docker_compose_data_dir }}"
   register: result
   changed_when: true
+  when: compose_data_dir_stat.stat.exists
 
 - name: Remove docker_compose data dir
   ansible.builtin.file:
     path: "{{ docker_compose_data_dir }}"
     state: absent
-  when: '"docker_compose_data" in ansible_run_tags'
+  when: 
+    - '"docker_compose_data" in ansible_run_tags'
+    - compose_data_dir_stat.stat.exists

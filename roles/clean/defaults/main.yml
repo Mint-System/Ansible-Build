@@ -16,3 +16,4 @@ prometheus_data_dir: /usr/share/{{ prometheus_hostname }}
 docker_compose_data_dir: /srv/compose/{{ docker_compose_project_name }}
 fail2ban_packages:
   - name: fail2ban
+docker_build_dir: /srv/build

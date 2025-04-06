@@ -23,3 +23,8 @@
     path: "{{ odoo_data_dir }}"
     state: absent
   when: '"odoo_data" in ansible_run_tags'
+
+- name: Remove odoo build dir
+  ansible.builtin.file:
+    path: "{{ docker_build_dir }}/{{ odoo_hostname }}"
+    state: absent
