@@ -39,6 +39,7 @@ function help() {
     printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
     printf "$COLUMN" "list-vault" "" "Lists vault identities."
     printf "$COLUMN" "list-hosts" "[path]" "Lists all hosts of an inventory."
+    printf "$COLUMN" "list-hostnames" "[role]" "Search inventory for \$ROLE_hostname entries."
     printf "$COLUMN" "version" "" "Show tool versions."
     printf "$COLUMN" "source" "" "Source the Python virtual env."
     printf "$COLUMN" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
@@ -248,6 +249,25 @@ function list-hosts() {
 
     activate-venv
     ansible -i $1 all --list-hosts
+}
+
+function list-hostnames() {
+    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+    ROLE="$1"
+    
+    ALL_HOSTNAMES=$(rg -I "^${ROLE}_hostname: $ROLE" inventories | cut -d' ' -f2 | sort -u)
+    
+    HIGHEST=$(echo "$ALL_HOSTNAMES" | sed "s/${ROLE}//g" | sort -n | tail -1)
+    echo "Highest hostname: ${ROLE}_$HIGHEST"
+    echo "Free hostnames:"
+    for i in $(seq 1 $HIGHEST); do
+        NUM=$(printf "%02d" $i)
+        HOSTNAME="${ROLE}${NUM}"
+        
+        if ! echo "$ALL_HOSTNAMES" | grep -q "$HOSTNAME"; then
+            echo "$HOSTNAME"
+        fi
+    done
 }
 
 function pull-repos() {
