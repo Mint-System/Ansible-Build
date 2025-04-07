@@ -123,22 +123,6 @@ scrape_configs:
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `odoo`)].src_hostname') | flatten }}
 {% endif %}
-{% if blackbox_exporter_hostname is defined %}
-  - job_name: blackbox
-    metrics_path: "/probe"
-    scrape_interval: 60s
-    params:
-      module: [http]
-    static_configs:
-      - targets: {{ targets }}
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        replacement: {{ blackbox_exporter_hostname }}:9115
-{% endif %}
 {% if prometheus_n8n_exporter_proxy_basic_auth_username is defined %}
   - job_name: n8n https
     metrics_path: "/n8n-exporter/metrics"
@@ -186,5 +170,21 @@ scrape_configs:
       password: {{ pushgateway_proxy_basic_auth_password }}
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `pushgateway`)].src_hostname') | flatten }}
+{% endif %}
+{% if blackbox_exporter_hostname is defined %}
+  - job_name: blackbox
+    metrics_path: "/probe"
+    scrape_interval: 60s
+    params:
+      module: [http_redirect]
+    static_configs:
+      - targets: {{ targets }}
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: {{ blackbox_exporter_hostname }}:9115
 {% endif %}
   {{ prometheus_custom_scrapers | indent(2) }}

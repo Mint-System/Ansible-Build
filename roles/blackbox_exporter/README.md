@@ -30,5 +30,5 @@ On the host run:
 
 ```bash
 WEBSITE=https://example.com
-curl "http://blackbox01:9115/probe?target=$WEBSITE&module=http&debug=true"
+curl "http://blackbox01:9115/probe?target=$WEBSITE&module=http_redirect&debug=true"
 ```

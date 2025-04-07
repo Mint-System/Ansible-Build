@@ -49,4 +49,4 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ n8n_hostname }}|{{ role_name }}"
   loop: "{{ n8n_config_map }}"
-  when: cm_name is defined and item.name == cm_name
+  when:  cm_name is not defined or (cm_name is defined and item.name == cm_name)

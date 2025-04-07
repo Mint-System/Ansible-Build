@@ -1,6 +1,6 @@
 ---
 modules:
-  http:
+  http_redirect:
     prober: http
     http:
       follow_redirects: true
