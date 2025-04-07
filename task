@@ -258,7 +258,7 @@ function list-hostnames() {
     ALL_HOSTNAMES=$(rg -I "^${ROLE}_hostname: $ROLE" inventories | cut -d' ' -f2 | sort -u)
     
     HIGHEST=$(echo "$ALL_HOSTNAMES" | sed "s/${ROLE}//g" | sort -n | tail -1)
-    echo "Highest hostname: ${ROLE}_$HIGHEST"
+    echo "Highest hostname: ${ROLE}$HIGHEST"
     echo "Free hostnames:"
     for i in $(seq 1 $HIGHEST); do
         NUM=$(printf "%02d" $i)
