@@ -19,10 +19,11 @@ export default defineUserConfig({
     theme: defaultTheme({
         logo: '/icon.png',
         repo: 'mint-system/ansible-build',
-        docsBranch: 'master',
+        docsBranch: 'main',
         editLink: true,
         navbar: [
             { text: 'Home', link: '/' },
+            { text: 'Roles', link: '/roles' },
             { text: 'Scripts', link: '/scripts' },
             { text: 'Mint System', link: 'https://www.mint-system.ch' },
             { text: 'Chat', link: 'https://matrix.to/#/!BgzMVlwDExHDQPPdKJ:mint-system.ch?via=mint-system.ch' }

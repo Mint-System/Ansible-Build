@@ -24,6 +24,7 @@ function help() {
     printf "$COLUMN" "encrypt-file" "[vault_id] [path]" "Encrypt file with Ansible Vault."
     printf "$COLUMN" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
     printf "$COLUMN" "install" "" "Install Ansible and dependencies with uv."
+    printf "$COLUMN" "docs" "" "Update docs."
     printf "$COLUMN" "install-exo" "" "Install Exoscale CLI."
     printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
     printf "$COLUMN" "update-with-llm" "[path][prompt]" "Update files with LLM prompt."
@@ -31,7 +32,7 @@ function help() {
     printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
     printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
     printf "$COLUMN" "install-vuepress" "" "Install build dependencies."
-    printf "$COLUMN" "dev-vueress" "" "Start vuepress development server."
+    printf "$COLUMN" "dev-vuepress" "" "Start vuepress development server."
     printf "$COLUMN" "play" "" "Run ansible-playbook command."
     printf "$COLUMN" "pull-repos" "" "Pull git repos in inventories folder."
     printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
@@ -50,6 +51,7 @@ function help() {
 }
 
 # Set env vars
+
 GIT_BRANCH=$(git symbolic-ref --short -q HEAD)
 LLM_MODEL=${LLM_MODEL:="deepseek-coder"}
 
@@ -504,6 +506,21 @@ EOF
 }
 
 # Docs commands
+
+function docs() {
+    echo "Update roles.md"
+    echo "# Roles" > "roles.md"
+    echo "" >> "roles.md"
+    echo "| Role | Description |" >> "roles.md"
+    echo "| --- | --- |" >> "roles.md"
+    
+    MD_FILES=$(find roles -name "README.md" | sort)
+    for README in $MD_FILES; do
+        ROLE=$(basename $(dirname "$README"))
+        DESCRIPTION=$(sed '3q;d' "$README")
+        echo "| [$ROLE]($README) | $DESCRIPTION |" >> "roles.md"
+    done
+}
 
 function install-vuepress() {
     pnpm install
