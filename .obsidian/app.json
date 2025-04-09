@@ -4,5 +4,6 @@
     "venvmain"
   ],
   "strictLineBreaks": true,
-  "trashOption": "none"
+  "trashOption": "none",
+  "showInlineTitle": false
 }

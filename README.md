@@ -1,7 +1,7 @@
 Ansible Build
-=============
+===
 
-[![.github/workflows/test.yml](https://github.com/Mint-System/Ansible-Build/actions/workflows/test.yml/badge.svg)](https://github.com/Mint-System/Ansible-Build/actions/workflows/test.yml) [![matrix-badge](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/!BgzMVlwDExHDQPPdKJ:mint-system.ch?via=mint-system.ch)
+![Vercel](https://vercelbadge.vercel.app/api/mint-system/ansible-build) [![.github/workflows/test.yml](https://github.com/Mint-System/Ansible-Build/actions/workflows/test.yml/badge.svg)](https://github.com/Mint-System/Ansible-Build/actions/workflows/test.yml) [![matrix-badge](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/!BgzMVlwDExHDQPPdKJ:mint-system.ch?via=mint-system.ch)
 
 The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks and roles.
 
