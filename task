@@ -511,14 +511,14 @@ function docs() {
     echo "Update roles.md"
     echo "# Roles" > "roles.md"
     echo "" >> "roles.md"
-    echo "| Role | Description |" >> "roles.md"
-    echo "| --- | --- |" >> "roles.md"
+    echo "| Logo | Role | Description |" >> "roles.md"
+    echo "| --- | --- | --- |" >> "roles.md"
     
     MD_FILES=$(find roles -name "README.md" | sort)
     for README in $MD_FILES; do
         ROLE=$(basename $(dirname "$README"))
         DESCRIPTION=$(sed '3q;d' "$README")
-        echo "| [$ROLE]($README) | $DESCRIPTION |" >> "roles.md"
+        echo "| ![${ROLE}_logo](/logos/${ROLE}.png)  | [$ROLE]($README) | $DESCRIPTION |" >> "roles.md"
     done
 }
 
@@ -527,13 +527,19 @@ function install-vuepress() {
 }
 
 function dev-vuepress() {
+    echo "Copy logos folder to vuepress public folder."
+    cp -r logos .vuepress/public/
+
     pnpm run dev
 }
 
 function build-vuepress() {
+    echo "Copy logos folder to vuepress public folder."
+    cp -r logos .vuepress/public/
+
     pnpm run build
 
-    echo "Create vuepress script folders"
+    echo "Create vuepress script folders."
     mkdir -p .vuepress/dist/ansible_scripts
     mkdir -p .vuepress/dist/odoo_scripts
     mkdir -p .vuepress/dist/nginx
@@ -545,7 +551,7 @@ function build-vuepress() {
     mkdir -p .vuepress/dist/certbot
     mkdir -p .vuepress/dist/cron
 
-    echo "Copy script files to vuepress folder"
+    echo "Copy script files to vuepress folder."
     cp roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts 
     cp roles/odoo_scripts/files/* .vuepress/dist/odoo_scripts 
     cp roles/nginx/files/* .vuepress/dist/nginx 
@@ -555,7 +561,7 @@ function build-vuepress() {
     cp roles/postgres/files/* .vuepress/dist/postgres 
     cp roles/docker_volume/files/* .vuepress/dist/docker_volume 
     cp roles/certbot/files/* .vuepress/dist/certbot 
-    cp roles/cron/files/* .vuepress/dist/cron 
+    cp roles/cron/files/* .vuepress/dist/cron
 }
 
 function serve-vuepress() {

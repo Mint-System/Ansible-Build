@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Resize all .png files in the current directory to 200x200
+for file in *.png; do
+  convert "$file" -resize 200x200\! "$file"
+  echo "Resized: $file to 200x200"
+done
