@@ -1,3 +1,5 @@
+<img src="/logos/motd.png" alt="motd logo" width="100" height="100">
+
 # motd role
 
 Set message of the day.

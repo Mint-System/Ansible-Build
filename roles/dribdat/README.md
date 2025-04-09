@@ -1,3 +1,5 @@
+<img src="/logos/dribdat.png" alt="dribdat logo" width="100" height="100">
+
 # dribdat role
 
 Deploy dribdat container.

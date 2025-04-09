@@ -1,3 +1,5 @@
+<img src="/logos/ufw.png" alt="ufw logo" width="100" height="100">
+
 # UFW role
 
 Configures UFW rules.

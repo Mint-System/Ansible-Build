@@ -1,3 +1,5 @@
+<img src="/logos/nextcloud.png" alt="nextcloud logo" width="100" height="100">
+
 # Nextcloud role
 
 Deploy Nextcloud Docker container.

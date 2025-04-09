@@ -1,3 +1,5 @@
+<img src="/logos/cadvisor.png" alt="cadvisor logo" width="100" height="100">
+
 # cAdvisor role
 
 Deploy cAdvisor container.

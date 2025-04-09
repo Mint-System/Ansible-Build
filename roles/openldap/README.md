@@ -1,3 +1,5 @@
+<img src="/logos/openldap.png" alt="openldap logo" width="100" height="100">
+
 # OpenLDAP role
 
 Deploy OpenLDAP Docker container.

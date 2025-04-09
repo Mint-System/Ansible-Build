@@ -1,3 +1,5 @@
+<img src="/logos/matomo.png" alt="matomo logo" width="100" height="100">
+
 # Matomo role
 
 Deploy Matomo container.

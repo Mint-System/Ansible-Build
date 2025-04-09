@@ -1,3 +1,5 @@
+<img src="/logos/bigbluebutton_exporter.png" alt="bigbluebutton_exporter logo" width="100" height="100">
+
 # BigBlueButton exporter role
 
 Deploy BigBlueButton exporter container.

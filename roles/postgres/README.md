@@ -1,3 +1,5 @@
+<img src="/logos/postgres.png" alt="postgres logo" width="100" height="100">
+
 # PostgreSQL role
 
 Deploy PostgreSQL database container.

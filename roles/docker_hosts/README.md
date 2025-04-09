@@ -1,3 +1,5 @@
+<img src="/logos/docker_hosts.png" alt="docker_hosts logo" width="100" height="100">
+
 # Docker Hosts role
 
 Docker hostname resolver.

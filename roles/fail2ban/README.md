@@ -1,3 +1,5 @@
+<img src="/logos/fail2ban.png" alt="fail2ban logo" width="100" height="100">
+
 # fail2ban role
 
 Install and configure fail2ban.

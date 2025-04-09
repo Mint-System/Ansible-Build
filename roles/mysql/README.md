@@ -1,3 +1,5 @@
+<img src="/logos/mysql.png" alt="mysql logo" width="100" height="100">
+
 # MySQL role
 
 Deploy MySQL database container.

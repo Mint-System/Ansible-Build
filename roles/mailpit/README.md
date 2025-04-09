@@ -1,3 +1,5 @@
+<img src="/logos/mailpit.png" alt="mailpit logo" width="100" height="100">
+
 # Mailpit role
 
 Deploy Mailpit container.

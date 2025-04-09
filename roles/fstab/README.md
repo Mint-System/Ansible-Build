@@ -1,3 +1,5 @@
+<img src="/logos/fstab.png" alt="fstab logo" width="100" height="100">
+
 # fstab role
 
 Configure the fstab file.

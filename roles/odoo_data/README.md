@@ -1,3 +1,5 @@
+<img src="/logos/odoo_data.png" alt="odoo_data logo" width="100" height="100">
+
 # Odoo Data role
 
 Generate Odoo data modules.

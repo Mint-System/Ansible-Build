@@ -1,3 +1,5 @@
+<img src="/logos/odoo_patches.png" alt="odoo_patches logo" width="100" height="100">
+
 # Odoo patches role
 
 Apply custom Odoo patches.

@@ -1,3 +1,5 @@
+<img src="/logos/redis.png" alt="redis logo" width="100" height="100">
+
 # Redis role
 
 Deploy Redis container.

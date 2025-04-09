@@ -1,3 +1,5 @@
+<img src="/logos/nginx.png" alt="nginx logo" width="100" height="100">
+
 # Nginx role
 
 Deploy Nginx proxy with Certbot.

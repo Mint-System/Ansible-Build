@@ -1,3 +1,5 @@
+<img src="/logos/php_fpm.png" alt="php_fpm logo" width="100" height="100">
+
 # PHP-FPM role
 
 Deploy PHP-FPM container.

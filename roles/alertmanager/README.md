@@ -1,3 +1,5 @@
+<img src="/logos/alertmanager.png" alt="alertmanager logo" width="100" height="100">
+
 # Alertmanager role
 
 Deploy Alertmanager container.

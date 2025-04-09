@@ -1,3 +1,5 @@
+<img src="/logos/wordpress.png" alt="wordpress logo" width="100" height="100">
+
 # WordPress role
 
 Deploy WordPress container.

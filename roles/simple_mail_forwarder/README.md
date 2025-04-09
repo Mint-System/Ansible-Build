@@ -1,3 +1,5 @@
+<img src="/logos/simple_mail_forwarder.png" alt="simple_mail_forwarder logo" width="100" height="100">
+
 # Simple Mail Forwarder role
 
 Deploy Simple Mail Forwarder container.

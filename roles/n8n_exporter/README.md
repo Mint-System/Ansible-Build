@@ -1,3 +1,5 @@
+<img src="/logos/n8n_exporter.png" alt="n8n_exporter logo" width="100" height="100">
+
 # N8N Exporter role
 
 Add nginx config for N8N exporter path.

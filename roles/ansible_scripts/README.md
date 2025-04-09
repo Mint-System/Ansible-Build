@@ -1,3 +1,5 @@
+<img src="/logos/ansible_scripts.png" alt="ansible_scripts logo" width="100" height="100">
+
 # Ansible Scripts role
 
 Install Ansible scripts.

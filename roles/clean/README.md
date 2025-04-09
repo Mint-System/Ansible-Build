@@ -1,3 +1,5 @@
+<img src="/logos/clean.png" alt="clean logo" width="100" height="100">
+
 # Cleanup role
 
 Cleanup Ansible roles.

@@ -1,3 +1,5 @@
+<img src="/logos/collabora_code.png" alt="collabora_code logo" width="100" height="100">
+
 # Collabora Code role
 
 Deploy Collabora Online Development Edition (CODE) container.

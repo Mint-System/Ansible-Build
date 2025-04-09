@@ -42,7 +42,11 @@ Create an inventory folder and configure a role.
 
 ### Roles
 
-See [roles](./roles.md) for details.
+See [roles](./roles.md) for details or list the roles with:
+
+```bash
+task list-roles
+```
 
 ### Targets
 

@@ -1,3 +1,5 @@
+<img src="/logos/maintenance.png" alt="maintenance logo" width="100" height="100">
+
 # Maintenance role
 
 Maintains operating system and disk space.

@@ -1,3 +1,5 @@
+<img src="/logos/mariadb.png" alt="mariadb logo" width="100" height="100">
+
 # MariaDB role
 
 Deploy MariaDB database container.

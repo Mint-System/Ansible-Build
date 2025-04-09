@@ -1,3 +1,5 @@
+<img src="/logos/hosts.png" alt="hosts logo" width="100" height="100">
+
 # Hosts role
 
 Add entries to hosts files.

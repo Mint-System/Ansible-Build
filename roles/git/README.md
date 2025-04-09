@@ -1,3 +1,5 @@
+<img src="/logos/git.png" alt="git logo" width="100" height="100">
+
 # Git role
 
 Checkout Git repositories.

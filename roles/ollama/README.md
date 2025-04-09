@@ -1,3 +1,5 @@
+<img src="/logos/ollama.png" alt="ollama logo" width="100" height="100">
+
 # Ollama role
 
 Setup Ollama and deploy models.

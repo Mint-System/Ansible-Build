@@ -1,3 +1,5 @@
+<img src="/logos/docker_volume.png" alt="docker_volume logo" width="100" height="100">
+
 # Docker Volume role
 
 Configures a Docker volume.

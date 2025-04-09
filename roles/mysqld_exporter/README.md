@@ -1,3 +1,5 @@
+<img src="/logos/mysqld_exporter.png" alt="mysqld_exporter logo" width="100" height="100">
+
 # MySQL exporter role
 
 Deploy MySQL exporter container.

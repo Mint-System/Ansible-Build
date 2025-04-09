@@ -1,3 +1,5 @@
+<img src="/logos/postfix.png" alt="postfix logo" width="100" height="100">
+
 # Postfix role
 
 Deploy Postfix relay host.

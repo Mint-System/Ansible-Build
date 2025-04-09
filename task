@@ -17,35 +17,37 @@ function help() {
     echo "|$(printf '%*s' $((CMD_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((OPT_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((DESC_WIDTH + 2)) '' | tr ' ' '-')|"
 
     # Print table rows
-    printf "$COLUMN" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
+    printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
+    printf "$COLUMN" "build-vuepress" "" "Create vuepress build."
+    printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
     printf "$COLUMN" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
-    printf "$COLUMN" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
     printf "$COLUMN" "decrypt-file" "[path]" "Decrypt Ansible Vault file."
+    printf "$COLUMN" "dev-vuepress" "" "Start vuepress development server."
+    printf "$COLUMN" "docs" "" "Update docs."
     printf "$COLUMN" "encrypt-file" "[vault_id] [path]" "Encrypt file with Ansible Vault."
     printf "$COLUMN" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
+    printf "$COLUMN" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
     printf "$COLUMN" "install" "" "Install Ansible and dependencies with uv."
-    printf "$COLUMN" "docs" "" "Update docs."
     printf "$COLUMN" "install-exo" "" "Install Exoscale CLI."
-    printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
-    printf "$COLUMN" "update-with-llm" "[path][prompt]" "Update files with LLM prompt."
-    printf "$COLUMN" "lint" "" "Lint Ansible roles and playbooks."
-    printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
-    printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
     printf "$COLUMN" "install-vuepress" "" "Install build dependencies."
-    printf "$COLUMN" "dev-vuepress" "" "Start vuepress development server."
-    printf "$COLUMN" "play" "" "Run ansible-playbook command."
-    printf "$COLUMN" "pull-repos" "" "Pull git repos in inventories folder."
-    printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
-    printf "$COLUMN" "build-vuepress" "" "Create vuepress build."
-    printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
-    printf "$COLUMN" "list-vault" "" "Lists vault identities."
-    printf "$COLUMN" "list-hosts" "[path]" "Lists all hosts of an inventory."
+    printf "$COLUMN" "lint" "" "Lint Ansible roles and playbooks."
     printf "$COLUMN" "list-hostnames" "[role]" "Search inventory for \$ROLE_hostname entries."
-    printf "$COLUMN" "version" "" "Show tool versions."
+    printf "$COLUMN" "list-hosts" "[path]" "Lists all hosts of an inventory."
+    printf "$COLUMN" "list-roles" "" "Lists all roles."
+    printf "$COLUMN" "list-vault" "" "Lists vault identities."
+    printf "$COLUMN" "play" "" "Run ansible-playbook command."
+    printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
+    printf "$COLUMN" "pull-repos" "" "Pull git repos in inventories folder."
+    printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
+    printf "$COLUMN" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
+    printf "$COLUMN" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
     printf "$COLUMN" "source" "" "Source the Python virtual env."
     printf "$COLUMN" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
     printf "$COLUMN" "test-scripts" "[clean]" "Install and test scripts."
-    printf "$COLUMN" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
+    printf "$COLUMN" "update-with-llm" "[path][prompt]" "Update files with LLM prompt."
+    printf "$COLUMN" "update-roles-doc" "" "Update readme files in roles folder."
+    printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
+    printf "$COLUMN" "version" "" "Show tool versions."
 
     echo
 }
@@ -251,6 +253,23 @@ function list-hosts() {
 
     activate-venv
     ansible -i $1 all --list-hosts
+}
+
+function list-roles() {
+    ROLE_WIDTH=30
+    DESCRIPTION_WIDTH=70
+    COLUMN="| %-${ROLE_WIDTH}s | %-${DESCRIPTION_WIDTH}s |\n"
+
+    # Print table header
+    printf "$COLUMN" "Role" "Description"
+    echo "|$(printf '%*s' $((ROLE_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((DESCRIPTION_WIDTH + 2)) '' | tr ' ' '-')|"
+
+    MD_FILES=$(find roles -name "README.md" | sort)
+    for README in $MD_FILES; do
+        ROLE=$(basename $(dirname "$README"))
+        DESCRIPTION=$(sed '5q;d' "$README")
+        printf "$COLUMN" "$ROLE" "$DESCRIPTION"
+    done
 }
 
 function list-hostnames() {
@@ -518,9 +537,28 @@ function docs() {
     for README in $MD_FILES; do
         ROLE=$(basename $(dirname "$README"))
         DESCRIPTION=$(sed '3q;d' "$README")
-        echo "| ![${ROLE}_logo](/logos/${ROLE}.png)  | [$ROLE]($README) | $DESCRIPTION |" >> "roles.md"
+        echo "| ![${ROLE} logo](/logos/${ROLE}.png)  | [$ROLE]($README) | $DESCRIPTION |" >> "roles.md"
     done
 }
+
+function update-roles-doc() {
+    MD_FILES=$(find roles -name "README.md" | sort)
+    for README in $MD_FILES; do
+        ROLE=$(basename "$(dirname "$README")")
+        
+        echo "Update README of $ROLE role."
+
+        # LOGO_LINE="![${ROLE}_logo](/logos/${ROLE}.png)"
+        LOGO_LINE="<img src=\"/logos/${ROLE}.png\" alt=\"$ROLE logo\" width=\"100\" height=\"100\">"
+        tmpfile=$(mktemp)
+        {
+            echo "$LOGO_LINE"
+            echo ""
+            cat "$README"
+        } > "$tmpfile" && mv "$tmpfile" "$README"
+    done
+}
+
 
 function install-vuepress() {
     pnpm install

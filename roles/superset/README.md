@@ -1,3 +1,5 @@
+<img src="/logos/superset.png" alt="superset logo" width="100" height="100">
+
 # Apache Superset role
 
 Deploy Apache Superset container.

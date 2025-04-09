@@ -1,3 +1,5 @@
+<img src="/logos/coturn.png" alt="coturn logo" width="100" height="100">
+
 # Coturn role
 
 Deploy Coturn cotainer.

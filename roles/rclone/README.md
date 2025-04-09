@@ -1,3 +1,5 @@
+<img src="/logos/rclone.png" alt="rclone logo" width="100" height="100">
+
 # RClone role
 
 Sync files with RClone.

@@ -1,3 +1,5 @@
+<img src="/logos/fathom.png" alt="fathom logo" width="100" height="100">
+
 # Fathom role
 
 Deploy Fathom container.

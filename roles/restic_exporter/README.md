@@ -1,3 +1,5 @@
+<img src="/logos/restic_exporter.png" alt="restic_exporter logo" width="100" height="100">
+
 # Restic Exporter role
 
 Add nginx config for Restic exporter path.

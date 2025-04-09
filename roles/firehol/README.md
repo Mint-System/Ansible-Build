@@ -1,3 +1,5 @@
+<img src="/logos/firehol.png" alt="firehol logo" width="100" height="100">
+
 # FireHOL role
 
 Setup FireHOL ip blacklists.

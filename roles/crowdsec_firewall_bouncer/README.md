@@ -1,3 +1,5 @@
+<img src="/logos/crowdsec_firewall_bouncer.png" alt="crowdsec_firewall_bouncer logo" width="100" height="100">
+
 # CrowdSec Firewall Bouncer role
 
 Deploy CrowdSec Firewall Bouncer.

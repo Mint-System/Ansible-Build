@@ -1,3 +1,5 @@
+<img src="/logos/dind.png" alt="dind logo" width="100" height="100">
+
 # dind role
 
 Deploy Docker in Docker container.

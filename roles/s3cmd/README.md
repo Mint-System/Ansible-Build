@@ -1,3 +1,5 @@
+<img src="/logos/s3cmd.png" alt="s3cmd logo" width="100" height="100">
+
 # s3cmd role
 
 Install and configure s3cmd.

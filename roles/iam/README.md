@@ -1,3 +1,5 @@
+<img src="/logos/iam.png" alt="iam logo" width="100" height="100">
+
 # IAM role
 
 Identity and Access Management. Configure user and groups.

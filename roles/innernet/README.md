@@ -1,3 +1,5 @@
+<img src="/logos/innernet.png" alt="innernet logo" width="100" height="100">
+
 # Innernet role
 
 Setup WireGuard based internal network.

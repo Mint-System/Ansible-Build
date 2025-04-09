@@ -1,3 +1,5 @@
+<img src="/logos/odoo_enterprise.png" alt="odoo_enterprise logo" width="100" height="100">
+
 # Odoo Enterprise role
 
 Checkout the Odoo Enterprise git repository.

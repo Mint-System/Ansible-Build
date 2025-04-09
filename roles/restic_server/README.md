@@ -1,3 +1,5 @@
+<img src="/logos/restic_server.png" alt="restic_server logo" width="100" height="100">
+
 # Restic server role
 
 Deploy Restic server container.

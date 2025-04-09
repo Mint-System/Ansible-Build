@@ -1,3 +1,5 @@
+<img src="/logos/prometheus.png" alt="prometheus logo" width="100" height="100">
+
 # Prometheus role
 
 Deploy Prometheus container.

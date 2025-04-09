@@ -1,3 +1,5 @@
+<img src="/logos/commento.png" alt="commento logo" width="100" height="100">
+
 # Commento role
 
 Deploy Commento container

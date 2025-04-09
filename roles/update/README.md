@@ -1,3 +1,5 @@
+<img src="/logos/update.png" alt="update logo" width="100" height="100">
+
 # Update role
 
 Install system and package updates.

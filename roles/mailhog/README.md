@@ -1,3 +1,5 @@
+<img src="/logos/mailhog.png" alt="mailhog logo" width="100" height="100">
+
 # MailHog role
 
 Deploy MailHog container.

@@ -1,3 +1,5 @@
+<img src="/logos/packages.png" alt="packages logo" width="100" height="100">
+
 # Packages role
 
 Set env vars and install packages.

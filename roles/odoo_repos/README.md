@@ -1,3 +1,5 @@
+<img src="/logos/odoo_repos.png" alt="odoo_repos logo" width="100" height="100">
+
 # Odoo Repos role
 
 Setup Odoo modules from public or private GitHub repos.

@@ -1,3 +1,5 @@
+<img src="/logos/cron.png" alt="cron logo" width="100" height="100">
+
 # cron role
 
 Setup cron jobs.

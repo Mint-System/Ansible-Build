@@ -1,3 +1,5 @@
+<img src="/logos/locale.png" alt="locale logo" width="100" height="100">
+
 # locale role
 
 Set system locale.

@@ -1,3 +1,5 @@
+<img src="/logos/grafana.png" alt="grafana logo" width="100" height="100">
+
 # Grafana role
 
 Deploy Grafana container.

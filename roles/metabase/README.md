@@ -1,3 +1,5 @@
+<img src="/logos/metabase.png" alt="metabase logo" width="100" height="100">
+
 # Metabase role
 
 Deploy Metabase container.

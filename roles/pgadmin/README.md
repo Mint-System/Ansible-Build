@@ -1,3 +1,5 @@
+<img src="/logos/pgadmin.png" alt="pgadmin logo" width="100" height="100">
+
 # pgAdmin role
 
 Deploy pgAdmin container

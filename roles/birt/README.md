@@ -1,3 +1,5 @@
+<img src="/logos/birt.png" alt="birt logo" width="100" height="100">
+
 # BIRT role
 
 Deploy BIRT container.

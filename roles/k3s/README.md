@@ -1,3 +1,5 @@
+<img src="/logos/k3s.png" alt="k3s logo" width="100" height="100">
+
 # K3s role
 
 Deploy Kubernetes cluster with K3s. 

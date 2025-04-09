@@ -1,3 +1,5 @@
+<img src="/logos/odoo_exporter.png" alt="odoo_exporter logo" width="100" height="100">
+
 # Odoo Exporter role
 
  Add nginx config for Odoo exporter path.

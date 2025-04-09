@@ -1,3 +1,5 @@
+<img src="/logos/rabbitmq.png" alt="rabbitmq logo" width="100" height="100">
+
 # RabbitMQ role
 
 Deploy RabbitMQ container.
