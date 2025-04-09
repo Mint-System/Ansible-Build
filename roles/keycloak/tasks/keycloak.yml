@@ -22,6 +22,7 @@
       KC_DB_USERNAME: "{{ keycloak_db_username }}"
       KC_DB_PASSWORD: "{{ keycloak_db_password }}"
       KC_PROXY: edge
+      KC_CACHE: local
       KC_HOSTNAME: "{{ keycloak_proxy_hostname }}"
     volumes:
       - "{{ keycloak_data_dir }}/themes:/opt/keycloak/themes"
