@@ -2,6 +2,8 @@
 - name: All services
   hosts: all
   roles:
+    - role: cron
+      tags: cron
     - role: debug
       tags: debug
     - role: restic_server

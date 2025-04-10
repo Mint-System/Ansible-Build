@@ -30,7 +30,7 @@ fi
 # Process params
 while getopts ":n: :i: :V" opt; do
   case $opt in
-    n) ANSIBLE_CRON_NAME="#Ansible: $OPTARG";;
+    n) ANSIBLE_CRON_NAME=$OPTARG;;
     i) ANSIBLE_CRON_ID=$OPTARG;;
     V) echo "$SCRIPT version $VERSION"
     exit 0
@@ -49,7 +49,9 @@ fi
 ANSIBLE_CRON_JOBS=$(crontab -l | awk '
   BEGIN { job_num = 1 }
   /^#Ansible: / {
-    name=$2;
+    # Capture the full job name (everything after "#Ansible: ")
+    sub(/^#Ansible: /, "", $0);
+    name = $0;
     getline;
     print job_num++ "|" name "|" substr($0, index($0, $6));
   }

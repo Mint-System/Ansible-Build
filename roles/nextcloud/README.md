@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/nextcloud/
-nextcloud_image: nextcloud:27-apache
+nextcloud_image: nextcloud:30-apache
 nextcloud_build_image: true # default: false
 nextcloud_hostname: nextcloud01
 nextcloud_volume_name: nextcloud_data01 # default: "{{ nextcloud_hostname}}"
