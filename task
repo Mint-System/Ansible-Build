@@ -252,7 +252,7 @@ function list-hosts() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
 
     activate-venv
-    ansible -i $1 all --list-hosts
+    ansible -i $1 all --list-hosts | grep "hosts (" -A 1000 | tail -n +2 | sort
 }
 
 function list-roles() {
