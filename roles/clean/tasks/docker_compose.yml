@@ -17,6 +17,6 @@
   ansible.builtin.file:
     path: "{{ docker_compose_data_dir }}"
     state: absent
-  when: 
+  when:
     - '"docker_compose_data" in ansible_run_tags'
     - compose_data_dir_stat.stat.exists
