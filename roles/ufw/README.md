@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 ufw_enabled: true # default false
-ufw_profiles:
+ufw_active_rules:
   - bigbluebutton # default: default
 ```
 

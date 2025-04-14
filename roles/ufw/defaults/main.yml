@@ -1,8 +1,11 @@
 ---
-ufw_rules:
+ufw_enabled: false
+ufw_active_rules:
+  - default
+ufw_rule_sets:
   default:
     - rule: limit
-      port: "22"
+      port: "{{ ssh_port }}"
       proto: tcp
     - rule: allow
       port: "80"
@@ -20,17 +23,6 @@ ufw_rules:
     - rule: allow
       port: 16384:32768
       proto: udp
-  mail:
-    - rule: allow
-      port: "25"
-      proto: tcp
-  frappe:
-    - rule: allow
-      port: 8000:8005
-      proto: tcp
-    - rule: allow
-      port: 9000:9005
-      proto: tcp
   wireguard:
     - rule: allow
       port: "51820"
@@ -42,6 +34,3 @@ ufw_rules:
     - rule: allow
       port: "6443"
       proto: tcp
-ufw_profiles:
-  - default
-ufw_enabled: false

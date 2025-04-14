@@ -1,5 +1,7 @@
 <img src="/logos/iam.png" alt="iam logo" width="100" height="100">
 
+<img src="/logos/iam.png" alt="iam logo" width="100" height="100">
+
 # IAM role
 
 Identity and Access Management. Configure user and groups.
@@ -10,8 +12,6 @@ Configure the role.
 
 ```yml
 iam_root_password: "{{ vault_iam_root_password }}"
-iam_disallow_ssh_root_access: false # default: true
-iam_allow_ssh_password_authentication: true # default: false
 iam_groups:
   - name: wheel
     sudoers_commands: ALL

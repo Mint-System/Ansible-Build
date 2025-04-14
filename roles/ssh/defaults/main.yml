@@ -1,0 +1,5 @@
+---
+ssh_enabled: true
+ssh_port: 22
+ssh_disallow_root_access: true
+ssh_allow_password_authentication: false

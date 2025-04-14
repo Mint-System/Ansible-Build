@@ -2,6 +2,12 @@
 - name: Server setup
   hosts: all
   roles:
+    - role: update
+      tags:
+        - update
+        - never
+    - role: ufw
+      tags: ufw
     - role: motd
       tags: motd
     - role: hosts
@@ -24,12 +30,6 @@
       tags: iam
     - role: maintenance
       tags: maintenance
-    - role: update
-      tags:
-        - update
-        - never
-    - role: ufw
-      tags: ufw
     - role: firehol
       tags: firehol
     - role: restic

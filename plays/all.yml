@@ -2,8 +2,6 @@
 - name: All services
   hosts: all
   roles:
-    - role: cron
-      tags: cron
     - role: debug
       tags: debug
     - role: restic_server
@@ -96,5 +94,3 @@
       tags: metabase
     - role: ollama
       tags: ollama
-    - role: firehol
-      tags: firehol

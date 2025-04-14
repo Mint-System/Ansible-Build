@@ -1,0 +1,59 @@
+---
+- name: Check if sshd exists
+  ansible.builtin.stat:
+    path: /run/sshd
+  register: sshd_stat
+
+- name: Disallow root ssh access
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ^PermitRootLogin
+    line: PermitRootLogin no
+    state: present
+    validate: "/usr/sbin/sshd -t -f %s"
+  notify: Restart ssh service
+  when:
+    - sshd_stat.stat.exists
+    - ssh_disallow_root_access
+
+- name: Enable ssh password authentication
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ^PasswordAuthentication
+    line: PasswordAuthentication yes
+    state: present
+    validate: "/usr/sbin/sshd -t -f %s"
+  notify: Restart ssh service
+  when:
+    - sshd_stat.stat.exists
+    - ssh_allow_password_authentication
+
+- name: Disable ssh password authentication
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ^PasswordAuthentication
+    line: PasswordAuthentication no
+    state: present
+    validate: "/usr/sbin/sshd -t -f %s"
+  notify: Restart ssh service
+  when:
+    - sshd_stat.stat.exists
+    - not ssh_allow_password_authentication
+
+- name: Confirm SSH port change.
+  pause:
+    prompt: "Confirm changing SSH port in /etc/ssh/sshd_config to {{ ssh_port }} (yes/no)"
+  register: confirmation
+
+- name:
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ^Port
+    line: "Port {{ ssh_port }}"
+    state: present
+    validate: "/usr/sbin/sshd -t -f %s"
+  notify: Restart ssh service
+  when:
+    - sshd_stat.stat.exists
+    - ssh_port != 22
+    - confirmation.user_input | lower == 'yes'
