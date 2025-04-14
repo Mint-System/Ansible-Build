@@ -536,7 +536,7 @@ function docs() {
     MD_FILES=$(find roles -name "README.md" | sort)
     for README in $MD_FILES; do
         ROLE=$(basename $(dirname "$README"))
-        DESCRIPTION=$(sed '3q;d' "$README")
+        DESCRIPTION=$(sed '5q;d' "$README")
         echo "| ![${ROLE} logo](/logos/${ROLE}.png)  | [$ROLE]($README) | $DESCRIPTION |" >> "roles.md"
     done
 }
