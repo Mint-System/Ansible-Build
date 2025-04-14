@@ -52,7 +52,12 @@
     - docker-postgres-upgrade
     - docker-postgres-rename
 
+- name: List {{ role_name }} databases
+  ansible.builtin.command: docker-postgres-list -c "{{ postgres_hostname }}"
+  when: postgres_config_map|length > 0
+  register: postgres_databases
+
 - name: Create {{ role_name }} databases
   ansible.builtin.command: docker-postgres-create -c "{{ postgres_hostname }}" -d "{{ item.db }}"
   loop: "{{ postgres_config_map }}"
-  when: postgres_config_map|length > 0
+  when: postgres_config_map|length > 0 and item.db not in postgres_databases.stdout
