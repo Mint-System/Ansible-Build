@@ -8,11 +8,13 @@ Help() {
     echo
     echo "Description: Request Certbot certificate."
     echo "Syntax: $SCRIPT [-c|-d|-e|help]"
-    echo "Example: $SCRIPT -c odoo.example.com -d /usr/share/certbot01 -e sysadmin@example.com"
+    echo "Example: $SCRIPT -c odoo.example.com -d /usr/share/certbot01 -e sysadmin@example.com -s https://acme.zerossl.com/v2/DV90"
     echo "options:"
     echo "  -c    Certificate name."
     echo "  -d    Certbot data dir."
-    echo "  -e    Optional mail address for Let's Encrypt."
+    echo "  -e    Mail address."
+    echo "  -s    Alternate acme server."
+    echo "  -t    Execute dry run."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -22,14 +24,22 @@ if [[ "$1" == "help" ]]; then
     exit
 fi
 
+# Default values
+OPTION=""
+SERVER=""
+
 # Process params
-while getopts ":c: :d: :e:" opt; do
+while getopts ":c: :d: :e: :s: :t" opt; do
   case $opt in
     c) CERTIFICATE="$OPTARG"
     ;;
     d) CERTBOT_DATA_DIR="$OPTARG"
     ;;
     e) CERTBOT_EMAIL="$OPTARG"
+    ;;
+    e) SERVER="$OPTARG"
+    ;;
+    t) OPTION="--dry-run"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
@@ -43,22 +53,21 @@ done
 
 echo "Request certificate $CERTIFICATE ..."
 
-if [[ -z "$CERTBOT_EMAIL" ]]; then
-  
-  # Run the request command in certbot container without email
-  docker run --rm --name "${CERTIFICATE}-tmp" \
-  -v $CERTBOT_DATA_DIR/:/etc/letsencrypt/ \
-  -v $CERTBOT_DATA_DIR/www/:/var/www/certbot/ \
-  certbot/certbot \
-  certonly --webroot --register-unsafely-without-email --agree-tos --webroot-path=/var/www/certbot/ -d $CERTIFICATE
-
+if [[ -n "$SERVER" ]]; then
+  SERVER_OPTION="--server $SERVER"
 else
-
-  # Run the request command in certbot container with email
-  docker run --rm --name "${CERTIFICATE}-tmp" \
-  -v $CERTBOT_DATA_DIR/:/etc/letsencrypt/ \
-  -v $CERTBOT_DATA_DIR/www/:/var/www/certbot/ \
-  certbot/certbot \
-  certonly --webroot --email $CERTBOT_EMAIL --agree-tos --webroot-path=/var/www/certbot/ -d $CERTIFICATE
-
+  SERVER_OPTION=""
 fi
+
+if [[ -n "$CERTBOT_EMAIL" ]]; then
+  EMAIL_OPTION="--email $CERTBOT_EMAIL"
+else
+  EMAIL_OPTION="--register-unsafely-without-email"
+fi
+  
+docker run --rm --name "${CERTIFICATE}-tmp" \
+-v /var/log/letsencrypt/:/var/log/letsencrypt/ \
+-v $CERTBOT_DATA_DIR/:/etc/letsencrypt/ \
+-v $CERTBOT_DATA_DIR/www/:/var/www/certbot/ \
+certbot/certbot \
+certonly $EMAIL_OPTION --non-interactive --agree-tos --webroot --webroot-path=/var/www/certbot/ -d $CERTIFICATE $SERVER_OPTION $OPTION

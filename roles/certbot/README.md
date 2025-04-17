@@ -57,3 +57,21 @@ certbot_secrets:
 ### Wildcard certificates
 
 For wildcard certificates set `certbot_preferred_challenges: dns`. This will intentionally fail the certbot challenge and give you a manuall command, which must be executed on the server.
+
+### Test acme challenge
+
+Create a challenge file on the server.
+
+```bash
+NGINX_CONTAINER=$(docker ps -f "name=nginx" -q | tail -n1)
+docker exec "$NGINX_CONTAINER" mkdir -p /var/www/certbot/.well-known/acme-challenge/
+docker exec "$NGINX_CONTAINER" touch /var/www/certbot/.well-known/acme-challenge/RrBNIkijbPhfpxtCud7mKBHB9DwaJsmOvmhtnzb4fx4
+```
+
+Verify the challenge file on another server.
+
+
+```bash
+DOMAIN=example.com
+curl -I http://$DOMAIN/.well-known/acme-challenge/RrBNIkijbPhfpxtCud7mKBHB9DwaJsmOvmhtnzb4fx4
+```
