@@ -14,8 +14,10 @@ nginx_image: nginx:1.25.2-alpine
 nginx_hostname: nginx01
 nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"
 nginx_ports:
-  - 8080:80 # default: 80:80
-  - 8443:443 # default: 443:443
+  - "0.0.0.0:8080:80" # default: "0.0.0.0:80:80"
+  - "0.0.0.0:8443:443" # default: "0.0.0.0:443:443"
+  - "[::]:8080:80" # default: "[::]:80:80"
+  - "[::]:8443:443" # default: "[::]:443:443"
 nginx_http_options: |
   map $http_upgrade $connection_upgrade {
     default upgrade;

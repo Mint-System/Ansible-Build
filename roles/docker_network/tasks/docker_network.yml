@@ -10,4 +10,18 @@
     driver: "{{ docker_network_driver }}"
     ipam_config:
       - subnet: "{{ docker_network_subnet }}"
+        gateway: "{{ docker_network_gateway }}"
   when: docker_network_subnet is defined
+
+- name: Enable IPv6 docker network
+  community.docker.docker_network:
+    name: "{{ docker_network_name }}"
+    driver: "{{ docker_network_driver }}"
+    enable_ipv6: true
+    ipam_config:
+      - subnet: "{{ docker_network_subnet }}"
+        gateway: "{{ docker_network_gateway }}"
+      - subnet: "{{ docker_network_ipv6_subnet }}"
+        gateway: "{{ docker_network_ipv6_gateway }}"
+  when:
+    - docker_ipv6_enabled

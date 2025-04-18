@@ -8,13 +8,14 @@ Help() {
     echo
     echo "Description: Request Certbot certificate."
     echo "Syntax: $SCRIPT [-c|-d|-e|help]"
-    echo "Example: $SCRIPT -c odoo.example.com -d /usr/share/certbot01 -e sysadmin@example.com -s https://acme.zerossl.com/v2/DV90"
+    echo "Example: $SCRIPT -c odoo.example.com -d /usr/share/certbot01 -e sysadmin@example.com -s https://acme.zerossl.com/v2/DV90" -v
     echo "options:"
     echo "  -c    Certificate name."
     echo "  -d    Certbot data dir."
     echo "  -e    Mail address."
     echo "  -s    Alternate acme server."
     echo "  -t    Execute dry run."
+    echo "  -v    Show more details."
     echo "  help  Show $SCRIPT manual."
     echo
 }
@@ -27,9 +28,10 @@ fi
 # Default values
 OPTION=""
 SERVER=""
+VERBOSE=""
 
 # Process params
-while getopts ":c: :d: :e: :s: :t" opt; do
+while getopts ":c: :d: :e: :s: :t :v" opt; do
   case $opt in
     c) CERTIFICATE="$OPTARG"
     ;;
@@ -40,6 +42,8 @@ while getopts ":c: :d: :e: :s: :t" opt; do
     e) SERVER="$OPTARG"
     ;;
     t) OPTION="--dry-run"
+    ;;
+    v) VERBOSE="-v"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     Help
@@ -70,4 +74,4 @@ docker run --rm --name "${CERTIFICATE}-tmp" \
 -v $CERTBOT_DATA_DIR/:/etc/letsencrypt/ \
 -v $CERTBOT_DATA_DIR/www/:/var/www/certbot/ \
 certbot/certbot \
-certonly $EMAIL_OPTION --non-interactive --agree-tos --webroot --webroot-path=/var/www/certbot/ -d $CERTIFICATE $SERVER_OPTION $OPTION
+certonly $EMAIL_OPTION --non-interactive --agree-tos --webroot --webroot-path=/var/www/certbot/ -d $CERTIFICATE $SERVER_OPTION $OPTION $VERBOSE

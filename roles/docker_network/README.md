@@ -11,7 +11,10 @@ Configure the role.
 ```yml
 docker_network_name: example.com
 docker_network_driver: overlay # defaults: bridge
-docker_network_subnet: 172.18.0.0/24
+docker_network_subnet: 172.18.1.0/24 # default: 172.18.0.0/16
+docker_network_gateway: 172.18.1.1 # default: 172.18.0.1
+docker_network_ipv6_subnet: 2001:db8:2::/64 # default: 2001:db8:1::/64
+docker_network_ipv6_gateway: 2001:db8:2::1 # default: 2001:db8:1::1
 ```
 
 And include it in your playbook.
