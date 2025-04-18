@@ -29,6 +29,20 @@ nginx_proxies:
     options: |
       include /etc/nginx/conf.d/proxies/loki.nginx;
 ```
+or if loki runs on a dedicated domain
+
+```yml
+nginx_proxies:
+  - src_hostname: server.example.com
+    ssl: true
+    options: |
+      options: |
+      location / {
+        auth_basic "{{ loki_proxy_basic_auth_username }}";
+        auth_basic_user_file /etc/nginx/conf.d/proxies/loki.htpasswd;
+        proxy_pass http://{{ loki_hostname }}:3100;
+      }
+```
 
 And include it in your playbook.
 
