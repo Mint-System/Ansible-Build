@@ -1,7 +1,18 @@
 ---
+- name: Check if systemd-resolved is available
+  ansible.builtin.stat:
+    path: /lib/systemd/system/systemd-resolved.service
+  register: systemd_resolved_unit
+
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: resolv_enabled
+  when: resolv_enabled and not systemd_resolved_unit.stat.exists
+  tags:
+    - resolv
+
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}-systemd.yml"
+  when: resolv_enabled and systemd_resolved_unit.stat.exists
   tags:
     - resolv
 
@@ -10,3 +21,4 @@
   when: resolv_hosts is defined
   tags:
     - resolv
+

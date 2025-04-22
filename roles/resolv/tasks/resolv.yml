@@ -1,42 +1,39 @@
 ---
-- name: Configure systemd DNS
+- name: Configure primary DNS
   lineinfile:
-    path: /etc/systemd/resolved.conf
-    state: present
-    line: "DNS={{ resolv_dns }}"
-    backup: true
-  when: resolv_dns is defined
-  notify: Restart systemd-resolved
-
-- name: Configure systemd fallback DNS
-  lineinfile:
-    path: /etc/systemd/resolved.conf
-    state: present
-    line: "FallbackDNS={{ resolv_fallback_dns }}"
-    backup: true
-  when: resolv_fallback_dns is defined
-  notify: Restart systemd-resolved
-
-- name: Configure DNS server
-  lineinfile:
-    path: /etc/resolv.conf
-    state: present
-    line: nameserver {{ resolv_nameserver }}
+    path: /etc/resolvconf/resolv.conf.d/base
+    regexp: '^nameserver'
+    line: "nameserver {{ resolv_nameserver }}"
+    create: yes
     backup: true
   when: resolv_nameserver is defined
 
 - name: Configure domain name
   lineinfile:
-    path: /etc/resolv.conf
-    state: present
-    line: domain {{ resolv_domain_name }}
+    path: /etc/resolvconf/resolv.conf.d/base
+    regexp: '^domain'
+    line: "domain {{ resolv_domain_name }}"
+    create: yes
     backup: true
   when: resolv_domain_name is defined
 
 - name: Configure domain search
   lineinfile:
-    path: /etc/resolv.conf
-    state: present
-    line: search {{ resolv_domain_search | join(' ') }}
+    path: /etc/resolvconf/resolv.conf.d/base
+    regexp: '^search'
+    line: "search {{ resolv_domain_search | join(' ') }}"
+    create: yes
     backup: true
   when: resolv_domain_search is defined
+
+- name: Configure fallback DNS
+  lineinfile:
+    path: /etc/resolvconf/resolv.conf.d/base
+    insertafter: '^nameserver'
+    line: "nameserver {{ resolv_fallback_dns }}"
+    create: yes
+    backup: true
+  when: resolv_fallback_dns is defined
+
+- name: Apply resolvconf changes
+  command: resolvconf -u

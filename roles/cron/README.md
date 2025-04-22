@@ -33,3 +33,17 @@ And include it in your playbook.
   roles:
   - role: cron
 ```
+
+## Docs
+
+### Change backup path
+
+The backup paths can be changed manually. Ensure that you have set `restic_backup_dir: /mnt/db/backup`.
+
+Navigate into the crontabs folder and replace the backup paths.
+
+```bash
+cd /var/spool/cron/crontabs/
+sed -i 's|/var/tmp|/var/sdb/backup|g' root
+sed -i 's|/var/backup|/var/sdb/backup|g' root
+```
