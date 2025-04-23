@@ -55,6 +55,22 @@ nginx_proxies:
     ssl: true
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;
+    locations:
+      - path: /rest
+        dest_hostname: n8n01-prod
+        dest_port: 5678
+        options: |
+          include /etc/nginx/conf.d/proxy-params.conf;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+      - path: /webhook
+        dest_hostname: n8n01-prod
+        dest_port: 5678
+        options: |
+          include /etc/nginx/conf.d/proxy-params.conf;
+          proxy_read_timeout 300;
+          proxy_connect_timeout 300;
+          proxy_send_timeout 300;
 ```
 
 ### Deploy selected config map

@@ -15,7 +15,7 @@ The Ansible Docker role has the following requirements:
 Configure all depending roles.
 
 ```yml
-docker_ipv6_enabled: "true" # default: "false"
+docker_ipv6_enabled: true # default: false
 docker_dns: "[\"172.17.4.1\", \"8.8.8.8\"]"
 docker_data_dir: /mnt/sdb/docker # defaults: /var/lib/docker
 docker_build_dir: /tmp/build # defaults: /srv/build

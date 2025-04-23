@@ -1,6 +1,6 @@
 ---
 docker_data_dir: /var/lib/docker
-docker_ipv6_enabled: "false"
+docker_ipv6_enabled: false
 docker_build_dir: /srv/build
 docker_group: docker
 docker_log_driver: json-file
