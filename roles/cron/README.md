@@ -46,4 +46,5 @@ Navigate into the crontabs folder and replace the backup paths.
 cd /var/spool/cron/crontabs/
 sed -i 's|/var/tmp|/var/sdb/backup|g' root
 sed -i 's|/var/backup|/var/sdb/backup|g' root
+sed -i 's|/mnt/sdb/tmp|/var/sdb/backup|g' root
 ```
