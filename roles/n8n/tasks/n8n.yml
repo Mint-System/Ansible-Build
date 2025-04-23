@@ -38,6 +38,7 @@
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
       N8N_RUNNERS_ENABLED: "true"
       N8N_RUNNERS_MODE: "internal"
+      N8N_PAYLOAD_SIZE_MAX: "128"
     volumes:
       - "{{ n8n_volume_name }}-{{ item.name }}:/home/node/"
       - "{{ n8n_data_dir }}-{{ item.name }}:/mnt/data/"
