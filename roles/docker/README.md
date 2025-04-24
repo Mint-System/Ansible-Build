@@ -68,3 +68,11 @@ Restart Docker service:
 ```bash
 sudo service docker restart
 ```
+
+### Show Docker log
+
+Show logs for selected unit:
+
+```bash
+journalctl -u docker -f
+```

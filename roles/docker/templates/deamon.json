@@ -1,5 +1,5 @@
 { 
     "data-root": "{{ docker_data_dir }}",
-    "ipv6": {% if docker_ipv6_enabled %}"true"{% else %}"false"{% endif %}{% if docker_dns is defined %},
+    {% if docker_ipv6_enabled %}"ipv6": true{% else %}"ipv6": false{% endif %}{% if docker_dns is defined %},
     "dns": {{ docker_dns }}{% endif %}
 }
