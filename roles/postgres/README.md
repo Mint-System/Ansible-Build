@@ -67,6 +67,8 @@ The following tags are available:
 * postgres
 * postgres_backup
 
+## Docs
+
 ### Kubernetes
 
 Configure the manifest.
@@ -84,4 +86,27 @@ And include it in your localhost playbook.
 - hosts: localhost
   roles:
   - role: postgres
+```
+
+
+## Troubleshooting
+
+### Lock file postmaster.pid is empty
+
+**Problem**
+
+The container does not start.
+
+```
+2025-04-24 07:40:10.592 UTC [1] FATAL:  lock file "postmaster.pid" is empty
+2025-04-24 07:40:10.592 UTC [1] HINT:  Either another server is starting, or the lock file is the remnant of a previous server startup crash.
+```
+
+**Solution**
+
+Navigate into the Postgres volume and remote the pid file.
+
+```bash
+rm postmaster.pid
+docker restart postgres01
 ```

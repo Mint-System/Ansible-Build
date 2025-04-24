@@ -19,6 +19,7 @@ function help() {
     # Print table rows
     printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
     printf "$COLUMN" "build-vuepress" "" "Create vuepress build."
+    printf "$COLUMN" "commit-with-llm" "" "Commit with llm generated commit message."
     printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
     printf "$COLUMN" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
     printf "$COLUMN" "decrypt-file" "[path]" "Decrypt Ansible Vault file."
@@ -55,7 +56,7 @@ function help() {
 # Set env vars
 
 GIT_BRANCH=$(git symbolic-ref --short -q HEAD)
-LLM_MODEL=${LLM_MODEL:="deepseek-coder"}
+LLM_MODEL=${LLM_MODEL:="gpt-4o"}
 
 if [[ -a ".env" ]]; then
     export $(cat .env | sed 's/^#.*//g' | xargs)
@@ -522,6 +523,45 @@ EOF
             echo "$LINE" >> "$CURRENT_FILE"
         fi
     done < "$RESULT_FILE"
+}
+
+function commit-with-llm() {
+
+    mkdir -p tmp
+    PROMPT_FILE="tmp/llm_update"
+    echo -e "\nWrite prompt to $PROMPT_FILE."
+    cat << EOF > "$PROMPT_FILE"
+Look at the git diff below and reply with a git commit message. Ensure that the commit message matches the conventional commits specification.
+If possible add a scope. Reply with the commit message only. Format the message so it can be used with `git commit -m "$RESULT"`.
+
+$(git diff --staged)
+EOF
+
+    # Run the llm command
+    echo -e "Send prompt with staged git diff and wait for the response of the $LLM_MODEL LLM."
+    RESULT=$(cat "$PROMPT_FILE" | llm -m "$LLM_MODEL")
+
+    # Check if result is empty
+    if [ -z "$RESULT" ]; then
+        echo "No response from the model. Exiting."
+        exit 1
+    fi
+
+    # Save the result to a file
+    RESULT_FILE="tmp/llm_update_result"
+    echo "$RESULT" > "$RESULT_FILE"
+    echo -e "Saved response to $RESULT_FILE.\n"
+
+    # Show a preview of result file
+    less "$RESULT_FILE"
+
+    # Ask for confirmation before updating files
+    read -p "Do you want to commit with this message? (y/n): " CONFIRM
+    if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
+        exit 0
+    fi
+
+    git commit -m "$RESULT"
 }
 
 # Docs commands
