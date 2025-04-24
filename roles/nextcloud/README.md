@@ -96,3 +96,12 @@ Disable the maintenance mode with the occ cli.
 ```bash
 docker exec -u www-data -it nextcloud01 php occ maintenance:mode --off
 ```
+
+
+### Cleanup trashbin
+
+Cleanup the deleted files and folders for all users.
+
+```bash
+docker exec -u www-data -it nextcloud01 php occ trashbin:cleanup --all-users
+```
