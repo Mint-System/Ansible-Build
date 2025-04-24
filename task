@@ -532,7 +532,7 @@ function commit-with-llm() {
     echo -e "\nWrite prompt to $PROMPT_FILE."
     cat << EOF > "$PROMPT_FILE"
 Look at the git diff below and reply with a git commit message. Ensure that the commit message matches the conventional commits specification.
-If possible add a scope. Reply with the commit message only. Format the message so it can be used with `git commit -m "$RESULT"`.
+If possible add a scope. Reply with the commit message only. Format the message so it can be used with: git commit -m "\$RESULT"
 
 $(git diff --staged)
 EOF
