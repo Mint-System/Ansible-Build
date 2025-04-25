@@ -17,8 +17,8 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/mintsystem/odoo/
-odoo_revision: "16.0.20250207"
-odoo_image: mintsystem/odoo:16.0.20250207
+odoo_revision: "16.0.20250401"
+odoo_image: mintsystem/odoo:16.0.20250401
 odoo_build_image: true # default: false
 odoo_hostname: odoo01
 odoo_config_map: # default: - name: prod
@@ -53,7 +53,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/odoo/
-odoo_revision: "16.0.20250207"
+odoo_revision: "16.0.20250401"
 odoo_image: odoo:16.0-20250207
 odoo_build_image: true # default: false
 odoo_build_dockerfile: | # default: ""

@@ -10,13 +10,13 @@ Configure the role.
 
 ```yml
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
-odoo_revision: "16.0.20250207"
+odoo_revision: "16.0.20250401"
 odoo_repo_key_file: /home/bot/.ssh/id_ed25519
 github_personal_access_token: # default: "{{ vault_github_personal_access_token }}"
 odoo_repos:
   - path: enterprise
     url: git@github.com:odoo/enterprise.git
-    version: 937dc76d00362181fae12e623758d18321e15e5e
+    version: 13db977fca67da8278fbdc5753f425583b304c67
   - path: addons/partner-contact
     url: git@github.com:OCA/partner-contact.git
     version: 16.0 # default: version of odoo_revision
@@ -47,7 +47,7 @@ To clone private repos with an http url set the `vault_github_personal_access_to
 odoo_repos:
   - path: enterprise
     url: https://{{ github_username }}:{{ github_personal_access_token }}@github.com/odoo/enterprise.git
-    version: 937dc76d00362181fae12e623758d18321e15e5e
+    version: 13db977fca67da8278fbdc5753f425583b304c67
 ```
 
 ### Pull repo manually
@@ -63,5 +63,5 @@ sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git pull origin 16.0'
 Navigate into the repo directory on the server `cd /usr/share/odoo01/enterprise` and run:
 
 ```bash
-sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git checkout 937dc76d00362181fae12e623758d18321e15e5e'
+sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git checkout 13db977fca67da8278fbdc5753f425583b304c67'
 ```
