@@ -31,6 +31,18 @@ And include it in your playbook.
 
 The `docker-proxy` ceates NAT routes in the ip tables. To list them run:
 
-```
+```bash
 sudo iptables -t nat -L DOCKER -n -v
+```
+
+### List all container ip addresses
+
+```bash
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+```
+
+### Connect all containers to network
+
+```bash
+docker ps -aq | xargs -I {} docker network connect example.com {}
 ```

@@ -64,7 +64,7 @@ fi
 
 # Import commands
 
-source ~/taskfile.build/bin/commit-with-llm
+[ -f ~/taskfile.build/bin/commit-with-llm ] && source ~/taskfile.build/bin/commit-with-llm
 
 # Ansible Vault commands
 
