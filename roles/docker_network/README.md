@@ -37,11 +37,15 @@ sudo iptables -t nat -L DOCKER -n -v
 
 ### List all container ip addresses
 
+This command shows the ip address for every container:
+
 ```bash
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
 ```
 
 ### Connect all containers to network
+
+Attach all containers to the `example.com` network:
 
 ```bash
 docker ps -aq | xargs -I {} docker network connect example.com {}
