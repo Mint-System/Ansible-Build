@@ -14,7 +14,9 @@ The [Mint System](https://www.mint-system.ch/) collection of Ansible playbooks a
 
 Clone this repository.
 
-`git clone git@github.com:Mint-System/Ansible-Build.git`
+```bash
+git clone git@github.com:Mint-System/Ansible-Build.git
+```
 
 See `task help` or [task](./task.md) for details about the project commands.
 
@@ -22,19 +24,27 @@ See `task help` or [task](./task.md) for details about the project commands.
 
 Navigate into the project folder.
 
-`cd Ansible-Build`
+```bash
+cd Ansible-Build
+```
 
 Generate an Ansible vault id and password.
 
-`task generate-vault-password $VAULT_ID $PASSWORD`
+```bash
+task generate-vault-password $VAULT_ID $PASSWORD
+```
 
 Create an Ansible configuration from the template.
 
-`cp ansible.cfg.template ansible.cfg`
+```bash
+cp ansible.cfg.template ansible.cfg
+```
 
 Install Ansible and Python dependencies.
 
-`task install`
+```bash
+task install
+```
 
 Create an inventory folder and configure a role.
 
