@@ -4,7 +4,7 @@
 docker run --rm --name {{ acme_sh_hostname }}-tmp \
 --volume "{{ acme_sh_data_dir }}:/acme.sh" \
 --env "FREEDNS_User={{ acme_sh_freedns_user }}" \
----env "FREEDNS_Password={{ acme_sh_freedns_password }}" \
+--env "FREEDNS_Password={{ acme_sh_freedns_password }}" \
 {{ acme_sh_image }} \
 --renew --dns dns_freedns {% for item in acme_sh_certs %}-d {{ item.src_hostname }} {% endfor %}
 {% endif %}
