@@ -162,3 +162,23 @@ These backup types are available:
 * docker-odoo-backup
 * odoo-backup
 * file
+
+## Docs
+
+### Change backup path
+
+The backup paths can be changed manually. Ensure that you have set `restic_backup_dir: /mnt/db/backup`.
+
+Navigate into the crontabs folder and replace the backup paths.
+
+```bash
+cd /var/spool/cron/crontabs/
+
+# Change default paths
+sed -i 's|/var/tmp|/var/sdb/backup|g' root
+sed -i 's|/var/backup|/var/sdb/backup|g' root
+sed -i 's|/mnt/sdb/tmp|/var/sdb/backup|g' root
+
+# If the server has external disk
+sed -i 's|/var/sdb/backup|/mnt/sdb/backup|g' root
+```
