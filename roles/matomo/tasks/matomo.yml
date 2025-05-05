@@ -25,6 +25,7 @@
       - "{{ matomo_volume_name }}:/var/www/html"
     networks:
       - name: "{{ docker_network_name }}"
+    network_mode: bridge
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
@@ -34,5 +35,5 @@
 - name: Cron job to run {{ role_name }} background jobs
   ansible.builtin.cron:
     name: Run {{ role_name }} background jobs
-    minute: "*/5"
+    minute: "5"
     job: docker exec -u root {{ matomo_hostname }} bash -c "/usr/local/bin/php /var/www/html/console core:archive --url={{ matomo_url }} > /var/log/matomo-archive.log"
