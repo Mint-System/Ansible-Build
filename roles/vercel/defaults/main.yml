@@ -1,2 +1,3 @@
 ---
 vercel_api_url: https://api.vercel.com
+vercel_token: "{{ vault_vercel_token }}"

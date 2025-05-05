@@ -21,4 +21,3 @@
   when: resolv_hosts is defined
   tags:
     - resolv
-

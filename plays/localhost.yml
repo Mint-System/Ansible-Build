@@ -37,6 +37,8 @@
       tags: pgadmin
     - role: vercel
       tags: vercel
+    - role: infomaniak
+      tags: infomaniak
     - role: docker_hosts
       tags: docker_hosts
     - role: hosts

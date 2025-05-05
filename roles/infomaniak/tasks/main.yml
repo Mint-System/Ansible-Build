@@ -2,6 +2,6 @@
 - name: Include {{ role_name }} dns tasks
   ansible.builtin.include_tasks: "{{ role_name }}_dns.yml"
   run_once: true
-  when: vercel_token is defined
+  when: infomaniak_token is defined
   tags:
-    - vercel
+    - infomaniak

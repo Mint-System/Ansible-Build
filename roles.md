@@ -41,6 +41,7 @@
 | ![hosts logo](/logos/hosts.png)  | [hosts](roles/hosts/README.md) | Add entries to hosts files. |
 | ![htpasswd logo](/logos/htpasswd.png)  | [htpasswd](roles/htpasswd/README.md) | Configure .htpasswd basic auth file. |
 | ![iam logo](/logos/iam.png)  | [iam](roles/iam/README.md) | Identity and Access Management. Configure user and groups. |
+| ![infomaniak logo](/logos/infomaniak.png)  | [infomaniak](roles/infomaniak/README.md) | # Infomaniak role |
 | ![innernet logo](/logos/innernet.png)  | [innernet](roles/innernet/README.md) | Setup WireGuard based internal network. |
 | ![jenkins logo](/logos/jenkins.png)  | [jenkins](roles/jenkins/README.md) | Deploy Jenkins container. |
 | ![k3s logo](/logos/k3s.png)  | [k3s](roles/k3s/README.md) | Deploy Kubernetes cluster with K3s.  |
@@ -104,5 +105,5 @@
 | ![timezone logo](/logos/timezone.png)  | [timezone](roles/timezone/README.md) | Define timezone. |
 | ![ufw logo](/logos/ufw.png)  | [ufw](roles/ufw/README.md) | Configures UFW rules. |
 | ![update logo](/logos/update.png)  | [update](roles/update/README.md) | Install system and package updates. |
-| ![vercel logo](/logos/vercel.png)  | [vercel](roles/vercel/README.md) | Manage vercel domain and dns entries. |
+| ![vercel logo](/logos/vercel.png)  | [vercel](roles/vercel/README.md) | # Vercel role |
 | ![wordpress logo](/logos/wordpress.png)  | [wordpress](roles/wordpress/README.md) | Deploy WordPress container. |

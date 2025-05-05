@@ -1,0 +1,14 @@
+---
+- name: List dns records
+  ansible.builtin.uri:
+    url: "{{ infomaniak_api_url }}{{ item.zone }}/records"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ infomaniak_token }}"
+    return_content: true
+  register: dns_records
+  loop: "{{ infomaniak_zones }}"
+
+- debug:
+    msg: "{{ item.json }}"
+  loop: "{{ dns_records.results }}"

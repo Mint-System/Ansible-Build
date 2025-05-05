@@ -2,14 +2,14 @@
 
 # Vercel role
 
-Manage vercel domain and dns entries.
+Manage Vercel domain and dns entries.
 
 ## Usage
 
 Configure the role.
 
 ```yml
-vercel_token: "{{ vault_vercel_token }}"
+vercel_token: # default: "{{ vault_vercel_token }}"
 vercel_team_id: example-organization
 vercel_dns:
   - domain: example.com

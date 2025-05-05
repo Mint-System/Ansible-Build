@@ -1,0 +1,3 @@
+---
+infomaniak_api_url: https://api.infomaniak.com/2/zones/
+infomaniak_token: "{{ vault_infomaniak_token }}"
