@@ -7,7 +7,7 @@ prometheus_hosts: "{{ groups['all'] }}"
 prometheus_etc_hosts: {}
 prometheus_proxy_basic_auth_username: prometheus
 prometheus_proxy_basic_auth_password: "{{ vault_prometheus_proxy_basic_auth_password }}"
-prometheus_retention_time: 15d
+prometheus_retention_time: 30d
 prometheus_alertmanager_basic_auth_password: "{{ vault_prometheus_alertmanager_basic_auth_password }}"
 prometheus_node_exporter_basic_auth_password: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
 prometheus_cadvisor_basic_auth_password: "{{ vault_prometheus_cadvisor_basic_auth_password }}"
@@ -22,17 +22,3 @@ prometheus_meilisearch_exporter_api_key: "{{ vault_prometheus_meilisearch_export
 prometheus_uptime_kuma_exporter_basic_auth_password: "{{ vault_prometheus_uptime_kuma_exporter_basic_auth_password }}"
 prometheus_alerting: {}
 prometheus_custom_scrapers: ""
-  # system.yml: |
-  #   {% raw %}
-  #   groups:
-  #   - name: system
-  #     rules:
-  #     - alert: InstanceDown
-  #       expr: "up == 0"
-  #       for: 5m
-  #       labels:
-  #         runbook_url: https://runbooks.prometheus-operator.dev/runbooks/general/targetdown/
-  #       annotations:
-  #         description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
-  #         summary: "Instance {{ $labels.instance }} down"
-  #   {% endraw %}

@@ -20,7 +20,7 @@ prometheus_hosts: # default: groups['all']
   - server2.example.com
   - server3.example.com
 prometheus_port: 127.0.0.1:9999 # default: 127.0.0.1:9090
-prometheus_retention_time: "30d" # default: "15d"
+prometheus_retention_time: "90d" # default: "30d"
 prometheus_etc_hosts: # defaults: {}
   "server.example.com": 10.42.5.2
 prometheus_proxy_basic_auth_username: metric # default: prometheus
