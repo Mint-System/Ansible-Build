@@ -99,5 +99,4 @@ The service account token ist stored as secret.
 
 ```bash
 kubectl get secrets k8s-deployer -o json | jq -r '.data.token' | base64 --decode
-
 ```
