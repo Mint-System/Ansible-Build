@@ -1,4 +1,4 @@
-<img src="/logos/ssh.png" alt="ssh logo" width="100" height="100">
+<img src="/logos/autossh.png" alt="ssh logo" width="100" height="100">
 
 # Autossh role
 
