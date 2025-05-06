@@ -1,0 +1,14 @@
+[Unit]
+Description=AutoSSH tunnel service for {{ item.remote_server }} to {{ item.remote_port }}
+After=network.target
+
+[Service]
+Environment="AUTOSSH_GATETIME=0"
+User={{ item.local_user }}
+Group={{ item.local_user }}
+ExecStart={{ autossh_data_dir }}/autossh-tunnel-{{ item.remote_server }}-{{ item.remote_port }}
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

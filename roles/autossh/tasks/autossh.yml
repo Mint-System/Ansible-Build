@@ -1,0 +1,36 @@
+---
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Fail if package autossh is not installed
+  ansible.builtin.fail:
+    msg: Package autossh not installed
+  when: "'autossh' not in ansible_facts.packages"
+
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ autossh_data_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Setup {{ role_name }} scripts
+  ansible.builtin.template:
+    src: autossh-tunnel
+    dest: "{{ autossh_data_dir }}/autossh-tunnel-{{ item.remote_server }}-{{ item.remote_port }}"
+    mode: "0755"
+  loop: "{{ autossh_tunnels }}"
+
+- name: Setup {{ role_name }} services
+  ansible.builtin.template:
+    src: autossh.service
+    dest: "/etc/systemd/system/autossh-tunnel-{{ item.remote_server }}-{{ item.remote_port }}.service"
+    mode: "0644"
+  loop: "{{ autossh_tunnels }}"
+
+- name: Start {{ autossh }} services
+  ansible.builtin.systemd:
+    name: "autossh-tunnel-{{ item.remote_server }}-{{ item.remote_port }}"
+    state: started
+    enabled: true
+  loop: "{{ autossh_tunnels }}"

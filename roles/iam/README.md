@@ -87,7 +87,7 @@ Run `sudo usermod -a -G sshusers janikvonrotz` to add a user to a group.
 Generate a ssh key pair for the username.
 
 ```bash
-SSH_USERNAME=n8ncloud
+SSH_USERNAME=bot
 ssh-keygen -t ed25519 -C "$SSH_USERNAME" -f ./id_ed25519
 echo "ssh_public_key: $(cat ./id_ed25519.pub)"
 echo "vault_${SSH_USERNAME}_ssh_private_key: $(echo $(cat ./id_ed25519 | base64))"

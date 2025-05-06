@@ -1,0 +1,4 @@
+---
+autossh_enabled: false
+autossh_strict_host_key_checking: "no"
+autossh_data_dir: /usr/share/autossh
