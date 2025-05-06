@@ -119,8 +119,7 @@ nginx_proxies:
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
       - path: /website/info
-        options:
-          |
+        options: |
           deny all;
 ```
 
