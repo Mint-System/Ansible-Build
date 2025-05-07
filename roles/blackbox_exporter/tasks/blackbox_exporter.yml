@@ -21,8 +21,11 @@
     recreate: false
     volumes:
       - "{{ blackbox_exporter_data_dir }}:/etc/blackbox_exporter"
+    ports:
+      - "9115:9115"
     networks:
       - name: "{{ docker_network_name }}"
+    network_mode: bridge
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"

@@ -21,9 +21,13 @@
   ansible.builtin.set_fact:
     paths: "{{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?monitor!=`false` && monitor!=null].monitor') | flatten }}"
 
-- name: Generate blackbox target urls
+- name: Generate blackbox target urls from src_hostnames
   ansible.builtin.set_fact:
     targets: "{{ src_hostnames | zip(paths) | map('join', '') | map('regex_replace', '^(.*)$', 'https://\\1') | sort }}"
+
+- name: Merge blackbox target hostnames and additional hosts
+  ansible.builtin.set_fact:
+    targets: "{{ [targets, prometheus_blackbox_additional_hosts] | unique | sort | flatten }}"
 
 - name: List blackbox targets
   ansible.builtin.debug:

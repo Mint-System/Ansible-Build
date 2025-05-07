@@ -36,4 +36,7 @@ modules:
   http_401_unauth:
     prober: http
     http:
+      follow_redirects: true
       valid_status_codes: [403, 401, 200]
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: false

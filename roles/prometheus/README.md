@@ -24,6 +24,8 @@ prometheus_etc_hosts: # defaults: {}
 prometheus_proxy_basic_auth_username: metric # default: prometheus
 prometheus_proxy_basic_auth_password: # default: "{{ vault_prometheus_proxy_basic_auth_password }}"
 
+prometheus_blackbox_additional_hosts: {}
+
 prometheus_node_exporter_basic_auth_username: node-exporter
 prometheus_node_exporter_basic_auth_password: # default: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
 prometheus_cadvisor_basic_auth_username: cadvisor
