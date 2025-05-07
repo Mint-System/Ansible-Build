@@ -31,7 +31,7 @@
 
 - name: Copy ssh private key
   ansible.builtin.copy:
-    content: "{{ item.ssh_private_key }}"
+    content: "{{ item.ssh_private_key | b64decode }}"
     dest: /home/{{ item.username }}/.ssh/id_ed25519
     owner: "{{ item.username }}"
     group: "{{ item.username }}"

@@ -14,6 +14,15 @@
     state: directory
     mode: "0755"
 
+- name: Test remote port availability
+  become: yes
+  become_method: sudo
+  become_user: "{{ item.local_user }}"
+  ansible.builtin.command:
+    cmd: ssh -L {{ item.local_port }}:localhost:{{ item.remote_port }} {{ item.remote_user }}@{{ item.remote_server }} echo
+  loop: "{{ autossh_tunnels }}"
+
+
 - name: Setup {{ role_name }} scripts
   ansible.builtin.template:
     src: autossh-tunnel

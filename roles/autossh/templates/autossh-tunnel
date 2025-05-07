@@ -1,9 +1,9 @@
 #!/bin/bash
-export AUTOSSH_PIDFILE={{ autossh_data_dir }}/autossh-{{ item.remote_server }}-{{ item.remote_port }}.pid
+export AUTOSSH_PIDFILE=~/autossh-{{ item.remote_server }}-{{ item.remote_port }}.pid
 export AUTOSSH_POLL=60
 export AUTOSSH_GATETIME=30
 export AUTOSSH_DEBUG=1
-export AUTOSSH_LOGFILE={{ autossh_data_dir }}/autossh-{{ item.remote_server }}-{{ item.remote_port }}.log
+export AUTOSSH_LOGFILE=~/autossh-{{ item.remote_server }}-{{ item.remote_port }}.log
 
 {% if item.local_key_file is defined %}
 IDENTITY_ARG="-i {{ item.local_key_file }}"
@@ -17,7 +17,6 @@ SSH_PORT="{{ item.remote_ssh_port }}"
 SSH_PORT="22"
 {% endif %}
 
-# Start autossh
 /usr/bin/autossh -M 0 -N -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" \
   -o "ExitOnForwardFailure yes" -o "StrictHostKeyChecking {{ autossh_strict_host_key_checking }}" \
   ${IDENTITY_ARG} -p ${SSH_PORT} \
