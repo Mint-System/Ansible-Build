@@ -32,8 +32,7 @@
     volumes:
       - "{{ pgadmin_volume_name }}:/var/lib/pgadmin"
       - "{{ pgadmin_data_dir }}/servers.json:/pgadmin4/servers.json"
-    networks:
-      - name: "{{ docker_network_name }}"
+    network_mode: "{{ pgadmin_network_mode }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"

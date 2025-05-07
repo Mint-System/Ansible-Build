@@ -15,6 +15,7 @@ pgadmin_hostname: pgadmin01
 pgadmin_description: Admin for postgres01 # default: pgAdmin
 pgadmin_volume_name: pgadmin_data01 # default: "{{ pgadmin_hostname }}"
 pgadmin_data_dir: /usr/share/pgadmin # default: /usr/share/{{ pgadmin_hostname }}
+pgadmin_network_mode: host # default: "{{ docker_network_name }}"
 pgadmin_user: admin@example.com
 pgadmin_password: "{{ vault_pgadmin_password }}"
 pgadmin_servers:

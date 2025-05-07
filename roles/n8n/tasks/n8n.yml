@@ -42,8 +42,7 @@
     volumes:
       - "{{ n8n_volume_name }}-{{ item.name }}:/home/node/"
       - "{{ n8n_data_dir }}-{{ item.name }}:/mnt/data/"
-    networks:
-      - name: "{{ docker_network_name }}"
+    network_mode: "{{ n8n_network_mode }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"

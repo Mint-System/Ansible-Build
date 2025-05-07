@@ -5,3 +5,4 @@ pgadmin_volume_name: "{{ pgadmin_hostname }}"
 pgadmin_script_name: ""
 pgadmin_ports:
   - 127.0.0.1:5050:80
+pgadmin_network_mode: "{{ docker_network_name }}"

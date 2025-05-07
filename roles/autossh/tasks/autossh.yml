@@ -15,31 +15,34 @@
     mode: "0755"
 
 - name: Test remote port availability
-  become: yes
+  become: true
   become_method: sudo
   become_user: "{{ item.local_user }}"
   ansible.builtin.command:
-    cmd: ssh -L {{ item.local_port }}:localhost:{{ item.remote_port }} {{ item.remote_user }}@{{ item.remote_server }} echo
+    cmd: ssh -L {{ item.local_port }}:{{ item.remote_server | default('localhost') }}:{{ item.remote_port }} {{ item.ssh_user }}@{{ item.ssh_server }} echo
   loop: "{{ autossh_tunnels }}"
-
 
 - name: Setup {{ role_name }} scripts
   ansible.builtin.template:
     src: autossh-tunnel
-    dest: "{{ autossh_data_dir }}/autossh-tunnel-{{ item.remote_server }}-{{ item.remote_port }}"
+    dest: "{{ autossh_data_dir }}/autossh-tunnel-{{ item.ssh_server }}-{{ item.remote_port }}"
     mode: "0755"
+  vars:
+    remote_server: "{{ item.remote_server | default('localhost') }}"
+    local_key_file: "{{ item.local_key_file | default('/home/' + item.local_user + '/.ssh/id_ed25519') }}"
   loop: "{{ autossh_tunnels }}"
+  notify: Restart autossh services
 
 - name: Setup {{ role_name }} services
   ansible.builtin.template:
     src: autossh.service
-    dest: "/etc/systemd/system/autossh-tunnel-{{ item.remote_server }}-{{ item.remote_port }}.service"
+    dest: "/etc/systemd/system/autossh-tunnel-{{ item.ssh_server }}-{{ item.remote_port }}.service"
     mode: "0644"
   loop: "{{ autossh_tunnels }}"
 
 - name: Start {{ autossh }} services
   ansible.builtin.systemd:
-    name: "autossh-tunnel-{{ item.remote_server }}-{{ item.remote_port }}"
+    name: "autossh-tunnel-{{ item.ssh_server }}-{{ item.remote_port }}"
     state: started
     enabled: true
   loop: "{{ autossh_tunnels }}"

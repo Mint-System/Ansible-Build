@@ -13,12 +13,13 @@ autossh_enabled: true # default: false
 autossh_data_dir: /usr/share/ssh # default: /usr/share/autossh
 autossh_tunnels:
   - local_user: server1
-    local_key_file:  /home/server1/.ssh/id_ed25519
+    local_key_file:  /home/server1/.ssh/id_ed25519 # default: "/home/{{ item.local_user }}/.ssh/id_ed25519"
     local_port: 8080
+    ssh_user: ubuntu
+    ssh_server: server2.example.com
+    ssh_port: 2222 # default: 22
+    remote_server: 172.18.30.1 # default: localhost
     remote_port: 80
-    remote_user: ubuntu
-    remote_server: server2.example.com
-    remote_ssh_port: 2222 # default: 22
 ```
 
 And include it in your playbook.

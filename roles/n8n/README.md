@@ -17,6 +17,7 @@ n8n_description: Workflow Automation # default: N8N
 n8n_state: stopped # default: started
 n8n_data_dir: /usr/share/n8n # default: "/usr/share/{{ n8n_hostname }}"
 n8n_volume_name: n8n_data01 # default: "{{ n8n_hostname }}"
+n8n_network_mode: host # default: "{{ docker_network_name }}"
 n8n_config_map:
   - name: prod
     webhook_url: https://n8n.example.com/
