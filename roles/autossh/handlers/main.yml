@@ -1,6 +1,7 @@
-  - name: Restart autossh services
-    ansible.builtin.systemd:
-      name: "autossh-tunnel-{{ item.ssh_server }}-{{ item.remote_port }}"
-      state: restarted
-      daemon_reload: true
-    loop: "{{ autossh_tunnels }}"
+---
+- name: Restart autossh services
+  ansible.builtin.systemd:
+    name: "autossh-tunnel-{{ item.ssh_server }}-{{ item.remote_port }}"
+    state: restarted
+    daemon_reload: true
+  loop: "{{ autossh_tunnels }}"

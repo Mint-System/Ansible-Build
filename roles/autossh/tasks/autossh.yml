@@ -19,7 +19,7 @@
   become_method: sudo
   become_user: "{{ item.local_user }}"
   ansible.builtin.command:
-    cmd: ssh -L {{ item.local_port }}:{{ item.remote_server | default('localhost') }}:{{ item.remote_port }} {{ item.ssh_user }}@{{ item.ssh_server }} echo
+    cmd: ssh -L {{ item.local_interface | default('0.0.0.0') }}:{{ item.local_port }}:{{ item.remote_server | default('localhost') }}:{{ item.remote_port }} {{ item.ssh_user }}@{{ item.ssh_server }} echo
   loop: "{{ autossh_tunnels }}"
 
 - name: Setup {{ role_name }} scripts
@@ -30,6 +30,7 @@
   vars:
     remote_server: "{{ item.remote_server | default('localhost') }}"
     local_key_file: "{{ item.local_key_file | default('/home/' + item.local_user + '/.ssh/id_ed25519') }}"
+    local_interface: "{{ item.local_interface | default('0.0.0.0') }}"
   loop: "{{ autossh_tunnels }}"
   notify: Restart autossh services
 
