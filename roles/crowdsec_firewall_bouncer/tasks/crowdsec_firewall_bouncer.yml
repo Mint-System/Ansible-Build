@@ -22,7 +22,7 @@
       - name: https://packagecloud.io/crowdsec/crowdsec/{{ os.stdout | trim }}
         branch: main
         key: https://packagecloud.io/crowdsec/crowdsec/gpgkey
-    packages:
+    group_packages:
       - name: crowdsec-firewall-bouncer-iptables
 
 - name: Start {{ role_name }} firewall bouncer service

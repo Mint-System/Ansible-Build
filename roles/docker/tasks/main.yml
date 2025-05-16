@@ -2,13 +2,25 @@
 - name: Show distribution
   ansible.builtin.debug:
     msg: "Distribution: {{ ansible_distribution }}\nMajor Version: {{ ansible_distribution_major_version }}\nPython Version: {{ ansible_python_version }}"
+  tags:
+    - docker
+
+- name: Show docker packages
+  ansible.builtin.debug:
+    var: docker_packages
+  tags:
+    - docker
+
+- name: Show docker packages
+  ansible.builtin.debug:
+    var: ansible_distribution
+  tags:
+    - docker
 
 - name: Include {{ role_name }} ubuntu tasks
   ansible.builtin.include_tasks: "{{ role_name }}-ubuntu.yml"
-  when: docker_packages is defined and (ansible_distribution == 'Ubuntu')
   tags:
     - docker
-    - docker-ubuntu
 
 - name: Include {{ role_name }} centos tasks
   ansible.builtin.include_tasks: "{{ role_name }}-centos.yml"

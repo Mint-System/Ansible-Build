@@ -26,6 +26,8 @@
       tags: locale
     - role: cargo
       tags: cargo
+    - role: docker
+      tags: docker
     - role: iam
       tags: iam
     - role: maintenance

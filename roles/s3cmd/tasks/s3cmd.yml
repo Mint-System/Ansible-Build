@@ -3,7 +3,7 @@
   ansible.builtin.include_role:
     name: packages
   vars:
-    packages:
+    group_packages:
       - name: s3cmd
 
 - name: Add bucket credentials

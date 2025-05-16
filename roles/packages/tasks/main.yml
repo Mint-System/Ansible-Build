@@ -5,12 +5,12 @@
 
 - name: Combine group and host vars
   ansible.builtin.set_fact:
-    packages: "{{ packages + host_packages }}"
+    group_packages: "{{ packages + host_packages }}"
   when: host_packages is defined
 
 - name: Include {{ role_name }} apt tasks
   ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
-  when: packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Pop!_OS')
+  when: group_packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Pop!_OS')
   tags:
     - packages
 
@@ -22,19 +22,19 @@
 
 - name: Include {{ role_name }} apt tasks
   ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
-  when: packages is defined and ansible_distribution == 'Debian'
+  when: group_packages is defined and ansible_distribution == 'Debian'
   tags:
     - packages
 
 - name: Include {{ role_name }} yum tasks
   ansible.builtin.include_tasks: "{{ role_name }}_yum.yml"
-  when: packages is defined and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+  when: group_packages is defined and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
   tags:
     - packages
 
 - name: Include {{ role_name }} dnf tasks
   ansible.builtin.include_tasks: "{{ role_name }}_dnf.yml"
-  when: packages is defined and ansible_distribution in ['CentOS', 'Rocky'] and ansible_distribution_major_version in ['8', '9']
+  when: group_packages is defined and ansible_distribution in ['CentOS', 'Rocky'] and ansible_distribution_major_version in ['8', '9']
   tags:
     - packages
 

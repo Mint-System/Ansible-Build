@@ -40,10 +40,15 @@
     - sshd_stat.stat.exists
     - not ssh_allow_password_authentication
 
-- name: Confirm SSH port change.
+- name: Get current SSH port
+  shell: grep "Port\s" /etc/ssh/sshd_config | awk '{print $2}'
+  register: current_ssh_port
+
+- name: Confirm SSH port change
   pause:
     prompt: "Confirm changing SSH port in /etc/ssh/sshd_config to {{ ssh_port }} (yes/no)"
   register: confirmation
+  when: current_ssh_port.stdout != "ssh_port"
 
 - name:
   ansible.builtin.lineinfile:

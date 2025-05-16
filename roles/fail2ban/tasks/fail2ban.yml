@@ -3,7 +3,7 @@
   ansible.builtin.include_role:
     name: packages
   vars:
-    packages: "{{ fail2ban_packages }}"
+    group_packages: "{{ fail2ban_packages }}"
 
 - name: Ensure {{ role_name }} deamon is running
   ansible.builtin.service:

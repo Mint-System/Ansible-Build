@@ -9,12 +9,12 @@
   ansible.builtin.dnf:
     name: "{{ item.name }}"
     state: present
-  loop: "{{ packages }}"
+  loop: "{{ group_packages }}"
   when: item.version is not defined
 
 - name: Install versioned packages
   ansible.builtin.dnf:
     name: "{{ item.name }}-{{ item.version }}"
     state: present
-  loop: "{{ packages }}"
+  loop: "{{ group_packages }}"
   when: item.version is defined

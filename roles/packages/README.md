@@ -26,7 +26,7 @@ apt_repos:
     branch: contrib
     key: https://tommie.github.io/innernet-debian/repository.asc
 
-packages:
+group_packages:
   - name: zsh
   - name: restic
   - name: vim
@@ -60,6 +60,6 @@ Or include it in another role.
   include_role:
     name: packages
   vars:
-    packages:
+    group_packages:
       - "{{ docker_package }}"
 ```

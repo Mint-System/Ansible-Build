@@ -3,4 +3,4 @@
   ansible.builtin.apt:
     name: "{{ item.name }}"
     state: absent
-  loop: "{{ packages }}"
+  loop: "{{ group_packages }}"
