@@ -68,7 +68,7 @@
       - "{{ prometheus_port }}:9090"
     networks:
       - name: "{{ docker_network_name }}"
-    #FIXME: explicit setting of network_mode: bridge is just a workaround and shouldn't be necessary
+    # FIXME: explicit setting of network_mode: bridge is just a workaround and shouldn't be necessary
     network_mode: bridge
     etc_hosts: "{{ prometheus_etc_hosts }}"
     log_driver: "{{ docker_log_driver }}"

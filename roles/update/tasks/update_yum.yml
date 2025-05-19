@@ -3,7 +3,7 @@
   ansible.builtin.yum:
     update_cache: true
 
-- name: Upgrade all yum packages # noqa 403
+- name: Upgrade all yum packages
   ansible.builtin.yum:
     name: "*"
     state: latest

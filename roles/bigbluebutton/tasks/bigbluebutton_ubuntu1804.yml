@@ -72,7 +72,7 @@
     state: present
   register: bigbluebutton_repo_is_present
 
-- name: Update apt-get repo and cache # noqa 503
+- name: Update apt-get repo and cache
   ansible.builtin.apt:
     update_cache: true
     force_apt_get: true

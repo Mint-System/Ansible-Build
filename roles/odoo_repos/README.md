@@ -19,12 +19,12 @@ odoo_repos:
     version: 13db977fca67da8278fbdc5753f425583b304c67
   - path: addons/partner-contact
     url: git@github.com:OCA/partner-contact.git
-    version: 16.0 # default: version of odoo_revision
+    version: 16.0 # default: "{{ odoo_revision }}"
   - path: addons/web
     url: git@github.com:OCA/web.git
   - path: addons/mint-system-server-tools
     url: git@github.com:Mint-System/Odoo-Apps-Server-Tools.git
-    head: 17.0-mig-session_db # default: version of odoo_revision
+    version: 17.0-mig-session_db # default: "{{ odoo_revision }}"
     single_branch: false
 ```
 
@@ -55,7 +55,9 @@ odoo_repos:
 Navigate into the repo directory on the server `cd /usr/share/odoo01/enterprise` and run:
 
 ```bash
-sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git pull origin 16.0'
+ODOO_VERSION=16.0
+sudo ssh-agent bash -c "ssh-add /home/bot/.ssh/id_ed25519; git fetch origin ${ODOO_VERSION}:${ODOO_VERSION}"
+sudo ssh-agent bash -c "ssh-add /home/bot/.ssh/id_ed25519; git switch ${ODOO_VERSION}"
 ```
 
 ### Checkout commit manually
@@ -63,5 +65,6 @@ sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git pull origin 16.0'
 Navigate into the repo directory on the server `cd /usr/share/odoo01/enterprise` and run:
 
 ```bash
-sudo ssh-agent bash -c 'ssh-add /home/bot/.ssh/id_ed25519; git checkout 13db977fca67da8278fbdc5753f425583b304c67'
+COMMIT=13db977fca67da8278fbdc5753f425583b304c67
+sudo ssh-agent bash -c "ssh-add /home/bot/.ssh/id_ed25519; git checkout $COMMIT"
 ```

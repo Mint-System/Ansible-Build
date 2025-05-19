@@ -11,6 +11,5 @@ pushgateway_proxy_basic_auth_password: "{{ vault_pushgateway_proxy_basic_auth_pa
 pushgateway_hostname: pushgateway01
 pushgateway_args:
   - --web.listen-address={{ pushgateway_port }}
-  #- --web.external-url= 
   - --web.route-prefix="/pushgateway"
   - --persistence.file=/pushgateway/state

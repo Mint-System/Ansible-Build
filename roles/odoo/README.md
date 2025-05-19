@@ -34,7 +34,7 @@ odoo_volume_name: odoo_data01 # default: "{{ odoo_hostname}}"
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: odoo # default: {{ postgres_user }}"
 odoo_postgres_password: # default: "{{ vault_postgres_password }}"
-odoo_master_password: # default: "{{ vault_odoo_master_password }}"
+odoo_master_password: # default: "{{ vault_odoo_master_password | default('') }}"
 odoo_addons_git_repos: https://github.com/OCA/partner-contact.git#18.0
 odoo_dbfilter: ^%h$ # default: ^%d$
 odoo_list_db: "true" # default: "false"
@@ -45,6 +45,7 @@ odoo_workers: 0 # default: 4
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
+odoo_backup_set: # See restic_backup_set var in role restic
 ```
 
 ### Odoo
@@ -80,6 +81,7 @@ odoo_workers: 0 # default: 4
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
+odoo_backup_set: # See restic_backup_set var in role restic
 ```
 
 And include it in your playbook.

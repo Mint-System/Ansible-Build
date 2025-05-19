@@ -40,7 +40,7 @@
     - sshd_stat.stat.exists
     - not ssh_allow_password_authentication
 
-- name: Get current SSH port
+- name: Get current ssh port
   shell: grep "Port\s" /etc/ssh/sshd_config | awk '{print $2}'
   register: current_ssh_port
 
@@ -50,7 +50,7 @@
   register: confirmation
   when: current_ssh_port.stdout != "ssh_port"
 
-- name:
+- name: Set ssh port
   ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: ^Port

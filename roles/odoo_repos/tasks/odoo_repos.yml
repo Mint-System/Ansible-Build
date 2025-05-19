@@ -12,7 +12,7 @@
     repo: "{{ item.url }}"
     dest: "{{ odoo_data_dir }}/{{ item.path }}"
     key_file: "{{ odoo_repo_key_file }}"
-    version: "{{ item.version | default(odoo_version) }}"
+    version: "{{ odoo_version }}"
     single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true
@@ -24,7 +24,7 @@
     repo: "{{ item.url }}"
     dest: "{{ odoo_data_dir }}/{{ item.path }}"
     key_file: "{{ odoo_repo_key_file }}"
-    version: "{{ item.head | default(item.version | default(odoo_version)) }}"
+    version: "{{ item.version | default(odoo_version) }}"
     refspec: +refs/heads/{{ item.branch | default(odoo_version) }}:refs/remotes/origin/{{ item.branch | default(odoo_version) }}
     accept_hostkey: true
     force: true
@@ -36,7 +36,7 @@
   ansible.builtin.git:
     repo: "{{ item.url }}"
     dest: "{{ odoo_data_dir }}/{{ item.path }}"
-    version: "{{ item.version | default(odoo_version) }}"
+    version: "{{ odoo_version }}"
     single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true
@@ -47,7 +47,7 @@
   ansible.builtin.git:
     repo: "{{ item.url }}"
     dest: "{{ odoo_data_dir }}/{{ item.path }}"
-    version: "{{ item.head | default(item.version | default(odoo_version)) }}"
+    version: "{{ item.version | default(odoo_version) }}"
     single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true

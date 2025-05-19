@@ -84,7 +84,7 @@ Run `sudo usermod -a -G sshusers janikvonrotz` to add a user to a group.
 
 ### Generate ssh key pair
 
-Generate a ssh key pair for the username.
+Generate a ssh key pair for specified username.
 
 ```bash
 SSH_USERNAME=bot
@@ -99,4 +99,20 @@ The service account token ist stored as secret.
 
 ```bash
 kubectl get secrets k8s-deployer -o json | jq -r '.data.token' | base64 --decode
+```
+
+### Generate vault entry for ssh private key
+
+A private key must be base64 encoded.
+
+```bash
+VAULT_ID=mint_system
+SSH_USERNAME=bot
+SSH_PRIVATE_KEY=$(echo "-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACCuoR1PvK081rwrC5hlSXM7Q24cPQOpSlymLefnPiihxQAAAJjEbzDGxG8w
+bhw9A6lKXKYt5+c+KKHFAAAAEmJvdEBtaW50LXN5c3RlbS5jaAECAw==
+-----END OPENSSH PRIVATE KEY-----" | base64 -w 0)
+
+task encrypt-string "$VAULT_ID" "vault_${SSH_USERNAME}_ssh_private_key: $SSH_PRIVATE_KEY"
 ```
