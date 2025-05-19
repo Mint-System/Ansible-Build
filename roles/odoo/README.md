@@ -92,6 +92,11 @@ And include it in your playbook.
   - role: odoo
 ```
 
+The following tags are available:
+
+- odoo
+- odoo_backup
+
 ## Docs
 
 ### Nginx config

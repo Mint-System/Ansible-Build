@@ -6,6 +6,8 @@
       tags:
         - update
         - never
+    - role: packages
+      tags: packages
     - role: ufw
       tags: ufw
     - role: motd
@@ -18,8 +20,6 @@
       tags: resolv
     - role: fstab
       tags: fstab
-    - role: packages
-      tags: packages
     - role: cron
       tags: cron
     - role: locale
