@@ -5,24 +5,18 @@
 
 - name: Combine group and host vars
   ansible.builtin.set_fact:
-    group_packages: "{{ packages + host_packages }}"
+    group_packages: "{{ group_packages + host_packages }}"
   when: host_packages is defined
 
 - name: Include {{ role_name }} apt tasks
   ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
-  when: group_packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Pop!_OS')
+  when: group_packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian' or ansible_distribution == 'Pop!_OS')
   tags:
     - packages
 
 - name: Include {{ role_name }} snap tasks
   ansible.builtin.include_tasks: "{{ role_name }}_snap.yml"
   when: snap_packages is defined and ansible_distribution == 'Ubuntu'
-  tags:
-    - packages
-
-- name: Include {{ role_name }} apt tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_apt.yml"
-  when: group_packages is defined and ansible_distribution == 'Debian'
   tags:
     - packages
 
