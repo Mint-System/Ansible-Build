@@ -144,3 +144,12 @@ curl -X POST -g 'http://prom01:9090/api/v1/admin/tsdb/delete_series?match[]={ins
 ```
 
 Then restart the container.
+
+### List targets
+
+Filter the targets by job:
+
+```bash
+JOB="mysqld https"
+curl -s http://localhost:9090/api/v1/targets | jq ".data.activeTargets[] | select(.labels.job == \"$JOB\") | {instance, health, scrapeUrl, lastError}"
+```
