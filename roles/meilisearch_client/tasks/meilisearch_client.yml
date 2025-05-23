@@ -1,0 +1,22 @@
+---
+- name: Create API Keys
+  uri:
+    url: "{{ meilisearch_url }}/keys"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ meilisearch_master_key }}"
+      Content-Type: application/json
+    body: "{{ lookup('file', meilisearch_base_path + item.path) | from_json }}"
+    status_code: 201
+  loop: "{{ meilisearch_api_keys }}"
+
+- name: Create Indexes
+  uri:
+    url: "{{ meilisearch_url }}/indexes"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ meilisearch_master_key }}"
+      Content-Type: application/json
+    body: "{{ lookup('file', meilisearch_base_path + item.path) | from_json }}"
+    status_code: 201
+  loop: "{{ melisearch_indexes }}"

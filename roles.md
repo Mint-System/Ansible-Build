@@ -55,6 +55,7 @@
 | ![maintenance logo](/logos/maintenance.png)  | [maintenance](roles/maintenance/README.md) | Maintains operating system and disk space. |
 | ![mariadb logo](/logos/mariadb.png)  | [mariadb](roles/mariadb/README.md) | Deploy MariaDB database container. |
 | ![matomo logo](/logos/matomo.png)  | [matomo](roles/matomo/README.md) | Deploy Matomo container. |
+| ![meilisearch_client logo](/logos/meilisearch_client.png)  | [meilisearch_client](roles/meilisearch_client/README.md) | Configure Meilisearch api keys and indexes. |
 | ![meilisearch logo](/logos/meilisearch.png)  | [meilisearch](roles/meilisearch/README.md) | Deploy Meilisearch container. |
 | ![meilisync logo](/logos/meilisync.png)  | [meilisync](roles/meilisync/README.md) | Deploy Meilisync container. |
 | ![metabase logo](/logos/metabase.png)  | [metabase](roles/metabase/README.md) | Deploy Metabase container. |

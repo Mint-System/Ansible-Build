@@ -1,0 +1,6 @@
+{
+    "description": "odoo",
+    "actions": ["documents.get","documents.add","documents.delete","search","indexes.get","tasks.get"],
+    "indexes": ["*"],
+    "expiresAt": "2099-01-01T00:00:00Z"
+}

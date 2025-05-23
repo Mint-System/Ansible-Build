@@ -45,6 +45,13 @@ meilisearch_task_webhook: http://host.docker.internal:8069/meilisearch/task-webh
 meilisearch_etc_hosts:
   "host.docker.internal": host-gateway
 
+meilisearch_url: http://meili01:7700
+meilisearch_base_path: "{{ inventory_dir}}/host_vars/"
+meilisearch_api_keys:
+  - path: api_keys/odoo.json
+melisearch_indexes:
+  - path: indexes/res_city_state.json
+
 # https://hub.docker.com/r/dpage/pgadmin4/
 pgadmin_image: dpage/pgadmin4:7.6
 pgadmin_hostname: pgadmin01
