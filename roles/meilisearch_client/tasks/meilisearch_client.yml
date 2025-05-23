@@ -6,7 +6,8 @@
     headers:
       Authorization: "Bearer {{ meilisearch_master_key }}"
       Content-Type: application/json
-    body: "{{ lookup('file', meilisearch_base_path + item.path) | from_json }}"
+    body: "{{ lookup('file', meilisearch_base_path + item.path) }}"
+    body_format: json
     status_code: 201
   loop: "{{ meilisearch_api_keys }}"
 
@@ -17,6 +18,36 @@
     headers:
       Authorization: "Bearer {{ meilisearch_master_key }}"
       Content-Type: application/json
-    body: "{{ lookup('file', meilisearch_base_path + item.path) | from_json }}"
-    status_code: 201
-  loop: "{{ melisearch_indexes }}"
+    body_format: json
+    body:
+      uid: "{{ item.path | basename | regex_replace('\\.json$', '') }}"
+      primaryKey: "id"
+    status_code: [202, 400]
+  loop: "{{ meilisearch_indexes }}"
+  register: create_result
+
+- name: Configure Index Settings
+  uri:
+    url: "{{ meilisearch_url }}/indexes/{{ item.path | basename | regex_replace('\\.json$', '') }}/settings"
+    method: PATCH
+    headers:
+      Authorization: "Bearer {{ meilisearch_master_key }}"
+      Content-Type: application/json
+    body: "{{ lookup('file', meilisearch_base_path + item.path) }}"
+    body_format: json
+    status_code: 202
+  loop: "{{ meilisearch_indexes }}"
+
+- name: Get all indexes
+  uri:
+    url: "{{ meilisearch_url }}/indexes"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ meilisearch_master_key }}"
+    status_code: 200
+  register: indexes_list
+
+- name: Show all indexes
+  debug:
+    msg: "Indexes: {{ indexes_list.json.results | map(attribute='uid') | list | join(', ') }}"
+

@@ -14,7 +14,7 @@ meilisearch_master_key: # default: "{{ vault_meilisearch_master_key }}
 meilisearch_base_path: # default: "{{ inventory_dir}}/host_vars/{{ inventory_hostname }}"
 meilisearch_api_keys:
   - path: api_keys/odoo.json
-melisearch_indexes:
+meilisearch_indexes:
   - path: indexes/res_city_state.json
 ```
 
