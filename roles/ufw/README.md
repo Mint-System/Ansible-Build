@@ -10,8 +10,14 @@ Configure the role.
 
 ```yml
 ufw_enabled: true # default false
+host_ufw_rules_sets:
+  custom:
+    - rule: allow
+      port: "46022"
+      proto: tcp
 ufw_active_rules:
   - bigbluebutton # default: default
+  - custom
 ```
 
 And include it in your playbook.
@@ -24,8 +30,16 @@ And include it in your playbook.
 
 ## Docs
 
-Enable ufw manually.\
-`ufw enable`
+### Disable or enable ufw manually
 
-Disable ufw manually.\
-`ufw disable`
+Enable ufw manually.
+
+```bash
+ufw enable
+```
+
+Disable ufw manually.
+
+```bash
+ufw disable
+```

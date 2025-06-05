@@ -3,6 +3,11 @@
   ansible.builtin.package_facts:
     manager: auto
 
+- name: Combine default and host rule sets
+  ansible.builtin.set_fact:
+    ufw_rule_sets: "{{ ufw_rule_sets + host_ufw_rule_sets }}"
+  when: host_ufw_rule_sets is defined
+
 - name: Fail if package ufw is not installed
   ansible.builtin.fail:
     msg: Package ufw not installed
