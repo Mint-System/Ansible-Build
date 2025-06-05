@@ -50,4 +50,3 @@
 - name: Show all indexes
   debug:
     msg: "Indexes: {{ indexes_list.json.results | map(attribute='uid') | list | join(', ') }}"
-

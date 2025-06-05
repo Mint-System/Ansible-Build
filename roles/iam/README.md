@@ -116,3 +116,25 @@ bhw9A6lKXKYt5+c+KKHFAAAAEmJvdEBtaW50LXN5c3RlbS5jaAECAw==
 
 task encrypt-string "$VAULT_ID" "vault_${SSH_USERNAME}_ssh_private_key: $SSH_PRIVATE_KEY"
 ```
+
+## Troubleshooting
+
+### Failed to set permissions
+
+**Problem**
+
+When running the iam task the following error is thrown:
+
+```bash
+Failed to set permissions on the temporary files Ansible needs to create when becoming an unprivileged user (rc: 1, err: chmod: invalid mode: ‘A+user:$USERNAME:rx:allow’
+Try 'chmod --help' for more information.
+}). For information on working around this, see https://docs.ansible.com/ansible-core/2.18/playbook_guide/playbooks_privilege_escalation.html#risks-of-becoming-an-unprivileged-user
+```
+
+**Solution**
+
+Ensure the `acl` package is installed.
+
+```bash
+sudo apt install acl
+```
