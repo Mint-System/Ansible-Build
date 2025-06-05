@@ -4,7 +4,7 @@ ufw_active_rules:
   - default
 ufw_rule_sets:
   default:
-    - rule: limit
+    - rule: allow
       port: "{{ ssh_port }}"
       proto: tcp
     - rule: allow

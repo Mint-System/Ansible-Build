@@ -12,7 +12,7 @@ Configure all depending roles.
 fail2ban_packages:
   - name: fail2ban # default: fail2ban
 fail2ban_enabled: true # default: false
-fail2ban_sshd_enabled: "true" # default: "true"
+fail2ban_sshd_enabled: "false" # default: "true"
 fail2ban_ignoreip: 84.75.180.227
 fail2ban_bantime: 10m # default: 1d
 ```

@@ -54,7 +54,6 @@
 - name: Set ssh port
   ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
-    regexp: ^Port
     line: "Port {{ ssh_port }}"
     state: present
     validate: "/usr/sbin/sshd -t -f %s"
