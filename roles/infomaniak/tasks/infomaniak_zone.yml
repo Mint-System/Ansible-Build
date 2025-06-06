@@ -1,0 +1,23 @@
+---
+- name: Get existing DNS records for each zone
+  ansible.builtin.uri:
+    url: "{{ infomaniak_api_url }}{{ item.zone }}/records"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ infomaniak_token }}"
+    return_content: true
+    status_code: [200, 404]
+  register: existing_records
+  loop: "{{ infomaniak_zones }}"
+  loop_control:
+    label: "{{ item.zone }}"
+
+- name: Process DNS records for each zone
+  include_tasks: infomaniak_dns.yml
+  vars:
+    zone_name: "{{ item.item.zone }}"
+    zone_records: "{{ item.item.records }}"
+    current_records: "{{ item.json.data if item.status == 200 else [] }}"
+  loop: "{{ existing_records.results }}"
+  loop_control:
+    label: "{{ item.item.zone }}"

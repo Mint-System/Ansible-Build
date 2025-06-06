@@ -1,14 +1,70 @@
 ---
-- name: List dns records
+- name: Create new DNS records for {{ zone_name }}
   ansible.builtin.uri:
-    url: "{{ infomaniak_api_url }}{{ item.zone }}/records"
-    method: GET
+    url: "{{ infomaniak_api_url }}{{ zone_name }}/records"
+    method: POST
     headers:
       Authorization: "Bearer {{ infomaniak_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      source: "{{ record.source }}"
+      type: "{{ record.type }}"
+      target: "{{ record.target }}"
+      ttl: "{{ record.ttl | default(3600) }}"
+    status_code: [200, 201]
     return_content: true
-  register: dns_records
-  loop: "{{ infomaniak_zones }}"
+  register: create_result
+  loop: "{{ zone_records }}"
+  loop_control:
+    loop_var: record
+    label: "{{ record.source }} ({{ record.type }})"
+  when:
+    - record.state == 'present'
+    - not (current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list)
 
-- debug:
-    msg: "{{ item.json }}"
-  loop: "{{ dns_records.results }}"
+- name: Update existing DNS records for {{ zone_name }}
+  ansible.builtin.uri:
+    url: "{{ infomaniak_api_url }}{{ zone_name }}/records/{{ existing_record.id }}"
+    method: PUT
+    headers:
+      Authorization: "Bearer {{ infomaniak_token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      source: "{{ record.source }}"
+      type: "{{ record.type }}"
+      target: "{{ record.target }}"
+      ttl: "{{ record.ttl | default(existing_record.ttl) }}"
+    status_code: [200, 201]
+    return_content: true
+  register: update_result
+  vars:
+    existing_record: "{{ (current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list)[0] }}"
+  loop: "{{ zone_records }}"
+  loop_control:
+    loop_var: record
+    label: "{{ record.source }} ({{ record.type }})"
+  when:
+    - record.state == 'present'
+    - current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list
+    - existing_record.target != record.target or (record.ttl is defined and existing_record.ttl != record.ttl)
+
+- name: Delete DNS records for {{ zone_name }}
+  ansible.builtin.uri:
+    url: "{{ infomaniak_api_url }}{{ zone_name }}/records/{{ existing_record.id }}"
+    method: DELETE
+    headers:
+      Authorization: "Bearer {{ infomaniak_token }}"
+    status_code: [200, 204]
+    return_content: true
+  register: delete_result
+  vars:
+    existing_record: "{{ (current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list)[0] }}"
+  loop: "{{ zone_records }}"
+  loop_control:
+    loop_var: record
+    label: "{{ record.source }} ({{ record.type }})"
+  when:
+    - record.state == 'absent'
+    - current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list

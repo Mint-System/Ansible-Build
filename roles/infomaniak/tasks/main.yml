@@ -1,6 +1,6 @@
 ---
 - name: Include {{ role_name }} dns tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_dns.yml"
+  ansible.builtin.include_tasks: "{{ role_name }}_zone.yml"
   run_once: true
   when: infomaniak_token is defined
   tags:
