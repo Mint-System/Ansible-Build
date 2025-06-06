@@ -45,7 +45,7 @@ function help() {
     printf "$COLUMN" "source" "" "Source the Python virtual env."
     printf "$COLUMN" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
     printf "$COLUMN" "test-scripts" "[clean]" "Install and test scripts."
-    printf "$COLUMN" "update-with-llm" "[path][prompt]" "Update files with LLM prompt."
+    printf "$COLUMN" "update-with-llm" "[glob][prompt]" "Feed files matching glob with prompt to LLM and apply file changes."
     printf "$COLUMN" "update-roles-doc" "" "Update readme files in roles folder."
     printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
     printf "$COLUMN" "version" "" "Show tool versions."
@@ -65,6 +65,7 @@ fi
 # Import commands
 
 [ -f ~/taskfile.build/bin/commit-with-llm ] && source ~/taskfile.build/bin/commit-with-llm
+[ -f ~/taskfile.build/bin/update-with-llm ] && source ~/taskfile.build/bin/update-with-llm
 
 # Ansible Vault commands
 
@@ -442,91 +443,6 @@ function test-scripts() {
         ansible-playbook -i test plays/localhost.yml -t postgres --skip-tags depends
         docker-postgres-list -c postgres01 | grep "test"
     fi
-}
-
-# LLM Commands
-
-function update-with-llm() {
-    if test -z "$1"; then 
-        echo "\$1 is empty."; 
-        exit 1; 
-    fi
-
-    # Get files from path
-    FILES=$(find "$1" -type f \( -name "*.md" -o -name "*.yml" -o -name "*.yaml" -o -name "*.conf" -o -name "*.nginx" \) \
-        | grep -vFf <(git -C "$1" ls-files --ignored --exclude-standard --others))
-    echo -e "Loaded these files into prompt:\n\n$FILES\n"
-
-    # Prompt task description
-    if [ -z "$2" ]; then
-        read -p "Enter the task description: " TASK_DESCRIPTION
-    else
-        TASK_DESCRIPTION="$2"
-    fi
-
-    # Prepare the files content for prompt
-    FILE_CONTENTS=""
-    for FILE in $FILES; do
-        FILE_CONTENTS+="<<<$FILE>>>
-$(cat "$FILE")
-
-"
-    done
-
-    # Define prompt content
-    mkdir -p tmp
-    PROMPT_FILE="tmp/llm_update"
-    echo -e "\nWrite prompt to $PROMPT_FILE."
-    cat << EOF > "$PROMPT_FILE"
-Look at the code files below and do the following:
-
-$TASK_DESCRIPTION
-
-Output all files that you need to change in full again, including your changes. 
-In the same format as I provide the files below. Under no circumstances output any other text, 
-no additional infos, no code formatting chars. Only the code in the given format.
-
-Here are the files:
-
-$FILE_CONTENTS
-EOF
-
-    # Run the llm command
-    echo -e "Send prompt and wait for the response of the $LLM_MODEL LLM."
-    RESULT=$(cat "$PROMPT_FILE" | llm -m "$LLM_MODEL")
-
-    # Check if result is empty
-    if [ -z "$RESULT" ]; then
-        echo "No response from the model. Exiting."
-        exit 1
-    fi
-
-    # Save the result to a file
-    RESULT_FILE="tmp/llm_update_result"
-    echo "$RESULT" > "$RESULT_FILE"
-    echo -e "Saved response to $RESULT_FILE.\n"
-
-    # Show a preview of result file
-    less "$RESULT_FILE"
-
-    # Ask for confirmation before updating files
-    read -p "Do you want to apply these updates to the files? (y/n): " CONFIRM
-    if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
-        exit 0
-    fi
-
-    # Parse the response from the file and update the files directly
-    echo -e "Parsing the response and updating files...\n"
-    CURRENT_FILE=""
-    while IFS= read -r LINE; do
-        if [[ $LINE =~ ^"<<<"(.*)">>>" ]]; then
-            CURRENT_FILE="${BASH_REMATCH[1]}"
-            echo "Update file $CURRENT_FILE."
-            > "$CURRENT_FILE"
-        elif [[ -n $CURRENT_FILE ]]; then
-            echo "$LINE" >> "$CURRENT_FILE"
-        fi
-    done < "$RESULT_FILE"
 }
 
 # Docs commands
