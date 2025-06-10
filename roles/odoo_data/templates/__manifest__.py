@@ -6,7 +6,7 @@
     "author": "Mint System GmbH, Odoo Community Association (OCA)",
     "website": "https://www.mint-system.ch",
     "category": "Technical",
-    "version": "1.0.0",
+    "version": "1.0",
     "license": "AGPL-3",
     "depends": ["{{ item.depends | default('base') }}"],
     "data": [
