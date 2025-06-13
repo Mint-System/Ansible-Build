@@ -4,6 +4,6 @@
     state: present
     dest: /etc/hosts
     content: |-
-      {% for host in hosts %}
+      {% for host in etc_hosts %}
       {{ host.ip }} {{ host.name }}
       {% endfor %}

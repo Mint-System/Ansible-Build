@@ -12,8 +12,8 @@
       tags: ufw
     - role: motd
       tags: motd
-    - role: hosts
-      tags: hosts
+    - role: etc_hosts
+      tags: etc_hosts
     - role: timezone
       tags: timezone
     - role: resolv
