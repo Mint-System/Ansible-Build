@@ -17,6 +17,7 @@ odoo_master_password: "{{ vault_odoo_master_password | default('') }}"
 odoo_dbfilter: ^%d$
 odoo_list_db: "false"
 odoo_proxy_mode: "true"
+odoo_etc_hosts: {}
 
 # Supported by official Odoo image
 odoo_conf_limit_request: 8192
