@@ -43,8 +43,8 @@
       tags: infomaniak
     - role: docker_hosts
       tags: docker_hosts
-    - role: hosts
-      tags: hosts
+    - role: etc_hosts
+      tags: etc_hosts
     - role: n8n
       tags: n8n
     - role: crowdsec
