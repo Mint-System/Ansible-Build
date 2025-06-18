@@ -1,7 +1,7 @@
 docker_network_name: mint-system.com
 ansible_become: true
 ufw_enabled: false
-hosts:
+etc_hosts:
   - ip: 127.0.0.1
     name: n8n.local odoo.local metabase.local grafana.local
   - ip: 10.101.16.2
