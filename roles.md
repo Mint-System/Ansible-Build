@@ -32,6 +32,7 @@
 | ![docker_volume logo](/logos/docker_volume.png)  | [docker_volume](roles/docker_volume/README.md) | Configures a Docker volume. |
 | ![dozzle logo](/logos/dozzle.png)  | [dozzle](roles/dozzle/README.md) | Deploy Dozzle container. |
 | ![dribdat logo](/logos/dribdat.png)  | [dribdat](roles/dribdat/README.md) | Deploy dribdat container. |
+| ![etc_hosts logo](/logos/etc_hosts.png)  | [etc_hosts](roles/etc_hosts/README.md) | Add entries to /etc/hosts files. |
 | ![fail2ban logo](/logos/fail2ban.png)  | [fail2ban](roles/fail2ban/README.md) | Install and configure fail2ban. |
 | ![fathom logo](/logos/fathom.png)  | [fathom](roles/fathom/README.md) | Deploy Fathom container. |
 | ![firehol logo](/logos/firehol.png)  | [firehol](roles/firehol/README.md) | Setup FireHOL ip blacklists. |
@@ -39,7 +40,6 @@
 | ![gitea logo](/logos/gitea.png)  | [gitea](roles/gitea/README.md) | Deploy Gitea container. |
 | ![git logo](/logos/git.png)  | [git](roles/git/README.md) | Checkout Git repositories. |
 | ![grafana logo](/logos/grafana.png)  | [grafana](roles/grafana/README.md) | Deploy Grafana container. |
-| ![hosts logo](/logos/hosts.png)  | [hosts](roles/hosts/README.md) | Add entries to hosts files. |
 | ![htpasswd logo](/logos/htpasswd.png)  | [htpasswd](roles/htpasswd/README.md) | Configure .htpasswd basic auth file. |
 | ![iam logo](/logos/iam.png)  | [iam](roles/iam/README.md) | Identity and Access Management. Configure user and groups. |
 | ![infomaniak logo](/logos/infomaniak.png)  | [infomaniak](roles/infomaniak/README.md) | Manage Infomaniak domain and dns entries. |
