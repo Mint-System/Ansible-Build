@@ -39,45 +39,51 @@ And include it in your playbook.
 Setup this Nginx configuration for the `doc01` host: 
 
 ```conf
-# static files
-location ^~ /browser {
-  proxy_pass https://doc01:9980;
-  proxy_set_header Host $http_host;
-}
+  - src_hostname: doc.example.com
+    dest_hostname: doc01
+    dest_port: 9980
+    ssl: true
+    monitor: false
+    options: |
+      # static files
+      location ^~ /browser {
+        proxy_pass https://doc01:9980;
+        proxy_set_header Host $http_host;
+      }
 
-# WOPI discovery URL
-location ^~ /hosting/discovery {
-  proxy_pass https://doc01:9980;
-  proxy_set_header Host $http_host;
-}
+      # WOPI discovery URL
+      location ^~ /hosting/discovery {
+        proxy_pass https://doc01:9980;
+        proxy_set_header Host $http_host;
+      }
 
-# Capabilities
-location ^~ /hosting/capabilities {
-  proxy_pass https://doc01:9980;
-  proxy_set_header Host $http_host;
-}
+      # Capabilities
+      location ^~ /hosting/capabilities {
+        proxy_pass https://doc01:9980;
+        proxy_set_header Host $http_host;
+      }
 
-# main websocket
-location ~ ^/cool/(.*)/ws$ {
-  proxy_pass https://doc01:9980;
-  proxy_set_header Upgrade $http_upgrade;
-  proxy_set_header Connection "Upgrade";
-  proxy_set_header Host $http_host;
-  proxy_read_timeout 36000s;
-}
+      # main websocket
+      location ~ ^/cool/(.*)/ws$ {
+        proxy_pass https://doc01:9980;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $http_host;
+        proxy_read_timeout 36000s;
+      }
 
-# download, presentation and image upload
-location ~ ^/(c|l)ool {
-  proxy_pass https://doc01:9980;
-  proxy_set_header Host $http_host;
-}
+      # download, presentation and image upload
+      location ~ ^/(c|l)ool {
+        proxy_pass https://doc01:9980;
+        proxy_set_header Host $http_host;
+      }
 
-# Admin Console websocket
-location ^~ /cool/adminws {
-  proxy_pass https://doc01:9980;
-  proxy_set_header Upgrade $http_upgrade;
-  proxy_set_header Connection "Upgrade";
-  proxy_set_header Host $http_host;
-  proxy_read_timeout 36000s;
-}
+      # Admin Console websocket
+      location ^~ /cool/adminws {
+        proxy_pass https://doc01:9980;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $http_host;
+        proxy_read_timeout 36000s;
+      }
 ```

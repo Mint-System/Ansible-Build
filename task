@@ -12,11 +12,8 @@ function help() {
     DESC_WIDTH=70
     COLUMN="| %-${CMD_WIDTH}s | %-${OPT_WIDTH}s | %-${DESC_WIDTH}s |\n"
 
-    # Print table header
     printf "$COLUMN" "Command" "Option" "Description"
     echo "|$(printf '%*s' $((CMD_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((OPT_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((DESC_WIDTH + 2)) '' | tr ' ' '-')|"
-
-    # Print table rows
     printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
     printf "$COLUMN" "build-vuepress" "" "Create vuepress build."
     printf "$COLUMN" "commit-with-llm" "" "Commit with llm generated commit message."
@@ -147,34 +144,45 @@ show-vault-file() {
     if test -z "$1"; then echo "\$1 is empty"; exit 1; fi
     if test -z "$2"; then echo "\$2 is empty"; exit 1; fi
     activate-venv
-
     VAULT_ID="$1"
     FILE_PATH="$2"
     TEMP_FILE=$(mktemp)
     TEMP_PART_FILE=$(mktemp)
-
+    
     if head -n 1 "$FILE_PATH" | grep -q "^\$ANSIBLE_VAULT;1.2;AES256;$VAULT_ID"; then
         ansible-vault decrypt --output="$TEMP_FILE" "$FILE_PATH"
     else
         WRITE_FINISHED=false
+        CURRENT_KEY=""
+        
         while IFS= read -r LINE; do
             if [[ "$LINE" =~ "!vault" ]]; then
-                if [ "$WRITE_FINISHED" ] && [ -s "$TEMP_PART_FILE" ]; then
+                # Process previous vault entry if it exists
+                if [ "$WRITE_FINISHED" = true ] && [ -n "$CURRENT_KEY" ] && [ -s "$TEMP_PART_FILE" ]; then
                     ansible-vault decrypt "$TEMP_PART_FILE"
-                    KEY=$(echo "$LINE" | cut -d':' -f1)
                     VALUE=$(cat "$TEMP_PART_FILE")
-                    echo "$KEY: $VALUE" >> "$TEMP_FILE"
+                    echo "$CURRENT_KEY: $VALUE" >> "$TEMP_FILE"
                 fi
+                
+                # Set up for new vault entry
+                CURRENT_KEY=$(echo "$LINE" | cut -d':' -f1)
                 : > "$TEMP_PART_FILE"
                 WRITE_FINISHED=true
             else
-                if [ "$WRITE_FINISHED" ]; then
+                if [ "$WRITE_FINISHED" = true ]; then
                     echo "$LINE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//' >> "$TEMP_PART_FILE"
                 fi
             fi
         done < "$FILE_PATH"
+        
+        # Process the final vault entry
+        if [ "$WRITE_FINISHED" = true ] && [ -n "$CURRENT_KEY" ] && [ -s "$TEMP_PART_FILE" ]; then
+            ansible-vault decrypt "$TEMP_PART_FILE"
+            VALUE=$(cat "$TEMP_PART_FILE")
+            echo "$CURRENT_KEY: $VALUE" >> "$TEMP_FILE"
+        fi
     fi
-
+    
     batcat --paging=always "$TEMP_FILE"
     rm -f "$TEMP_FILE"
     rm -f "$TEMP_PART_FILE"
