@@ -83,7 +83,7 @@ docker build . -t nextcloud:nextcloud01
 
 ### Internal Server Error
 
-When Nextcloud is thowing an *Internal Server Error* without details in the log, run the occ cli to get details on the issue.
+When Nextcloud is throwing an *Internal Server Error* without details in the log, run the occ cli to get details on the issue.
 
 ```bash
 docker exec --user www-data nextcloud01 php occ
