@@ -18,6 +18,7 @@ odoo_dbfilter: ^%d$
 odoo_list_db: "false"
 odoo_proxy_mode: "true"
 odoo_etc_hosts: {}
+odoo_sysctls_disable_ipv6: 1
 
 # Supported by official Odoo image
 odoo_conf_limit_request: 8192
