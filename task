@@ -1,12 +1,6 @@
 #!/bin/bash
 
-function help() {
-    echo
-    echo "$1 <command> [options]"
-    echo
-    echo "commands:"
-    echo
-
+function help-table() {
     CMD_WIDTH=24
     OPT_WIDTH=24
     DESC_WIDTH=70
@@ -46,7 +40,19 @@ function help() {
     printf "$COLUMN" "update-roles-doc" "" "Update readme files in roles folder."
     printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
     printf "$COLUMN" "version" "" "Show tool versions."
+}
 
+function help() {
+    echo
+    if [ -n "$1" ]; then
+        help-table | grep -i "$1" | column -t -s'|'
+    else
+        echo "task <command> [options]"
+        echo
+        echo "commands:"
+        echo
+        help-table
+    fi
     echo
 }
 
