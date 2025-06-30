@@ -263,7 +263,7 @@ function upgrade() {
 
 function lint() {
     activate-venv
-    ansible-lint --write --offline roles/*
+    ansible-lint --fix --offline roles/*
 }
 
 # Ansible Inventory commands

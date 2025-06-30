@@ -21,7 +21,9 @@ iam_users:
     state: present
     comment: "Administrator"
     ssh_public_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
-    groups: wheel,docker
+    groups:
+      all: wheel,docker
+      selene: operators
     shell: /bin/zsh
     zshrc: |
       PROMPT="$fg[cyan]%}$USER@%{$fg[blue]%}%m ${PROMPT}"

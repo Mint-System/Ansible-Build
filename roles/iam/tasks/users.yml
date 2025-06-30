@@ -10,9 +10,10 @@
     name: "{{ item.username }}"
     comment: "{{ item.comment | default('') }}"
     shell: "{{ item.shell | default('/bin/bash') }}"
-    groups: "{{ item.groups | default('') }}"
+    groups: "{{ item.groups[inventory_hostname_short] | default(item.groups.all) | default('') }}"
     append: true
   loop: "{{ iam_users }}"
+  when: item.hosts is defined and inventory_hostname_short in item.hosts
 
 # FIXME: Passwort does not work if not set manually
 - name: Set user passwords
