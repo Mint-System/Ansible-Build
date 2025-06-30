@@ -35,6 +35,7 @@ curl -L https://ansible.build/certbot/install | bash
 curl -L https://ansible.build/docker_volume/install | bash -s -- --user
 ```
 
+- docker-disk-usage
 - docker-volume-backup
 - docker-volume-restore
 - docker-volume-copy

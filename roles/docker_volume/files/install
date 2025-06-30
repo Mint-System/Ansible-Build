@@ -4,6 +4,7 @@ set -e
 REPOSITORY=https://ansible.build
 
 SCRIPTS=(
+    docker-disk-usage
     docker-volume-backup
     docker-volume-restore
     docker-volume-copy

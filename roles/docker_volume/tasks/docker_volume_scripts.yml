@@ -5,6 +5,7 @@
     dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
+    - docker-disk-usage
     - docker-volume-backup
     - docker-volume-restore
     - docker-volume-copy
