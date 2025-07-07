@@ -28,6 +28,7 @@ query_range:
 
 limits_config:
   metric_aggregation_enabled: true
+  retention_period: 30d
 
 schema_config:
   configs:
@@ -38,7 +39,7 @@ schema_config:
       index:
         prefix: index_
         period: 24h
-      retention_period: 30d
+
 
 pattern_ingester:
   enabled: true
