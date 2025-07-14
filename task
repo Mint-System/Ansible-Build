@@ -84,7 +84,7 @@ function encrypt-file() {
     if test -z "$2"; then echo "\$1 is empty"; exit; fi
     activate-venv
     echo "Encrypt file $2 with vault id $1."
-    ansible-vault encrypt --encrypt-vault-id="$1" "$2" 
+    ansible-vault encrypt --encrypt-vault-id="$1" "$2"
 }
 
 function list-vault() {
@@ -106,12 +106,12 @@ function encrypt-string() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
     if test -z "$2"; then echo "\$2 is empty"; exit; fi
     activate-venv
-    
+
     # Split multiline
     STRING_KEY=$(echo "$2" | cut -d ':' -f 1)
     STRING_VALUE=$(echo "$2" | cut -d ':' -f 2 | sed 's/^ *//')
 
-    if [ "$3" != "-q" ]; then 
+    if [ "$3" != "-q" ]; then
         echo "Found key: $STRING_KEY"
         echo "Encrypting value: $STRING_VALUE"
     fi
@@ -122,7 +122,7 @@ function convert-vault-file() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
     if test -z "$2"; then echo "\$2 is empty"; exit; fi
     activate-venv
-    
+
     VAULT_ID=$1
     FILE_PATH=$2
     TEMP_FILE=$(mktemp)
@@ -135,7 +135,7 @@ function convert-vault-file() {
         KEY=$(echo "$LINE" | cut -d':' -f1)
         VALUE=$(echo "$LINE" | cut -d':' -f2-)
         VALUE=$(echo "$VALUE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//')
-        
+
         # Re-encrypt the key-value pair
         ENCYRPTED=$(ansible-vault encrypt_string --encrypt-vault-id="$VAULT_ID" --name "$KEY" "$VALUE" 2>/dev/null)
         echo "$ENCYRPTED" >> "$TEMP_FILE"
@@ -154,13 +154,13 @@ show-vault-file() {
     FILE_PATH="$2"
     TEMP_FILE=$(mktemp)
     TEMP_PART_FILE=$(mktemp)
-    
+
     if head -n 1 "$FILE_PATH" | grep -q "^\$ANSIBLE_VAULT;1.2;AES256;$VAULT_ID"; then
         ansible-vault decrypt --output="$TEMP_FILE" "$FILE_PATH"
     else
         WRITE_FINISHED=false
         CURRENT_KEY=""
-        
+
         while IFS= read -r LINE; do
             if [[ "$LINE" =~ "!vault" ]]; then
                 # Process previous vault entry if it exists
@@ -169,7 +169,7 @@ show-vault-file() {
                     VALUE=$(cat "$TEMP_PART_FILE")
                     echo "$CURRENT_KEY: $VALUE" >> "$TEMP_FILE"
                 fi
-                
+
                 # Set up for new vault entry
                 CURRENT_KEY=$(echo "$LINE" | cut -d':' -f1)
                 : > "$TEMP_PART_FILE"
@@ -180,7 +180,7 @@ show-vault-file() {
                 fi
             fi
         done < "$FILE_PATH"
-        
+
         # Process the final vault entry
         if [ "$WRITE_FINISHED" = true ] && [ -n "$CURRENT_KEY" ] && [ -s "$TEMP_PART_FILE" ]; then
             ansible-vault decrypt "$TEMP_PART_FILE"
@@ -188,7 +188,7 @@ show-vault-file() {
             echo "$CURRENT_KEY: $VALUE" >> "$TEMP_FILE"
         fi
     fi
-    
+
     batcat --paging=always "$TEMP_FILE"
     rm -f "$TEMP_FILE"
     rm -f "$TEMP_PART_FILE"
@@ -272,15 +272,27 @@ function list-hosts() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
 
     activate-venv
-    ansible -i $1 all --list-hosts | grep "hosts (" -A 1000 | tail -n +2 | sort
+    ALIASES=$(yq e '.*.*.*.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
+    HOSTS=$(yq e '.*.*.*.hosts | .[] | .ansible_host' "$1/hosts.yml")
+    CUSTOMERS=$(yq e '.*.*.*.hosts | .[] | .customer' "$1/hosts.yml")
+
+    ALIAS_WIDTH=10
+    HOST_WIDTH=25
+    CUST_WIDTH=35
+    COLUMN="| %-${ALIAS_WIDTH}s | %-${HOST_WIDTH}s | %-${CUST_WIDTH}s |\n"
+
+    printf "$COLUMN" "Alias" "Host" "Customer"
+    echo "|$(printf '%*s' $((ALIAS_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((HOST_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((CUST_WIDTH + 2)) '' | tr ' ' '-')|"
+
+    paste <(echo "$ALIASES") <(echo "$HOSTS") <(echo "$CUSTOMERS") | while read -r alias host customer; do
+        printf "$COLUMN" "$alias" "$host" "$customer"
+    done
 }
 
 function list-roles() {
     ROLE_WIDTH=30
     DESCRIPTION_WIDTH=70
     COLUMN="| %-${ROLE_WIDTH}s | %-${DESCRIPTION_WIDTH}s |\n"
-
-    # Print table header
     printf "$COLUMN" "Role" "Description"
     echo "|$(printf '%*s' $((ROLE_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((DESCRIPTION_WIDTH + 2)) '' | tr ' ' '-')|"
 
@@ -295,16 +307,16 @@ function list-roles() {
 function list-hostnames() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
     ROLE="$1"
-    
+
     ALL_HOSTNAMES=$(rg -I "^${ROLE}_hostname: $ROLE" inventories | cut -d' ' -f2 | sort -u)
-    
+
     HIGHEST=$(echo "$ALL_HOSTNAMES" | sed "s/${ROLE}//g" | sort -n | tail -1)
     echo "Highest hostname: ${ROLE}$HIGHEST"
     echo "Free hostnames:"
     for i in $(seq 1 $HIGHEST); do
         NUM=$(printf "%02d" $i)
         HOSTNAME="${ROLE}${NUM}"
-        
+
         if ! echo "$ALL_HOSTNAMES" | grep -q "$HOSTNAME"; then
             echo "$HOSTNAME"
         fi
@@ -326,7 +338,7 @@ function build-galaxy() {
     VERSION=$(yq eval '.version' galaxy.yml)
     NAMESPACE=$(yq eval '.namespace' galaxy.yml)
     NAME=$(yq eval '.name' galaxy.yml)
-    
+
     ansible-galaxy collection build
     mv $NAMESPACE-$NAME-$VERSION.tar.gz tmp/
 }
@@ -420,13 +432,13 @@ function test-scripts() {
         docker-postgres-drop -c postgres01 -d test
         docker-postgres-size -c postgres01 -d example | grep "0 bytes"
         docker-postgres-backup -c postgres01 -d example
-        docker-postgres-restore -c postgres01 -f /var/tmp/postgres01/example.sql -d test -i 
+        docker-postgres-restore -c postgres01 -f /var/tmp/postgres01/example.sql -d test -i
         docker-postgres-size -c postgres01 -d test | grep "0 bytes"
         mkdir -p tmp
         echo 'DROP TABLE example;' > tmp/drop.sql
         docker-postgres-patch -c postgres01 -d test -f ./tmp/drop.sql
         docker-postgres-rename -c postgres01 -s test -t example -r
-    
+
         echo -e "\033[38;5;214mTEST\033[0m: Test odoo scripts"
         sudo ./roles/odoo_scripts/files/install
 
@@ -467,7 +479,7 @@ function docs() {
     echo "" >> "roles.md"
     echo "| Logo | Role | Description |" >> "roles.md"
     echo "| --- | --- | --- |" >> "roles.md"
-    
+
     MD_FILES=$(find roles -name "README.md" | sort)
     for README in $MD_FILES; do
         ROLE=$(basename $(dirname "$README"))
@@ -480,7 +492,7 @@ function update-roles-doc() {
     MD_FILES=$(find roles -name "README.md" | sort)
     for README in $MD_FILES; do
         ROLE=$(basename "$(dirname "$README")")
-        
+
         echo "Update README of $ROLE role."
 
         # LOGO_LINE="![${ROLE}_logo](/logos/${ROLE}.png)"
@@ -525,15 +537,15 @@ function build-vuepress() {
     mkdir -p .vuepress/dist/cron
 
     echo "Copy script files to vuepress folder."
-    cp roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts 
-    cp roles/odoo_scripts/files/* .vuepress/dist/odoo_scripts 
-    cp roles/nginx/files/* .vuepress/dist/nginx 
-    cp roles/node_exporter/files/* .vuepress/dist/node_exporter 
-    cp roles/mysql/files/* .vuepress/dist/mysql 
-    cp roles/grafana/files/* .vuepress/dist/grafana 
-    cp roles/postgres/files/* .vuepress/dist/postgres 
-    cp roles/docker_volume/files/* .vuepress/dist/docker_volume 
-    cp roles/certbot/files/* .vuepress/dist/certbot 
+    cp roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts
+    cp roles/odoo_scripts/files/* .vuepress/dist/odoo_scripts
+    cp roles/nginx/files/* .vuepress/dist/nginx
+    cp roles/node_exporter/files/* .vuepress/dist/node_exporter
+    cp roles/mysql/files/* .vuepress/dist/mysql
+    cp roles/grafana/files/* .vuepress/dist/grafana
+    cp roles/postgres/files/* .vuepress/dist/postgres
+    cp roles/docker_volume/files/* .vuepress/dist/docker_volume
+    cp roles/certbot/files/* .vuepress/dist/certbot
     cp roles/cron/files/* .vuepress/dist/cron
 }
 
