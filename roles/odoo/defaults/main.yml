@@ -19,10 +19,10 @@ odoo_list_db: "false"
 odoo_proxy_mode: "true"
 odoo_etc_hosts: {}
 odoo_sysctls_disable_ipv6: 1
+odoo_conf_limit_request: 8192
+odoo_conf_limit_time_cpu: 600
+odoo_conf_limit_time_real: 1200
 
 # Supported by official Odoo image
-odoo_conf_limit_request: 8192
-odoo_conf_limit_time_cpu: 1200
-odoo_conf_limit_time_real: 1200
 odoo_workers: 4
 odoo_conf: ""

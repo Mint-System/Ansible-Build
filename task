@@ -272,21 +272,43 @@ function list-hosts() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
 
     activate-venv
-    ALIASES=$(yq e '.*.*.*.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
-    HOSTS=$(yq e '.*.*.*.hosts | .[] | .ansible_host' "$1/hosts.yml")
-    CUSTOMERS=$(yq e '.*.*.*.hosts | .[] | .customer' "$1/hosts.yml")
 
-    ALIAS_WIDTH=10
-    HOST_WIDTH=25
-    CUST_WIDTH=35
-    COLUMN="| %-${ALIAS_WIDTH}s | %-${HOST_WIDTH}s | %-${CUST_WIDTH}s |\n"
+    # FIXME: Check if all group has children
+    if [ "$1" = "inventories/setup" ]; then
 
-    printf "$COLUMN" "Alias" "Host" "Customer"
-    echo "|$(printf '%*s' $((ALIAS_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((HOST_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((CUST_WIDTH + 2)) '' | tr ' ' '-')|"
+        ALIASES=$(yq e '.all.children.*.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
+        HOSTS=$(yq e '.all.children.*.hosts | .[] | .ansible_host' "$1/hosts.yml")
+        CUSTOMERS=$(yq e '.all.children.*.hosts | .[] | .customer' "$1/hosts.yml")
 
-    paste <(echo "$ALIASES") <(echo "$HOSTS") <(echo "$CUSTOMERS") | while read -r alias host customer; do
-        printf "$COLUMN" "$alias" "$host" "$customer"
-    done
+        ALIAS_WIDTH=15
+        HOST_WIDTH=25
+        CUST_WIDTH=35
+        COLUMN="| %-${ALIAS_WIDTH}s | %-${HOST_WIDTH}s | %-${CUST_WIDTH}s |\n"
+
+        printf "$COLUMN" "Alias" "Host" "Customer"
+        echo "|$(printf '%*s' $((ALIAS_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((HOST_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((CUST_WIDTH + 2)) '' | tr ' ' '-')|"
+
+        paste <(echo "$ALIASES") <(echo "$HOSTS") <(echo "$CUSTOMERS") | while read -r alias host customer; do
+            printf "$COLUMN" "$alias" "$host" "$customer"
+        done
+
+    else
+
+        ALIASES=$(yq e '.all.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
+        HOSTS=$(yq e '.all.hosts | .[] | .ansible_host' "$1/hosts.yml")
+
+        ALIAS_WIDTH=15
+        HOST_WIDTH=25
+        COLUMN="| %-${ALIAS_WIDTH}s | %-${HOST_WIDTH}s |\n"
+
+        printf "$COLUMN" "Alias" "Host"
+        echo "|$(printf '%*s' $((ALIAS_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((HOST_WIDTH + 2)) '' | tr ' ' '-')|"
+
+        paste <(echo "$ALIASES") <(echo "$HOSTS") | while read -r alias host; do
+            printf "$COLUMN" "$alias" "$host"
+        done
+
+    fi
 }
 
 function list-roles() {

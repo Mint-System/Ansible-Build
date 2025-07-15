@@ -78,6 +78,9 @@
       SERVER_WIDE_MODULES: "{{ odoo_server_wide_modules | default('') }}"
       PYTHON_INSTALL: "{{ odoo_python_install | default('') }}"
       WORKERS: "{{ odoo_workers | int }}"
+      LIMIT_REQUEST: "{{ odoo_conf_limit_request | int }}"
+      LIMIT_TIME_CPU: "{{ odoo_conf_limit_time_cpu | int }}"
+      LIMIT_TIME_REAL: "{{ odoo_conf_limit_time_real | int }}"
     ports: "{{ odoo_ports | default([]) }}"
     volumes: "{{ odoo_volumes }}"
     networks:
@@ -117,6 +120,9 @@
       PROXY_MODE: "{{ odoo_proxy_mode }}"
       PYTHON_INSTALL: "{{ odoo_python_install | default('') }}"
       WORKERS: "{{ odoo_workers | int }}"
+      LIMIT_REQUEST: "{{ odoo_conf_limit_request | int }}"
+      LIMIT_TIME_CPU: "{{ odoo_conf_limit_time_cpu | int }}"
+      LIMIT_TIME_REAL: "{{ odoo_conf_limit_time_real | int }}"
     volumes: "{{ odoo_volumes }}"
     networks:
       - name: "{{ docker_network_name }}"
