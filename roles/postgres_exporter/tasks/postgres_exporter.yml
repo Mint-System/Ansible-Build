@@ -13,7 +13,8 @@
     restart_policy: unless-stopped
     recreate: true
     env:
-      DATA_SOURCE_NAME: postgresql://{{ postgres_exporter_username }}:{{ postgres_exporter_password }}@{{ postgres_exporter_server }}:5432/postgres?sslmode=disable
+      DATA_SOURCE_NAME: postgresql://{{ postgres_exporter_username }}:{{ postgres_exporter_password }}@{{ postgres_exporter_server
+        }}:5432/postgres?sslmode=disable
     volumes:
       - "{{ postgres_exporter_data_dir }}:/data"
     networks:

@@ -27,7 +27,7 @@
 | ![docker_compose logo](/logos/docker_compose.png)  | [docker_compose](roles/docker_compose/README.md) | Deploy Docker Compose project. |
 | ![docker_hosts logo](/logos/docker_hosts.png)  | [docker_hosts](roles/docker_hosts/README.md) | Docker hostname resolver. |
 | ![docker_network logo](/logos/docker_network.png)  | [docker_network](roles/docker_network/README.md) | Configures a Docker network. |
-| ![docker logo](/logos/docker.png)  | [docker](roles/docker/README.md) | Installs Docker for Ubuntu and CentOS. |
+| ![docker logo](/logos/docker.png)  | [docker](roles/docker/README.md) | Install Docker. |
 | ![docker_swarm logo](/logos/docker_swarm.png)  | [docker_swarm](roles/docker_swarm/README.md) | Configures Docker Swarm. |
 | ![docker_volume logo](/logos/docker_volume.png)  | [docker_volume](roles/docker_volume/README.md) | Configures a Docker volume. |
 | ![dozzle logo](/logos/dozzle.png)  | [dozzle](roles/dozzle/README.md) | Deploy Dozzle container. |

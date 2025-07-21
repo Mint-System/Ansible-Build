@@ -29,6 +29,6 @@
       tag: "{{ dozzle_hostname }}|{{ role_name }}"
 
 - name: Create dozzle admin user
-  ansible.builtin.shell: docker run {{ dozzle_image }} generate {{ dozzle_username }} --password {{ dozzle_password }} --email admin@example.com --name "Admin" >
-    {{ dozzle_data_dir }}/users.yml
+  ansible.builtin.shell: docker run {{ dozzle_image }} generate {{ dozzle_username }} --password {{ dozzle_password }} --email admin@example.com --name "Admin"
+    > {{ dozzle_data_dir }}/users.yml
   notify: Restart {{ role_name }} container

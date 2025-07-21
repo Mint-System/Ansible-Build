@@ -2,13 +2,7 @@
 
 # Docker role
 
-Installs Docker for Ubuntu and CentOS.
-
-## Requires
-
-The Ansible Docker role has the following requirements:
-
-* Distribution: Ubuntu, Debian, CentOS or Rocky
+Install Docker.
 
 ## Usage
 
@@ -38,7 +32,7 @@ docker_packages:
 docker_yum_url: https://download.docker.com/linux/centos/docker-ce.repo
 docker_yum_repo: docker-ce-edge
 docker_packages:
-  - name: docker-ce 
+  - name: docker-ce
   - name: docker-ce-cli
   - name: containerd.io
 ```

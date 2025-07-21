@@ -35,4 +35,5 @@
   ansible.builtin.cron:
     name: Run {{ role_name }} background jobs
     minute: "5"
-    job: docker exec -u root {{ matomo_hostname }} bash -c "/usr/local/bin/php /var/www/html/console core:archive --url={{ matomo_url }} > /var/log/matomo-archive.log"
+    job: docker exec -u root {{ matomo_hostname }} bash -c "/usr/local/bin/php /var/www/html/console core:archive --url={{ matomo_url }} >
+      /var/log/matomo-archive.log"
