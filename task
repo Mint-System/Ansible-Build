@@ -67,8 +67,13 @@ fi
 
 # Import commands
 
-[ -f ~/taskfile.build/bin/commit-with-llm ] && source ~/taskfile.build/bin/commit-with-llm
-[ -f ~/taskfile.build/bin/update-with-llm ] && source ~/taskfile.build/bin/update-with-llm
+if [ -d "$HOME/taskfile.build/bin" ]; then
+    for file in "$HOME/taskfile.build/bin/"*; do
+        if [ -f "$file" ]; then
+            source "$file"
+        fi
+    done
+fi
 
 # Ansible Vault commands
 
