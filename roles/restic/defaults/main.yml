@@ -5,6 +5,7 @@ restic_group: root
 restic_repo_type: rest
 restic_rest_user: restic
 restic_backup_rotation:
-  daily: 7
+  last: 14
+  daily: 14
   weekly: 4
-  monthly: 1
+  monthly: 3
