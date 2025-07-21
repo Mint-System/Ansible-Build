@@ -19,8 +19,8 @@
   become_method: sudo
   become_user: "{{ item.local_user }}"
   ansible.builtin.command:
-    cmd: ssh -L {{ item.local_interface | default('0.0.0.0') }}:{{ item.local_port }}:{{ item.remote_server | default('localhost') }}:{{ item.remote_port }} {{
-      item.ssh_user }}@{{ item.ssh_server }} echo
+    cmd: ssh -L {{ item.local_interface | default('0.0.0.0') }}:{{ item.local_port }}:{{ item.remote_server | default('localhost') }}:{{ item.remote_port }} {{ item.ssh_user
+      }}@{{ item.ssh_server }} echo
   loop: "{{ autossh_tunnels }}"
 
 - name: Setup {{ role_name }} scripts

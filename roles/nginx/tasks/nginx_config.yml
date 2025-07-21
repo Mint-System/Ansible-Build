@@ -39,6 +39,7 @@
     dest_port: "{{ item.dest_port | default(80)  }}"
     options: "{{ item.options | default('') }}"
     redirect_hostname: "{{ item.redirect_hostname | default(false) }}"
+    redirect_code: "{{ item.redirect_code | default(301) }}"
     redirect_url: "{{ item.redirect_url | default(false) }}"
     root: "{{ item.root | default(false) }}"
     ssl: "{{ item.ssl | default(false) }}"

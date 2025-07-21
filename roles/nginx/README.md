@@ -49,6 +49,7 @@ nginx_proxies:
 
   - src_hostname: example.com
     ssl: true # default: false
+    redirect_code: 302
     redirect_hostname: www.example.com
 
   - src_hostname: example.org

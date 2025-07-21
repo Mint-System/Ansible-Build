@@ -1,5 +1,4 @@
 [defaults]
-vault_identity_list =
 roles_path = ./roles
 log_path = /var/log/ansible.log
 callback_whitelist = profile_tasks
