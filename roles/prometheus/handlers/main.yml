@@ -1,3 +1,5 @@
 ---
-- name: Reload {{ role_name }}
-  ansible.builtin.command: pkill -HUP prometheus
+- name: Restart {{ role_name }} container
+  community.docker.docker_container:
+    name: "{{ prometheus_hostname }}"
+    restart: true

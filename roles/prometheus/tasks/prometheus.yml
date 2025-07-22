@@ -35,7 +35,7 @@
       ansible.builtin.copy:
         dest: "{{ prometheus_data_dir }}/rules/"
         src: "{{ inventory_dir }}/prometheus_rules/{{ inventory_hostname }}/"
-      notify: Reload {{ role_name }}
+      notify: Restart {{ role_name }} container
 
   rescue:
     - name: Show warning
@@ -50,7 +50,7 @@
   ansible.builtin.template:
     src: prometheus.yml
     dest: "{{ prometheus_data_dir }}/"
-  notify: Reload {{ role_name }}
+  notify: Restart {{ role_name }} container
 
 - name: Start {{ role_name }} container {{ prometheus_hostname }}
   community.docker.docker_container:
