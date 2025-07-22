@@ -40,7 +40,7 @@
     single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true
-  when: item.url is regex('https://') and github_username is defined
+  when: item.url is regex('https://')
   loop: "{{ odoo_repos }}"
 
 - name: Checkout repo commit with http
@@ -51,7 +51,7 @@
     single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true
-  when: item.url is regex('https://') and github_username is defined
+  when: item.url is regex('https://')
   loop: "{{ odoo_repos }}"
   notify: Restart odoo container
 
