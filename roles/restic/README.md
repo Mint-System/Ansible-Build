@@ -108,7 +108,7 @@ restic_backup_set:
       - mariadb
       - mariadb01
     hour: "1"
-    
+
 restic_backup_rotation:
   daily: 7 # default: 7
   weekly: 4 # default: 4
@@ -175,10 +175,10 @@ Navigate into the crontabs folder and replace the backup paths.
 cd /var/spool/cron/crontabs/
 
 # Change default paths
-sed -i 's|/var/tmp|/var/sdb/backup|g' root
-sed -i 's|/var/backup|/var/sdb/backup|g' root
-sed -i 's|/mnt/sdb/tmp|/var/sdb/backup|g' root
+sed -i 's|/var/tmp|/var/backup|g' root
+sed -i 's|/var/backup|/var/backup|g' root
+sed -i 's|/mnt/sdb/tmp|/var/backup|g' root
 
 # If the server has external disk
-sed -i 's|/var/sdb/backup|/mnt/sdb/backup|g' root
+sed -i 's|/var/backup|/mnt/sdb/backup|g' root
 ```
