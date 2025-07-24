@@ -10,3 +10,5 @@ nextcloud_postgres_password: "{{ vault_postgres_password }}"
 nextcloud_mysql_user: "{{ mysql_user }}"
 nextcloud_mysql_password: "{{ vault_mysql_password }}"
 nextcloud_etc_hosts: {}
+nextcloud_owner: root
+nextcloud_group: root

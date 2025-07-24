@@ -14,7 +14,7 @@
     state: directory
     owner: "{{ restic_owner }}"
     group: "{{ restic_group }}"
-    mode: "0700"
+    mode: "0750"
 
 - name: Set {{ role_name }} rest env
   ansible.builtin.set_fact:

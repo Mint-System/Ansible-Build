@@ -5,10 +5,15 @@
   tags:
     - iam
 
-- name: Combine group and host vars
+- name: Combine group and host vars for users
   ansible.builtin.set_fact:
     iam_users: "{{ iam_users + host_iam_users }}"
   when: host_iam_users is defined
+
+- name: Combine group and host vars for groups
+  ansible.builtin.set_fact:
+    iam_groups: "{{ iam_groups + host_iam_groups }}"
+  when: host_iam_groups is defined
 
 - name: Remove absent users
   set_fact:

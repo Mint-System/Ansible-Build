@@ -16,6 +16,8 @@ iam_groups:
   - name: guests
   - name: operators
     sudoers_commands: /usr/bin/docker ps, /usr/bin/docker start *,  /usr/bin/docker stop *, /usr/bin/docker restart *
+host_iam_groups:
+  - name: backup
 iam_users:
   - username: admin
     state: present

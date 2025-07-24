@@ -74,13 +74,13 @@ if [[ -z "$DUMP_FILE" ]]; then
     DUMP_FILE="/var/tmp/$CONTAINER/$TIMESTAMP.sql"
 
     # Dump all databases
-    echo "Dumping all databases from $CONTAINER to $DUMP_FILE ..."
     mkdir -p "/var/tmp/$CONTAINER"
     docker exec $CONTAINER_ID /bin/bash -c "pg_dumpall -U \$POSTGRES_USER $DATABASE" > "$DUMP_FILE"
+    echo "Dumped all databases from $CONTAINER to $DUMP_FILE"
 
     # Stop and remove the container and volumes
     VOLUME_NAMES=$(docker inspect --format '{{ range .Mounts }}{{ .Name }} {{ end }} ' $CONTAINER_ID)
-    echo "Stopping and removing container $CONTAINER and volumes ${VOLUME_NAMES}: ..."
+    echo "Stopping and removing container $CONTAINER and volumes ${VOLUME_NAMES} ..."
     read -p "Woul you like to proceed with the deletion? [y/n] "
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         docker stop $CONTAINER_ID
