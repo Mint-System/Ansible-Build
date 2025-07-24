@@ -533,7 +533,6 @@ function update-roles-doc() {
     done
 }
 
-
 function install-vuepress() {
     pnpm install
 }
@@ -578,7 +577,7 @@ function build-vuepress() {
 
 function serve-vuepress() {
     cd .vuepress/dist
-    npx serve
+    pnpx serve
 }
 
 if declare -f "$1" > /dev/null; then
