@@ -52,18 +52,25 @@ FILENAME=$(basename -- "$FILE")
 [[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
 [[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
 
+# Get image
+IMAGE=$(docker inspect $CONTAINER --format='{{.Config.Image}}')
+
 if $CREATE; then
-  echo "Create MySQL database $DATABASE ..."
-  echo "CREATE DATABASE $DATABASE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD"
+    if [[ "$IMAGE" =~ "mariadb" ]]; then
+        echo "Create MariaDB database $DATABASE ..."
+        echo "CREATE DATABASE $DATABASE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -p\$MARIADB_ROOT_PASSWORD"
+    fi
+    if [[ "$IMAGE" =~ "mysql" ]]; then
+        echo "Create MySQL database $DATABASE ..."
+        echo "CREATE DATABASE $DATABASE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD"
+    fi
 fi
 
-# Start restore 
-IMAGE=$(docker inspect $CONTAINER --format='{{.Config.Image}}')
+# Start restore
 if [[ "$IMAGE" =~ "mariadb" ]]; then
   echo "Restore MariaDB database $DATABASE from $FILE ..."
   cat "$FILE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD --force $DATABASE"
 fi
-
 if [[ "$IMAGE" =~ "mysql" ]]; then
   echo "Restore MySQL database $DATABASE from $FILE ..."
   cat "$FILE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD $DATABASE"
