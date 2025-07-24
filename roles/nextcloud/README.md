@@ -45,6 +45,28 @@ And include it in your playbook.
 
 ## Docs
 
+### Nginx config
+
+Setup this Nginx configuration for the `nextcloud01` host:
+
+```yaml
+  - src_hostname: cloud.example.com
+    dest_hostname: nextcloud01
+    dest_port: 80
+    ssl: true
+    monitor: /login
+    options: |
+      include /etc/nginx/conf.d/proxy-params.conf;
+      location /.well-known/carddav {
+        return 301 $scheme://$host:$server_port/remote.php/dav;
+      }
+      location /.well-known/caldav {
+        return 301 $scheme://$host:$server_port/remote.php/dav;
+      }
+      add_header Strict-Transport-Security "max-age=15552000; includeSubDomains" always;
+      client_max_body_size 512M;
+```
+
 ### Use MySQL/MariaDB database
 
 Configure these vars to make a connection to a MySQL/MariaDB database:
