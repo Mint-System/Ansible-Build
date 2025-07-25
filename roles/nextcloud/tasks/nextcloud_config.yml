@@ -75,3 +75,8 @@
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set auto_logout --value=false
   when: auto_logout.rc == 1 or auto_logout.stdout != "false"
   notify: Restart {{ role_name }} container
+
+- name: Add missing indices
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ db:add-missing-indices
+  register: result
+  failed_when: result.rc!= 0

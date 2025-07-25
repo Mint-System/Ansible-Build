@@ -194,7 +194,7 @@ show-vault-file() {
         fi
     fi
 
-    batcat --paging=always "$TEMP_FILE"
+    bat --paging=always "$TEMP_FILE"
     rm -f "$TEMP_FILE"
     rm -f "$TEMP_PART_FILE"
 }
