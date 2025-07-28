@@ -23,7 +23,7 @@ function help-table() {
     printf "$COLUMN" "install-exo" "" "Install Exoscale CLI."
     printf "$COLUMN" "install-vuepress" "" "Install build dependencies."
     printf "$COLUMN" "lint" "" "Lint Ansible roles and playbooks."
-    printf "$COLUMN" "list-hostnames" "[role]" "Search inventory for \$ROLE_hostname entries."
+    printf "$COLUMN" "get-last-hostname" "[role]" "Search inventory for \$ROLE_hostname entries."
     printf "$COLUMN" "list-hosts" "[path]" "Lists all hosts of an inventory."
     printf "$COLUMN" "list-roles" "" "Lists all roles."
     printf "$COLUMN" "list-vault" "" "Lists vault identities."
@@ -331,7 +331,7 @@ function list-roles() {
     done
 }
 
-function list-hostnames() {
+function get-last-hostname() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
     ROLE="$1"
 

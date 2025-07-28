@@ -4,8 +4,6 @@ ufw_enabled: false
 etc_hosts:
   - ip: 127.0.0.1
     name: n8n.local odoo.local metabase.local grafana.local
-  - ip: 10.101.16.2
-    name: erp.brunner-innovation.swiss erp-dev.brunner-innovation.swiss gaia.mint-system.com
 
 iam_groups:
   - name: wheel
