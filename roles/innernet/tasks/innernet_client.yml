@@ -3,7 +3,6 @@
   ansible.builtin.copy:
     src: /var/tmp/{{ innernet_client_peer_name }}.yml
     dest: /var/tmp/{{ innernet_client_peer_name }}.yml
-  when: innernet_client_invitation_file is defined
 
 - name: Check if interface is up
   ansible.builtin.command:
@@ -15,7 +14,7 @@
   ansible.builtin.command:
     cmd: innernet install /var/tmp/{{ innernet_client_peer_name }}.yml --name {{ innernet_client_network_name }} --hosts-path /etc/hosts --delete-invite
   ignore_errors: true # FIXME: Cannot check if interface is down
-  when: innernet_client_invitation_file is defined and innernet_client_network_name not in innernet_status.stdout
+  when: innernet_client_network_name not in innernet_status.stdout
 
 - name: Enable and (re)start innernet@{{ innernet_client_network_name }} service
   ansible.builtin.systemd:

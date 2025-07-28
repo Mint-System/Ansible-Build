@@ -1,0 +1,2 @@
+---
+innernet_client_peer_name: "{{ inventory_hostname }}"

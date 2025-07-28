@@ -36,10 +36,34 @@
 - name: Fetch server peer invitation files
   ansible.builtin.fetch:
     src: /var/tmp/{{ item.name }}.yml
-    dest: /var/tmp/{{ item.name }}.yml
+    dest: /var/tmp/
+    flat: true
   loop: "{{ innernet_server_peers }}"
 
 - name: Enable innernet server service
   ansible.builtin.systemd:
     name: innernet-server@{{ innernet_server_network_name }}"
     state: restarted
+
+- name: Check if invitation file exists and is not empty
+  stat:
+    path: "/var/tmp/{{ item.name }}.yml"
+  register: file_stat
+  loop: "{{ innernet_server_peers }}"
+
+- name: Setup resolv hosts list with IP extraction
+  set_fact:
+    resolv_hosts: "{{ resolv_hosts | default([]) + [{'name': item.item.name + '.' + docker_network_name, 'ip': lookup('ini', 'address section=interface file=/var/tmp/'
+      + item.item.name + '.yml')  | regex_replace('\"', '') | regex_replace('/.+$', '')}] }}"
+  loop: "{{ file_stat.results }}"
+  when: item.stat.exists and item.stat.size > 0
+
+- name: Debug
+  debug:
+    var: resolv_hosts
+
+# - name: Include resolv role
+#   include_role:
+#     name: resolv
+#   vars:
+#     resolv_hosts: "{{ resolv_hosts }}"

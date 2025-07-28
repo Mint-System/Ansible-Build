@@ -40,17 +40,7 @@ host_packages:
   - name: wireguard
   - name: innernet
 innernet_server_network_name: mint-system
-innernet_client_peer_name: client1
-innernet_client_invitation_file: |
-  [interface]
-  network-name = "mint-system"
-  address = "10.42.5.1/16"
-  private-key = "AJPLsA43duTfZ6bHQtW5VAdcfDq4SoJOBXflM="
-
-  [server]
-  public-key = "L5gQCsk3zMkWivS8j2sMWFhTsEXjcDoft75i+zE="
-  external-endpoint = "49.12.42.20:51820"
-  internal-endpoint = "10.42.0.1:51820"
+innernet_client_peer_name: client1 # default: {{ inventory_hostname }}
 ```
 
 And include it in your playbook.
@@ -61,19 +51,18 @@ And include it in your playbook.
   - role: innernet
 ```
 
-The following tags are available:
-
-* innernet_server
-* innernet_client
-
 ## Docs
+
+### Show server status
+
+Run `sudo systemctl status innernet-server@$NETWORK_NAME`.
 
 ### Show client status
 
-Run `sudo innernet status` to get the list of available peers.
+Run `sudo innernet` to get the list of available peers.
 
 ### Start client service
 
-Check innernet service with `sudo systemctl status innernet@{{ innernet_client_network_name }}`.
+Check innernet service with `sudo systemctl status innernet@$NETWORK_NAME`.
 
-Start innernet service with `sudo systemctl start innernet@{{ innernet_client_network_name }}`.
+Start innernet service with `sudo systemctl start innernet@$NETWORK_NAME`.
