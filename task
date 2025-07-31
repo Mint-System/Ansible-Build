@@ -33,6 +33,7 @@ function help-table() {
     printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
     printf "$COLUMN" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
     printf "$COLUMN" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
+    printf "$COLUMN" "connect-host" "[host]" "Connect to host with configs."
     printf "$COLUMN" "source" "" "Source the Python virtual env."
     printf "$COLUMN" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
     printf "$COLUMN" "test-scripts" "[clean]" "Install and test scripts."
@@ -76,6 +77,56 @@ if [ -d "$HOME/taskfile.build/bin" ]; then
 fi
 
 # Ansible Vault commands
+
+function connect-host() {
+    if test -z "$1"; then
+        echo "Host name cannot be empty"
+        return 1
+    fi
+
+    SEARCH_HOST=$1
+
+    # Find hosts.yaml file in inventories folder
+    HOSTS_FILES=$(find ./inventories -type f -name 'hosts.yml')
+
+    # Search for host name match
+    HOST_CONFIG=""
+    for HOSTS_FILE in $HOSTS_FILES; do
+        COMMAND="yq e '.all.children.*.hosts.$SEARCH_HOST' $HOSTS_FILE"
+        HOST_CONFIG=$(eval $COMMAND)
+
+        if [ "$HOST_CONFIG" = "null" ] || [ -z "$HOST_CONFIG" ]; then
+            COMMAND="yq e '.all.hosts.$SEARCH_HOST' $HOSTS_FILE"
+            HOST_CONFIG=$(eval $COMMAND)
+        fi
+        if [ "$HOST_CONFIG" != "null" ] && [ ! -z "$HOST_CONFIG" ]; then
+            break
+        fi
+    done
+
+    if [ "$HOST_CONFIG" = "null" ] || [ -z "$HOST_CONFIG" ]; then
+        echo "Host '$SEARCH_HOST' not found in hosts.yml file"
+        return 1
+    fi
+
+    # Get Ansible vars from the host configuration
+    ANSIBLE_HOST=$(echo "$HOST_CONFIG" | grep 'ansible_host' | cut -d: -f2 | xargs)
+    ANSIBLE_PORT=$(echo "$HOST_CONFIG" | grep 'ansible_port' | cut -d: -f2 | xargs)
+    ANSIBLE_COMMON_ARGS=$(echo "$HOST_CONFIG" | grep 'ansible_ssh_common_args' | cut -d: -f2 | xargs)
+
+    # Build SSH command using extracted connection details
+    SSH_COMMAND="ssh"
+    if [ "$ANSIBLE_PORT" != "null" ] && [ ! -z "$ANSIBLE_PORT" ]; then
+        SSH_COMMAND+=" -p $ANSIBLE_PORT"
+    fi
+    if [ "$ANSIBLE_COMMON_ARGS" != "null" ] && [ ! -z "$ANSIBLE_COMMON_ARGS" ]; then
+        SSH_COMMAND+=" $ANSIBLE_COMMON_ARGS"
+    fi
+    SSH_COMMAND+=" $ANSIBLE_HOST"
+
+    $SSH_COMMAND
+}
+
 
 function decrypt-file() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
