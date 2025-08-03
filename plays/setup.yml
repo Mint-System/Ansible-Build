@@ -44,3 +44,5 @@
       tags: docker_hosts
     - role: docker_compose
       tags: docker_compose
+    - role: k3s
+      tags: k3s

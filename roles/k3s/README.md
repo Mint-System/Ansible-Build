@@ -2,36 +2,27 @@
 
 # K3s role
 
-Deploy Kubernetes cluster with K3s. 
+Deploy Kubernetes cluster with K3s.
 
 ## Usage
 
 Configure the role.
 
 ```yml
-k3s_version: v1.23.5
+# https://update.k3s.io/v1-release/channels
+k3s_version: v1.33.3+k3s1
 k3s_token: # default: {{ vault_k3s_token }}
+k3s_server: true # default: false
+k3s_agent: false # default: true
 k3s_url: https://192.168.178.20:6443
 ```
 
 And include it in your playbook.
 
 ```yml
-- name: K3s server
-  hosts: server
+- hosts: k3s
   roles:
-    - role: k3s
-  tags:
-    - k3s
-    - k3s_server
-
-- name: K3s agent
-  hosts: agent
-  roles:
-    - role: k3s
-  tags:
-    - k3s
-    - k3s_agent
+  - role: k3s
 ```
 
 The following tags are available:

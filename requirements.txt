@@ -1,6 +1,5 @@
 ansible==11.1.0
 docker==7.1.0
-kubernetes==31.0.0
 ansible-dev-tools
 jmespath
 dnspython

@@ -23,7 +23,7 @@ postgres_ports:
 postgres_user: example
 postgres_password: # default: "{{ vault_postgres_password }}"
 postgres_config_map: # default: - name: "{{ postgres_user }}"
-  - db: example-prod 
+  - db: example-prod
   - db: example-int
 postgres_wal_level: logical # default: replica
 postgres_max_connections: 200 # default: 100
@@ -68,26 +68,6 @@ The following tags are available:
 * postgres_backup
 
 ## Docs
-
-### Kubernetes
-
-Configure the manifest.
-
-```yml
-k8s_postgres_image: postgres:16-alpine
-k8s_postgres_user: example
-k8s_postgres_password: test
-k8s_postgres_db: example
-```
-
-And include it in your localhost playbook.
-
-```yml
-- hosts: localhost
-  roles:
-  - role: postgres
-```
-
 
 ## Troubleshooting
 

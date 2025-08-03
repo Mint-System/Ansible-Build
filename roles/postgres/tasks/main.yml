@@ -25,12 +25,6 @@
   tags:
     - postgres
 
-- name: Include {{ role_name }} k8s tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_k8s.yml"
-  when: k8s_postgres_image is defined
-  tags:
-    - postgres
-
 - name: Include docker {{ role_name }} backup from restic client role
   ansible.builtin.include_role:
     name: restic

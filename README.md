@@ -67,8 +67,6 @@ flowchart TD
 	A[Host] -->|SSH| B[Server]
 ```
 
-Some Ansible roles can be deployed to a Kubernetes Cluster.
-
 ### Ansible Vault
 
 If you encrypt secrets with multiple vault identities, you can specificy the vault list in the `ansible.cfg` like this:
@@ -178,24 +176,9 @@ List all Odoo databases.
 ansible all -i inventories/odoo -a "docker-postgres-list -c {{ postgres_hostname }}"
 ```
 
-### Kubernetes
-
-Setup the following and the role's Kubernetes variables in your localhost inventory.
-
-```yml
-k8s_kubeconfig: /home/$USERNAME/.kube/config
-k8s_namespace: default
-```
-
-Run the Kubernetes playbook for localhost.
-
-```bash
-task play -i inventories/k8s plays/k8s.yml.yml -l localhost
-```
-
 ## Development
 
-This section is about developing the Ansible Build project. 
+This section is about developing the Ansible Build project.
 
 ### Quality
 

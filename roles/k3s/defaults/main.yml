@@ -1,2 +1,4 @@
 ---
 k3s_token: "{{ vault_k3s_token }}"
+k3s_server: false
+k3s_agent: true
