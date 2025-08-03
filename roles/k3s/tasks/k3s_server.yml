@@ -21,3 +21,10 @@
     dest: /var/tmp/k3s_token
     flat: true
   changed_when: false
+
+- name: Copy kubeconfig to local tmp
+  ansible.builtin.fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: /var/tmp/k3s.yaml
+    flat: true
+  changed_when: false

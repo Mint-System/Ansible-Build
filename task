@@ -112,6 +112,7 @@ function connect-host() {
     # Get Ansible vars from the host configuration
     ANSIBLE_HOST=$(echo "$HOST_CONFIG" | grep 'ansible_host' | cut -d: -f2 | xargs)
     ANSIBLE_PORT=$(echo "$HOST_CONFIG" | grep 'ansible_port' | cut -d: -f2 | xargs)
+    ANSIBLE_USER=$(echo "$HOST_CONFIG" | grep 'ansible_user' | cut -d: -f2 | xargs)
     ANSIBLE_COMMON_ARGS=$(echo "$HOST_CONFIG" | grep 'ansible_ssh_common_args' | cut -d: -f2 | xargs)
 
     # Build SSH command using extracted connection details
@@ -122,7 +123,11 @@ function connect-host() {
     if [ "$ANSIBLE_COMMON_ARGS" != "null" ] && [ ! -z "$ANSIBLE_COMMON_ARGS" ]; then
         SSH_COMMAND+=" $ANSIBLE_COMMON_ARGS"
     fi
-    SSH_COMMAND+=" $ANSIBLE_HOST"
+    if [ "$ANSIBLE_USER" != "null" ] && [ ! -z "$ANSIBLE_USER" ]; then
+        SSH_COMMAND+=" $ANSIBLE_USER@$ANSIBLE_HOST"
+    else
+        SSH_COMMAND+=" $ANSIBLE_HOST"
+    fi
 
     $SSH_COMMAND
 }

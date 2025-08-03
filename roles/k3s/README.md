@@ -32,7 +32,7 @@ And include it in your playbook.
 Copy
 
 ```bash
-ssh $SERVER sudo chmod 644 /etc/rancher/k3s/k3s.yaml
-scp $SERVER:/etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chmod 644 /var/tmp/k3s.yaml
+mv /var/tmp/k3s.yaml ~/.kube/config
 sed -i "s/127.0.0.1/$SERVER/g" ~/.kube/config
 ```
