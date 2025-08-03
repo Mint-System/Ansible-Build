@@ -35,5 +35,6 @@
     backup: true
   when: resolv_fallback_dns is defined
 
-- name: Apply resolvconf changes
-  command: resolvconf -u
+# FIXME: '[Errno 2] No such file or directory: b''resolvconf'''
+# - name: Apply resolvconf changes
+#   command: resolvconf -u
