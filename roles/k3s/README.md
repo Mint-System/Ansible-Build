@@ -13,8 +13,9 @@ Configure the role.
 k3s_version: v1.33.3+k3s1
 k3s_token: # default: {{ vault_k3s_token }}
 k3s_server: true # default: false
+k3s_tls_san: k3s.kubernetes.build
 k3s_agent: false # default: true
-k3s_url: https://192.168.178.20:6443
+k3s_url: https://k3s.kubernetes.build:6443
 ```
 
 And include it in your playbook.
