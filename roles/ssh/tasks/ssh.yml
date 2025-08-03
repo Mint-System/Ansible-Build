@@ -59,7 +59,5 @@
     validate: "/usr/sbin/sshd -t -f %s"
   notify: Restart ssh service
   when:
-    - sshd_stat.stat.exists
-    - ssh_port != 22
-    - confirmation.userinput is defined
+    - current_ssh_port.stdout|int != ssh_port
     - confirmation.user_input | lower == 'yes'
