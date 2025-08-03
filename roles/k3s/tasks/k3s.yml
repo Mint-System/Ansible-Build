@@ -8,9 +8,3 @@
     url: https://get.k3s.io/
     dest: /usr/local/bin/k3s-install
     mode: +x
-
-# - name: Download {{ role_name }} binary
-#   ansible.builtin.command:
-#     cmd: /usr/local/bin/k3s-install
-#   environment:
-#     INSTALL_K3S_SKIP_START: "true"

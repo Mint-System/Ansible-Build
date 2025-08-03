@@ -15,4 +15,10 @@
     - cgroup_enable=memory
   loop_control:
     loop_var: cgroup_item
-  notify: Reboot Pi
+  register: reboot_required
+
+- name: Reboot Pi
+  ansible.builtin.reboot:
+    post_reboot_delay: 10
+    reboot_timeout: 60
+  when: reboot_required.changed

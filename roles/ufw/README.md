@@ -15,8 +15,10 @@ host_ufw_rules_sets:
     - rule: allow
       port: "46022"
       proto: tcp
-ufw_active_rules:
-  - bigbluebutton # default: default
+ufw_active_rules: # default: - default
+  - bigbluebutton
+  - wireguard
+  - k3s
   - custom
 ```
 

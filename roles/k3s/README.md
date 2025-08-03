@@ -25,17 +25,14 @@ And include it in your playbook.
   - role: k3s
 ```
 
-The following tags are available:
-
-* k3s
-* k3s_sever
-* k3s_agent
-
 ## Docs
 
-### Setup cluster access
+### Setup kubeconfig
+
+Copy
 
 ```bash
-sudo chmod 644 /etc/rancher/k3s/k3s.yaml
-cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+ssh $SERVER sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+scp $SERVER:/etc/rancher/k3s/k3s.yaml ~/.kube/config
+sed -i "s/127.0.0.1/$SERVER/g" ~/.kube/config
 ```

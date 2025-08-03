@@ -6,10 +6,6 @@
   delegate_to: localhost
   changed_when: false
 
-# - name: Show token
-#   ansible.builtin.debug:
-#     msg: "K3s node token is {{ k3s_token.stdout }}"
-
 - name: Install {{ role_name }} agent
   ansible.builtin.command:
     cmd: k3s-install
