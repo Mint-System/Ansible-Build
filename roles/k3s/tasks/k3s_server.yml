@@ -4,7 +4,7 @@
     cmd: k3s-install
   environment:
     K3S_KUBECONFIG_MODE: "644"
-    INSTALL_K3S_EXEC: "server --tls-san {{ k3s_tls_san }}"
+    INSTALL_K3S_EXEC: "server --tls-san {{ k3s_tls_san }} --disable=traefik"
     K3S_TOKEN: "{{ k3s_token }}"
     INSTALL_K3S_VERSION: "{{ k3s_version }}"
 
