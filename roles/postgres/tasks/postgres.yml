@@ -34,6 +34,11 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ postgres_hostname }}|{{ role_name }}"
 
+- name: Ensure {{ role_name }} scripts dir exists
+  ansible.builtin.file:
+    path: "{{ postgres_scripts_dir }}"
+    state: directory
+
 - name: Copy {{ role_name }} scripts
   ansible.builtin.copy:
     src: "{{ item }}"

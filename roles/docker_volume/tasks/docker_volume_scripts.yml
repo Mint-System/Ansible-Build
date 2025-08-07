@@ -1,4 +1,9 @@
 ---
+- name: Ensure {{ role_name }} scripts dir exists
+  ansible.builtin.file:
+    path: "{{ docker_volume_scripts_dir }}"
+    state: directory
+
 - name: Copy backup scripts
   ansible.builtin.copy:
     src: "{{ item }}"
