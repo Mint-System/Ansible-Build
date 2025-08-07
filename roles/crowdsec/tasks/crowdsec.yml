@@ -59,7 +59,6 @@
       description: "{{ crowdsec_description }}"
     image: "{{ crowdsec_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env: "{{ crowdsec_env }}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro

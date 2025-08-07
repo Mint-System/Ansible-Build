@@ -10,7 +10,6 @@
       description: "{{ superset_description }}"
     image: "{{ superset_image }}"
     restart_policy: unless-stopped
-    recreate: false
     # env:
     #   SUPERSET_SECRET_KEY: "{{ superset_secret_key }}"
     volumes:

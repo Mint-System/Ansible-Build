@@ -22,7 +22,6 @@
       description: "{{ pgadmin_description }}"
     image: "{{ pgadmin_image }}"
     restart_policy: unless-stopped
-    recreate: false
     ports: "{{ pgadmin_ports | default([]) }}"
     env:
       PGADMIN_DEFAULT_EMAIL: "{{ pgadmin_user }}"

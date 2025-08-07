@@ -89,7 +89,6 @@
       description: "{{ grafana_description }}"
     image: "{{ grafana_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env: "{{ grafana_env }}"
     volumes:
       - "{{ grafana_volume_name }}:/var/lib/grafana"

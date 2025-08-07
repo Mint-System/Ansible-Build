@@ -10,7 +10,6 @@
       description: "{{ redis_description }}"
     image: "{{ redis_image }}"
     restart_policy: unless-stopped
-    recreate: false
     command: redis-server --requirepass {{ redis_password }}
     volumes:
       - "{{ redis_volume_name }}:/data"

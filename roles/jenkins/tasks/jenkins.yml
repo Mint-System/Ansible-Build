@@ -26,7 +26,6 @@
       description: "{{ jenkins_description }}"
     image: "{{ jenkins_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       JENKINS_USER: "{{ jenkins_user }}"
       JENKINS_PASSWORD: "{{ jenkins_password }}"

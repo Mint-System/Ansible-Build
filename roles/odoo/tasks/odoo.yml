@@ -58,7 +58,6 @@
       description: "{{ odoo_description }}"
     image: "{{ odoo_image }}"
     restart_policy: unless-stopped
-    recreate: false
     state: "{{ odoo_state }}"
     env:
       HOST: "{{ odoo_postgres_hostname }}"
@@ -103,7 +102,6 @@
       description: "{{ odoo_description }}"
     image: "{{ odoo_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"

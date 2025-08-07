@@ -19,7 +19,6 @@
       description: "{{ meilisync_description }}"
     image: "{{ meilisync_image }}"
     restart_policy: unless-stopped
-    recreate: false
     volumes:
       - "{{ meilisync_data_dir }}/config.yml:/meilisync/config.yml"
     networks:

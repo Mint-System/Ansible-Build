@@ -15,7 +15,6 @@
       description: "{{ rabbitmq_description }}"
     image: "{{ rabbitmq_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       RABBITMQ_DEFAULT_USER: "{{ rabbitmq_user }}"
       RABBITMQ_DEFAULT_PASS: "{{ rabbitmq_password }}"

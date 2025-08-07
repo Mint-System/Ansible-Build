@@ -17,7 +17,6 @@
       description: "{{ caddy_description }}"
     image: "{{ caddy_image }}"
     restart_policy: unless-stopped
-    recreate: false
     ports: "{{ caddy_ports | default([]) }}"
     volumes:
       - "{{ caddy_data_dir }}/Caddyfile:/etc/caddy/Caddyfile"

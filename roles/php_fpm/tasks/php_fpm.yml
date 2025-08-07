@@ -13,7 +13,6 @@
       description: "{{ php_fpm_description }}"
     image: "{{ php_fpm_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env: "{{ php_fpm_env }}"
     volumes: "{{ php_fpm_volumes }}"
     networks:

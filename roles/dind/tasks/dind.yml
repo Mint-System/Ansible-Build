@@ -6,7 +6,6 @@
       description: "{{ dind_description }}"
     image: "{{ dind_image }}"
     restart_policy: unless-stopped
-    recreate: false
     privileged: true
     env: "{{ dind_env | default([]) }}"
     volumes: "{{ dind_volumes | default([]) }}"

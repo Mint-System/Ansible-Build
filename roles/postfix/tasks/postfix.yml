@@ -35,7 +35,6 @@
       description: "{{ postfix_description }}"
     image: "{{ postfix_image }}"
     restart_policy: unless-stopped
-    recreate: false
     volumes:
       - "{{ postfix_data_dir }}:/etc/opendkim/keys"
     env:

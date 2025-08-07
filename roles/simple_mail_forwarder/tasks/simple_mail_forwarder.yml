@@ -6,7 +6,6 @@
       description: "{{ simple_mail_forwarder_description }}"
     image: "{{ simple_mail_forwarder_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       SMF_CONFIG: "{{ simple_mail_forwarder_config }}"
     ports:

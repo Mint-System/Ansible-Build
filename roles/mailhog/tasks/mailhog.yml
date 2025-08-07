@@ -14,7 +14,6 @@
       description: "{{ mailhog_description }}"
     image: "{{ mailhog_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       MH_AUTH_FILE: "{{ '/etc/mailhog/auth' if mailhog_users else ''}}"
       MH_UI_WEB_PATH: "{{ mailhog_web_path}}"

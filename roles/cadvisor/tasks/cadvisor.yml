@@ -6,7 +6,6 @@
       description: "{{ cadvisor_description }}"
     image: "{{ cadvisor_image }}"
     restart_policy: unless-stopped
-    recreate: false
     privileged: true
     volumes:
       - /:/rootfs:ro

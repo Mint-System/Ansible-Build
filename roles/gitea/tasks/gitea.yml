@@ -32,7 +32,6 @@
       description: "{{ gitea_description }}"
     image: "{{ gitea_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env: "{{ gitea_env }}"
     ports: "{{ gitea_ports | default([]) }}"
     volumes:

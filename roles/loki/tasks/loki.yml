@@ -19,7 +19,6 @@
       description: "{{ loki_description }}"
     image: "{{ loki_image }}"
     restart_policy: unless-stopped
-    recreate: false
     volumes:
       - "{{ loki_data_dir }}:/etc/loki"
     command: -config.file=/etc/loki/local-config.yml -config.expand-env=true

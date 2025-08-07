@@ -14,7 +14,6 @@
       description: "{{ matomo_description }}"
     image: "{{ matomo_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       MATOMO_DATABASE_HOST: "{{ matomo_db_hostname }}"
       MATOMO_DATABASE_USERNAME: "{{ matomo_db_user }}"

@@ -8,7 +8,6 @@
       description: "{{ ollama_description }}"
     image: "{{ ollama_image }}"
     restart_policy: unless-stopped
-    recreate: false
     ports: "{{ ollama_ports | default([]) }}"
     networks:
       - name: "{{ docker_network_name }}"

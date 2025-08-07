@@ -55,7 +55,6 @@
       description: "{{ nextcloud_description }}"
     image: "{{ nextcloud_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env: "{{ nextcloud_env }}"
     volumes:
       - "{{ nextcloud_volume_name }}:/var/www/html"

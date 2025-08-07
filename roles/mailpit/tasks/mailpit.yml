@@ -14,7 +14,6 @@
       description: "{{ mailpit_description }}"
     image: "{{ mailpit_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       TZ: "{{ mailpit_timezone }}"
       MP_UI_AUTH_FILE: "{{ '/etc/mailpit/auth' if mailpit_users else ''}}"

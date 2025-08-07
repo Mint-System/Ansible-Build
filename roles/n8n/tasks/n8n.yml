@@ -20,7 +20,6 @@
       description: "{{ n8n_description }}"
     image: "{{ n8n_image }}"
     restart_policy: unless-stopped
-    recreate: false
     state: "{{ n8n_state }}"
     env:
       DB_TYPE: "{{ n8n_db_type }}"

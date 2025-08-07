@@ -19,7 +19,6 @@
       description: "{{ blackbox_exporter_description }}"
     image: "{{ blackbox_exporter_image }}"
     restart_policy: unless-stopped
-    recreate: false
     command: --config.file=/etc/blackbox_exporter/config.yml
     volumes:
       - "{{ blackbox_exporter_data_dir }}:/etc/blackbox_exporter"

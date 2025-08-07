@@ -14,7 +14,6 @@
       description: "{{ moodle_description }}"
     image: "{{ moodle_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       MOODLE_USERNAME: "{{ moodle_username }}"
       MOODLE_PASSWORD: "{{ moodle_password }}"

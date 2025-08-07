@@ -19,7 +19,6 @@
       description: "{{ coturn_description }}"
     image: "{{ coturn_image }}"
     restart_policy: unless-stopped
-    recreate: false
     ports:
       - 443:443
       - 3478:3478

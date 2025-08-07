@@ -60,7 +60,6 @@
       description: "{{ dribdat_description }}"
     image: "{{ dribdat_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env: "{{ dribdat_env }}"
     volumes:
       - "{{ dribdat_volume_name }}:/data"

@@ -25,7 +25,6 @@
       description: "{{ wordpress_description }}"
     image: "{{ wordpress_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       WORDPRESS_DB_HOST: "{{ wordpress_db_hostname }}"
       WORDPRESS_DB_USER: "{{ wordpress_db_user }}"

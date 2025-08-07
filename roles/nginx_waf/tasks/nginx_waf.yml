@@ -19,7 +19,6 @@
       description: "{{ nginx_waf_description }}"
     image: "{{ nginx_waf_image }}"
     restart_policy: unless-stopped
-    recreate: false
     ports:
       - "{{ nginx_waf_http_port }}:80"
       - "{{ nginx_waf_https_port }}:443"

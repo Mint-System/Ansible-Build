@@ -10,7 +10,6 @@
       description: "{{ meilisearch_description }}"
     image: "{{ meilisearch_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       MEILI_MASTER_KEY: "{{ meilisearch_master_key }}"
       MEILI_TASK_WEBHOOK_URL: "{{ meilisearch_task_webhook }}"

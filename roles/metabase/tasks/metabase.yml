@@ -6,7 +6,6 @@
       description: "{{ metabase_description }}"
     image: "{{ metabase_image }}"
     restart_policy: unless-stopped
-    recreate: false
     state: "{{ metabase_state }}"
     env:
       MB_DB_TYPE: "{{ metabase_db_type }}"

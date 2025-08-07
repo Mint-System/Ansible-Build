@@ -6,7 +6,6 @@
       description: "{{ node_exporter_description }}"
     image: "{{ node_exporter_image }}"
     restart_policy: unless-stopped
-    recreate: false
     volumes:
       - /:/host:ro,rslave
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
