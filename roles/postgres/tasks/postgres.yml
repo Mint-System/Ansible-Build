@@ -37,7 +37,7 @@
 - name: Copy {{ role_name }} scripts
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
+    dest: "{{ postgres_scripts_dir }}/{{ item }}"
     mode: +x
   loop:
     - docker-postgres-backup

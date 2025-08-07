@@ -16,6 +16,7 @@ postgres_description: Database for website # default: PostgreSQL
 postgres_hostname: postgres01
 postgres_volume_name: postgres_data01 # default: "{{ postgres_hostname }}"
 postgres_data_dir: /usr/share/postgres # default: "/usr/share/{{ postgres_hostname }}"
+postgres_scripts_dir: /home/odoo-prod/bin # default: /usr/local/bin
 postgres_volumes:
   - "{{ postgres_data_dir }}/reference-data/data:/mnt/reference-data" # default: "{{ postgres_volume_name }}:/var/lib/postgresql/data"
 postgres_ports:

@@ -7,6 +7,14 @@
   ansible.builtin.debug:
     msg: "Odoo version: {{ odoo_version }}"
 
+- name: Ensure {{ role_name }} dir exists
+  ansible.builtin.file:
+    path: "{{ odoo_data_dir }}/{{ item.path }}"
+    state: directory
+    owner: "{{ odoo_owner }}"
+    group: "{{ odoo_group }}"
+  loop: "{{ odoo_repos }}"
+
 - name: Pull repo branch with ssh
   ansible.builtin.git:
     repo: "{{ item.url }}"

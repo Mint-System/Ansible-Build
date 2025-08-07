@@ -2,7 +2,7 @@
 - name: Copy {{ role_name }}
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
+    dest: "{{ odoo_scripts_dir }}/{{ item }}"
     mode: +x
   loop:
     - docker-odoo-backup
@@ -29,13 +29,18 @@
 
 - name: Remove deprecated {{ role_name }}
   ansible.builtin.file:
-    path: /usr/local/bin/{{ item }}
+    path: "{{ odoo_scripts_dir }}/{{ item }}"
     state: absent
   loop:
     - docker-odoo-install
 
+- name: Ensure bash completion dir exists
+  ansible.builtin.file:
+    path: "{{ bash_completion_dir }}"
+    state: directory
+
 - name: Copy docker-odoo completion script
   ansible.builtin.copy:
     src: docker-odoo
-    dest: /etc/bash_completion.d/docker-odoo
+    dest: "{{ bash_completion_dir }}/docker-odoo"
     mode: +x

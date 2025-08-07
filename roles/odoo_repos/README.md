@@ -10,22 +10,26 @@ Configure the role.
 
 ```yml
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
-odoo_revision: "16.0.20250401"
+odoo_revision: "18.0.20250725"
 odoo_repo_key_file: /home/bot/.ssh/id_ed25519
-github_personal_access_token: # default: "{{ vault_github_personal_access_token }}"
+github_pat: # default: "{{ vault_github_pat }}"
 odoo_repos:
   - path: enterprise
-    url: git@github.com:odoo/enterprise.git
-    version: 13db977fca67da8278fbdc5753f425583b304c67
-  - path: addons/partner-contact
+    url: https://bot-mintsys:{{ github_pat | urlencode() }}@github.com/odoo/enterprise
+    version: 9642f7d8026149a6524e036c523b65ccbdf17258
+  - path: addons/oca-partner-contact
     url: git@github.com:OCA/partner-contact.git
     version: 16.0 # default: "{{ odoo_revision }}"
-  - path: addons/web
-    url: git@github.com:OCA/web.git
   - path: addons/mint-system-server-tools
     url: git@github.com:Mint-System/Odoo-Apps-Server-Tools.git
     version: 17.0-mig-session_db # default: "{{ odoo_revision }}"
     single_branch: false
+  - path: addons/oca-partner-contact
+    url: git@github.com:OCA/partner-contact.git
+  - path: addons/oca-server-backend
+    url: git@github.com:OCA/Server-Backend.git
+  - path: addons/mint-system-management-system
+    url: git@github.com:Mint-System/Odoo-Apps-Management-System.git
 ```
 
 And include it in your playbook.

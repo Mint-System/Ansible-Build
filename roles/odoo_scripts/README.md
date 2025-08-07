@@ -6,6 +6,15 @@ Install Odoo scripts.
 
 ## Usage
 
+## Usage
+
+Configure the role.
+
+```yml
+bash_completion_dir: /home/odoo-prod/bin/.local/share/bash-completion/completions # defaults: /etc/bash_completion.d
+odoo_scripts_dir: /home/odoo-prod/bin # default: /usr/local/bin
+```
+
 Include the role in your playbook.
 
 ```yml
