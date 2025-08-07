@@ -30,9 +30,6 @@ if [[ "$1" == "help" ]]; then
     exit
 fi
 
-# Check requiremements
-command -v uuidgen >/dev/null 2>&1 || { echo >&2 "uuidgen not found: apt-get install uuid-runtime"; exit 1; }
-
 # Initialise option flag with a false value
 REPLACE='false'
 UPDATE='false'
@@ -94,6 +91,7 @@ rm -rf dump.sql filestore
 
 # Update database uuid
 if $UPDATE; then
+    command -v uuidgen >/dev/null 2>&1 || { echo >&2 "uuidgen not found: apt-get install uuid-runtime"; exit 1; }
     UUID=$(uuidgen)
     echo "Update database uuid."
     QUERY="UPDATE ir_config_parameter SET value = '$UUID' WHERE key = 'database.uuid';"

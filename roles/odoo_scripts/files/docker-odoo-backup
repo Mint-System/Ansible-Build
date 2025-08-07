@@ -84,14 +84,9 @@ docker cp "$CONTAINER_ID:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
 # Set alias
 docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
 
-# Create pgpass file
-echo "Create pgpass file."
-$docker_exec_bash "echo \"\$HOST:5432:$DATABASE:\$USER:\$PASSWORD\" > ~/.pgpass"
-$docker_exec_bash "chmod 600 ~/.pgpass"
-
 # Dump database
 echo "Dump database."
-$docker_exec_bash "pg_dump -h \$HOST -U \$USER $DATABASE" > "$DIR/dump.sql"
+$docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" pg_dump -h \"\$HOST\" -U \"\$USER\" $DATABASE" > "$DIR/dump.sql"
 
 # Zip everything
 echo "Zip filestore and dump to $FILE."

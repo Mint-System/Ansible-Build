@@ -99,7 +99,8 @@ function connect-host() {
             COMMAND="yq e '.all.hosts.$SEARCH_HOST' $HOSTS_FILE"
             HOST_CONFIG=$(eval $COMMAND)
         fi
-        if [ "$HOST_CONFIG" != "null" ] && [ ! -z "$HOST_CONFIG" ]; then
+
+        if [[ ! "$HOST_CONFIG" =~ "null" ]] && [ ! -z "$HOST_CONFIG" ]; then
             break
         fi
     done
