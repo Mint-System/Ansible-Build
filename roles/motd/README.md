@@ -9,6 +9,7 @@ Set message of the day.
 Configure the role.
 
 ```yml
+motd_enabled: false # default: true
 all:
   hosts:
     server:

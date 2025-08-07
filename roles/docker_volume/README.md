@@ -9,6 +9,7 @@ Configures a Docker volume.
 Configure the role.
 
 ```yml
+docker_volume_scripts_dir: /home/odoo-prod/bin # default: /usr/local/bin
 docker_volume_name: example_data01
 docker_volumes:
   - name: service_data02

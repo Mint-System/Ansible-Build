@@ -1,7 +1,7 @@
 ---
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: cron_data_dir is defined
+  when: cron_jobs is defined
   tags:
     - cron
 

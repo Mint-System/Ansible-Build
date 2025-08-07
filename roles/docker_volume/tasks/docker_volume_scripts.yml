@@ -2,7 +2,7 @@
 - name: Copy backup scripts
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
+    dest: "{{ docker_volume_scripts_dir }}/{{ item }}"
     mode: +x
   loop:
     - docker-disk-usage

@@ -8,15 +8,16 @@
   register: is_raspberrypi
   changed_when: false
   ignore_errors: true
+  when: k3s_version is defined
 
 - name: Include {{ role_name }} raspberry tasks
   ansible.builtin.include_tasks: "{{ role_name }}_raspberry.yml"
-  when: is_raspberrypi.rc == 0
+  when: k3s_version is defined and is_raspberrypi.rc == 0
 
 - name: Include {{ role_name }} server tasks
   ansible.builtin.include_tasks: "{{ role_name }}_server.yml"
-  when: k3s_server
+  when: k3s_version is defined and k3s_server
 
 - name: Include {{ role_name }} agent tasks
   ansible.builtin.include_tasks: "{{ role_name }}_agent.yml"
-  when: k3s_agent
+  when: k3s_version is defined and k3s_agent
