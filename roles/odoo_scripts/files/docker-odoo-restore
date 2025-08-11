@@ -60,10 +60,8 @@ DIR=`dirname "$FILE"`
 FILENAME=`basename "$FILE"`
 : ${DATABASE:="${FILENAME::-4}"}
 
-# Start restore
 echo "Requesting restore for Odoo database from $FILENAME to $DATABASE ..."
 
-# Unip archive
 echo "Unzip archive."
 cd $DIR
 unzip -q -o $FILENAME
@@ -73,19 +71,16 @@ if $REPLACE; then
     docker-odoo-drop -c "$CONTAINER" -d "$DATABASE"
 fi
 
-# Copy filestore and dump
 echo "Copy filestore."
 docker cp filestore/ "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
+docker exec -u root "$CONTAINER" chown -R odoo:odoo "/var/lib/odoo/filestore/$DATABASE"
 
-# Create database
 echo "Create database $DATABASE."
 docker exec $CONTAINER /bin/bash -c "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER -T template0 $DATABASE"
 
-# Restore database
 echo "Restore database from $DATABASE."
 cat ./dump.sql | docker exec -i $CONTAINER /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE"
 
-# Remove source files
 echo "Cleanup source files."
 rm -rf dump.sql filestore
 
@@ -98,5 +93,4 @@ if $UPDATE; then
     docker exec $CONTAINER /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE -c \"$QUERY\""
 fi
 
-# Notify if backup has finished
 echo "The restore for Odoo database $DATABASE has finished."
