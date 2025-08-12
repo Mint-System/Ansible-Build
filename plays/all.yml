@@ -15,7 +15,7 @@
     - role: dind
       tags: dind
     - role: postgres
-      role: postgres
+      tags: postgres
     - role: mariadb
       tags: mariadb
     - role: mysql
