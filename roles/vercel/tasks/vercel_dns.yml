@@ -1,36 +1,17 @@
 ---
-- name: Get all vercel domains
-  ansible.builtin.uri:
-    url: "{{ vercel_api_url }}/v4/domains?teamId={{ vercel_team_id }}"
-    headers:
-      Content-Type: application/json
-      Authorization: Bearer {{ vercel_token }}
-    return_content: true
-  register: vercel_domains
-
-- name: Set domains exist fact
-  ansible.builtin.set_fact:
-    domains_exist: "{{ vercel_domains.json | json_query('domains[*].name') }}"
-
-- name: Fail if domain is not managed by vercel
-  ansible.builtin.fail:
-    msg: Domain is not managed by vercel
-  when: item.domain not in domains_exist
-  loop: "{{ vercel_dns }}"
-
 - name: Get all vercel dns records
   ansible.builtin.uri:
-    url: "{{ vercel_api_url }}/v4/domains/{{ item }}/records?teamId={{ vercel_team_id }}"
+    url: "{{ vercel_api_url }}/v4/domains/{{ item.domain }}/records?teamId={{ vercel_team_id }}&limit=1000"
     headers:
       Content-Type: application/json
       Authorization: Bearer {{ vercel_token }}
     return_content: true
-  loop: "{{ domains_exist }}"
+  loop: "{{ vercel_dns }}"
   register: vercel_dns_records
 
 - name: Set vercel dns simple fact
   ansible.builtin.set_fact:
-    record: "{{ item.1.name }}.{{ item.0.item }}-{{ item.1.type }}"
+    record: "{{ item.1.name }}.{{ item.0.item.domain }}-{{ item.1.type }}"
   with_subelements:
     - "{{ vercel_dns_records.results }}"
     - json.records
@@ -71,7 +52,7 @@
 
 - name: Ensure DNS entries to be removed
   ansible.builtin.uri:
-    url: "{{ vercel_api_url }}/v2/domains/{{ item.0.item }}/records/{{ item.1.id }}?teamId={{ vercel_team_id }}"
+    url: "{{ vercel_api_url }}/v2/domains/{{ item.0.item.domain }}/records/{{ item.1.id }}?teamId={{ vercel_team_id }}"
     method: DELETE
     headers:
       Content-Type: application/json
@@ -79,6 +60,6 @@
   with_subelements:
     - "{{ vercel_dns_records.results }}"
     - json.records
-  when: (item.1.name + "." + item.0.item + "-" + item.1.type) in vercel_dns_absent
+  when: (item.1.name + "." + item.0.item.domain + "-" + item.1.type) in vercel_dns_absent
   register: response
   changed_when: response.status == 200
