@@ -26,8 +26,8 @@
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.19",
     "@vuepress/client": "2.0.0-rc.19",
-    "@vuepress/plugin-search": "2.0.0-rc.74",
     "@vuepress/plugin-shiki": "2.0.0-rc.76",
+    "@vuepress/plugin-slimsearch": "2.0.0-rc.112",
     "@vuepress/theme-default": "2.0.0-rc.76",
     "@vuepress/utils": "2.0.0-rc.2",
     "mermaid": "^11.4.1",
