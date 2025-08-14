@@ -14,7 +14,7 @@ odoo_volume_name: "{{ odoo_hostname }}"
 odoo_postgres_user: "{{ postgres_user }}"
 odoo_postgres_password: "{{ vault_postgres_password }}"
 odoo_master_password: "{{ vault_odoo_master_password | default('') }}"
-odoo_dbfilter: ^%d$
+odoo_dbfilter: "^%d$"
 odoo_list_db: "false"
 odoo_proxy_mode: "true"
 odoo_etc_hosts: {}

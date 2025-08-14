@@ -36,7 +36,7 @@ odoo_postgres_user: odoo # default: {{ postgres_user }}"
 odoo_postgres_password: # default: "{{ vault_postgres_password }}"
 odoo_master_password: # default: "{{ vault_odoo_master_password | default('') }}"
 odoo_addons_git_repos: https://github.com/OCA/partner-contact.git#18.0
-odoo_dbfilter: ^%h$ # default: ^%d$
+odoo_dbfilter: ".*" # default: "^%d$"
 odoo_list_db: "true" # default: "false"
 odoo_proxy_mode: "false" # default: "true"
 odoo_python_install: prometheus_client
@@ -76,7 +76,7 @@ odoo_postgres_hostname: postgres01
 odoo_postgres_user: odoo # default: {{ postgres_user }}"
 odoo_postgres_password: # default: "{{ vault_postgres_password }}"
 odoo_master_password: # default: "{{ vault_odoo_master_password }}"
-odoo_dbfilter: ^%h$ # default: ^%d$
+odoo_dbfilter: ".*" # default: "^%d$"
 odoo_list_db: "true" # default: "false"
 odoo_proxy_mode: "false" # default: "true"
 odoo_workers: 0 # default: 4
