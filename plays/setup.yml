@@ -46,3 +46,5 @@
       tags: docker_compose
     - role: k3s
       tags: k3s
+    - role: restic_server
+      tags: restic_server

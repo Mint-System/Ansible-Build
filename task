@@ -83,7 +83,6 @@ function connect-host() {
         echo "Host name cannot be empty"
         return 1
     fi
-
     SEARCH_HOST=$1
 
     # Find hosts.yaml file in inventories folder
@@ -92,20 +91,21 @@ function connect-host() {
     # Search for host name match
     HOST_CONFIG=""
     for HOSTS_FILE in $HOSTS_FILES; do
-        COMMAND="yq e '.all.children.*.hosts.$SEARCH_HOST' $HOSTS_FILE"
-        HOST_CONFIG=$(eval $COMMAND)
 
-        if [ "$HOST_CONFIG" = "null" ] || [ -z "$HOST_CONFIG" ]; then
+        COMMAND="yq e '.all.children.*.hosts.$SEARCH_HOST' $HOSTS_FILE"
+        HOST_CONFIG=$(eval $COMMAND | sed 's/null//g')
+
+        if [ -z "$HOST_CONFIG" ]; then
             COMMAND="yq e '.all.hosts.$SEARCH_HOST' $HOSTS_FILE"
-            HOST_CONFIG=$(eval $COMMAND)
+            HOST_CONFIG=$(eval $COMMAND | sed 's/null//g')
         fi
 
-        if [[ ! "$HOST_CONFIG" =~ "null" ]] && [ ! -z "$HOST_CONFIG" ]; then
+        if [ ! -z "$HOST_CONFIG" ]; then
             break
         fi
     done
 
-    if [ "$HOST_CONFIG" = "null" ] || [ -z "$HOST_CONFIG" ]; then
+    if [ -z "$HOST_CONFIG" ]; then
         echo "Host '$SEARCH_HOST' not found in hosts.yml file"
         return 1
     fi

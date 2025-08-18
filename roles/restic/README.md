@@ -182,3 +182,15 @@ sed -i 's|/mnt/sdb/tmp|/var/backup|g' root
 # If the server has external disk
 sed -i 's|/var/backup|/mnt/sdb/backup|g' root
 ```
+
+### Install with script
+
+If the restic package is outdated, you can install it from source.
+
+```bash
+wget https://github.com/restic/restic/releases/download/v0.18.0/restic_0.18.0_linux_amd64.bz2
+bunzip2 restic_0.18.0_linux_amd64.bz2
+sudo mv restic_0.18.0_linux_amd64 /usr/local/bin/restic
+sudo chmod +x /usr/local/bin/restic
+restic version
+```
