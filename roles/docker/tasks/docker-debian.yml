@@ -1,8 +1,8 @@
 ---
 - name: Add {{ role_name }} gpg apt key
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: "{{ docker_apt_url }}"
-    state: present
+    dest: /etc/apt/keyrings/docker.asc
 
 - name: Add {{ role_name }} repo
   ansible.builtin.apt_repository:
