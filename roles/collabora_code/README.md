@@ -14,8 +14,8 @@ collabora_code_image: collabora/code:24.04.8.2.1
 collabora_code_hostname: doc01
 collabora_code_data_dir: /usr/share/doc # default: /usr/share/{{ collabora_code_hostname }}
 collabora_code_server_name: doc.example.com
-collabora_code_aliasgroup1: next.example.com,cloud.example.com # default: ""
-collabora_code_aliasgroup2: cloud.example.com # default: ""
+collabora_code_host: https://next.example.com:443 # default: ""
+collabora_code_alias1: https://cloud.example.com:443 # default: ""
 collabora_code_description: Collabora for Nextcloud # default: Collabora Code
 collabora_code_port: 9981 # default: 9980
 collabora_code_username: code # default: admin
@@ -36,7 +36,7 @@ And include it in your playbook.
 
 ### Nginx config
 
-Setup this Nginx configuration for the `doc01` host: 
+Setup this Nginx configuration for the `doc01` host:
 
 ```conf
   - src_hostname: doc.example.com

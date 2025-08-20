@@ -31,7 +31,7 @@
 
 - name: Show DNS entries to create
   debug:
-    msg:  "{{ item.1.name }}.{{ item.0.domain }}-{{ item.1.type }}"
+    msg: "{{ item.1.name }}.{{ item.0.domain }}-{{ item.1.type }}"
   with_subelements:
     - "{{ vercel_dns }}"
     - records
@@ -71,7 +71,7 @@
 
 - name: Show DNS entries to remove
   debug:
-    msg:  "{{ item.1.name }}.{{ item.0.item.domain }}-{{ item.1.type }}"
+    msg: "{{ item.1.name }}.{{ item.0.item.domain }}-{{ item.1.type }}"
   with_subelements:
     - "{{ vercel_dns_records.results }}"
     - json.records

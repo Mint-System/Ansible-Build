@@ -5,3 +5,4 @@ jmespath
 dnspython
 passlib
 graphviz
+lxml

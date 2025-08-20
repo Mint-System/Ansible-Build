@@ -15,8 +15,7 @@
       username: "{{ collabora_code_username }}"
       password: "{{ collabora_code_password }}"
       server_name: "{{ collabora_code_server_name}}"
-      aliasgroup1: "{{ collabora_code_aliasgroup1 }}"
-      aliasgroup2: "{{ collabora_code_aliasgroup2 }}"
+      # aliasgroup1: "{{ collabora_code_host }},{{ collabora_code_alias1 }}"
       extra_params: --o:ssl.enable={{ collabora_code_ssl_enabled }}
     ports:
       - "{{ collabora_code_port }}:9980"
@@ -33,13 +32,39 @@
 - name: Copy coolwsd config file from container to data dir
   ansible.builtin.command: docker cp {{ collabora_code_hostname }}:/etc/coolwsd/coolwsd.xml {{ collabora_code_data_dir }}
 
-- name: Update {{ role_name }} coolwsd config
-  ansible.builtin.replace:
+- name: Set remote_font_config > url value
+  community.general.xml:
     path: "{{ collabora_code_data_dir }}/coolwsd.xml"
-    regexp: '<remote_font_config>\s*<url desc="URL of optional JSON file that lists fonts to be included in Online" type="string" default="">(.*?)</url>\s*</remote_font_config>'
-    replace: '<remote_font_config>\n        <url desc="URL of optional JSON file that lists fonts to be included in Online" type="string" default="">{{ collabora_code_remote_font_config_url
-      }}</url>\n    </remote_font_config>'
+    xpath: /config/remote_font_config/url
+    value: "{{ collabora_code_remote_font_config_url }}"
   when: collabora_code_remote_font_config_url is defined
+
+- name: Set alias_groups mode to "groups"
+  community.general.xml:
+    path: "{{ collabora_code_data_dir }}/coolwsd.xml"
+    xpath: /config/alias_groups
+    attribute: mode
+    value: "groups"
+
+- name: Set alias_groups > group > host text content
+  community.general.xml:
+    path: "{{ collabora_code_data_dir }}/coolwsd.xml"
+    xpath: /config/alias_groups/group/host
+    value: "{{ collabora_code_host }}"
+
+- name: Set alias_groups > group > host allow attribute
+  community.general.xml:
+    path: "{{ collabora_code_data_dir }}/coolwsd.xml"
+    xpath: /config/alias_groups/group/host
+    attribute: allow
+    value: "true"
+
+- name: Set alias_groups > group > alias value
+  community.general.xml:
+    path: "{{ collabora_code_data_dir }}/coolwsd.xml"
+    xpath: /config/alias_groups/group/alias
+    value: "{{ collabora_code_alias1 }}"
+  when: collabora_code_alias1 is defined and collabora_code_alias1 | trim != ''
 
 - name: Copy coolwsd config file from data dir to container
   ansible.builtin.command: docker cp {{ collabora_code_data_dir }}/coolwsd.xml {{ collabora_code_hostname }}:/etc/coolwsd/coolwsd.xml
