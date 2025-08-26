@@ -1,4 +1,15 @@
 ---
+- name: Set infomaniak DNS present fact for {{ zone_name }}
+  ansible.builtin.set_fact:
+    infomaniak_dns_present: "{{ infomaniak_dns_present | default([]) + [(record.target | replace('\"', '')) + '-' + record.type ] }}"
+  loop: "{{ current_records }}"
+  loop_control:
+    loop_var: record
+
+- name: Show DNS present list for {{ zone_name }}
+  debug:
+    var: infomaniak_dns_present
+
 - name: Create new DNS records for {{ zone_name }}
   ansible.builtin.uri:
     url: "{{ infomaniak_api_url }}{{ zone_name }}/records"
@@ -21,7 +32,7 @@
     label: "{{ record.source }} ({{ record.type }})"
   when:
     - record.state == 'present'
-    - not (current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list)
+    - (record.target + "-" + record.type) not in (infomaniak_dns_present | default([]))
 
 - name: Update existing DNS records for {{ zone_name }}
   ansible.builtin.uri:
@@ -47,7 +58,7 @@
     label: "{{ record.source }} ({{ record.type }})"
   when:
     - record.state == 'present'
-    - current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list
+    - (record.target + "-" + record.type) in (infomaniak_dns_present | default([]))
     - existing_record.target != record.target or (record.ttl is defined and existing_record.ttl != record.ttl)
 
 - name: Delete DNS records for {{ zone_name }}
@@ -67,4 +78,4 @@
     label: "{{ record.source }} ({{ record.type }})"
   when:
     - record.state == 'absent'
-    - current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list
+    - (record.target + "-" + record.type) in (infomaniak_dns_present | default([]))
