@@ -130,6 +130,7 @@ function connect-host() {
         SSH_COMMAND+=" $ANSIBLE_HOST"
     fi
 
+    echo "Run command: $SSH_COMMAND"
     $SSH_COMMAND
 }
 
