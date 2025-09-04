@@ -135,3 +135,7 @@
       net.ipv6.conf.all.disable_ipv6: "{{ odoo_sysctls_disable_ipv6 }}"
   loop: "{{ odoo_config_map }}"
   when: odoo_config_map|length > 1
+
+- name: Include {{ role_name }} data tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_data.yml"
+  when: odoo_data_files is defined

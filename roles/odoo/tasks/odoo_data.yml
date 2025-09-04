@@ -1,0 +1,24 @@
+- name: Copy and deploy Odoo config files
+  ansible.builtin.copy:
+    src: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/{{ item.key }}"
+    dest: "{{ odoo_data_dir }}/{{ item.key }}"
+    owner: "{{ odoo_owner }}"
+    group: "{{ odoo_group }}"
+  loop: "{{ odoo_data_files | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Ensure target directory exists in the container
+  ansible.builtin.command: |
+    docker exec {{ odoo_hostname }} mkdir -p /etc/odoo/ebics_keys
+  register: mkdir_result
+  changed_when: "'created directory' in mkdir_result.stdout"
+
+- name: Copy config files into the Odoo container
+  ansible.builtin.command: |
+    docker cp {{ odoo_data_dir }}/{{ item.key }} {{ odoo_hostname }}:{{ item.value }}
+  loop: "{{ odoo_data_files | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  register: docker_cp_result
+  changed_when: "'Successfully copied' in docker_cp_result.stdout"
