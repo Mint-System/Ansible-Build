@@ -103,7 +103,7 @@ cd /srv/build/nextcloud01
 docker build . -t nextcloud:nextcloud01
 ```
 
-### Internal Server Error
+### Debug an internal server error
 
 When Nextcloud is throwing an *Internal Server Error* without details in the log, run the occ cli to get details on the issue.
 
@@ -131,4 +131,14 @@ ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_h
 
 ```bash
 ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_hostname }} occ maintenance:repair --include-expensive' -i inventories/nextcloud
+```
+
+### Get session settings
+
+Retrieve the session settings with these commands:
+
+```bash
+docker exec --user www-data nextcloud01 php occ config:system:get session_keepalive
+docker exec --user www-data nextcloud01 php occ config:system:get session_lifetime
+docker exec --user www-data nextcloud01 php occ config:system:get remember_login_cookie_lifetime
 ```
