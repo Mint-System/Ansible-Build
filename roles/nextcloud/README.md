@@ -13,6 +13,7 @@ Configure the role.
 nextcloud_image: nextcloud:30-apache
 nextcloud_build_image: true # default: false
 nextcloud_hostname: nextcloud01
+nextcloud_data_dir: /usr/share/nextcloud # default: "/usr/share/{{ nextcloud_hostname }}"
 nextcloud_volume_name: nextcloud_data01 # default: "{{ nextcloud_hostname}}"
 nextcloud_volume_backup_set: # See restic_backup_set var in role restic
 nextcloud_domain: nextcloud.example.com

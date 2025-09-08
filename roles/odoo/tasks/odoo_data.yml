@@ -1,3 +1,4 @@
+---
 - name: Copy and deploy Odoo config files
   ansible.builtin.copy:
     src: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/{{ item.key }}"

@@ -1,6 +1,7 @@
 ---
 nextcloud_description: Nextcloud
 nextcloud_timezone: Europe/Zurich
+nextcloud_data_dir: "/usr/share/{{ nextcloud_hostname }}"
 nextcloud_volume_name: "{{ nextcloud_hostname }}"
 nextcloud_trusted_domains: "{{ nextcloud_domain }}"
 nextcloud_build_image: false

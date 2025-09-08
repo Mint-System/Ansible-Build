@@ -7,6 +7,19 @@
     docker_volume_backup_set: "{{ nextcloud_volume_backup_set | default([]) }}"
   when: nextcloud_volume_name is defined
 
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ nextcloud_data_dir }}"
+    state: directory
+
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ nextcloud_data_dir }}/{{ item }}"
+  loop:
+    - redis-session.ini
+  notify: Restart {{ role_name }} container
+
 - name: Init {{ role_name }} env vars
   ansible.builtin.set_fact:
     nextcloud_env:
@@ -25,7 +38,7 @@
       TZ: "{{ nextcloud_timezone }}"
       OVERWRITEPROTOCOL: https
       OVERWRITEHOST: "{{ nextcloud_domain }}"
-      REDIS_HOST: "{{ nextcloud_redis_hostname }}" # FIXME: Not working without redis
+      REDIS_HOST: "{{ nextcloud_redis_hostname }}"
       REDIS_HOST_PASSWORD: "{{ nextcloud_redis_password }}"
 
 - name: Append postgres env vars
@@ -58,6 +71,7 @@
     env: "{{ nextcloud_env }}"
     volumes:
       - "{{ nextcloud_volume_name }}:/var/www/html"
+      - "{{ nextcloud_data_dir }}/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini"
     networks:
       - name: "{{ docker_network_name }}"
     etc_hosts: "{{ nextcloud_etc_hosts }}"

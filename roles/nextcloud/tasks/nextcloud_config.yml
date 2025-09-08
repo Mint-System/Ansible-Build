@@ -40,7 +40,7 @@
 
 - name: Set session lifetime
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_lifetime --value=60*60*24*15
-  when: session_lifetime.rc == 1 or session_lifetime.stdout != "60*24*15"
+  when: session_lifetime.rc == 1 or session_lifetime.stdout != "60*60*24*15"
   notify: Restart {{ role_name }} container
 
 - name: Get session relaxed expiry
