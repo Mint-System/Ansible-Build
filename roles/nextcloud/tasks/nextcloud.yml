@@ -71,7 +71,6 @@
     env: "{{ nextcloud_env }}"
     volumes:
       - "{{ nextcloud_volume_name }}:/var/www/html"
-      - "{{ nextcloud_data_dir }}/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini"
     networks:
       - name: "{{ docker_network_name }}"
     etc_hosts: "{{ nextcloud_etc_hosts }}"
@@ -92,3 +91,6 @@
     name: Run nextcloud background jobs
     minute: "*/5"
     job: docker exec -u www-data {{ nextcloud_hostname }} php -f /var/www/html/cron.php; write-node-exporter-metric -c "Run nextcloud background jobs" -v $?
+
+- name: Copy redis.ini file from data dir to container
+  ansible.builtin.command: docker cp "{{ nextcloud_data_dir }}/redis-session.ini" "{{ nextcloud_hostname }}:/usr/local/etc/php/conf.d/redis-session.ini"

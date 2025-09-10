@@ -11,14 +11,14 @@
   notify: Restart {{ role_name }} container
 
 - name: Get trusted proxies
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get trusted_proxies
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:get trusted_proxies 0
   register: trusted_proxies
   changed_when: false
   ignore_errors: true
 
 - name: Set trusted proxies
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set trusted_proxies 0 --value="172.18.0.0/30"
-  when: trusted_proxies.rc == 1 or trusted_proxies.stdout != ""
+  when: trusted_proxies.rc == 1 or trusted_proxies.stdout != "172.18.0.0/30"
   notify: Restart {{ role_name }} container
 
 - name: Get remember login cookie lifetime
@@ -28,8 +28,8 @@
   ignore_errors: true
 
 - name: Set remember login cookie lifetime
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set remember_login_cookie_lifetime --value=60*60*24*15
-  when: remember_login_cookie_lifetime.rc == 1 or remember_login_cookie_lifetime.stdout != "60*60*24*15"
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set remember_login_cookie_lifetime --value=1296000 --type=integer
+  when: remember_login_cookie_lifetime.rc == 1 or remember_login_cookie_lifetime.stdout != "1296000"
   notify: Restart {{ role_name }} container
 
 - name: Get session lifetime
@@ -39,8 +39,8 @@
   ignore_errors: true
 
 - name: Set session lifetime
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_lifetime --value=60*60*24*15
-  when: session_lifetime.rc == 1 or session_lifetime.stdout != "60*60*24*15"
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_lifetime --value=1296000 --type=integer
+  when: session_lifetime.rc == 1 or session_lifetime.stdout != "1296000"
   notify: Restart {{ role_name }} container
 
 - name: Get session relaxed expiry
@@ -50,8 +50,8 @@
   ignore_errors: true
 
 - name: Set session relaxed expiry
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_relaxed_expiry --value=false
-  when: session_relaxed_expiry.rc == 1 or session_relaxed_expiry.stdout != "false"
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_relaxed_expiry --value=false --type=boolean
+  # when: session_relaxed_expiry.rc == 1 or session_relaxed_expiry.stdout != "false"
   notify: Restart {{ role_name }} container
 
 - name: Get session keepalive
@@ -61,8 +61,8 @@
   ignore_errors: true
 
 - name: Set session keepalive
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_keepalive --value=true
-  when: session_keepalive.rc == 1 or session_keepalive.stdout != "true"
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set session_keepalive --value=true --type=boolean
+  # when: session_keepalive.rc == 1 or session_keepalive.stdout != "true"
   notify: Restart {{ role_name }} container
 
 - name: Get auto logout
@@ -72,14 +72,9 @@
   ignore_errors: true
 
 - name: Set auto logout
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set auto_logout --value=false
-  when: auto_logout.rc == 1 or auto_logout.stdout != "false"
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set auto_logout --value=false --type=boolean
+  # when: auto_logout.rc == 1 or auto_logout.stdout != "false"
   notify: Restart {{ role_name }} container
-
-- name: Add missing indices
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ db:add-missing-indices
-  register: result
-  failed_when: result.rc!= 0
 
 - name: Add missing indices
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ db:add-missing-indices
