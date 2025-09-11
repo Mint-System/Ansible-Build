@@ -24,7 +24,8 @@
     single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true
-  when: item.url is regex('git@') and odoo_repo_key_file is defined
+  when:
+    - item.url is regex('git@') and odoo_repo_key_file is defined
   loop: "{{ odoo_repos }}"
 
 - name: Checkout repo commit with ssh
@@ -36,7 +37,29 @@
     refspec: +refs/heads/{{ item.branch | default(odoo_version) }}:refs/remotes/origin/{{ item.branch | default(odoo_version) }}
     accept_hostkey: true
     force: true
-  when: item.url is regex('git@') and odoo_repo_key_file is defined
+  when:
+    - item.url is regex('git@') and odoo_repo_key_file is defined
+    - item.sparse_dirs is not defined
+  loop: "{{ odoo_repos }}"
+  notify: Restart odoo container
+
+- name: Shallow ssh clone with sparse checkout
+  shell: |
+    set -e
+    git init "{{ odoo_data_dir }}/{{ item.path }}"
+    cd "{{ odoo_data_dir }}/{{ item.path }}"
+    git config core.sshCommand "ssh -i '{{ odoo_repo_key_file }}' -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
+    git config core.sparseCheckout true
+    echo "{{ item.sparse_dirs | join('\n') }}" > .git/info/sparse-checkout
+    git remote add origin "{{ item.url }}"
+    git fetch --depth=1 origin "{{ item.version | default(odoo_version) }}"
+    git checkout FETCH_HEAD
+  args:
+    creates: "{{ odoo_data_dir }}/{{ item.path }}/.git"
+  when:
+    - item.url is regex('^git@')
+    - item.sparse_dirs is defined
+    - odoo_repo_key_file is defined
   loop: "{{ odoo_repos }}"
   notify: Restart odoo container
 
@@ -48,7 +71,9 @@
     single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true
-  when: item.url is regex('https://')
+  when:
+    - item.url is regex('https://')
+    - item.sparse_dirs is not defined
   loop: "{{ odoo_repos }}"
 
 - name: Checkout repo commit with http
@@ -59,7 +84,28 @@
     single_branch: "{{ item.single_branch | default(true) }}"
     accept_hostkey: true
     force: true
-  when: item.url is regex('https://')
+  when:
+    - item.url is regex('https://')
+    - item.sparse_dirs is not defined
+  loop: "{{ odoo_repos }}"
+  notify: Restart odoo container
+
+- name: Shallow http clone with sparse checkout
+  shell: |
+    set -e
+    git init "{{ odoo_data_dir }}/{{ item.path }}" && \
+    cd "{{ odoo_data_dir }}/{{ item.path }}" && \
+    git config core.sparseCheckout true && \
+    echo "{{ item.sparse_dirs | join('\n') }}" > .git/info/sparse-checkout && \
+    git remote add origin "{{ item.url }}" && \
+    git fetch --depth=1 origin "{{ item.version | default(odoo_version) }}" && \
+    git checkout FETCH_HEAD
+  args:
+    chdir: "{{ odoo_data_dir }}"
+    creates: "{{ odoo_data_dir }}/{{ item.path }}/.git"
+  when:
+    - item.url is regex('https://')
+    - item.sparse_dirs is defined
   loop: "{{ odoo_repos }}"
   notify: Restart odoo container
 

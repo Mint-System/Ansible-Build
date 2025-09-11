@@ -45,7 +45,7 @@
 | ![infomaniak logo](/logos/infomaniak.png)  | [infomaniak](roles/infomaniak/README.md) | Manage Infomaniak domain and dns entries. |
 | ![innernet logo](/logos/innernet.png)  | [innernet](roles/innernet/README.md) | Setup WireGuard based internal network. |
 | ![jenkins logo](/logos/jenkins.png)  | [jenkins](roles/jenkins/README.md) | Deploy Jenkins container. |
-| ![k3s logo](/logos/k3s.png)  | [k3s](roles/k3s/README.md) | Deploy Kubernetes cluster with K3s.  |
+| ![k3s logo](/logos/k3s.png)  | [k3s](roles/k3s/README.md) | Deploy Kubernetes cluster with K3s. |
 | ![keycloak_client logo](/logos/keycloak_client.png)  | [keycloak_client](roles/keycloak_client/README.md) | Configure Keycloak client. |
 | ![keycloak logo](/logos/keycloak.png)  | [keycloak](roles/keycloak/README.md) | Deploy Keycloak container. |
 | ![locale logo](/logos/locale.png)  | [locale](roles/locale/README.md) | Set system locale. |
@@ -77,7 +77,7 @@
 | ![odoo_exporter logo](/logos/odoo_exporter.png)  | [odoo_exporter](roles/odoo_exporter/README.md) |  Add nginx config for Odoo exporter path. |
 | ![odoo_patches logo](/logos/odoo_patches.png)  | [odoo_patches](roles/odoo_patches/README.md) | Apply custom Odoo patches. |
 | ![odoo logo](/logos/odoo.png)  | [odoo](roles/odoo/README.md) | Deploy Odoo Docker container. |
-| ![odoo_repos logo](/logos/odoo_repos.png)  | [odoo_repos](roles/odoo_repos/README.md) | Setup Odoo modules from public or private GitHub repos. |
+| ![odoo_repos logo](/logos/odoo_repos.png)  | [odoo_repos](roles/odoo_repos/README.md) | Setup Odoo modules from public or private git repos. |
 | ![odoo_scripts logo](/logos/odoo_scripts.png)  | [odoo_scripts](roles/odoo_scripts/README.md) | Install Odoo scripts. |
 | ![ollama logo](/logos/ollama.png)  | [ollama](roles/ollama/README.md) | Setup Ollama and deploy models. |
 | ![onlyoffice_documentserver logo](/logos/onlyoffice_documentserver.png)  | [onlyoffice_documentserver](roles/onlyoffice_documentserver/README.md) | Deploy OnlyOffice Document Server container. |

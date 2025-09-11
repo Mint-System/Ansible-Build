@@ -28,7 +28,8 @@
   ignore_errors: true
 
 - name: Set remember login cookie lifetime
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set remember_login_cookie_lifetime --value=1296000 --type=integer
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ config:system:set remember_login_cookie_lifetime --value=1296000
+    --type=integer
   when: remember_login_cookie_lifetime.rc == 1 or remember_login_cookie_lifetime.stdout != "1296000"
   notify: Restart {{ role_name }} container
 

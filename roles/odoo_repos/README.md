@@ -2,7 +2,7 @@
 
 # Odoo Repos role
 
-Setup Odoo modules from public or private GitHub repos.
+Setup Odoo modules from public or private git repos.
 
 ## Usage
 
@@ -30,6 +30,10 @@ odoo_repos:
     url: git@github.com:OCA/Server-Backend.git
   - path: addons/mint-system-management-system
     url: git@github.com:Mint-System/Odoo-Apps-Management-System.git
+  - path: addons/bemade-addons
+    url: https://git.bemade.org/bemade/bemade-addons.git
+    sparse_dirs:
+      - caldav_sync
 ```
 
 And include it in your playbook.
@@ -43,7 +47,6 @@ And include it in your playbook.
 ## Docs
 
 ### Clone with http url
-
 
 To clone private repos with an http url set the `vault_github_personal_access_token` var and define `github_username`. Use the following format to clone repos with http:
 
