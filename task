@@ -93,11 +93,11 @@ function connect-host() {
     for HOSTS_FILE in $HOSTS_FILES; do
 
         COMMAND="yq e '.all.children.*.hosts.$SEARCH_HOST' $HOSTS_FILE"
-        HOST_CONFIG=$(eval $COMMAND | sed 's/null//g')
+        HOST_CONFIG=$(eval $COMMAND | sed 's/null//g' | head -4)
 
         if [ -z "$HOST_CONFIG" ]; then
             COMMAND="yq e '.all.hosts.$SEARCH_HOST' $HOSTS_FILE"
-            HOST_CONFIG=$(eval $COMMAND | sed 's/null//g')
+            HOST_CONFIG=$(eval $COMMAND | sed 's/null//g' | head -4)
         fi
 
         if [ ! -z "$HOST_CONFIG" ]; then
