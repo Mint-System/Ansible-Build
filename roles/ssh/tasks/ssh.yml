@@ -61,3 +61,6 @@
   when:
     - current_ssh_port.stdout|int != ssh_port
     - confirmation.user_input | lower == 'yes'
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

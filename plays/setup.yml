@@ -8,8 +8,6 @@
         - never
     - role: packages
       tags: packages
-    - role: ufw
-      tags: ufw
     - role: motd
       tags: motd
     - role: etc_hosts
@@ -48,3 +46,5 @@
       tags: k3s
     - role: restic_server
       tags: restic_server
+    - role: ufw
+      tags: ufw
