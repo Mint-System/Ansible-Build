@@ -93,11 +93,11 @@ function connect-host() {
     for HOSTS_FILE in $HOSTS_FILES; do
 
         COMMAND="yq e '.all.children.*.hosts.$SEARCH_HOST' $HOSTS_FILE"
-        HOST_CONFIG=$(eval $COMMAND | sed 's/null//g' | head -4)
+        HOST_CONFIG=$(eval $COMMAND | sed '/null/d' | head -5)
 
         if [ -z "$HOST_CONFIG" ]; then
             COMMAND="yq e '.all.hosts.$SEARCH_HOST' $HOSTS_FILE"
-            HOST_CONFIG=$(eval $COMMAND | sed 's/null//g' | head -4)
+            HOST_CONFIG=$(eval $COMMAND | sed '/null/d' | head -5)
         fi
 
         if [ ! -z "$HOST_CONFIG" ]; then
@@ -111,9 +111,9 @@ function connect-host() {
     fi
 
     # Get Ansible vars from the host configuration
-    ANSIBLE_HOST=$(echo "$HOST_CONFIG" | grep 'ansible_host' | cut -d: -f2 | xargs)
-    ANSIBLE_PORT=$(echo "$HOST_CONFIG" | grep 'ansible_port' | cut -d: -f2 | xargs)
-    ANSIBLE_USER=$(echo "$HOST_CONFIG" | grep 'ansible_user' | cut -d: -f2 | xargs)
+    ANSIBLE_HOST=$(echo "$HOST_CONFIG" | grep '^ansible_host' | cut -d: -f2 | xargs)
+    ANSIBLE_PORT=$(echo "$HOST_CONFIG" | grep '^ansible_port' | cut -d: -f2 | xargs)
+    ANSIBLE_USER=$(echo "$HOST_CONFIG" | grep '^ansible_user' | cut -d: -f2 | xargs)
     ANSIBLE_COMMON_ARGS=$(echo "$HOST_CONFIG" | grep 'ansible_ssh_common_args' | cut -d: -f2 | xargs)
 
     # Build SSH command using extracted connection details

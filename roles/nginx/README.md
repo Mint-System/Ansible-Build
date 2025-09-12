@@ -99,9 +99,9 @@ nginx_proxies:
     exporter: odoo
     upstreams:
       - name: odoo
-        server: odoo17:8069
+        server: odoo01:8069
       - name: odoochat
-        server: odoo17:8072
+        server: odoo01:8072
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
