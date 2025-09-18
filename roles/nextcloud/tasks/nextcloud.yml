@@ -81,7 +81,11 @@
       tag: "{{ nextcloud_hostname }}|{{ role_name }}"
   register: start_nextcloud_container
 
-- name: Wait for {{ role_name }} container # noqa 503
+- name: Info about upgrades
+  debug:
+    msg: When Nextlcoud upgrade is running, abort the task. The upggrade process will most likely take more time than 30 seconds.
+
+- name: Wait for {{ role_name }} container
   ansible.builtin.pause:
     seconds: "30"
   when: start_nextcloud_container.changed

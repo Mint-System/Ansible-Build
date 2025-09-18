@@ -117,7 +117,7 @@ docker exec --user www-data nextcloud01 php occ
 Disable the maintenance mode with the occ cli.
 
 ```bash
-ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_hostname }} occ maintenance:mode --off' -i inventories/nextcloud
+ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_hostname }} php occ maintenance:mode --off' -i inventories/nextcloud
 ```
 
 ### Cleanup trashbin
@@ -125,13 +125,13 @@ ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_h
 Cleanup the deleted files and folders for all users.
 
 ```bash
-ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_hostname }} occ trashbin:cleanup --off' -i inventories/nextcloud
+ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_hostname }} php occ trashbin:cleanup --off' -i inventories/nextcloud
 ```
 
 ### Migrate mimetypes
 
 ```bash
-ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_hostname }} occ maintenance:repair --include-expensive' -i inventories/nextcloud
+ansible host.example.com -m shell -a 'docker exec --user www-data {{ nextcloud_hostname }} php occ maintenance:repair --include-expensive' -i inventories/nextcloud
 ```
 
 ### Get session settings
