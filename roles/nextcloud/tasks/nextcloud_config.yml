@@ -83,6 +83,6 @@
   failed_when: result.rc!= 0
 
 - name: Convert filecache bigint
-  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} bash -c "echo yes | php occ db:convert-filecache-bigint"
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} /bin/bash -c "echo yes | php occ db:convert-filecache-bigint"
   register: result
   failed_when: result.rc!= 0

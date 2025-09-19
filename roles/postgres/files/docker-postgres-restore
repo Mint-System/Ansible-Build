@@ -58,7 +58,7 @@ FILENAME=$(basename -- "$FILE")
 [[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
 
 # Get postgres user
-POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")
+POSTGRES_USER=$(docker exec $CONTAINER /bin/bash -c "echo \$POSTGRES_USER")
 
 if $DROP; then
   docker-postgres-drop -c $CONTAINER -d $DATABASE
@@ -69,7 +69,7 @@ if $CREATE; then
   docker exec $CONTAINER createdb -U $POSTGRES_USER $DATABASE
 fi
 
-# Start restore 
+# Start restore
 echo "Restore Postgres database $DATABASE from $FILE ..."
 cat $FILE | docker exec -i $CONTAINER psql -U $POSTGRES_USER -d $DATABASE
 

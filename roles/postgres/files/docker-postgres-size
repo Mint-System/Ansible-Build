@@ -49,4 +49,4 @@ where table_schema = 'public'
 order by 3 desc;"
 
 echo "Show table size for database $DATABASE in container $CONTAINER"
-docker exec $CONTAINER bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/$DATABASE -c \"$QUERY\""
+docker exec $CONTAINER /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/$DATABASE -c \"$QUERY\""

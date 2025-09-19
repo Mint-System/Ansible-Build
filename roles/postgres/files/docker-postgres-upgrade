@@ -109,9 +109,9 @@ echo "Importing all databases from $DUMP_FILE to $CONTAINER"
 cat $DUMP_FILE | docker exec -i "$CONTAINER" /bin/bash -c "psql -U \$POSTGRES_USER"
 
 # Ensure access works
-POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")
+POSTGRES_USER=$(docker exec $CONTAINER /bin/bash -c "echo \$POSTGRES_USER")
 echo "Reset $POSTGRES_USER password for $CONTAINER ..."
-POSTGRES_PASSWORD=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_PASSWORD")
+POSTGRES_PASSWORD=$(docker exec $CONTAINER /bin/bash -c "echo \$POSTGRES_PASSWORD")
 docker exec $CONTAINER /bin/bash -c "psql -U \$POSTGRES_USER -c \"ALTER USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';\""
 
 # echo "Grant all privileges for $POSTGRES_USER onto $DATABASES ..."

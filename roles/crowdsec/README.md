@@ -48,7 +48,7 @@ docker exec crowdsec01 cscli bouncers list
 
 ```bash
 LOGS=$(docker logs nginx01 2>&1 | grep "172.19.0.1" | tail -n 1)
-docker exec crowdsec01 bash -c "echo $LOGS | cscli explain -f- --type nginx"
+docker exec crowdsec01 /bin/bash -c "echo $LOGS | cscli explain -f- --type nginx"
 ```
 
 ### Trigger an alert

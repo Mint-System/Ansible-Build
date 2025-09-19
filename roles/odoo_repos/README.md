@@ -63,8 +63,8 @@ Navigate into the repo directory on the server `cd /usr/share/odoo01/enterprise`
 
 ```bash
 ODOO_VERSION=16.0
-sudo ssh-agent bash -c "ssh-add /home/bot/.ssh/id_ed25519; git fetch origin ${ODOO_VERSION}:${ODOO_VERSION}"
-sudo ssh-agent bash -c "ssh-add /home/bot/.ssh/id_ed25519; git switch ${ODOO_VERSION}"
+sudo ssh-agent /bin/bash -c "ssh-add /home/bot/.ssh/id_ed25519; git fetch origin ${ODOO_VERSION}:${ODOO_VERSION}"
+sudo ssh-agent /bin/bash -c "ssh-add /home/bot/.ssh/id_ed25519; git switch ${ODOO_VERSION}"
 ```
 
 ### Checkout commit manually
@@ -73,5 +73,5 @@ Navigate into the repo directory on the server `cd /usr/share/odoo01/enterprise`
 
 ```bash
 COMMIT=13db977fca67da8278fbdc5753f425583b304c67
-sudo ssh-agent bash -c "ssh-add /home/bot/.ssh/id_ed25519; git checkout $COMMIT"
+sudo ssh-agent /bin/bash -c "ssh-add /home/bot/.ssh/id_ed25519; git checkout $COMMIT"
 ```

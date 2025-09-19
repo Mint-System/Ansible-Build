@@ -51,4 +51,4 @@ done
 
 # Remove with Docker exec
 echo "Remove module $MODULE on database $DATABASE on container $CONTAINER."
-docker exec $CONTAINER bash -c "echo \"self.env['ir.module.module'].search([('name', '=', '$MODULE')]).button_immediate_uninstall()\" | odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+docker exec $CONTAINER /bin/bash -c "echo \"self.env['ir.module.module'].search([('name', '=', '$MODULE')]).button_immediate_uninstall()\" | odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"

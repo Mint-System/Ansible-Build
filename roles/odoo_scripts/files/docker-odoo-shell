@@ -68,10 +68,10 @@ fi
 
 if [[ -n $CODE ]]; then
     echo "Execute code in container $CONTAINER on database $DATABASE." >&2
-    docker exec $CONTAINER_ID bash -c "echo \"$CODE\" | odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+    docker exec $CONTAINER_ID /bin/bash -c "echo \"$CODE\" | odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
 else
-    echo "Start odoo shell in container $CONTAINER on database $DATABASE." 
-    docker exec -it $CONTAINER_ID bash -c "odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+    echo "Start odoo shell in container $CONTAINER on database $DATABASE."
+    docker exec -it $CONTAINER_ID /bin/bash -c "odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
 fi
 
 if $FORCE; then

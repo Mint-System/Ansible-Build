@@ -55,7 +55,7 @@ echo "Make sure to stop the attached containers before running the restore."
 
 # Restore dump for volume
 echo "Run restore $DIR/$FILENAME to Docker volume $VOLUME ..."
-docker run --rm -v "$VOLUME:/_data" -v "$DIR:/restore" ubuntu bash -c "
+docker run --rm -v "$VOLUME:/_data" -v "$DIR:/restore" ubuntu /bin/bash -c "
     shopt -s dotglob && cd /_data && rm -rf -- * || true && tar xf /restore/$FILENAME --strip 1"
 
 # Notify if restore has finished
