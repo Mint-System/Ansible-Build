@@ -56,10 +56,9 @@ done
 [[ -z "$MODULES" ]] && { echo "Parameter -u|update is empty" ; exit 1; }
 
 # Switch container name with id
-CONTAINER_ID=$(docker ps -f "name=${CONTAINER}" -q | tail -n1)
+CONTAINER_ID=$(docker ps -f "name=^${CONTAINER}" -q | tail -n1)
 [[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
 
 # Update with Docker exec
 echo "Update modules $MODULES on database $DATABASE."
 docker exec "$CONTAINER_ID" /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --stop-after-init --no-http $OVERWRITE_TRANSLATIONS"
-
