@@ -31,7 +31,7 @@ INSTALL_DIR="/usr/local/bin"
 COMPLETION_DIR="/etc/bash_completion.d"
 
 if [[ "$1" == "--user" ]]; then
-    INSTALL_DIR="$HOME/bin"
+    INSTALL_DIR="$HOME/.local/bin"
     COMPLETION_DIR="$HOME/.bash_completion.d"
     mkdir -p "$INSTALL_DIR" "$COMPLETION_DIR"
 fi

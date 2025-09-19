@@ -13,7 +13,7 @@ SCRIPTS=(
 INSTALL_DIR="/usr/local/bin"
 
 if [[ "$1" == "--user" ]]; then
-    INSTALL_DIR="$HOME/bin"
+    INSTALL_DIR="$HOME/.local/bin"
     mkdir -p "$INSTALL_DIR"
     echo "Installing scripts in $INSTALL_DIR"
 fi
