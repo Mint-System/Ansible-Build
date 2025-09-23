@@ -42,6 +42,12 @@ And include it in your playbook.
   - role: n8n
 ```
 
+Run the playbook with config map filter.
+
+```bash
+task play -i inventories/setup plays/setup.yml -t n8n -e "config_map=int"
+```
+
 ## Docs
 
 ### Nginx config
