@@ -29,6 +29,7 @@
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
     volumes:
       - "{{ n8n_volume_name }}-{{ item.name }}:/home/node/"
+      - "/usr/share/{{ n8n_volume_name }}-{{ item.name }}:/home/node/backups"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
