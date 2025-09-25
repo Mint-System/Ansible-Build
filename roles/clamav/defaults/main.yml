@@ -1,0 +1,4 @@
+---
+clamav_port: 3310
+clamav_description: "ClamAV"
+clamav_data_dir: "/usr/share/{{ clamav_hostname }}"

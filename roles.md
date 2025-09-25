@@ -15,6 +15,7 @@
 | ![cadvisor logo](/logos/cadvisor.png)  | [cadvisor](roles/cadvisor/README.md) | Deploy cAdvisor container. |
 | ![cargo logo](/logos/cargo.png)  | [cargo](roles/cargo/README.md) | Setup Rust toolchain and cargo package manager. |
 | ![certbot logo](/logos/certbot.png)  | [certbot](roles/certbot/README.md) | Deploy Let's Encrypt certificates. |
+| ![clamav logo](/logos/clamav.png)  | [clamav](roles/clamav/README.md) | Deploy ClamAV container for antivirus scanning. |
 | ![clean logo](/logos/clean.png)  | [clean](roles/clean/README.md) | Cleanup Ansible roles. |
 | ![collabora_code logo](/logos/collabora_code.png)  | [collabora_code](roles/collabora_code/README.md) | Deploy Collabora Online Development Edition (CODE) container. |
 | ![commento logo](/logos/commento.png)  | [commento](roles/commento/README.md) | Deploy Commento container |

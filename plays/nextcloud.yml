@@ -12,3 +12,5 @@
       tags: onlyoffice_documentserver
     - role: collabora_code
       tags: collabora_code
+    - role: clamav
+      tags: clamav
