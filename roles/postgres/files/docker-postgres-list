@@ -36,4 +36,4 @@ docker exec \
   --env PGPASSWORD="$(docker exec "$CONTAINER" printenv POSTGRES_PASSWORD)" \
   "$CONTAINER" \
   psql -U "$(docker exec "$CONTAINER" printenv POSTGRES_USER)" \
-  -h localhost -p 5432 -tAc "SELECT datname FROM pg_database WHERE datistemplate = false AND datname NOT IN ('template0', 'template1');"
+  -h localhost -p 5432 -d postgres -tAc "SELECT datname FROM pg_database WHERE datistemplate = false AND datname NOT IN ('template0', 'template1');"
