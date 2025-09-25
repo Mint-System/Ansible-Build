@@ -1,10 +1,8 @@
 #!/bin/bash
 set -e
 
-# Get script name
 SCRIPT=$(basename "$0")
 
-# Display Help
 Help() {
     echo
     echo "$SCRIPT"
@@ -18,23 +16,24 @@ Help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == "help" ]]; then
     Help
-    exit
+    exit 0
 fi
 
-# Process params
+CONTAINER="postgres"  # default
 while getopts ":c:" opt; do
   case $opt in
     c) CONTAINER="$OPTARG";;
-    \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit 1;;
+    \?) echo "Invalid option -$OPTARG" >&2; Help; exit 1;;
   esac
 done
 
-# Verify variables
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+# Validate container is set
+[[ -z "$CONTAINER" ]] && { echo "Container name is required"; exit 1; }
 
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -tAc 'SELECT datname FROM pg_database;'"
+docker exec \
+  --env PGPASSWORD="$(docker exec "$CONTAINER" printenv POSTGRES_PASSWORD)" \
+  "$CONTAINER" \
+  psql -U "$(docker exec "$CONTAINER" printenv POSTGRES_USER)" \
+  -h localhost -p 5432 -tAc "SELECT datname FROM pg_database WHERE datistemplate = false AND datname NOT IN ('template0', 'template1');"

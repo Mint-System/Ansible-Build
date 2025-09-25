@@ -1,5 +1,4 @@
 ---
-
 - name: Apply config map filter
   set_fact:
     n8n_config_map: "{{ n8n_config_map | selectattr('name', '==', config_map) | list }}"
