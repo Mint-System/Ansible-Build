@@ -8,39 +8,52 @@ function help-table() {
 
     printf "$COLUMN" "Command" "Option" "Description"
     echo "|$(printf '%*s' $((CMD_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((OPT_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((DESC_WIDTH + 2)) '' | tr ' ' '-')|"
+    # Env
+    printf "$COLUMN" "version" "" "Show tool versions."
+    # Galaxy
     printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
+    printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
+    # Docs
     printf "$COLUMN" "build-vuepress" "" "Create vuepress build."
-    printf "$COLUMN" "commit-with-llm" "" "Commit with llm generated commit message."
-    printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
-    printf "$COLUMN" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
-    printf "$COLUMN" "decrypt-file" "[path]" "Decrypt Ansible Vault file."
     printf "$COLUMN" "dev-vuepress" "" "Start vuepress development server."
     printf "$COLUMN" "docs" "" "Update docs."
+    printf "$COLUMN" "install-vuepress" "" "Install build dependencies."
+    printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
+    printf "$COLUMN" "update-roles-doc" "" "Update readme files in roles folder."
+    # LLM
+    printf "$COLUMN" "commit-with-llm" "" "Commit with llm generated commit message."
+    printf "$COLUMN" "update-with-llm" "[glob][prompt]" "Feed files matching glob with prompt to LLM and apply file changes."
+    # Docker
+    printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
+    # Vault
+    printf "$COLUMN" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
+    printf "$COLUMN" "decrypt-file" "[path]" "Decrypt Ansible Vault file."
     printf "$COLUMN" "encrypt-file" "[vault_id] [path]" "Encrypt file with Ansible Vault."
     printf "$COLUMN" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
     printf "$COLUMN" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
+    printf "$COLUMN" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
+    # Setup
     printf "$COLUMN" "install" "" "Install Ansible and dependencies with uv."
     printf "$COLUMN" "install-exo" "" "Install Exoscale CLI."
-    printf "$COLUMN" "install-vuepress" "" "Install build dependencies."
+    printf "$COLUMN" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
+    printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
+    # Development
     printf "$COLUMN" "lint" "" "Lint Ansible roles and playbooks."
+    printf "$COLUMN" "source" "" "Source the Python virtual env."
+    # Report
     printf "$COLUMN" "get-last-hostname" "[role]" "Search inventory for \$ROLE_hostname entries."
     printf "$COLUMN" "list-hosts" "[path]" "Lists all hosts of an inventory."
     printf "$COLUMN" "list-roles" "" "Lists all roles."
     printf "$COLUMN" "list-vault" "" "Lists vault identities."
-    printf "$COLUMN" "play" "" "Run ansible-playbook command."
-    printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
+    printf "$COLUMN" "list-deployments-odoo" "[path]" "List Odoo deplyments."
+    # Git
     printf "$COLUMN" "pull-repos" "" "Pull git repos in inventories folder."
-    printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
-    printf "$COLUMN" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
-    printf "$COLUMN" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
+    # Run
+    printf "$COLUMN" "play" "" "Run ansible-playbook command."
     printf "$COLUMN" "connect-host" "[host]" "Connect to host with configs."
-    printf "$COLUMN" "source" "" "Source the Python virtual env."
+    # Test
     printf "$COLUMN" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
     printf "$COLUMN" "test-scripts" "[clean]" "Install and test scripts."
-    printf "$COLUMN" "update-with-llm" "[glob][prompt]" "Feed files matching glob with prompt to LLM and apply file changes."
-    printf "$COLUMN" "update-roles-doc" "" "Update readme files in roles folder."
-    printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
-    printf "$COLUMN" "version" "" "Show tool versions."
 }
 
 function help() {
@@ -57,7 +70,7 @@ function help() {
     echo
 }
 
-# Set env vars
+# Dynamic env vars
 
 GIT_BRANCH=$(git symbolic-ref --short -q HEAD)
 LLM_MODEL=${LLM_MODEL:="llama"}
@@ -76,7 +89,7 @@ if [ -d "$HOME/taskfile.build/bin" ]; then
     done
 fi
 
-# Ansible Vault commands
+# Vault
 
 function connect-host() {
     if test -z "$1"; then
@@ -257,7 +270,7 @@ show-vault-file() {
     rm -f "$TEMP_PART_FILE"
 }
 
-# Environment commands
+# Env
 
 function container-login() {
     if [ -n "$1" ]; then
@@ -312,7 +325,7 @@ function show-passwordless-sudo() {
     echo "echo \"$USER ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
 }
 
-# Ansible commands
+# Run
 
 function play() {
     activate-venv
@@ -329,7 +342,7 @@ function lint() {
     ansible-lint --fix --offline roles/*
 }
 
-# Ansible Inventory commands
+# Report
 
 function list-hosts() {
     if test -z "$1"; then echo "\$1 is empty"; exit; fi
@@ -416,7 +429,49 @@ function pull-repos() {
     done
 }
 
-# Ansible Galaxy commands
+list-deployments-odoo() {
+    INVENTORY_DIR="$1"
+    HOST_VARS_DIR="$INVENTORY_DIR/host_vars"
+    COL_WIDTH_ALIAS=15
+    COL_WIDTH_HOSTNAME=15
+    COL_WIDTH_IMAGE=80
+
+    printf "| %-${COL_WIDTH_ALIAS}s | %-${COL_WIDTH_HOSTNAME}s | %-${COL_WIDTH_IMAGE}s |\n" "alias" "odoo_hostname" "odoo_image"
+    printf "| %-${COL_WIDTH_ALIAS}s | %-${COL_WIDTH_HOSTNAME}s | %-${COL_WIDTH_IMAGE}s |\n" \
+        "$(printf '%.0s-' {1..$COL_WIDTH_ALIAS} | sed 's/-/---/')" \
+        "$(printf '%.0s-' {1..$COL_WIDTH_HOSTNAME} | sed 's/-/---/')" \
+        "$(printf '%.0s-' {1..$COL_WIDTH_IMAGE} | sed 's/-/---/')"
+
+    mapfile -t FILE_LIST < <(find "$HOST_VARS_DIR" -type f -name "vars.yml" -o -path "$HOST_VARS_DIR/*.yml" | sort)
+
+    for FILE_PATH in "${FILE_LIST[@]}"; do
+        if [[ "$FILE_PATH" == *vault* ]]; then
+            continue
+        fi
+
+        if [[ "$FILE_PATH" == */vars.yml ]]; then
+            ALIAS=$(basename "$(dirname "$FILE_PATH")")
+            VARS_FILE="$FILE_PATH"
+        elif [[ "$FILE_PATH" == *.yml ]]; then
+            ALIAS=$(basename "$FILE_PATH" .yml)
+            VARS_FILE="$FILE_PATH"
+        else
+            continue
+        fi
+
+        if [[ "$ALIAS" == "vars" ]] || [[ "$ALIAS" == "vault" ]] || [[ -z "$ALIAS" ]]; then
+            continue
+        fi
+
+        ODOO_HOSTNAME=$(yq eval '.odoo_hostname // "N/A"' "$VARS_FILE" | head -1)
+        ODOO_IMAGE=$(yq eval '.odoo_image // "N/A"' "$VARS_FILE" | head -1)
+
+        printf "| %-${COL_WIDTH_ALIAS}s | %-${COL_WIDTH_HOSTNAME}s | %-${COL_WIDTH_IMAGE}s |\n" \
+            "$ALIAS" "$ODOO_HOSTNAME" "$ODOO_IMAGE"
+    done
+}
+
+# Galaxy
 
 function build-galaxy() {
     activate-venv
@@ -556,7 +611,7 @@ function test-scripts() {
     fi
 }
 
-# Docs commands
+# Docs
 
 function docs() {
     echo "Update roles.md"
