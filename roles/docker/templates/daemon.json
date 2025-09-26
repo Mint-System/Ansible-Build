@@ -2,8 +2,8 @@
     "data-root": "{{ docker_data_dir }}",
     "log-driver": "json-file",
     "log-opts": {
-        "max-size": "{{ docker_log_max_size | default('10m') }}",
-        "max-file": "{{ docker_log_max_file | default('3') }}"
+        "max-size": "{{ docker_log_max_size }}",
+        "max-file": "{{ docker_log_max_file }}"
     },
     {% if docker_ipv6_enabled %}"ipv6": true{% else %}"ipv6": false{% endif %}{% if docker_dns is defined %},
     "dns": {{ docker_dns }}{% endif %}
