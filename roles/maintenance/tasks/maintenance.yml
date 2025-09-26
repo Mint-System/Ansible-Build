@@ -23,24 +23,19 @@
 
 - name: Find old files in /var/tmp
   ansible.builtin.find:
-    paths:
-      - /var/tmp
+    paths: /var/tmp
     age: 7d
     recurse: true
   register: old_files
 
-# - name: Show old files
-#   debug:
-#     msg: "{{ old_files.files | map(attribute='path') | list }}"
-
 - name: Remove old directories
-  ansible.builtin.command:
-    cmd: find /var/tmp -type d -mtime +7 -exec rm -rf {} \;
-  when: old_files.files
-  ignore_errors: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ old_files.files | selectattr('isdir') | map(attribute='path') | list }}"
 
 - name: Remove old files
-  ansible.builtin.command:
-    cmd: find /var/tmp -type f -mtime +7 -exec rm -rf {} \;
-  when: old_files.files
-  ignore_errors: true # FIXME: Start with deepest nested folders first
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ old_files.files | rejectattr('isdir') | map(attribute='path') | list }}"
