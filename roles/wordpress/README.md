@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/wordpress
-wordpress_image: wordpress:php7.4-apache
+wordpress_image: wordpress:php8.3-apache
 wordpress_build_image: true # default: false
 wordpress_hostname: word01
 wordpress_description: WP # default: WordPress
