@@ -1,10 +1,14 @@
 ---
+- name: Show ansible_default_ipv4.address
+  ansible.builtin.debug:
+    msg: "Node IP: {{ ansible_default_ipv4.address }}"
+
 - name: Install {{ role_name }} server
   ansible.builtin.command:
     cmd: k3s-install
   environment:
     K3S_KUBECONFIG_MODE: "644"
-    INSTALL_K3S_EXEC: "server --tls-san {{ k3s_tls_san }} --disable=traefik"
+    INSTALL_K3S_EXEC: "server --tls-san {{ k3s_tls_san }} --disable=traefik --node-ip={{ ansible_default_ipv4.address }}"
     K3S_TOKEN: "{{ k3s_token }}"
     INSTALL_K3S_VERSION: "{{ k3s_version }}"
 
@@ -15,14 +19,14 @@
     state: started
     enabled: true
 
-- name: Copy token to local tmp
+- name: Copy token to /var/tmp/k3s_token
   ansible.builtin.fetch:
     src: /var/lib/rancher/k3s/server/node-token
     dest: /var/tmp/k3s_token
     flat: true
   changed_when: false
 
-- name: Copy kubeconfig to local tmp
+- name: Copy kubeconfig to /var/tmp/k3s.yaml
   ansible.builtin.fetch:
     src: /etc/rancher/k3s/k3s.yaml
     dest: /var/tmp/k3s.yaml
