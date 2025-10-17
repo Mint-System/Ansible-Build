@@ -592,7 +592,7 @@ function test-scripts() {
         docker-odoo-drop -c odoo01-int -d odoo-int
         docker-odoo-duplicate -c odoo01-prod -s odoo -t odoo-int
         docker-odoo-neutralize -c odoo01-int -d odoo-int
-        docker exec odoo01-int git-clone-addons
+        docker exec odoo01-int clone-git-addons
         docker restart odoo01-int
         docker-odoo-init -c odoo01-int -d odoo-int -i partner_firstname
         docker-odoo-shell -c odoo01-int -d odoo-int -f -p 'env["res.partner"].browse(1).write({"name": "admint"})'
