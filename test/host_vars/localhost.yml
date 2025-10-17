@@ -166,19 +166,17 @@ docker_compose_definition:
   services:
     db:
       image: postgres
-      volumes:
-        - ./data/db:/var/lib/postgresql/data
       environment:
         - POSTGRES_DB=postgres
         - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
     web:
       image: django
       command: python -m http.server
       ports:
         - "8000:8000"
       environment:
-        - POSTGRES_NAME=postgres
+        - POSTGRES_DB=postgres
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       depends_on:
