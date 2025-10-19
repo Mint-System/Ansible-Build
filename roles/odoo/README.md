@@ -20,6 +20,8 @@ Configure the role.
 odoo_revision: "18.0.20250725"
 odoo_image: mintsystem/odoo:18.0.20250725
 odoo_build_image: true # default: false
+odoo_build_dockerfile: | # default: ""
+  RUN pip install prometheus-client
 odoo_hostname: odoo01
 odoo_config_map: # default: - name: prod
   - name: prod
@@ -47,42 +49,6 @@ odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
 odoo_etc_hosts: # defaults: {}
   "odoo.example.com": 10.42.5.2
-odoo_backup_set: # See restic_backup_set var in role restic
-```
-
-### Odoo
-
-Configure the role.
-
-```yml
-# https://hub.docker.com/_/odoo/
-odoo_revision: "18.0.20250725"
-odoo_image: odoo:18.0-20250725
-odoo_build_image: true # default: false
-odoo_build_dockerfile: | # default: ""
-  RUN pip install prometheus-client
-odoo_hostname: odoo01
-odoo_config_map: # default: - name: prod
-  - name: prod
-  - name: int
-odoo_timezone: Europe/Paris # default: Europe/Zurich
-odoo_description: Odoo 16 # default: Odoo
-odoo_state: stopped # default: started
-odoo_ports: # default: []
- - "127.0.0.1:8069:8069"
-odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
-odoo_volume_name: odoo_data01 # default: "{{ odoo_hostname}}"
-odoo_postgres_hostname: postgres01
-odoo_postgres_user: odoo # default: {{ postgres_user }}"
-odoo_postgres_password: # default: "{{ vault_postgres_password }}"
-odoo_master_password: # default: "{{ vault_odoo_master_password }}"
-odoo_dbfilter: ".*" # default: "^%d$"
-odoo_list_db: "true" # default: "false"
-odoo_proxy_mode: "false" # default: "true"
-odoo_workers: 0 # default: 4
-odoo_conf_limit_request: 4096 # default: 8192
-odoo_conf_limit_time_cpu: 300 # default: 600
-odoo_conf_limit_time_real: 600 # default: 1200
 odoo_backup_set: # See restic_backup_set var in role restic
 ```
 
