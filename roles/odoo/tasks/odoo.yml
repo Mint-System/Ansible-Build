@@ -13,43 +13,12 @@
     owner: "{{ odoo_owner }}"
     group: "{{ odoo_group }}"
 
-- name: Copy {{ role_name }} conf
-  ansible.builtin.template:
-    src: "{{ item }}"
-    dest: "{{ odoo_data_dir }}/{{ item }}"
-  loop:
-    - odoo.conf
-  when: odoo_image.startswith('odoo')
-  notify: Restart {{ role_name }} container
-
-- name: Pull {{ role_name }} image
-  community.docker.docker_image:
-    name: "{{ odoo_image }}"
-    source: pull
-    force_source: true
-  register: pull_odoo_image
-  when: not odoo_build_image
-  notify: Remove odoo patches
-
-- name: Tag {{ role_name }} image
-  ansible.builtin.command: docker tag {{ pull_odoo_image.image.Id[7:19] }} odoo:{{ odoo_revision }}
-  when: odoo_revision is defined and not odoo_build_image
-
-- name: Define {{ role_name }} volumes for mintsystem image
+- name: Define {{ role_name }} volumes
   ansible.builtin.set_fact:
     odoo_volumes:
       - "{{ odoo_volume_name }}:/var/lib/odoo"
       - "{{ odoo_data_dir }}/addons:/mnt/addons"
       - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
-
-- name: Define {{ role_name }} volumes for odoo image
-  ansible.builtin.set_fact:
-    odoo_volumes:
-      - "{{ odoo_volume_name }}:/var/lib/odoo"
-      - "{{ odoo_data_dir }}/addons:/mnt/addons"
-      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
-      - "{{ odoo_data_dir }}/odoo.conf:/etc/odoo/odoo.conf"
-  when: odoo_image.startswith('odoo')
 
 - name: Start {{ role_name }} container {{ odoo_hostname }}
   community.docker.docker_container:
