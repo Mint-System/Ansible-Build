@@ -5,7 +5,7 @@ import { shikiPlugin } from '@vuepress/plugin-shiki'
 import { mermaidPlugin } from './mermaid'
 import { plausiblePlugin } from './plausible'
 import { defineUserConfig } from 'vuepress'
-
+import { searchPlugin } from '@vuepress/plugin-search'
 
 export default defineUserConfig({
     bundler: viteBundler(),
@@ -30,9 +30,12 @@ export default defineUserConfig({
         ],
     }),
     plugins: [
-        slimsearchPlugin({
-            indexContent: true,
-            suggestion: false
+        // slimsearchPlugin({
+        //     indexContent: true,
+        //     suggestion: false
+        // }),
+        searchPlugin({
+          maxSuggestions: 10,
         }),
         plausiblePlugin({
             'domain': 'ansible.build'

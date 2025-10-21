@@ -26,6 +26,7 @@
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.24",
     "@vuepress/client": "2.0.0-rc.24",
+    "@vuepress/plugin-search": "2.0.0-rc.115",
     "@vuepress/plugin-shiki": "2.0.0-rc.112",
     "@vuepress/plugin-slimsearch": "2.0.0-rc.112",
     "@vuepress/theme-default": "2.0.0-rc.112",
