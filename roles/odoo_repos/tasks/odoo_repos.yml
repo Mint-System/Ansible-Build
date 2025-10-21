@@ -27,6 +27,7 @@
   when:
     - item.url is regex('git@') and odoo_repo_key_file is defined
   loop: "{{ odoo_repos }}"
+  notify: Restart odoo container
 
 - name: Checkout repo commit with ssh
   ansible.builtin.git:
@@ -41,7 +42,6 @@
     - item.url is regex('git@') and odoo_repo_key_file is defined
     - item.sparse_dirs is not defined
   loop: "{{ odoo_repos }}"
-  notify: Restart odoo container
 
 - name: Shallow ssh clone with sparse checkout
   shell: |
@@ -61,7 +61,6 @@
     - item.sparse_dirs is defined
     - odoo_repo_key_file is defined
   loop: "{{ odoo_repos }}"
-  notify: Restart odoo container
 
 - name: Pull repo branch with http
   ansible.builtin.git:
@@ -75,6 +74,7 @@
     - item.url is regex('https://')
     - item.sparse_dirs is not defined
   loop: "{{ odoo_repos }}"
+  notify: Restart odoo container
 
 - name: Checkout repo commit with http
   ansible.builtin.git:
@@ -88,7 +88,6 @@
     - item.url is regex('https://')
     - item.sparse_dirs is not defined
   loop: "{{ odoo_repos }}"
-  notify: Restart odoo container
 
 - name: Shallow http clone with sparse checkout
   shell: |
@@ -107,7 +106,6 @@
     - item.url is regex('https://')
     - item.sparse_dirs is defined
   loop: "{{ odoo_repos }}"
-  notify: Restart odoo container
 
 - name: Add repo to git config
   community.general.git_config:
