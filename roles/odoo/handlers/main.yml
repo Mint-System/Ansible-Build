@@ -1,16 +1,18 @@
 ---
 - name: Restart odoo container
-  community.docker.docker_container:
-    name: "{{ odoo_hostname }}"
-    restart: true
-  when: odoo_config_map|length == 1
+  block:
+    - name: Restart single odoo container
+      community.docker.docker_container:
+        name: "{{ odoo_hostname }}"
+        restart: true
+      when: odoo_config_map|length == 1
 
-- name: Restart odoo container
-  community.docker.docker_container:
-    name: "{{ odoo_hostname }}-{{ item.name }}"
-    restart: true
-  loop: "{{ odoo_config_map }}"
-  when: odoo_config_map|length > 1
+    - name: Restart multiple odoo container
+      community.docker.docker_container:
+        name: "{{ odoo_hostname }}-{{ item.name }}"
+        restart: true
+      loop: "{{ odoo_config_map }}"
+      when: odoo_config_map|length > 1
 
 - name: Build odoo custom image
   community.docker.docker_image:
@@ -22,8 +24,3 @@
     force_source: true
     force_tag: true
     state: present
-
-# FIXME: Add option to select all Odoo databases
-- name: Update odoo modules list
-  command: docker-odoo-shell -d shop-dev -c {{ odoo_hostname }} -p "env['base.module.update'].update_module()"
-  changed_when: false
