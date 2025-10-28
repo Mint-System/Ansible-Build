@@ -7,7 +7,8 @@ on:
       - "main"
 
 jobs:
-  task-all:
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
