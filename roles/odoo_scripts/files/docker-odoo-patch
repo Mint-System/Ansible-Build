@@ -1,60 +1,60 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Patch Odoo database from container."
-    echo "Syntax: $SCRIPT [-d|-c|-f|-V|help]"
-    echo "Example: $SCRIPT -d erp-dev -c odoo06 -f tmp/sale/v14.0.1.0.0.sql"
-    echo "options:"
-    echo "  -d    Database name. Defaults to 'odoo'."
-    echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -f    Odoo database patch file."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Patch Odoo database from container.'
+    echo "Syntax: $script [-d|-c|-f|-V|help]"
+    echo 'Example: $script -d erp-dev -c odoo06 -f tmp/sale/v14.0.1.0.0.sql'
+    echo 'options:'
+    echo '  -d    Database name. Defaults to '\''odoo'\''.'
+    echo '  -c    Docker container. Defaults to '\''odoo'\''.'
+    echo '  -f    Odoo database patch file.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
-while getopts ":c: :d: :f: :V" opt; do
+while getopts ':c: :d: :f: :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        d) DATABASE="$OPTARG";;
-        f) FILE="$OPTARG";;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        d) database="$OPTARG";;
+        f) file="$OPTARG";;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='odoo'}
-: ${DATABASE:='odoo'}
+: "${container:=odoo}"
+: "${database:=odoo}"
 
 # Verify variables
-[[ -z "$FILE" ]] && { echo "Parameter -f|file is empty" ; exit 1; }
+[[ -z "$file" ]] && { echo 'Parameter -f|file is empty' ; exit 1; }
 
 # Set alias
-docker_exec_bash="docker exec -e DATABASE=$DATABASE $CONTAINER /bin/bash -c"
+docker_exec_bash="docker exec -e DATABASE=$database $container /bin/bash -c"
 
 # Patch database
-echo "Patch database $DATABASE with $FILE."
-cat $FILE | $docker_exec_bash 'psql postgres://$USER:$PASSWORD@$HOST/$DATABASE'
+echo "Patch database $database with $file."
+cat $file | $docker_exec_bash 'psql postgres://$USER:$PASSWORD@$HOST/$database'
 
-echo "Patching for Odoo database $DATABASE has finished."
+echo "Patching for Odoo database $database has finished."

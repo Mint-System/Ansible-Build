@@ -1,96 +1,96 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.1"
+script=$(basename "$0")
+version="1.0.1"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Restore Odoo database from zip file."
-    echo "Syntax: $SCRIPT [-d|-c|-f|-r|-u|-V|help]"
-    echo "Example: $SCRIPT -d erp-dev -c odoo06 -f tmp/erp.zip -r"
-    echo "options:"
-    echo "  -d    Database name. Defaults to filename."
-    echo "  -c    Odoo container. Defaults to 'odoo'."
-    echo "  -f    Odoo database backup file. Defaults to '/var/tmp/odoo.zip'."
-    echo "  -r    Replace existing database."
-    echo "  -u    Update database uuid."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Restore Odoo database from zip file.'
+    echo "Syntax: $script [-d|-c|-f|-r|-u|-V|help]"
+    echo 'Example: $script -d erp-dev -c odoo06 -f tmp/erp.zip -r'
+    echo 'options:'
+    echo '  -d    Database name. Defaults to filename.'
+    echo '  -c    Odoo container. Defaults to '\''odoo'\''.'
+    echo '  -f    Odoo database backup file. Defaults to '\''/var/tmp/odoo.zip'\''.'
+    echo '  -r    Replace existing database.'
+    echo '  -u    Update database uuid.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Initialise option flag with a false value
-REPLACE='false'
-UPDATE='false'
+replace='false'
+update='false'
 
 # Process params
-while getopts ":c: :d: :f: :r :u :V" opt; do
+while getopts ':c: :d: :f: :r :u :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        d) DATABASE="$OPTARG";;
-        f) FILE="$OPTARG";;
-        r) REPLACE='true';;
-        u) UPDATE='true';;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        d) database="$OPTARG";;
+        f) file="$OPTARG";;
+        r) replace='true';;
+        u) update='true';;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='odoo'}
-: ${FILE:='/var/tmp/odoo.zip'}
+: "${container:=odoo}"
+: "${file:=/var/tmp/odoo.zip}"
 
 # Get file and directory name
-DIR=`dirname "$FILE"`
-FILENAME=`basename "$FILE"`
-: ${DATABASE:="${FILENAME::-4}"}
+dir=`dirname "$file"`
+filename=`basename "$file"`
+: ${database:="${filename::-4}"}
 
-echo "Requesting restore for Odoo database from $FILENAME to $DATABASE ..."
+echo "Requesting restore for Odoo database from $filename to $database ..."
 
-echo "Unzip archive."
-cd $DIR
-unzip -q -o $FILENAME
+echo 'Unzip archive.'
+cd $dir
+unzip -q -o $filename
 
 # Clear database
-if $REPLACE; then
-    docker-odoo-drop -c "$CONTAINER" -d "$DATABASE"
+if $replace; then
+    docker-odoo-drop -c "$container" -d "$database"
 fi
 
-echo "Copy filestore."
-docker cp filestore/ "$CONTAINER:/var/lib/odoo/filestore/$DATABASE"
-# docker exec -u root "$CONTAINER" chown -R odoo:odoo "/var/lib/odoo/filestore/$DATABASE"
+echo 'Copy filestore.'
+docker cp filestore/ "$container:/var/lib/odoo/filestore/$database"
+# docker exec -u root "$container" chown -R odoo:odoo "/var/lib/odoo/filestore/$database"
 
-echo "Create database $DATABASE."
-docker exec $CONTAINER /bin/bash -c "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER -T template0 $DATABASE"
+echo "Create database $database."
+docker exec $container /bin/bash -c "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER -T template0 $database"
 
-echo "Restore database from $DATABASE."
-cat ./dump.sql | docker exec -i $CONTAINER /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE"
+echo "Restore database from $database."
+cat ./dump.sql | docker exec -i $container /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$database"
 
-echo "Cleanup source files."
+echo 'Cleanup source files.'
 rm -rf dump.sql filestore
 
 # Update database uuid
-if $UPDATE; then
-    command -v uuidgen >/dev/null 2>&1 || { echo >&2 "uuidgen not found: apt-get install uuid-runtime"; exit 1; }
-    UUID=$(uuidgen)
-    echo "Update database uuid."
-    QUERY="UPDATE ir_config_parameter SET value = '$UUID' WHERE key = 'database.uuid';"
-    docker exec $CONTAINER /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$DATABASE -c \"$QUERY\""
+if $update; then
+    command -v uuidgen >/dev/null 2>&1 || { echo >&2 'uuidgen not found: apt-get install uuid-runtime'; exit 1; }
+    uuid=$(uuidgen)
+    echo 'Update database uuid.'
+    query="UPDATE ir_config_parameter SET value = '$uuid' WHERE key = 'database.uuid';"
+    docker exec $container /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$database -c \"$query\""
 fi
 
-echo "The restore for Odoo database $DATABASE has finished."
+echo "The restore for Odoo database $database has finished."

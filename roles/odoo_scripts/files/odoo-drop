@@ -1,70 +1,70 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Drop Odoo database."
-  echo "Syntax: $SCRIPT [-p|-d|-h|-V|help]"
-  echo "Example: $SCRIPT -p secret -d odoo -h https://odoo.example.com"
-  echo "options:"
-  echo "  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and 'admin'."
-  echo "  -d    Database name."
-  echo "  -h    Odoo host. Defaults to 'http://localhost:8069'."
-  echo "  -v    Show $SCRIPT version."
-  echo "  help  Show $SCRIPT manual."
+  echo 'Description: Drop Odoo database.'
+  echo "Syntax: $script [-p|-d|-h|-V|help]"
+  echo 'Example: $script -p secret -d odoo -h https://odoo.example.com'
+  echo 'options:'
+  echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and '\''admin'\''.'
+  echo '  -d    Database name.'
+  echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
+  echo '  -v    Show $script version.'
+  echo '  help  Show $script manual.'
   echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
-while getopts ":p: :d: :h: :V" opt; do
+while getopts ':p: :d: :h: :V' opt; do
     case $opt in
-        p) PASSWORD="$OPTARG";;
-        d) DATABASE="$OPTARG";;
-        h) ODOO_HOST="$OPTARG";;
-        V) echo "$SCRIPT version $VERSION"
+        p) password="$OPTARG";;
+        d) database="$OPTARG";;
+        h) odoo_host="$OPTARG";;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${PASSWORD:=${ODOO_MASTER_PASSWORD:='odoo'}}
-: ${ODOO_HOST:='http://localhost:8069'}
+: "${password:=${ODOO_MASTER_PASSWORD:=odoo}}"
+: "${odoo_host:=http://localhost:8069}"
 
 # Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
 # Ask for confirmation
-read -p "Please confirm the deletion of $DATABASE on $ODOO_HOST (y/n)? " REPLY
-if [[ $REPLY == y ]]; then
+read -p "Please confirm the deletion of $database on $odoo_host (y/n)? " reply
+if [[ $reply == y ]]; then
 
-    echo "Deleting Odoo database $DATABASE ..."
+    echo "Deleting Odoo database $database ..."
 
     # Request drop with curl
-    RESPONSE=$(curl \
-        -F "master_pwd=${PASSWORD}" \
-        -F "name=${DATABASE}" \
-        "${ODOO_HOST%/}/web/database/drop")
+    response=$(curl \
+        -F "master_pwd=${password}" \
+        -F "name=${database}" \
+        "${odoo_host%/}/web/database/drop")
 
-    echo "$RESPONSE" | grep 'error' && exit 1
+    echo "$response" | grep 'error' && exit 1
 
-    echo "The deletion of Odoo database $DATABASE has finished."
+    echo "The deletion of Odoo database $database has finished."
 
 fi

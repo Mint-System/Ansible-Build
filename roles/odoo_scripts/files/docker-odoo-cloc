@@ -1,50 +1,50 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Count lines of code for Odoo database."
-    echo "Syntax: $SCRIPT [-c|-d|-V|help]"
-    echo "Example: $SCRIPT -c odoo08 -d shop"
-    echo "options:"
-    echo "  -c    Docker database container. Defaults to 'odoo'."
-    echo "  -d    Database name. Defaults to 'odoo'."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Count lines of code for Odoo database.'
+    echo "Syntax: $script [-c|-d|-V|help]"
+    echo 'Example: $script -c odoo08 -d shop'
+    echo 'options:'
+    echo '  -c    Docker database container. Defaults to '\''odoo'\''.'
+    echo '  -d    Database name. Defaults to '\''odoo'\''.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-  Help
+if [[ "$1" == 'help' ]]; then
+  help
   exit
 fi
 
 # Process params
-while getopts ":c: :d: :V" opt; do
+while getopts ':c: :d: :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG" ;;
-        d) DATABASE="$OPTARG" ;;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG" ;;
+        d) database="$OPTARG" ;;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='odoo'}
+: "${container:=odoo}"
 
 # Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
-docker exec -i $CONTAINER /bin/bash -c "odoo cloc -c /etc/odoo/odoo.conf -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --stop-after-init --no-http"
+docker exec -i $container /bin/bash -c "odoo cloc -c /etc/odoo/odoo.conf -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --stop-after-init --no-http"

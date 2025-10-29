@@ -312,7 +312,7 @@ activate-venv() {
     source "venv$GIT_BRANCH/bin/activate"
 }
 
-install() {
+install() { 
     echo "Setup Ansible log file"
     sudo touch /var/log/ansible.log
     sudo chown $USER: /var/log/ansible.log
@@ -632,7 +632,7 @@ test-scripts() {
         docker volume rm postgres01
         docker-volume-restore -v postgres01 -f /var/tmp/postgres01/postgres01.tar
         ansible-playbook -i test plays/localhost.yml -t postgres --skip-tags depends
-        docker-postgres-list -c postgres01 | grep "test"
+        docker-postgres-list -c postgres01 | grep "example"
     fi
 }
 

@@ -1,61 +1,61 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Clear all views of Odoo instance."
-  echo "Syntax: $SCRIPT [-c|-d|-V|help]"
-  echo "Example: $SCRIPT -c odoo01 -d erp"
-  echo "options:"
-  echo "  -c    Docker container. Defaults to 'odoo'."
-  echo "  -d    Database name. Defaults to 'odoo'."
-  echo "  -v    Show $SCRIPT version."
-  echo "  help  Show $SCRIPT manual."
+  echo 'Description: Clear all views of Odoo instance.'
+  echo "Syntax: $script [-c|-d|-V|help]"
+  echo 'Example: $script -c odoo01 -d erp'
+  echo 'options:'
+  echo '  -c    Docker container. Defaults to '\''odoo'\''.'
+  echo '  -d    Database name. Defaults to '\''odoo'\''.'
+  echo '  -v    Show $script version.'
+  echo '  help  Show $script manual.'
   echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-  Help
+if [[ "$1" == 'help' ]]; then
+  help
   exit
 fi
 
 # Process params
-while getopts ":c: :d: :V" opt; do
+while getopts ':c: :d: :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG" ;;
-        d) DATABASE="$OPTARG" ;;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG" ;;
+        d) database="$OPTARG" ;;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Verify variables
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
 echo "Archive views with prefix 'mint_system'."
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"SELECT id,name from ir_ui_view WHERE name like '%mint_system%';\""
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE ir_ui_view SET active=false WHERE name like '%mint_system%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"SELECT id,name from ir_ui_view WHERE name like '%mint_system%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"UPDATE ir_ui_view SET active=false WHERE name like '%mint_system%';\""
 
 echo "Archive views with prefix 'Odoo Studio:'."
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"SELECT id,name from ir_ui_view WHERE name like '%Odoo Studio:%';\""
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"UPDATE ir_ui_view SET active=false WHERE name like '%Odoo Studio:%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"SELECT id,name from ir_ui_view WHERE name like '%Odoo Studio:%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"UPDATE ir_ui_view SET active=false WHERE name like '%Odoo Studio:%';\""
 
-echo "Delete all active views for $DATABASE in $CONTAINER :"
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"DELETE FROM report_layout WHERE view_id IN (SELECT id FROM ir_ui_view WHERE active = TRUE);\""
-docker exec "$CONTAINER" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$DATABASE -c \"WITH RECURSIVE views_to_delete AS (SELECT id, inherit_id FROM ir_ui_view WHERE active = TRUE AND inherit_id IS NULL UNION ALL SELECT v.id, v.inherit_id FROM ir_ui_view v JOIN views_to_delete p ON v.inherit_id = p.id) DELETE FROM ir_ui_view WHERE id IN (SELECT id FROM views_to_delete);\""
+echo "Delete all active views for $database in $container :"
+docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"DELETE FROM report_layout WHERE view_id IN (SELECT id FROM ir_ui_view WHERE active = TRUE);\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"WITH RECURSIVE views_to_delete AS (SELECT id, inherit_id FROM ir_ui_view WHERE active = TRUE AND inherit_id IS NULL UNION ALL SELECT v.id, v.inherit_id FROM ir_ui_view v JOIN views_to_delete p ON v.inherit_id = p.id) DELETE FROM ir_ui_view WHERE id IN (SELECT id FROM views_to_delete);\""
 
-echo "Update all modules with: docker-odoo-update -c $CONTAINER -d $DATABASE -u base"
+echo "Update all modules with: docker-odoo-update -c $container -d $database -u base"
 echo "Then unarchive views with prefix 'mint_system' and 'Odoo Studio:'."

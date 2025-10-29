@@ -1,54 +1,54 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Uninstall Odoo modules in Docker container."
-    echo "Syntax: $SCRIPT [-c|-d|-u|-V|help]"
-    echo "Example: $SCRIPT -c odoo01 -d erp -u hr_timesheet"
-    echo "options:"
-    echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -d    Database name."
-    echo "  -u    Name of Odoo module to uninstall."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Uninstall Odoo modules in Docker container.'
+    echo "Syntax: $script [-c|-d|-u|-V|help]"
+    echo 'Example: $script -c odoo01 -d erp -u hr_timesheet'
+    echo 'options:'
+    echo '  -c    Docker container. Defaults to '\''odoo'\''.'
+    echo '  -d    Database name.'
+    echo '  -u    Name of Odoo module to uninstall.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
-while getopts ":c: :d: :u: :V" opt; do
+while getopts ':c: :d: :u: :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        d) DATABASE="$OPTARG";;
-        u) MODULE="$OPTARG";;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        d) database="$OPTARG";;
+        u) module="$OPTARG";;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='odoo'}
+: "${container:=odoo}"
 
 # Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
 # Remove with Docker exec
-echo "Remove module $MODULE on database $DATABASE on container $CONTAINER."
-docker exec $CONTAINER /bin/bash -c "echo \"self.env['ir.module.module'].search([('name', '=', '$MODULE')]).button_immediate_uninstall()\" | odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+echo "Remove module $module on database $database on container $container."
+docker exec $container /bin/bash -c "echo \"self.env['ir.module.module'].search([('name', '=', '$module')]).button_immediate_uninstall()\" | odoo shell -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
