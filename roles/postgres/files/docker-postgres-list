@@ -1,39 +1,39 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
 
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: List all databases in Postgres Docker container."
-    echo "Syntax: $SCRIPT [-c|help]"
-    echo "Example: $SCRIPT -c postgres01"
-    echo "options:"
+    echo 'Description: List all databases in Postgres Docker container.'
+    echo "Syntax: $script [-c|help]"
+    echo 'Example: $script -c postgres01'
+    echo 'options:'
     echo "  -c    Docker container. Defaults to 'postgres'."
-    echo "  help  Show $SCRIPT manual."
+    echo "  help  Show $script manual."
     echo
 }
 
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit 0
 fi
 
-CONTAINER="postgres"  # default
+container='postgres'  # default
 while getopts ":c:" opt; do
   case $opt in
-    c) CONTAINER="$OPTARG";;
-    \?) echo "Invalid option -$OPTARG" >&2; Help; exit 1;;
+    c) container="$OPTARG";;
+    \?) echo "Invalid option -$OPTARG" >&2; help; exit 1;;
   esac
 done
 
 # Validate container is set
-[[ -z "$CONTAINER" ]] && { echo "Container name is required"; exit 1; }
+[[ -z "$container" ]] && { echo 'Container name is required'; exit 1; }
 
 docker exec \
-  --env PGPASSWORD="$(docker exec "$CONTAINER" printenv POSTGRES_PASSWORD)" \
-  "$CONTAINER" \
-  psql -U "$(docker exec "$CONTAINER" printenv POSTGRES_USER)" \
+  --env PGPASSWORD="$(docker exec "$container" printenv POSTGRES_PASSWORD)" \
+  "$container" \
+  psql -U "$(docker exec "$container" printenv POSTGRES_USER)" \
   -h localhost -p 5432 -d postgres -tAc "SELECT datname FROM pg_database WHERE datistemplate = false AND datname NOT IN ('template0', 'template1');"

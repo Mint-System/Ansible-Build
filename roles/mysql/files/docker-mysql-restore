@@ -1,80 +1,80 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
 
 # Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Restore MySQL/MariaDB Docker database."
-  echo "Syntax: $SCRIPT [-c|-d|-f|-i|help]"
-  echo "Example: $SCRIPT -c mqysl01 -d moodle -f /tmp/dump.sql"
-  echo "options:"
-  echo "  -c    Docker container name. Defaults to 'mysql'."
-  echo "  -d    Name of database. Defaults to filename"
-  echo "  -f    Path to sql dump."
-  echo "  -i    Create database."
-  echo "  help  Show $SCRIPT manual."
+  echo 'Description: Restore MySQL/MariaDB Docker database.'
+  echo "Syntax: $script [-c|-d|-f|-i|help]"
+  echo 'Example: $script -c mqysl01 -d moodle -f /tmp/dump.sql'
+  echo 'options:'
+  echo '  -c    Docker container name. Defaults to '\''mysql'\''.'
+  echo '  -d    Name of database. Defaults to filename'
+  echo '  -f    Path to sql dump.'
+  echo '  -i    Create database.'
+  echo '  help  Show $script manual.'
   echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Initialise option flag with a false value
-CREATE='false'
+create='false'
 
 # Process params
-while getopts ":c: :d: :f: :i" opt; do
+while getopts ':c: :d: :f: :i' opt; do
   case $opt in
-    c) CONTAINER="$OPTARG";;
-    d) DATABASE="$OPTARG";;
-    f) FILE="$OPTARG";;
-    i) CREATE='true';;
+    c) container="$OPTARG";;
+    d) database="$OPTARG";;
+    f) file="$OPTARG";;
+    i) create='true';;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
+    help
     exit 1;;
   esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='mysql'}
-FILENAME=$(basename -- "$FILE")
-: ${DATABASE:="${FILENAME%%.*}"}
+: "${container:=mysql}"
+filename=$(basename -- "$file")
+: "${database:="${filename%%.*}"}"
 
 # Verify variables
-[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty' ; exit 1; }
+[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 
 # Get image
-IMAGE=$(docker inspect $CONTAINER --format='{{.Config.Image}}')
+image=$(docker inspect $container --format='{{.Config.Image}}')
 
-if $CREATE; then
-    if [[ "$IMAGE" =~ "mariadb" ]]; then
-        echo "Create MariaDB database $DATABASE ..."
-        echo "CREATE DATABASE $DATABASE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -p\$MARIADB_ROOT_PASSWORD"
+if $create; then
+    if [[ "$image" =~ 'mariadb' ]]; then
+        echo "Create MariaDB database $database ..."
+        echo "CREATE DATABASE $database" | docker exec -i "$container" /bin/bash -c "mysql -p\$MARIADB_ROOT_PASSWORD"
     fi
-    if [[ "$IMAGE" =~ "mysql" ]]; then
-        echo "Create MySQL database $DATABASE ..."
-        echo "CREATE DATABASE $DATABASE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD"
+    if [[ "$image" =~ 'mysql' ]]; then
+        echo "Create MySQL database $database ..."
+        echo "CREATE DATABASE $database" | docker exec -i "$container" /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD"
     fi
 fi
 
 # Start restore
-if [[ "$IMAGE" =~ "mariadb" ]]; then
-  echo "Restore MariaDB database $DATABASE from $FILE ..."
-  cat "$FILE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD --force $DATABASE"
+if [[ "$image" =~ 'mariadb' ]]; then
+  echo "Restore MariaDB database $database from $file ..."
+  cat "$file" | docker exec -i "$container" /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD --force $database"
 fi
-if [[ "$IMAGE" =~ "mysql" ]]; then
-  echo "Restore MySQL database $DATABASE from $FILE ..."
-  cat "$FILE" | docker exec -i "$CONTAINER" /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD $DATABASE"
+if [[ "$image" =~ 'mysql' ]]; then
+  echo "Restore MySQL database $database from $file ..."
+  cat "$file" | docker exec -i "$container" /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD $database"
 fi
 
 # Notify if backup has finished
-echo "The Docker MySQL/MariaDB restore has finished."
+echo 'The Docker MySQL/MariaDB restore has finished.'

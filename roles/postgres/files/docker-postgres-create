@@ -1,56 +1,56 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
 
 # Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Create database in Postgres container."
-  echo "Syntax: $SCRIPT [-c|-d|help]"
-  echo "Example: $SCRIPT -c postgres01 -d n8n "
-  echo "options:"
+  echo 'Description: Create database in Postgres container.'
+  echo "Syntax: $script [-c|-d|help]"
+  echo 'Example: $script -c postgres01 -d n8n '
+  echo 'options:'
   echo "  -c    Docker container name. Defaults to 'postgres'."
-  echo "  -d    Name of database."
-  echo "  help  Show $SCRIPT manual."
+  echo '  -d    Name of database.'
+  echo "  help  Show $script manual."
   echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
 while getopts ":c: :d: :f:" opt; do
   case $opt in
-    c) CONTAINER="$OPTARG";;
-    d) DATABASE="$OPTARG";;
+    c) container="$OPTARG";;
+    d) database="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
+    help
     exit 1;;
   esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='postgres'}
+: ${container:='postgres'}
 
 # Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
 # Get existing databases
-DATABASES=$(docker-postgres-list -c "$CONTAINER")
+databases=$(docker-postgres-list -c "$container")
 
 # Create database if not exists
-if [[ "$DATABASES"  =~ "$DATABASE" ]]; then
-  echo "Database $DATABASE already exists."
+if [[ "$databases"  =~ "$database" ]]; then
+  echo "Database $database already exists."
   exit 0
 fi
 
-echo "Create Postgres database $DATABASE ..."
-docker exec -i $CONTAINER /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -c 'CREATE DATABASE \"$DATABASE\";'"
-echo "Database $DATABASE has been created."
+echo "Create Postgres database $database ..."
+docker exec -i $container /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -c 'CREATE DATABASE \"$database\";'"
+echo "Database $database has been created."

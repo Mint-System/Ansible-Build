@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-REPOSITORY=https://ansible.build
+repository='https://ansible.build'
 
-SCRIPTS=(
+scripts=(
     docker-odoo-backup
     docker-odoo-clear-assets
     docker-odoo-clear-views
@@ -27,21 +27,21 @@ SCRIPTS=(
     odoo-restore
 )
 
-INSTALL_DIR="/usr/local/bin"
-COMPLETION_DIR="/etc/bash_completion.d"
+install_dir='/usr/local/bin'
+completion_dir='/etc/bash_completion.d'
 
-if [[ "$1" == "--user" ]]; then
-    INSTALL_DIR="$HOME/.local/bin"
-    COMPLETION_DIR="$HOME/.bash_completion.d"
-    mkdir -p "$INSTALL_DIR" "$COMPLETION_DIR"
+if [[ "$1" == '--user' ]]; then
+    install_dir="$HOME/.local/bin"
+    completion_dir="$HOME/.bash_completion.d"
+    mkdir -p "$install_dir" "$completion_dir"
 fi
 
-for SCRIPT in ${SCRIPTS[@]}; do
-    echo "Installing $SCRIPT in $INSTALL_DIR ..."
-    curl -L "$REPOSITORY/odoo_scripts/$SCRIPT" -o "$INSTALL_DIR/$SCRIPT"
-    chmod +x "$INSTALL_DIR/$SCRIPT"
+for script in "${scripts[@]}"; do
+    echo "Installing $script in $install_dir ..."
+    curl -L "$repository/odoo_scripts/$script" -o "$install_dir/$script"
+    chmod +x "$install_dir/$script"
 done
 
-echo "Installing docker-odoo completion scripts in $COMPLETION_DIR ..."
-curl -L "$REPOSITORY/odoo_scripts/docker-odoo" -o "$COMPLETION_DIR/docker-odoo"
-chmod +x "$COMPLETION_DIR/docker-odoo"
+echo "Installing docker-odoo completion scripts in $completion_dir ..."
+curl -L "$repository/odoo_scripts/docker-odoo" -o "$completion_dir/docker-odoo"
+chmod +x "$completion_dir/docker-odoo"

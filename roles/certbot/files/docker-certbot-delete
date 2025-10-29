@@ -1,53 +1,53 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
 
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Delete Certbot certificate."
-    echo "Syntax: $SCRIPT [-c|-d|help]"
-    echo "Example: $SCRIPT -c example.odoo.com -d /usr/share/certbot01"
-    echo "options:"
-    echo "  -c    Certificate name."
-    echo "  -d    Certbot data dir."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Delete Certbot certificate.'
+    echo "Syntax: $script [-c|-d|help]"
+    echo 'Example: $script -c example.odoo.com -d /usr/share/certbot01'
+    echo 'options:'
+    echo '  -c    Certificate name.'
+    echo '  -d    Certbot data dir.'
+    echo '  help  Show $script manual.'
     echo
 }
 
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
 while getopts ":c: :d:" opt; do
   case $opt in
-    c) CERTIFICATE="$OPTARG"
+    c) certificate="$OPTARG"
     ;;
-    d) CERTBOT_DATA_DIR="$OPTARG"
+    d) certbot_data_dir="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
+    help
     exit 1;;
   esac
 done
 
 # Verify variables
-[[ -z "$CERTIFICATE" ]] && { echo "Parameter -c|certificate is empty" ; exit 1; }
-[[ -z "$CERTBOT_DATA_DIR" ]] && { echo "Parameter -d|certbot data dir is empty" ; exit 1; }
+[[ -z "$certificate" ]] && { echo 'Parameter -c|certificate is empty' ; exit 1; }
+[[ -z "$certbot_data_dir" ]] && { echo 'Parameter -d|certbot data dir is empty' ; exit 1; }
 
 # Ask for confirmation
-read -p "Please confirm the deletion of $CERTIFICATE in $CERTBOT_DATA_DIR (y/n)? " REPLY
-if [[ $REPLY == y ]]; then
-  echo "Deleting certificate $CERTIFICATE ..."
+read -p "Please confirm the deletion of $certificate in $certbot_data_dir (y/n)? " reply
+if [[ $reply == y ]]; then
+  echo "Deleting certificate $certificate ..."
   
   # Run the delete command in certbot container
-  docker run --rm --name "${CERTIFICATE}-tmp" \
-  -v "$CERTBOT_DATA_DIR/:/etc/letsencrypt/" \
-  -v "$CERTBOT_DATA_DIR/www/:/var/www/certbot/" \
+  docker run --rm --name "${certificate}-tmp" \
+  -v "$certbot_data_dir/:/etc/letsencrypt/" \
+  -v "$certbot_data_dir/www/:/var/www/certbot/" \
   certbot/certbot \
-  delete --cert-name $CERTIFICATE --non-interactive
+  delete --cert-name $certificate --non-interactive
 
 fi

@@ -1,102 +1,102 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Backup Odoo database from container."
-    echo "Syntax: $SCRIPT [-d|-c|-o|-V|help]"
-    echo "Example: $SCRIPT -d erp -c odoo06 -o tmp/erp.zip"
-    echo "options:"
+    echo 'Description: Backup Odoo database from container.'
+    echo "Syntax: $script [-d|-c|-o|-V|help]"
+    echo 'Example: $script -d erp -c odoo06 -o tmp/erp.zip'
+    echo 'options:'
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -o    Output directory with or without filename. Defaults to '/var/tmp'."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Check requiremements
-command -v zip >/dev/null 2>&1 || { echo >&2 "zip not found: apt-get install zip"; exit 1; }
+command -v zip >/dev/null 2>&1 || { echo >&2 'zip not found: apt-get install zip'; exit 1; }
 
 # Process params
 while getopts ":d: :c: :o: :V" opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        d) DATABASE="$OPTARG";;
-        o) OUTPUT="$OPTARG";;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        d) database="$OPTARG";;
+        o) output="$OPTARG";;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${DATABASE:='odoo'}
-: ${CONTAINER:='odoo'}
-: ${OUTPUT:='/var/tmp'}
+: ${database:='odoo'}
+: ${container:='odoo'}
+: ${output:='/var/tmp'}
 
 # Check if dir var is file or folder
-if [ "${OUTPUT: -4}" = ".zip" ];then
-    DIR=`dirname "$OUTPUT"`
-    FILE=`basename "$OUTPUT"`
+if [[ "${output: -4}" == '.zip' ]];then
+    dir=$(dirname "$output")
+    file=$(basename "$output")
 else
-    DIR=$OUTPUT
+    dir=$output
 fi
 
 # Ensure output directory exists
-mkdir -p $DIR
+mkdir -p $dir
 
 # Ensure file name is set
-if [ -z "$FILE" ];then
-  FILE="$DATABASE.zip"
+if [[ -z "$file" ]];then
+  file="$database.zip"
 fi
 
 # Set file path
-FILEPATH="${DIR}/${FILE}"
+filepath="${dir}/${file}"
 
 # Switch container name with id
-CONTAINER_ID=$(docker ps -f "name=^${CONTAINER}" -q | tail -n1)
-[[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
+container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-echo "Backup database $DATABASE to $FILEPATH ..."
+echo "Backup database $database to $filepath ..."
 
 # Copy filestore
-echo "Copy filestore."
-rm -rf "$DIR/filestore"
-docker cp "$CONTAINER_ID:/var/lib/odoo/filestore/$DATABASE" "$DIR/filestore"
+echo 'Copy filestore.'
+rm -rf "$dir/filestore"
+docker cp "$container_id:/var/lib/odoo/filestore/$database" "$dir/filestore"
 
 # Set alias
-docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
+docker_exec_bash="docker exec $container_id /bin/bash -c"
 
 # Dump database
-echo "Dump database."
-$docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" pg_dump -h \"\$HOST\" -U \"\$USER\" $DATABASE" > "$DIR/dump.sql"
+echo 'Dump database.'
+$docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" pg_dump -h \"\$HOST\" -U \"\$USER\" $database" > "$dir/dump.sql"
 
 # Zip everything
-echo "Zip filestore and dump to $FILE."
-rm -f "$FILEPATH"
-cd "$DIR"
-zip -q -r "$FILE" ./dump.sql ./filestore
+echo "Zip filestore and dump to $file."
+rm -f "$filepath"
+cd "$dir"
+zip -q -r "$file" ./dump.sql ./filestore
 
 # Remove source files
-echo "Cleanup source files."
+echo 'Cleanup source files.'
 rm -rf dump.sql filestore
 
 # Notify if backup has finished
-echo "The Odoo backup has finished: $FILEPATH"
+echo "The Odoo backup has finished: $filepath"

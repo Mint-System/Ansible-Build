@@ -14,5 +14,3 @@
       tags: odoo_enterprise
     - role: odoo_data
       tags: odoo_data
-    - role: odoo_patches
-      tags: odoo_patches

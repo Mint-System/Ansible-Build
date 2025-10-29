@@ -1,3 +1,0 @@
----
-- name: Remove odoo patches
-  ansible.builtin.include_tasks: remove_odoo_patches.yml

@@ -12,6 +12,11 @@ This section outlines the universal rules and expectations for any LLM agent wor
 
 **Clear Contributions:** All contributions must be submitted via a pull request with a clear, concise commit message and a brief description of the changes.
 
+## Project structure
+
+- `roles/`: In this folder are the Ansible roles. This is the main entry point.
+- `inventories/`: Ignore this folder. It contains the ansible inventory files.
+
 ## Coding conventions
 
 ### Bash

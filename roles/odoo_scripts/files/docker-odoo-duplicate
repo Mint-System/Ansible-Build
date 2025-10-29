@@ -1,105 +1,105 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Duplicate Odoo database in container."
-    echo "Syntax: $SCRIPT [-c|-s|-t|-r|-u|-V|help]"
-    echo "Example: $SCRIPT -c odoo06 -s odoo -t odoo-int -r -u -i"
-    echo "options:"
-    echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -s    Source database name."
-    echo "  -t    Target database name."
-    echo "  -r    Replace existing database."
-    echo "  -u    Update database uuid."
-    echo "  -i    Ignore filestore."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Duplicate Odoo database in container.'
+    echo "Syntax: $script [-c|-s|-t|-r|-u|-V|help]"
+    echo 'Example: $script -c odoo06 -s odoo -t odoo-int -r -u -i'
+    echo 'options:'
+    echo '  -c    Docker container. Defaults to '\''odoo'\''.'
+    echo '  -s    Source database name.'
+    echo '  -t    Target database name.'
+    echo '  -r    Replace existing database.'
+    echo '  -u    Update database uuid.'
+    echo '  -i    Ignore filestore.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Check requiremements
-command -v uuidgen >/dev/null 2>&1 || { echo >&2 "uuidgen not found: apt-get install uuid-runtime"; exit 1; }
+command -v uuidgen >/dev/null 2>&1 || { echo >&2 'uuidgen not found: apt-get install uuid-runtime'; exit 1; }
 
 # Initialise option flag with a false value
-REPLACE='false'
-UPDATE='false'
-COPY_FILESTORE='true'
+replace='false'
+update='false'
+copy_filestore='true'
 
 # Process params
-while getopts ":c: :s: :t: :r :u :i :V" opt; do
+while getopts ':c: :s: :t: :r :u :i :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        s) SOURCE_DATABASE="$OPTARG";;
-        t) TARGET_DATABASE="$OPTARG";;
-        r) REPLACE='true';;
-        u) UPDATE='true';;
-        i) COPY_FILESTORE='false';;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        s) source_database="$OPTARG";;
+        t) target_database="$OPTARG";;
+        r) replace='true';;
+        u) update='true';;
+        i) copy_filestore='false';;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: "${CONTAINER:=odoo}"
+: "${container:=odoo}"
 
 # Verify variables
-[[ -z "$SOURCE_DATABASE" ]] && { echo "Parameter -s|source is empty" ; exit 1; }
-[[ -z "$TARGET_DATABASE" ]] && { echo "Parameter -t|target is empty" ; exit 1; }
-[[ "$TARGET_DATABASE" == "$SOURCE_DATABASE" ]] && { echo "Parameter -s|source and -t|target cannot be the same" ; exit 1; }
+[[ -z "$source_database" ]] && { echo 'Parameter -s|source is empty' ; exit 1; }
+[[ -z "$target_database" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
+[[ "$target_database" == "$source_database" ]] && { echo 'Parameter -s|source and -t|target cannot be the same' ; exit 1; }
 
 # Switch container name with id
-CONTAINER_ID=$(docker ps -f "name=^${CONTAINER}" -q | tail -n1)
-[[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
+container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 # Set alias
-docker_exec_bash="docker exec $CONTAINER_ID /bin/bash -c"
-docker_exec_root_bash="docker exec --user root $CONTAINER_ID /bin/bash -c"
+docker_exec_bash="docker exec $container_id /bin/bash -c"
+docker_exec_root_bash="docker exec --user root $container_id /bin/bash -c"
 
 # Clear database
-if $REPLACE; then
-    docker-odoo-drop -c "$CONTAINER" -d "$TARGET_DATABASE"
+if $replace; then
+    docker-odoo-drop -c "$container" -d "$target_database"
 fi
 
 # Kill datbase connections
-echo "Kill database connections on $SOURCE_DATABASE."
-QUERY="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$SOURCE_DATABASE';"
-$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$QUERY\""
+echo "Kill database connections on $source_database."
+query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$source_database';"
+$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\""
 
 # Duplicate database
-echo "Duplicate database from $SOURCE_DATABASE to $TARGET_DATABASE."
-$docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER -T $SOURCE_DATABASE $TARGET_DATABASE"
+echo "Duplicate database from $source_database to $target_database."
+$docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER -T $source_database $target_database"
 
 # Duplicate filestore
-if $COPY_FILESTORE; then
-    echo "Duplicate filestore from $SOURCE_DATABASE to $TARGET_DATABASE."
+if $copy_filestore; then
+    echo "Duplicate filestore from $source_database to $target_database."
     $docker_exec_root_bash "mkdir -p /var/lib/odoo/filestore"
-    $docker_exec_root_bash "cp -ar /var/lib/odoo/filestore/$SOURCE_DATABASE /var/lib/odoo/filestore/$TARGET_DATABASE"
+    $docker_exec_root_bash "cp -ar /var/lib/odoo/filestore/$source_database /var/lib/odoo/filestore/$target_database"
 fi
 
 # Update database uuid
-if $UPDATE; then
-    UUID=$(uuidgen)
+if $update; then
+    uuid=$(uuidgen)
     echo "Update database uuid."
-    QUERY="UPDATE ir_config_parameter SET value = '$UUID' WHERE key = 'database.uuid';"
-    $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$TARGET_DATABASE -c \"$QUERY\""
+    query="UPDATE ir_config_parameter SET value = '$uuid' WHERE key = 'database.uuid';"
+    $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$target_database -c \"$query\""
 fi
 
 # Notify if backup has finished
-echo "The duplication for Odoo database $TARGET_DATABASE has finished."
+echo "The duplication for Odoo database $target_database has finished."

@@ -1,52 +1,52 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.1.0"
+script=$(basename "$0")
+version="1.1.0"
 
 # Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Run jobs from crontab managed by Ansible."
-  echo "Syntax: $SCRIPT [-n|-i|-V|help]"
-  echo "Example: $SCRIPT -n 'Renew certs for nginx08'"
-  echo "options:"
-  echo "  -n    Name of Ansible cron job."
-  echo "  -id   ID of the Ansible cron job."
-  echo "  -V    Show $SCRIPT version."
-  echo "  help  Show $SCRIPT manual."
+  echo 'Description: Run jobs from crontab managed by Ansible.'
+  echo "Syntax: $script [-n|-i|-V|help]"
+  echo "Example: $script -n 'Renew certs for nginx08'"
+  echo 'options:'
+  echo '  -n    Name of Ansible cron job.'
+  echo '  -id   ID of the Ansible cron job.'
+  echo "  -V    Show $script version."
+  echo '  help  Show $script manual.'
   echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
 while getopts ":n: :i: :V" opt; do
   case $opt in
-    n) ANSIBLE_CRON_NAME=$OPTARG;;
-    i) ANSIBLE_CRON_ID=$OPTARG;;
-    V) echo "$SCRIPT version $VERSION"
+    n) ansible_cron_name=$OPTARG;;
+    i) ansible_cron_id=$OPTARG;;
+    V) echo "$script version $version"
     exit 0
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
+    help
     exit 1;;
   esac
 done
 
-if [[ -z "$ANSIBLE_CRON_NAME" && -z "$ANSIBLE_CRON_ID" ]]; then
-  echo "Error: You must specify either -n <name> or -i <id>."
+if [[ -z "$ansible_cron_name" && -z "$ansible_cron_id" ]]; then
+  echo 'Error: You must specify either -n <name> or -i <id>.'
   exit 1
 fi
 
-ANSIBLE_CRON_JOBS=$(crontab -l | awk '
+ansible_cron_jobs=$(crontab -l | awk '
   BEGIN { job_num = 1 }
   /^#Ansible: / {
     # Capture the full job name (everything after "#Ansible: ")
@@ -57,17 +57,17 @@ ANSIBLE_CRON_JOBS=$(crontab -l | awk '
   }
 ')
 
-if [[ -n "$ANSIBLE_CRON_NAME" ]]; then
-  COMMAND=$(echo "$ANSIBLE_CRON_JOBS" | awk -F'|' -v name="$ANSIBLE_CRON_NAME" '$2 == name { print $3 }')
-elif [[ -n "$ANSIBLE_CRON_ID" ]]; then
-  COMMAND=$(echo "$ANSIBLE_CRON_JOBS" | awk -F'|' -v id="$ANSIBLE_CRON_ID" '$1 == id { print $3 }')
+if [[ -n "$ansible_cron_name" ]]; then
+  command=$(echo "$ansible_cron_jobs" | awk -F'|' -v name="$ansible_cron_name" '$2 == name { print $3 }')
+elif [[ -n "$ansible_cron_id" ]]; then
+  command=$(echo "$ansible_cron_jobs" | awk -F'|' -v id="$ansible_cron_id" '$1 == id { print $3 }')
 fi
 
-if [[ -z "$COMMAND" ]]; then
-  echo "Error: Cron job not found. Maybe try another user?"
+if [[ -z "$command" ]]; then
+  echo 'Error: Cron job not found. Maybe try another user?'
   exit 1
 fi
 
-echo "Running command: $COMMAND"
+echo "Running command: $command"
 echo ""
-eval "$COMMAND"
+eval "$command"

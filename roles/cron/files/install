@@ -1,22 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-REPOSITORY=https://ansible.build
+repository='https://ansible.build'
 
-SCRIPTS=(
+scripts=(
     cron-job-run
     cron-job-list
 )
 
-SCRIPT_DIR=$(dirname "$0")
-for SCRIPT in ${SCRIPTS[@]}; do
+script_dir=$(dirname "$0")
+for script in "${scripts[@]}"; do
 
-    if test -f "$SCRIPT_DIR/$SCRIPT"; then
-        echo "Copy $SCRIPT script ..."
-        cp "$SCRIPT_DIR/$SCRIPT" "/usr/local/bin/$SCRIPT"
+    if [[ -f "$script_dir/$script" ]]; then
+        echo "Copy $script script ..."
+        cp "$script_dir/$script" "/usr/local/bin/$script"
     else
-        echo "Download $SCRIPT script ..."
-        sudo curl -L "$REPOSITORY/cron/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
+        echo "Download $script script ..."
+        sudo curl -L "$repository/$script" -o "/usr/local/bin/$script"
     fi
-    sudo chmod +x "/usr/local/bin/$SCRIPT"
+    sudo chmod +x "/usr/local/bin/$script"
 done

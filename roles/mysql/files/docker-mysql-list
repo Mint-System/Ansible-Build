@@ -19,7 +19,7 @@ help() {
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
+if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
@@ -40,13 +40,9 @@ done
 # Get image
 image=$(docker inspect "$container" --format='{{.Config.Image}}')
 
-if $ALL; then
-  # Get all databases from docker container
-  
-  if [[ "$image" =~ "mariadb" ]]; then
+# Get all databases from docker container
+if [[ "$image" =~ 'mariadb' ]]; then
     docker exec "$container" /bin/bash -c "export MYSQL_PWD=\$MARIADB_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'show databases;'"
-  fi
-  if [[ "$image" =~ "mysql" ]]; then
+elif [[ "$image" =~ 'mysql' ]]; then
     docker exec "$container" /bin/bash -c "export MYSQL_PWD=\$MYSQL_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'show databases;'"
-  fi
 fi

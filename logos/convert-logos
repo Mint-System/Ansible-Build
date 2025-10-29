@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Convert all .jpg files in the current directory to .png
 for file in *.jpg; do
   # Strip the extension to get the base filename
   base="${file%.jpg}"
-  # Convert to .png using ImageMagick's `convert` command
-  convert "$file" "${base}.png"
+  # Convert to .png
+  magick "$file" "${base}.png"
   echo "Converted: $file -> ${base}.png"
 done

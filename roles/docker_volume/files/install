@@ -1,25 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-REPOSITORY=https://ansible.build
+repository='https://ansible.build'
 
-SCRIPTS=(
+scripts=(
     docker-disk-usage
     docker-volume-backup
     docker-volume-restore
     docker-volume-copy
 )
 
-INSTALL_DIR="/usr/local/bin"
+install_dir='/usr/local/bin'
 
-if [[ "$1" == "--user" ]]; then
-    INSTALL_DIR="$HOME/.local/bin"
-    mkdir -p "$INSTALL_DIR"
-    echo "Installing scripts in $INSTALL_DIR"
+if [[ "$1" == '--user' ]]; then
+    install_dir="$HOME/.local/bin"
+    mkdir -p "$install_dir"
+    echo "Installing scripts in $install_dir"
 fi
 
-for SCRIPT in ${SCRIPTS[@]}; do
-    echo "Installing $SCRIPT ..."
-    curl -L "$REPOSITORY/docker_volume/$SCRIPT" -o "$INSTALL_DIR/$SCRIPT"
-    chmod +x "$INSTALL_DIR/$SCRIPT"
+for script in "${scripts[@]}"; do
+    echo "Installing $script ..."
+    curl -L "$repository/docker_volume/$script" -o "$install_dir/$script"
+    chmod +x "$install_dir/$script"
 done

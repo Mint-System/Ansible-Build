@@ -76,7 +76,6 @@
 | ![odoo_data logo](/logos/odoo_data.png)  | [odoo_data](roles/odoo_data/README.md) | Generate Odoo data modules. |
 | ![odoo_enterprise logo](/logos/odoo_enterprise.png)  | [odoo_enterprise](roles/odoo_enterprise/README.md) | Checkout the Odoo Enterprise git repository. |
 | ![odoo_exporter logo](/logos/odoo_exporter.png)  | [odoo_exporter](roles/odoo_exporter/README.md) |  Add nginx config for Odoo exporter path. |
-| ![odoo_patches logo](/logos/odoo_patches.png)  | [odoo_patches](roles/odoo_patches/README.md) | Apply custom Odoo patches. |
 | ![odoo logo](/logos/odoo.png)  | [odoo](roles/odoo/README.md) | Deploy Odoo Docker container. |
 | ![odoo_repos logo](/logos/odoo_repos.png)  | [odoo_repos](roles/odoo_repos/README.md) | Setup Odoo modules from public or private git repos. |
 | ![odoo_scripts logo](/logos/odoo_scripts.png)  | [odoo_scripts](roles/odoo_scripts/README.md) | Install Odoo scripts. |

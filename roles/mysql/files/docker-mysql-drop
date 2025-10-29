@@ -1,58 +1,58 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
 
 # Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Drop MySQL/MariaDB Docker database."
-  echo "Syntax: $SCRIPT [-d|-f|-c|help]"
-  echo "Example: $SCRIPT -d moodle -c mqysl01"
-  echo "options:"
+  echo 'Description: Drop MySQL/MariaDB Docker database.'
+  echo "Syntax: $script [-d|-f|-c|help]"
+  echo 'Example: $script -d moodle -c mqysl01'
+  echo 'options:'
   echo "  -d    Name of database. Defaults to filename"
   echo "  -c    Docker container name. Defaults to 'mysql'."
-  echo "  help  Show $SCRIPT manual."
+  echo "  help  Show $script manual."
   echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
 while getopts ":c: :d:" opt; do
   case $opt in
-    c) CONTAINER="$OPTARG";;
-    d) DATABASE="$OPTARG";;
+    c) container="$OPTARG";;
+    d) database="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
+    help
     exit 1;;
   esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='mysql'}
+: ${container:='mysql'}
 
 # Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
+[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 
 # Start dropping 
-IMAGE=$(docker inspect "$CONTAINER" --format='{{.Config.Image}}')
-if [[ "$IMAGE" =~ "mariadb" ]]; then
-  echo "Drop MariaDB database $DATABASE on container $CONTAINER ..."
-  docker exec "$CONTAINER" /bin/bash -c "export MYSQL_PWD=\$MARIADB_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $DATABASE;'"
+image=$(docker inspect "$container" --format='{{.Config.Image}}')
+if [[ "$image" =~ 'mariadb' ]]; then
+  echo "Drop MariaDB database $database on container $container ..."
+  docker exec "$container" /bin/bash -c "export MYSQL_PWD=\$MARIADB_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $database;'"
 fi
-if [[ "$IMAGE" =~ "mysql" ]]; then
-  echo "Drop MySQL database $DATABASE on container $CONTAINER ..."
-  docker exec "$CONTAINER" /bin/bash -c "export MYSQL_PWD=\$MYSQL_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $DATABASE;'"
+if [[ "$image" =~ 'mysql' ]]; then
+  echo "Drop MySQL database $database on container $container ..."
+  docker exec "$container" /bin/bash -c "export MYSQL_PWD=\$MYSQL_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $database;'"
 fi
 
 # Notify if drop has finished
-echo "The Docker MySQL/MariaDB database has been dropped."
+echo 'The Docker MySQL/MariaDB database has been dropped.'

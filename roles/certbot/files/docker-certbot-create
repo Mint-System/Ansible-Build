@@ -1,77 +1,77 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
 
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Request Certbot certificate."
-    echo "Syntax: $SCRIPT [-c|-d|-e|help]"
-    echo "Example: $SCRIPT -c odoo.example.com -d /usr/share/certbot01 -e sysadmin@example.com -s https://acme.zerossl.com/v2/DV90" -v
-    echo "options:"
-    echo "  -c    Certificate name."
-    echo "  -d    Certbot data dir."
-    echo "  -e    Mail address."
-    echo "  -s    Alternate acme server."
-    echo "  -t    Execute dry run."
-    echo "  -v    Show more details."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Request Certbot certificate.'
+    echo "Syntax: $script [-c|-d|-e|help]"
+    echo "Example: $script -c odoo.example.com -d /usr/share/certbot01 -e sysadmin@example.com -s https://acme.zerossl.com/v2/DV90 -v"
+    echo 'options:'
+    echo '  -c    Certificate name.'
+    echo '  -d    Certbot data dir.'
+    echo '  -e    Mail address.'
+    echo '  -s    Alternate acme server.'
+    echo '  -t    Execute dry run.'
+    echo '  -v    Show more details.'
+    echo '  help  Show $script manual.'
     echo
 }
 
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Default values
-OPTION=""
-SERVER=""
-VERBOSE=""
+option=""
+server=""
+verbose=""
 
 # Process params
 while getopts ":c: :d: :e: :s: :t :v" opt; do
   case $opt in
-    c) CERTIFICATE="$OPTARG"
+    c) certificate="$OPTARG"
     ;;
-    d) CERTBOT_DATA_DIR="$OPTARG"
+    d) certbot_data_dir="$OPTARG"
     ;;
-    e) CERTBOT_EMAIL="$OPTARG"
+    e) certbot_email="$OPTARG"
     ;;
-    e) SERVER="$OPTARG"
+    s) server="$OPTARG"
     ;;
-    t) OPTION="--dry-run"
+    t) option='--dry-run'
     ;;
-    v) VERBOSE="-v"
+    v) verbose='-v'
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
+    help
     exit 1;;
   esac
 done
 
 # Verify variables
-[[ -z "$CERTIFICATE" ]] && { echo "Parameter -c|certificate is empty" ; exit 1; }
-[[ -z "$CERTBOT_DATA_DIR" ]] && { echo "Parameter -d|certbot data dir is empty" ; exit 1; }
+[[ -z "$certificate" ]] && { echo 'Parameter -c|certificate is empty' ; exit 1; }
+[[ -z "$certbot_data_dir" ]] && { echo 'Parameter -d|certbot data dir is empty' ; exit 1; }
 
-echo "Request certificate $CERTIFICATE ..."
+echo "Request certificate $certificate ..."
 
-if [[ -n "$SERVER" ]]; then
-  SERVER_OPTION="--server $SERVER"
+if [[ -n "$server" ]]; then
+  server_option="--server $server"
 else
-  SERVER_OPTION=""
+  server_option=""
 fi
 
-if [[ -n "$CERTBOT_EMAIL" ]]; then
-  EMAIL_OPTION="--email $CERTBOT_EMAIL"
+if [[ -n "$certbot_email" ]]; then
+  email_option="--email $certbot_email"
 else
-  EMAIL_OPTION="--register-unsafely-without-email"
+  email_option="--register-unsafely-without-email"
 fi
   
-docker run --rm --name "${CERTIFICATE}-tmp" \
+docker run --rm --name "${certificate}-tmp" \
 -v /var/log/letsencrypt/:/var/log/letsencrypt/ \
--v $CERTBOT_DATA_DIR/:/etc/letsencrypt/ \
--v $CERTBOT_DATA_DIR/www/:/var/www/certbot/ \
+-v $certbot_data_dir/:/etc/letsencrypt/ \
+-v $certbot_data_dir/www/:/var/www/certbot/ \
 certbot/certbot \
-certonly $EMAIL_OPTION --non-interactive --agree-tos --webroot --webroot-path=/var/www/certbot/ -d $CERTIFICATE $SERVER_OPTION $OPTION $VERBOSE
+certonly $email_option --non-interactive --agree-tos --webroot --webroot-path=/var/www/certbot/ -d $certificate $server_option $option $verbose

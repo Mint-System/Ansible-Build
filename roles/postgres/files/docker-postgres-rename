@@ -1,73 +1,73 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Rename Postgres database in container."
-    echo "Syntax: $SCRIPT [-c|-s|-t|-r|-V|help]"
-    echo "Example: $SCRIPT -c odoo06 -s odoo -t odoo-int -r"
-    echo "options:"
-    echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -s    Source database name."
-    echo "  -t    Target database name."
-    echo "  -r    Replace existing database."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Rename Postgres database in container.'
+    echo "Syntax: $script [-c|-s|-t|-r|-V|help]"
+    echo 'Example: $script -c odoo06 -s odoo -t odoo-int -r'
+    echo 'options:'
+    echo '  -c    Docker container. Defaults to '\''odoo'\''.'
+    echo '  -s    Source database name.'
+    echo '  -t    Target database name.'
+    echo '  -r    Replace existing database.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Initialise option flag with a false value
-REPLACE='false'
+replace='false'
 
 # Process params
-while getopts ":c: :s: :t: :V" opt; do
+while getopts ':c: :s: :t: :r :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        s) SOURCE_DATABASE="$OPTARG";;
-        t) TARGET_DATABASE="$OPTARG";;
-        r) REPLACE='true';;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        s) source_database="$OPTARG";;
+        t) target_database="$OPTARG";;
+        r) replace='true';;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: "${CONTAINER:=postgres}"
+: "${container:=postgres}"
 
 # Verify variables
-[[ -z "$SOURCE_DATABASE" ]] && { echo "Parameter -s|source is empty" ; exit 1; }
-[[ -z "$TARGET_DATABASE" ]] && { echo "Parameter -t|target is empty" ; exit 1; }
-[[ "$TARGET_DATABASE" == "$SOURCE_DATABASE" ]] && { echo "Parameter -s|source and -t|target cannot be the same" ; exit 1; }
+[[ -z "$source_database" ]] && { echo 'Parameter -s|source is empty' ; exit 1; }
+[[ -z "$target_database" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
+[[ "$target_database" == "$source_database" ]] && { echo 'Parameter -s|source and -t|target cannot be the same' ; exit 1; }
 
 # Switch container name with id
-CONTAINER_ID=$(docker ps -f "name=^${CONTAINER}" -q | tail -n1)
-[[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
+container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 # Drop target database
-if $REPLACE; then
-    docker-postgres-drop -c "$CONTAINER" -d "$TARGET_DATABASE"
+if $replace; then
+    docker-postgres-drop -c "$container" -d "$target_database"
 fi
 
 # Kill datbase connections
-echo "Kill database connections on $SOURCE_DATABASE."
-QUERY="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$SOURCE_DATABASE';"
-docker exec $CONTAINER_ID /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c \"$QUERY\""
+echo "Kill database connections on $source_database."
+query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$source_database';"
+docker exec $container_id /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c \"$query\""
 
-echo "Rename database from $SOURCE_DATABASE to $TARGET_DATABASE."
-docker exec $CONTAINER_ID /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c 'ALTER DATABASE \"$SOURCE_DATABASE\" RENAME TO \"$TARGET_DATABASE\";'"
+echo "Rename database from $source_database to $target_database."
+docker exec $container_id /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c 'ALTER DATABASE \"$source_database\" RENAME TO \"$target_database\";'"
