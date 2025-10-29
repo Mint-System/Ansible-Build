@@ -1,15 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
-BLACKLIST="/etc/firehol/firehol_level1.netset"
+blacklist="/etc/firehol/firehol_level1.netset"
 
-if [[ ! -f "$BLACKLIST" ]]; then
-    echo "Blacklist file not found: $BLACKLIST"
+if [[ ! -f "$blacklist" ]]; then
+    echo "Blacklist file not found: $blacklist"
     exit 1
 fi
 
-echo "Apply FireHOL level 1 blacklist (Incoming Only)."
+echo 'Apply FireHOL level 1 blacklist (Incoming Only).'
 
 while IFS= read -r line; do
     [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue  # Skip comments and empty lines
@@ -23,6 +23,6 @@ while IFS= read -r line; do
 
     sudo iptables -C FIREHOL_BLACKLIST -s "$line" -j DROP 2>/dev/null || \
     sudo iptables -A FIREHOL_BLACKLIST -s "$line" -j DROP
-done < "$BLACKLIST"
+done < "$blacklist"
 
-echo "Blacklist applied."
+echo 'Blacklist applied.'

@@ -24,7 +24,7 @@ help-table() {
     printf "$column" 'commit-with-llm' '' 'Commit with llm generated commit message.'
     printf "$column" 'update-with-llm' '[glob][prompt]' 'Feed files matching glob with prompt to LLM and apply file changes.'
     # Docker
-    printf "$column" 'container-login' '[user][pass]' 'Setup container hub login credentials.'
+    printf "$column" "login-docker" "[user][token]" "Run Docker login and create docker config."
     # Vault
     printf "$column" 'convert-vault-file' '[vault_id] [path]' 'Re-encrypt vault file as single strings.'
     printf "$column" 'decrypt-file' '[path]' 'Decrypt Ansible Vault file.'
@@ -80,6 +80,16 @@ if [[ -a ".env" ]]; then
 fi
 
 # Import commands
+
+function clone-taskfile(){
+    if [ ! -d "$HOME/taskfile.build" ]; then
+        echo -e "\033[38;5;214mGit\033[0m: Clone taskfile repo"
+        git clone https://git.taskfile.build "$HOME/taskfile.build"
+    else
+        echo -e "\033[38;5;214mGit\033[0m: Pull taskfile repo"
+        git -C "$HOME/taskfile.build" pull
+    fi
+}
 
 if [ -d "$HOME/taskfile.build/bin" ]; then
     for file in "$HOME/taskfile.build/bin/"*; do
@@ -289,20 +299,6 @@ show-vault-file() {
 }
 
 # Env
-
-container-login() {
-    local container_registry_username
-    local container_registry_password
-    if [[ -n "$1" ]]; then
-        container_registry_username="$1"
-    fi
-    if [[ -n "$2" ]]; then
-        container_registry_password="$2"
-    fi
-
-    echo "Docker login with username $1."
-    echo "$container_registry_password" | docker login -u "$container_registry_username" --password-stdin
-}
 
 init-venv() {
     if [[ ! -d "venv$GIT_BRANCH" ]]; then

@@ -1,57 +1,57 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Backup Grafana Dashboards from Url."
-    echo "Syntax: $SCRIPT [-h|-c|-o|help]"
-    echo "Example: $SCRIPT -h https://monitoring.example.com -k xxxxxxxxxxx -o tmp/erp.zip"
-    echo "options:"
-    echo "  -u    Grafana endpoint url."
-    echo "  -t    API token."
-    echo "  -o    Output directory for the dashboard export files. Defaults to '/var/tmp'."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Backup Grafana Dashboards from Url.'
+    echo "Syntax: $script [-h|-c|-o|help]"
+    echo 'Example: $script -h https://monitoring.example.com -k xxxxxxxxxxx -o tmp/erp.zip'
+    echo 'options:'
+    echo '  -u    Grafana endpoint url.'
+    echo '  -t    API token.'
+    echo '  -o    Output directory for the dashboard export files. Defaults to '\''/var/tmp'\''.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
-while getopts ":u: :t: :o:" opt; do
+while getopts ':u: :t: :o:' opt; do
     case $opt in
-        u) URL="$OPTARG";;
-        t) TOKEN="$OPTARG";;
-        o) OUTPUT="$OPTARG";;
+        u) url="$OPTARG";;
+        t) token="$OPTARG";;
+        o) output="$OPTARG";;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${OUTPUT:='/var/tmp'}
+: "${output:=/var/tmp}"
 
 # Verify variables
-[[ -z "$URL" ]] && { echo "Parameter -u|url is empty" ; exit 1; }
-[[ -z "$TOKEN" ]] && { echo "Parameter -t|token is empty" ; exit 1; }
+[[ -z "$url" ]] && { echo 'Parameter -u|url is empty' ; exit 1; }
+[[ -z "$token" ]] && { echo 'Parameter -t|token is empty' ; exit 1; }
 
 # Ensure output directory exists
-mkdir -p "$OUTPUT"
+mkdir -p "$output"
 
-OUT=$(curl -s -H "Authorization: Bearer $TOKEN" -X GET $URL/api/search?folderIds=0&query=&starred=false)
-UIDS=$(echo $OUT | jq -r '.[] | .uid')
-for ID in $UIDS; do
-    EXPORT_FILE="$OUTPUT/grafana-dashboard-$ID.json"
-    curl -s -H "Authorization: Bearer $TOKEN" $URL/api/dashboards/uid/$ID | jq > $EXPORT_FILE
-    echo "Dashboard with id $ID exported to $EXPORT_FILE."
+out=$(curl -s -H "Authorization: Bearer $token" -X GET $url/api/search?folderIds=0&query=&starred=false)
+uids=$(echo $out | jq -r '.[] | .uid')
+for id in $uids; do
+    export_file="$output/grafana-dashboard-$id.json"
+    curl -s -H "Authorization: Bearer $token" $url/api/dashboards/uid/$id | jq > $export_file
+    echo "Dashboard with id $id exported to $export_file."
 done
