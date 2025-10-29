@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
-echo "Flush FireHOL iptable chain."
+echo 'Flush FireHOL iptable chain.'
 iptables -F FIREHOL_BLACKLIST 2>/dev/null || true
 
-echo "Delete FireHOL iptable chain."
+echo 'Delete FireHOL iptable chain.'
 iptables -X FIREHOL_BLACKLIST 2>/dev/null || true
 

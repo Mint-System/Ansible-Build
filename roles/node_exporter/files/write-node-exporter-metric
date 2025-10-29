@@ -1,57 +1,57 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "write-node-exporter-metric"
-    echo "##########################"
+    echo 'write-node-exporter-metric'
+    echo '##########################'
     echo
-    echo "Description: Write node-exporter metric."
-    echo "Syntax: write-node-exporter-metric [-n|-c|-V|help]"
-    echo "Example: write-node-exporter-metric -n cron_job -c \"Renew certs for nginx01\" -v 0"
-    echo "options:"
-    echo "  -n    Reference of custom metric type. Defaults to 'cron_job'"
-    echo "  -c    Code for metric value."
-    echo "  -V    Value of metric."
-    echo "  help  Show write-node-exporter-metric help."
+    echo 'Description: Write node-exporter metric.'
+    echo 'Syntax: write-node-exporter-metric [-n|-c|-V|help]'
+    echo 'Example: write-node-exporter-metric -n cron_job -c "Renew certs for nginx01" -v 0'
+    echo 'options:'
+    echo '  -n    Reference of custom metric type. Defaults to '\''cron_job'\''.'
+    echo '  -c    Code for metric value.'
+    echo '  -V    Value of metric.'
+    echo '  help  Show write-node-exporter-metric help.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
-while getopts ":n :c: :v:" opt; do
+while getopts ':n :c: :v:' opt; do
   case $opt in
-    n) TYPE="$OPTARG"
+    n) type="$OPTARG"
     ;;
-    c) CODE="$OPTARG"
+    c) code="$OPTARG"
     ;;
-    v) VALUE="$OPTARG"
+    v) value="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
+    help
     exit 1;;
   esac
 done
 
 # Fallback to environment vars and default values
-: ${TYPE:='cron_job'}
+: "${type:=cron_job}"
 
-[[ -z "$CODE" ]] && { echo "Parameter -c|code is empty" ; exit 1; }
-[[ -z "$VALUE" ]] && { echo "Parameter -v|value is empty" ; exit 1; }
+[[ -z "$code" ]] && { echo 'Parameter -c|code is empty' ; exit 1; }
+[[ -z "$value" ]] && { echo 'Parameter -v|value is empty' ; exit 1; }
 
-if [ "$TYPE" == "cron_job" ]; then
-    echo "Write metric node_cron_job_exit_code for code \"$CODE\" with value $VALUE."
-    ID=$(echo $CODE | sha1sum | cut -c1-5)
+if [[ "$type" == 'cron_job' ]]; then
+    echo "Write metric node_cron_job_exit_code for code \"$code\" with value $value."
+    id=$(echo $code | sha1sum | cut -c1-5)
 
-    cat << EOF >> /var/tmp/node_cron_job_exit_code.$ID.prom.$$
+    cat << EOF >> /var/tmp/node_cron_job_exit_code.$id.prom.$$
 # HELP node_cron_job_exit_code Last exit code of cron job.
 # TYPE node_cron_job_exit_code counter
-node_cron_job_exit_code{code="$CODE"} $VALUE
+node_cron_job_exit_code{code="$code"} $value
 EOF
-    mv /var/tmp/node_cron_job_exit_code.$ID.prom.$$ /var/tmp/node_cron_job_exit_code.$ID.prom
+    mv /var/tmp/node_cron_job_exit_code.$id.prom.$$ /var/tmp/node_cron_job_exit_code.$id.prom
 fi

@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-REPOSITORY=https://ansible.build
+repository=https://ansible.build
 
-SCRIPTS=(
+scripts=(
     write-node-exporter-metric
 )
 
-for SCRIPT in ${SCRIPTS[@]}; do
-    echo "Install $SCRIPT script ..."
-    sudo curl -L "$REPOSITORY/node_exporter/$SCRIPT" -o "/usr/local/bin/$SCRIPT"
-    sudo chmod +x "/usr/local/bin/$SCRIPT"
+for script in "${scripts[@]}"; do
+    echo "Install $script script ..."
+    sudo curl -L "$repository/node_exporter/$script" -o "/usr/local/bin/$script"
+    sudo chmod +x "/usr/local/bin/$script"
 done

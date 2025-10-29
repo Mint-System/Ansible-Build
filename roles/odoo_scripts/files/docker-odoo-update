@@ -1,64 +1,64 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.1.0"
+script=$(basename "$0")
+version="1.1.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Update Odoo modules in Docker container."
-    echo "Syntax: $SCRIPT [-c|-d|-u|-V|help]"
-    echo "Example: $SCRIPT -c odoo01 -d erp -u hr_timesheet -o"
-    echo "options:"
-    echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -d    Database name."
-    echo "  -u    List of odoo modules to update."
-    echo "  -o    Overwrite tranlsations."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Update Odoo modules in Docker container.'
+    echo "Syntax: $script [-c|-d|-u|-V|help]"
+    echo 'Example: $script -c odoo01 -d erp -u hr_timesheet -o'
+    echo 'options:'
+    echo '  -c    Docker container. Defaults to '\''odoo'\''.'
+    echo '  -d    Database name.'
+    echo '  -u    List of odoo modules to update.'
+    echo '  -o    Overwrite tranlsations.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Set defaults
-OVERWRITE_TRANSLATIONS=""
+overwrite_translations=""
 
 # Process params
-while getopts ":c: :d: :u: :o :V" opt; do
+while getopts ':c: :d: :u: :o :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        d) DATABASE="$OPTARG";;
-        u) MODULES="$OPTARG";;
-        o) OVERWRITE_TRANSLATIONS="--i18n-overwrite";;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        d) database="$OPTARG";;
+        u) modules="$OPTARG";;
+        o) overwrite_translations='--i18n-overwrite';;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='odoo'}
+: "${container:=odoo}"
 
 # Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$MODULES" ]] && { echo "Parameter -u|update is empty" ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
+[[ -z "$modules" ]] && { echo 'Parameter -u|update is empty' ; exit 1; }
 
 # Switch container name with id
-CONTAINER_ID=$(docker ps -f "name=^${CONTAINER}" -q | tail -n1)
-[[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
+container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 # Update with Docker exec
-echo "Update modules $MODULES on database $DATABASE."
-docker exec "$CONTAINER_ID" /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d $DATABASE -u $MODULES --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --stop-after-init --no-http $OVERWRITE_TRANSLATIONS"
+echo "Update modules $modules on database $database."
+docker exec "$container_id" /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d $database -u $modules --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --stop-after-init --no-http $overwrite_translations"

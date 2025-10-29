@@ -112,13 +112,6 @@ nginx_proxies:
 # https://hub.docker.com/r/mintsystem/odoo/
 odoo_revision: "18.0"
 odoo_image: mintsystem/odoo:18.0
-odoo_build_image: true
-odoo_build_dockerfile: |
-  RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
-  RUN curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
-  RUN apt-get update
-  RUN ACCEPT_EULA=Y apt-get install -y unixodbc msodbcsql18
-  RUN uv pip install prometheus-client python-jose pyodbc pymssql
 odoo_hostname: odoo01
 odoo_description: Odoo 18
 odoo_master_password: odoo

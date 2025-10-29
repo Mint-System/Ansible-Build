@@ -1,79 +1,79 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Run python code in Odoo container."
-    echo "Syntax: $SCRIPT [-c|-d|-p|-f|-V|help]"
-    echo "Example: $SCRIPT -d erp-dev -c odoo06 -p 'print(env.user.name)'"
-    echo "options:"
-    echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -d    Database name."
-    echo "  -p    Python code as string."
-    echo "  -f    Commit changes to database."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Run python code in Odoo container.'
+    echo "Syntax: $script [-c|-d|-p|-f|-V|help]"
+    echo 'Example: $script -d erp-dev -c odoo06 -p '\''print(env.user.name)'\''.'
+    echo 'options:'
+    echo '  -c    Docker container. Defaults to '\''odoo'\''.'
+    echo '  -d    Database name.'
+    echo '  -p    Python code as string.'
+    echo '  -f    Commit changes to database.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Initialise option flag
-FORCE='false'
+force='false'
 
 # Process params
-while getopts ":c: :d: :p: :f :V" opt; do
+while getopts ':c: :d: :p: :f :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        d) DATABASE="$OPTARG";;
-        p) CODE="$OPTARG";;
-        f) FORCE='true';;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        d) database="$OPTARG";;
+        p) code="$OPTARG";;
+        f) force='true';;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Fallback to environment vars and default values
-: ${CONTAINER:='odoo'}
+: "${container:=odoo}"
 
 # Verify variables
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
 # Switch container name with id
-CONTAINER_ID=$(docker ps -f "name=^${CONTAINER}" -q | tail -n1)
-[[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
+container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 # Escape quotes
-CODE=$(echo "$CODE" | sed 's/"/\\"/g' | sed "s/'/\\'/g")
+code=$(echo "$code" | sed 's/"/\\"/g' | sed "s/'/\\'/g")
 
 # Append commit command if forced
-if $FORCE; then
-    CODE="${CODE};self.env.cr.commit()"
+if $force; then
+    code="${code};self.env.cr.commit()"
 fi
 
-if [[ -n $CODE ]]; then
-    echo "Execute code in container $CONTAINER on database $DATABASE." >&2
-    docker exec $CONTAINER_ID /bin/bash -c "echo \"$CODE\" | odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+if [[ -n $code ]]; then
+    echo "Execute code in container $container on database $database." >&2
+    docker exec $container_id /bin/bash -c "echo \"$code\" | odoo shell -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
 else
-    echo "Start odoo shell in container $CONTAINER on database $DATABASE."
-    docker exec -it $CONTAINER_ID /bin/bash -c "odoo shell -d $DATABASE --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+    echo "Start odoo shell in container $container on database $database."
+    docker exec -it $container_id /bin/bash -c "odoo shell -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
 fi
 
-if $FORCE; then
-    echo "Changes to the database have been committed." >&2
+if $force; then
+    echo 'Changes to the database have been committed.' >&2
 fi
