@@ -24,7 +24,6 @@ jobs:
         run: ./task install
       - name: Copy ansible config
         run: cp ansible.cfg.template ansible.cfg
-      - name: Run task container-login
       - name: Login docker
         run: ./task login-docker ${{ secrets.CONTAINER_REGISTRY_USERNAME }} ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
       - name: Run task test-localhost
