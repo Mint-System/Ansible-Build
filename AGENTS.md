@@ -1,4 +1,4 @@
-# Agents.md
+# AGENTS.md
 
 ## General agent guidance
 
