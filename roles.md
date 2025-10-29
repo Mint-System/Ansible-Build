@@ -8,7 +8,6 @@
 | ![autossh logo](/logos/autossh.png)  | [autossh](roles/autossh/README.md) | Configure Autossh tunnels. |
 | ![bigbluebutton_exporter logo](/logos/bigbluebutton_exporter.png)  | [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md) | Deploy BigBlueButton exporter container. |
 | ![bigbluebutton logo](/logos/bigbluebutton.png)  | [bigbluebutton](roles/bigbluebutton/README.md) | Configures an installed BigBlueButton instance. |
-| ![birt logo](/logos/birt.png)  | [birt](roles/birt/README.md) | Deploy BIRT container. |
 | ![blackbox_exporter logo](/logos/blackbox_exporter.png)  | [blackbox_exporter](roles/blackbox_exporter/README.md) | Deploy Blackbox exporter container. |
 | ![bookstack logo](/logos/bookstack.png)  | [bookstack](roles/bookstack/README.md) | Deploy BookStack container. |
 | ![caddy logo](/logos/caddy.png)  | [caddy](roles/caddy/README.md) | Deploy Caddy container. |

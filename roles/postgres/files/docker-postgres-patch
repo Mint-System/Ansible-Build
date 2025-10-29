@@ -1,22 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
 
 # Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Patch Docker Postgres database."
-  echo "Syntax: $SCRIPT [-c|-d|-f|help]"
-  echo "Example: $SCRIPT -c postgres01 -d odoo -f /tmp/patches/v14.0.1.6.0.sql"
-  echo "options:"
-  echo "  -d    Name of database."
-  echo "  -f    Path to sql patch."
-  echo "  -c    Docker container name. Defaults to 'postgres'."
-  echo "  help  Show $SCRIPT manual."
+  echo 'Description: Patch Docker Postgres database.'
+  echo "Syntax: $script [-c|-d|-f|help]"
+  echo 'Example: $script -c postgres01 -d odoo -f /tmp/patches/v14.0.1.6.0.sql'
+  echo 'options:'
+  echo '  -d    Name of database.'
+  echo '  -f    Path to sql patch.'
+  echo '  -c    Docker container name. Defaults to '\''postgres'\''.'
+  echo '  help  Show $script manual.'
   echo
 }
 

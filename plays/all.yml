@@ -34,8 +34,6 @@
       tags: pgadmin
     - role: moodle
       tags: moodle
-    - role: birt
-      tags: birt
     - role: gitea
       tags: gitea
     - role: remark42
