@@ -1,69 +1,69 @@
 #!/bin/bash
 
-function help-table() {
-    CMD_WIDTH=24
-    OPT_WIDTH=24
-    DESC_WIDTH=70
-    COLUMN="| %-${CMD_WIDTH}s | %-${OPT_WIDTH}s | %-${DESC_WIDTH}s |\n"
+help-table() {
+    local cmd_width=24
+    local opt_width=24
+    local desc_width=70
+    local column="| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n"
 
-    printf "$COLUMN" "Command" "Option" "Description"
-    echo "|$(printf '%*s' $((CMD_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((OPT_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((DESC_WIDTH + 2)) '' | tr ' ' '-')|"
+    printf "$column" 'Command' 'Option' 'Description'
+    echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
     # Env
-    printf "$COLUMN" "version" "" "Show tool versions."
+    printf "$column" 'version' '' 'Show tool versions.'
     # Galaxy
-    printf "$COLUMN" "build-galaxy" "" "Create tarball of collection."
-    printf "$COLUMN" "publish-galaxy" "" "Publish tarball to Ansible Galaxy."
+    printf "$column" 'build-galaxy' '' 'Create tarball of collection.'
+    printf "$column" 'publish-galaxy' '' 'Publish tarball to Ansible Galaxy.'
     # Docs
-    printf "$COLUMN" "build-vuepress" "" "Create vuepress build."
-    printf "$COLUMN" "dev-vuepress" "" "Start vuepress development server."
-    printf "$COLUMN" "docs" "" "Update docs."
-    printf "$COLUMN" "install-vuepress" "" "Install build dependencies."
-    printf "$COLUMN" "serve-vuepress" "" "Serve vuepress build."
-    printf "$COLUMN" "update-roles-doc" "" "Update readme files in roles folder."
+    printf "$column" 'build-vuepress' '' 'Create vuepress build.'
+    printf "$column" 'dev-vuepress' '' 'Start vuepress development server.'
+    printf "$column" 'docs' '' 'Update docs.'
+    printf "$column" 'install-vuepress' '' 'Install build dependencies.'
+    printf "$column" 'serve-vuepress' '' 'Serve vuepress build.'
+    printf "$column" 'update-roles-doc' '' 'Update readme files in roles folder.'
     # LLM
-    printf "$COLUMN" "commit-with-llm" "" "Commit with llm generated commit message."
-    printf "$COLUMN" "update-with-llm" "[glob][prompt]" "Feed files matching glob with prompt to LLM and apply file changes."
+    printf "$column" 'commit-with-llm' '' 'Commit with llm generated commit message.'
+    printf "$column" 'update-with-llm' '[glob][prompt]' 'Feed files matching glob with prompt to LLM and apply file changes.'
     # Docker
-    printf "$COLUMN" "container-login" "[user][pass]" "Setup container hub login credentials."
+    printf "$column" 'container-login' '[user][pass]' 'Setup container hub login credentials.'
     # Vault
-    printf "$COLUMN" "convert-vault-file" "[vault_id] [path]" "Re-encrypt vault file as single strings."
-    printf "$COLUMN" "decrypt-file" "[path]" "Decrypt Ansible Vault file."
-    printf "$COLUMN" "encrypt-file" "[vault_id] [path]" "Encrypt file with Ansible Vault."
-    printf "$COLUMN" "encrypt-string" "[vault_id] [key:value] -q" "Generate encrypted string with Ansible Vault."
-    printf "$COLUMN" "generate-vault-password" "[vault_id] [password]" "Generate a password file for Ansible vault."
-    printf "$COLUMN" "show-vault-file" "[vault_id] [path]" "Show content of encrypted strings or fully encrypted vault file."
+    printf "$column" 'convert-vault-file' '[vault_id] [path]' 'Re-encrypt vault file as single strings.'
+    printf "$column" 'decrypt-file' '[path]' 'Decrypt Ansible Vault file.'
+    printf "$column" 'encrypt-file' '[vault_id] [path]' 'Encrypt file with Ansible Vault.'
+    printf "$column" 'encrypt-string' '[vault_id] [key:value] -q' 'Generate encrypted string with Ansible Vault.'
+    printf "$column" 'generate-vault-password' '[vault_id] [password]' 'Generate a password file for Ansible vault.'
+    printf "$column" 'show-vault-file' '[vault_id] [path]' 'Show content of encrypted strings or fully encrypted vault file.'
     # Setup
-    printf "$COLUMN" "install" "" "Install Ansible and dependencies with uv."
-    printf "$COLUMN" "install-exo" "" "Install Exoscale CLI."
-    printf "$COLUMN" "show-passwordless-sudo" "[username]" "Give instructions to setup passwordless sudo."
-    printf "$COLUMN" "upgrade" "" "Upgrade Ansible and dependencies with uv."
+    printf "$column" 'install' '' 'Install Ansible and dependencies with uv.'
+    printf "$column" 'install-exo' '' 'Install Exoscale CLI.'
+    printf "$column" 'show-passwordless-sudo' '[username]' 'Give instructions to setup passwordless sudo.'
+    printf "$column" 'upgrade' '' 'Upgrade Ansible and dependencies with uv.'
     # Development
-    printf "$COLUMN" "lint" "" "Lint Ansible roles and playbooks."
-    printf "$COLUMN" "source" "" "Source the Python virtual env."
+    printf "$column" 'lint' '' 'Lint Ansible roles and playbooks.'
+    printf "$column" 'source' '' 'Source the Python virtual env.'
     # Report
-    printf "$COLUMN" "get-last-hostname" "[role]" "Search inventory for \$ROLE_hostname entries."
-    printf "$COLUMN" "list-hosts" "[path]" "Lists all hosts of an inventory."
-    printf "$COLUMN" "list-roles" "" "Lists all roles."
-    printf "$COLUMN" "list-vault" "" "Lists vault identities."
-    printf "$COLUMN" "list-deployments-odoo" "[path]" "List Odoo deplyments."
+    printf "$column" 'get-last-hostname' '[role]' 'Search inventory for $ROLE_hostname entries.'
+    printf "$column" 'list-hosts' '[path]' 'Lists all hosts of an inventory.'
+    printf "$column" 'list-roles' '' 'Lists all roles.'
+    printf "$column" 'list-vault' '' 'Lists vault identities.'
+    printf "$column" 'list-deployments-odoo' '[path]' 'List Odoo deplyments.'
     # Git
-    printf "$COLUMN" "pull-repos" "" "Pull git repos in inventories folder."
+    printf "$column" 'pull-repos' '' 'Pull git repos in inventories folder.'
     # Run
-    printf "$COLUMN" "play" "" "Run ansible-playbook command."
-    printf "$COLUMN" "connect-host" "[host]" "Connect to host with configs."
+    printf "$column" 'play' '' 'Run ansible-playbook command.'
+    printf "$column" 'connect-host' '[host]' 'Connect to host with configs.'
     # Test
-    printf "$COLUMN" "test-localhost" "[clean]" "Deploy to localhost. Pass option 'clean' to clean up."
-    printf "$COLUMN" "test-scripts" "[clean]" "Install and test scripts."
+    printf "$column" 'test-localhost' '[clean]' 'Deploy to localhost. Pass option '\''clean'\'' to clean up.'
+    printf "$column" 'test-scripts' '[clean]' 'Install and test scripts.'
 }
 
-function help() {
+help() {
     echo
-    if [ -n "$1" ]; then
+    if [[ -n "$1" ]]; then
         help-table | grep -i "$1" | column -t -s'|'
     else
-        echo "task <command> [options]"
+        echo 'task <command> [options]'
         echo
-        echo "commands:"
+        echo 'commands:'
         echo
         help-table
     fi
@@ -91,212 +91,232 @@ fi
 
 # Vault
 
-function connect-host() {
-    if test -z "$1"; then
-        echo "Host name cannot be empty"
+connect-host() {
+    if [[ -z "$1" ]]; then
+        echo 'Host name cannot be empty'
         return 1
     fi
-    SEARCH_HOST=$1
+    local search_host="$1"
 
     # Find hosts.yaml file in inventories folder
-    HOSTS_FILES=$(find ./inventories -type f -name 'hosts.yml')
+    local hosts_files
+    hosts_files=$(find ./inventories -type f -name 'hosts.yml')
 
     # Search for host name match
-    HOST_CONFIG=""
-    for HOSTS_FILE in $HOSTS_FILES; do
+    local host_config=""
+    local hosts_file
+    for hosts_file in $hosts_files; do
 
-        COMMAND="yq e '.all.children.*.hosts.$SEARCH_HOST' $HOSTS_FILE"
-        HOST_CONFIG=$(eval $COMMAND | sed '/null/d' | head -5)
+        local command="yq e '.all.children.*.hosts.$search_host' $hosts_file"
+        host_config=$(eval "$command" | sed '/null/d' | head -5)
 
-        if [ -z "$HOST_CONFIG" ]; then
-            COMMAND="yq e '.all.hosts.$SEARCH_HOST' $HOSTS_FILE"
-            HOST_CONFIG=$(eval $COMMAND | sed '/null/d' | head -5)
+        if [[ -z "$host_config" ]]; then
+            command="yq e '.all.hosts.$search_host' $hosts_file"
+            host_config=$(eval "$command" | sed '/null/d' | head -5)
         fi
 
-        if [ ! -z "$HOST_CONFIG" ]; then
+        if [[ -n "$host_config" ]]; then
             break
         fi
     done
 
-    if [ -z "$HOST_CONFIG" ]; then
-        echo "Host '$SEARCH_HOST' not found in hosts.yml file"
+    if [[ -z "$host_config" ]]; then
+        echo "Host '$search_host' not found in hosts.yml file"
         return 1
     fi
 
     # Get Ansible vars from the host configuration
-    ANSIBLE_HOST=$(echo "$HOST_CONFIG" | grep -m1 '^ansible_host' | cut -d: -f2 | xargs)
-    ANSIBLE_PORT=$(echo "$HOST_CONFIG" | grep -m1 '^ansible_port' | cut -d: -f2 | xargs)
-    ANSIBLE_USER=$(echo "$HOST_CONFIG" | grep -m1 '^ansible_user' | cut -d: -f2 | xargs)
-    ANSIBLE_COMMON_ARGS=$(echo "$HOST_CONFIG" | grep -m1 'ansible_ssh_common_args' | cut -d: -f2 | xargs)
+    local ansible_host
+    local ansible_port
+    local ansible_user
+    local ansible_common_args
+    ansible_host=$(echo "$host_config" | grep -m1 '^ansible_host' | cut -d: -f2 | xargs)
+    ansible_port=$(echo "$host_config" | grep -m1 '^ansible_port' | cut -d: -f2 | xargs)
+    ansible_user=$(echo "$host_config" | grep -m1 '^ansible_user' | cut -d: -f2 | xargs)
+    ansible_common_args=$(echo "$host_config" | grep -m1 'ansible_ssh_common_args' | cut -d: -f2 | xargs)
 
     # Build SSH command using extracted connection details
-    SSH_COMMAND="ssh"
-    if [ "$ANSIBLE_PORT" != "null" ] && [ ! -z "$ANSIBLE_PORT" ]; then
-        SSH_COMMAND+=" -p $ANSIBLE_PORT"
+    local ssh_command="ssh"
+    if [[ "$ansible_port" != "null" ]] && [[ -n "$ansible_port" ]]; then
+        ssh_command+=" -p $ansible_port"
     fi
-    if [ "$ANSIBLE_COMMON_ARGS" != "null" ] && [ ! -z "$ANSIBLE_COMMON_ARGS" ]; then
-        SSH_COMMAND+=" $ANSIBLE_COMMON_ARGS"
+    if [[ "$ansible_common_args" != "null" ]] && [[ -n "$ansible_common_args" ]]; then
+        ssh_command+=" $ansible_common_args"
     fi
-    if [ "$ANSIBLE_USER" != "null" ] && [ ! -z "$ANSIBLE_USER" ]; then
-        SSH_COMMAND+=" $ANSIBLE_USER@$ANSIBLE_HOST"
+    if [[ "$ansible_user" != "null" ]] && [[ -n "$ansible_user" ]]; then
+        ssh_command+=" $ansible_user@$ansible_host"
     else
-        SSH_COMMAND+=" $ANSIBLE_HOST"
+        ssh_command+=" $ansible_host"
     fi
 
-    echo "Run command: $SSH_COMMAND"
-    $SSH_COMMAND
+    echo "Run command: $ssh_command"
+    $ssh_command
 }
 
 
-function decrypt-file() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+decrypt-file() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     activate-venv
     echo "Decrypt file $1."
     ansible-vault decrypt --output="$1" "$1"
 }
 
-function encrypt-file() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
-    if test -z "$2"; then echo "\$1 is empty"; exit; fi
+encrypt-file() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
+    if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
     activate-venv
     echo "Encrypt file $2 with vault id $1."
     ansible-vault encrypt --encrypt-vault-id="$1" "$2"
 }
 
-function list-vault() {
+list-vault() {
     grep 'vault_identity_list' ansible.cfg | sed 's/^vault_identity_list = //' | tr ',' '\n' | sed '/^$/d'
 }
 
-function generate-vault-password() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
-    if test -z "$2"; then echo "\$1 is empty"; exit; fi
+generate-vault-password() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
+    if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
 
-    export VAULT_ID=$1
-    export VAULTPASSWORD=$2
-    echo "$VAULTPASSWORD" > ".vault_pass_$VAULT_ID"
-    chmod 600 ".vault_pass_$VAULT_ID"
-    echo "Password file ".vault_pass_$VAULT_ID" created."
+    local vault_id="$1"
+    local vaultpassword="$2"
+    export VAULT_ID="$vault_id"
+    export VAULTPASSWORD="$vaultpassword"
+    echo "$vaultpassword" > ".vault_pass_$vault_id"
+    chmod 600 ".vault_pass_$vault_id"
+    echo "Password file .vault_pass_$vault_id created."
 }
 
-function encrypt-string() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
-    if test -z "$2"; then echo "\$2 is empty"; exit; fi
+encrypt-string() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
+    if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
     activate-venv
 
     # Split multiline
-    STRING_KEY=$(echo "$2" | cut -d ':' -f 1)
-    STRING_VALUE=$(echo "$2" | cut -d ':' -f 2 | sed 's/^ *//')
+    local string_key
+    local string_value
+    string_key=$(echo "$2" | cut -d ':' -f 1)
+    string_value=$(echo "$2" | cut -d ':' -f 2 | sed 's/^ *//')
 
-    if [ "$3" != "-q" ]; then
-        echo "Found key: $STRING_KEY"
-        echo "Encrypting value: $STRING_VALUE"
+    if [[ "$3" != "-q" ]]; then
+        echo "Found key: $string_key"
+        echo "Encrypting value: $string_value"
     fi
-    ansible-vault encrypt_string --encrypt-vault-id="$1"  --name "$STRING_KEY" "$STRING_VALUE"
+    ansible-vault encrypt_string --encrypt-vault-id="$1"  --name "$string_key" "$string_value"
 }
 
-function convert-vault-file() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
-    if test -z "$2"; then echo "\$2 is empty"; exit; fi
+convert-vault-file() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
+    if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
     activate-venv
 
-    VAULT_ID=$1
-    FILE_PATH=$2
-    TEMP_FILE=$(mktemp)
+    local vault_id="$1"
+    local file_path="$2"
+    local temp_file
+    temp_file=$(mktemp)
 
     # Decrypt the vault file
-    ansible-vault decrypt --output="$FILE_PATH" "$FILE_PATH"
+    ansible-vault decrypt --output="$file_path" "$file_path"
 
     # Process each key-value pair
-    yq eval '.' "$FILE_PATH" | while IFS= read -r LINE; do
-        KEY=$(echo "$LINE" | cut -d':' -f1)
-        VALUE=$(echo "$LINE" | cut -d':' -f2-)
-        VALUE=$(echo "$VALUE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//')
+    yq eval '.' "$file_path" | while IFS= read -r line; do
+        local key
+        local value
+        key=$(echo "$line" | cut -d':' -f1)
+        value=$(echo "$line" | cut -d':' -f2-)
+        value=$(echo "$value" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//')
 
         # Re-encrypt the key-value pair
-        ENCYRPTED=$(ansible-vault encrypt_string --encrypt-vault-id="$VAULT_ID" --name "$KEY" "$VALUE" 2>/dev/null)
-        echo "$ENCYRPTED" >> "$TEMP_FILE"
+        local encrypted
+        encrypted=$(ansible-vault encrypt_string --encrypt-vault-id="$vault_id" --name "$key" "$value" 2>/dev/null)
+        echo "$encrypted" >> "$temp_file"
     done
 
     # Move temp file to vault file
-    mv "$TEMP_FILE" "$FILE_PATH"
-    echo "Converted file saved as $FILE_PATH"
+    mv "$temp_file" "$file_path"
+    echo "Converted file saved as $file_path"
 }
 
 show-vault-file() {
-    if test -z "$1"; then echo "\$1 is empty"; exit 1; fi
-    if test -z "$2"; then echo "\$2 is empty"; exit 1; fi
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit 1; fi
+    if [[ -z "$2" ]]; then echo '$2 is empty'; exit 1; fi
     activate-venv
-    VAULT_ID="$1"
-    FILE_PATH="$2"
-    TEMP_FILE=$(mktemp)
-    TEMP_PART_FILE=$(mktemp)
+    local vault_id="$1"
+    local file_path="$2"
+    local temp_file
+    local temp_part_file
+    temp_file=$(mktemp)
+    temp_part_file=$(mktemp)
 
-    if head -n 1 "$FILE_PATH" | grep -q "^\$ANSIBLE_VAULT;1.2;AES256;$VAULT_ID"; then
-        ansible-vault decrypt --output="$TEMP_FILE" "$FILE_PATH"
+    if head -n 1 "$file_path" | grep -q "^\$ANSIBLE_VAULT;1.2;AES256;$vault_id"; then
+        ansible-vault decrypt --output="$temp_file" "$file_path"
     else
-        WRITE_FINISHED=false
-        CURRENT_KEY=""
+        local write_finished=false
+        local current_key=""
 
-        while IFS= read -r LINE; do
-            if [[ "$LINE" =~ "!vault" ]]; then
+        while IFS= read -r line; do
+            if [[ "$line" =~ "!vault" ]]; then
                 # Process previous vault entry if it exists
-                if [ "$WRITE_FINISHED" = true ] && [ -n "$CURRENT_KEY" ] && [ -s "$TEMP_PART_FILE" ]; then
-                    ansible-vault decrypt "$TEMP_PART_FILE"
-                    VALUE=$(cat "$TEMP_PART_FILE")
-                    echo "$CURRENT_KEY: $VALUE" >> "$TEMP_FILE"
+                if [[ "$write_finished" = true ]] && [[ -n "$current_key" ]] && [[ -s "$temp_part_file" ]]; then
+                    ansible-vault decrypt "$temp_part_file"
+                    local value
+                    value=$(cat "$temp_part_file")
+                    echo "$current_key: $value" >> "$temp_file"
                 fi
 
                 # Set up for new vault entry
-                CURRENT_KEY=$(echo "$LINE" | cut -d':' -f1)
-                : > "$TEMP_PART_FILE"
-                WRITE_FINISHED=true
+                current_key=$(echo "$line" | cut -d':' -f1)
+                : > "$temp_part_file"
+                write_finished=true
             else
-                if [ "$WRITE_FINISHED" = true ]; then
-                    echo "$LINE" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//' >> "$TEMP_PART_FILE"
+                if [[ "$write_finished" = true ]]; then
+                    echo "$line" | sed 's/^[[:space:]"]*//;s/[[:space:]"]*$//' >> "$temp_part_file"
                 fi
             fi
-        done < "$FILE_PATH"
+        done < "$file_path"
 
         # Process the final vault entry
-        if [ "$WRITE_FINISHED" = true ] && [ -n "$CURRENT_KEY" ] && [ -s "$TEMP_PART_FILE" ]; then
-            ansible-vault decrypt "$TEMP_PART_FILE"
-            VALUE=$(cat "$TEMP_PART_FILE")
-            echo "$CURRENT_KEY: $VALUE" >> "$TEMP_FILE"
+        if [[ "$write_finished" = true ]] && [[ -n "$current_key" ]] && [[ -s "$temp_part_file" ]]; then
+            ansible-vault decrypt "$temp_part_file"
+            local value
+            value=$(cat "$temp_part_file")
+            echo "$current_key: $value" >> "$temp_file"
         fi
     fi
 
-    bat --paging=always "$TEMP_FILE"
-    rm -f "$TEMP_FILE"
-    rm -f "$TEMP_PART_FILE"
+    bat --paging=always "$temp_file"
+    rm -f "$temp_file"
+    rm -f "$temp_part_file"
 }
 
 # Env
 
-function container-login() {
-    if [ -n "$1" ]; then
-        CONTAINER_REGISTRY_USERNAME="$1"
+container-login() {
+    local container_registry_username
+    local container_registry_password
+    if [[ -n "$1" ]]; then
+        container_registry_username="$1"
     fi
-    if [ -n "$2" ]; then
-        CONTAINER_REGISTRY_PASSWORD="$2"
+    if [[ -n "$2" ]]; then
+        container_registry_password="$2"
     fi
 
     echo "Docker login with username $1."
-    echo "$CONTAINER_REGISTRY_PASSWORD" | docker login -u "$CONTAINER_REGISTRY_USERNAME" --password-stdin
+    echo "$container_registry_password" | docker login -u "$container_registry_username" --password-stdin
 }
 
-function init-venv() {
-    if [ ! -d "venv$GIT_BRANCH" ]; then
+init-venv() {
+    if [[ ! -d "venv$GIT_BRANCH" ]]; then
         echo "Init venv$GIT_BRANCH with $(uv --version)."
         uv venv "venv$GIT_BRANCH"
     fi
 }
 
-function activate-venv() {
+activate-venv() {
     echo "Source virtualenv venv$GIT_BRANCH."
     source "venv$GIT_BRANCH/bin/activate"
 }
 
-function install() {
+install() {
     echo "Setup Ansible log file"
     sudo touch /var/log/ansible.log
     sudo chown $USER: /var/log/ansible.log
@@ -310,122 +330,131 @@ function install() {
     ansible-galaxy collection install community.general
 }
 
-function install-exo() {
+install-exo() {
     curl -fsSL https://raw.githubusercontent.com/exoscale/cli/master/install-latest.sh | sh
 }
 
-function version() {
+version() {
     activate-venv
     uv --version
     ansible --version
 }
 
-function show-passwordless-sudo() {
-    USER=${1:-"$USERNAME"}
-    echo "echo \"$USER ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
+show-passwordless-sudo() {
+    local user="${1:-$USERNAME}"
+    echo "echo \"$user ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
 }
 
 # Run
 
-function play() {
+play() {
     activate-venv
     ansible-playbook "$@"
 }
 
-function upgrade() {
+upgrade() {
     echo "Update Ansible"
     uv pip install --upgrade ansible
 }
 
-function lint() {
+lint() {
     activate-venv
     ansible-lint --fix --offline roles/*
 }
 
 # Report
 
-function list-hosts() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
+list-hosts() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
 
     activate-venv
 
     # FIXME: Check if all group has children
-    if [ "$1" = "inventories/setup" ]; then
+    if [[ "$1" = "inventories/setup" ]]; then
 
-        ALIASES=$(yq e '.all.children.*.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
-        HOSTS=$(yq e '.all.children.*.hosts | .[] | .ansible_host' "$1/hosts.yml")
-        CUSTOMERS=$(yq e '.all.children.*.hosts | .[] | .customer' "$1/hosts.yml")
+        local aliases=$(yq e '.all.children.*.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
+        local hosts=$(yq e '.all.children.*.hosts | .[] | .ansible_host' "$1/hosts.yml")
+        local customers=$(yq e '.all.children.*.hosts | .[] | .customer' "$1/hosts.yml")
 
-        ALIAS_WIDTH=15
-        HOST_WIDTH=25
-        CUST_WIDTH=35
-        COLUMN="| %-${ALIAS_WIDTH}s | %-${HOST_WIDTH}s | %-${CUST_WIDTH}s |\n"
+        local alias_width=15
+        local host_width=25
+        local cust_width=35
+        local column="| %-${alias_width}s | %-${host_width}s | %-${cust_width}s |\n"
 
-        printf "$COLUMN" "Alias" "Host" "Customer"
-        echo "|$(printf '%*s' $((ALIAS_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((HOST_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((CUST_WIDTH + 2)) '' | tr ' ' '-')|"
+        printf "$column" 'Alias' 'Host' 'Customer'
+        echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((cust_width + 2)) '' | tr ' ' '-')|"
 
-        paste <(echo "$ALIASES") <(echo "$HOSTS") <(echo "$CUSTOMERS") | while read -r alias host customer; do
-            printf "$COLUMN" "$alias" "$host" "$customer"
+        paste <(echo "$aliases") <(echo "$hosts") <(echo "$customers") | while read -r alias host customer; do
+            printf "$column" "$alias" "$host" "$customer"
         done
 
     else
 
-        ALIASES=$(yq e '.all.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
-        HOSTS=$(yq e '.all.hosts | .[] | .ansible_host' "$1/hosts.yml")
+        local aliases=$(yq e '.all.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
+        local hosts=$(yq e '.all.hosts | .[] | .ansible_host' "$1/hosts.yml")
 
-        ALIAS_WIDTH=15
-        HOST_WIDTH=25
-        COLUMN="| %-${ALIAS_WIDTH}s | %-${HOST_WIDTH}s |\n"
+        local alias_width=15
+        local host_width=25
+        local column="| %-${alias_width}s | %-${host_width}s |\n"
 
-        printf "$COLUMN" "Alias" "Host"
-        echo "|$(printf '%*s' $((ALIAS_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((HOST_WIDTH + 2)) '' | tr ' ' '-')|"
+        printf "$column" 'Alias' 'Host'
+        echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')|"
 
-        paste <(echo "$ALIASES") <(echo "$HOSTS") | while read -r alias host; do
-            printf "$COLUMN" "$alias" "$host"
+        paste <(echo "$aliases") <(echo "$hosts") | while read -r alias host; do
+            printf "$column" "$alias" "$host"
         done
 
     fi
 }
 
-function list-roles() {
-    ROLE_WIDTH=30
-    DESCRIPTION_WIDTH=70
-    COLUMN="| %-${ROLE_WIDTH}s | %-${DESCRIPTION_WIDTH}s |\n"
-    printf "$COLUMN" "Role" "Description"
-    echo "|$(printf '%*s' $((ROLE_WIDTH + 2)) '' | tr ' ' '-')|$(printf '%*s' $((DESCRIPTION_WIDTH + 2)) '' | tr ' ' '-')|"
+list-roles() {
+    local role_width=30
+    local description_width=70
+    local column="| %-${role_width}s | %-${description_width}s |\n"
+    printf "$column" 'Role' 'Description'
+    echo "|$(printf '%*s' $((role_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((description_width + 2)) '' | tr ' ' '-')|"
 
-    MD_FILES=$(find roles -name "README.md" | sort)
-    for README in $MD_FILES; do
-        ROLE=$(basename $(dirname "$README"))
-        DESCRIPTION=$(sed '5q;d' "$README")
-        printf "$COLUMN" "$ROLE" "$DESCRIPTION"
+    local md_files
+    md_files=$(find roles -name 'README.md' | sort)
+    local readme
+    for readme in $md_files; do
+        local role
+        role=$(basename $(dirname "$readme"))
+        local description
+        description=$(sed '5q;d' "$readme")
+        printf "$column" "$role" "$description"
     done
 }
 
-function get-last-hostname() {
-    if test -z "$1"; then echo "\$1 is empty"; exit; fi
-    ROLE="$1"
+get-last-hostname() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
+    local role="$1"
 
-    ALL_HOSTNAMES=$(rg -I "^${ROLE}_hostname: $ROLE" inventories | cut -d' ' -f2 | sort -u)
+    local all_hostnames
+    all_hostnames=$(rg -I "^${role}_hostname: $role" inventories | cut -d' ' -f2 | sort -u)
 
-    HIGHEST=$(echo "$ALL_HOSTNAMES" | sed "s/${ROLE}//g" | sort -n | tail -1)
-    echo "Highest hostname: ${ROLE}$HIGHEST"
+    local highest
+    highest=$(echo "$all_hostnames" | sed "s/${role}//g" | sort -n | tail -1)
+    echo "Highest hostname: ${role}$highest"
     echo "Free hostnames:"
-    for i in $(seq 1 $HIGHEST); do
-        NUM=$(printf "%02d" $i)
-        HOSTNAME="${ROLE}${NUM}"
+    for i in $(seq 1 $highest); do
+        local num
+        num=$(printf "%02d" $i)
+        local hostname="${role}${num}"
 
-        if ! echo "$ALL_HOSTNAMES" | grep -q "$HOSTNAME"; then
-            echo "$HOSTNAME"
+        if ! echo "$all_hostnames" | grep -q "$hostname"; then
+            echo "$hostname"
         fi
     done
 }
 
-function pull-repos() {
-    for GIT_FOLDER in $(find inventories -name .git); do
-        REPO=$(dirname "$GIT_FOLDER")
-        echo "Pull repo $REPO."
-        git -C "$REPO" pull
+pull-repos() {
+    local git_folder
+    for git_folder in $(find inventories -name .git); do
+        local repo
+        repo=$(dirname "$git_folder")
+        echo "Pull repo $repo."
+        git -C "$repo" pull
     done
 }
 
@@ -473,31 +502,31 @@ list-deployments-odoo() {
 
 # Galaxy
 
-function build-galaxy() {
+build-galaxy() {
     activate-venv
-    VERSION=$(yq eval '.version' galaxy.yml)
-    NAMESPACE=$(yq eval '.namespace' galaxy.yml)
-    NAME=$(yq eval '.name' galaxy.yml)
+    local version=$(yq eval '.version' galaxy.yml)
+    local namespace=$(yq eval '.namespace' galaxy.yml)
+    local name=$(yq eval '.name' galaxy.yml)
 
     ansible-galaxy collection build
-    mv $NAMESPACE-$NAME-$VERSION.tar.gz tmp/
+    mv $namespace-$name-$version.tar.gz tmp/
 }
 
-function publish-galaxy() {
+publish-galaxy() {
     activate-venv
-    VERSION=$(yq eval '.version' galaxy.yml)
-    NAMESPACE=$(yq eval '.namespace' galaxy.yml)
-    NAME=$(yq eval '.name' galaxy.yml)
+    local version=$(yq eval '.version' galaxy.yml)
+    local namespace=$(yq eval '.namespace' galaxy.yml)
+    local name=$(yq eval '.name' galaxy.yml)
 
-    ansible-galaxy collection publish tmp/$NAMESPACE-$NAME-$VERSION.tar.gz --token "$GALAXY_API_TOKEN"
+    ansible-galaxy collection publish tmp/$namespace-$name-$version.tar.gz --token "$GALAXY_API_TOKEN"
 }
 
 # Test commands
 
-function test-localhost() {
+test-localhost() {
     activate-venv
     version
-    if [ "$1" = "clean" ]; then
+    if [[ "$1" = "clean" ]]; then
         echo "Cleanup localhost"
         ansible-playbook -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
             postgres,postgres_data,postgres_volume,\
@@ -517,33 +546,33 @@ function test-localhost() {
 
         echo "Curl the services and check HTTP code."
 
-        FAIL=0
+        local fail=0
 
-        CODE=$(curl -o /dev/null -s -w "%{http_code}" -L "http://n8n.local:8080")
-        [[ $CODE -eq 200 ]] || { echo "http://n8n.local:8080 -> $CODE"; FAIL=1; }
+        local code=$(curl -o /dev/null -s -w "%{http_code}" -L "http://n8n.local:8080")
+        [[ $code -eq 200 ]] || { echo "http://n8n.local:8080 -> $code"; fail=1; }
 
-        CODE=$(curl -o /dev/null -s -w "%{http_code}" -L "http://odoo.local:8080")
-        [[ $CODE -eq 200 ]] || { echo "http://odoo.local:8080 -> $CODE"; FAIL=1; }
+        local code=$(curl -o /dev/null -s -w "%{http_code}" -L "http://odoo.local:8080")
+        [[ $code -eq 200 ]] || { echo "http://odoo.local:8080 -> $code"; fail=1; }
 
-        CODE=$(curl -o /dev/null -s -w "%{http_code}" -L "http://odoo.local:8080/website/info")
-        [[ $CODE -eq 403 ]] || { echo "http://odoo.local:8080/website/info -> $CODE"; FAIL=1; }
+        local code=$(curl -o /dev/null -s -w "%{http_code}" -L "http://odoo.local:8080/website/info")
+        [[ $code -eq 403 ]] || { echo "http://odoo.local:8080/website/info -> $code"; fail=1; }
 
-        CODE=$(curl -o /dev/null -s -w "%{http_code}" -L "http://metabase.local:8080")
-        [[ $CODE -eq 200 ]] || { echo "http://metabase.local:8080 -> $CODE"; FAIL=1; }
+        local code=$(curl -o /dev/null -s -w "%{http_code}" -L "http://metabase.local:8080")
+        [[ $code -eq 200 ]] || { echo "http://metabase.local:8080 -> $code"; fail=1; }
 
-        CODE=$(curl -o /dev/null -s -w "%{http_code}" -L "http://grafana.local:8080")
-        [[ $CODE -eq 200 ]] || { echo "http://grafana.local:8080 -> $CODE"; FAIL=1; }
+        local code=$(curl -o /dev/null -s -w "%{http_code}" -L "http://grafana.local:8080")
+        [[ $code -eq 200 ]] || { echo "http://grafana.local:8080 -> $code"; fail=1; }
 
-        exit $FAIL
+        exit $fail
 
     fi
 }
 
-function test-scripts() {
+test-scripts() {
     set -e
     activate-venv
 
-    if [ "$1" = "clean" ]; then
+    if [[ "$1" = "clean" ]]; then
         echo -e "\033[38;5;214mTEST\033[0m: Cleanup test environment."
         ansible localhost -m ansible.builtin.cron -a 'name="test" state="absent"'
         ansible-playbook -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
@@ -613,51 +642,54 @@ function test-scripts() {
 
 # Docs
 
-function docs() {
+docs() {
     echo "Update roles.md"
     echo "# Roles" > "roles.md"
     echo "" >> "roles.md"
     echo "| Logo | Role | Description |" >> "roles.md"
     echo "| --- | --- | --- |" >> "roles.md"
 
-    MD_FILES=$(find roles -name "README.md" | sort)
-    for README in $MD_FILES; do
-        ROLE=$(basename $(dirname "$README"))
-        DESCRIPTION=$(sed '5q;d' "$README")
-        echo "| ![${ROLE} logo](/logos/${ROLE}.png)  | [$ROLE]($README) | $DESCRIPTION |" >> "roles.md"
+    local md_files=$(find roles -name 'README.md' | sort)
+    for readme in $md_files; do
+        local role
+        role=$(basename $(dirname "$readme"))
+        local description
+        description=$(sed '5q;d' "$readme")
+        echo "| ![$role logo](/logos/$role.png)  | [$role]($readme) | $description |" >> "roles.md"
     done
 }
 
-function update-roles-doc() {
-    MD_FILES=$(find roles -name "README.md" | sort)
-    for README in $MD_FILES; do
-        ROLE=$(basename "$(dirname "$README")")
+update-roles-doc() {
+    local md_files=$(find roles -name 'README.md' | sort)
+    for readme in $md_files; do
+        local role
+        role=$(basename "$(dirname "$readme")")
 
-        echo "Update README of $ROLE role."
+        echo "Update README of $role role."
 
-        # LOGO_LINE="![${ROLE}_logo](/logos/${ROLE}.png)"
-        LOGO_LINE="<img src=\"/logos/${ROLE}.png\" alt=\"$ROLE logo\" width=\"100\" height=\"100\">"
+        local logo_line="<img src=\"/logos/$role.png\" alt=\"$role logo\" width=\"100\" height=\"100\">"
+        local tmpfile
         tmpfile=$(mktemp)
         {
-            echo "$LOGO_LINE"
+            echo "$logo_line"
             echo ""
-            cat "$README"
-        } > "$tmpfile" && mv "$tmpfile" "$README"
+            cat "$readme"
+        } > "$tmpfile" && mv "$tmpfile" "$readme"
     done
 }
 
-function install-vuepress() {
+install-vuepress() {
     pnpm install
 }
 
-function dev-vuepress() {
+dev-vuepress() {
     echo "Copy logos folder to vuepress public folder."
     cp -r logos .vuepress/public/
 
     pnpm run dev
 }
 
-function build-vuepress() {
+build-vuepress() {
     echo "Copy logos folder to vuepress public folder."
     cp -r logos .vuepress/public/
 
@@ -688,7 +720,7 @@ function build-vuepress() {
     cp roles/cron/files/* .vuepress/dist/cron
 }
 
-function serve-vuepress() {
+serve-vuepress() {
     cd .vuepress/dist
     pnpx serve
 }
@@ -702,7 +734,7 @@ else
             ;;
         *)
             echo "Unknown command: $1"
-            help task
+            help
             exit 1
             ;;
     esac

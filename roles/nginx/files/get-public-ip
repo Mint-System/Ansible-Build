@@ -1,40 +1,40 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Get script name
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Show public facing ip of server."
-    echo "Syntax: $SCRIPT [-V|help]"
-    echo "Example: $SCRIPT"
-    echo "options:"
+    echo 'Description: Show public facing ip of server.'
+    echo "Syntax: $script [-V|help]"
+    echo "Example: $script"
+    echo 'options:'
     echo "  -c    Docker container. Defaults to 'odoo'."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
     echo
 }
 
 # Show help and exit
 if [[ "$1" == "help" ]]; then
-    Help
+    help
     exit
 fi
 
 # Process params
 while getopts ":c: :V" opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done

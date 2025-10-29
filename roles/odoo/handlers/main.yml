@@ -1,18 +1,16 @@
 ---
-- name: Restart odoo container
-  block:
-    - name: Restart single odoo container
-      community.docker.docker_container:
-        name: "{{ odoo_hostname }}"
-        restart: true
-      when: odoo_config_map|length == 1
+- name: Restart single odoo container
+  community.docker.docker_container:
+    name: "{{ odoo_hostname }}"
+    restart: true
+  when: odoo_config_map|length == 1
 
-    - name: Restart multiple odoo container
-      community.docker.docker_container:
-        name: "{{ odoo_hostname }}-{{ item.name }}"
-        restart: true
-      loop: "{{ odoo_config_map }}"
-      when: odoo_config_map|length > 1
+- name: Restart multiple odoo container
+  community.docker.docker_container:
+    name: "{{ odoo_hostname }}-{{ item.name }}"
+    restart: true
+  loop: "{{ odoo_config_map }}"
+  when: odoo_config_map|length > 1
 
 - name: Build odoo custom image
   community.docker.docker_image:
