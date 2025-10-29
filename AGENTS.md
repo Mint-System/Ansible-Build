@@ -15,7 +15,10 @@ This section outlines the universal rules and expectations for any LLM agent wor
 ## Project structure
 
 - `roles/`: In this folder are the Ansible roles. This is the main entry point.
+- `logos/`: There is a logo for each role.
 - `inventories/`: Ignore this folder. It contains the ansible inventory files.
+- `plays/`: The Ansible plabyook files.
+- `test/`: Local inventory for the test setup.
 
 ## Coding conventions
 

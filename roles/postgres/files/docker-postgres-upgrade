@@ -1,118 +1,118 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.0"
 
 # Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Upgrade Postgres Docker container."
-    echo "Syntax: $SCRIPT [-c|-s|-t|-i|-V|help]"
-    echo "Example: $SCRIPT -c postgres01 -s postgres:12-alpine -t postgres:14-alpine -i /var/tmp/postgres01/20241028094730.sql"
-    echo "options:"
-    echo "  -c    Docker container."
-    echo "  -s    Source image version."
-    echo "  -t    Target image version."
-    echo "  -i    Skip export and run import for dump only."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Upgrade Postgres Docker container.'
+    echo "Syntax: $script [-c|-s|-t|-i|-V|help]"
+    echo 'Example: $script -c postgres01 -s postgres:12-alpine -t postgres:14-alpine -i /var/tmp/postgres01/20241028094730.sql'
+    echo 'options:'
+    echo '  -c    Docker container.'
+    echo '  -s    Source image version.'
+    echo '  -t    Target image version.'
+    echo '  -i    Skip export and run import for dump only.'
+    echo '  -V    Show $script version.'
+    echo '  help  Show $script manual.'
     echo
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Process params
-while getopts ":c: :s: :t: :i: :V" opt; do
+while getopts ':c: :s: :t: :i: :V' opt; do
     case $opt in
-        c) CONTAINER="$OPTARG";;
-        s) SOURCE_VERSION="$OPTARG";;
-        t) TARGET_VERSION="$OPTARG";;
-        i) DUMP_FILE="$OPTARG";;
-        r) REPLACE='true';;
-        V) echo "$SCRIPT version $VERSION"
+        c) container="$OPTARG";;
+        s) source_version="$OPTARG";;
+        t) target_version="$OPTARG";;
+        i) dump_file="$OPTARG";;
+        r) replace='true';;
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Verify variables
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
-[[ -z "$TARGET_VERSION" ]] && { echo "Parameter -t|target is empty" ; exit 1; }
+[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
+[[ -z "$target_version" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
 
 # Fallback to default
-SOURCE_VERSION=${SOURCE_VERSION:-"$TARGET_VERSION"}
+source_version=${source_version:-"$target_version"}
 
 # Switch container name with id
-CONTAINER_ID=$(docker ps -f "name=^${CONTAINER}" -q | tail -n1)
-[[ -z "$CONTAINER_ID" ]] && { echo "Container id for $CONTAINER not found." ; exit 1; }
+container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 # Verify the source version is correct
-CURRENT_VERSION=$(docker inspect --format='{{.Config.Image}}' $CONTAINER_ID)
-if [[ "$CURRENT_VERSION" != "$SOURCE_VERSION" ]]; then
-    echo "$CONTAINER image is not $SOURCE_VERSION."
+current_version=$(docker inspect --format='{{.Config.Image}}' $container_id)
+if [[ "$current_version" != "$source_version" ]]; then
+    echo "$container image is not $source_version."
     exit 1
 fi
 
 # Pull the target version image
-echo "Pulling $TARGET_VERSION ..."
-docker pull "$TARGET_VERSION"
+echo "Pulling $target_version ..."
+docker pull "$target_version"
 
 # If file is empty export databases
-if [[ -z "$DUMP_FILE" ]]; then
+if [[ -z "$dump_file" ]]; then
 
-    TIMESTAMP=$(date +%Y%m%d%H%M%S)
-    DUMP_FILE="/var/tmp/$CONTAINER/$TIMESTAMP.sql"
+    timestamp=$(date +%Y%m%d%H%M%S)
+    dump_file="/var/tmp/$container/$timestamp.sql"
 
     # Dump all databases
-    mkdir -p "/var/tmp/$CONTAINER"
-    docker exec $CONTAINER_ID /bin/bash -c "pg_dumpall -U \$POSTGRES_USER $DATABASE" > "$DUMP_FILE"
-    echo "Dumped all databases from $CONTAINER to $DUMP_FILE"
+    mkdir -p "/var/tmp/$container"
+    docker exec $container_id /bin/bash -c "pg_dumpall -U \$POSTGRES_USER $database" > "$dump_file"
+    echo "Dumped all databases from $container to $dump_file"
 
     # Stop and remove the container and volumes
-    VOLUME_NAMES=$(docker inspect --format '{{ range .Mounts }}{{ .Name }} {{ end }} ' $CONTAINER_ID)
-    echo "Stopping and removing container $CONTAINER and volumes ${VOLUME_NAMES} ..."
-    read -p "Woul you like to proceed with the deletion? [y/n] "
+    volume_names=$(docker inspect --format '{{ range .Mounts }}{{ .Name }} {{ end }} ' $container_id)
+    echo "Stopping and removing container $container and volumes ${volume_names} ..."
+    read -p 'Woul you like to proceed with the deletion? [y/n] '
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        docker stop $CONTAINER_ID
-        docker rm $CONTAINER_ID
-        docker volume rm $VOLUME_NAMES
+        docker stop $container_id
+        docker rm $container_id
+        docker volume rm $volume_names
     else
-        echo "Exiting script. Please restart the script."
+        echo 'Exiting script. Please restart the script.'
         exit
     fi
 
     # Halt the script and wait for new container to be deployed
-    echo "Please deploy the new container with name $CONTAINER and image $TARGET_VERSION."
-    read -p "Is the new container deployed and running? [y/n] "
+    echo "Please deploy the new container with name $container and image $target_version."
+    read -p 'Is the new container deployed and running? [y/n] '
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo "Continuing with database import."
+        echo 'Continuing with database import.'
     else
-        echo "Exiting script. Please restart the script:"
-        echo "docker-postgres-upgrade -c $CONTAINER -s $SOURCE_VERSION -t $TARGET_VERSION -i $DUMP_FILE"
+        echo 'Exiting script. Please restart the script:'
+        echo "docker-postgres-upgrade -c $container -s $source_version -t $target_version -i $dump_file"
         exit
     fi
 fi
 
 # Import all databases
-echo "Importing all databases from $DUMP_FILE to $CONTAINER"
-cat $DUMP_FILE | docker exec -i "$CONTAINER" /bin/bash -c "psql -U \$POSTGRES_USER"
+echo "Importing all databases from $dump_file to $container"
+cat $dump_file | docker exec -i "$container" /bin/bash -c "psql -U \$POSTGRES_USER"
 
 # Ensure access works
-POSTGRES_USER=$(docker exec $CONTAINER /bin/bash -c "echo \$POSTGRES_USER")
-echo "Reset $POSTGRES_USER password for $CONTAINER ..."
-POSTGRES_PASSWORD=$(docker exec $CONTAINER /bin/bash -c "echo \$POSTGRES_PASSWORD")
-docker exec $CONTAINER /bin/bash -c "psql -U \$POSTGRES_USER -c \"ALTER USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';\""
+postgres_user=$(docker exec $container /bin/bash -c "echo \$POSTGRES_USER")
+echo "Reset $postgres_user password for $container ..."
+postgres_password=$(docker exec $container /bin/bash -c "echo \$POSTGRES_PASSWORD")
+docker exec $container /bin/bash -c "psql -U \$POSTGRES_USER -c \"ALTER USER $postgres_user WITH PASSWORD '$postgres_password';\""
 
 # echo "Grant all privileges for $POSTGRES_USER onto $DATABASES ..."
 # DATABASES=$(docker-postgres-list -c "$CONTAINER")
