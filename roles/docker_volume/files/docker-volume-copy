@@ -24,70 +24,70 @@ help() {
 }
 
 # Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
 # Initialise option flags
-REPLACE="false"
-FORCE="false"
+replace='false'
+force='false'
 
 # Process params
-while getopts ":s: :t: :f :r :V" opt; do
+while getopts ':s: :t: :f :r :V' opt; do
     case $opt in
-        s) SOURCE="$OPTARG"
+        s) source="$OPTARG"
         ;;
-        t) TARGET="$OPTARG"
+        t) target="$OPTARG"
         ;;
-        f) FORCE="true"
+        f) force='true'
         ;;
-        r) REPLACE="true"
+        r) replace='true'
         ;;
-        V) echo "$SCRIPT version $VERSION"
+        V) echo "$script version $version"
         exit 0
         ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        Help
+        help
         exit;;
     esac
 done
 
 # Verify variables
-[[ -z "$SOURCE" ]] && { echo "Parameter -s|source is empty" ; exit 1; }
-[[ -z "$TARGET" ]] && { echo "Parameter -t|target is empty" ; exit 1; }
+[[ -z "$source" ]] && { echo 'Parameter -s|source is empty' ; exit 1; }
+[[ -z "$target" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
 
 # Split volume name and path
-TARGET_VOLUME=$(echo $TARGET | cut -f1 -d:)
-TARGET_PATH=$(echo $TARGET | grep -q ":" && echo $TARGET | cut -f2 -d: || echo "")
-SOURCE_VOLUME=$(echo $SOURCE | cut -f1 -d:)
-SOURCE_PATH=$(echo $SOURCE | grep -q ":" && echo $SOURCE | cut -f2 -d: || echo "")
+target_volume=$(echo $target | cut -f1 -d:)
+target_path=$(echo $target | grep -q ":" && echo $target | cut -f2 -d: || echo "")
+source_volume=$(echo $source | cut -f1 -d:)
+source_path=$(echo $source | grep -q ":" && echo $source | cut -f2 -d: || echo "")
 
-if $REPLACE; then
-    echo "Remove docker volume $TARGET_VOLUME."
-    docker volume rm "$TARGET_VOLUME"
+if $replace; then
+    echo "Remove docker volume $target_volume."
+    docker volume rm "$target_volume"
 fi
 
-if [[ -z "$TARGET_PATH" ]]; then
-    docker volume inspect "$TARGET_VOLUME" > /dev/null && { echo "Docker volume $TARGET_VOLUME already exists." ; exit 1; }
+if [[ -z "$target_path" ]]; then
+    docker volume inspect "$target_volume" > /dev/null && { echo "Docker volume $target_volume already exists." ; exit 1; }
 fi
 
-echo "Create docker volume $TARGET_VOLUME."
-docker volume create --name "$TARGET_VOLUME"
+echo "Create docker volume $target_volume."
+docker volume create --name "$target_volume"
 
-if $FORCE; then
-    echo "Remove path $TARGET_PATH in volume $TARGET_VOLUME."
+if $force; then
+    echo "Remove path $target_path in volume $target_volume."
     docker container run --rm \
-        -v "$TARGET_VOLUME":/to \
-        alpine ash -c "rm -rf /to$TARGET_PATH"
+        -v "$target_volume":/to \
+        alpine ash -c "rm -rf /to$target_path"
 fi
 
-echo "Copy Docker volume content from $SOURCE to $TARGET."
+echo "Copy Docker volume content from $source to $target."
 docker container run --rm \
-    -v "$SOURCE_VOLUME":/from \
-    -v "$TARGET_VOLUME":/to \
-    alpine ash -c "cd /to; mkdir -p .$TARGET_PATH; cd /from$SOURCE_PATH; cp -av . /to$TARGET_PATH" \
+    -v "$source_volume":/from \
+    -v "$target_volume":/to \
+    alpine ash -c "cd /to; mkdir -p .$target_path; cd /from$source_path; cp -av . /to$target_path" \
     > /dev/null && { echo "Docker volume copy has finished."; }
 
-echo "Fix ownership for $TARGET_PATH in container:"
-echo "docker exec -u root \$CONTAINER chown -R \$USER:\$GROUP /path/to$TARGET_PATH"
+echo "Fix ownership for $target_path in container:"
+echo "docker exec -u root \$CONTAINER chown -R \$USER:\$GROUP /path/to$target_path"
