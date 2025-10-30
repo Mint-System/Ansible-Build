@@ -40,7 +40,7 @@
       ADDONS_GIT_REPOS: "{{ odoo_addons_git_repos | default('') }}"
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
-      DBFILTER: "{{ odoo_dbfilter }}"
+      DB_FILTER: "{{ odoo_dbfilter }}"
       LIST_DB: "{{ odoo_list_db }}"
       PROXY_MODE: "{{ odoo_proxy_mode }}"
       SERVER_WIDE_MODULES: "{{ odoo_server_wide_modules | default('') }}"
@@ -82,7 +82,7 @@
       ADDONS_GIT_REPOS: "{{ odoo_addons_git_repos | default('') }}"
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
-      DBFILTER: "{{ item.dbfilter | default(odoo_dbfilter) }}"
+      DB_FILTER: "{{ item.dbfilter | default(odoo_dbfilter) }}"
       LIST_DB: "{{ odoo_list_db }}"
       PROXY_MODE: "{{ odoo_proxy_mode }}"
       PYTHON_INSTALL: "{{ odoo_python_install | default('') }}"

@@ -6,8 +6,6 @@ Install Odoo scripts.
 
 ## Usage
 
-## Usage
-
 Configure the role.
 
 ```yml
