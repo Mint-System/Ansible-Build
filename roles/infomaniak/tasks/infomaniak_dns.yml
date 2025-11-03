@@ -1,7 +1,7 @@
 ---
 - name: Set infomaniak DNS present fact for {{ zone_name }}
   ansible.builtin.set_fact:
-    infomaniak_dns_present: "{{ infomaniak_dns_present | default([]) + [(record.target | replace('\"', '')) + '-' + record.type ] }}"
+    infomaniak_dns_present: "{{ infomaniak_dns_present | default([]) + [(record.source if record.source != '' else '.') + '-' + record.type ] }}"
   loop: "{{ current_records }}"
   loop_control:
     loop_var: record
@@ -19,7 +19,7 @@
       Content-Type: "application/json"
     body_format: json
     body:
-      source: "{{ record.source }}"
+      source: "{{ record.source if record.source != '' else '.' }}"
       type: "{{ record.type }}"
       target: "{{ record.target }}"
       ttl: "{{ record.ttl | default(3600) }}"
@@ -29,10 +29,10 @@
   loop: "{{ zone_records }}"
   loop_control:
     loop_var: record
-    label: "{{ record.source }} ({{ record.type }})"
+    label: "{{ record.source if record.source != '' else '.' }} ({{ record.type }})"
   when:
     - record.state == 'present'
-    - (record.target + "-" + record.type) not in (infomaniak_dns_present | default([]))
+    - (record.source if record.source != '' else '.') + '-' + record.type not in (infomaniak_dns_present | default([]))
 
 - name: Update existing DNS records for {{ zone_name }}
   ansible.builtin.uri:
@@ -43,7 +43,7 @@
       Content-Type: "application/json"
     body_format: json
     body:
-      source: "{{ record.source }}"
+      source: "{{ record.source if record.source != '' else '.' }}"
       type: "{{ record.type }}"
       target: "{{ record.target }}"
       ttl: "{{ record.ttl | default(existing_record.ttl) }}"
@@ -51,14 +51,17 @@
     return_content: true
   register: update_result
   vars:
-    existing_record: "{{ (current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list)[0] }}"
+    normalized_source: "{{ record.source if record.source != '' else '.' }}"
+    _matched_list: "{{ current_records | selectattr('source', 'equalto', normalized_source) | selectattr('type', 'equalto', record.type) | list }}"
+    existing_record: "{{ _matched_list[0] if _matched_list | length > 0 else {} }}"
   loop: "{{ zone_records }}"
   loop_control:
     loop_var: record
-    label: "{{ record.source }} ({{ record.type }})"
+    label: "{{ normalized_source }} ({{ record.type }})"
   when:
     - record.state == 'present'
-    - (record.target + "-" + record.type) in (infomaniak_dns_present | default([]))
+    - _matched_list | length > 0
+    - normalized_source + '-' + record.type in (infomaniak_dns_present | default([]))
     - existing_record.target != record.target or (record.ttl is defined and existing_record.ttl != record.ttl)
 
 - name: Delete DNS records for {{ zone_name }}
@@ -71,11 +74,14 @@
     return_content: true
   register: delete_result
   vars:
-    existing_record: "{{ (current_records | selectattr('source', 'equalto', record.source) | selectattr('type', 'equalto', record.type) | list)[0] }}"
+    normalized_source: "{{ record.source if record.source != '' else '.' }}"
+    _matched_list: "{{ current_records | selectattr('source', 'equalto', normalized_source) | selectattr('type', 'equalto', record.type) | list }}"
+    existing_record: "{{ _matched_list[0] if _matched_list | length > 0 else {} }}"
   loop: "{{ zone_records }}"
   loop_control:
     loop_var: record
-    label: "{{ record.source }} ({{ record.type }})"
+    label: "{{ normalized_source }} ({{ record.type }})"
   when:
     - record.state == 'absent'
-    - (record.target + "-" + record.type) in (infomaniak_dns_present | default([]))
+    - _matched_list | length > 0
+    - normalized_source + '-' + record.type in (infomaniak_dns_present | default([]))

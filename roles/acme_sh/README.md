@@ -36,8 +36,10 @@ To use the FreeDNS set `dns: dns_freedns` in the proxy config and define these v
 * `acme_sh_freedns_user`
 * `vault_acme_sh_freedns_password`
 
+### Use Infomaniak API
+
+To use the Infomaniak API set `dns: dns_infomaniak` in the proxy config and define the `vault_dns_vercel_token` var.
+
 ### Use Vercel API
 
-To use the Vercel API set `dns: dns_vercel` in the proxy config and define these vars:
-
-* `vault_acme_sh_vercel_token`
+To use the Vercel API set `dns: dns_vercel` in the proxy config and define these the `vault_dns_vercel_token` var.

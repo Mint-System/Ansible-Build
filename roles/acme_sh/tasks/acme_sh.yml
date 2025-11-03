@@ -9,6 +9,16 @@
     path: "{{ acme_sh_data_dir }}/out"
     state: directory
 
+- name: Register {{ role_name }} account
+  community.docker.docker_container:
+    name: "{{ acme_sh_hostname }}"
+    labels:
+      description: "{{ acme_sh_description }}"
+    image: "{{ acme_sh_image }}"
+    volumes:
+      - "{{ acme_sh_data_dir }}:/acme.sh"
+    command: --register-account -m {{ acme_sh_email }}
+
 - name: Get list of nginx certs with dns attribute
   ansible.builtin.set_fact:
     acme_sh_certs: "{{ nginx_proxies | json_query('[?dns]') }}"
@@ -17,27 +27,55 @@
   ansible.builtin.debug:
     msg: "{{ acme_sh_certs | json_query('[*].src_hostname') | list }}"
 
-- name: Init {{ role_name }} env vars
+- name: Check which certificates are missing
+  ansible.builtin.stat:
+    path: "{{ acme_sh_data_dir }}/{{ item.src_hostname }}_ecc/{{ item.src_hostname }}.cer"
+  loop: "{{ acme_sh_certs }}"
+  register: acme_cert_files
+  when: acme_sh_certs is defined
+
+- name: Create list of missing certs
+  ansible.builtin.set_fact:
+    acme_missing_certs: "{{ acme_cert_files | json_query('results[*] | [?stat.exists==`false`].item') | list }}"
+  when: acme_sh_certs is defined
+
+- name: Log missing certificates
+  ansible.builtin.debug:
+    var: acme_missing_certs
+
+- name: Init {{ role_name }} FreeDNS env
   ansible.builtin.set_fact:
     acme_sh_env:
       FREEDNS_User: "{{ acme_sh_freedns_user }}"
       FREEDNS_Password: "{{ acme_sh_freedns_password }}"
   when: acme_sh_freedns_user is defined and acme_sh_freedns_password is defined
 
-- name: Init {{ role_name }} env vars
+- name: Init {{ role_name }} Vercel env
   ansible.builtin.set_fact:
     acme_sh_env:
       VERCEL_TOKEN: "{{ acme_sh_vercel_token }}"
   when: acme_sh_vercel_token is defined
 
-- name: Issue {{ role_name }} certificates
+- name: Init {{ role_name }} Infomaniak env
+  ansible.builtin.set_fact:
+    acme_sh_env:
+      INFOMANIAK_API_TOKEN: "{{ acme_sh_infomaniak_api_token }}"
+  when: acme_sh_infomaniak_api_token is defined
+
+- name: Issue {{ role_name }} certificates (missing only)
   community.docker.docker_container:
-    name: "{{ item.src_hostname | replace('*.', '') }}"
+    name: "{{ item.src_hostname | replace('*.', 'wildcard.') }}"
     labels:
       description: "{{ acme_sh_description }}"
     image: "{{ acme_sh_image }}"
     env: "{{ acme_sh_env }}"
     volumes:
       - "{{ acme_sh_data_dir }}:/acme.sh"
-    command: --register-account -m {{ acme_sh_email }} --issue --dns {{ item.dns }} -d {{ item.src_hostname }} --debug --output-insecure
-  loop: "{{ acme_sh_certs }}"
+    command: --issue --dns {{ item.dns }} -d {{ item.src_hostname }}
+  loop: "{{ acme_missing_certs }}"
+  when: acme_missing_certs is defined and (acme_missing_certs | length > 0)
+
+- name: Wait for DNS propagation
+  ansible.builtin.pause:
+    seconds: 30
+  when: acme_missing_certs is defined and (acme_missing_certs | length > 0)

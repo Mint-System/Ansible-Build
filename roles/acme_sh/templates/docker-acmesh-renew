@@ -9,6 +9,15 @@ docker run --rm --name {{ acme_sh_hostname }}-tmp \
 --renew --dns dns_freedns {% for item in acme_sh_certs %}-d {{ item.src_hostname }} {% endfor %}
 {% endif %}
 
+{% if acme_sh_infomaniak_api_token is defined %}
+docker run --rm --name {{ acme_sh_hostname }}-tmp \
+--volume "{{ acme_sh_data_dir }}:/acme.sh" \
+--env "INFOMANIAK_API_TOKEN={{ acme_sh_infomaniak_api_token }}" \
+{{ acme_sh_image }} \
+--renew --dns dns_infomaniak {% for item in acme_sh_certs %}-d {{ item.src_hostname }} {% endfor %} \
+--debug
+{% endif %}
+
 {% if acme_sh_vercel_token is defined %}
 docker run --rm --name {{ acme_sh_hostname }}-tmp \
 --volume "{{ acme_sh_data_dir }}:/acme.sh" \

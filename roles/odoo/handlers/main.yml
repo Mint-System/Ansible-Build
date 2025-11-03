@@ -1,11 +1,11 @@
 ---
-- name: Restart single odoo container
+- name: Restart odoo container
   community.docker.docker_container:
     name: "{{ odoo_hostname }}"
     restart: true
   when: odoo_config_map|length == 1
 
-- name: Restart multiple odoo container
+- name: Restart odoo container
   community.docker.docker_container:
     name: "{{ odoo_hostname }}-{{ item.name }}"
     restart: true
