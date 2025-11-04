@@ -12,7 +12,7 @@ help() {
     echo
     echo 'Description: Uninstall Odoo modules in Docker container.'
     echo "Syntax: $script [-c|-d|-u|-V|help]"
-    echo 'Example: $script -c odoo01 -d erp -u hr_timesheet'
+    echo 'Example: $script -c odoo01 -d erp -u hr,note'
     echo 'options:'
     echo '  -c    Docker container. Defaults to '\''odoo'\''.'
     echo '  -d    Database name.'
@@ -33,7 +33,7 @@ while getopts ':c: :d: :u: :V' opt; do
     case $opt in
         c) container="$OPTARG";;
         d) database="$OPTARG";;
-        u) module="$OPTARG";;
+        u) modules="$OPTARG";;
         V) echo "$script version $version"
         exit 0
         ;;
@@ -48,7 +48,14 @@ done
 
 # Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
+[[ -z "$modules" ]] && { echo 'Parameter -u|module is empty' ; exit 1; }
 
-# Remove with Docker exec
-echo "Remove module $module on database $database on container $container."
-docker exec $container /bin/bash -c "echo \"self.env['ir.module.module'].search([('name', '=', '$module')]).button_immediate_uninstall()\" | odoo shell -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+# Split modules by comma and loop through them
+IFS=',' read -ra MODULES <<< "$modules"
+for module in "${MODULES[@]}"; do
+    module=$(echo "$module" | xargs)
+    [[ -z "$module" ]] && continue
+
+    echo "Removing module '$module' on database '$database' on container '$container'."
+    docker exec $container /bin/bash -c "echo \"self.env['ir.module.module'].search([('name', '=', '$module')]).button_immediate_uninstall()\" | odoo shell -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+done

@@ -12,7 +12,7 @@ help() {
     echo
     echo 'Description: Install Odoo database in Docker container.'
     echo "Syntax: $script [-c|-d|-i|-l|-w|-V|help]"
-    echo 'Example: $script -c odoo01 -d erp -i hr_timesheet,note -l de_CH -w'
+    echo 'Example: $script -c odoo01 -d erp -i hr,note -l de_CH -w'
     echo 'options:'
     echo '  -c    Docker container. Defaults to '\''odoo'\''.'
     echo '  -d    Database name.'
