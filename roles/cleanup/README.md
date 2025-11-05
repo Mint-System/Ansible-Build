@@ -40,15 +40,12 @@ So to remove everything you would run `task play -i inventories/odoo plays/clean
 - fathom
 - grafana
 - iam
-- innernet_client
-- innernet_server
+- innernet
 - keycloak
 - loki
-- loom
 - mailhog
 - meilisearch
 - metabase
-- modsecurity
 - moodle
 - mysql
 - n8n
@@ -58,6 +55,7 @@ So to remove everything you would run `task play -i inventories/odoo plays/clean
 - odoo
 - odoo_scripts
 - openldap
+- packages
 - pgadmin
 - postgres
 - prometheus
