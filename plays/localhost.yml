@@ -13,8 +13,8 @@
       tags: odoo_apps
     - role: iam
       tags: iam
-    - role: clean
-      tags: clean
+    - role: cleanup
+      tags: cleanup
     - role: meilisync
       tags: meilisync
     - role: meilisearch
