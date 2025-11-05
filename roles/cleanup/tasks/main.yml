@@ -1,0 +1,47 @@
+---
+- name: Include cleanup tasks
+  ansible.builtin.include_tasks: "{{ item }}.yml"
+  when: item in ansible_tags
+  loop: "{{ ansible_run_tags }}"
+  vars:
+    ansible_tags:
+      - bigbluebutton
+      - bookstack
+      - cadvisor
+      - certbot
+      - collabora_code
+      - commento
+      - crowdsec
+      - docker_compose
+      - docker_network
+      - docker_swarm
+      - fail2ban
+      - fathom
+      - grafana
+      - iam
+      - innernet_client
+      - innernet_server
+      - keycloak
+      - loki
+      - loom
+      - mailhog
+      - meilisearch
+      - metabase
+      - modsecurity
+      - moodle
+      - mysql
+      - n8n
+      - nextcloud
+      - nginx
+      - node_exporter
+      - odoo
+      - odoo_scripts
+      - openldap
+      - pgadmin
+      - postgres
+      - prometheus
+      - promtail
+      - rabbitmq
+      - redis
+      - restic
+      - wordpress

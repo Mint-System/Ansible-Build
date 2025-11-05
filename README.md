@@ -152,19 +152,19 @@ Deploy role to specific group with non-default user.
 task play -i inventories/setup plays/setup.yml -t docker -l host.example.com -u username
 ```
 
-Clean Odoo stack.
+Cleanup Odoo stack.
 
 ```bash
-task play -i inventories/odoo plays/clean.yml.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
+task play -i inventories/odoo plays/cleanup.yml.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
 ```
 
-Clean role only.
+Cleanup role only.
 
 ```bash
-task play -i inventories/setup plays/clean.yml.yml -t docker_network
+task play -i inventories/setup plays/cleanup.yml.yml -t docker_network
 ```
 
-Clean dry run.
+Cleanup dry run.
 
 ```bash
 task play -i inventories/odoo plays/odoo.yml -t odoo --check

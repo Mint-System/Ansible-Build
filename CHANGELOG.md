@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Renamed `clean` to `cleanup`.
 - Updated bash scripts to follow coding conventions from AGENTS.md
   - Removed 'function' keyword from all bash functions
   - Added 'local' declarations for variables inside functions

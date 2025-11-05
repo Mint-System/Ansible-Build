@@ -2,6 +2,6 @@
 - name: Cleanup server
   hosts: all
   roles:
-    - role: clean
+    - role: cleanup
       tags:
         - always

@@ -52,8 +52,8 @@ help-table() {
     printf "$column" 'play' '' 'Run ansible-playbook command.'
     printf "$column" 'connect-host' '[host]' 'Connect to host with configs.'
     # Test
-    printf "$column" 'test-localhost' '[clean]' 'Deploy to localhost. Pass option '\''clean'\'' to clean up.'
-    printf "$column" 'test-scripts' '[clean]' 'Install and test scripts.'
+    printf "$column" 'test-localhost' '[cleanup]' 'Deploy to localhost. Pass option '\''cleanup'\'' to reset test env.'
+    printf "$column" 'test-scripts' '[cleanup]' 'Install and test scripts. Pass option '\''cleanup'\'' to reset test env.'
 }
 
 help() {
@@ -312,7 +312,7 @@ activate-venv() {
     source "venv$GIT_BRANCH/bin/activate"
 }
 
-install() { 
+install() {
     echo "Setup Ansible log file"
     sudo touch /var/log/ansible.log
     sudo chown $USER: /var/log/ansible.log
@@ -522,9 +522,9 @@ publish-galaxy() {
 test-localhost() {
     activate-venv
     version
-    if [[ "$1" = "clean" ]]; then
+    if [[ "$1" = "cleanup" ]]; then
         echo "Cleanup localhost"
-        ansible-playbook -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
+        ansible-playbook -i test plays/cleanup.yml -t "odoo,odoo_data,odoo_volume,\
             postgres,postgres_data,postgres_volume,\
             meilisearch,meilisearch_data,meilisearch_volume,\
             pgadmin,pgadmin_data,pgadmin_volume,\
@@ -568,10 +568,10 @@ test-scripts() {
     set -e
     activate-venv
 
-    if [[ "$1" = "clean" ]]; then
+    if [[ "$1" = "cleanup" ]]; then
         echo -e "\033[38;5;214mTEST\033[0m: Cleanup test environment."
         ansible localhost -m ansible.builtin.cron -a 'name="test" state="absent"'
-        ansible-playbook -i test plays/clean.yml -t "odoo,odoo_data,odoo_volume,\
+        ansible-playbook -i test plays/cleanup.yml -t "odoo,odoo_data,odoo_volume,\
             postgres,postgres_data,postgres_volume"
     else
         echo -e "\033[38;5;214mTEST\033[0m: Test restic scripts"
