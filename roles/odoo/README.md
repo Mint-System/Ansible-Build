@@ -17,8 +17,8 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/mintsystem/odoo/
-odoo_revision: "18.0.20250725"
-odoo_image: mintsystem/odoo:18.0.20250725
+odoo_revision: "18.0"
+odoo_image: mintsystem/odoo:18.0
 odoo_build_image: true # default: false
 odoo_build_dockerfile: | # default: ""
   RUN pip install prometheus-client
