@@ -39,6 +39,7 @@
       TZ: "{{ odoo_timezone }}"
       ADDONS_GIT_REPOS: "{{ odoo_addons_git_repos | default('') }}"
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
+      ODOO_ENTERPRISE_PATH: /mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
       DB_FILTER: "{{ odoo_dbfilter }}"
       LIST_DB: "{{ odoo_list_db }}"
