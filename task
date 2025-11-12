@@ -81,7 +81,7 @@ fi
 
 # Import commands
 
-function clone-taskfile(){
+clone-taskfile(){
     if [ ! -d "$HOME/taskfile.build" ]; then
         echo -e "\033[38;5;214mGit\033[0m: Clone taskfile repo"
         git clone https://git.taskfile.build "$HOME/taskfile.build"
@@ -300,24 +300,11 @@ show-vault-file() {
 
 # Env
 
-init-venv() {
-    if [[ ! -d "venv$GIT_BRANCH" ]]; then
-        echo "Init venv$GIT_BRANCH with $(uv --version)."
-        uv venv "venv$GIT_BRANCH"
-    fi
-}
-
-activate-venv() {
-    echo "Source virtualenv venv$GIT_BRANCH."
-    source "venv$GIT_BRANCH/bin/activate"
-}
-
 install() {
     echo "Setup Ansible log file"
     sudo touch /var/log/ansible.log
     sudo chown $USER: /var/log/ansible.log
 
-    init-venv
     activate-venv
 
     echo "Install Ansible and Python dependencies"
@@ -362,45 +349,53 @@ lint() {
 
 list-hosts() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
-
     activate-venv
 
-    # FIXME: Check if all group has children
-    if [[ "$1" = "inventories/setup" ]]; then
+    find "$1" -name 'hosts.yml' | sort | while read -r hosts_file; do
+        echo -e "\n<<< $hosts_file >>>\n"
 
-        local aliases=$(yq e '.all.children.*.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
-        local hosts=$(yq e '.all.children.*.hosts | .[] | .ansible_host' "$1/hosts.yml")
-        local customers=$(yq e '.all.children.*.hosts | .[] | .customer' "$1/hosts.yml")
+        if [[ "$hosts_file" == *"setup/hosts.yml"* ]]; then
+            # Handle setup inventories with customer info
+            local aliases=$(yq e '.all.children.*.hosts' "$hosts_file" | grep '^[a-zA-Z]' | cut -d: -f1)
+            local hosts=$(yq e '.all.children.*.hosts | .[] | .ansible_host' "$hosts_file")
+            local customers=$(yq e '.all.children.*.hosts | .[] | .customer' "$hosts_file")
 
-        local alias_width=15
-        local host_width=25
-        local cust_width=35
-        local column="| %-${alias_width}s | %-${host_width}s | %-${cust_width}s |\n"
+            if [[ -z "$aliases" || -z "$hosts" ]]; then
+                echo "No hosts found in $hosts_file"
+                continue
+            fi
 
-        printf "$column" 'Alias' 'Host' 'Customer'
-        echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((cust_width + 2)) '' | tr ' ' '-')|"
+            local alias_width=15
+            local host_width=25
+            local cust_width=35
+            local column="| %-${alias_width}s | %-${host_width}s | %-${cust_width}s |\n"
+            printf "$column" 'Alias' 'Host' 'Customer'
+            echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((cust_width + 2)) '' | tr ' ' '-')|"
 
-        paste <(echo "$aliases") <(echo "$hosts") <(echo "$customers") | while read -r alias host customer; do
-            printf "$column" "$alias" "$host" "$customer"
-        done
+            paste <(echo "$aliases") <(echo "$hosts") <(echo "$customers") | sort -u | while read -r alias host customer; do
+                printf "$column" "$alias" "$host" "$customer"
+            done
+        else
+            # Regular inventory without customer field
+            local aliases=$(yq e '.all.hosts' "$hosts_file" | grep '^[a-zA-Z]' | cut -d: -f1)
+            local hosts=$(yq e '.all.hosts | .[] | .ansible_host' "$hosts_file")
 
-    else
+            if [[ -z "$aliases" || -z "$hosts" ]]; then
+                echo "No hosts found in $hosts_file"
+                continue
+            fi
 
-        local aliases=$(yq e '.all.hosts' "$1/hosts.yml" | grep '^[a-zA-Z]' | cut -d: -f1)
-        local hosts=$(yq e '.all.hosts | .[] | .ansible_host' "$1/hosts.yml")
+            local alias_width=15
+            local host_width=25
+            local column="| %-${alias_width}s | %-${host_width}s |\n"
+            printf "$column" 'Alias' 'Host'
+            echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')|"
 
-        local alias_width=15
-        local host_width=25
-        local column="| %-${alias_width}s | %-${host_width}s |\n"
-
-        printf "$column" 'Alias' 'Host'
-        echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')|"
-
-        paste <(echo "$aliases") <(echo "$hosts") | while read -r alias host; do
-            printf "$column" "$alias" "$host"
-        done
-
-    fi
+            paste <(echo "$aliases") <(echo "$hosts") | while read -r alias host; do
+                printf "$column" "$alias" "$host"
+            done
+        fi
+    done
 }
 
 list-roles() {
