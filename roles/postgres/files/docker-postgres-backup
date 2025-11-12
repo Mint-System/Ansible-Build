@@ -15,7 +15,7 @@ help() {
   echo 'options:'
   echo '  -d    Comma-separated list of database names.'
   echo '  -a    Backup all databases'
-  echo "  -o    Output directory. Defaults to '/var/tmp'."
+  echo "  -o    Output directory. Defaults to '/var/tmp/\$container'."
   echo "  -c    Docker container name. Defaults to 'postgres'."
   echo "  help  Show $script manual."
   echo
@@ -70,16 +70,16 @@ if [[ ! -z $databases ]] ; then
 fi
 
 # Create backup folder
+echo "Create and cleanup backup folder: ${dir}/${container}"
 mkdir -p ${dir}/${container}
-
-# Cleanup backup folder
 rm -rf ${dir}/${container}/*
 
 # Create dump with docker for each database
 for database in "${database_list[@]}"
 do
-  echo "Run Docker Postgres backup for $database"
-  docker exec $container /bin/bash -c "pg_dump -U \$POSTGRES_USER $database" > "${dir}/${container}/${database}.sql"
+    output="${dir}/${container}/${database}.sql"
+    echo "Dump $database databse to $output..."
+    docker exec $container /bin/bash -c "pg_dump -U \$POSTGRES_USER $database" > "$output"
 done
 
 # Notify if backup has finished
