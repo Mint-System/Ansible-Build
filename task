@@ -422,6 +422,7 @@ get-last-hostname() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     local role="$1"
 
+    echo "Search inventories folder for '${role}_hostname: $role'"
     local all_hostnames
     all_hostnames=$(rg -I "^${role}_hostname: $role" inventories | cut -d' ' -f2 | sort -u)
 
