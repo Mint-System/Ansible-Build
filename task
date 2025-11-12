@@ -354,8 +354,11 @@ list-hosts() {
     find "$1" -name 'hosts.yml' | sort | while read -r hosts_file; do
         echo -e "\n<<< $hosts_file >>>\n"
 
-        if [[ "$hosts_file" == *"setup/hosts.yml"* ]]; then
-            # Handle setup inventories with customer info
+        # Check if any host has a 'customer' field
+        local has_customers=$(yq e '.all.children.*.hosts | .[] | has("customer")' "$hosts_file" | grep -m1 true)
+
+        if [[ -n "$has_customers" ]]; then
+            # Handle inventories with customer info
             local aliases=$(yq e '.all.children.*.hosts' "$hosts_file" | grep '^[a-zA-Z]' | cut -d: -f1)
             local hosts=$(yq e '.all.children.*.hosts | .[] | .ansible_host' "$hosts_file")
             local customers=$(yq e '.all.children.*.hosts | .[] | .customer' "$hosts_file")
@@ -371,7 +374,6 @@ list-hosts() {
             local column="| %-${alias_width}s | %-${host_width}s | %-${cust_width}s |\n"
             printf "$column" 'Alias' 'Host' 'Customer'
             echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((cust_width + 2)) '' | tr ' ' '-')|"
-
             paste <(echo "$aliases") <(echo "$hosts") <(echo "$customers") | sort -u | while read -r alias host customer; do
                 printf "$column" "$alias" "$host" "$customer"
             done
@@ -390,7 +392,6 @@ list-hosts() {
             local column="| %-${alias_width}s | %-${host_width}s |\n"
             printf "$column" 'Alias' 'Host'
             echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')|"
-
             paste <(echo "$aliases") <(echo "$hosts") | while read -r alias host; do
                 printf "$column" "$alias" "$host"
             done
