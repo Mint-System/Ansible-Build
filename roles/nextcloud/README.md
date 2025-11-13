@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/nextcloud/
-nextcloud_image: nextcloud:30-apache
+nextcloud_image: nextcloud:32-apache
 nextcloud_build_image: true # default: false
 nextcloud_hostname: nextcloud01
 nextcloud_data_dir: /usr/share/nextcloud # default: "/usr/share/{{ nextcloud_hostname }}"
@@ -142,4 +142,13 @@ Retrieve the session settings with these commands:
 docker exec --user www-data nextcloud01 php occ config:system:get session_keepalive
 docker exec --user www-data nextcloud01 php occ config:system:get session_lifetime
 docker exec --user www-data nextcloud01 php occ config:system:get remember_login_cookie_lifetime
+```
+
+### Enable/disable user account
+
+Use the `occ` cli to disable/enable accounts.
+
+```bash
+docker exec --user www-data nextcloud01 php occ user:disable admint
+docker exec --user www-data nextcloud01 php occ user:enable admint
 ```
