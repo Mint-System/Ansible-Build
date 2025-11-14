@@ -2,6 +2,8 @@
 - name: Nginx setup
   hosts: all
   roles:
+    - role: dozzle
+      tags: dozzle
     - role: htpasswd
       tags: htpasswd
     - role: cadvisor
