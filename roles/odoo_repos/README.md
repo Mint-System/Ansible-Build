@@ -75,3 +75,13 @@ Navigate into the repo directory on the server `cd /usr/share/odoo01/enterprise`
 COMMIT=13db977fca67da8278fbdc5753f425583b304c67
 sudo ssh-agent /bin/bash -c "ssh-add /home/bot/.ssh/id_ed25519; git checkout $COMMIT"
 ```
+
+### Checkout branch manually
+
+Navigate into the repo directory on the server `cd /usr/share/odoo01/addons/$REPO` and run:
+
+```bash
+BRANCH=18.0-sale_triple_discount-sps
+sudo ssh-agent /bin/bash -c "ssh-add /home/bot/.ssh/id_ed25519; git fetch origin $BRANCH"
+sudo ssh-agent /bin/bash -c "ssh-add /home/bot/.ssh/id_ed25519; git pull origin $BRANCH"
+```
