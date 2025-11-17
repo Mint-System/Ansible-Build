@@ -22,7 +22,7 @@ odoo_repos:
     version: 16.0 # default: "{{ odoo_revision }}"
   - path: addons/mint-system-server-tools
     url: git@github.com:Mint-System/Odoo-Apps-Server-Tools.git
-    version: 17.0-mig-session_db # default: "{{ odoo_revision }}"
+    version: 17.0-mig-session_db # default: "{{ odoo_version }}"
     single_branch: false
   - path: addons/oca-partner-contact
     url: git@github.com:OCA/partner-contact.git
