@@ -16,6 +16,7 @@ help() {
     echo '  -s    Alternate acme server.'
     echo '  -t    Execute dry run.'
     echo '  -v    Show more details.'
+    echo '  -w    Use webserver method (webroot) (instead of standalone).'
     echo "  help  Show $script manual."
     echo
 }
@@ -29,9 +30,10 @@ fi
 option=""
 server=""
 verbose=""
+webserver="False"
 
 # Process params
-while getopts ":c: :d: :e: :s: :t :v" opt; do
+while getopts ":c:d:e:s:twv" opt; do
   case $opt in
     c) certificate="$OPTARG"
     ;;
@@ -42,6 +44,8 @@ while getopts ":c: :d: :e: :s: :t :v" opt; do
     s) server="$OPTARG"
     ;;
     t) option='--dry-run'
+    ;;
+    w) webserver="True"
     ;;
     v) verbose='-v'
     ;;
@@ -62,16 +66,29 @@ if [[ -n "$server" ]]; then
 else
   server_option=""
 fi
-
 if [[ -n "$certbot_email" ]]; then
   email_option="--email $certbot_email"
 else
   email_option="--register-unsafely-without-email"
 fi
 
+# Choose between webserver and standalone
+if [[ "$webserver" == "True" ]]; then
+    echo "Using webserver method..."
+    challenge_options="--webroot --webroot-path=/var/www/certbot/"
+    docker_volumes="-v $certbot_data_dir/www/:/var/www/certbot/"
+    docker_ports=""
+else
+    echo "Using standalone server..."
+    challenge_options="--standalone"
+    docker_volumes=""
+    docker_ports="-p 80:80"
+fi
+
 docker run --rm --name "${certificate}-tmp" \
+$docker_ports \
 -v /var/log/letsencrypt/:/var/log/letsencrypt/ \
 -v $certbot_data_dir/:/etc/letsencrypt/ \
--v $certbot_data_dir/www/:/var/www/certbot/ \
+$docker_volumes \
 certbot/certbot \
-certonly $email_option --non-interactive --agree-tos --webroot --webroot-path=/var/www/certbot/ -d $certificate $server_option $option $verbose
+certonly $email_option --non-interactive --agree-tos $challenge_options -d $certificate $server_option $option $verbose
