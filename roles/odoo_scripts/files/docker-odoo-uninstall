@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
+# Metadata
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
 # Display Help
 help() {
@@ -11,63 +11,98 @@ help() {
     echo "$script"
     echo
     echo 'Description: Uninstall Odoo modules in Docker container.'
-    echo "Syntax: $script [-c|-d|-u|-V|help]"
-    echo 'Example: $script -c odoo01 -d erp -u hr,note'
-    echo 'options:'
-    echo '  -c    Docker container. Defaults to '\''odoo'\''.'
-    echo '  -d    Database name.'
-    echo '  -u    Name of Odoo module to uninstall.'
-    echo '  -V    Show $script version.'
-    echo "  help  Show $script manual."
+    echo "Syntax: $script [-c CONTAINER] [-d DATABASE] [-u MODULES] [-V | help]"
+    echo 'Example: '"$script"' -c odoo01 -d erp -u hr,note'
+    echo 'Options:'
+    echo '  -c    Docker container name (default: odoo)'
+    echo '  -d    Database name'
+    echo '  -u    Comma-separated list of Odoo modules to uninstall'
+    echo '  -V    Show script version'
+    echo "  help  Show this help message"
     echo
 }
 
 # Show help and exit
-if [[ "$1" == 'help' ]]; then
+if [[ "${1:-}" == "help" ]]; then
     help
-    exit
+    exit 0
 fi
 
-# Process params
-while getopts ':c: :d: :u: :V' opt; do
+# Default values
+container="odoo"
+
+# Parse options
+while getopts ':c:d:u:V' opt; do
     case $opt in
-        c) container="$OPTARG";;
-        d) database="$OPTARG";;
-        u) modules="$OPTARG";;
-        V) echo "$script version $version"
-        exit 0
-        ;;
-        \?) echo "Invalid option -$OPTARG" >&2
-        help
-        exit;;
+        c) container="$OPTARG" ;;
+        d) database="$OPTARG" ;;
+        u) modules="$OPTARG" ;;
+        V) echo "$script version $version"; exit 0 ;;
+        \?) echo "Invalid option: -$OPTARG" >&2; help; exit 1 ;;
     esac
 done
 
-# Fallback to environment vars and default values
-: "${container:=odoo}"
+# Validate required parameters
+if [[ -z "${database:-}" ]]; then
+    echo "Error: Parameter -d (database) is required." >&2
+    exit 1
+fi
+if [[ -z "${modules:-}" ]]; then
+    echo "Error: Parameter -u (modules) is required." >&2
+    exit 1
+fi
 
-# Verify variables
-[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
-[[ -z "$modules" ]] && { echo 'Parameter -u|module is empty' ; exit 1; }
+# Get list of installed modules from Odoo
+echo "Fetching list of installed modules..."
+installed_modules_list=$(docker exec "$container" /bin/bash -c "
+    echo \"
+print(','.join([m.name for m in env['ir.module.module'].search([('state', '=', 'installed')])]))
+\" | odoo shell -d '$database' \
+        --db_host=\$HOST \
+        --db_user=\$USER \
+        --db_password=\$PASSWORD \
+        --no-http 2>/dev/null
+")
 
-# Split modules by comma and loop through them
-IFS=',' read -ra MODULES <<< "$modules"
-for module in "${MODULES[@]}"; do
-    module=$(echo "$module" | xargs)
+# Convert comma-separated list to associative array for fast lookup
+declare -A installed_modules_map
+if [[ -n "$installed_modules_list" ]]; then
+    # Remove any trailing newlines and whitespace
+    installed_modules_list=$(echo "$installed_modules_list" | tr -d '\n\r')
+    if [[ -n "$installed_modules_list" ]]; then
+        IFS=',' read -ra installed_array <<< "$installed_modules_list"
+        for module in "${installed_array[@]}"; do
+            module=$(echo "$module" | xargs)  # trim whitespace
+            [[ -n "$module" ]] && installed_modules_map["$module"]=1
+        done
+    fi
+
+fi
+
+# Split input modules
+IFS=',' read -ra uninstall_modules <<< "$modules"
+
+# Loop through requested modules and uninstall only those that are installed
+for module in "${uninstall_modules[@]}"; do
+    module=$(echo "$module" | xargs)  # trim spaces
     [[ -z "$module" ]] && continue
-
-    echo -e "\033[38;5;214mWarning:\033[0m Removing module '$module' on database '$database' on container '$container'."
-    docker exec $container /bin/bash -c "
-        echo \"module = self.env['ir.module.module'].search([('name', '=', '$module')]);
-print('Module state:', module.state if module else 'not found');
-if module and module.state != 'uninstalled':
-    print('Uninstalling...');
-    module.filtered(lambda m: m.state != 'uninstalled').button_immediate_uninstall();
-else:
-    print('Skipping uninstall...');\" | odoo shell -d $database \
-            --db_host=\$HOST \
-            --db_user=\$USER \
-            --db_password=\$PASSWORD \
-            --no-http
-    "
+    if [[ ${installed_modules_map[$module]:-} ]]; then
+        echo -e "\033[38;5;76mUninstalling\033[0m module '$module' on database '$database' in container '$container'."
+        docker exec "$container" /bin/bash -c "
+            echo \"def uninstall_module():
+    module = env['ir.module.module'].search([('name', '=', '$module')])
+    if module and module.state != 'uninstalled':
+        print('Uninstalling...')
+        module.button_immediate_uninstall()
+    else:
+        print('Module already uninstalled or not found.')
+uninstall_module()\" | odoo shell -d '$database' \
+                    --db_host=\$HOST \
+                    --db_user=\$USER \
+                    --db_password=\$PASSWORD \
+                    --no-http
+        "
+    else
+        echo -e "\033[38;5;214mSkipping\033[0m module '$module': Not installed."
+    fi
 done
