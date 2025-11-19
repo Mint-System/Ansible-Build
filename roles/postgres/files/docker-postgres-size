@@ -15,7 +15,7 @@ help() {
     echo 'options:'
     echo '  -c    Docker container. Defaults to '\''postgres'\''.'
     echo '  -d    Name of database.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

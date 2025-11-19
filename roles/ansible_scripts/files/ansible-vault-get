@@ -19,7 +19,7 @@ help() {
     echo '  -l    Ansible hostname.'
     echo '  -k    Vault key variable to grep.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 
@@ -52,7 +52,7 @@ if [[ ! -f "$config_file" ]]; then
     echo "Please init config file with this command:"
     echo "echo \"ANSIBLE_PATH=/path/to/ansible\" > $config_file"
     exit 1
-fi  
+fi
 
 [[ -z "$inventory_path" ]] && { echo "Parameter -i|inventory path is empty" ; exit 1; }
 [[ -z "$host" ]] && { echo "Parameter -l|host is empty" ; exit 1; }

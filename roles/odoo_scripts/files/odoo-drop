@@ -19,7 +19,7 @@ help() {
   echo '  -d    Database name.'
   echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
   echo '  -v    Show $script version.'
-  echo '  help  Show $script manual.'
+  echo "  help  Show $script manual."
   echo
 }
 

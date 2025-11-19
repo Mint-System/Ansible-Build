@@ -16,7 +16,7 @@ help() {
   echo '  -d    Name of database.'
   echo '  -f    Path to sql patch.'
   echo '  -c    Docker container name. Defaults to '\''postgres'\''.'
-  echo '  help  Show $script manual.'
+  echo "  help  Show $script manual."
   echo
 }
 

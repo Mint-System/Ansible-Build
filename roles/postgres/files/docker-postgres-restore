@@ -18,7 +18,7 @@ help() {
   echo '  -f    Path to sql dump.'
   echo '  -r    Replace existing database.'
   echo '  -i    Create database.'
-  echo '  help  Show $script manual.'
+  echo "  help  Show $script manual."
   echo
 }
 

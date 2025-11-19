@@ -19,7 +19,7 @@ help() {
     echo '  -a    Action to perform. Options: enable, disable, list, reset'
     echo '  -i    User account login id.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

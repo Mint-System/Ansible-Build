@@ -18,7 +18,7 @@ help() {
     echo '  -t    Target database name.'
     echo '  -r    Replace existing database.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

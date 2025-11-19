@@ -20,7 +20,7 @@ help() {
     echo '  -r    Replace existing database.'
     echo '  -p    Path to the filestore. Defaults to '\''~/.local/share/Odoo/filestore'\''.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

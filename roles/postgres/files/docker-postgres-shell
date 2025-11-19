@@ -17,7 +17,7 @@ help() {
     echo '  -d    Name of database. Defaults to '\''postgres'\''.'
     echo '  -s    SQL query as string.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 
@@ -50,6 +50,6 @@ if [[ -n $query ]]; then
     echo "Execute SQL query in container $container on database $database."
     docker exec "$container" /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/$database -c \"$query\""
 else
-    echo "Start psql shell in container $container on database $database." 
+    echo "Start psql shell in container $container on database $database."
     docker exec -it "$container" /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/$database"
 fi

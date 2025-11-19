@@ -20,7 +20,7 @@ help() {
     echo '  -l    Odoo language. Defaults to '\''en_US'\''.'
     echo '  -w    With demo data.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

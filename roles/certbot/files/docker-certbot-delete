@@ -12,7 +12,7 @@ help() {
     echo 'options:'
     echo '  -c    Certificate name.'
     echo '  -d    Certbot data dir.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 
@@ -42,7 +42,7 @@ done
 read -p "Please confirm the deletion of $certificate in $certbot_data_dir (y/n)? " reply
 if [[ $reply == y ]]; then
   echo "Deleting certificate $certificate ..."
-  
+
   # Run the delete command in certbot container
   docker run --rm --name "${certificate}-tmp" \
   -v "$certbot_data_dir/:/etc/letsencrypt/" \

@@ -19,7 +19,7 @@ help() {
     echo '  -f    Remove target path before copy.'
     echo '  -r    Replace existing target volume.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

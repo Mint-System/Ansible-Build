@@ -18,7 +18,7 @@ help() {
     echo '  -c    Docker container. Defaults to '\''odoo'\''.'
     echo '  -f    Odoo database patch file.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

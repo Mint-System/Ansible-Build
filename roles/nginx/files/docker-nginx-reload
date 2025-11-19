@@ -14,7 +14,7 @@ help() {
     echo 'options:'
     echo '  -c    Name of the container.'
     echo "  -V    Show $script version."
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

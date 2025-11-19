@@ -21,7 +21,7 @@ help() {
   echo '  -t    Pass a bearer auth token.'
   echo '  -s    Download SQL dump only.'
   echo '  -v    Show $script version.'
-  echo '  help  Show $script manual.'
+  echo "  help  Show $script manual."
   echo
 }
 

@@ -13,7 +13,7 @@ help() {
     echo 'options:'
     echo '  -t    Path to the proxy conf template.'
     echo '  -o    Output folder of the proxy conf.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

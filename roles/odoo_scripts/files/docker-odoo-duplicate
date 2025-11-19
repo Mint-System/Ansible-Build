@@ -20,7 +20,7 @@ help() {
     echo '  -u    Update database uuid.'
     echo '  -i    Ignore filestore.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

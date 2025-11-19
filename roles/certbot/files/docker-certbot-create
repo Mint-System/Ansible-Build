@@ -16,7 +16,7 @@ help() {
     echo '  -s    Alternate acme server.'
     echo '  -t    Execute dry run.'
     echo '  -v    Show more details.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 
@@ -68,7 +68,7 @@ if [[ -n "$certbot_email" ]]; then
 else
   email_option="--register-unsafely-without-email"
 fi
-  
+
 docker run --rm --name "${certificate}-tmp" \
 -v /var/log/letsencrypt/:/var/log/letsencrypt/ \
 -v $certbot_data_dir/:/etc/letsencrypt/ \

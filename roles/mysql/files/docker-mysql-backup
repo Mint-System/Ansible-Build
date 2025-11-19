@@ -16,8 +16,8 @@ help() {
   echo '  -d    Comma-separated list of database names.'
   echo '  -a    Backup all databases'
   echo '  -o    Output directory. Defaults to '\''/var/tmp'\''.'
-  echo '  -c    Docker container name. Defaults to '\''mysql'\''.' 
-  echo '  help  Show $script manual.'
+  echo '  -c    Docker container name. Defaults to '\''mysql'\''.'
+  echo "  help  Show $script manual."
   echo
 }
 
@@ -58,7 +58,7 @@ image=$(docker inspect $container --format='{{.Config.Image}}')
 
 if $all; then
   # Get all databases from docker container
-  
+
   if [[ "$image" =~ 'mariadb' ]]; then
     database_list=($(docker exec $container /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
       -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))

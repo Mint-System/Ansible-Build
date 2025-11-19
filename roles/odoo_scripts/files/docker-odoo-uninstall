@@ -18,7 +18,7 @@ help() {
     echo '  -d    Database name.'
     echo '  -u    Name of Odoo module to uninstall.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

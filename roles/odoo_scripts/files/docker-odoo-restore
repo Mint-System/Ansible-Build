@@ -20,7 +20,7 @@ help() {
     echo '  -r    Replace existing database.'
     echo '  -u    Update database uuid.'
     echo '  -V    Show $script version.'
-    echo '  help  Show $script manual.'
+    echo "  help  Show $script manual."
     echo
 }
 

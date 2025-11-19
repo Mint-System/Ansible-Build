@@ -17,7 +17,7 @@ help() {
   echo '  -n    Name of Ansible cron job.'
   echo '  -id   ID of the Ansible cron job.'
   echo "  -V    Show $script version."
-  echo '  help  Show $script manual.'
+  echo "  help  Show $script manual."
   echo
 }
 

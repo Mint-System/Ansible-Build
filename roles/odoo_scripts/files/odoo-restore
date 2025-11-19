@@ -18,11 +18,11 @@ help() {
   echo '  -d    Database name. Defaults to filename.'
   echo '  -f    Odoo database backup file. Defaults to '\''/var/tmp/odoo.zip'\''.'
   echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
-  echo '  -r    Replace existing database.'  
-  echo '  -n    Neutralize database after restore.'  
+  echo '  -r    Replace existing database.'
+  echo '  -n    Neutralize database after restore.'
   echo '  -m    Database was moved.'
   echo '  -v    Show $script version.'
-  echo '  help  Show $script manual.'
+  echo "  help  Show $script manual."
   echo
 }
 
