@@ -57,5 +57,17 @@ for module in "${MODULES[@]}"; do
     [[ -z "$module" ]] && continue
 
     echo "Removing module '$module' on database '$database' on container '$container'."
-    docker exec $container /bin/bash -c "echo \"self.env['ir.module.module'].search([('name', '=', '$module')]).button_immediate_uninstall()\" | odoo shell -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD --no-http"
+    docker exec $container /bin/bash -c "
+        echo \"module = self.env['ir.module.module'].search([('name', '=', '$module')]);
+print('Module state:', module.state if module else 'not found');
+if module and module.state != 'uninstalled':
+    print('Uninstalling...');
+    module.filtered(lambda m: m.state != 'uninstalled').button_immediate_uninstall();
+else:
+    print('Skipping uninstall...');\" | odoo shell -d $database \
+            --db_host=\$HOST \
+            --db_user=\$USER \
+            --db_password=\$PASSWORD \
+            --no-http
+    "
 done
