@@ -55,8 +55,8 @@ IFS=',' read -ra MODULES <<< "$modules"
 for module in "${MODULES[@]}"; do
     module=$(echo "$module" | xargs)
     [[ -z "$module" ]] && continue
-
-    echo "Removing module '$module' on database '$database' on container '$container'."
+W
+    echo -e "\033[38;5;214mWarning:\033[0m Removing module '$module' on database '$database' on container '$container'."
     docker exec $container /bin/bash -c "
         echo \"module = self.env['ir.module.module'].search([('name', '=', '$module')]);
 print('Module state:', module.state if module else 'not found');
