@@ -52,9 +52,13 @@ if [[ -z "${modules:-}" ]]; then
     exit 1
 fi
 
+# Switch container name with id
+container_id=$(docker ps -f "name=$container" --format '{{.ID}}' | head -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
+
 # Get list of installed modules from Odoo
 echo "Fetching list of installed modules..."
-installed_modules_list=$(docker exec "$container" /bin/bash -c "
+installed_modules_list=$(docker exec "$container_id" /bin/bash -c "
     echo \"
 print(','.join([m.name for m in env['ir.module.module'].search([('state', '=', 'installed')])]))
 \" | odoo shell -d '$database' \
@@ -88,7 +92,7 @@ for module in "${uninstall_modules[@]}"; do
     [[ -z "$module" ]] && continue
     if [[ ${installed_modules_map[$module]:-} ]]; then
         echo -e "\033[38;5;76mUninstalling\033[0m module '$module' on database '$database' in container '$container'."
-        docker exec "$container" /bin/bash -c "
+        docker exec "$container_id" /bin/bash -c "
             echo \"def uninstall_module():
     module = env['ir.module.module'].search([('name', '=', '$module')])
     if module and module.state != 'uninstalled':
