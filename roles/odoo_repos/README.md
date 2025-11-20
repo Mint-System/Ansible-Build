@@ -48,12 +48,12 @@ And include it in your playbook.
 
 ### Clone with http url
 
-To clone private repos with an http url set the `vault_github_personal_access_token` var and define `github_username`. Use the following format to clone repos with http:
+To clone private repos with an http url set the `github_pat` var and define `github_username`. Use the following format to clone repos with http:
 
 ```yml
 odoo_repos:
   - path: enterprise
-    url: https://{{ github_username }}:{{ github_personal_access_token }}@github.com/odoo/enterprise.git
+    url: https://{{ github_username }}:{{ github_pat }}@github.com/odoo/enterprise.git
     version: 13db977fca67da8278fbdc5753f425583b304c67
 ```
 
