@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Removed `snap_packages` from `packages` role.
+
 ### Added
 
 - Do a port knocking in `certbot_check.yml` task.

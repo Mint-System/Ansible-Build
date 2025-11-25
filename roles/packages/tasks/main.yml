@@ -14,12 +14,6 @@
   tags:
     - packages
 
-- name: Include {{ role_name }} snap tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_snap.yml"
-  when: snap_packages is defined and ansible_distribution == 'Ubuntu'
-  tags:
-    - packages
-
 - name: Include {{ role_name }} yum tasks
   ansible.builtin.include_tasks: "{{ role_name }}_yum.yml"
   when: group_packages is defined and ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'

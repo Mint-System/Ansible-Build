@@ -33,8 +33,6 @@ group_packages:
     version: 2:8.0.1453-1ubuntu1.3
 host_packages:
   - name: cifs_utils
-snap_packages:
-  - name: ripgrep
 pip_packages:
   - name: docker
 script_packages:
