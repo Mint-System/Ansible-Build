@@ -4,7 +4,6 @@ default.vim
 *.swp
 run.sh
 venv*
-inventory
 inventories
 node_modules
 .temp
