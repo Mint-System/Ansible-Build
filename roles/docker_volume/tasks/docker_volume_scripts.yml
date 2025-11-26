@@ -12,5 +12,8 @@
   loop:
     - docker-disk-usage
     - docker-volume-backup
+    - docker-volume-export
+    - docker-volume-import
+    - docker-volume-list
     - docker-volume-restore
     - docker-volume-copy
