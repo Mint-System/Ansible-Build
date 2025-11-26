@@ -37,6 +37,9 @@ curl -L https://ansible.build/docker_volume/install | bash -s -- --user
 
 - docker-disk-usage
 - docker-volume-backup
+- docker-volume-export
+- docker-volume-import
+- docker-volume-list
 - docker-volume-restore
 - docker-volume-copy
 

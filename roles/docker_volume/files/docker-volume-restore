@@ -59,4 +59,4 @@ docker run --rm -v "$volume:/_data" -v "$dir:/restore" ubuntu /bin/bash -c "
     shopt -s dotglob && cd /_data && rm -rf -- * || true && tar xf /restore/$filename --strip 1"
 
 # Notify if restore has finished
-echo 'The Docker volume restore has finished.'
+echo 'Docker volume restore has finished.'

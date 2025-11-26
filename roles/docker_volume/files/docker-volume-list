@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -e
+
+# Get script name
+script=$(basename "$0")
+version="1.0.0"
+
+# Display Help
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: List Docker volume content.'
+    echo "Syntax: $script [-v|-l|-V|help]"
+    echo 'Example: $script -v odoo01 -l /filestore'
+    echo 'options:'
+    echo '  -v    Name of Docker volume.'
+    echo "  -p    Path in volume. Defaults to '/'"
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
+    echo
+}
+
+# Show help and exit
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+# Process params
+while getopts ":v: :p: :V" opt; do
+    case $opt in
+        v) volume="$OPTARG"
+        ;;
+        p) path="$OPTARG"
+        ;;
+        V) echo "$script version $version"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit 1;;
+    esac
+done
+
+# Fallback to environment vars and default values
+: "${path:=/}"
+
+# Verify variables
+[[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume' ; exit 1; }
+
+# List content
+docker run --rm -v "$volume:/source" alpine ls -lh --color=always "/source$path"

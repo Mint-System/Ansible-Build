@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+set -e
+
+# Get script name
+script=$(basename "$0")
+version="1.0.0"
+
+# Display Help
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Import Docker volume content.'
+    echo "Syntax: $script [-v|-p|-o|-V|help]"
+    echo 'Example: $script -v odoo01 -p /filestore/odoo -f /var/tmp/odoo01.tar'
+    echo 'options:'
+    echo '  -v    Name of Docker volume.'
+    echo "  -p    Path in volume. Defaults to '/'"
+    echo '  -f    Path to tar file.'
+    echo '  -r    Replace content in path.'
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
+    echo
+}
+
+# Show help and exit
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+# Initialise option flags
+replace=False
+
+# Process params
+while getopts ":v: :p: :f: :r :V" opt; do
+    case $opt in
+        v) volume="$OPTARG"
+        ;;
+        p) path="$OPTARG"
+        ;;
+        f) file="$OPTARG"
+        ;;
+        r) replace=True
+        ;;
+        V) echo "$script version $version"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit 1;;
+    esac
+done
+
+# Fallback to environment vars and default values
+: "${path:=/}"
+
+# Verify variables
+[[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume' ; exit 1; }
+
+# Process vars
+filename=$(basename "$file")
+filepath=$(dirname "$file")
+
+if [[ $replace = True ]]; then
+    echo "Clear $path folder in $volume volume..."
+    docker run --rm \
+      -v "$volume:/target" \
+      alpine rm -rf /target$path
+fi
+
+# Run export 
+echo "Import content of $volume volume to $path path..."
+docker run --rm \
+  -v "$volume:/target" \
+  -v "${filepath}:/source" \
+  alpine /bin/ash -c "
+    mkdir -p /target$path
+    cd /target$path
+    tar xf /source/$filename --strip-components=1"
+
+# Notify if import has finished
+echo "Docker volume import has finished."

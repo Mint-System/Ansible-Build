@@ -99,4 +99,4 @@ done
 
 
 # Notify if backup has finished
-echo "The Docker volume backup has finished: ${dir}/${container}/{$volumes}.tar"
+echo "Docker volume backup has finished: ${dir}/${container}/{$volumes}.tar"
