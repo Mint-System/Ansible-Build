@@ -78,7 +78,7 @@ rm -rf ${dir}/${container}/*
 for database in "${database_list[@]}"
 do
     output="${dir}/${container}/${database}.sql"
-    echo "Dump $database databse to $output..."
+    echo "Dump $database database to $output..."
     docker exec $container /bin/bash -c "pg_dump -U \$POSTGRES_USER $database" > "$output"
 done
 
