@@ -34,3 +34,7 @@ ufw_rule_sets:
     - rule: allow
       port: "6443"
       proto: tcp
+  mail:
+    - rule: allow
+      port: "25"
+      proto: tcp
