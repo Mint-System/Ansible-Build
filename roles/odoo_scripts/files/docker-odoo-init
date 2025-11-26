@@ -59,7 +59,7 @@ done
 [[ -z "$modules" ]] && { echo 'Parameter -i|init is empty' ; exit 1; }
 
 # Switch container name with id
-container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+container_id=$(docker ps -f "name=${container}" -q | tail -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 # Init modules on database

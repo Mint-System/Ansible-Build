@@ -71,7 +71,7 @@ fi
 filepath="${dir}/${file}"
 
 # Switch container name with id
-container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+container_id=$(docker ps -f "name=${container}" -q | tail -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 echo "Backup database $database to $filepath ..."

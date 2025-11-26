@@ -54,7 +54,7 @@ done
 [[ "$target_database" == "$source_database" ]] && { echo 'Parameter -s|source and -t|target cannot be the same' ; exit 1; }
 
 # Switch container name with id
-container_id=$(docker ps -f "name=^${container}" -q | tail -n1)
+container_id=$(docker ps -f "name=${container}" -q | tail -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 # Set alias
