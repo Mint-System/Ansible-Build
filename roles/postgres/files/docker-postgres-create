@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -19,13 +18,13 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+container='postgres'
+
 while getopts ":c: :d: :f:" opt; do
   case $opt in
     c) container="$OPTARG";;
@@ -36,16 +35,10 @@ while getopts ":c: :d: :f:" opt; do
   esac
 done
 
-# Fallback to environment vars and default values
-: ${container:='postgres'}
-
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
-# Get existing databases
 databases=$(docker-postgres-list -c "$container")
 
-# Create database if not exists
 if [[ "$databases"  =~ "$database" ]]; then
   echo "Database $database already exists."
   exit 0

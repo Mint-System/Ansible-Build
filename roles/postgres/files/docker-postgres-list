@@ -2,6 +2,7 @@
 set -e
 
 script=$(basename "$0")
+version="1.0.1"
 
 help() {
     echo
@@ -21,7 +22,7 @@ if [[ "$1" == 'help' ]]; then
     exit 0
 fi
 
-container='postgres'  # default
+container='postgres'
 while getopts ":c:" opt; do
   case $opt in
     c) container="$OPTARG";;
@@ -29,7 +30,6 @@ while getopts ":c:" opt; do
   esac
 done
 
-# Validate container is set
 [[ -z "$container" ]] && { echo 'Container name is required'; exit 1; }
 
 docker exec \

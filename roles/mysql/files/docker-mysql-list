@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -18,13 +17,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+container='mysql'
+
 while getopts ":c:" opt; do
   case $opt in
     c) container="$OPTARG";;
@@ -34,13 +33,8 @@ while getopts ":c:" opt; do
   esac
 done
 
-# Fallback to environment vars and default values
-: ${container:='mysql'}
-
-# Get image
 image=$(docker inspect "$container" --format='{{.Config.Image}}')
 
-# Get all databases from docker container
 if [[ "$image" =~ 'mariadb' ]]; then
     docker exec "$container" /bin/bash -c "export MYSQL_PWD=\$MARIADB_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'show databases;'"
 elif [[ "$image" =~ 'mysql' ]]; then

@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -19,13 +18,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+container=postgres
+
 while getopts ":c: :d:" opt; do
   case $opt in
     c) container="$OPTARG";;
@@ -36,11 +35,8 @@ while getopts ":c: :d:" opt; do
   esac
 done
 
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
-[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 
-# Set alias
 docker_exec_bash="docker exec $container /bin/bash -c"
 
 echo "Checking if database '$database' exists..."
@@ -50,11 +46,9 @@ if [[ "$db_exists" == "False" ]]; then
     exit 0
 fi
 
-# Kill datbase connections
 echo 'Kill all database connections'
 query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$database';"
 $docker_exec_bash "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c \"$query\""
 
-# Drop datbase
 echo "Drop Postgres database $database on container $container ..."
 $docker_exec_bash "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/postgres -tAc 'DROP DATABASE \"$database\";'"

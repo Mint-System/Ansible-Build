@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -22,17 +21,15 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialise option flag with a false value
 drop='false'
 create='false'
+container=postgres
 
-# Process params
 while getopts ':c: :d: :f: :r :i' opt; do
   case $opt in
     c) container="$OPTARG";;
@@ -48,16 +45,11 @@ while getopts ':c: :d: :f: :r :i' opt; do
   esac
 done
 
-# Fallback to environment vars and default values
-: "${container:=postgres}"
 filename=$(basename -- "$file")
-: "${database:="${filename%%.*}"}"
+database=${database:="${filename%%.*}"}
 
-# Verify variables
 [[ -z "$file" ]] && { echo 'Parameter -f|filename is empty' ; exit 1; }
-[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
-# Get postgres user
 postgres_user=$(docker exec $container /bin/bash -c "echo \$POSTGRES_USER")
 
 if $drop; then
@@ -69,12 +61,10 @@ if $create; then
   docker exec $container createdb -U $postgres_user $database
 fi
 
-# Start restore
 echo "Restore Postgres database $database from $file ..."
 cat $file | docker exec -i $container psql -U $postgres_user -d $database
 
 echo "Grant all privileges on $database to $postgres_user ..."
 docker exec $container psql -U $postgres_user -d template1 -c "GRANT ALL PRIVILEGES ON DATABASE \"$database\" TO $postgres_user;"
 
-# Notify if backup has finished
 echo 'The Docker Postgres restore has finished.'

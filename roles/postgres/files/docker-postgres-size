@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -19,13 +18,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+container=postgres
+
 while getopts ':c: :d:' opt; do
   case $opt in
     c) container="$OPTARG";;
@@ -36,9 +35,7 @@ while getopts ':c: :d:' opt; do
   esac
 done
 
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
-[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 
 query="select
   table_name,

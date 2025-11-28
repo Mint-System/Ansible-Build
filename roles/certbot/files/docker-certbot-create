@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
+
 script=$(basename "$0")
+version="1.0.1"
 
 help() {
     echo
@@ -26,13 +28,11 @@ if [[ "$1" == 'help' ]]; then
     exit
 fi
 
-# Default values
 option=""
 server=""
 verbose=""
 webserver="False"
 
-# Process params
 while getopts ":c:d:e:s:twv" opt; do
   case $opt in
     c) certificate="$OPTARG"
@@ -55,7 +55,6 @@ while getopts ":c:d:e:s:twv" opt; do
   esac
 done
 
-# Verify variables
 [[ -z "$certificate" ]] && { echo 'Parameter -c|certificate is empty' ; exit 1; }
 [[ -z "$certbot_data_dir" ]] && { echo 'Parameter -d|certbot data dir is empty' ; exit 1; }
 
@@ -72,7 +71,6 @@ else
   email_option="--register-unsafely-without-email"
 fi
 
-# Choose between webserver and standalone
 if [[ "$webserver" == "True" ]]; then
     echo "Using webserver method..."
     challenge_options="--webroot --webroot-path=/var/www/certbot/"
