@@ -2,7 +2,7 @@
 set -e
 
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
 help() {
     echo

@@ -2,9 +2,8 @@
 set -e
 
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -22,13 +21,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+source_version=
+
 while getopts ':c: :s: :t: :i: :V' opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -45,40 +44,32 @@ while getopts ':c: :s: :t: :i: :V' opt; do
     esac
 done
 
-# Verify variables
+source_version=${source_version:-"$target_version"}
+
 [[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 [[ -z "$target_version" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
 
-# Fallback to default
-source_version=${source_version:-"$target_version"}
-
-# Switch container name with id
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-# Verify the source version is correct
 current_version=$(docker inspect --format='{{.Config.Image}}' $container_id)
 if [[ "$current_version" != "$source_version" ]]; then
     echo "$container image is not $source_version."
     exit 1
 fi
 
-# Pull the target version image
 echo "Pulling $target_version ..."
 docker pull "$target_version"
 
-# If file is empty export databases
 if [[ -z "$dump_file" ]]; then
 
     timestamp=$(date +%Y%m%d%H%M%S)
     dump_file="/var/tmp/$container/$timestamp.sql"
 
-    # Dump all databases
     mkdir -p "/var/tmp/$container"
     docker exec $container_id /bin/bash -c "pg_dumpall -U \$POSTGRES_USER $database" > "$dump_file"
     echo "Dumped all databases from $container to $dump_file"
 
-    # Stop and remove the container and volumes
     volume_names=$(docker inspect --format '{{ range .Mounts }}{{ .Name }} {{ end }} ' $container_id)
     echo "Stopping and removing container $container and volumes ${volume_names} ..."
     read -p 'Woul you like to proceed with the deletion? [y/n] '
@@ -91,7 +82,6 @@ if [[ -z "$dump_file" ]]; then
         exit
     fi
 
-    # Halt the script and wait for new container to be deployed
     echo "Please deploy the new container with name $container and image $target_version."
     read -p 'Is the new container deployed and running? [y/n] '
     echo
@@ -104,18 +94,10 @@ if [[ -z "$dump_file" ]]; then
     fi
 fi
 
-# Import all databases
 echo "Importing all databases from $dump_file to $container"
 cat $dump_file | docker exec -i "$container" /bin/bash -c "psql -U \$POSTGRES_USER"
 
-# Ensure access works
 postgres_user=$(docker exec $container /bin/bash -c "echo \$POSTGRES_USER")
 echo "Reset $postgres_user password for $container ..."
 postgres_password=$(docker exec $container /bin/bash -c "echo \$POSTGRES_PASSWORD")
 docker exec $container /bin/bash -c "psql -U \$POSTGRES_USER -c \"ALTER USER $postgres_user WITH PASSWORD '$postgres_password';\""
-
-# echo "Grant all privileges for $POSTGRES_USER onto $DATABASES ..."
-# DATABASES=$(docker-postgres-list -c "$CONTAINER")
-# for DATABASE in $DATABASES; do
-#     docker exec $CONTAINER /bin/bash -c "psql -U \$POSTGRES_USER -c \"GRANT ALL PRIVILEGES ON DATABASE \\\"$DATABASE\\\" TO $POSTGRES_USER;\""
-# done

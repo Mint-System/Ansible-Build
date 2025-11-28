@@ -2,9 +2,8 @@
 set -e
 
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -22,16 +21,14 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialise option flag with a false value
 replace='false'
+container=postgres
 
-# Process params
 while getopts ':c: :s: :t: :r :V' opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -47,24 +44,17 @@ while getopts ':c: :s: :t: :r :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${container:=postgres}"
-
-# Verify variables
 [[ -z "$source_database" ]] && { echo 'Parameter -s|source is empty' ; exit 1; }
 [[ -z "$target_database" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
 [[ "$target_database" == "$source_database" ]] && { echo 'Parameter -s|source and -t|target cannot be the same' ; exit 1; }
 
-# Switch container name with id
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-# Drop target database
 if $replace; then
     docker-postgres-drop -c "$container" -d "$target_database"
 fi
 
-# Kill datbase connections
 echo "Kill database connections on $source_database."
 query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$source_database';"
 docker exec $container_id /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c \"$query\""

@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -22,16 +20,15 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialise option flag with a false value
 all='false'
+path=/
+dir=/var/tmp
 
-# Process params
 while getopts ":v: :p: :o: :V" opt; do
     case $opt in
         v) volume="$OPTARG"
@@ -49,16 +46,9 @@ while getopts ":v: :p: :o: :V" opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${path:=/}"
-: "${dir:=/var/tmp}"
-
-# Verify variables
 [[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume' ; exit 1; }
 
-# Run export 
 echo "Export content of $volume volume with $path path..."
 docker run --rm -v "$volume:/source" -v "${dir}:/backup" alpine tar -cf "/backup/$volume.tar" -C "/source$path" .
 
-# Notify if export has finished
 echo "Docker volume export has finished: ${dir}/{$volume}.tar"

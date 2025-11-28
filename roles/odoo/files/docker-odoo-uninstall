@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Metadata
 script=$(basename "$0")
-version="1.0.1"
+version="1.0.2"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -22,16 +20,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "${1:-}" == "help" ]]; then
     help
     exit 0
 fi
 
-# Default values
 container="odoo"
 
-# Parse options
 while getopts ':c:d:u:V' opt; do
     case $opt in
         c) container="$OPTARG" ;;
@@ -42,7 +37,6 @@ while getopts ':c:d:u:V' opt; do
     esac
 done
 
-# Validate required parameters
 if [[ -z "${database:-}" ]]; then
     echo "Error: Parameter -d (database) is required." >&2
     exit 1
@@ -52,11 +46,9 @@ if [[ -z "${modules:-}" ]]; then
     exit 1
 fi
 
-# Switch container name with id
 container_id=$(docker ps -f "name=$container" --format '{{.ID}}' | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-# Get list of installed modules from Odoo
 echo "Fetching list of installed modules for $database database in $container container..."
 installed_modules_list=$(docker exec "$container_id" /bin/bash -c "
     echo \"
@@ -68,10 +60,8 @@ print(','.join([m.name for m in env['ir.module.module'].search([('state', '=', '
         --no-http 2>/dev/null
 ")
 
-# Convert comma-separated list to associative array for fast lookup
 declare -A installed_modules_map
 if [[ -n "$installed_modules_list" ]]; then
-    # Remove any trailing newlines and whitespace
     installed_modules_list=$(echo "$installed_modules_list" | tr -d '\n\r')
     if [[ -n "$installed_modules_list" ]]; then
         IFS=',' read -ra installed_array <<< "$installed_modules_list"
@@ -83,10 +73,8 @@ if [[ -n "$installed_modules_list" ]]; then
 
 fi
 
-# Split input modules
 IFS=',' read -ra uninstall_modules <<< "$modules"
 
-# Loop through requested modules and uninstall only those that are installed
 for module in "${uninstall_modules[@]}"; do
     module=$(echo "$module" | xargs)  # trim spaces
     [[ -z "$module" ]] && continue

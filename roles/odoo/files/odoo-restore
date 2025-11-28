@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -26,18 +24,18 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialise option flag with a false value
 replace='false'
 neutralize='false'
 copy='true'
+password=${ODOO_MASTER_PASSWORD:=odoo}
+file=/var/tmp/odoo.zip
+odoo_host=http://localhost:8069
 
-# Process params
 while getopts ':p: :d: :f: :h: :r :n :m :V' opt; do
     case $opt in
         p) password="$OPTARG";;
@@ -56,17 +54,11 @@ while getopts ':p: :d: :f: :h: :r :n :m :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${password:=${ODOO_MASTER_PASSWORD:=odoo}}"
-: "${file:=/var/tmp/odoo.zip}"
-: "${odoo_host:=http://localhost:8069}"
 filename=$(basename -- "$file")
-: "${database:="${filename%%.*}"}"
+database=${database:="${filename%%.*}"}
 
-# Verify variables
 [[ "$odoo_host" == http* ]]  || { echo "Parameter -h|host must start with 'http/s'" ; exit 1; }
 
-# Validate zip file
 if [[ "${file: -3}" =~ "zip" ]]; then
     unzip -q -t $file
 fi
@@ -75,7 +67,6 @@ if $replace; then
   odoo-drop -p "$ODOO_MASTER_PASSWORD" -d "$database" -h "$odoo_host"
 fi
 
-# Start restore
 echo "Requesting restore for Odoo database from $file to $database ..."
 
 command="curl \
@@ -90,10 +81,8 @@ if $copy; then
 fi
 command="$command ${odoo_host%/}/web/database/restore"
 
-# Request restore with curl
 response=$(eval $command)
 
-# If redirect is response then restore was succesfull
 check=$(echo "$response" | { grep 'Redirecting...' || true; })
 if [[ -n "$check" ]]; then
     echo "The restore for Odoo database $database has finished."

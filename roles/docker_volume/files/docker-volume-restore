@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -21,13 +19,11 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
 while getopts 'v:f:V' opt; do
     case $opt in
         v) volume="$OPTARG";;
@@ -42,21 +38,16 @@ while getopts 'v:f:V' opt; do
     esac
 done
 
-# Verify variables
 [[ -z "$file" ]] && { echo 'Parameter -f|filename is empty' ; exit 1; }
 
-# Fallback to environment vars and default values
 filename=$(basename -- "$file")
 dir=$(dirname "$file")
-: "${volume:="${filename%%.*}"}"
+volume=${volume:="${filename%%.*}"}
 
-# Warning
 echo 'Make sure to stop the attached containers before running the restore.'
 
-# Restore dump for volume
 echo "Run restore $dir/$filename to Docker volume $volume ..."
 docker run --rm -v "$volume:/_data" -v "$dir:/restore" ubuntu /bin/bash -c "
     shopt -s dotglob && cd /_data && rm -rf -- * || true && tar xf /restore/$filename --strip 1"
 
-# Notify if restore has finished
 echo 'Docker volume restore has finished.'

@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.1.0"
+version="1.1.1"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -21,13 +19,11 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
 while getopts ":n: :i: :V" opt; do
   case $opt in
     n) ansible_cron_name=$OPTARG;;

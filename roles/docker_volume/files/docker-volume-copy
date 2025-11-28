@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -23,17 +21,14 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialise option flags
 replace='false'
 force='false'
 
-# Process params
 while getopts ':s: :t: :f :r :V' opt; do
     case $opt in
         s) source="$OPTARG"
@@ -53,11 +48,9 @@ while getopts ':s: :t: :f :r :V' opt; do
     esac
 done
 
-# Verify variables
 [[ -z "$source" ]] && { echo 'Parameter -s|source is empty' ; exit 1; }
 [[ -z "$target" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
 
-# Split volume name and path
 target_volume=$(echo $target | cut -f1 -d:)
 target_path=$(echo $target | grep -q ":" && echo $target | cut -f2 -d: || echo "")
 source_volume=$(echo $source | cut -f1 -d:)

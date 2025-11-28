@@ -2,7 +2,7 @@
 set -e
 
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
 help() {
     echo
@@ -23,7 +23,6 @@ if [[ "$1" == 'help' ]]; then
     exit
 fi
 
-# Process params
 while getopts ":c::V" opt; do
   case $opt in
     c) container="$OPTARG"
@@ -37,7 +36,6 @@ while getopts ":c::V" opt; do
   esac
 done
 
-# Verify variables
 [[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 
 echo "Reload Nginx config on $container"

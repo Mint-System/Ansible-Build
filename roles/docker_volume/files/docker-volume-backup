@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -24,16 +22,14 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialise option flag with a false value
 all='false'
+dir=/var/tmp
 
-# Process params
 while getopts ":c: :a :v: :e: :o: :V" opt; do
     case $opt in
         c) container="$OPTARG"
@@ -55,38 +51,27 @@ while getopts ":c: :a :v: :e: :o: :V" opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${dir:=/var/tmp}"
-
-# Verify variables
 [[ -z "$volumes" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volumes or -a|all must be set' ; exit 1; }
 [[ -z "$dir" ]] && { echo 'Parameter -d|dir is empty' ; exit 1; }
 [[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 
 if $all; then
-    # Get all volumes from docker container
     volume_list=$(docker inspect -f '{{ range .Mounts }}{{ .Name }}{{ end }}' "$container")
 
-    # Concate volume list
     printf -v volumes '%s,' "${volume_list[@]}"
     volumes="${volumes%,}"
 fi
 
 if [[ -n $volumes ]] ; then
-    # Split volumes param values
     volume_list=($(echo $volumes | tr ',' '\n'))
 fi
 
-# Create backup folder
 mkdir -p "${dir}/${container}"
 
-# Cleanup backup folder
 rm -rf ${dir:?}/"${container}"/*
 
-# Warning
 echo "Make sure to stop the container $container before creating a backup."
 
-# Create dump with docker for each database
 for volume in "${volume_list[@]}"; do
     if [[ -n "$exclude" ]]; then
         echo "Run backup for Docker volume $volume with the exclude option."
@@ -97,6 +82,4 @@ for volume in "${volume_list[@]}"; do
     fi
 done
 
-
-# Notify if backup has finished
 echo "Docker volume backup has finished: ${dir}/${container}/{$volumes}.tar"
