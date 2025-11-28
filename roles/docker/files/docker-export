@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.0.0"
+
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Export Docker container content.'
+    echo "Syntax: $script [-c|-p|-o|-V|help]"
+    echo 'Example: $script -c odoo01 -p /var/lib/odoo/filestore/odoo -o /tmp'
+    echo 'options:'
+    echo '  -c    Name of Docker container.'
+    echo "  -p    Path in container. Defaults to '/'"
+    echo "  -o    Output directory. Defaults to '/var/tmp'"
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
+    echo
+}
+
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+path=/
+dir=/var/tmp
+
+while getopts ":c: :p: :o: :V" opt; do
+    case $opt in
+        c) container="$OPTARG"
+        ;;
+        p) path="$OPTARG"
+        ;;
+        o) dir="$OPTARG"
+        ;;
+        V) echo "$script version $version"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit 1;;
+    esac
+done
+
+[[ -z "$container" ]] && { echo 'Parameter -c|container' ; exit 1; }
+container_id=$(docker ps -f "name=${container}" -q | head -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
+
+echo "Export content from $path path from $container container..."
+docker exec "$container_id" tar -cf "/var/tmp/${container}.tar" -C "$path" .
+docker cp "${container}:/var/tmp/${container}.tar" "${dir}/${container}.tar"
+docker exec "$container_id" rm "/var/tmp/$container.tar"
+
+echo "Docker container export has finished: ${dir}/${container}.tar"

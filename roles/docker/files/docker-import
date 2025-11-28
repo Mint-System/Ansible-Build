@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.0.0"
+
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Import Docker container content.'
+    echo "Syntax: $script [-c|-p|-f|-r|-V|help]"
+    echo 'Example: '"$script"' -c odoo01 -p /var/lib/odoo/filestore/odoo -f /var/tmp/odoo01.tar'
+    echo 'options:'
+    echo '  -c    Name of Docker container.'
+    echo "  -p    Path in container. Defaults to '/'"
+    echo '  -f    Path to tar file.'
+    echo '  -r    Replace content in path.'
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
+    echo
+}
+
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+replace=false
+path=/
+
+while getopts ":c:p:f:rV" opt; do
+    case $opt in
+        c) container="$OPTARG"
+        ;;
+        p) path="$OPTARG"
+        ;;
+        f) file="$OPTARG"
+        ;;
+        r) replace=true
+        ;;
+        V) echo "$script version $version"
+           exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+            help
+            exit 1
+        ;;
+    esac
+done
+
+[[ -z "$container" ]] && { echo 'Parameter -c|container' ; exit 1; }
+container_id=$(docker ps -f "name=${container}" -q | head -n1)
+[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
+
+if [[ "$replace" == true ]]; then
+    echo "Clearing $path folder in $container container..."
+    docker exec "$container_id" rm -rf "$path"
+fi
+
+echo "Importing content to $path in $container container..."
+docker cp "$file" "${container_id}:/var/tmp/${container}.tar"
+docker exec "$container_id" mkdir -p "$path"
+docker exec -w "$path" "$container_id" tar xf "/var/tmp/${container}.tar" --strip-components=1
+docker exec "$container_id" rm "/var/tmp/${container}.tar"
+
+echo "Docker container import has finished."

@@ -29,7 +29,7 @@ if [[ "$1" == 'help' ]]; then
 fi
 
 # Check requiremements
-command -v zip >/dev/null 2>&1 || { echo >&2 'zip not found: apt-get install zip'; exit 1; }
+command -v zip >/dev/null 2>&1 || { echo >&2 'zip command not found'; exit 1; }
 
 # Process params
 while getopts ":d: :c: :o: :V" opt; do
@@ -71,7 +71,7 @@ fi
 filepath="${dir}/${file}"
 
 # Switch container name with id
-container_id=$(docker ps -f "name=${container}" -q | tail -n1)
+container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 echo "Backup database $database to $filepath ..."

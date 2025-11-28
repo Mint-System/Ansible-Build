@@ -19,6 +19,8 @@ This section outlines the universal rules and expectations for any LLM agent wor
 - `inventories/`: Ignore this folder. It contains the ansible inventory files.
 - `plays/`: The Ansible plabyook files.
 - `test/`: Local inventory for the test setup.
+- `roles.md`: Overview of all roles.
+- `scripts.md`: Provides an overview of all roles that provide scripts.
 
 ## Coding conventions
 

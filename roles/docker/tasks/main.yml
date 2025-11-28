@@ -50,3 +50,8 @@
   when: docker_login_username is defined
   tags:
     - docker
+
+- name: Include {{ role_name }} scripts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
+  tags:
+    - docker
