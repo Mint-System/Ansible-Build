@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -23,16 +21,14 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialise option flag
 force='false'
+container=odoo
 
-# Process params
 while getopts ':c: :d: :p: :f :V' opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -48,20 +44,13 @@ while getopts ':c: :d: :p: :f :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${container:=odoo}"
-
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
-# Switch container name with id
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-# Escape quotes
 code=$(echo "$code" | sed 's/"/\\"/g' | sed "s/'/\\'/g")
 
-# Append commit command if forced
 if $force; then
     code="${code};self.env.cr.commit()"
 fi
