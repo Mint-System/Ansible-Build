@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.1.0"
+version="1.1.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -24,16 +22,15 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Set defaults
 without_demo='--without-demo=all'
+container=odoo
+odoo_language=en_US
 
-# Process params
 while getopts ':c: :d: :i: :l: :w :V' opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -50,19 +47,12 @@ while getopts ':c: :d: :i: :l: :w :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${container:=odoo}"
-: "${odoo_language:=en_US}"
-
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 [[ -z "$modules" ]] && { echo 'Parameter -i|init is empty' ; exit 1; }
 
-# Switch container name with id
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-# Init modules on database
 echo "Initializing modules $modules with langague $odoo_language on database $database."
 docker exec $container_id /bin/bash -c "odoo -i $modules -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD $without_demo --load-language $odoo_language --stop-after-init --no-http"
 

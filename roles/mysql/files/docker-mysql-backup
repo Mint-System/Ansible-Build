@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -21,13 +20,15 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+all='false'
+dir=/var/tmp
+container=mysql
+
 while getopts ':a :c: :d: :o:' opt; do
   case $opt in
     a) all='true'
@@ -44,21 +45,11 @@ while getopts ':a :c: :d: :o:' opt; do
   esac
 done
 
-# Fallback to environment vars and default values
-: "${dir:=/var/tmp}"
-: "${container:=mysql}"
-
-# Verify variables
 [[ -z "$databases" ]] && [[ -z "$all" ]] && { echo 'Parameter -d or -a|databases or all must be set' ; exit 1; }
-[[ -z "$dir" ]] && { echo 'Parameter -d|dir is empty' ; exit 1; }
-[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 
-# Get image
 image=$(docker inspect $container --format='{{.Config.Image}}')
 
 if $all; then
-  # Get all databases from docker container
-
   if [[ "$image" =~ 'mariadb' ]]; then
     database_list=($(docker exec $container /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
       -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
@@ -67,23 +58,18 @@ if $all; then
     database_list=($(docker exec $container /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD \
       -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
   fi
-  # Concate database list
   printf -v databases '%s,' "${database_list[@]}"
   databases="${databases%,}"
 fi
 
 if [[ -n $databases ]] ; then
-  # Split database param values
   database_list=($(echo $databases | tr ',' '\n'))
 fi
 
-# Create backup folder
 mkdir -p "${dir}/${container}"
 
-# Cleanup backup folder
 rm -rf "${dir:?}/${container}"/*
 
-# Create dump with docker for each database
 for database in "${database_list[@]}"
 do
   if [[ "$image" =~ 'mariadb' ]]; then
@@ -98,5 +84,4 @@ do
   fi
 done
 
-# Notify if backup has finished
 echo "The Docker mysql backup has finished: ${dir}/${container}/{$databases}.sql"

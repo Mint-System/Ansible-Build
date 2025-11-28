@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -23,13 +20,14 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+password=${ODOO_MASTER_PASSWORD:=odoo}
+odoo_host=http://localhost:8069
+
 while getopts ':p: :d: :h: :V' opt; do
     case $opt in
         p) password="$OPTARG";;
@@ -44,20 +42,13 @@ while getopts ':p: :d: :h: :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${password:=${ODOO_MASTER_PASSWORD:=odoo}}"
-: "${odoo_host:=http://localhost:8069}"
-
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
-# Ask for confirmation
 read -p "Please confirm the deletion of $database on $odoo_host (y/n)? " reply
 if [[ $reply == y ]]; then
 
     echo "Deleting Odoo database $database ..."
 
-    # Request drop with curl
     response=$(curl \
         -F "master_pwd=${password}" \
         -F "name=${database}" \

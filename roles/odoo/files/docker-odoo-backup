@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -22,16 +20,17 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Check requiremements
 command -v zip >/dev/null 2>&1 || { echo >&2 'zip command not found'; exit 1; }
 
-# Process params
+database='odoo'
+container='odoo'
+output='/var/tmp'
+
 while getopts ":d: :c: :o: :V" opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -46,12 +45,6 @@ while getopts ":d: :c: :o: :V" opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: ${database:='odoo'}
-: ${container:='odoo'}
-: ${output:='/var/tmp'}
-
-# Check if dir var is file or folder
 if [[ "${output: -4}" == '.zip' ]];then
     dir=$(dirname "$output")
     file=$(basename "$output")
@@ -59,44 +52,34 @@ else
     dir=$output
 fi
 
-# Ensure output directory exists
 mkdir -p $dir
 
-# Ensure file name is set
 if [[ -z "$file" ]];then
   file="$database.zip"
 fi
 
-# Set file path
 filepath="${dir}/${file}"
 
-# Switch container name with id
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 echo "Backup database $database to $filepath ..."
 
-# Copy filestore
 echo 'Copy filestore.'
 rm -rf "$dir/filestore"
 docker cp "$container_id:/var/lib/odoo/filestore/$database" "$dir/filestore"
 
-# Set alias
 docker_exec_bash="docker exec $container_id /bin/bash -c"
 
-# Dump database
 echo 'Dump database.'
 $docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" pg_dump -h \"\$HOST\" -U \"\$USER\" $database" > "$dir/dump.sql"
 
-# Zip everything
 echo "Zip filestore and dump to $file."
 rm -f "$filepath"
 cd "$dir"
 zip -q -r "$file" ./dump.sql ./filestore
 
-# Remove source files
 echo 'Cleanup source files.'
 rm -rf dump.sql filestore
 
-# Notify if backup has finished
 echo "The Odoo backup has finished: $filepath"

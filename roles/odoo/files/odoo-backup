@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -25,13 +23,17 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ $1 == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+password=${ODOO_MASTER_PASSWORD:=odoo}
+database=odoo
+output=/var/tmp
+backup_format=zip
+odoo_host=http://localhost:8069
+
 while getopts ':p: :d: :o: :h: :t: :s :V' opt; do
     case $opt in
         p) password="$OPTARG";;
@@ -49,24 +51,13 @@ while getopts ':p: :d: :o: :h: :t: :s :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${password:=${ODOO_MASTER_PASSWORD:=odoo}}"
-: "${database:=odoo}"
-: "${output:=/var/tmp}"
-: "${backup_format:=zip}"
-: "${odoo_host:=http://localhost:8069}"
-
-# Verify variables
 [[ "$odoo_host" == http* ]]  || { echo "Parameter -h|host must start with 'http/s'" ; exit 1; }
 
-# Remove trailing slash in url and output
 odoo_host="${odoo_host%/}"
 output="${output%/}"
 
-# Ensure output directory exists
 mkdir -p $output
 
-# Ensure file name is set
 if [[ -z "$file" ]];then
     if [[ "$backup_format" == "zip" ]]; then
         file="$database.zip"
@@ -76,12 +67,10 @@ if [[ -z "$file" ]];then
     fi
 fi
 
-# Set file path
 filepath="${output}/${file}"
 
 echo "Backup database $database to $filepath ..."
 
-# Request backup with curl
 response=$(curl \
     -H "Authorization: Bearer $token" \
     -F "master_pwd=$password" \
@@ -92,16 +81,13 @@ response=$(curl \
 
 echo "$response" | grep "error" && exit 1
 
-# Grep error if is html response
 filetype=$(file --mime-type -b "$filepath")
 if [[ "$filetype" == "text/html" ]]; then
     grep error "$filepath"
 fi
 
-# Validate zip file
 if [[ "$backup_format" == "zip" ]];then
     unzip -q -t "$filepath"
 fi
 
-# Notify if backup has finished
 echo "The Odoo backup has finished: $filepath"

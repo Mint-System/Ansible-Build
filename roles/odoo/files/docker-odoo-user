@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -23,13 +21,14 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+database=odoo
+container=odoo
+
 while getopts ':c: :d: :a: :i: :V' opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -45,11 +44,6 @@ while getopts ':c: :d: :a: :i: :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${database:=odoo}"
-: "${container:=odoo}"
-
-# Verify variables
 [[ -z "$action" ]] && { echo 'Parameter -a|action is empty' ; exit 1; }
 
 if [[ $action == 'enable' ]]; then

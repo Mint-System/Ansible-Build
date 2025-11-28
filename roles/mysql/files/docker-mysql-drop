@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -19,13 +18,13 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+container='mysql'
+
 while getopts ":c: :d:" opt; do
   case $opt in
     c) container="$OPTARG";;
@@ -36,14 +35,8 @@ while getopts ":c: :d:" opt; do
   esac
 done
 
-# Fallback to environment vars and default values
-: ${container:='mysql'}
-
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
-[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
 
-# Start dropping 
 image=$(docker inspect "$container" --format='{{.Config.Image}}')
 if [[ "$image" =~ 'mariadb' ]]; then
   echo "Drop MariaDB database $database on container $container ..."
@@ -54,5 +47,4 @@ if [[ "$image" =~ 'mysql' ]]; then
   docker exec "$container" /bin/bash -c "export MYSQL_PWD=\$MYSQL_ROOT_PASSWORD; mysql -N -h\$HOSTNAME -uroot -e 'DROP DATABASE $database;'"
 fi
 
-# Notify if drop has finished
 echo 'The Docker MySQL/MariaDB database has been dropped.'

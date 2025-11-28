@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -21,13 +19,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+container=odoo
+
 while getopts ':c: :d: :V' opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -41,33 +39,23 @@ while getopts ':c: :d: :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${container:=odoo}"
-
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
-# Switch container name with id
 container_id=$(docker ps -f "name=$container" -q | tail -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-# Set alias
 docker_exec_bash="docker exec $container_id /bin/bash -c"
 docker_exec_root_bash="docker exec --user root $container_id /bin/bash -c"
 
-# Kill datbase connections
 echo "Kill database connections on $database"
 query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$database';"
 $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\""
 
-# Drop database
 echo "Drop database $database"
-query="DROP DATABASE \\\"$database\\\";" # Escape quotes twice
+query="DROP DATABASE \\\"$database\\\";"
 $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\""
 
-# Remove filestore
 echo "Remove filestore $database"
 $docker_exec_root_bash "rm -rf /var/lib/odoo/filestore/$database"
 
-# Notify of removal
 echo "The Odoo database $database has been removed."

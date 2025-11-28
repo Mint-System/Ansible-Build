@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -20,13 +18,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+container=odoo
+
 while getopts ':c: :V' opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -38,8 +36,5 @@ while getopts ':c: :V' opt; do
         exit;;
     esac
 done
-
-# Fallback to environment vars and default values
-: "${container:=odoo}"
 
 docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/postgres -tAc 'select datname from pg_database'"

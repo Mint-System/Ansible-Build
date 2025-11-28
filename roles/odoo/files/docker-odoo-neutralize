@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
-version="1.0.0"
+version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -21,13 +19,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
   help
   exit
 fi
 
-# Process params
+container=odoo
+
 while getopts ':c: :d: :V' opt; do
     case $opt in
         c) container="$OPTARG" ;;
@@ -41,10 +39,6 @@ while getopts ':c: :d: :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${container:=odoo}"
-
-# Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
 docker exec -i $container /bin/bash -c "odoo neutralize -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD"
