@@ -602,7 +602,7 @@ test-scripts() {
         docker-postgres-rename -c postgres01 -s test -t example -r
 
         echo -e "\033[38;5;214mTEST\033[0m: Test odoo scripts"
-        sudo ./roles/odoo_scripts/files/install
+        sudo ./roles/odoo/files/install
 
         # Start odoo container
         ansible-playbook -i inventory plays/localhost.yml -t odoo --skip-tags depends
@@ -690,7 +690,7 @@ build-vuepress() {
 
     echo "Create vuepress script folders."
     mkdir -p .vuepress/dist/ansible_scripts
-    mkdir -p .vuepress/dist/odoo_scripts
+    mkdir -p .vuepress/dist/odoo
     mkdir -p .vuepress/dist/nginx
     mkdir -p .vuepress/dist/node_exporter
     mkdir -p .vuepress/dist/mysql
@@ -702,7 +702,7 @@ build-vuepress() {
 
     echo "Copy script files to vuepress folder."
     cp roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts
-    cp roles/odoo_scripts/files/* .vuepress/dist/odoo_scripts
+    cp roles/odoo/files/* .vuepress/dist/odoo
     cp roles/nginx/files/* .vuepress/dist/nginx
     cp roles/node_exporter/files/* .vuepress/dist/node_exporter
     cp roles/mysql/files/* .vuepress/dist/mysql

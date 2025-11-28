@@ -77,7 +77,6 @@
 | ![odoo_exporter logo](/logos/odoo_exporter.png)  | [odoo_exporter](roles/odoo_exporter/README.md) |  Add nginx config for Odoo exporter path. |
 | ![odoo logo](/logos/odoo.png)  | [odoo](roles/odoo/README.md) | Deploy Odoo Docker container. |
 | ![odoo_repos logo](/logos/odoo_repos.png)  | [odoo_repos](roles/odoo_repos/README.md) | Setup Odoo modules from public or private git repos. |
-| ![odoo_scripts logo](/logos/odoo_scripts.png)  | [odoo_scripts](roles/odoo_scripts/README.md) | Install Odoo scripts. |
 | ![ollama logo](/logos/ollama.png)  | [ollama](roles/ollama/README.md) | Setup Ollama and deploy models. |
 | ![onlyoffice_documentserver logo](/logos/onlyoffice_documentserver.png)  | [onlyoffice_documentserver](roles/onlyoffice_documentserver/README.md) | Deploy OnlyOffice Document Server container. |
 | ![openldap logo](/logos/openldap.png)  | [openldap](roles/openldap/README.md) | Deploy OpenLDAP Docker container. |

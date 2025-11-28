@@ -35,7 +35,6 @@
       - nginx
       - node_exporter
       - odoo
-      - odoo_scripts
       - openldap
       - pgadmin
       - postgres

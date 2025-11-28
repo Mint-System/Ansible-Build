@@ -1,4 +1,6 @@
 ---
+odoo_scripts_dir: /usr/local/bin
+bash_completion_dir: /etc/bash_completion.d
 odoo_build_image: false
 odoo_build_dockerfile: ""
 odoo_config_map:
@@ -22,7 +24,3 @@ odoo_sysctls_disable_ipv6: 1
 odoo_conf_limit_request: 8192
 odoo_conf_limit_time_cpu: 600
 odoo_conf_limit_time_real: 1200
-
-# Supported by official Odoo image
-odoo_workers: 4
-odoo_conf: ""

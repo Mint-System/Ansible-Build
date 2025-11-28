@@ -85,10 +85,10 @@ curl -L https://ansible.build/node_exporter/install | bash
 - write-node-exporter-metric
 
 
-## [odoo_scripts](roles/odoo_scripts/README.md)
+## [odoo](roles/odoo/README.md)
 
 ```bash
-curl -L https://ansible.build/odoo_scripts/install | bash -s -- --user
+curl -L https://ansible.build/odoo/install | bash -s -- --user
 ```
 
 - docker-odoo-backup
@@ -112,7 +112,6 @@ curl -L https://ansible.build/odoo_scripts/install | bash -s -- --user
 - odoo-drop
 - odoo-duplicate
 - odoo-restore
-
 
 ## [postgres](roles/postgres/README.md)
 

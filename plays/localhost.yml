@@ -7,8 +7,6 @@
       tags: resolv
     - role: odoo
       tags: odoo
-    - role: odoo_scripts
-      tags: odoo_scripts
     - role: odoo_apps
       tags: odoo_apps
     - role: iam

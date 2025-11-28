@@ -53,7 +53,6 @@ So to remove everything you would run `task play -i inventories/odoo plays/clean
 - nginx
 - node_exporter
 - odoo
-- odoo_scripts
 - openldap
 - packages
 - pgadmin

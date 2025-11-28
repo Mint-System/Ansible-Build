@@ -18,11 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Renamed `clean` to `cleanup`.
-- Updated bash scripts to follow coding conventions from AGENTS.md
-  - Removed 'function' keyword from all bash functions
-  - Added 'local' declarations for variables inside functions
-  - Converted uppercase local variables to lowercase
-  - Updated conditional syntax from [ ] to [[ ]] where needed
-  - Improved quoting with single quotes for literal strings
-  - Updated more bash scripts including ansible-vault-get, get-public-ip, docker-mysql-list, and docker-mysql-drop
-  - Changed shebang from #!/bin/bash to #!/usr/bin/env bash for portability
+- Updated bash scripts to follow coding conventions from AGENTS.md.
+  - Removed 'function' keyword from all bash functions.
+  - Added 'local' declarations for variables inside functions.
+  - Converted uppercase local variables to lowercase.
+  - Updated conditional syntax from [ ] to [[ ]] where needed.
+  - Improved quoting with single quotes for literal strings.
+  - Updated more bash scripts including ansible-vault-get, get-public-ip, docker-mysql-list, and docker-mysql-drop.
+  - Changed shebang from #!/bin/bash to #!/usr/bin/env bash for portability.
+- Merged `odoo_scripts` into `odoo` role.
