@@ -34,6 +34,7 @@ help-table() {
     printf "$column" 'show-vault-file' '[vault_id] [path]' 'Show content of encrypted strings or fully encrypted vault file.'
     # Setup
     printf "$column" 'install' '' 'Install Ansible and dependencies with uv.'
+    printf "$column" 'install-ansible-build-scripts' '[role]' 'Install scripts of the specified Ansbile role.'
     printf "$column" 'install-exo' '' 'Install Exoscale CLI.'
     printf "$column" 'show-passwordless-sudo' '[username]' 'Give instructions to setup passwordless sudo.'
     printf "$column" 'upgrade' '' 'Upgrade Ansible and dependencies with uv.'
