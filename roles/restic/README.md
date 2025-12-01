@@ -18,7 +18,7 @@ restic_rest_user: rest-user # default: restic
 restic_rest_password: # default "{{ vault_restic_rest_password }}"
 restic_backup_set:
 
-  - id: "docker volume backup jenkins01"
+  - id: "Backup Jenkins volume"
     upload: false
     type: docker-volume
     container: jenkins01
@@ -28,7 +28,7 @@ restic_backup_set:
       - jenkins01
     hour: "1"
 
-  - id: "docker volume backup postgres_data01"
+  - id: "Backup Postgres volume"
     type: docker-volume
     container: postgres01
     volume: postgres_data01
@@ -37,7 +37,7 @@ restic_backup_set:
     - postgres01
     hour: "1"
 
-  - id: "data dir backup bookstack01"
+  - id: "Backup Bookstack files"
     type: file
     path: /usr/share/bookstack01
     tags:
@@ -46,16 +46,7 @@ restic_backup_set:
     hour: "1"
     state: absent
 
-  - id: "odoo backup odoo01"
-    type: odoo-backup
-    host: http://localhost:8070
-    database: odoo
-    tags:
-      - odoo
-      - odoo01
-    hour: "1"
-  - id: "docker odoo backup odoo02"
-
+  - id: "Backup odoo databse"
     type: docker-odoo-backup
     container: odoo02
     database: odoo2
@@ -64,7 +55,7 @@ restic_backup_set:
       - odoo02
     hour: "2"
 
-  - id: "postgres dump backup postgres01"
+  - id: "Backup postgres databse"
     type: postgres-dump
     container: postgres01
     databases: odoo
@@ -74,7 +65,7 @@ restic_backup_set:
     hour: "1"
     disabled: true
 
-  - id: "postgres dump backup postgres01 all"
+  - id: "Backup postgres databses"
     type: postgres-dump
     container: postgres01
     tags:
@@ -82,7 +73,7 @@ restic_backup_set:
       - postgres01
     hour: "1"
 
-  - id: "mysql dump backup mysql01"
+  - id: "Backup MySQL database"
     type: mysql-dump
     container: mysql01
     databases: wordpress,wordpress2
@@ -92,7 +83,7 @@ restic_backup_set:
     hour: "1"
     disabled: true
 
-  - id: "postgres dump backup mysql01 all"
+  - id: "Backup MySQL databases"
     type: mysql-dump
     container: mysql01
     tags:
@@ -100,7 +91,7 @@ restic_backup_set:
       - mysql01
     hour: "1"
 
-  - id: "mariadb dump backup mariadb01"
+  - id: "Backup MariaDB database"
     type: mariadb-dump
     container: mariadb01
     databases: frappe
@@ -193,4 +184,23 @@ bunzip2 restic_0.18.0_linux_amd64.bz2
 sudo mv restic_0.18.0_linux_amd64 /usr/local/bin/restic
 sudo chmod +x /usr/local/bin/restic
 restic version
+```
+
+### Rename cron job
+
+When choosing the job id it is recommended to not add configuraiton details of the backup job to the name. Once the definition has been applied, the job id can not be updated with Ansible.
+
+
+
+```bash
+job_name="Backup job docker volume backup nextcloud03"
+new_job_name="Backup Nextcloud volume"
+
+# Rename job in crontab
+cd /var/spool/cron/crontabs/
+sed -i "s|$job_name|$new_job_name|g" root
+grep "$new_job_name" root
+
+# Show the grafana job metric
+rg "$job_name" /var/tmp/*.prom
 ```
