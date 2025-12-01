@@ -96,7 +96,8 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 * **n8n https**: Targets are `nginx_proxies` with exporter `n8n`.
 * **uptime-kuma https**: Targets are `nginx_proxies` with exporter `uptime-kuma`.
 * **meilisearch https**: Targets are `nginx_proxies` with exporter `meilisearch`.
-* **blackbox**: Targets are `nginx_proxies` with `monitor` not false and host is `blackbox01:9115`.
+* **blackbox**: Target is `blackbox_exporter_hostname`.
+* **loki http**: Targetis `loki_hostname`.
 
 ### Custom scrapers
 

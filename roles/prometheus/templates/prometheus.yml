@@ -187,4 +187,14 @@ scrape_configs:
       - target_label: __address__
         replacement: {{ blackbox_exporter_hostname }}:9115
 {% endif %}
+{% if loki_hostname is defined %}
+  - job_name: loki
+    metrics_path: "/metrics"
+    scrape_interval: 60s
+    honor_labels: true
+    scheme: http
+    static_configs:
+      - targets: 
+        - {{ loki_hostname }}:3100
+{% endif %}
   {{ prometheus_custom_scrapers | indent(2) }}

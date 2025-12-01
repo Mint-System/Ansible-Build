@@ -28,7 +28,7 @@ query_range:
 
 limits_config:
   metric_aggregation_enabled: true
-  retention_period: 30d
+  retention_period: {{ loki_retention_period }}
 
 schema_config:
   configs:

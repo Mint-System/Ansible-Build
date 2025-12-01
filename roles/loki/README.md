@@ -18,6 +18,7 @@ loki_data_dir: /usr/share/loki # default: "/usr/share/{{ loki_hostname }}"
 loki_requires_package: python2-passlib # default: python3-passlib
 loki_proxy_basic_auth_username: log # default: loki
 loki_proxy_basic_auth_password: # default: "{{ vault_loki_proxy_basic_auth_password }}"
+loki_retention_period: 7d # default: 14d
 ```
 
 Ensure the nginx proxy includes the loki config:
