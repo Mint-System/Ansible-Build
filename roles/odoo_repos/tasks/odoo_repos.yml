@@ -38,6 +38,7 @@
     refspec: +refs/heads/{{ item.branch | default(odoo_version) }}:refs/remotes/origin/{{ item.branch | default(odoo_version) }}
     accept_hostkey: true
     force: true
+  ignore_errors: true
   when:
     - item.url is regex('git@') and odoo_repo_key_file is defined
     - item.sparse_dirs is not defined
