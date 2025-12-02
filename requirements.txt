@@ -1,4 +1,5 @@
 ansible
+ansible-dev-tools
 docker
 jmespath
 dnspython
