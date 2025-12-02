@@ -167,7 +167,6 @@ connect-host() {
 
 decrypt-file() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
-    activate-venv
     echo "Decrypt file $1."
     ansible-vault decrypt --output="$1" "$1"
 }
@@ -175,7 +174,6 @@ decrypt-file() {
 encrypt-file() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
-    activate-venv
     echo "Encrypt file $2 with vault id $1."
     ansible-vault encrypt --encrypt-vault-id="$1" "$2"
 }
@@ -200,7 +198,6 @@ generate-vault-password() {
 encrypt-string() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
-    activate-venv
 
     # Split multiline
     local string_key
@@ -218,7 +215,6 @@ encrypt-string() {
 convert-vault-file() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
-    activate-venv
 
     local vault_id="$1"
     local file_path="$2"
@@ -250,7 +246,6 @@ convert-vault-file() {
 show-vault-file() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit 1; fi
     if [[ -z "$2" ]]; then echo '$2 is empty'; exit 1; fi
-    activate-venv
     local vault_id="$1"
     local file_path="$2"
     local temp_file
@@ -302,16 +297,17 @@ show-vault-file() {
 # Env
 
 install() {
+    echo "Ensure Python version $(cat .python-version) is installed."
+    uv python install
+    remove-venv
+    activate-venv
+
     echo "Setup Ansible log file"
     sudo touch /var/log/ansible.log
     sudo chown $USER: /var/log/ansible.log
 
-    activate-venv
-
     echo "Install Ansible and Python dependencies"
     uv pip install -r requirements.txt
-
-    ansible-galaxy collection install community.general
 }
 
 install-exo() {
@@ -319,7 +315,6 @@ install-exo() {
 }
 
 version() {
-    activate-venv
     uv --version
     ansible --version
 }
@@ -332,7 +327,6 @@ show-passwordless-sudo() {
 # Run
 
 play() {
-    activate-venv
     ansible-playbook "$@"
 }
 
@@ -342,7 +336,6 @@ upgrade() {
 }
 
 lint() {
-    activate-venv
     ansible-lint --fix --offline roles/*
 }
 
@@ -350,7 +343,6 @@ lint() {
 
 list-hosts() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
-    activate-venv
 
     find "$1" -name 'hosts.yml' | sort | while read -r hosts_file; do
         echo -e "\n<<< $hosts_file >>>\n"
@@ -497,7 +489,6 @@ list-deployments-odoo() {
 # Galaxy
 
 build-galaxy() {
-    activate-venv
     local version=$(yq eval '.version' galaxy.yml)
     local namespace=$(yq eval '.namespace' galaxy.yml)
     local name=$(yq eval '.name' galaxy.yml)
@@ -507,7 +498,6 @@ build-galaxy() {
 }
 
 publish-galaxy() {
-    activate-venv
     local version=$(yq eval '.version' galaxy.yml)
     local namespace=$(yq eval '.namespace' galaxy.yml)
     local name=$(yq eval '.name' galaxy.yml)
@@ -518,7 +508,6 @@ publish-galaxy() {
 # Test commands
 
 test-localhost() {
-    activate-venv
     version
     if [[ "$1" = "cleanup" ]]; then
         echo "Cleanup localhost"
@@ -564,7 +553,6 @@ test-localhost() {
 
 test-scripts() {
     set -e
-    activate-venv
 
     if [[ "$1" = "cleanup" ]]; then
         echo -e "\033[38;5;214mTEST\033[0m: Cleanup test environment."
@@ -720,6 +708,7 @@ serve-vuepress() {
 }
 
 if declare -f "$1" > /dev/null; then
+    activate-venv
     "$1" "${@:2}"
 else
     case "$1" in

@@ -193,8 +193,8 @@ When choosing the job id it is recommended to not add configuraiton details of t
 
 
 ```bash
-job_name="Backup job docker volume backup nextcloud03"
-new_job_name="Backup Nextcloud volume"
+job_name="Backup job odoo backup shop"
+new_job_name="Backup Odoo database"
 
 # Rename job in crontab
 cd /var/spool/cron/crontabs/
