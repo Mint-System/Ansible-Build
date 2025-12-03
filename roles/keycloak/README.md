@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://quay.io/repository/keycloak/keycloak
-keycloak_image: quay.io/keycloak/keycloak:22.0
+keycloak_image: quay.io/keycloak/keycloak:26.0
 keycloak_build_image: true # default: false
 keycloak_build_include: # default: []
   - url: https://github.com/inventage/keycloak-password-hashprovider-extension/releases/download/2.0.0/extension-password-hashprovider-2.0.0-202307200659-6-d59b2187.jar
