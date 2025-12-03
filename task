@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 help-table() {
     local cmd_width=30
