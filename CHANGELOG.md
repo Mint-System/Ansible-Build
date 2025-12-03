@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Do a port knocking in `certbot_check.yml` task.
+- Command `run` to execute Ansible commands.
 
 ### Changed
 
@@ -27,3 +28,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated more bash scripts including ansible-vault-get, get-public-ip, docker-mysql-list, and docker-mysql-drop.
   - Changed shebang from #!/bin/bash to #!/usr/bin/env bash for portability.
 - Merged `odoo_scripts` into `odoo` role.
+- Set Python version to `3.10`.
+- Remove version check in `requirements.txt`.

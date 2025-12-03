@@ -22,3 +22,13 @@ And include it in your playbook.
   roles:
   - role: ssh
 ```
+
+## Docs
+
+### Show OpenSSH version
+
+Show OpenSSH version for alls hosts.
+
+```bash
+task run all -i inventories/setup -a "ssh -V"
+```

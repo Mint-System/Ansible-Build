@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 help-table() {
-    local cmd_width=24
-    local opt_width=24
+    local cmd_width=30
+    local opt_width=26
     local desc_width=70
     local column="| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n"
 
@@ -51,6 +51,7 @@ help-table() {
     printf "$column" 'pull-repos' '' 'Pull git repos in inventories folder.'
     # Run
     printf "$column" 'play' '' 'Run ansible-playbook command.'
+    printf "$column" 'run' '' 'Run ansible command.'
     printf "$column" 'connect-host' '[host]' 'Connect to host with configs.'
     # Test
     printf "$column" 'test-localhost' '[cleanup]' 'Deploy to localhost. Pass option '\''cleanup'\'' to reset test env.'
@@ -328,6 +329,10 @@ show-passwordless-sudo() {
 
 play() {
     ansible-playbook "$@"
+}
+
+run() {
+    ansible "$@"
 }
 
 upgrade() {
