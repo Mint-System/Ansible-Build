@@ -8,15 +8,8 @@ scripts=(
     cron-job-list
 )
 
-script_dir=$(dirname "$0")
 for script in "${scripts[@]}"; do
-
-    if [[ -f "$script_dir/$script" ]]; then
-        echo "Copy $script script ..."
-        cp "$script_dir/$script" "/usr/local/bin/$script"
-    else
-        echo "Download $script script ..."
-        sudo curl -L "$repository/$script" -o "/usr/local/bin/$script"
-    fi
+    echo "Install $script script ..."
+    sudo curl -L "$repository/cron/$script" -o "/usr/local/bin/$script"
     sudo chmod +x "/usr/local/bin/$script"
 done
