@@ -85,6 +85,7 @@ And include it in your playbook.
 The `prometheus.yml` template contains predefined srcape jobs that lookup proxy configurations of `prometheus_hosts` in the Ansible inventory.
 
 * **prometheus**: Target is `localhost:9090`.
+* **loki**: Target is `loki_hostname`.
 * **node-exporter https**: Targets are `nginx_proxies` with exporter `node`.
 * **cadvisor https**: Targets are `nginx_proxies` with exporter `cadvisor`.
 * **nextcloud https**: Targets are `nginx_proxies` with exporter `nextcloud`.
@@ -96,8 +97,8 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 * **n8n https**: Targets are `nginx_proxies` with exporter `n8n`.
 * **uptime-kuma https**: Targets are `nginx_proxies` with exporter `uptime-kuma`.
 * **meilisearch https**: Targets are `nginx_proxies` with exporter `meilisearch`.
-* **blackbox**: Target is `blackbox_exporter_hostname`.
-* **loki http**: Targetis `loki_hostname`.
+* **blackbox**: Targets are `nginx_proxies` with option `monitor` set to `true`.
+
 
 ### Custom scrapers
 

@@ -6,13 +6,6 @@ Deploy Odoo Docker container.
 
 ## Usage
 
-This role suports two Docker images.
-
-* Mint System Odoo: <https://hub.docker.com/r/mintsystem/odoo/>
-* Odoo: <https://hub.docker.com/_/odoo>
-
-### Mint System Odoo
-
 Configure the role.
 
 ```yml

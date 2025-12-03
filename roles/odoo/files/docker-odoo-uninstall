@@ -84,7 +84,6 @@ for module in "${uninstall_modules[@]}"; do
             echo \"def uninstall_module():
     module = env['ir.module.module'].search([('name', '=', '$module')])
     if module and module.state != 'uninstalled':
-        print('Uninstalling...')
         module.button_immediate_uninstall()
     else:
         print('Module already uninstalled or not found.')
