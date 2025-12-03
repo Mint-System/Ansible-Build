@@ -48,3 +48,5 @@
       tags: restic_server
     - role: ufw
       tags: ufw
+    - role: dozzle
+      tags: dozzle

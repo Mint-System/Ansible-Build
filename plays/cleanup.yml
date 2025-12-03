@@ -1,5 +1,5 @@
 ---
-- name: Cleanup server
+- name: Cleanup play
   hosts: all
   roles:
     - role: cleanup

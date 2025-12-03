@@ -1,0 +1,6 @@
+---
+- name: N8N play
+  hosts: n8n
+  roles:
+    - role: n8n
+      tags: n8n

@@ -1,0 +1,6 @@
+---
+- name: Alertmanager play
+  hosts: alertmanager
+  roles:
+    - role: alertmanager
+      tags: alertmanager

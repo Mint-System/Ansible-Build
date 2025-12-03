@@ -1,9 +1,7 @@
 ---
-- name: Nginx setup
+- name: Nginx play
   hosts: all
   roles:
-    - role: dozzle
-      tags: dozzle
     - role: htpasswd
       tags: htpasswd
     - role: cadvisor
@@ -28,12 +26,6 @@
       tags: restic_exporter
     - role: promtail
       tags: promtail
-    - role: loki
-      tags: loki
-    - role: grafana
-      tags: grafana
-    - role: prometheus
-      tags: prometheus
     - role: acme_sh
       tags: acme_sh
     - role: certbot
@@ -42,8 +34,6 @@
       tags: nginx
     - role: nginx_waf
       tags: nginx_waf
-    - role: caddy
-      tags: caddy
     - role: crowdsec
       tags: crowdsec
     - role: crowdsec_firewall_bouncer

@@ -1,0 +1,6 @@
+---
+- name: Loki play
+  hosts: loki
+  roles:
+    - role: loki
+      tags: loki

@@ -1,0 +1,6 @@
+---
+- name: Pushgateway play
+  hosts: pushgateway
+  roles:
+    - role: pushgateway
+      tags: pushgateway
