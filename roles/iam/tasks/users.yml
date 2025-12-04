@@ -3,7 +3,7 @@
   ansible.builtin.user:
     name: root
     password: "{{ iam_root_password | password_hash('sha512') }}"
-  when: iam_root_password is defined
+  when: iam_root_password is defined and iam_root_password
 
 - name: Setup users
   ansible.builtin.user:

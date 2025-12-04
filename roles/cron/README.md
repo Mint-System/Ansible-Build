@@ -9,6 +9,7 @@ Setup cron jobs.
 Configure the role.
 
 ```yml
+cron_enabled: true # default: false
 cron_data_dir: /mnt/sdb/share/cron # default: /usr/share/{{ role_name }}
 cron_jobs:
   - name: Run cron scheduler

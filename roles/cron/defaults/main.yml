@@ -1,3 +1,4 @@
 ---
+cron_enabled: false
 cron_data_dir: /usr/share/{{ role_name }}
 package_path_var: /bin:/usr/bin:/usr/local/bin
