@@ -714,7 +714,7 @@ serve-vuepress() {
 }
 
 if declare -f "$1" > /dev/null; then
-    activate-venv
+    activate-venv 2>/dev/null || true
     "$1" "${@:2}"
 else
     case "$1" in
