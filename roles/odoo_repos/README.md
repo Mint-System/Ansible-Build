@@ -16,14 +16,13 @@ github_pat: # default: "{{ vault_github_pat }}"
 odoo_repos:
   - path: enterprise
     url: https://bot-mintsys:{{ github_pat | urlencode() }}@github.com/odoo/enterprise
-    version: 9642f7d8026149a6524e036c523b65ccbdf17258
+    commit: 9642f7d8026149a6524e036c523b65ccbdf17258
   - path: addons/oca-partner-contact
     url: git@github.com:OCA/partner-contact.git
-    version: 16.0 # default: "{{ odoo_revision }}"
+    branch: 16.0
   - path: addons/mint-system-server-tools
     url: git@github.com:Mint-System/Odoo-Apps-Server-Tools.git
-    version: 17.0-mig-session_db # default: "{{ odoo_version }}"
-    single_branch: false
+    branch: 17.0-mig-session_db
   - path: addons/oca-partner-contact
     url: git@github.com:OCA/partner-contact.git
   - path: addons/oca-server-backend
@@ -54,7 +53,7 @@ To clone private repos with an http url set the `github_pat` var and define `git
 odoo_repos:
   - path: enterprise
     url: https://{{ github_username }}:{{ github_pat }}@github.com/odoo/enterprise.git
-    version: 13db977fca67da8278fbdc5753f425583b304c67
+    commit: 13db977fca67da8278fbdc5753f425583b304c67
 ```
 
 ### Pull repo manually
