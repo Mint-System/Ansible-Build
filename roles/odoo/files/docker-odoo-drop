@@ -53,7 +53,7 @@ $docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$
 
 echo "Drop database $database"
 query="DROP DATABASE \\\"$database\\\";"
-$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\""
+$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\"" || true
 
 echo "Remove filestore $database"
 $docker_exec_root_bash "rm -rf /var/lib/odoo/filestore/$database"

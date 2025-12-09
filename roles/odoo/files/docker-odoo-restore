@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
 version="1.0.1"
 
-# Display Help
 help() {
     echo
     echo "$script"
@@ -14,7 +12,7 @@ help() {
     echo "Syntax: $script [-d|-c|-f|-r|-u|-V|help]"
     echo 'Example: $script -d erp-dev -c odoo06 -f tmp/erp.zip -r'
     echo 'options:'
-    echo '  -d    Database name. Defaults to filename.'
+    echo '  -d    Database name.'
     echo '  -c    Odoo container. Defaults to '\''odoo'\''.'
     echo '  -f    Odoo database backup file. Defaults to '\''/var/tmp/odoo.zip'\''.'
     echo '  -r    Replace existing database.'
@@ -24,17 +22,16 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialise option flag with a false value
 replace='false'
 update='false'
+container=odoo
+file=/var/tmp/odoo.zip
 
-# Process params
 while getopts ':c: :d: :f: :r :u :V' opt; do
     case $opt in
         c) container="$OPTARG";;
@@ -51,14 +48,10 @@ while getopts ':c: :d: :f: :r :u :V' opt; do
     esac
 done
 
-# Fallback to environment vars and default values
-: "${container:=odoo}"
-: "${file:=/var/tmp/odoo.zip}"
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
 
-# Get file and directory name
 dir=$(dirname "$file")
 filename=$(basename "$file")
-: ${database:="${filename::-4}"}
 
 echo "Requesting restore for Odoo database from $filename to $database ..."
 
@@ -66,7 +59,6 @@ echo 'Unzip archive.'
 cd $dir
 unzip -q -o $filename
 
-# Clear database
 if $replace; then
     docker-odoo-drop -c "$container" -d "$database"
 fi
