@@ -20,3 +20,19 @@ And include it in your playbook.
   roles:
   - role: maintenance
 ```
+
+## Docs
+
+### Cleanup Docker system
+
+Run this command to remove any unused containers, images, networks and caches.
+
+```bash
+docker system prune
+```
+
+Then run this command ro remove unattached volumes.
+
+```bash
+docker volume prune -a
+```
