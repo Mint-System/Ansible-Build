@@ -4,15 +4,6 @@
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
-- name: Copy {{ role_name }} scripts
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
-    mode: +x
-  loop:
-    - docker-certbot-delete
-    - docker-certbot-create
-
 - name: Get list of nginx certs with ssl attribute
   ansible.builtin.stat:
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname | replace('*.', '') }}"

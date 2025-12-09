@@ -6,11 +6,6 @@
     docker_volume_name: "{{ postgres_volume_name }}"
   when: postgres_volume_name is defined
 
-- name: Ensure {{ role_name }} data dir exists
-  ansible.builtin.file:
-    path: "{{ postgres_data_dir }}"
-    state: directory
-
 - name: Start {{ role_name }} container {{ postgres_hostname }}
   community.docker.docker_container:
     name: "{{ postgres_hostname }}"
@@ -32,29 +27,6 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ postgres_hostname }}|{{ role_name }}"
-
-- name: Ensure {{ role_name }} scripts dir exists
-  ansible.builtin.file:
-    path: "{{ postgres_scripts_dir }}"
-    state: directory
-
-- name: Copy {{ role_name }} scripts
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ postgres_scripts_dir }}/{{ item }}"
-    mode: +x
-  loop:
-    - docker-postgres-backup
-    - docker-postgres-create
-    - docker-postgres-restore
-    - docker-postgres-list
-    - docker-postgres-drop
-    - docker-postgres-patch
-    - docker-postgres-duplicate
-    - docker-postgres-size
-    - docker-postgres-shell
-    - docker-postgres-upgrade
-    - docker-postgres-rename
 
 - name: List {{ role_name }} databases
   ansible.builtin.command: docker-postgres-list -c "{{ postgres_hostname }}"

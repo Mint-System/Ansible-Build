@@ -14,12 +14,3 @@
   ansible.builtin.copy:
     dest: /etc/profile.d/custom-path.sh
     content: PATH=$PATH:{{ package_path_var }}
-
-- name: Copy {{ role_name }} scripts
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
-    mode: +x
-  loop:
-    - cron-job-run
-    - cron-job-list

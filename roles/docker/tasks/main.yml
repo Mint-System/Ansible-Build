@@ -11,6 +11,11 @@
   tags:
     - docker
 
+- name: Include {{ role_name }} scripts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
+  tags:
+    - docker
+
 - name: Include {{ role_name }} ubuntu tasks
   ansible.builtin.include_tasks: "{{ role_name }}-ubuntu.yml"
   when: docker_packages is defined and (ansible_distribution == 'Ubuntu')
@@ -48,10 +53,5 @@
 - name: Include {{ role_name }} login tasks
   ansible.builtin.include_tasks: "{{ role_name }}-login.yml"
   when: docker_login_username is defined
-  tags:
-    - docker
-
-- name: Include {{ role_name }} scripts tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
   tags:
     - docker

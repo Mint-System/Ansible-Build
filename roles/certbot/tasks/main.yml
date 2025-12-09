@@ -1,4 +1,9 @@
 ---
+- name: Include {{ role_name }} scripts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
+  tags:
+    - certbot
+
 - name: On build set new image tag {{ role_name }}:{{ certbot_hostname }}
   ansible.builtin.set_fact:
     certbot_image: certbot:{{ certbot_hostname }}

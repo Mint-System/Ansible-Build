@@ -68,8 +68,6 @@ The following tags are available:
 * postgres
 * postgres_backup
 
-## Docs
-
 ## Troubleshooting
 
 ### Lock file postmaster.pid is empty

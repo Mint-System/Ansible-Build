@@ -1,0 +1,11 @@
+---
+- name: Copy backup scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin/{{ item }}
+    mode: +x
+  loop:
+    - docker-mysql-backup
+    - docker-mysql-list
+    - docker-mysql-restore
+    - docker-mysql-drop

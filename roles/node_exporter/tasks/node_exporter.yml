@@ -18,14 +18,6 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ node_exporter_hostname }}|{{ role_name }}"
 
-- name: Copy {{ role_name }} file scripts
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
-    mode: +x
-  loop:
-    - write-node-exporter-metric
-
 - name: Copy {{ role_name }} templated scripts
   ansible.builtin.template:
     src: "{{ item }}"
