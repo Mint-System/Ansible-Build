@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.0.1"
+
+help() {
+    echo
+    echo "$script v$version"
+    echo
+    echo 'Description: Drop Odoo database in Kubernetes cluster.'
+    echo "Syntax: $script <deployment> <database>"
+    echo 'Example: $script odoo-odoo erp'
+    echo 'Options:'
+    echo "  help  Show $script manual."
+    echo
+}
+
+if [[ "$1" == 'help' ]]; then
+    help
+    exit 0
+fi
+
+deployment="$1"
+database="$2"
+
+[[ -z "$deployment" ]] && { echo 'Error: Parameter deployment is empty'; exit 1; }
+[[ -z "$database" ]] && { echo 'Error: Parameter database is empty'; exit 1; }
+
+pod_id=$(kubectl get pods -l app="$deployment" -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
+if [[ -z "$pod_id" ]]; then
+    echo "Error: No pod found for deployment '$deployment'"
+    exit 1
+fi
+
+kubectl_exec="kubectl exec $pod_id -- /bin/bash -c"
+
+echo "Kill database connections on $database"
+query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$database';"
+$kubectl_exec "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\""
+
+echo "Drop database $database"
+query="DROP DATABASE \\\"$database\\\";"
+$kubectl_exec "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\"" || true
+
+echo "Remove filestore $database"
+$kubectl_exec "rm -rf /var/lib/odoo/filestore/$database"
+
+echo "The Odoo database '$database' has been removed."
