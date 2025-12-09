@@ -27,6 +27,12 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ postgres_hostname }}|{{ role_name }}"
+  register: start_postgres_container
+
+- name: Wait for {{ role_name }} container
+  ansible.builtin.pause:
+    seconds: "3"
+  when: start_postgres_container.changed
 
 - name: List {{ role_name }} databases
   ansible.builtin.command: docker-postgres-list -c "{{ postgres_hostname }}"
