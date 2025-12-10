@@ -42,7 +42,7 @@ Setup this Nginx configuration for the `doc01` host:
   - src_hostname: doc.example.com
     dest_hostname: doc01
     dest_port: 9980
-    ssl: true
+    tls: true
     monitor: false
     options: |
       # static files

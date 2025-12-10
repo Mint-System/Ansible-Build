@@ -24,7 +24,7 @@ Ensure the nginx proxy includes the cadvisor config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     exporter: cadvsior
     options: |
       include /etc/nginx/conf.d/proxies/cadvisor.nginx;

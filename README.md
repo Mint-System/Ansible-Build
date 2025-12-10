@@ -143,13 +143,13 @@ task play -i inventories/setup plays/setup.yml --skip-tags depends
 Deploy role to specific host.
 
 ```bash
-task play -i inventories/setup plays/setup.yml -t docker -l host.example.com
+task play -i inventories/setup plays/setup.yml -t docker -l server1
 ```
 
 Deploy role to specific group with non-default user.
 
 ```bash
-task play -i inventories/setup plays/setup.yml -t docker -l host.example.com -u username
+task play -i inventories/setup plays/setup.yml -t docker -l server1 -u username
 ```
 
 Cleanup Odoo stack.
@@ -301,8 +301,8 @@ Here is an example of an host with two aliases:
 ```yml
 all:
   hosts:
-    zeus_web:
-      ansible_host: zeus.mint-system.com
-    zeus_main:
-      ansible_host: zeus.mint-system.com
+    server_web:
+      ansible_host: server.example.com
+    server_main:
+      ansible_host: server.example.com
 ```

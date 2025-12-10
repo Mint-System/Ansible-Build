@@ -26,7 +26,7 @@ Ensure the nginx proxy includes the loki config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     options: |
       include /etc/nginx/conf.d/proxies/loki.nginx;
 ```

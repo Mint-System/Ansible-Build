@@ -24,7 +24,7 @@ Ensure the nginx proxy includes the bigbluebutton-exporter config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     exporter: bigbluebutton
     options: |
       include /etc/nginx/conf.d/proxies/bigbluebutton-exporter.nginx;

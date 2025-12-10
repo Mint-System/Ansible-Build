@@ -37,7 +37,7 @@ Setup this Nginx configuration for the `dozzle01` host:
 ```yaml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     monitor: false
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;

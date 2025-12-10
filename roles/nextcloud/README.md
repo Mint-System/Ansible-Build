@@ -54,7 +54,7 @@ Setup this Nginx configuration for the `nextcloud01` host:
   - src_hostname: cloud.example.com
     dest_hostname: nextcloud01
     dest_port: 80
-    ssl: true
+    tls: true
     monitor: /login
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;

@@ -27,7 +27,7 @@ Ensure the nginx proxy includes the exporter config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     monitor: /
     exporter: node,cadvsior,nextcloud,bigbluebutton,postgres,restic,mysqld,odoo
     options: |

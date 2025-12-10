@@ -20,7 +20,7 @@ Ensure the nginx proxy includes the odoo-exporter config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     exporter: odoo
     options: |
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;

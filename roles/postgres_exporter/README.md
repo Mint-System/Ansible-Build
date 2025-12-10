@@ -28,7 +28,7 @@ Ensure the nginx proxy includes the postgres-exporter config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     exporter: postgres
     options: |
       include /etc/nginx/conf.d/proxies/postgres-exporter.nginx;

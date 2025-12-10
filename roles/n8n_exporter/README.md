@@ -20,7 +20,7 @@ Ensure the nginx proxy includes the n8n-exporter config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     exporter: n8n
     options: |
       include /etc/nginx/conf.d/proxies/n8n-exporter.nginx;

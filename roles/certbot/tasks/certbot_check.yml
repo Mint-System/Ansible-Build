@@ -3,7 +3,7 @@
   ansible.builtin.debug:
     msg: "{{ lookup('dig', item.src_hostname) }}"
   loop: "{{ nginx_proxies }}"
-  when: item.ssl is defined and item.ssl
+  when: item.tls is defined and item.tls
   register: dig_src
   tags:
     - check
@@ -31,8 +31,8 @@
   when:
     - item.msg is defined
     - item.msg != 'NXDOMAIN'
-    - item.item.ssl is defined
-    - item.item.ssl
+    - item.item.tls is defined
+    - item.item.tls
   register: port_80_check
   ignore_errors: true
   delegate_to: localhost

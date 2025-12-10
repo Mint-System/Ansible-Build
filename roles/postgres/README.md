@@ -46,13 +46,6 @@ postgres_users:
       - name: hr_employee
         database: odoo-int
 postgres_backup_set: # See restic_backup_set var in role restic
-  - id: "{{ postgres_hostname }} dump"
-    type: postgres-dump
-    container: "{{ postgres_hostname }}"
-    tags:
-      - postgres
-      - "{{ postgres_hostname }}"
-    hour: "1"
 ```
 
 And include it in your playbook.

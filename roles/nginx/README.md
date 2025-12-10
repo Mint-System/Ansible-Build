@@ -32,7 +32,7 @@ nginx_cache_enabled: true # default: false
 nginx_proxies:
 
   - src_hostname: www.example.com
-    ssl: true
+    tls: true
     root: public # Translates to "/usr/share/{{ nginx_hostname }}/static/public"
 
   - src_hostname: www.example.com
@@ -45,10 +45,10 @@ nginx_proxies:
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
-    ssl: true # default: false
+    tls: true # default: false
 
   - src_hostname: example.com
-    ssl: true # default: false
+    tls: true # default: false
     redirect_code: 302
     redirect_hostname: www.example.com
 
@@ -60,7 +60,7 @@ nginx_proxies:
       - www.example.org
 
   - src_hostname: login.example.com
-    ssl: true # default: false
+    tls: true # default: false
     monitor: / # default: false
     locations:
       - path: /
@@ -94,7 +94,7 @@ nginx_proxies:
   - src_hostname: odoo.example.com
     dest_hostname: odoo
     dest_port: 8069 # default: 80
-    ssl: true  # default: false
+    tls: true  # default: false
     monitor: / # default: false
     exporter: odoo
     upstreams:
@@ -147,8 +147,8 @@ The following tags are available:
 
 ### Use with Certbot
 
-To generate ssl certificates with Certbot define the `certbot_data_dir`.
+To generate tls certificates with Certbot define the `certbot_data_dir`.
 
 ### Use with Acme.sh
 
-To generate ssl certificates with Acme.sh define the `acme_sh_data_dir`.
+To generate tls certificates with Acme.sh define the `acme_sh_data_dir`.

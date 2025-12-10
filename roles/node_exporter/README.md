@@ -24,7 +24,7 @@ Ensure the nginx proxy includes the node-exporter config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     exporter: node
     options: |
       include /etc/nginx/conf.d/proxies/node-exporter.nginx;
@@ -48,3 +48,12 @@ The following tags are available:
 ### Host filesystem mount
 
 By default to node-exporter mounts the host filesystem to `/hostfs`.
+
+### Request metrics manually
+
+Show the metrics output for a selected `host` with this command:
+
+```bash
+host=server1
+task run $host -i inventories/setup -m shell -a "curl -s 'https://node-exporter:{{ hostvars[inventory_hostname]['vault_node_exporter_proxy_basic_auth_password'] }}@{{ hostvars[inventory_hostname]['ansible_host'] }}/node-exporter/metrics'"
+```

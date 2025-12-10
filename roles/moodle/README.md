@@ -32,13 +32,6 @@ moodle_smtp_password: "{{ vault_moodle_smtp_password }}"
 moodle_smtp_protocol: ssl # default: tls
 moodle_php_max_upload_filesize: 128M # default 32M
 moodle_volume_backup_set: # See restic_backup_set var in role restic
-  - id: "docker volume backup {{ moodle_hostname }}"
-    type: docker-volume
-    container: "{{ moodle_hostname }}"
-    tags:
-      - moodle
-      - "{{ moodle_hostname }}"
-    hour: "1"
 ```
 
 And include it in your playbook.

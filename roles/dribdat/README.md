@@ -59,7 +59,7 @@ nginx_proxies:
   - src_hostname: hack.example.com
     dest_hostname: drib01
     dest_port: 5000
-    ssl: true
+    tls: true
     monitor: false
     options: |
       proxy_set_header Host $host;

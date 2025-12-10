@@ -28,7 +28,7 @@ Ensure the nginx proxy includes the mysqld-exporter config:
 ```yml
 nginx_proxies:
   - src_hostname: server.example.com
-    ssl: true
+    tls: true
     exporter: mysqld
     options: |
       include /etc/nginx/conf.d/proxies/mysqld-exporter.nginx;

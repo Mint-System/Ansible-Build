@@ -53,7 +53,7 @@ nginx_proxies:
   - src_hostname: monitor.example.com
     dest_hostname: grafana01
     dest_port: 3000
-    ssl: true
+    tls: true
     monitor: /
     options: |
       include /etc/nginx/conf.d/proxies/loki.nginx;

@@ -5,38 +5,38 @@
   tags:
     - restic
 
-- name: Include {{ role_name }} docker volume backup tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_docker_volume_backup.yml"
-  when: restic_backup_set is defined
-  tags:
-    - restic
+# - name: Include {{ role_name }} docker volume backup tasks
+#   ansible.builtin.include_tasks: "{{ role_name }}_docker_volume_backup.yml"
+#   when: restic_backup_set is defined
+#   tags:
+#     - restic
 
-- name: Include {{ role_name }} file backup tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_file_backup.yml"
-  when: restic_backup_set is defined
-  tags:
-    - restic
+# - name: Include {{ role_name }} file backup tasks
+#   ansible.builtin.include_tasks: "{{ role_name }}_file_backup.yml"
+#   when: restic_backup_set is defined
+#   tags:
+#     - restic
 
-- name: Include {{ role_name }} odoo backup tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_odoo_backup.yml"
-  when: restic_backup_set is defined
-  tags:
-    - restic
+# - name: Include {{ role_name }} odoo backup tasks
+#   ansible.builtin.include_tasks: "{{ role_name }}_odoo_backup.yml"
+#   when: restic_backup_set is defined
+#   tags:
+#     - restic
 
-- name: Include {{ role_name }} docker postgres backup tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_docker_postgres_backup.yml"
-  when: restic_backup_set is defined
-  tags:
-    - restic
+# - name: Include {{ role_name }} docker postgres backup tasks
+#   ansible.builtin.include_tasks: "{{ role_name }}_docker_postgres_backup.yml"
+#   when: restic_backup_set is defined
+#   tags:
+#     - restic
 
-- name: Include {{ role_name }} docker mysql backup tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_docker_mysql_backup.yml"
-  when: restic_backup_set is defined
-  tags:
-    - restic
+# - name: Include {{ role_name }} docker mysql backup tasks
+#   ansible.builtin.include_tasks: "{{ role_name }}_docker_mysql_backup.yml"
+#   when: restic_backup_set is defined
+#   tags:
+#     - restic
 
-- name: Include {{ role_name }} docker mariadb backup tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_docker_mariadb_backup.yml"
-  when: restic_backup_set is defined
-  tags:
-    - restic
+# - name: Include {{ role_name }} docker mariadb backup tasks
+#   ansible.builtin.include_tasks: "{{ role_name }}_docker_mariadb_backup.yml"
+#   when: restic_backup_set is defined
+#   tags:
+#     - restic
