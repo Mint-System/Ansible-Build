@@ -18,10 +18,10 @@ n8n_state: stopped # default: started
 n8n_data_dir: /usr/share/n8n # default: "/usr/share/{{ n8n_hostname }}"
 n8n_volume_name: n8n_data01 # default: "{{ n8n_hostname }}"
 n8n_network_mode: host # default: "{{ docker_network_name }}"
-n8n_config_map:
-  - name: prod
+n8n_configmap:
+  - hostname: n8n01-prod
     webhook_url: https://n8n.example.com/
-  - name: int
+  - hostname: n8n01-int
     webhook_url: https://n8n-int.example.com/
 n8n_timezone: Europe/Paris # default: Europe/Zurich
 n8n_db_type: # default: postgresdb
@@ -40,12 +40,6 @@ And include it in your playbook.
 - hosts: n8n
   roles:
   - role: n8n
-```
-
-Run the playbook with config map filter.
-
-```bash
-task play -i inventories/setup plays/setup.yml -t n8n -e "config_map=int"
 ```
 
 ## Docs
@@ -80,10 +74,10 @@ nginx_proxies:
           proxy_send_timeout 300;
 ```
 
-### Deploy selected config map
+### Deploy selected configmap
 
-Run `ansible-playbook` with extra variables and set the `cm_name` (config map name) with the name of the config map.
+Run `ansible-playbook` with extra variables and set the `configmap_filter` (config map name) with the hostname of the config map.
 
 ```bash
-task play -i inventories/setup plays/all.yml -t n8n -e "cm_name=int"
+task play -i inventories/setup plays/all.yml -t n8n -e "configmap_filter=n8n01-int"
 ```

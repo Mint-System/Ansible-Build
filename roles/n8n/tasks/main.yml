@@ -1,11 +1,4 @@
 ---
-- name: Apply config map filter
-  set_fact:
-    n8n_config_map: "{{ n8n_config_map | selectattr('name', '==', config_map) | list }}"
-  when: config_map is defined and config_map != ''
-  tags:
-    - n8n
-
 - name: On build set new image tag {{ role_name }}:{{ n8n_hostname }}
   ansible.builtin.set_fact:
     n8n_image: n8n:{{ n8n_hostname }}

@@ -25,7 +25,7 @@ postgres_image: postgres:17-alpine
 # postgres_build_image: true # default: false
 postgres_hostname: postgres01
 postgres_user: example
-postgres_config_map:
+postgres_configmap:
   - db: metabase-prod
   - db: n8n-prod
   - db: odoo-prod
@@ -69,8 +69,8 @@ n8n_postgresdb_host: postgres01
 n8n_postgresdb_user: example
 n8n_postgresdb_password: test
 n8n_secure_cookie: "false"
-n8n_config_map:
-  - name: prod
+n8n_configmap:
+  - hostname: n8n-1-prod
     webhook_url: ""
 
 # https://hub.docker.com/_/nginx/
@@ -117,9 +117,9 @@ odoo_description: Odoo 18
 odoo_master_password: odoo
 odoo_postgres_user: example
 odoo_postgres_password: test
-odoo_config_map:
-  - name: prod
-  - name: int
+odoo_configmap:
+  - hostname: odoo01-prod
+  - hostname: odoo01-int
 odoo_addons_git_repos: https://github.com/OCA/partner-contact.git#18.0
 odoo_postgres_hostname: "{{ postgres_hostname }}"
 

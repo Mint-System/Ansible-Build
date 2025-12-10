@@ -16,9 +16,6 @@ odoo_build_image: true # default: false
 odoo_build_dockerfile: | # default: ""
   RUN pip install prometheus-client
 odoo_hostname: odoo01
-odoo_config_map: # default: - name: prod
-  - name: prod
-  - name: int
 odoo_timezone: Europe/Paris # default: Europe/Zurich
 odoo_description: Odoo 16 # default: Odoo
 odoo_state: stopped # default: started
@@ -59,6 +56,32 @@ The following tags are available:
 - odoo_backup
 
 ## Docs
+
+### Run multiple containers
+
+When defining a configmap the role will start multiple containers.
+
+```yaml
+odoo_configmap: # default: - hostname: {{ odoo_hostname }}-main
+  - hostname: odoo01-main
+    dbfilter: odoo
+    ports:
+     - "127.0.0.1:8069:8069"
+     - "127.0.0.1:8072:8072"
+  - hostname: odoo01-staging
+    dbfilter: staging
+    ports:
+     - "127.0.0.1:8068:8069"
+     - "127.0.0.1:8071:8072"
+```
+
+### Deploy selected configmap
+
+Run `ansible-playbook` with extra variables and set the `configmap_filter` (config map name) with the hostname of the config map.
+
+```bash
+task play -i inventories/odoo plays/odoo.yml -t odoo -e "configmap_filter=odoo01-staging"
+```
 
 ### Nginx config
 

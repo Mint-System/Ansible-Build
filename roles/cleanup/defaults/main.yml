@@ -1,12 +1,12 @@
 ---
 moodle_volume_name: "{{ moodle_hostname }}"
 odoo_data_dir: /usr/share/{{ odoo_hostname }}
-odoo_config_map:
-  - name: prod
+odoo_configmap:
+  - hostname: odoo01-prod
 odoo_volume_name: "{{ odoo_hostname }}"
 postgres_volume_name: "{{ postgres_hostname }}"
 nginx_data_dir: "/usr/share/{{ nginx_hostname }}"
-metabase_config_map: [name: prod]
+metabase_configmap: [hostname: metabase01-prod]
 loki_data_dir: /usr/share/{{ loki_hostname }}
 promtail_data_dir: /usr/share/{{ promtail_hostname }}
 grafana_data_dir: /usr/share/{{ grafana_hostname }}

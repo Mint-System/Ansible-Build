@@ -3,8 +3,8 @@ odoo_scripts_dir: /usr/local/bin
 bash_completion_dir: /etc/bash_completion.d
 odoo_build_image: false
 odoo_build_dockerfile: ""
-odoo_config_map:
-  - name: prod
+odoo_configmap:
+  - hostname: {{ odoo_hostname }}-main
 odoo_timezone: Europe/Zurich
 odoo_description: Odoo
 odoo_state: started

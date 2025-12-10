@@ -15,9 +15,9 @@ metabase_build_image: true # default: false
 metabase_hostname: metabase01
 metabase_description: Business Intelligence # default: Metabase
 metabase_state: stopped # default: started
-metabase_config_map: # default: [ name: prod ]
-  - name: prod
-  - name: int
+metabase_configmap: # default: [ hostname: metabase01-prod ]
+  - hostname: metabase01-prod
+  - hostname: metabase01-int
 metabase_timezone: Europe/Paris # default: Europe/Zurich
 metabase_db_host: postgres01
 metabase_db_port: 2345 # default: "5432"

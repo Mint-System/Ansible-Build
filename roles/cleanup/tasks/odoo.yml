@@ -3,14 +3,14 @@
   community.docker.docker_container:
     name: "{{ odoo_hostname }}"
     state: absent
-  when: odoo_config_map|length == 1
+  when: odoo_configmap|length == 1
 
 - name: Remove odoo container {{ odoo_hostname }}
   community.docker.docker_container:
-    name: "{{ odoo_hostname }}-{{ item.name }}"
+    name: "{{ item.hostname }}"
     state: absent
-  loop: "{{ odoo_config_map }}"
-  when: odoo_config_map|length > 1
+  loop: "{{ odoo_configmap }}"
+  when: odoo_configmap|length > 1
 
 - name: Remove odoo volume {{ odoo_volume_name }}
   community.docker.docker_volume:

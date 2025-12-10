@@ -22,4 +22,4 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ metabase_hostname }}|{{ role_name }}"
-  loop: "{{ metabase_config_map }}"
+  loop: "{{ metabase_configmap }}"

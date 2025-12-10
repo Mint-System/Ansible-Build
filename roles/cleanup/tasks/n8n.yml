@@ -1,13 +1,13 @@
 ---
 - name: Remove n8n container {{ n8n_hostname }}
   community.docker.docker_container:
-    name: "{{ n8n_hostname }}-{{ item.name}}"
+    name: "{{ item.hostname}}"
     state: absent
-  loop: "{{ n8n_config_map }}"
+  loop: "{{ n8n_configmap }}"
 
 - name: Remove n8n volume {{ n8n_volume_name }}
   community.docker.docker_volume:
-    name: "{{ n8n_hostname }}-{{ item.name}}"
+    name: "{{ item.name}}"
     state: absent
-  loop: "{{ n8n_config_map }}"
+  loop: "{{ n8n_configmap }}"
   when: '"n8n_volume" in ansible_run_tags'

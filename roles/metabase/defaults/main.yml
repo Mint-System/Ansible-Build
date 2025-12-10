@@ -1,6 +1,6 @@
 ---
 metabase_build_image: false
-metabase_config_map: [name: prod]
+metabase_configmap: [hostname: metabase01-prod]
 metabase_description: Metabase
 metabase_state: started
 metabase_timezone: Europe/Zurich

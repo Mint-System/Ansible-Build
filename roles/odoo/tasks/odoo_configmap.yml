@@ -3,8 +3,9 @@
   ansible.builtin.include_role:
     name: docker_volume
   vars:
-    docker_volume_name: "{{ odoo_volume_name }}"
-  when: odoo_volume_name is defined
+    docker_volume_name: "{{ item.hostname }}"
+  when: item.hostname is defined
+  loop: "{{ odoo_configmap }}"
 
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
@@ -13,57 +14,47 @@
     owner: "{{ odoo_owner }}"
     group: "{{ odoo_group }}"
 
-- name: Define {{ role_name }} volumes
-  ansible.builtin.set_fact:
-    odoo_volumes:
-      - "{{ odoo_volume_name }}:/var/lib/odoo"
-      - "{{ odoo_data_dir }}/addons:/mnt/addons"
-      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
-
 - name: Start {{ role_name }} container {{ odoo_hostname }}
   community.docker.docker_container:
-    name: "{{ odoo_hostname }}"
+    name: "{{ item.hostname }}"
     labels:
       description: "{{ odoo_description }}"
     image: "{{ odoo_image }}"
     restart_policy: unless-stopped
-    state: "{{ odoo_state }}"
     env:
       HOST: "{{ odoo_postgres_hostname }}"
       USER: "{{ odoo_postgres_user }}"
       PASSWORD: "{{ odoo_postgres_password }}"
-      POSTGRES_DB: postgres
       PGHOST: "{{ odoo_postgres_hostname }}"
       PGUSER: "{{ odoo_postgres_user }}"
       PGPASSWORD: "{{ odoo_postgres_password }}"
       TZ: "{{ odoo_timezone }}"
       ADDONS_GIT_REPOS: "{{ odoo_addons_git_repos | default('') }}"
       ODOO_ADDONS_PATH: /mnt/addons/,/mnt/enterprise
-      ODOO_ENTERPRISE_PATH: /mnt/enterprise
       ADMIN_PASSWD: "{{ odoo_master_password }}"
-      DB_FILTER: "{{ odoo_dbfilter }}"
+      DB_FILTER: "{{ item.dbfilter | default(odoo_dbfilter) }}"
       LIST_DB: "{{ odoo_list_db }}"
       PROXY_MODE: "{{ odoo_proxy_mode }}"
-      SERVER_WIDE_MODULES: "{{ odoo_server_wide_modules | default('') }}"
       PYTHON_INSTALL: "{{ odoo_python_install | default('') }}"
       WORKERS: "{{ odoo_workers | int }}"
       LIMIT_REQUEST: "{{ odoo_conf_limit_request | int }}"
       LIMIT_TIME_CPU: "{{ odoo_conf_limit_time_cpu | int }}"
       LIMIT_TIME_REAL: "{{ odoo_conf_limit_time_real | int }}"
-    ports: "{{ odoo_ports | default([]) }}"
-    volumes: "{{ odoo_volumes }}"
+    volumes:
+      - "{{ item.hostname }}:/var/lib/odoo"
+      - "{{ odoo_data_dir }}/addons:/mnt/addons"
+      - "{{ odoo_data_dir }}/enterprise:/mnt/enterprise"
+    ports: "{{ item.ports | default(odoo_ports)}}"
     networks:
       - name: "{{ docker_network_name }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
-      tag: "{{ odoo_hostname }}|{{ role_name }}"
+      tag: "{{ item.hostname }}|{{ role_name }}"
     network_mode: bridge
     etc_hosts: "{{ odoo_etc_hosts }}"
     sysctls:
       net.ipv6.conf.all.disable_ipv6: "{{ odoo_sysctls_disable_ipv6 }}"
-
-- name: Include {{ role_name }} data tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_data.yml"
-  when: odoo_data_files is defined
+  loop: "{{ odoo_configmap }}"
+  when: configmap_filter is not defined or (configmap_filter is defined and item.hostname == configmap_filter)
