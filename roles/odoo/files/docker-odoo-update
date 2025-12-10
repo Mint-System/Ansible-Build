@@ -52,8 +52,8 @@ done
 : "${container:=odoo}"
 
 # Verify variables
-[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
-[[ -z "$modules" ]] && { echo 'Parameter -u|update is empty' ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
+[[ -z "$modules" ]] && { echo 'Parameter -u|update is empty.' ; exit 1; }
 
 # Switch container name with id
 container_id=$(docker ps -f "name=$container" --format '{{.ID}}' | head -n1)

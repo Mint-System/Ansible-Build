@@ -51,8 +51,8 @@ done
 : "${odoo_host:=http://localhost:8069}"
 
 # Verify variables
-[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
-[[ -z "$new_database" ]] && { echo 'Parameter -n|new database is empty' ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
+[[ -z "$new_database" ]] && { echo 'Parameter -n|new database is empty.' ; exit 1; }
 [[ "$database" == "$new_database" ]] && { echo 'Parameter -d and -h cannot be the same' ; exit 1; }
 
 echo "Duplicating Odoo database $database to $new_database ..."

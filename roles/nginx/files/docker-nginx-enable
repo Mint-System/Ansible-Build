@@ -35,8 +35,8 @@ while getopts ":t: :o:" opt; do
   esac
 done
 
-[[ -z "$template" ]] && { echo 'Parameter -t|template is empty' ; exit 1; }
-[[ -z "$output_dir" ]] && { echo 'Parameter -o|output dir is empty' ; exit 1; }
+[[ -z "$template" ]] && { echo 'Parameter -t|template is empty.' ; exit 1; }
+[[ -z "$output_dir" ]] && { echo 'Parameter -o|output dir is empty.' ; exit 1; }
 
 output_path="${output_dir}/${SERVER_NAME}.conf"
 defined_envs=$(printf '${%s} ' $(env | cut -d= -f1))

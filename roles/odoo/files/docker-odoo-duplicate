@@ -60,8 +60,8 @@ done
 : "${container:=odoo}"
 
 # Verify variables
-[[ -z "$source_database" ]] && { echo 'Parameter -s|source is empty' ; exit 1; }
-[[ -z "$target_database" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
+[[ -z "$source_database" ]] && { echo 'Parameter -s|source is empty.' ; exit 1; }
+[[ -z "$target_database" ]] && { echo 'Parameter -t|target is empty.' ; exit 1; }
 [[ "$target_database" == "$source_database" ]] && { echo 'Parameter -s|source and -t|target cannot be the same' ; exit 1; }
 
 # Switch container name with id

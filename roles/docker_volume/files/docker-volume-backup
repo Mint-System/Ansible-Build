@@ -51,9 +51,9 @@ while getopts ":c: :a :v: :e: :o: :V" opt; do
     esac
 done
 
-[[ -z "$volumes" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volumes or -a|all must be set' ; exit 1; }
-[[ -z "$dir" ]] && { echo 'Parameter -d|dir is empty' ; exit 1; }
-[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
+[[ -z "$volumes" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volumes or -a|all must be set.' ; exit 1; }
+[[ -z "$dir" ]] && { echo 'Parameter -d|dir is empty.' ; exit 1; }
+[[ -z "$container" ]] && { echo 'Parameter -c|container is empty.' ; exit 1; }
 
 if $all; then
     volume_list=$(docker inspect -f '{{ range .Mounts }}{{ .Name }}{{ end }}' "$container")

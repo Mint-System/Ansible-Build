@@ -10,7 +10,7 @@ help() {
     echo
     echo 'Description: Import Docker volume content.'
     echo "Syntax: $script [-v|-p|-o|-V|help]"
-    echo 'Example: $script -v odoo01 -p /filestore/odoo -f /var/tmp/odoo01.tar'
+    echo 'Example: $script -v odoo01 -p filestore/odoo -f /var/tmp/odoo01.tar'
     echo 'options:'
     echo '  -v    Name of Docker volume.'
     echo "  -p    Path in volume. Defaults to '/'"
@@ -48,16 +48,16 @@ while getopts ":v: :p: :f: :r :V" opt; do
     esac
 done
 
-[[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume' ; exit 1; }
+[[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume is empty.' ; exit 1; }
 
 filename=$(basename "$file")
 filepath=$(dirname "$file")
 
 if [[ $replace = True ]]; then
-    echo "Clear $path folder in $volume volume..."
+    echo "Remove $path folder in $volume volume..."
     docker run --rm \
       -v "$volume:/target" \
-      alpine rm -rf /target$path
+      alpine rm -rf /target/$path
 fi
 
 echo "Import content of $volume volume to $path path..."
@@ -65,8 +65,8 @@ docker run --rm \
   -v "$volume:/target" \
   -v "${filepath}:/source" \
   alpine /bin/ash -c "
-    mkdir -p /target$path
-    cd /target$path
+    mkdir -p /target/$path
+    cd /target/$path
     tar xf /source/$filename --strip-components=1"
 
 echo "Docker volume import has finished."

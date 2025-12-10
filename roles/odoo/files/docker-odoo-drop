@@ -39,7 +39,7 @@ while getopts ':c: :d: :V' opt; do
     esac
 done
 
-[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
 
 container_id=$(docker ps -f "name=$container" -q | tail -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }

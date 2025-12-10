@@ -41,8 +41,8 @@ done
 # Fallback to environment vars and default values
 : "${type:=cron_job}"
 
-[[ -z "$code" ]] && { echo 'Parameter -c|code is empty' ; exit 1; }
-[[ -z "$value" ]] && { echo 'Parameter -v|value is empty' ; exit 1; }
+[[ -z "$code" ]] && { echo 'Parameter -c|code is empty.' ; exit 1; }
+[[ -z "$value" ]] && { echo 'Parameter -v|value is empty.' ; exit 1; }
 
 if [[ "$type" == 'cron_job' ]]; then
     echo "Write metric node_cron_job_exit_code for code \"$code\" with value $value."

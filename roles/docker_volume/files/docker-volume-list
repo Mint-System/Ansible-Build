@@ -41,6 +41,6 @@ while getopts ":v: :p: :V" opt; do
     esac
 done
 
-[[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume' ; exit 1; }
+[[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume is empty.' ; exit 1; }
 
 docker run --rm -v "$volume:/source" alpine ls -lh --color=always "/source$path"

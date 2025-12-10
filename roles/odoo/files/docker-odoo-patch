@@ -48,7 +48,7 @@ done
 : "${database:=odoo}"
 
 # Verify variables
-[[ -z "$file" ]] && { echo 'Parameter -f|file is empty' ; exit 1; }
+[[ -z "$file" ]] && { echo 'Parameter -f|file is empty.' ; exit 1; }
 
 # Set alias
 docker_exec_bash="docker exec -e DATABASE=$database $container /bin/bash -c"

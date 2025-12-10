@@ -38,7 +38,7 @@ while getopts 'v:f:V' opt; do
     esac
 done
 
-[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty' ; exit 1; }
+[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty.' ; exit 1; }
 
 filename=$(basename -- "$file")
 dir=$(dirname "$file")

@@ -36,7 +36,7 @@ while getopts ":c::V" opt; do
   esac
 done
 
-[[ -z "$container" ]] && { echo 'Parameter -c|container is empty' ; exit 1; }
+[[ -z "$container" ]] && { echo 'Parameter -c|container is empty.' ; exit 1; }
 
 echo "Reload Nginx config on $container"
 docker exec "$container" /usr/sbin/nginx -s reload

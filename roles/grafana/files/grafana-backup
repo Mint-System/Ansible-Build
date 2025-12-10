@@ -37,8 +37,8 @@ while getopts ':u: :t: :o:' opt; do
     esac
 done
 
-[[ -z "$url" ]] && { echo 'Parameter -u|url is empty' ; exit 1; }
-[[ -z "$token" ]] && { echo 'Parameter -t|token is empty' ; exit 1; }
+[[ -z "$url" ]] && { echo 'Parameter -u|url is empty.' ; exit 1; }
+[[ -z "$token" ]] && { echo 'Parameter -t|token is empty.' ; exit 1; }
 
 mkdir -p "$output"
 

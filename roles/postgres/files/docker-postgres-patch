@@ -37,8 +37,8 @@ while getopts ':c: :d: :f:' opt; do
   esac
 done
 
-[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
-[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty' ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
+[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty.' ; exit 1; }
 
 postgres_user=$(docker exec $container /bin/bash -c "echo \$POSTGRES_USER")
 

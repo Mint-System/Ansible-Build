@@ -39,6 +39,6 @@ while getopts ':c: :d: :V' opt; do
     esac
 done
 
-[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
 
 docker exec -i $container /bin/bash -c "odoo neutralize -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD"

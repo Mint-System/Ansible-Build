@@ -55,8 +55,8 @@ while getopts ":c:d:e:s:twv" opt; do
   esac
 done
 
-[[ -z "$certificate" ]] && { echo 'Parameter -c|certificate is empty' ; exit 1; }
-[[ -z "$certbot_data_dir" ]] && { echo 'Parameter -d|certbot data dir is empty' ; exit 1; }
+[[ -z "$certificate" ]] && { echo 'Parameter -c|certificate is empty.' ; exit 1; }
+[[ -z "$certbot_data_dir" ]] && { echo 'Parameter -d|certbot data dir is empty.' ; exit 1; }
 
 echo "Request certificate $certificate ..."
 

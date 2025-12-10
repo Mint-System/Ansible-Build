@@ -48,8 +48,8 @@ while getopts ':s: :t: :f :r :V' opt; do
     esac
 done
 
-[[ -z "$source" ]] && { echo 'Parameter -s|source is empty' ; exit 1; }
-[[ -z "$target" ]] && { echo 'Parameter -t|target is empty' ; exit 1; }
+[[ -z "$source" ]] && { echo 'Parameter -s|source is empty.' ; exit 1; }
+[[ -z "$target" ]] && { echo 'Parameter -t|target is empty.' ; exit 1; }
 
 target_volume=$(echo $target | cut -f1 -d:)
 target_path=$(echo $target | grep -q ":" && echo $target | cut -f2 -d: || echo "")

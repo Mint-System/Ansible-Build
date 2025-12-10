@@ -42,7 +42,7 @@ while getopts ':p: :d: :h: :V' opt; do
     esac
 done
 
-[[ -z "$database" ]] && { echo 'Parameter -d|database is empty' ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
 
 read -p "Please confirm the deletion of $database on $odoo_host (y/n)? " reply
 if [[ $reply == y ]]; then

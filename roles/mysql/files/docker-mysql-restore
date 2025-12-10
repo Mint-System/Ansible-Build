@@ -43,7 +43,7 @@ done
 filename=$(basename -- "$file")
 database=${database:="${filename%%.*}"}
 
-[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty' ; exit 1; }
+[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty.' ; exit 1; }
 
 image=$(docker inspect $container --format='{{.Config.Image}}')
 

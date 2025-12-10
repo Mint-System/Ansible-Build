@@ -35,8 +35,8 @@ while getopts ":c: :d:" opt; do
   esac
 done
 
-[[ -z "$certificate" ]] && { echo 'Parameter -c|certificate is empty' ; exit 1; }
-[[ -z "$certbot_data_dir" ]] && { echo 'Parameter -d|certbot data dir is empty' ; exit 1; }
+[[ -z "$certificate" ]] && { echo 'Parameter -c|certificate is empty.' ; exit 1; }
+[[ -z "$certbot_data_dir" ]] && { echo 'Parameter -d|certbot data dir is empty.' ; exit 1; }
 
 read -p "Please confirm the deletion of $certificate in $certbot_data_dir (y/n)? " reply
 if [[ $reply == y ]]; then

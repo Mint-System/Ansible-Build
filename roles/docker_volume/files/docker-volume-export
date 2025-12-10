@@ -10,7 +10,7 @@ help() {
     echo
     echo 'Description: Export Docker volume content.'
     echo "Syntax: $script [-v|-p|-o|-V|help]"
-    echo 'Example: $script -v odoo01 -p /filestore/odoo -o /tmp'
+    echo 'Example: $script -v odoo01 -p filestore/odoo -o /tmp'
     echo 'options:'
     echo '  -v    Name of Docker volume.'
     echo "  -p    Path in volume. Defaults to '/'"
@@ -46,9 +46,9 @@ while getopts ":v: :p: :o: :V" opt; do
     esac
 done
 
-[[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume' ; exit 1; }
+[[ -z "$volume" ]] && [[ -z "$all" ]] && { echo 'Parameter -v|volume is empty.' ; exit 1; }
 
 echo "Export content of $volume volume with $path path..."
-docker run --rm -v "$volume:/source" -v "${dir}:/backup" alpine tar -cf "/backup/$volume.tar" -C "/source$path" .
+docker run --rm -v "$volume:/source" -v "${dir}:/backup" alpine tar -cf "/backup/$volume.tar" -C "/source/$path" .
 
 echo "Docker volume export has finished: ${dir}/{$volume}.tar"
