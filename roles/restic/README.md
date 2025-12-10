@@ -190,8 +190,6 @@ restic version
 
 When choosing the job id it is recommended to not add configuraiton details of the backup job to the name. Once the definition has been applied, the job id can not be updated with Ansible.
 
-
-
 ```bash
 job_name="Backup job odoo backup shop"
 new_job_name="Backup Odoo database"
@@ -203,4 +201,22 @@ grep "$new_job_name" root
 
 # Show the grafana job metric
 rg "$job_name" /var/tmp/*.prom
+```
+
+### Fix cron commands
+
+Fixing cron commands across all servers is a more difficult task, but rather easy with ansible.
+
+In this example the pattern ` restic ` is replaced with ` restic-main ` in all cron jobs. The cron file can be located at `/var/spool/cron/root` or `/var/spool/cron/crontabs/root`.
+
+Run this command to get an overview of all cron jobs that match the pattern:
+
+```bash
+task run all -i inventories/setup -b -m shell -a 'if [ -f /var/spool/cron/root ] && grep -q " restic " /var/spool/cron/root; then echo "<<< $(hostname) >>>"; grep " restic " /var/spool/cron/root; fi; if [ -f /var/spool/cron/crontabs/root ] && grep -q " restic " /var/spool/cron/crontabs/root; then echo "<<< $(hostname) >>>"; grep " restic " /var/spool/cron/crontabs/root; fi'
+```
+
+If your confident and did a test with a single host, run this command to replace the pattern:
+
+```bash
+task run all -i inventories/setup -b -m shell -a 'if [ -f /var/spool/cron/root ] && grep -q " restic " /var/spool/cron/root; then sed -i "s/ restic / restic-main /g" /var/spool/cron/root; fi; if [ -f /var/spool/cron/crontabs/root ] && grep -q " restic " /var/spool/cron/crontabs/root; then sed -i "s/ restic / restic-main /g" /var/spool/cron/crontabs/root; fi'
 ```
