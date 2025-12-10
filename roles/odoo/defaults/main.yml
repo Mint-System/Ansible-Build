@@ -4,7 +4,7 @@ bash_completion_dir: /etc/bash_completion.d
 odoo_build_image: false
 odoo_build_dockerfile: ""
 odoo_configmap:
-  - hostname: {{ odoo_hostname }}-main
+  - hostname: "{{ odoo_hostname }}"
 odoo_timezone: Europe/Zurich
 odoo_description: Odoo
 odoo_state: started
