@@ -31,7 +31,7 @@
 
 - name: Wait for {{ role_name }} container
   ansible.builtin.pause:
-    seconds: "3"
+    seconds: "5"
   when: start_postgres_container.changed
 
 - name: List {{ role_name }} databases
