@@ -32,6 +32,8 @@
   tags:
     - odoo
 
+#FIXME: Setup configmap filter: configmap_filter is not defined or (configmap_filter is defined and item.hostname == configmap_filter)
+
 - name: Include {{ role_name }} configmap tasks
   ansible.builtin.include_tasks: "{{ role_name }}_configmap.yml"
   when: configmap is defined and odoo_configmap|length > 1

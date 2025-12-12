@@ -13,6 +13,8 @@
   tags:
     - n8n
 
+#FIXME: Setup configmap filter: configmap_filter is not defined or (configmap_filter is defined and item.hostname == configmap_filter)
+
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: n8n_image is defined
