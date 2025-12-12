@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://github.com/google/cadvisor
-cadvisor_image: gcr.io/google-containers/cadvisor:v0.47.2
+cadvisor_image: ghcr.io/google/cadvisor:v0.53.0
 cadvisor_hostname: cadvisor01
 cadvisor_description: docker monitoring for server1 # default: "cAdvisor {{ inventory_hostname_short }}"
 cadvisor_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
