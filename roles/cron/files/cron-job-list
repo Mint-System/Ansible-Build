@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Get script name
 script=$(basename "$0")
 version="1.0.0"
 
-# Display Help
 help() {
   echo
   echo "$script"
@@ -20,17 +18,14 @@ help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Initialize variables
 : ${CRONTAB_USERNAME:="$USERNAME"}
 : ${CRONTAB_USERNAME:=$(whoami)}
 
-# Process params
 while getopts ":u: :V" opt; do
   case $opt in
     u) CRONTAB_USERNAME="$OPTARG";;
@@ -43,7 +38,7 @@ while getopts ":u: :V" opt; do
   esac
 done
 
-sudo crontab -u "$CRONTAB_USERNAME" -l | awk '
+crontab -u "$CRONTAB_USERNAME" -l | awk '
   BEGIN { job_num = 1 }
   /^#Ansible: / {
     # Capture the full job name (everything after "#Ansible: ")

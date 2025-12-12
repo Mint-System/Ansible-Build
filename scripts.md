@@ -18,6 +18,7 @@ curl -L https://ansible.build/cron/install | bash
 
 - cron-job-run
 - cron-job-list
+- write-node-exporter-metric
 
 ## [certbot](roles/certbot/README.md)
 
@@ -82,16 +83,6 @@ curl -L https://ansible.build/nginx/install | bash
 - docker-nginx-enable
 - docker-nginx-reload
 - get-public-ip
-
-
-## [node_exporter](roles/node_exporter/README.md)
-
-```bash
-curl -L https://ansible.build/node_exporter/install | bash
-```
-
-- write-node-exporter-metric
-
 
 ## [odoo](roles/odoo/README.md)
 

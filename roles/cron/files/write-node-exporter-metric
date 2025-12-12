@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# Display Help
 help() {
     echo
     echo 'write-node-exporter-metric'
@@ -17,13 +16,13 @@ help() {
     echo
 }
 
-# Show help and exit
 if [[ "$1" == 'help' ]]; then
     help
     exit
 fi
 
-# Process params
+type=cron_job
+
 while getopts ':n :c: :v:' opt; do
   case $opt in
     n) type="$OPTARG"
@@ -37,9 +36,6 @@ while getopts ':n :c: :v:' opt; do
     exit 1;;
   esac
 done
-
-# Fallback to environment vars and default values
-: "${type:=cron_job}"
 
 [[ -z "$code" ]] && { echo 'Parameter -c|code is empty.' ; exit 1; }
 [[ -z "$value" ]] && { echo 'Parameter -v|value is empty.' ; exit 1; }

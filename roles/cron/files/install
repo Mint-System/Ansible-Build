@@ -6,6 +6,7 @@ repository='https://ansible.build'
 scripts=(
     cron-job-run
     cron-job-list
+    write-node-exporter-metric
 )
 
 for script in "${scripts[@]}"; do
