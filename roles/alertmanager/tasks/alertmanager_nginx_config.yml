@@ -20,7 +20,7 @@
     name: "{{ alertmanager_proxy_basic_auth_username }}"
     password: "{{ alertmanager_proxy_basic_auth_password }}"
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: alertmanager.nginx
     dest: "{{ alertmanager_nginx_data_dir }}/alertmanager.nginx"

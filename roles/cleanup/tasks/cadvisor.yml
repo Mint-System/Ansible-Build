@@ -4,8 +4,14 @@
     name: "{{ cadvisor_hostname }}"
     state: absent
 
-- name: Remove cadvisor data dir
+- name: Remove cadvisor nginx conf
   ansible.builtin.file:
-    path: "{{ cadvisor_data_dir }}"
+    path: "{{ cadvisor_nginx_data_dir }}/cadvisor.nginx"
+    state: absent
+  when: '"cadvisor_data" in ansible_run_tags'
+
+- name: Remove user access for cadvisor
+  ansible.builtin.file:
+    path: "{{ cadvisor_nginx_data_dir }}/cadvisor.htpasswd"
     state: absent
   when: '"cadvisor_data" in ansible_run_tags'

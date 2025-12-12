@@ -19,7 +19,7 @@
     name: "{{ alloy_proxy_basic_auth_username }}"
     password: "{{ alloy_proxy_basic_auth_password }}"
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: alloy.nginx
     dest: "{{ alloy_nginx_data_dir }}/alloy.nginx"

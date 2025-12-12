@@ -19,7 +19,7 @@
     name: "{{ n8n_exporter_proxy_basic_auth_username }}"
     password: "{{ n8n_exporter_proxy_basic_auth_password }}"
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: n8n-exporter.nginx
     dest: "{{ n8n_exporter_nginx_data_dir }}/n8n-exporter.nginx"

@@ -26,7 +26,7 @@
     dest: "{{ nginx_data_dir }}/default.conf"
     force: false
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: nginx-certbot.conf
     dest: "{{ nginx_data_dir }}/proxies/{{ item }}.conf"

@@ -27,7 +27,6 @@
     - write-docker-volume-metric
     - write-docker-up-metric
     - write-docker-memory-metric
-    - write-docker-cpu-metric
 
 - name: Check if cron is installed
   ansible.builtin.command: which cron
@@ -44,5 +43,4 @@
     - { name: "write-docker-volume-metric", job: "write-docker-volume-metric" }
     - { name: "write-docker-up-metric", job: "write-docker-up-metric", minute: "*/5" }
     - { name: "write-docker-memory-metric", job: "write-docker-memory-metric", minute: "*/5" }
-    - { name: "write-docker-cpu-metric", job: "write-docker-cpu-metric", minute: "*/5" }
   when: cron_check.rc == 0

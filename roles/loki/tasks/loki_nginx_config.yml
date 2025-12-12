@@ -19,7 +19,7 @@
     name: "{{ loki_proxy_basic_auth_username }}"
     password: "{{ loki_proxy_basic_auth_password }}"
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: loki.nginx
     dest: "{{ loki_nginx_data_dir }}/loki.nginx"

@@ -19,7 +19,7 @@
     name: "{{ postgres_exporter_proxy_basic_auth_username }}"
     password: "{{ postgres_exporter_proxy_basic_auth_password }}"
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: postgres-exporter.nginx
     dest: "{{ postgres_exporter_nginx_data_dir }}/postgres-exporter.nginx"

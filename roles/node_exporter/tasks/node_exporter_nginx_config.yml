@@ -19,7 +19,7 @@
     name: "{{ node_exporter_proxy_basic_auth_username }}"
     password: "{{ node_exporter_proxy_basic_auth_password }}"
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: node-exporter.nginx
     dest: "{{ node_exporter_nginx_data_dir }}/node-exporter.nginx"

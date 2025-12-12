@@ -19,7 +19,7 @@
     name: "{{ restic_exporter_proxy_basic_auth_username }}"
     password: "{{ restic_exporter_proxy_basic_auth_password }}"
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: restic-exporter.nginx
     dest: "{{ restic_exporter_nginx_data_dir }}/restic-exporter.nginx"

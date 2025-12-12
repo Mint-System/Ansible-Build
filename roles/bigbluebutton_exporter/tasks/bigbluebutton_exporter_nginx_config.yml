@@ -19,7 +19,7 @@
     name: "{{ bigbluebutton_exporter_proxy_basic_auth_username }}"
     password: "{{ bigbluebutton_exporter_proxy_basic_auth_password }}"
 
-- name: Copy nginx {{ role_name }} conf
+- name: Copy {{ role_name }} nginx config
   ansible.builtin.template:
     src: bigbluebutton-exporter.nginx
     dest: "{{ bigbluebutton_exporter_nginx_data_dir }}/bigbluebutton-exporter.nginx"
