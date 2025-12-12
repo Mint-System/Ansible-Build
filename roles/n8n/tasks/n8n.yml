@@ -23,7 +23,7 @@
     state: "{{ n8n_state }}"
     env:
       DB_TYPE: "{{ n8n_db_type }}"
-      DB_POSTGRESDB_DATABASE: "{{ item.hostname }}"
+      DB_POSTGRESDB_DATABASE: "{{ item.database }}"
       DB_POSTGRESDB_HOST: "{{ n8n_postgresdb_host }}"
       DB_POSTGRESDB_PORT: "{{ n8n_postgresdb_port }}"
       DB_POSTGRESDB_USER: "{{ n8n_postgresdb_user }}"

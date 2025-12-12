@@ -20,8 +20,10 @@ n8n_volume_name: n8n_data01 # default: "{{ n8n_hostname }}"
 n8n_network_mode: host # default: "{{ docker_network_name }}"
 n8n_configmap:
   - hostname: n8n01-prod
+    database: n8n-prod
     webhook_url: https://n8n.example.com/
   - hostname: n8n01-int
+    database: n8n-prod
     webhook_url: https://n8n-int.example.com/
 n8n_timezone: Europe/Paris # default: Europe/Zurich
 n8n_db_type: # default: postgresdb
