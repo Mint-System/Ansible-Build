@@ -46,7 +46,7 @@ restic_backup_set:
     hour: "1"
     state: absent
 
-  - id: "Backup odoo databse"
+  - id: "Backup Odoo databse"
     type: docker-odoo-backup
     container: odoo02
     database: odoo2
@@ -55,7 +55,7 @@ restic_backup_set:
       - odoo02
     hour: "2"
 
-  - id: "Backup postgres databse"
+  - id: "Backup Postgres database"
     type: postgres-dump
     container: postgres01
     databases: odoo
@@ -65,7 +65,7 @@ restic_backup_set:
     hour: "1"
     disabled: true
 
-  - id: "Backup postgres databses"
+  - id: "Backup Postgres databases"
     type: postgres-dump
     container: postgres01
     tags:
