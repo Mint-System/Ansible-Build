@@ -12,7 +12,6 @@
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - "{{ docker_data_dir }}:/var/lib/docker:ro"
-      # - /dev/disk/:/dev/disk:ro
     devices:
       - /dev/kmsg:/dev/kmsg
     command: --housekeeping_interval=30s --docker_only=true

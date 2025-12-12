@@ -4,6 +4,7 @@
 | --- | --- | --- |
 | ![acme_sh logo](/logos/acme_sh.png)  | [acme_sh](roles/acme_sh/README.md) | Issue & renew the free certificates. |
 | ![alertmanager logo](/logos/alertmanager.png)  | [alertmanager](roles/alertmanager/README.md) | Deploy Alertmanager container. |
+| ![alloy logo](/logos/alloy.png)  | [alloy](roles/alloy/README.md) | Deploy Alloy container. |
 | ![ansible_scripts logo](/logos/ansible_scripts.png)  | [ansible_scripts](roles/ansible_scripts/README.md) | Install Ansible scripts. |
 | ![autossh logo](/logos/autossh.png)  | [autossh](roles/autossh/README.md) | Configure Autossh tunnels. |
 | ![bigbluebutton_exporter logo](/logos/bigbluebutton_exporter.png)  | [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md) | Deploy BigBlueButton exporter container. |

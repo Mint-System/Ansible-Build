@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Get script name
 SCRIPT=$(basename "$0")
 
-# Display Help
 Help() {
   echo
   echo "$SCRIPT"
@@ -16,7 +14,6 @@ Help() {
   echo
 }
 
-# Show help and exit
 if [[ "$1" == "help" ]]; then
     Help
     exit

@@ -1,0 +1,25 @@
+---
+- name: Ensure nginx data dir exists
+  ansible.builtin.file:
+    path: "{{ alloy_nginx_data_dir }}"
+    state: directory
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Fail if package {{ alloy_requires_package }} is not installed
+  ansible.builtin.fail:
+    msg: Package {{ alloy_requires_package }} is not installed!
+  when: alloy_requires_package not in ansible_facts.packages
+
+- name: Configure user access for {{ role_name }}
+  community.general.htpasswd:
+    path: "{{ alloy_nginx_data_dir }}/alloy.htpasswd"
+    name: "{{ alloy_proxy_basic_auth_username }}"
+    password: "{{ alloy_proxy_basic_auth_password }}"
+
+- name: Copy nginx {{ role_name }} conf
+  ansible.builtin.template:
+    src: alloy.nginx
+    dest: "{{ alloy_nginx_data_dir }}/alloy.nginx"

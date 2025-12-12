@@ -1,0 +1,7 @@
+---
+alloy_requires_package: python3-passlib
+alloy_description: Alloy {{ inventory_hostname_short }}
+alloy_data_dir: /usr/share/{{ alloy_hostname }}
+alloy_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
+alloy_proxy_basic_auth_username: alloy
+alloy_proxy_basic_auth_password: "{{ vault_alloy_proxy_basic_auth_password }}"

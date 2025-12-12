@@ -1,0 +1,36 @@
+---
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ alloy_data_dir }}"
+    state: directory
+
+- name: Copy {{ role_name }} conf
+  ansible.builtin.template:
+    src: config.alloy
+    dest: "{{ alloy_data_dir }}/"
+  notify: Restart {{ role_name }} container
+
+- name: Start {{ role_name }} container {{ alloy_hostname }}
+  community.docker.docker_container:
+    name: "{{ alloy_hostname }}"
+    labels:
+      description: "{{ alloy_description }}"
+    image: "{{ alloy_image }}"
+    restart_policy: unless-stopped
+    privileged: true
+    volumes:
+      - "{{ alloy_data_dir }}/config.alloy:/etc/alloy/config.alloy"
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - "{{ docker_data_dir }}:/var/lib/docker:ro"
+      - /dev/disk/:/dev/disk:ro
+    command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ alloy_hostname }}|{{ role_name }}"

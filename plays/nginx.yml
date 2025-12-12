@@ -6,6 +6,8 @@
       tags: htpasswd
     - role: cadvisor
       tags: cadvisor
+    - role: alloy
+      tags: alloy
     - role: node_exporter
       tags: node_exporter
     - role: mysqld_exporter

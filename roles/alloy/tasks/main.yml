@@ -1,0 +1,13 @@
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: alloy_image is defined
+  tags:
+    - alloy
+
+- name: Include {{ role_name }} nginx config tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_nginx_config.yml"
+  when: alloy_proxy_basic_auth_password is defined
+  tags:
+    - alloy
+    - alloy_nginx_config
