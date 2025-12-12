@@ -49,6 +49,8 @@
       tags: crowdsec
     - role: metabase
       tags: metabase
+    - role: node_exporter
+      tags: node_exporter
     - role: prometheus
       tags: prometheus
     - role: loki

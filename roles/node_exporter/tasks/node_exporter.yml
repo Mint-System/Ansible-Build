@@ -18,16 +18,31 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ node_exporter_hostname }}|{{ role_name }}"
 
-- name: Copy {{ role_name }} templated scripts
-  ansible.builtin.template:
+- name: Copy {{ role_name }} scripts
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: /usr/local/bin/{{ item }}
     mode: +x
   loop:
     - write-docker-volume-metric
+    - write-docker-up-metric
+    - write-docker-memory-metric
+    - write-docker-cpu-metric
+
+- name: Check if cron is installed
+  ansible.builtin.command: which cron
+  register: cron_check
+  failed_when: false
+  changed_when: false
 
 - name: Cron job to run {{ role_name }} background jobs
   ansible.builtin.cron:
-    name: Run write-docker-volume-metric job
-    minute: "0"
-    job: write-docker-volume-metric
+    name: Run {{ item.name }} job
+    minute: "{{ item.minute | default('0') }}"
+    job: "{{ item.job }}"
+  loop:
+    - { name: "write-docker-volume-metric", job: "write-docker-volume-metric" }
+    - { name: "write-docker-up-metric", job: "write-docker-up-metric", minute: "*/5" }
+    - { name: "write-docker-memory-metric", job: "write-docker-memory-metric", minute: "*/5" }
+    - { name: "write-docker-cpu-metric", job: "write-docker-cpu-metric", minute: "*/5" }
+  when: cron_check.rc == 0

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+SCRIPT=$(basename "$0")
+
+Help() {
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: Write metric container_last_seen for running Docker containers."
+  echo "Syntax: $SCRIPT"
+  echo "Example: $SCRIPT"
+  echo "options:"
+  echo "  help  Show $SCRIPT manual."
+  echo
+}
+
+if [[ "$1" == "help" ]]; then
+    Help
+    exit
+fi
+
+echo "Write metric container_last_seen for running Docker containers."
+
+cat << EOF >> /var/tmp/container_last_seen.prom.$$
+# HELP container_last_seen Last seen timestamp for containers
+# TYPE container_last_seen gauge
+EOF
+
+# Get all running docker containers and extract metrics
+docker ps --format='{{.ID}};{{.Names}};{{.Image}}' | while IFS=';' read -r id name image; do
+    # Skip header if present
+    [[ "$id" == "CONTAINER ID" ]] && continue
+    
+    # Get current timestamp in seconds
+    timestamp=$(date +%s)
+    
+    # Write metric with only the required labels: id, name, image
+    echo "container_last_seen{id=\"/docker/$id\",name=\"$name\",image=\"$image\"} $timestamp" >> /var/tmp/container_last_seen.prom.$$
+done
+
+mv /var/tmp/container_last_seen.prom.$$ /var/tmp/container_last_seen.prom

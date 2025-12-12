@@ -130,6 +130,11 @@ metabase_db_host: postgres01
 metabase_db_user: example
 metabase_db_pass: test
 
+# https://hub.docker.com/r/prom/node-exporter
+node_exporter_image: prom/node-exporter:v1.0.1
+node_exporter_hostname: node01
+node_exporter_nginx_enabled: false
+
 # https://hub.docker.com/r/prom/prometheus
 prometheus_image: prom/prometheus:v2.54.1
 prometheus_hostname: prom01

@@ -45,9 +45,9 @@ The following tags are available:
 
 ## Docs
 
-### Curl metrics locally
+### Show metrics locally
 
-Use this command to show the metrics of Alloy locally:
+Use this command to show the metrics of the Alloy container:
 
 ```bash
 curl http://alloy01:12345/metrics

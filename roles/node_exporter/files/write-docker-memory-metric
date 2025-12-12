@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+SCRIPT=$(basename "$0")
+
+Help() {
+  echo
+  echo "$SCRIPT"
+  echo
+  echo "Description: Write metric container_memory_usage_bytes for running Docker containers."
+  echo "Syntax: $SCRIPT"
+  echo "Example: $SCRIPT"
+  echo "options:"
+  echo "  help  Show $SCRIPT manual."
+  echo
+}
+
+if [[ "$1" == "help" ]]; then
+    Help
+    exit
+fi
+
+echo "Write metric container_memory_usage_bytes for running Docker containers."
+
+cat << EOF >> /var/tmp/container_memory_usage_bytes.prom.$$
+# HELP container_memory_usage_bytes Memory usage in bytes for containers
+# TYPE container_memory_usage_bytes gauge
+EOF
+
+# Process each running container to get memory stats
+for container_id in $(docker ps -q); do
+    # Get container details including name and image
+    container_name=$(docker inspect --format '{{.Name}}' "$container_id" 2>/dev/null | sed 's/\///')
+    container_image=$(docker inspect --format '{{.Config.Image}}' "$container_id" 2>/dev/null)
+    
+    if [[ -n "$container_name" && -n "$container_image" ]]; then
+        # Get stats in JSON format for this specific container and extract memory usage
+        # Use the full stats output and parse appropriately
+        mem_usage=$(docker stats --no-stream --format "{{.MemUsage}}" "$container_id" 2>/dev/null)
+        
+        if [[ -n "$mem_usage" && "$mem_usage" != "<no value>" ]]; then
+            # Split memory usage to get the used part (before the / if it exists) 
+            if [[ "$mem_usage" == *"/"* ]]; then
+                mem_used_part=$(echo "$mem_usage" | cut -d'/' -f1 | xargs)  # Get first part and trim spaces
+            else
+                mem_used_part="$mem_usage"
+            fi
+            
+            # Extract memory value and unit
+            mem_value=$(echo "$mem_used_part" | sed -E 's/([0-9.]+)([a-zA-Z]*)/\1/')
+            mem_unit=$(echo "$mem_used_part" | sed -E 's/([0-9.]+)([a-zA-Z]*)/\2/')
+            
+            # Convert memory to bytes based on units
+            case ${mem_unit^^} in  # Convert to uppercase
+                B) memory_bytes=$(printf "%.0f" "$mem_value") ;;
+                KB|KI|KIB) memory_bytes=$(echo "$mem_value * 1024" | bc -l 2>/dev/null || echo "$mem_value * 1024" | awk '{print $1 * 1024}') ;;
+                MB|MI|MIB) memory_bytes=$(echo "$mem_value * 1024 * 1024" | bc -l 2>/dev/null || echo "$mem_value * 1024 * 1024" | awk '{print $1 * 1024 * 1024}') ;;
+                GB|GI|GIB) memory_bytes=$(echo "$mem_value * 1024 * 1024 * 1024" | bc -l 2>/dev/null || echo "$mem_value * 1024 * 1024 * 1024" | awk '{print $1 * 1024 * 1024 * 1024}') ;;
+                TB|TI|TIB) memory_bytes=$(echo "$mem_value * 1024 * 1024 * 1024 * 1024" | bc -l 2>/dev/null || echo "$mem_value * 1024 * 1024 * 1024 * 1024" | awk '{print $1 * 1024 * 1024 * 1024 * 1024}') ;;
+                *) memory_bytes=$(printf "%.0f" "$mem_value") ;;  # fallback for unknown units
+            esac
+            
+            # Round to integer for Prometheus compatibility
+            memory_bytes=$(printf "%.0f" "$memory_bytes" 2>/dev/null || echo "$memory_bytes")
+            
+            # Write metric with only the required labels: id, name, image
+            echo "container_memory_usage_bytes{id=\"/docker/$container_id\",name=\"$container_name\",image=\"$container_image\"} $memory_bytes" >> /var/tmp/container_memory_usage_bytes.prom.$$
+        fi
+    fi
+done
+
+mv /var/tmp/container_memory_usage_bytes.prom.$$ /var/tmp/container_memory_usage_bytes.prom

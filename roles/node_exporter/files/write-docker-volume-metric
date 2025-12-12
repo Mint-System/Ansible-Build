@@ -26,9 +26,16 @@ cat << EOF >> /var/tmp/node_directory_size_bytes.prom.$$
 # TYPE node_directory_size_bytes gauge
 EOF
 
-for dir in {{ docker_data_dir }}/volumes/*/
+# Get Docker data directory from daemon.json or use default
+docker_data_dir=$(docker info -f '{{.DockerRootDir}}' 2>/dev/null)
+if [[ -z "$docker_data_dir" || "$docker_data_dir" == "<no value>" ]]; then
+    # Default to /var/lib/docker if docker info fails
+    docker_data_dir="/var/lib/docker"
+fi
+
+for dir in "$docker_data_dir"/volumes/*/
 do
-    du -s $dir --block-size=1 | sed -E 's;([0-9]*).*\s(\/.*\/([^/]*))\/$;node_directory_size_bytes{directory="\2",volume="\3"} \1;g' >> /var/tmp/node_directory_size_bytes.prom.$$
+    du -s "$dir" --block-size=1 | sed -E 's;([0-9]*).*\s(\/.*\/([^/]*))\/$;node_directory_size_bytes{directory="\2",volume="\3"} \1;g' >> /var/tmp/node_directory_size_bytes.prom.$$
 done
 
 mv /var/tmp/node_directory_size_bytes.prom.$$ /var/tmp/node_directory_size_bytes.prom
