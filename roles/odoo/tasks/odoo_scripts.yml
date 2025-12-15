@@ -4,7 +4,7 @@
     path: "{{ odoo_scripts_dir }}"
     state: directory
 
-- name: Copy {{ role_name }}
+- name: Copy {{ role_name }} scripts
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ odoo_scripts_dir }}/{{ item }}"

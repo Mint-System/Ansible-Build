@@ -45,7 +45,7 @@ while getopts ":a :c: :d: :o:" opt; do
   esac
 done
 
-[[ -z "$databases" ]] && [[ "$all" == 'false' ]] && { echo 'Parameter -d or -a|databases or all must be set' ; exit 1; }
+[[ -z "$databases" ]] && [[ "$all" == 'false' ]] && { echo 'Parameter -d or -a|databases all must be set' ; exit 1; }
 
 if $all ; then
   database_list=($(docker exec "$container" /bin/bash -c "psql -U \$POSTGRES_USER \
