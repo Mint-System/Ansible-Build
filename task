@@ -695,8 +695,6 @@ build-vuepress() {
     mkdir -p .vuepress/dist/odoo
     mkdir -p .vuepress/dist/postgres
 
-
-
     echo "Copy script files to vuepress folder."
     cp roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts
     cp roles/cron/files/* .vuepress/dist/cron
