@@ -27,7 +27,7 @@ nextcloud_postgres_db: nextcloud
 nextcloud_mail_hostname: mail.example.com
 nextcloud_mail_encryption: tls # default: ""
 nextcloud_mail_port: "587"
-nextcloud_auth_type: PLAIN # default: LOGIN
+nextcloud_mail_authtype: PLAIN # default: LOGIN
 nextcloud_mail_from: noreply@example.com
 nextcloud_mail_username: bot@example.com
 nextcloud_mail_password: "{{ vault_nextcloud_mail_password }}"
