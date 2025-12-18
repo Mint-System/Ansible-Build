@@ -1,7 +1,7 @@
 ---
 - name: Start {{ role_name }} container {{ metabase_hostname }}
   community.docker.docker_container:
-    name: "{{ metabase_hostname }}-{{ item.name }}"
+    name: "{{ item.hostname }}"
     labels:
       description: "{{ metabase_description }}"
     image: "{{ metabase_image }}"
@@ -9,7 +9,7 @@
     state: "{{ metabase_state }}"
     env:
       MB_DB_TYPE: "{{ metabase_db_type }}"
-      MB_DB_DBNAME: "{{ metabase_db_dbname }}-{{ item.name }}"
+      MB_DB_DBNAME: "{ item.hostname }}"
       MB_DB_PORT: "{{ metabase_db_port }}"
       MB_DB_USER: "{{ metabase_db_user }}"
       MB_DB_PASS: "{{ metabase_db_pass }}"
@@ -21,5 +21,5 @@
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
-      tag: "{{ metabase_hostname }}|{{ role_name }}"
+      tag: "{{ item.hostname }}|{{ role_name }}"
   loop: "{{ metabase_configmap }}"
