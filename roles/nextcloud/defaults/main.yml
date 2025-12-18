@@ -14,5 +14,4 @@ nextcloud_etc_hosts: {}
 nextcloud_owner: root
 nextcloud_group: root
 nextcloud_mail_encryption: ""
-nextcloud_mail_username: ""
-nextcloud_mail_password: ""
+nextcloud_auth_type: LOGIN
