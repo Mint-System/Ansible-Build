@@ -34,7 +34,7 @@
       SMTP_NAME: "{{ nextcloud_mail_username }}"
       SMTP_PASSWORD: "{{ nextcloud_mail_password }}"
       MAIL_FROM_ADDRESS: "{{ nextcloud_mail_from }}"
-      MAIL_DOMAIN: "{{ nextcloud_mail_username.split('@')[1] }}"
+      MAIL_DOMAIN: "{{ nextcloud_mail_domain | default(nextcloud_mail_username.split('@')[1]) }}"
       TZ: "{{ nextcloud_timezone }}"
       OVERWRITEPROTOCOL: https
       OVERWRITEHOST: "{{ nextcloud_domain }}"
