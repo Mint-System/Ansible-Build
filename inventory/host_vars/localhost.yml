@@ -70,7 +70,8 @@ n8n_postgresdb_user: example
 n8n_postgresdb_password: test
 n8n_secure_cookie: "false"
 n8n_configmap:
-  - hostname: n8n-1-prod
+  - hostname: n8n-prod
+    database: n8n-prod
     webhook_url: ""
 
 # https://hub.docker.com/_/nginx/
