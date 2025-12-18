@@ -552,6 +552,7 @@ test-localhost() {
         local code=$(curl -o /dev/null -s -w "%{http_code}" -L "http://grafana.local:8080")
         [[ $code -eq 200 ]] || { echo "http://grafana.local:8080 -> $code"; fail=1; }
 
+        echo "Exit code is: $fail"
         exit $fail
 
     fi
