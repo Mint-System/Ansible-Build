@@ -25,10 +25,10 @@ nextcloud_postgres_user: nextcloud # default: "{{ postgres_user }}"
 nextcloud_postgres_password: # default: "{{ vault_postgres_password }}"
 nextcloud_postgres_db: nextcloud
 nextcloud_mail_hostname: mail.example.com
-nextcloud_mail_encryption: tls
+nextcloud_mail_encryption: tls # default: ""
 nextcloud_mail_port: "587"
-nextcloud_mail_from: noreply@example.com
-nextcloud_mail_username: bot@example.com
+nextcloud_mail_from: noreply@example.com # default: ""
+nextcloud_mail_username: bot@example.com # default: ""
 nextcloud_mail_password: "{{ vault_nextcloud_mail_password }}"
 nextcloud_redis_hostname: redis01
 nextcloud_redis_password: "{{ vault_nextcloud_redis_password }}"
