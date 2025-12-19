@@ -8,7 +8,7 @@ help() {
     echo
     echo "$script v$version"
     echo
-    echo 'Description: Drop Odoo database in Kubernetes cluster.'
+    echo 'Description: Backup Odoo database in Kubernetes cluster.'
     echo "Syntax: $script <deployment> <database>"
     echo 'Example: $script odoo-odoo erp'
     echo 'Options:'
@@ -35,16 +35,15 @@ fi
 
 kubectl_exec="kubectl exec $pod_id -- /bin/bash -c"
 
-echo "Kill database connections on $database"
-query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$database';"
-$kubectl_exec "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\""
+echo "Backup database $database to /var/lib/odoo/$database.zip..."
 
-echo "Drop database $database"
-query="DROP DATABASE \\\"$database\\\";"
-$kubectl_exec "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\"" || true
+echo 'Dump database.'
+$kubectl_exec "PGPASSWORD=\"\$PASSWORD\" pg_dump -h \"\$HOST\" -U \"\$USER\" $database" > "/var/lib/odoo/dump.sql"
 
-echo "Remove filestore $database"
-$kubectl_exec "rm -rf /var/lib/odoo/filestore/$database"
+echo "Zip filestore and dump to $file."
+zip -q -r "/var/lib/odoo/$database.zip" "/var/lib/odoo/dump.sql" "/var/lib/odoo/filestore/$database"
 
-echo "The Odoo database '$database' has been removed."
-echo "Delete the Odoo pod to reinitialize the database."
+echo 'Cleanup dump.'
+rm -rf "/var/lib/odoo/dump.sql"
+
+echo "The Odoo backup has finished: /var/lib/odoo/$database.zip"
