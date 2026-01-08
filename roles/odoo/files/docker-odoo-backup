@@ -65,7 +65,7 @@ container_id=$(docker ps -f "name=${container}" -q | head -n1)
 
 echo "Backup database $database to $filepath ..."
 
-echo 'Copy filestore.'
+echo 'Copy filestore from container $container_id.'
 rm -rf "$dir/filestore"
 docker cp "$container_id:/var/lib/odoo/filestore/$database" "$dir/filestore"
 
