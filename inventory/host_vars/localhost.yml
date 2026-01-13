@@ -70,7 +70,7 @@ n8n_postgresdb_user: example
 n8n_postgresdb_password: test
 n8n_secure_cookie: "false"
 n8n_configmap:
-  - hostname: n8n-prod
+  - hostname: n8n01-prod
     database: n8n-prod
     webhook_url: ""
 

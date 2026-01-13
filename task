@@ -553,8 +553,33 @@ test-localhost() {
         [[ $code -eq 200 ]] || { echo "http://grafana.local:8080 -> $code"; fail=1; }
 
         echo "Exit code is: $fail"
-        exit $fail
+        if [[ $fail -eq 1 ]]; then
+            echo "Checking Docker containers status..."
+            containers=$(docker ps -a --format "{{.Names}}:{{.Status}}")
+            failed_containers=()
 
+            echo "Containers NOT running:"
+            while IFS= read -r line; do
+                name=$(echo "$line" | cut -d: -f1)
+                container_status=$(echo "$line" | cut -d: -f2)
+                if [[ ! "$container_status" =~ ^(Up|Running) ]]; then
+                    echo "  $name — $container_status"
+                    failed_containers+=("$name")
+                fi
+            done <<< "$containers"
+
+            if [[ ${#failed_containers[@]} -gt 0 ]]; then
+                echo "Logs for failed containers:"
+                for container in "${failed_containers[@]}"; do
+                    echo "<<< $container >>>"
+                    docker logs "$container" 2>/dev/null || echo "Could not fetch logs for $container"
+                    echo ""
+                done
+            else
+                echo "All containers are running — issue may be DNS, port mapping, or service internal error."
+            fi
+        fi
+        exit $fail
     fi
 }
 

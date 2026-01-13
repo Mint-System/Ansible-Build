@@ -36,7 +36,7 @@
 
 - name: Include {{ role_name }} configmap tasks
   ansible.builtin.include_tasks: "{{ role_name }}_configmap.yml"
-  when: configmap is defined and odoo_configmap|length > 1
+  when: odoo_configmap is defined and odoo_configmap|length > 1
   tags:
     - odoo
 
