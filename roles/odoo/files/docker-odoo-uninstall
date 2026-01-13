@@ -52,7 +52,7 @@ container_id=$(docker ps -f "name=$container" --format '{{.ID}}' | head -n1)
 echo "Fetching list of installed modules for $database database in $container container..."
 installed_modules_list=$(docker exec "$container_id" /bin/bash -c "
     echo \"
-print(','.join([m.name for m in env['ir.module.module'].search([('state', '=', 'installed')])]))
+print(','.join([m.name for m in env['ir.module.module'].search(['|',('state', '=', 'installed'),('state','=','to upgrade')])]))
 \" | odoo shell -d '$database' \
         --db_host=\$HOST \
         --db_user=\$USER \

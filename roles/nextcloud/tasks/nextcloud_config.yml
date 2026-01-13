@@ -86,3 +86,8 @@
   ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} /bin/bash -c "echo yes | php occ db:convert-filecache-bigint"
   register: result
   failed_when: result.rc!= 0
+
+- name: Disable maintenance mode
+  ansible.builtin.command: docker exec --user www-data {{ nextcloud_hostname }} php occ maintenance:mode --off
+  register: result
+  failed_when: result.rc!= 0

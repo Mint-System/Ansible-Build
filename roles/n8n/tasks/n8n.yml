@@ -48,4 +48,3 @@
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ n8n_hostname }}|{{ role_name }}"
   loop: "{{ n8n_configmap }}"
-
