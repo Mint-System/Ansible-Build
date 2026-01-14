@@ -4,6 +4,12 @@
     name: "{{ postgres_hostname }}"
     state: absent
 
+- name: Remove pgadmin data dir
+  ansible.builtin.file:
+    path: "{{ postgres_data_dir }}"
+    state: absent
+  when: '"postgres_data" in ansible_run_tags'
+
 - name: Remove postgres volume {{ postgres_volume_name }}
   community.docker.docker_volume:
     name: "{{ postgres_volume_name }}"

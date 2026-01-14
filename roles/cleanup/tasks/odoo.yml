@@ -12,6 +12,13 @@
   loop: "{{ odoo_configmap }}"
   when: odoo_configmap|length > 1
 
+- name: Remove odoo volume {{ role_name }}
+  community.docker.docker_volume:
+    name: "{{ item.hostname }}"
+    state: absent
+  loop: "{{ odoo_configmap }}"
+  when: '"odoo_volume" in ansible_run_tags'
+
 - name: Remove odoo volume {{ odoo_volume_name }}
   community.docker.docker_volume:
     name: "{{ odoo_volume_name }}"
