@@ -5,7 +5,7 @@ The following Ansible roles contain command line tools that can be used independ
 ## [ansible_scripts](roles/ansible_scripts/README.md)
 
 ```bash
-curl -L https://ansible.build/ansible_scripts/install | bash
+curl -L https://ansible.build/ansible_scripts/install | bash -s -- --user
 ```
 
 - ansible-vault-get
@@ -13,7 +13,7 @@ curl -L https://ansible.build/ansible_scripts/install | bash
 ## [cron](roles/cron/README.md)
 
 ```bash
-curl -L https://ansible.build/cron/install | bash
+curl -L https://ansible.build/cron/install | bash -s -- --user
 ```
 
 - cron-job-run
@@ -23,7 +23,7 @@ curl -L https://ansible.build/cron/install | bash
 ## [certbot](roles/certbot/README.md)
 
 ```bash
-curl -L https://ansible.build/certbot/install | bash
+curl -L https://ansible.build/certbot/install | bash -s -- --user
 ```
 
 - docker-certbot-delete
@@ -56,7 +56,7 @@ curl -L https://ansible.build/docker_volume/install | bash -s -- --user
 ## [grafana](roles/grafana/README.md)
 
 ```bash
-curl -L https://ansible.build/grafana/install | bash
+curl -L https://ansible.build/grafana/install | bash -s -- --user
 ```
 
 - grafana-backup
@@ -65,7 +65,7 @@ curl -L https://ansible.build/grafana/install | bash
 ## [mysql](roles/mysql/README.md)
 
 ```bash
-curl -L https://ansible.build/mysql/install | bash
+curl -L https://ansible.build/mysql/install | bash -s -- --user
 ```
 
 - docker-mysql-backup
@@ -77,7 +77,7 @@ curl -L https://ansible.build/mysql/install | bash
 ## [nginx](roles/nginx/README.md)
 
 ```bash
-curl -L https://ansible.build/nginx/install | bash
+curl -L https://ansible.build/nginx/install | bash -s -- --user
 ```
 
 - docker-nginx-enable
