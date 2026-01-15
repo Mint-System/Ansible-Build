@@ -1,44 +1,42 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-SCRIPT=$(basename "$0")
-VERSION="1.0.0"
+script=$(basename "$0")
+version="1.0.1"
 
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Reload Nginx config in container."
-    echo "Syntax: $SCRIPT [-t|-o|help]"
-    echo "Example: $SCRIPT -c nginx01"
-    echo "options:"
-    echo "  -c    Name of the container."
-    echo "  -V    Show $SCRIPT version."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Reload Nginx config in container.'
+    echo "Syntax: $script [-t|-o|help]"
+    echo 'Example: $script -c nginx01'
+    echo 'options:'
+    echo '  -c    Name of the container.'
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
     echo
 }
 
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
-# Process params
 while getopts ":c::V" opt; do
   case $opt in
-    c) CONTAINER="$OPTARG"
+    c) container="$OPTARG"
     ;;
-    V) echo "$SCRIPT version $VERSION"
+    V) echo "$script version $version"
     exit 0
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
+    help
+    exit 1;;
   esac
 done
 
-# Verify variables
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
+[[ -z "$container" ]] && { echo 'Parameter -c|container is empty.' ; exit 1; }
 
-echo "Reload Nginx config on $CONTAINER"
-docker exec "$CONTAINER" /usr/sbin/nginx -s reload
+echo "Reload Nginx config on $container"
+docker exec "$container" /usr/sbin/nginx -s reload

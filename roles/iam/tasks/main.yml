@@ -5,18 +5,25 @@
   tags:
     - iam
 
-- name: Combine group and host vars
+- name: Combine group and host vars for users
   ansible.builtin.set_fact:
     iam_users: "{{ iam_users + host_iam_users }}"
   when: host_iam_users is defined
 
+- name: Combine group and host vars for groups
+  ansible.builtin.set_fact:
+    iam_groups: "{{ iam_groups + host_iam_groups }}"
+  when: host_iam_groups is defined
+
 - name: Remove absent users
   set_fact:
     iam_users: "{{ iam_users | rejectattr('state', 'equalto', 'absent') }}"
+  when: iam_users is defined
 
 - name: Filter users that don't match host
   set_fact:
     iam_users: "{{ iam_users | selectattr('hosts', 'defined') | selectattr('hosts', 'contains', inventory_hostname_short) }}"
+  when: iam_users is defined
 
 - name: Include users tasks
   ansible.builtin.include_tasks: users.yml
@@ -29,7 +36,3 @@
   when: iam_users is defined
   tags:
     - iam
-
-- name: Include {{ role_name }} k8s tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_k8s.yml"
-  when: k8s_iam_service_account is defined

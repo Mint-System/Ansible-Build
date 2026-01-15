@@ -1,21 +1,29 @@
 ---
 - name: Create {{ role_name }} volume
   community.docker.docker_volume:
-    name: "{{ n8n_volume_name }}-{{ item.name }}"
-  loop: "{{ n8n_config_map }}"
+    name: "{{ item.hostname }}"
+  loop: "{{ n8n_configmap }}"
+
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "/usr/share/{{ item.hostname }}"
+    state: directory
+    owner: "{{ n8n_owner }}"
+    group: "{{ n8n_group }}"
+    mode: "0777"
+  loop: "{{ n8n_configmap }}"
 
 - name: Start {{ role_name }} container {{ n8n_hostname }}
   community.docker.docker_container:
-    name: "{{ n8n_hostname }}-{{ item.name }}"
+    name: "{{ item.hostname }}"
     labels:
       description: "{{ n8n_description }}"
     image: "{{ n8n_image }}"
     restart_policy: unless-stopped
-    recreate: false
     state: "{{ n8n_state }}"
     env:
       DB_TYPE: "{{ n8n_db_type }}"
-      DB_POSTGRESDB_DATABASE: "{{ n8n_postgresdb_database }}-{{ item.name }}"
+      DB_POSTGRESDB_DATABASE: "{{ item.database }}"
       DB_POSTGRESDB_HOST: "{{ n8n_postgresdb_host }}"
       DB_POSTGRESDB_PORT: "{{ n8n_postgresdb_port }}"
       DB_POSTGRESDB_USER: "{{ n8n_postgresdb_user }}"
@@ -27,14 +35,17 @@
       N8N_METRICS: "true"
       WEBHOOK_URL: "{{ item.webhook_url }}"
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+      N8N_RUNNERS_ENABLED: "true"
+      N8N_RUNNERS_MODE: "internal"
+      N8N_PAYLOAD_SIZE_MAX: "128"
     volumes:
-      - "{{ n8n_volume_name }}-{{ item.name }}:/home/node/"
-      - "/usr/share/{{ n8n_volume_name }}-{{ item.name }}:/home/node/backups"
-    networks:
-      - name: "{{ docker_network_name }}"
+      - "{{ item.hostname }}:/home/node/"
+      - "/usr/share/{{ item.hostname }}:/mnt/data/"
+    network_mode: "{{ n8n_network_mode }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ n8n_hostname }}|{{ role_name }}"
-  loop: "{{ n8n_config_map }}"
+  loop: "{{ n8n_configmap }}"
+

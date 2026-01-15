@@ -1,26 +1,49 @@
 ---
-- name: Cloning oh-my-zsh for user
-  ansible.builtin.git:
-    repo: https://github.com/ohmyzsh/ohmyzsh
-    dest: ~/.oh-my-zsh
-    version: master
-  become_user: "{{ item.username }}"
+- name: Mark oh-my-zsh directory as safe for Git
+  ansible.builtin.command:
+    cmd: git config --global --add safe.directory /home/{{ item.username }}/.oh-my-zsh
   become: true
+  become_user: "{{ item.username }}"
   when: item.shell is defined and item.shell == '/bin/zsh' and item.hosts is defined and inventory_hostname_short in item.hosts
   loop: "{{ iam_users }}"
 
-- name: Install oh-my-zsh for user"
-  ansible.builtin.command: cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-  args:
-    creates: /home/{{ item.username }}/.zshrc
-  become_user: "{{ item.username }}"
+- name: Ensure correct ownership for oh-my-zsh directory
+  ansible.builtin.file:
+    path: "/home/{{ item.username }}/.oh-my-zsh"
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0755"
+  when: item.shell is defined and item.shell == '/bin/zsh' and item.hosts is defined and inventory_hostname_short in item.hosts
+  loop: "{{ iam_users }}"
+
+- name: Cloning oh-my-zsh for user
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh
+    dest: /home/{{ item.username }}/.oh-my-zsh
+    version: master
   become: true
+  become_user: "{{ item.username }}"
+  when: item.shell is defined and item.shell == '/bin/zsh' and item.hosts is defined and inventory_hostname_short in item.hosts
+  loop: "{{ iam_users }}"
+
+- name: Copy default .zshrc template
+  ansible.builtin.copy:
+    src: "/home/{{ item.username }}/.oh-my-zsh/templates/zshrc.zsh-template"
+    dest: "/home/{{ item.username }}/.zshrc"
+    remote_src: true
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0644"
   when: item.shell is defined and item.shell == '/bin/zsh' and item.hosts is defined and inventory_hostname_short in item.hosts
   loop: "{{ iam_users }}"
 
 - name: Insert zsh runtime configuration.
   ansible.builtin.blockinfile:
-    path: /home/{{ item.username }}/.zshrc
+    path: "/home/{{ item.username }}/.zshrc"
     block: "{{ item.zshrc }}"
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0644"
   when: item.zshrc is defined and item.hosts is defined and inventory_hostname_short in item.hosts
   loop: "{{ iam_users }}"

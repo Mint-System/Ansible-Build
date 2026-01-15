@@ -1,3 +1,5 @@
+<img src="/logos/nginx.png" alt="nginx logo" width="100" height="100">
+
 # Nginx role
 
 Deploy Nginx proxy with Certbot.
@@ -12,8 +14,10 @@ nginx_image: nginx:1.25.2-alpine
 nginx_hostname: nginx01
 nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"
 nginx_ports:
-  - 8080:80 # default: 80:80
-  - 8443:443 # default: 443:443
+  - "0.0.0.0:8080:80" # default: "0.0.0.0:80:80"
+  - "0.0.0.0:8443:443" # default: "0.0.0.0:443:443"
+  - "[::]:80:80"
+  - "[::]:443:443"
 nginx_http_options: |
   map $http_upgrade $connection_upgrade {
     default upgrade;
@@ -28,7 +32,7 @@ nginx_cache_enabled: true # default: false
 nginx_proxies:
 
   - src_hostname: www.example.com
-    ssl: true
+    tls: true
     root: public # Translates to "/usr/share/{{ nginx_hostname }}/static/public"
 
   - src_hostname: www.example.com
@@ -41,10 +45,11 @@ nginx_proxies:
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;
       add_header Strict-Transport-Security "max-age=15552000; includeSubdomains;"
-    ssl: true # default: false
+    tls: true # default: false
 
   - src_hostname: example.com
-    ssl: true # default: false
+    tls: true # default: false
+    redirect_code: 302
     redirect_hostname: www.example.com
 
   - src_hostname: example.org
@@ -55,7 +60,7 @@ nginx_proxies:
       - www.example.org
 
   - src_hostname: login.example.com
-    ssl: true # default: false
+    tls: true # default: false
     monitor: / # default: false
     locations:
       - path: /
@@ -89,14 +94,14 @@ nginx_proxies:
   - src_hostname: odoo.example.com
     dest_hostname: odoo
     dest_port: 8069 # default: 80
-    ssl: true  # default: false
+    tls: true  # default: false
     monitor: / # default: false
     exporter: odoo
     upstreams:
       - name: odoo
-        server: odoo17:8069
+        server: odoo01:8069
       - name: odoochat
-        server: odoo17:8072
+        server: odoo01:8072
     options: |
       include /etc/nginx/conf.d/proxy-params.conf;
       include /etc/nginx/conf.d/proxies/odoo-exporter.nginx;
@@ -140,16 +145,10 @@ The following tags are available:
 
 ## Docs
 
-### Install command line tools
-
-The installation script requires that you have sudo access to root.
-
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/nginx/files/install | bash` in your terminal.
-
 ### Use with Certbot
 
-To generate ssl certificates with Certbot define the `certbot_data_dir`.
+To generate tls certificates with Certbot define the `certbot_data_dir`.
 
 ### Use with Acme.sh
 
-To generate ssl certificates with Acme.sh define the `acme_sh_data_dir`.
+To generate tls certificates with Acme.sh define the `acme_sh_data_dir`.

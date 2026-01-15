@@ -1,48 +1,46 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
+version="1.0.1"
 
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: Template nginx proxy conf with env vars."
-    echo "Syntax: $SCRIPT [-t|-o|help]"
-    echo "Example: SERVER_NAME=odoo.example.com PROXY_HOST=http://odoo05 $SCRIPT -t /usr/share/nginx01/odoo.conf.template -o /usr/share/nginx01/proxies"
-    echo "options:"
-    echo "  -t    Path to the proxy conf template."
-    echo "  -o    Output folder of the proxy conf."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: Template nginx proxy conf with env vars.'
+    echo "Syntax: $script [-t|-o|help]"
+    echo "Example: SERVER_NAME=odoo.example.com PROXY_HOST=http://odoo05 $script -t /usr/share/nginx01/odoo.conf.template -o /usr/share/nginx01/proxies"
+    echo 'options:'
+    echo '  -t    Path to the proxy conf template.'
+    echo '  -o    Output folder of the proxy conf.'
+    echo "  help  Show $script manual."
     echo
 }
 
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
-# Process params
 while getopts ":t: :o:" opt; do
   case $opt in
-    t) TEMPLATE="$OPTARG"
+    t) template="$OPTARG"
     ;;
-    o) OUTPUT_DIR="$OPTARG"
+    o) output_dir="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
+    help
+    exit 1;;
   esac
 done
 
-# Verify variables
-[[ -z "$TEMPLATE" ]] && { echo "Parameter -t|template is empty" ; exit 1; }
-[[ -z "$OUTPUT_DIR" ]] && { echo "Parameter -o|output dir is empty" ; exit 1; }
+[[ -z "$template" ]] && { echo 'Parameter -t|template is empty.' ; exit 1; }
+[[ -z "$output_dir" ]] && { echo 'Parameter -o|output dir is empty.' ; exit 1; }
 
-# Set default vars
-OUTPUT_PATH="${OUTPUT_DIR}/${SERVER_NAME}.conf"
-DEFINED_ENVS=$(printf '${%s} ' $(env | cut -d= -f1))
+output_path="${output_dir}/${SERVER_NAME}.conf"
+defined_envs=$(printf '${%s} ' $(env | cut -d= -f1))
 
-echo "Templating nginx proxy conf with these env vars: $DEFINED_ENVS"
-envsubst "$DEFINED_ENVS" < "$TEMPLATE" > "$OUTPUT_PATH"
-echo "Nginx proxy conf created: $OUTPUT_PATH"
+echo "Templating nginx proxy conf with these env vars: $defined_envs"
+envsubst "$defined_envs" < "$template" > "$output_path"
+echo "Nginx proxy conf created: $output_path"

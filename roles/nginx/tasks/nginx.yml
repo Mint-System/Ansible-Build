@@ -32,7 +32,6 @@
       description: "{{ nginx_description }}"
     image: "{{ nginx_image }}"
     restart_policy: unless-stopped
-    recreate: false
     ports: "{{ nginx_ports | default([]) }}"
     volumes: "{{ nginx_volumes }}"
     networks:

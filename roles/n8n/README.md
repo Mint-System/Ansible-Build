@@ -1,3 +1,5 @@
+<img src="/logos/n8n.png" alt="n8n logo" width="100" height="100">
+
 # N8N role
 
 Deploy N8N container.
@@ -8,16 +10,20 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/n8nio/n8n
-n8n_image: n8nio/n8n:1.67.1
+n8n_image: n8nio/n8n:1.123.4
 n8n_build_image: true # default: false
 n8n_hostname: n8n01
 n8n_description: Workflow Automation # default: N8N
 n8n_state: stopped # default: started
+n8n_data_dir: /usr/share/n8n # default: "/usr/share/{{ n8n_hostname }}"
 n8n_volume_name: n8n_data01 # default: "{{ n8n_hostname }}"
-n8n_config_map: # default: [ name: prod ]
-  - name: prod
+n8n_network_mode: host # default: "{{ docker_network_name }}"
+n8n_configmap:
+  - hostname: n8n01-prod
+    database: n8n-prod
     webhook_url: https://n8n.example.com/
-  - name: int
+  - hostname: n8n01-int
+    database: n8n-prod
     webhook_url: https://n8n-int.example.com/
 n8n_timezone: Europe/Paris # default: Europe/Zurich
 n8n_db_type: # default: postgresdb
@@ -36,4 +42,44 @@ And include it in your playbook.
 - hosts: n8n
   roles:
   - role: n8n
+```
+
+## Docs
+
+### Nginx config
+
+Setup this Nginx configuration for the `n8n01-prod` host:
+
+```yaml
+nginx_proxies:
+  - src_hostname: n8n.example.com
+    dest_hostname: n8n01-prod
+    dest_port: 5678
+    tls: true
+    options: |
+      include /etc/nginx/conf.d/proxy-params.conf;
+    locations:
+      - path: /rest
+        dest_hostname: n8n01-prod
+        dest_port: 5678
+        options: |
+          include /etc/nginx/conf.d/proxy-params.conf;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+      - path: /webhook
+        dest_hostname: n8n01-prod
+        dest_port: 5678
+        options: |
+          include /etc/nginx/conf.d/proxy-params.conf;
+          proxy_read_timeout 300;
+          proxy_connect_timeout 300;
+          proxy_send_timeout 300;
+```
+
+### Deploy selected configmap
+
+Run `ansible-playbook` with extra variables and set the `configmap_filter` (config map name) with the hostname of the config map.
+
+```bash
+task play -i inventories/setup plays/all.yml -t n8n -e "configmap_filter=n8n01-int"
 ```
