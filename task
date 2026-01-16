@@ -318,6 +318,7 @@ install-exo() {
 
 version() {
     uv --version
+    echo "python $(cat .python-version)"
     ansible --version
 }
 
