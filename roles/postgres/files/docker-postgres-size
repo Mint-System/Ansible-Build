@@ -1,45 +1,43 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-# Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
-Help() {
+help() {
     echo
-    echo "$SCRIPT"
+    echo "$script"
     echo
-    echo "Description: List table size of database in Postgres Docker container."
-    echo "Syntax: $SCRIPT [-c|help]"
-    echo "Example: $SCRIPT -c postgres01 -d odoo"
-    echo "options:"
-    echo "  -c    Docker container. Defaults to 'postgres'."
-    echo "  -d    Name of database."
-    echo "  help  Show $SCRIPT manual."
+    echo 'Description: List table size of database in Postgres Docker container.'
+    echo "Syntax: $script [-c|help]"
+    echo 'Example: $script -c postgres01 -d odoo'
+    echo 'options:'
+    echo '  -c    Docker container. Defaults to '\''postgres'\''.'
+    echo '  -d    Name of database.'
+    echo "  help  Show $script manual."
     echo
 }
 
-# Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
-# Process params
-while getopts ":c: :d:" opt; do
+container=postgres
+
+while getopts ':c: :d:' opt; do
   case $opt in
-    c) CONTAINER="$OPTARG";;
-    d) DATABASE="$OPTARG";;
+    c) container="$OPTARG";;
+    d) database="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
+    help
+    exit 1;;
   esac
 done
 
-# Fallback to environment vars and default values
-: ${CONTAINER:='postgres'}
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
 
-QUERY="select
+query="select
   table_name,
   pg_size_pretty(pg_total_relation_size(quote_ident(table_name))),
   pg_relation_size(quote_ident(table_name))
@@ -47,5 +45,5 @@ from information_schema.tables
 where table_schema = 'public'
 order by 3 desc;"
 
-echo "Show table size for database $DATABASE in container $CONTAINER"
-docker exec $CONTAINER bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/$DATABASE -c \"$QUERY\""
+echo "Show table size for database $database in container $container"
+docker exec $container /bin/bash -c "psql postgresql://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME/$database -c \"$query\""

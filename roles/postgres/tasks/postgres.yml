@@ -6,11 +6,6 @@
     docker_volume_name: "{{ postgres_volume_name }}"
   when: postgres_volume_name is defined
 
-- name: Ensure {{ role_name }} data dir exists
-  ansible.builtin.file:
-    path: "{{ postgres_data_dir }}"
-    state: directory
-
 - name: Start {{ role_name }} container {{ postgres_hostname }}
   community.docker.docker_container:
     name: "{{ postgres_hostname }}"
@@ -18,11 +13,10 @@
       description: "{{ postgres_description }}"
     image: "{{ postgres_image }}"
     restart_policy: unless-stopped
-    recreate: false
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
-      POSTGRES_DB: "{{ postgres_config_map[0].db }}"
+      POSTGRES_DB: "{{ postgres_configmap[0].db }}"
     command: [postgres, -c, "max_connections={{ postgres_max_connections }}"]
     volumes: "{{ postgres_volumes }}"
     ports: "{{ postgres_ports }}"
@@ -33,32 +27,19 @@
       max-size: "{{ docker_log_max_size }}"
       max-file: "{{ docker_log_max_file }}"
       tag: "{{ postgres_hostname }}|{{ role_name }}"
+  register: start_postgres_container
 
-- name: Copy {{ role_name }} scripts
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: /usr/local/bin/{{ item }}
-    mode: +x
-  loop:
-    - docker-postgres-backup
-    - docker-postgres-create
-    - docker-postgres-restore
-    - docker-postgres-list
-    - docker-postgres-drop
-    - docker-postgres-patch
-    - docker-postgres-duplicate
-    - docker-postgres-size
-    - docker-postgres-shell
-    - docker-postgres-upgrade
+- name: Wait for {{ role_name }} container
+  ansible.builtin.pause:
+    seconds: "5"
+  when: start_postgres_container.changed
+
+- name: List {{ role_name }} databases
+  ansible.builtin.command: docker-postgres-list -c "{{ postgres_hostname }}"
+  when: postgres_configmap|length > 0
+  register: postgres_databases
 
 - name: Create {{ role_name }} databases
   ansible.builtin.command: docker-postgres-create -c "{{ postgres_hostname }}" -d "{{ item.db }}"
-  loop: "{{ postgres_config_map }}"
-  when: postgres_config_map|length > 0
-
-- name: Include docker {{ role_name }} backup from restic client role
-  ansible.builtin.include_role:
-    name: restic
-  vars:
-    restic_backup_set: "{{ postgres_backup_set }}"
-  when: postgres_backup_set is defined
+  loop: "{{ postgres_configmap }}"
+  when: postgres_configmap|length > 0 and item.db not in postgres_databases.stdout

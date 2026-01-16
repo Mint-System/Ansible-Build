@@ -8,11 +8,11 @@ help() {
     echo
     echo "$script"
     echo
-    echo 'Description: Duplicate database in Postgres Docker container.'
-    echo "Syntax: $script [-c|-s|-t|-r|-u|-V|help]"
-    echo 'Example: $script -c postgres01 -s keycloak-main -t keycloak-int -r -u'
+    echo 'Description: Rename Postgres database in container.'
+    echo "Syntax: $script [-c|-s|-t|-r|-V|help]"
+    echo 'Example: $script -c odoo06 -s odoo -t odoo-int -r'
     echo 'options:'
-    echo '  -c    Docker container.'
+    echo '  -c    Docker container. Defaults to '\''odoo'\''.'
     echo '  -s    Source database name.'
     echo '  -t    Target database name.'
     echo '  -r    Replace existing database.'
@@ -27,6 +27,7 @@ if [[ "$1" == 'help' ]]; then
 fi
 
 replace='false'
+container=postgres
 
 while getopts ':c: :s: :t: :r :V' opt; do
     case $opt in
@@ -43,7 +44,6 @@ while getopts ':c: :s: :t: :r :V' opt; do
     esac
 done
 
-[[ -z "$container" ]] && { echo 'Parameter -c|container is empty.' ; exit 1; }
 [[ -z "$source_database" ]] && { echo 'Parameter -s|source is empty.' ; exit 1; }
 [[ -z "$target_database" ]] && { echo 'Parameter -t|target is empty.' ; exit 1; }
 [[ "$target_database" == "$source_database" ]] && { echo 'Parameter -s|source and -t|target cannot be the same' ; exit 1; }
@@ -51,18 +51,13 @@ done
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-docker_exec_bash="docker exec $container_id /bin/bash -c"
-docker_exec_root_bash="docker exec --user root $container_id /bin/bash -c"
-
 if $replace; then
     docker-postgres-drop -c "$container" -d "$target_database"
 fi
 
 echo "Kill database connections on $source_database."
 query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$source_database';"
-$docker_exec_bash "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c \"$query\""
+docker exec $container_id /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c \"$query\""
 
-echo "Duplicate database from $source_database to $target_database."
-$docker_exec_bash "createdb -U \$POSTGRES_USER -T $source_database $target_database"
-
-echo "The duplication for Postgres database $target_database has finished."
+echo "Rename database from $source_database to $target_database."
+docker exec $container_id /bin/bash -c "psql postgres://\$POSTGRES_USER:\$POSTGRES_PASSWORD@\$HOSTNAME:5432/postgres -c 'ALTER DATABASE \"$source_database\" RENAME TO \"$target_database\";'"

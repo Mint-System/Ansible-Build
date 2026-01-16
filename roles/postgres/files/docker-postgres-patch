@@ -1,51 +1,46 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-# Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Patch Docker Postgres database."
-  echo "Syntax: $SCRIPT [-c|-d|-f|help]"
-  echo "Example: $SCRIPT -c postgres01 -d odoo -f /tmp/patches/v14.0.1.6.0.sql"
-  echo "options:"
-  echo "  -d    Name of database."
-  echo "  -f    Path to sql patch."
-  echo "  -c    Docker container name. Defaults to 'postgres'."
-  echo "  help  Show $SCRIPT manual."
+  echo 'Description: Patch Docker Postgres database.'
+  echo "Syntax: $script [-c|-d|-f|help]"
+  echo 'Example: $script -c postgres01 -d odoo -f /tmp/patches/v14.0.1.6.0.sql'
+  echo 'options:'
+  echo '  -d    Name of database.'
+  echo '  -f    Path to sql patch.'
+  echo '  -c    Docker container name. Defaults to '\''postgres'\''.'
+  echo "  help  Show $script manual."
   echo
 }
 
-# Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
-# Process params
-while getopts ":c: :d: :f:" opt; do
+container=postgres
+
+while getopts ':c: :d: :f:' opt; do
   case $opt in
-    c) CONTAINER="$OPTARG";;
-    d) DATABASE="$OPTARG";;
-    f) FILE="$OPTARG";;
+    c) container="$OPTARG";;
+    d) database="$OPTARG";;
+    f) file="$OPTARG";;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
+    help
+    exit 1;;
   esac
 done
 
-# Verify variables
-[[ -z "$CONTAINER" ]] && { echo "Parameter -c|container is empty" ; exit 1; }
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
-[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
+[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty.' ; exit 1; }
 
-# Get postgres user
-POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")
+postgres_user=$(docker exec $container /bin/bash -c "echo \$POSTGRES_USER")
 
-# Patch database
-echo "Patch Postgres database $DATABASE using user $POSTGRES_USER with file $FILE ..."
-cat $FILE | docker exec -i $CONTAINER psql -U $POSTGRES_USER -d $DATABASE
+echo "Patch Postgres database $database using user $postgres_user with file $file ..."
+cat $file | docker exec -i $container psql -U $postgres_user -d $database

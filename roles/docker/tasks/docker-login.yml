@@ -1,8 +1,16 @@
 ---
+- name: Check if users exist on the system
+  command: id {{ item }}
+  loop: "{{ docker_login_users }}"
+  register: user_check
+  ignore_errors: true
+  changed_when: false
+
 - name: Log into Docker Hub
   community.docker.docker_login:
     username: "{{ docker_login_username }}"
     password: "{{ docker_login_password }}"
   become: true
-  become_user: "{{ item }}"
-  loop: "{{ docker_login_users }}"
+  become_user: "{{ item.item }}"
+  loop: "{{ user_check.results }}"
+  when: item.rc == 0

@@ -1,3 +1,5 @@
+<img src="/logos/postgres.png" alt="postgres logo" width="100" height="100">
+
 # PostgreSQL role
 
 Deploy PostgreSQL database container.
@@ -14,14 +16,15 @@ postgres_description: Database for website # default: PostgreSQL
 postgres_hostname: postgres01
 postgres_volume_name: postgres_data01 # default: "{{ postgres_hostname }}"
 postgres_data_dir: /usr/share/postgres # default: "/usr/share/{{ postgres_hostname }}"
+postgres_scripts_dir: /home/odoo-prod/bin # default: /usr/local/bin
 postgres_volumes:
   - "{{ postgres_data_dir }}/reference-data/data:/mnt/reference-data" # default: "{{ postgres_volume_name }}:/var/lib/postgresql/data"
 postgres_ports:
   - 127.0.0.1:5433:5432 # default: []
 postgres_user: example
 postgres_password: # default: "{{ vault_postgres_password }}"
-postgres_config_map: # default: - name: "{{ postgres_user }}"
-  - db: example-prod 
+postgres_configmap: # default: - name: "{{ postgres_user }}"
+  - db: example-prod
   - db: example-int
 postgres_wal_level: logical # default: replica
 postgres_max_connections: 200 # default: 100
@@ -42,19 +45,7 @@ postgres_users:
         database: odoo-prod
       - name: hr_employee
         database: odoo-int
-```
-
-Backup databases.
-
-```yml
 postgres_backup_set: # See restic_backup_set var in role restic
-  - id: "{{ postgres_hostname }} dump"
-    type: postgres-dump
-    container: "{{ postgres_hostname }}"
-    tags:
-      - postgres
-      - "{{ postgres_hostname }}"
-    hour: "1"
 ```
 
 And include it in your playbook.
@@ -65,29 +56,29 @@ And include it in your playbook.
   - role: postgres
 ```
 
-### Kubernetes
+The following tags are available:
 
-Configure the manifest.
+* postgres
+* postgres_backup
 
-```yml
-k8s_postgres_image: postgres:16-alpine
-k8s_postgres_user: example
-k8s_postgres_password: test
-k8s_postgres_db: example
+## Troubleshooting
+
+### Lock file postmaster.pid is empty
+
+**Problem**
+
+The container does not start.
+
+```
+2025-04-24 07:40:10.592 UTC [1] FATAL:  lock file "postmaster.pid" is empty
+2025-04-24 07:40:10.592 UTC [1] HINT:  Either another server is starting, or the lock file is the remnant of a previous server startup crash.
 ```
 
-And include it in your localhost playbook.
+**Solution**
 
-```yml
-- hosts: localhost
-  roles:
-  - role: postgres
+Navigate into the Postgres volume and remote the pid file.
+
+```bash
+rm postmaster.pid
+docker restart postgres01
 ```
-
-## Docs
-
-### Install command line tools
-
-The installation script requires that you have sudo access to root.
-
-Run `curl -L https://raw.githubusercontent.com/mint-system/ansible-build/main/roles/postgres/files/install | bash` in your terminal.

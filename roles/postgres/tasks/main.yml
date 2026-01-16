@@ -1,4 +1,9 @@
 ---
+- name: Include {{ role_name }} scripts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
+  tags:
+    - postgres
+
 - name: On build set new image tag {{ role_name }}:{{ postgres_hostname }}
   ansible.builtin.set_fact:
     postgres_image: postgres:{{ postgres_hostname }}
@@ -16,15 +21,24 @@
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: postgres_image is defined
-
-- name: Include {{ role_name }} backup tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_backup.yml"
-  when: postgres_backup_set is defined
+  tags:
+    - postgres
 
 - name: Include {{ role_name }} users tasks
   ansible.builtin.include_tasks: "{{ role_name }}_users.yml"
   when: postgres_users is defined
+  tags:
+    - postgres
 
-- name: Include {{ role_name }} k8s tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_k8s.yml"
-  when: k8s_postgres_image is defined
+- name: Include docker {{ role_name }} backup from restic client role
+  ansible.builtin.include_role:
+    name: restic
+    apply:
+      tags:
+        - postgres_backup
+  vars:
+    restic_backup_set: "{{ postgres_backup_set }}"
+  when: postgres_backup_set is defined
+  tags:
+    - restic
+    - postgres_backup

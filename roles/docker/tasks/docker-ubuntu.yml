@@ -13,5 +13,5 @@
   ansible.builtin.include_role:
     name: packages
   vars:
-    packages: "{{ docker_packages }}"
+    group_packages: "{{ docker_packages }}"
   when: docker_packages is defined

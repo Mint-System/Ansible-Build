@@ -1,5 +1,0 @@
-{ 
-    "data-root": "{{ docker_data_dir }}"{% if docker_dns is defined %},
-    "dns": {{ docker_dns }}
-{% endif %}
-}

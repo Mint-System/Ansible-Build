@@ -1,80 +1,70 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-# Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Restore Docker Postgres database."
-  echo "Syntax: $SCRIPT [-c|-d|-f|-r|-i|help]"
-  echo "Example: $SCRIPT -d odoo -f /tmp/dump.sql -c postgres01 -r"
-  echo "options:"
-  echo "  -c    Docker container name. Defaults to 'postgres'."
-  echo "  -d    Name of database. Defaults to filename"
-  echo "  -f    Path to sql dump."
-  echo "  -r    Replace existing database."
-  echo "  -i    Create database."
-  echo "  help  Show $SCRIPT manual."
+  echo 'Description: Restore Docker Postgres database.'
+  echo "Syntax: $script [-c|-d|-f|-r|-i|help]"
+  echo 'Example: $script -d odoo -f /tmp/dump.sql -c postgres01 -r'
+  echo 'options:'
+  echo '  -c    Docker container name. Defaults to '\''postgres'\''.'
+  echo '  -d    Name of database. Defaults to filename'
+  echo '  -f    Path to sql dump.'
+  echo '  -r    Replace existing database.'
+  echo '  -i    Create database.'
+  echo "  help  Show $script manual."
   echo
 }
 
-# Show help and exit
-if [[ "$1" == "help" ]]; then
-    Help
+if [[ "$1" == 'help' ]]; then
+    help
     exit
 fi
 
-# Initialise option flag with a false value
-DROP='false'
-CREATE='false'
+drop='false'
+create='false'
+container=postgres
 
-# Process params
-while getopts ":c: :d: :f: :r :i" opt; do
+while getopts ':c: :d: :f: :r :i' opt; do
   case $opt in
-    c) CONTAINER="$OPTARG";;
-    d) DATABASE="$OPTARG";;
-    f) FILE="$OPTARG";;
-    r) DROP='true'
-      CREATE='true'
+    c) container="$OPTARG";;
+    d) database="$OPTARG";;
+    f) file="$OPTARG";;
+    r) drop='true'
+      create='true'
     ;;
-    i) CREATE='true';;
+    i) create='true';;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
+    help
+    exit 1;;
   esac
 done
 
-# Fallback to environment vars and default values
-: ${CONTAINER:='postgres'}
-FILENAME=$(basename -- "$FILE")
-: ${DATABASE:="${FILENAME%%.*}"}
+filename=$(basename -- "$file")
+database=${database:="${filename%%.*}"}
 
-# Verify variables
-[[ -z "$FILE" ]] && { echo "Parameter -f|filename is empty" ; exit 1; }
-[[ -z "$DATABASE" ]] && { echo "Parameter -d|database is empty" ; exit 1; }
+[[ -z "$file" ]] && { echo 'Parameter -f|filename is empty.' ; exit 1; }
 
-# Get postgres user
-POSTGRES_USER=$(docker exec $CONTAINER bash -c "echo \$POSTGRES_USER")
+postgres_user=$(docker exec $container /bin/bash -c "echo \$POSTGRES_USER")
 
-if $DROP; then
-  docker-postgres-drop -c $CONTAINER -d $DATABASE
+if $drop; then
+  docker-postgres-drop -c $container -d $database
 fi
 
-if $CREATE; then
-  echo "Create Postgres database $DATABASE ..."
-  docker exec $CONTAINER createdb -U $POSTGRES_USER $DATABASE
+if $create; then
+  echo "Create Postgres database $database ..."
+  docker exec $container createdb -U $postgres_user $database
 fi
 
-# Start restore 
-echo "Restore Postgres database $DATABASE from $FILE ..."
-cat $FILE | docker exec -i $CONTAINER psql -U $POSTGRES_USER -d $DATABASE
+echo "Restore Postgres database $database from $file ..."
+cat $file | docker exec -i $container psql -U $postgres_user -d $database
 
-echo "Grant all privileges on $DATABASE to $POSTGRES_USER ..."
-docker exec $CONTAINER psql -U $POSTGRES_USER -d template1 -c "GRANT ALL PRIVILEGES ON DATABASE \"$DATABASE\" TO $POSTGRES_USER;"
+echo "Grant all privileges on $database to $postgres_user ..."
+docker exec $container psql -U $postgres_user -d template1 -c "GRANT ALL PRIVILEGES ON DATABASE \"$database\" TO $postgres_user;"
 
-# Notify if backup has finished
-echo "The Docker Postgres restore has finished."
+echo 'The Docker Postgres restore has finished.'

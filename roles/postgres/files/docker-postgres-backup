@@ -1,86 +1,72 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-# Get script name
-SCRIPT=$(basename "$0")
+script=$(basename "$0")
+version="1.0.1"
 
-# Display Help
-Help() {
+help() {
   echo
-  echo "$SCRIPT"
+  echo "$script"
   echo
-  echo "Description: Backup Docker Postgres database."
-  echo "Syntax: $SCRIPT [-d|-a|-o|-c|help]"
-  echo "Example: $SCRIPT -d postgres,odoo -o /tmp -c postgres01"
-  echo "options:"
-  echo "  -d    Comma-separated list of database names."
-  echo "  -a    Backup all databases"
-  echo "  -o    Output directory. Defaults to '/var/tmp'."
+  echo 'Description: Backup Docker Postgres database.'
+  echo "Syntax: $script [-d|-a|-o|-c|help]"
+  echo 'Example: $script -d postgres,odoo -o /tmp -c postgres01'
+  echo 'options:'
+  echo '  -d    Comma-separated list of database names.'
+  echo '  -a    Backup all databases'
+  echo "  -o    Output directory. Defaults to '/var/tmp/\$container'."
   echo "  -c    Docker container name. Defaults to 'postgres'."
-  echo "  help  Show $SCRIPT manual."
+  echo "  help  Show $script manual."
   echo
 }
 
-# Show help and exit
-if [[ "$1" == "help" ]]; then
-  Help
+if [[ "$1" == 'help' ]]; then
+  help
   exit
 fi
 
-# Initialise option flag with a false value
-ALL='false'
+all='false'
+dir='/var/tmp'
+container='postgres'
 
-# Process params
 while getopts ":a :c: :d: :o:" opt; do
   case $opt in
-    a) ALL='true'
+    a) all='true'
     ;;
-    c) CONTAINER="$OPTARG"
+    c) container="$OPTARG"
     ;;
-    d) DATABASES="$OPTARG"
+    d) databases="$OPTARG"
     ;;
-    o) DIR="$OPTARG"
+    o) dir="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
-    Help
-    exit;;
+    help
+    exit 1;;
   esac
 done
 
-# Fallback to environment vars and default values
-: ${DIR:='/var/tmp'}
-: ${CONTAINER:='postgres'}
+[[ -z "$databases" ]] && [[ "$all" == 'false' ]] && { echo 'Parameter -d or -a|databases all must be set' ; exit 1; }
 
-# Verify variables
-[[ -z "$DATABASES" ]] && [[ "$ALL" == "false" ]] && { echo "Parameter -d or -a|databases or all must be set" ; exit 1; }
-[[ -z "$DIR" ]] && { echo "Parameter -d|dir is empty" ; exit 1; }
-
-if $ALL ; then
-  # Get all databases from docker container
-  DATABASE_LIST=($(docker exec "$CONTAINER" /bin/bash -c "psql -U \$POSTGRES_USER \
+if $all ; then
+  database_list=($(docker exec "$container" /bin/bash -c "psql -U \$POSTGRES_USER \
     template1 -q -A -t -c 'SELECT datname FROM pg_database WHERE datistemplate = false;'"))
-  # Concate database list
-  printf -v DATABASES '%s,' "${DATABASE_LIST[@]}"
-  DATABASES="${DATABASES%,}"
+  printf -v databases '%s,' "${database_list[@]}"
+  databases="${databases%,}"
 fi
 
-if [[ ! -z $DATABASES ]] ; then
-  # Split database param values
-  DATABASE_LIST=($(echo $DATABASES | tr "," "\n"))
+if [[ ! -z $databases ]] ; then
+  database_list=($(echo $databases | tr ',' '\n'))
 fi
 
-# Create backup folder
-mkdir -p ${DIR}/${CONTAINER}
+echo "Create and cleanup backup folder: ${dir}/${container}"
+mkdir -p ${dir}/${container}
+rm -rf ${dir}/${container}/*
 
-# Cleanup backup folder
-rm -rf ${DIR}/${CONTAINER}/*
-
-# Create dump with docker for each database
-for DATABASE in "${DATABASE_LIST[@]}"
+for database in "${database_list[@]}"
 do
-  echo "Run Docker Postgres backup for $DATABASE"
-  docker exec $CONTAINER /bin/bash -c "pg_dump -U \$POSTGRES_USER $DATABASE" > "${DIR}/${CONTAINER}/${DATABASE}.sql"
+    output="${dir}/${container}/${database}.sql"
+    echo "Dump $database database to $output..."
+    docker exec $container /bin/bash -c "pg_dump -U \$POSTGRES_USER $database" > "$output"
 done
 
-# Notify if backup has finished
-echo "The Docker Postgres backup has finished: ${DIR}/${CONTAINER}/{${DATABASES}}.sql"
+echo "The Docker Postgres backup has finished: ${dir}/${container}/{$databases}.sql"
