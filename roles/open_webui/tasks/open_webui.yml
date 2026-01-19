@@ -1,0 +1,28 @@
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ open_webui_volume_name }}"
+  when: open_webui_volume_name is defined
+
+- name: Start {{ role_name }} container {{ open_webui_hostname }}
+  community.docker.docker_container:
+    name: "{{ open_webui_hostname }}"
+    labels:
+      description: "{{ open_webui_description }}"
+    image: "{{ open_webui_image }}"
+    restart_policy: unless-stopped
+    env:
+      OAUTH_CLIENT_ID: "{{ open_webui_oauth_client_id }}"
+      OAUTH_CLIENT_SECRET: "{{ open_webui_oauth_client_secret }}"
+      OPENID_PROVIDER_URL: "{{ open_webui_openid_provider_url }}"
+    volumes: "{{ open_webui_volumes }}"
+    ports: "{{ open_webui_ports }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ open_webui_hostname }}|{{ role_name }}"

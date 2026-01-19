@@ -3,7 +3,7 @@ ansible_become: true
 ufw_enabled: false
 etc_hosts:
   - ip: 127.0.0.1
-    name: n8n.local odoo.local metabase.local grafana.local
+    name: n8n.local odoo.local metabase.local grafana.local chatgpt.local
 
 iam_groups:
   - name: wheel
@@ -109,6 +109,9 @@ nginx_proxies:
   - src_hostname: grafana.local
     dest_hostname: grafana01
     dest_port: 3000
+  - src_hostname: chatgpt.local
+    dest_hostname: open-webui01
+    dest_port: 8080
 
 # https://hub.docker.com/r/mintsystem/odoo/
 odoo_revision: "18.0"
@@ -161,6 +164,15 @@ grafana_server_root_url: "http://grafana.local"
 docker_compose_project_name: project01
 docker_compose_dotenv: |
   POSTGRES_PASSWORD=postgres
+open_webui_image: ghcr.io/open-webui/open-webui:v0.7.0
+open_webui_hostname: open-webui01
+open_webui_volume_name: "{{ open_webui_hostname }}"
+open_webui_ports:
+  - "8081:8080"
+open_webui_oauth_client_id: ""
+open_webui_oauth_client_secret: ""
+open_webui_openid_provider_url: ""
+
 docker_compose_definition:
   services:
     db:

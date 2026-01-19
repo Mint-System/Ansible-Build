@@ -518,7 +518,7 @@ test-localhost() {
     version
     if [[ "$1" = "cleanup" ]]; then
         echo "Cleanup localhost"
-        ansible-playbook -i inventory plays/cleanup.yml -t "odoo,odoo_data,odoo_volume,\
+        ansible-playbook -i test_inventory plays/cleanup.yml -t "odoo,odoo_data,odoo_volume,\
             postgres,postgres_data,postgres_volume,\
             meilisearch,meilisearch_data,meilisearch_volume,\
             pgadmin,pgadmin_data,pgadmin_volume,\
@@ -533,7 +533,7 @@ test-localhost() {
             docker_compose,docker_compose_data"
     else
         echo "Setup localhost"
-        ansible-playbook -i inventory plays/localhost.yml --skip-tags check
+        ansible-playbook -i test_inventory plays/localhost.yml --skip-tags check
 
         echo "Curl the services and check HTTP code."
 
@@ -591,7 +591,7 @@ test-scripts() {
     if [[ "$1" = "cleanup" ]]; then
         echo -e "\033[38;5;214mTEST\033[0m: Cleanup test environment."
         ansible localhost -m ansible.builtin.cron -a 'name="test" state="absent"'
-        ansible-playbook -i inventory plays/cleanup.yml -t "odoo,odoo_data,odoo_volume,\
+        ansible-playbook -i test_inventory plays/cleanup.yml -t "odoo,odoo_data,odoo_volume,\
             postgres,postgres_data,postgres_volume"
     else
         echo -e "\033[38;5;214mTEST\033[0m: Test restic scripts"
@@ -608,7 +608,7 @@ test-scripts() {
         sudo ./roles/postgres/files/install
 
         # Start postgres container
-        ansible-playbook -i inventory plays/localhost.yml -t postgres
+        ansible-playbook -i test_inventory plays/localhost.yml -t postgres
 
         docker-postgres-create -c postgres01 -d test
         docker-postgres-list -c postgres01 | grep "test"
@@ -628,7 +628,7 @@ test-scripts() {
         sudo ./roles/odoo/files/install
 
         # Start odoo container
-        ansible-playbook -i inventory plays/localhost.yml -t odoo --skip-tags depends
+        ansible-playbook -i test_inventory plays/localhost.yml -t odoo --skip-tags depends
 
         docker-odoo-init -c odoo01-prod -d odoo-prod -i contacts -w
         docker-odoo-rename -c odoo01-prod -s odoo-prod -t odoo
@@ -651,7 +651,7 @@ test-scripts() {
         docker rm -f postgres01
         docker volume rm postgres01
         docker-volume-restore -v postgres01 -f /var/tmp/postgres01/postgres01.tar
-        ansible-playbook -i inventory plays/localhost.yml -t postgres --skip-tags depends
+        ansible-playbook -i test_inventory plays/localhost.yml -t postgres --skip-tags depends
         docker-postgres-list -c postgres01 | grep "example"
     fi
 }

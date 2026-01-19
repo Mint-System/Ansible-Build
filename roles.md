@@ -80,6 +80,7 @@
 | ![odoo_repos logo](/logos/odoo_repos.png)  | [odoo_repos](roles/odoo_repos/README.md) | Setup Odoo modules from public or private git repos. |
 | ![ollama logo](/logos/ollama.png)  | [ollama](roles/ollama/README.md) | Setup Ollama and deploy models. |
 | ![onlyoffice_documentserver logo](/logos/onlyoffice_documentserver.png)  | [onlyoffice_documentserver](roles/onlyoffice_documentserver/README.md) | Deploy OnlyOffice Document Server container. |
+| ![open-webui logo](/logos/open-webui.png)  | [open_webui](roles/open_webui/README.md) | Deploy Open WebUI container. |
 | ![openldap logo](/logos/openldap.png)  | [openldap](roles/openldap/README.md) | Deploy OpenLDAP Docker container. |
 | ![packages logo](/logos/packages.png)  | [packages](roles/packages/README.md) | Set env vars and install packages. |
 | ![pgadmin logo](/logos/pgadmin.png)  | [pgadmin](roles/pgadmin/README.md) | Deploy pgAdmin container |

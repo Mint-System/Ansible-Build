@@ -4,23 +4,35 @@
 
 This section outlines the universal rules and expectations for any LLM agent working within this repository.
 
+This section outlines the universal rules and expectations for any LLM agent working within this repository.
+
 **Safety and Quality First:** The highest priority is to produce secure, well-documented, and high-quality code. Do not introduce vulnerabilities, hardcoded secrets, or unreadable code.
 
 **Propose a Plan:** For any new task, first provide a brief plan of action. This plan should clearly outline the intended changes and the rationale behind them.
 
 **Maintain Context:** Before making any changes, an agent must read and understand the relevant files, including the project's main documentation and existing code structure.
 
-**Clear Contributions:** All contributions must be submitted via a pull request with a clear, concise commit message and a brief description of the changes.
-
 ## Project structure
 
+- `README`: Checkout the section "Naming Conventions".
 - `roles/`: In this folder are the Ansible roles. This is the main entry point.
+- `roles/postgres/`: Use this role as template .
 - `logos/`: There is a logo for each role.
 - `inventories/`: Ignore this folder. It contains the ansible inventory files.
 - `plays/`: The Ansible plabyook files.
 - `test/`: Local inventory for the test setup.
 - `roles.md`: Overview of all roles.
 - `scripts.md`: Provides an overview of all roles that provide scripts.
+
+## Environment & tooling
+
+### Taskfile
+
+This project uses the <https://taskfile.build/> standard.
+
+The `./task` file is a bash script that provides all functions necessary to work with this project.
+
+**Execute**: Always try to run a command with the `./task` file script.
 
 ## Coding conventions
 

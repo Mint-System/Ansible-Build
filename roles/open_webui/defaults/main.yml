@@ -1,0 +1,12 @@
+---
+open_webui_image: ghcr.io/open-webui/open-webui:v0.7.0
+open_webui_description: Open WebUI
+open_webui_hostname: open-webui
+open_webui_volume_name: "{{ open_webui_hostname }}"
+open_webui_volumes:
+  - "{{ open_webui_volume_name }}:/app/backend/data"
+open_webui_ports:
+  - "8080:8080"
+open_webui_oauth_client_id: ""
+open_webui_oauth_client_secret: ""
+open_webui_openid_provider_url: ""
