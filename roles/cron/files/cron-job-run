@@ -13,7 +13,7 @@ help() {
   echo "Example: $script -n 'Renew certs for nginx08'"
   echo 'options:'
   echo '  -n    Name of Ansible cron job.'
-  echo '  -id   ID of the Ansible cron job.'
+  echo '  -i    ID of the Ansible cron job.'
   echo "  -V    Show $script version."
   echo "  help  Show $script manual."
   echo
