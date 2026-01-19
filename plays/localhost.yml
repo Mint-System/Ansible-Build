@@ -67,5 +67,7 @@
       tags: docker_compose
     - role: firehol
       tags: firehol
+    - role: keycloak
+      tags: keycloak
     - role: open_webui
       tags: open_webui

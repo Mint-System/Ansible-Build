@@ -17,7 +17,7 @@ keycloak_build_include: # default: []
     dest: /opt/keycloak/providers/hashprovider-extension.jar
   - url: https://repo1.maven.org/maven2/org/springframework/security/spring-security-crypto/6.1.3/spring-security-crypto-6.1.3.jar
     dest: /opt/keycloak/providers/spring-security-crypto.jar
-keycloak_hostname: login01
+keycloak_hostname: keycloak01
 keycloak_description: Login Example Company # default: Keycloak
 keycloak_state: stopped # default: started
 keycloak_data_dir: /usr/share/keycloak # default: "/usr/share/{{ keycloak_hostname }}"

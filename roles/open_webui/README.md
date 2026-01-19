@@ -12,7 +12,7 @@ Configure the role.
 # https://github.com/open-webui/open-webui
 open_webui_image: ghcr.io/open-webui/open-webui:v0.7.0
 open_webui_description: Open WebUI
-open_webui_hostname: open-webui
+open_webui_hostname: open_webui01
 open_webui_volume_name: openwebui_data # default: "{{ open_webui_hostname }}"
 open_webui_volumes:
   - "{{ open_webui_volume_name }}:/app/backend/data" # default: "{{ open_webui_volume_name }}:/app/backend/data"
