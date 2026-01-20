@@ -41,6 +41,6 @@
     job: "{{ item.job }}"
   loop:
     - { name: "write-docker-volume-metric", job: "write-docker-volume-metric" }
-    - { name: "write-docker-up-metric", job: "write-docker-up-metric", minute: "*/5" }
-    - { name: "write-docker-memory-metric", job: "write-docker-memory-metric", minute: "*/5" }
+    # - { name: "write-docker-up-metric", job: "write-docker-up-metric", minute: "*/5" }
+    # - { name: "write-docker-memory-metric", job: "write-docker-memory-metric", minute: "*/5" }
   when: cron_check.rc == 0

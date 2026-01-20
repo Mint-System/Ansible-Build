@@ -70,7 +70,6 @@ docker exec "$NGINX_CONTAINER" touch /var/www/certbot/.well-known/acme-challenge
 
 Verify the challenge file on another server.
 
-
 ```bash
 DOMAIN=example.com
 curl -I http://$DOMAIN/.well-known/acme-challenge/RrBNIkijbPhfpxtCud7mKBHB9DwaJsmOvmhtnzb4fx4
