@@ -14,9 +14,13 @@
     image: "{{ open_webui_image }}"
     restart_policy: unless-stopped
     env:
+      OAUTH_PROVIDER_NAME: "{{ open_webui_proivder_name }}"
       OAUTH_CLIENT_ID: "{{ open_webui_oauth_client_id }}"
       OAUTH_CLIENT_SECRET: "{{ open_webui_oauth_client_secret }}"
       OPENID_PROVIDER_URL: "{{ open_webui_openid_provider_url }}"
+      ENABLE_OAUTH_ROLE_MANAGEMENT: "true"
+      OAUTH_ALLOWED_ROLES: access
+      ENABLE_OAUTH_SIGNUP: "true"
     volumes: "{{ open_webui_volumes }}"
     ports: "{{ open_webui_ports }}"
     networks:
