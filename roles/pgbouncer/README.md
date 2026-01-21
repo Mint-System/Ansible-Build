@@ -15,7 +15,7 @@ pgbouncer_description: Database Proxy # default: PgBouncer
 pgbouncer_hostname: pgbouncer01
 pgbouncer_data_dir: /usr/share/pgbouncer # default: "/usr/share/{{ pgbouncer_hostname }}"
 pgbouncer_ports:
-  - 127.0.0.1:5433:5432 # default: []
+  - 0.0.0.0:5433:5432 # default: []
 pgbouncer_configmap: # default: "{{ postgres_configmap }}"
   - db: example-prod
   - db: example-int
