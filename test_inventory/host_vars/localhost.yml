@@ -183,6 +183,7 @@ open_webui_ports:
   - "8081:8080"
 open_webui_oauth_client_id: chatgpt.localhost
 open_webui_oauth_client_secret: ""
+open_webui_openid_provider_url: ""
 
 docker_compose_project_name: project01
 docker_compose_dotenv: |
