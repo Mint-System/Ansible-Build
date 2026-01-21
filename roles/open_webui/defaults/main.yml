@@ -8,3 +8,4 @@ open_webui_volumes:
 open_webui_ports:
   - "8080:8080"
 open_webui_oauth_client_secret: "{{ vault_open_webui_oauth_client_secret }}"
+open_webui_proivder_name: SSO
