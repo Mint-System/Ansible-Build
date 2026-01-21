@@ -98,3 +98,5 @@
       tags: autossh
     - role: open_webui
       tags: open_webui
+    - role: pgbouncer
+      tags: pgbouncer

@@ -1,6 +1,0 @@
----
-- name: Blackbox exporter play
-  hosts: blackbox_exporter
-  roles:
-    - role: blackbox_exporter
-      tags: blackbox_exporter

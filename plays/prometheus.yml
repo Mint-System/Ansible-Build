@@ -1,6 +1,0 @@
----
-- name: Prometheus play
-  hosts: prometheus
-  roles:
-    - role: prometheus
-      tags: prometheus
