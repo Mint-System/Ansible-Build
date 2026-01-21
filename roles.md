@@ -84,6 +84,7 @@
 | ![open_webui logo](/logos/open_webui.png)  | [open_webui](roles/open_webui/README.md) | Deploy Open WebUI container. |
 | ![packages logo](/logos/packages.png)  | [packages](roles/packages/README.md) | Set env vars and install packages. |
 | ![pgadmin logo](/logos/pgadmin.png)  | [pgadmin](roles/pgadmin/README.md) | Deploy pgAdmin container |
+| ![pgbouncer logo](/logos/pgbouncer.png)  | [pgbouncer](roles/pgbouncer/README.md) | Deploy PgBouncer container. |
 | ![php_fpm logo](/logos/php_fpm.png)  | [php_fpm](roles/php_fpm/README.md) | Deploy PHP-FPM container. |
 | ![postfix logo](/logos/postfix.png)  | [postfix](roles/postfix/README.md) | Deploy Postfix relay host. |
 | ![postgres_exporter logo](/logos/postgres_exporter.png)  | [postgres_exporter](roles/postgres_exporter/README.md) | Deploy PostgreSQL exporter container. |

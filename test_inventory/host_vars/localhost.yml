@@ -22,7 +22,6 @@ iam_users:
 
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:17-alpine
-# postgres_build_image: true # default: false
 postgres_hostname: postgres01
 postgres_user: example
 postgres_configmap:
@@ -33,6 +32,12 @@ postgres_configmap:
   - db: keycloak
 postgres_password: test
 postgres_wal_level: logical
+
+# https://hub.docker.com/r/edoburu/pgbouncer/
+pgbouncer_image: edoburu/pgbouncer:v1.25.1-p0
+pgbouncer_hostname: pgbouncer01
+pgbouncer_ports:
+  - 127.0.0.1:5433:5432
 
 # https://hub.docker.com/r/getmeili/meilisearch
 meilisearch_image: getmeili/meilisearch:v1.10.1

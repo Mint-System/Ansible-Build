@@ -180,7 +180,21 @@ ansible all -i inventories/odoo -a "docker-postgres-list -c {{ postgres_hostname
 
 This section is about developing the Ansible Build project.
 
-### Quality
+### New role
+
+The easiest way to create a new role is to copy the `postgres` role. Then search and replace the variable prefix within the role folder and remove unecessary files.
+
+```bash
+cp -r postgres pgbouncer
+cd pgbouncer
+rm -r templates files
+find . -type f -exec sed -i 's/postgres/pgbouncer/g' {} \;
+mv tasks/postgres.yml tasks/pgbouncer.yml
+```
+
+Edit the role files manually and add the roles to the playbooks.
+
+### Quality assurance
 
 Lint the project using Ansible lint.
 
@@ -188,7 +202,7 @@ Lint the project using Ansible lint.
 task lint
 ```
 
-### Configuration
+### Mapping environment variables
 
 Whenever possible use env variables to configure the container.
 
@@ -201,7 +215,7 @@ env:
   POSTGRES_DB: "{{ postgres_db }}"
 ```
 
-### Data
+### Data persistence
 
 To persist data use Docker volumes.
 
@@ -223,13 +237,13 @@ volumes:
   - "{{ nginx_data_dir }}/:/etc/nginx/conf.d/:ro"
 ```
 
-### Docs
+### Role documentation
 
 Every role folder must contain a `README.md` file.
 
-Mark fix-me-comments with `# FIXME: <your text>`.
+Mark fix-me-comments with `#FIXME: <your text>`.
 
-### Naming Conventions
+### Naming conventions
 
 Role names must be lower case and may contain an `_`.
 
@@ -249,7 +263,7 @@ rolename_password: "{{ vault_rolename_password }}"
 
 The reference roles are [postgres](roles/postgres/README.md) and [odoo](roles/odoo/README.md).
 
-### Role and Tags
+### Roles and tags
 
 Roles can have multiple tags.
 
@@ -286,15 +300,14 @@ In the `main.yml` you would include the tasks as followed:
     - nginx
 ```
 
-### Aliases
+### Host aliases
 
 Whenever a role is applied to the same host multiple times, you can create multiple aliases for the same host. Append a selected suffix to make a distinction between the aliases:
 
 * **main**: Production environment.
-* **int**: Staging environment.
+* **staging**: Staging environment.
 * **dev**: Development and test environment.
 * **upgrade**: Upgrade environment.
-* **dep**: Deprecated environment.
 
 Here is an example of an host with two aliases:
 

@@ -1,0 +1,87 @@
+---
+- name: Ensure {{ pgbouncer_data_dir }}/certs directory exists
+  ansible.builtin.file:
+    path: "{{ pgbouncer_data_dir }}/certs"
+    state: directory
+    mode: "0755"
+    owner: 70
+    group: 70
+
+- name: Generate CA key and cert (if missing)
+  ansible.builtin.command: >
+    openssl genrsa -out {{ pgbouncer_data_dir }}/certs/ca.key 4096
+  args:
+    creates: "{{ pgbouncer_data_dir }}/certs/ca.key"
+  register: ca_key_gen
+  changed_when: ca_key_gen.stdout_lines | length > 0
+
+- name: Set permissions and ownership on CA key
+  ansible.builtin.file:
+    path: "{{ pgbouncer_data_dir }}/certs/ca.key"
+    mode: "0600"
+    owner: 70
+    group: 70
+
+- name: Generate CA cert
+  ansible.builtin.command: >
+    openssl req -x509 -new -nodes -key {{ pgbouncer_data_dir }}/certs/ca.key -sha256 -days 3650
+    -out {{ pgbouncer_data_dir }}/certs/ca.crt -subj "/C=CH/ST=State/L=Locality/O=Organization/CN=Root CA"
+  args:
+    creates: "{{ pgbouncer_data_dir }}/certs/ca.crt"
+  register: ca_crt_gen
+  changed_when: ca_crt_gen.stdout_lines | length > 0
+
+- name: Set permissions and ownership on CA cert
+  ansible.builtin.file:
+    path: "{{ pgbouncer_data_dir }}/certs/ca.crt"
+    mode: "0644"
+    owner: 70
+    group: 70
+
+- name: Generate server key
+  ansible.builtin.command: >
+    openssl genrsa -out {{ pgbouncer_data_dir }}/certs/server.key 2048
+  args:
+    creates: "{{ pgbouncer_data_dir }}/certs/server.key"
+  register: server_key_gen
+  changed_when: server_key_gen.stdout_lines | length > 0
+
+- name: Generate server CSR
+  ansible.builtin.command: >
+    openssl req -new -key {{ pgbouncer_data_dir }}/certs/server.key -out {{ pgbouncer_data_dir }}/certs/server.csr
+    -subj "/C=CH/ST=State/L=Locality/O=Organization/CN=localhost"
+  args:
+    creates: "{{ pgbouncer_data_dir }}/certs/server.csr"
+  register: server_csr_gen
+  changed_when: server_csr_gen.stdout_lines | length > 0
+
+- name: Generate server cert (signed by CA)
+  ansible.builtin.command: >
+    openssl x509 -req -in {{ pgbouncer_data_dir }}/certs/server.csr -CA {{ pgbouncer_data_dir }}/certs/ca.crt
+    -CAkey {{ pgbouncer_data_dir }}/certs/ca.key -CAcreateserial -out {{ pgbouncer_data_dir }}/certs/server.crt
+    -days 365 -sha256
+  args:
+    creates: "{{ pgbouncer_data_dir }}/certs/server.crt"
+  register: server_crt_gen
+  changed_when: server_crt_gen.stdout_lines | length > 0
+
+- name: Set permissions and ownership on server key and certs
+  ansible.builtin.file:
+    path: "{{ item }}"
+    mode: "{{ '0600' if item.endswith('.key') else '0644' }}"
+    owner: 70
+    group: 70
+  loop:
+    - "{{ pgbouncer_data_dir }}/certs/server.key"
+    - "{{ pgbouncer_data_dir }}/certs/server.crt"
+    - "{{ pgbouncer_data_dir }}/certs/ca.crt"
+
+- name: Remove CSR (cleanup)
+  ansible.builtin.file:
+    path: "{{ pgbouncer_data_dir }}/certs/server.csr"
+    state: absent
+
+- name: Remove CA serial file (ca.srl) if exists
+  ansible.builtin.file:
+    path: "{{ pgbouncer_data_dir }}/certs/ca.srl"
+    state: absent

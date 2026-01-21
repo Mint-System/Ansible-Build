@@ -1,0 +1,7 @@
+---
+pgbouncer_description: PgBouncer
+pgbouncer_data_dir: "/usr/share/{{ pgbouncer_hostname }}"
+pgbouncer_ports: []
+pgbouncer_configmap: "{{ postgres_configmap }}"
+pgbouncer_url: "postgres://{{ postgres_user }}:{{ postgres_password }}@{{ postgres_hostname }}/"
+pgbouncer_client_tls_sslmode: require

@@ -1,0 +1,35 @@
+---
+- name: Include TLS certificate setup
+  ansible.builtin.include_tasks: pgbouncer_tls.yml
+
+- name: Setup database urls
+  ansible.builtin.set_fact:
+    pgbouncer_database_urls: "{{ pgbouncer_configmap | map(attribute='db') | map('regex_replace', '^(.*)$', pgbouncer_url + '\\1') | join(', ') }}"
+- name: Debug
+  debug:
+    var: pgbouncer_database_urls
+
+- name: Start {{ role_name }} container {{ pgbouncer_hostname }}
+  community.docker.docker_container:
+    name: "{{ pgbouncer_hostname }}"
+    labels:
+      description: "{{ pgbouncer_description }}"
+    image: "{{ pgbouncer_image }}"
+    restart_policy: unless-stopped
+    user: postgres
+    volumes: "{{ pgbouncer_data_dir }}/certs:/etc/pgbouncer/certs"
+    env:
+      AUTH_TYPE: scram-sha-256
+      DATABASE_URLS: "{{ pgbouncer_database_urls }}"
+      CLIENT_TLS_SSLMODE: "{{ pgbouncer_client_tls_sslmode }}"
+      CLIENT_TLS_KEY_FILE: "/etc/pgbouncer/certs/server.key"
+      CLIENT_TLS_CERT_FILE: "/etc/pgbouncer/certs/server.crt"
+      CLIENT_TLS_CA_FILE: "/etc/pgbouncer/certs/ca.crt"
+    ports: "{{ pgbouncer_ports }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    log_driver: "{{ docker_log_driver }}"
+    log_options:
+      max-size: "{{ docker_log_max_size }}"
+      max-file: "{{ docker_log_max_file }}"
+      tag: "{{ pgbouncer_hostname }}|{{ role_name }}"
