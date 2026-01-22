@@ -10,6 +10,13 @@
     name: "{{ prometheus_proxy_basic_auth_username }}"
     password: "{{ prometheus_proxy_basic_auth_password }}"
 
+- name: Configure user access for prometheus-agent remote write
+  community.general.htpasswd:
+    path: "{{ nginx_data_dir }}/proxies/prometheus-agent.htpasswd"
+    name: "{{ prometheus_agent_proxy_basic_auth_username }}"
+    password: "{{ prometheus_agent_proxy_basic_auth_password }}"
+  when: prometheus_agent_proxy_basic_auth_username is defined
+
 - name: Copy nginx {{ role_name }} conf
   ansible.builtin.template:
     src: prometheus.nginx
