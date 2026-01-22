@@ -35,3 +35,12 @@ And include it in your playbook.
 The following tags are available:
 
 * open_webui
+
+## Docs
+
+### Keycloak realm
+
+By default the Keycloak client roles are mapped to the Open WebUI groups:
+
+- access: User
+- admin: Admin

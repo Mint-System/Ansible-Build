@@ -10,9 +10,3 @@
   when: ollama_native
   tags:
     - ollama
-
-- name: Include {{ role_name }} tasks
-  ansible.builtin.include_tasks: "openweb_ui.yml"
-  when: openweb_ui_image is defined
-  tags:
-    - ollama
