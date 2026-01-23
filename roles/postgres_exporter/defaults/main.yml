@@ -1,5 +1,6 @@
 ---
 postgres_exporter_requires_package: python3-passlib
+postgres_exporter_hostname: "{{ postgres_hostname | replace('postgres', 'pgexport') }}"
 postgres_exporter_description: PostgreSQL Exporter {{ postgres_exporter_server }}
 postgres_exporter_data_dir: /usr/share/{{ postgres_exporter_hostname }}
 postgres_exporter_server: "{{ postgres_hostname }}"

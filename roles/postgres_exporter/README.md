@@ -11,7 +11,7 @@ Configure the role.
 ```yml
 # https://hub.docker.com/r/prometheuscommunity/postgres-exporter
 postgres_exporter_image: prometheuscommunity/postgres-exporter:v0.15.0
-postgres_exporter_hostname: pgexport01
+postgres_exporter_hostname: pgexport01 # default: "{{ postgres_hostname | replace('postgres', 'pgexport') }}"
 postgres_exporter_description: Database metric for postgres01 # default: "PostgreSQL Exporter {{ postgres_exporter_server }}"
 postgres_exporter_data_dir: /usr/share/pgexport # default: "/usr/share/{{ postgres_exporter_hostname }}"
 postgres_exporter_server: postgres01 # default: "{{ postgres_hostname }}"
