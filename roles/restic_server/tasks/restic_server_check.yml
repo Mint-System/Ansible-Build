@@ -1,0 +1,25 @@
+---
+- name: List all directories in restic backup directory
+  ansible.builtin.find:
+    paths: "{{ restic_server_backup_dir }}"
+    file_type: directory
+    hidden: yes
+    excludes: ["lost+found", "docker"]
+  register: dir_list
+
+- name: Extract folder names (without path)
+  ansible.builtin.set_fact:
+    backup_folders: "{{ dir_list.files | map(attribute='path') | map('basename') | list }}"
+
+- name: Extract all host aliases (inventory hostnames from 'all' group)
+  ansible.builtin.set_fact:
+    host_aliases: "{{ query('inventory_hostnames', 'all') | list }}"
+
+- name: Find orphaned backup folders (no matching host alias)
+  ansible.builtin.set_fact:
+    orphaned_folders: "{{ backup_folders | difference(host_aliases) }}"
+
+- name: Output orphaned folders
+  ansible.builtin.debug:
+    msg: "Orphaned backup folders (no matching host): {{ orphaned_folders }}"
+  when: orphaned_folders | length > 0

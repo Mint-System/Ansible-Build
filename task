@@ -51,7 +51,8 @@ help-table() {
     # Git
     printf "$column" 'pull-repos' '' 'Pull git repos in inventories folder.'
     # Run
-    printf "$column" 'play' '' 'Run ansible-playbook command.'
+    printf "$column" 'play' '[params]' 'Run ansible-playbook command.'
+    printf "$column" 'list-tags' '[path]' 'List tags of playbook.'
     printf "$column" 'run' '' 'Run ansible command.'
     printf "$column" 'connect-host' '[host]' 'Connect to host with configs.'
     # Test
@@ -331,6 +332,11 @@ show-passwordless-sudo() {
 
 play() {
     ansible-playbook "$@"
+}
+
+list-tags() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit 1; fi
+    ansible-playbook "$1" --list-tags
 }
 
 run() {
