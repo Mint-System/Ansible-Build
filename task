@@ -556,30 +556,15 @@ test-localhost() {
 
         echo "Exit code is: $fail"
         if [[ $fail -eq 1 ]]; then
-            echo "Checking Docker containers status..."
+            echo "Show Docker container logs..."
             containers=$(docker ps -a --format "{{.Names}}:{{.Status}}")
-            failed_containers=()
-
-            echo "Containers NOT running:"
-            while IFS= read -r line; do
-                name=$(echo "$line" | cut -d: -f1)
-                container_status=$(echo "$line" | cut -d: -f2)
-                if [[ ! "$container_status" =~ ^(Up|Running) ]]; then
-                    echo "  $name — $container_status"
-                    failed_containers+=("$name")
-                fi
-            done <<< "$containers"
-
-            if [[ ${#failed_containers[@]} -gt 0 ]]; then
-                echo "Logs for failed containers:"
+            while IFS= read -r container; do
                 for container in "${failed_containers[@]}"; do
                     echo "<<< $container >>>"
-                    docker logs "$container" 2>/dev/null || echo "Could not fetch logs for $container"
+                    docker logs "$container" 2>/dev/null
                     echo ""
                 done
-            else
-                echo "All containers are running — issue may be DNS, port mapping, or service internal error."
-            fi
+            done <<< "$containers"
         fi
         exit $fail
     fi
