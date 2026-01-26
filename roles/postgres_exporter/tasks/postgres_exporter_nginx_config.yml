@@ -3,23 +3,27 @@
   ansible.builtin.file:
     path: "{{ postgres_exporter_nginx_data_dir }}"
     state: directory
+  when: postgres_exporter_hostname is defined
 
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
+  when: postgres_exporter_hostname is defined
 
 - name: Fail if package {{ postgres_exporter_requires_package }} is not installed
   ansible.builtin.fail:
     msg: Package {{ postgres_exporter_requires_package }} is not installed!
-  when: postgres_exporter_requires_package not in ansible_facts.packages
+  when: postgres_exporter_hostname is defined and postgres_exporter_requires_package not in ansible_facts.packages
 
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ postgres_exporter_nginx_data_dir }}/postgres-exporter.htpasswd"
     name: "{{ postgres_exporter_proxy_basic_auth_username }}"
     password: "{{ postgres_exporter_proxy_basic_auth_password }}"
+  when: postgres_exporter_hostname is defined
 
 - name: Copy nginx {{ role_name }} conf
   ansible.builtin.template:
     src: postgres-exporter.nginx
     dest: "{{ postgres_exporter_nginx_data_dir }}/postgres-exporter.nginx"
+  when: postgres_exporter_hostname is defined

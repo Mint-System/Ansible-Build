@@ -3,23 +3,27 @@
   ansible.builtin.file:
     path: "{{ mysqld_exporter_nginx_data_dir }}"
     state: directory
+  when: mysqld_exporter_hostname is defined
 
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
+  when: mysqld_exporter_hostname is defined
 
 - name: Fail if package {{ mysqld_exporter_requires_package }} is not installed
   ansible.builtin.fail:
     msg: Package {{ mysqld_exporter_requires_package }} is not installed!
-  when: mysqld_exporter_requires_package not in ansible_facts.packages
+  when: mysqld_exporter_hostname is defined and mysqld_exporter_requires_package not in ansible_facts.packages
 
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ mysqld_exporter_nginx_data_dir }}/mysqld-exporter.htpasswd"
     name: "{{ mysqld_exporter_proxy_basic_auth_username }}"
     password: "{{ mysqld_exporter_proxy_basic_auth_password }}"
+  when: mysqld_exporter_hostname is defined
 
 - name: Copy nginx {{ role_name }} conf
   ansible.builtin.template:
     src: mysqld-exporter.nginx
     dest: "{{ mysqld_exporter_nginx_data_dir }}/mysqld-exporter.nginx"
+  when: mysqld_exporter_hostname is defined

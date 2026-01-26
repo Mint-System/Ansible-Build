@@ -11,8 +11,8 @@
       - /:/host:ro,rslave
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
     command: --collector.textfile.directory=/host/var/tmp --path.rootfs=/host --collector.systemd
-    networks:
-      - name: "{{ docker_network_name }}"
+    network_mode: "{{ node_exporter_network_mode | default(omit) }}"
+    networks: "{{ omit if node_exporter_network_mode is defined else [{'name': docker_network_name}] }}"
     log_driver: "{{ docker_log_driver }}"
     log_options:
       max-size: "{{ docker_log_max_size }}"
