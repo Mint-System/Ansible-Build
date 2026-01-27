@@ -41,6 +41,29 @@ And include it in your playbook.
 
 ## Docs
 
+### Nginx config
+
+Setup this Nginx configuration for the `keycloak01` host:
+
+```yaml
+nginx_http_options: |
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }
+nginx_proxies:
+  - src_hostname: login.example.com
+    dest_hostname: keycloak01
+    dest_port: 8080
+    tls: true
+    monitor: /
+    options: |
+      include /etc/nginx/conf.d/proxy-params.conf;
+      proxy_buffer_size 128k;
+      proxy_buffers 4 256k;
+      proxy_busy_buffers_size 256k;
+```
+
 ### Use Admin CLI in Container
 
 You can use the `kcadm.sh` cli inside a Docker container to manage the Keycloak instance.
