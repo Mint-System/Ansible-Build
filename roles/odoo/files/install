@@ -38,10 +38,10 @@ fi
 
 for script in "${scripts[@]}"; do
     echo "Installing $script in $install_dir ..."
-    curl -L "$repository/odoo_scripts/$script" -o "$install_dir/$script"
+    curl -L "$repository/odoo/$script" -o "$install_dir/$script"
     chmod +x "$install_dir/$script"
 done
 
 echo "Installing docker-odoo completion scripts in $completion_dir ..."
-curl -L "$repository/odoo_scripts/docker-odoo" -o "$completion_dir/docker-odoo"
+curl -L "$repository/odoo/docker-odoo" -o "$completion_dir/docker-odoo"
 chmod +x "$completion_dir/docker-odoo"
