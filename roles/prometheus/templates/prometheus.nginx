@@ -1,5 +1,5 @@
 location / {
-    auth_basic "{{ prometheus_proxy_basic_auth_username }}";
+    auth_basic "{{ prometheus_basic_auth_username }}";
     auth_basic_user_file /etc/nginx/conf.d/proxies/prometheus.htpasswd;
     proxy_pass http://{{ prometheus_hostname }}:9090;
 }

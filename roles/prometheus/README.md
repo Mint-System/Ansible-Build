@@ -21,11 +21,13 @@ prometheus_hosts: # default: groups['all']
   - server3.example.com
 prometheus_port: 127.0.0.1:9999 # default: 127.0.0.1:9090
 prometheus_retention_time: "90d" # default: "30d"
+prometheus_basic_auth_username: metric # default: prometheus
+prometheus_basic_auth_password: # default: "{{ vault_prometheus_basic_auth_password }}"
+prometheus_write_endpoint_enabled: true # default: false
 prometheus_etc_hosts: # defaults: {}
   "server.example.com": 10.42.5.2
-prometheus_proxy_basic_auth_username: metric # default: prometheus
-prometheus_proxy_basic_auth_password: # default: "{{ vault_prometheus_proxy_basic_auth_password }}"
 
+# Scrape config
 prometheus_node_exporter_basic_auth_username: node-exporter
 prometheus_node_exporter_basic_auth_password: # default: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
 prometheus_cadvisor_basic_auth_username: cadvisor
@@ -99,10 +101,9 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 * **meilisearch https**: Targets are `nginx_proxies` with exporter `meilisearch`.
 * **blackbox**: Targets are `nginx_proxies` with option `monitor` set to `true`.
 
-
 ### Custom scrapers
 
-Set the `prometheus_custom_scrapers` variable with you job definition:
+Set the `prometheus_custom_scrapers` variable with your job definition:
 
 ```yml
 prometheus_custom_scrapers: |

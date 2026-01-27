@@ -7,8 +7,8 @@
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ nginx_data_dir }}/proxies/prometheus.htpasswd"
-    name: "{{ prometheus_proxy_basic_auth_username }}"
-    password: "{{ prometheus_proxy_basic_auth_password }}"
+    name: "{{ prometheus_basic_auth_username }}"
+    password: "{{ prometheus_basic_auth_password }}"
 
 - name: Copy {{ role_name }} nginx config
   ansible.builtin.template:

@@ -7,7 +7,7 @@
 
 - name: Include {{ role_name }} nginx config tasks
   ansible.builtin.include_tasks: "{{ role_name }}_nginx_config.yml"
-  when: prometheus_proxy_basic_auth_password is defined
+  when: prometheus_basic_auth_password is defined
   tags:
     - prometheus
     - prometheus_nginx_config

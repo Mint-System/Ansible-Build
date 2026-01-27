@@ -5,8 +5,8 @@ prometheus_volume_name: "{{ prometheus_hostname }}"
 prometheus_data_dir: /usr/share/{{ prometheus_hostname }}
 prometheus_hosts: "{{ groups['all'] }}"
 prometheus_etc_hosts: {}
-prometheus_proxy_basic_auth_username: prometheus
-prometheus_proxy_basic_auth_password: "{{ vault_prometheus_proxy_basic_auth_password }}"
+prometheus_basic_auth_username: prometheus
+prometheus_basic_auth_password: "{{ vault_prometheus_basic_auth_password }}"
 prometheus_retention_time: 30d
 prometheus_alertmanager_basic_auth_password: "{{ vault_prometheus_alertmanager_basic_auth_password }}"
 prometheus_node_exporter_basic_auth_password: "{{ vault_prometheus_node_exporter_basic_auth_password }}"
@@ -22,3 +22,4 @@ prometheus_meilisearch_exporter_api_key: "{{ vault_prometheus_meilisearch_export
 prometheus_uptime_kuma_exporter_basic_auth_password: "{{ vault_prometheus_uptime_kuma_exporter_basic_auth_password }}"
 prometheus_alerting: {}
 prometheus_custom_scrapers: ""
+prometheus_write_endpoint_enabled: false
