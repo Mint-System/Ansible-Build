@@ -10,8 +10,8 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/n8nio/n8n
-n8n_exporter_proxy_basic_auth_username: # default: n8n-exporter
-n8n_exporter_proxy_basic_auth_password: # default: "{{ vault_n8n_exporter_proxy_basic_auth_password }}"
+n8n_exporter_basic_auth_username: # default: n8n-exporter
+n8n_exporter_basic_auth_password: # default: "{{ vault_n8n_exporter_basic_auth_password }}"
 n8n_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 ```
 

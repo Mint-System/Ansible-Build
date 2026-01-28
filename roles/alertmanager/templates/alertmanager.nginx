@@ -1,5 +1,5 @@
 location /alertmanager/ {
-    auth_basic "{{ alertmanager_proxy_basic_auth_username }}";
+    auth_basic "{{ alertmanager_basic_auth_username }}";
     auth_basic_user_file /etc/nginx/conf.d/proxies/alertmanager.htpasswd;
     proxy_pass http://{{ alertmanager_hostname }}:9093;
 }

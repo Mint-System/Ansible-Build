@@ -16,8 +16,8 @@
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ bigbluebutton_exporter_nginx_data_dir }}/bigbluebutton-exporter.htpasswd"
-    name: "{{ bigbluebutton_exporter_proxy_basic_auth_username }}"
-    password: "{{ bigbluebutton_exporter_proxy_basic_auth_password }}"
+    name: "{{ bigbluebutton_exporter_basic_auth_username }}"
+    password: "{{ bigbluebutton_exporter_basic_auth_password }}"
 
 - name: Copy {{ role_name }} nginx config
   ansible.builtin.template:

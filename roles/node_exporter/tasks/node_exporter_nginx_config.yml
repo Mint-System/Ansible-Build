@@ -16,8 +16,8 @@
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ node_exporter_nginx_data_dir }}/node-exporter.htpasswd"
-    name: "{{ node_exporter_proxy_basic_auth_username }}"
-    password: "{{ node_exporter_proxy_basic_auth_password }}"
+    name: "{{ node_exporter_basic_auth_username }}"
+    password: "{{ node_exporter_basic_auth_password }}"
 
 - name: Copy {{ role_name }} nginx config
   ansible.builtin.template:

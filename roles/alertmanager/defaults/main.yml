@@ -7,8 +7,8 @@ alertmanager_volume_name: "{{ alertmanager_hostname }}"
 alertmanager_data_dir: /usr/share/{{ alertmanager_hostname }}
 alertmanager_web_external_url: https://monitoring.example.com/alertmanager
 alertmanager_etc_hosts: {}
-alertmanager_proxy_basic_auth_username: alertmanager
-alertmanager_proxy_basic_auth_password: "{{ vault_alertmanager_proxy_basic_auth_password }}"
+alertmanager_basic_auth_username: alertmanager
+alertmanager_basic_auth_password: "{{ vault_alertmanager_basic_auth_password }}"
 alertmanager_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
 alertmanager_config:
   route:

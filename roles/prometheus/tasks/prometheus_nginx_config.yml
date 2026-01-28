@@ -14,3 +14,9 @@
   ansible.builtin.template:
     src: prometheus.nginx
     dest: "{{ nginx_data_dir }}/proxies/prometheus.nginx"
+
+- name: Copy {{ role_name }} write endpoint nginx config
+  ansible.builtin.template:
+    src: prometheus-write-endpoint.nginx
+    dest: "{{ nginx_data_dir }}/proxies/prometheus-write-endpoint.nginx"
+  when: prometheus_write_endpoint_enabled

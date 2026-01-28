@@ -15,8 +15,8 @@ alloy_hostname: alloy01
 alloy_description: conainter monitoring for server1 # default: "alloy {{ inventory_hostname_short }}"
 alloy_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 alloy_requires_package: python2-passlib # default: python3-passlib
-alloy_proxy_basic_auth_username: exporter # default: alloy
-alloy_proxy_basic_auth_password: # default: "{{ vault_alloy_proxy_basic_auth_password }}"
+alloy_basic_auth_username: exporter # default: alloy
+alloy_basic_auth_password: # default: "{{ vault_alloy_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the alloy config:

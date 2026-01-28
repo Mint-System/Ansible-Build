@@ -11,8 +11,8 @@ Configure the role.
 ```yml
 restic_exporter_requires_package: python2-passlib # default: python3-passlib
 restic_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
-restic_exporter_proxy_basic_auth_username: exporter # default: restic-exporter
-restic_exporter_proxy_basic_auth_password: # default: "{{ vault_restic_exporter_proxy_basic_auth_password }}"
+restic_exporter_basic_auth_username: exporter # default: restic-exporter
+restic_exporter_basic_auth_password: # default: "{{ vault_restic_exporter_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the restic-exporter config:

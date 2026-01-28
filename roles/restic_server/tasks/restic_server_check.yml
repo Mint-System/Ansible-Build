@@ -3,7 +3,7 @@
   ansible.builtin.find:
     paths: "{{ restic_server_backup_dir }}"
     file_type: directory
-    hidden: yes
+    hidden: true
     excludes: ["lost+found", "docker"]
   register: dir_list
 

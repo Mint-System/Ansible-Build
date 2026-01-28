@@ -1,5 +1,5 @@
 ---
 n8n_exporter_requires_package: "python3-passlib"
-n8n_exporter_proxy_basic_auth_username: n8n-exporter
+n8n_exporter_basic_auth_username: n8n-exporter
 n8n_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
-n8n_exporter_proxy_basic_auth_password: "{{ vault_n8n_exporter_proxy_basic_auth_password }}"
+n8n_exporter_basic_auth_password: "{{ vault_n8n_exporter_basic_auth_password }}"

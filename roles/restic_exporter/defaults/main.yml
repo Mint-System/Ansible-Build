@@ -1,5 +1,5 @@
 ---
 restic_exporter_requires_package: python3-passlib
 restic_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
-restic_exporter_proxy_basic_auth_username: restic-exporter
-restic_exporter_proxy_basic_auth_password: "{{ vault_restic_exporter_proxy_basic_auth_password }}"
+restic_exporter_basic_auth_username: restic-exporter
+restic_exporter_basic_auth_password: "{{ vault_restic_exporter_basic_auth_password }}"

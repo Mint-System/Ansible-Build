@@ -2,5 +2,5 @@
 cadvisor_requires_package: python3-passlib
 cadvisor_description: cAdvisor {{ inventory_hostname_short }}
 cadvisor_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
-cadvisor_proxy_basic_auth_username: cadvisor
-cadvisor_proxy_basic_auth_password: "{{ vault_cadvisor_proxy_basic_auth_password }}"
+cadvisor_basic_auth_username: cadvisor
+cadvisor_basic_auth_password: "{{ vault_cadvisor_basic_auth_password }}"

@@ -3,5 +3,5 @@ mysqld_exporter_requires_package: python3-passlib
 mysqld_exporter_description: MySQL Exporter {{ mysqld_exporter_server }}
 mysqld_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
 mysqld_exporter_data_dir: /usr/share/{{ mysqld_exporter_hostname }}
-mysqld_exporter_proxy_basic_auth_username: mysqld-exporter
-mysqld_exporter_proxy_basic_auth_password: "{{ vault_mysqld_exporter_proxy_basic_auth_password }}"
+mysqld_exporter_basic_auth_username: mysqld-exporter
+mysqld_exporter_basic_auth_password: "{{ vault_mysqld_exporter_basic_auth_password }}"

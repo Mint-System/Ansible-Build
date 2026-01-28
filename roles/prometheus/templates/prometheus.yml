@@ -123,15 +123,15 @@ scrape_configs:
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `odoo`)].src_hostname') | flatten }}
 {% endif %}
-{% if prometheus_n8n_exporter_proxy_basic_auth_username is defined %}
+{% if prometheus_n8n_exporter_basic_auth_username is defined %}
   - job_name: n8n https
     metrics_path: "/n8n-exporter/metrics"
     scrape_interval: 30s
     honor_labels: true
     scheme: https
     basic_auth:
-      username: {{ prometheus_n8n_exporter_proxy_basic_auth_username }}
-      password: {{ prometheus_n8n_exporter_proxy_basic_auth_password }}
+      username: {{ prometheus_n8n_exporter_basic_auth_username }}
+      password: {{ prometheus_n8n_exporter_basic_auth_password }}
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `n8n`)].src_hostname') | flatten }}
 {% endif %}
@@ -159,15 +159,15 @@ scrape_configs:
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `meilisearch`)].src_hostname') | flatten }}
 {% endif %}
-{% if pushgateway_proxy_basic_auth_username is defined %}
+{% if pushgateway_basic_auth_username is defined %}
   - job_name: pushgateway https
     metrics_path: "/pushgateway/metrics"
     scrape_interval: 15s
     honor_labels: true
     scheme: https
     basic_auth:
-      username: {{ pushgateway_proxy_basic_auth_username }}
-      password: {{ pushgateway_proxy_basic_auth_password }}
+      username: {{ pushgateway_basic_auth_username }}
+      password: {{ pushgateway_basic_auth_password }}
     static_configs:
       - targets: {{ prometheus_hosts | map('extract', hostvars) | json_query('[*].nginx_proxies[?exporter!=null && contains(exporter, `pushgateway`)].src_hostname') | flatten }}
 {% endif %}

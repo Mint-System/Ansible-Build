@@ -7,5 +7,5 @@ postgres_exporter_server: "{{ postgres_hostname }}"
 postgres_exporter_username: "{{ postgres_user }}"
 postgres_exporter_password: "{{ vault_postgres_password }}"
 postgres_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
-postgres_exporter_proxy_basic_auth_username: postgres-exporter
-postgres_exporter_proxy_basic_auth_password: "{{ vault_postgres_exporter_proxy_basic_auth_password }}"
+postgres_exporter_basic_auth_username: postgres-exporter
+postgres_exporter_basic_auth_password: "{{ vault_postgres_exporter_basic_auth_password }}"

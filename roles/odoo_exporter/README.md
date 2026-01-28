@@ -11,8 +11,8 @@ Configure the role.
 ```yml
 # https://www.odoo-wiki.org/prometheus-exporter.html
 odoo_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
-odoo_exporter_proxy_basic_auth_username: odoo-exporter
-odoo_exporter_proxy_basic_auth_password: # default: "{{ vault_odoo_exporter_proxy_basic_auth_password }}"
+odoo_exporter_basic_auth_username: odoo-exporter
+odoo_exporter_basic_auth_password: # default: "{{ vault_odoo_exporter_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the odoo-exporter config:

@@ -11,7 +11,7 @@ Configure the role.
 ```yml
 # https://hub.docker.com/r/prom/prometheus
 prometheus_image: prom/prometheus:v2.54.1
-prometheus_hostname: prom01
+prometheus_hostname: prometheus01
 prometheus_description: Monitoring # default: Prometheus
 prometheus_volume_name: prom_data01 # default: "{{ prometheus_hostname }}"
 prometheus_data_dir: /usr/share/prom # default: "/usr/share/{{ prometheus_hostname }}"
@@ -71,7 +71,6 @@ nginx_proxies:
       include /etc/nginx/conf.d/proxies/n8n-exporter.nginx;
 ```
 
-
 And include it in your playbook.
 
 ```yml
@@ -100,6 +99,20 @@ The `prometheus.yml` template contains predefined srcape jobs that lookup proxy 
 * **uptime-kuma https**: Targets are `nginx_proxies` with exporter `uptime-kuma`.
 * **meilisearch https**: Targets are `nginx_proxies` with exporter `meilisearch`.
 * **blackbox**: Targets are `nginx_proxies` with option `monitor` set to `true`.
+
+### Nginx config
+
+Setup this Nginx configuration for the `prom01` host:
+
+```yaml
+nginx_proxies:
+  - src_hostname: prometheus.example.com
+    tls: true
+    monitor: false
+    options: |
+      include /etc/nginx/conf.d/proxies/prometheus.nginx;
+      include /etc/nginx/conf.d/proxies/prometheus-write-endpoint.nginx;
+```
 
 ### Custom scrapers
 

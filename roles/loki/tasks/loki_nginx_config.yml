@@ -16,8 +16,8 @@
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ loki_nginx_data_dir }}/loki.htpasswd"
-    name: "{{ loki_proxy_basic_auth_username }}"
-    password: "{{ loki_proxy_basic_auth_password }}"
+    name: "{{ loki_basic_auth_username }}"
+    password: "{{ loki_basic_auth_password }}"
 
 - name: Copy {{ role_name }} nginx config
   ansible.builtin.template:

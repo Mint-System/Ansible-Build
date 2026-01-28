@@ -16,8 +16,8 @@ loki_description: log index for grafana # default: Loki
 loki_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 loki_data_dir: /usr/share/loki # default: "/usr/share/{{ loki_hostname }}"
 loki_requires_package: python2-passlib # default: python3-passlib
-loki_proxy_basic_auth_username: log # default: loki
-loki_proxy_basic_auth_password: # default: "{{ vault_loki_proxy_basic_auth_password }}"
+loki_basic_auth_username: log # default: loki
+loki_basic_auth_password: # default: "{{ vault_loki_basic_auth_password }}"
 loki_retention_period: 7d # default: 14d
 ```
 

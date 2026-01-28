@@ -17,8 +17,8 @@
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ pushgateway_nginx_data_dir }}/pushgateway.htpasswd"
-    name: "{{ pushgateway_proxy_basic_auth_username }}"
-    password: "{{ pushgateway_proxy_basic_auth_password }}"
+    name: "{{ pushgateway_basic_auth_username }}"
+    password: "{{ pushgateway_basic_auth_password }}"
 
 - name: Copy {{ role_name }} nginx config
   ansible.builtin.template:

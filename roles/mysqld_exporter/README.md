@@ -19,8 +19,8 @@ mysqld_exporter_username: "{{ mysql_user }}"
 mysqld_exporter_password: "{{ mysql_password }}"
 mysqld_exporter_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 mysqld_exporter_requires_package: python2-passlib # default: python3-passlib
-mysqld_exporter_proxy_basic_auth_username: exporter # default: mysqld-exporter
-mysqld_exporter_proxy_basic_auth_password: # default: "{{ vault_mysqld_exporter_proxy_basic_auth_password }}"
+mysqld_exporter_basic_auth_username: exporter # default: mysqld-exporter
+mysqld_exporter_basic_auth_password: # default: "{{ vault_mysqld_exporter_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the mysqld-exporter config:

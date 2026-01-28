@@ -16,8 +16,8 @@
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ postgres_exporter_nginx_data_dir }}/postgres-exporter.htpasswd"
-    name: "{{ postgres_exporter_proxy_basic_auth_username }}"
-    password: "{{ postgres_exporter_proxy_basic_auth_password }}"
+    name: "{{ postgres_exporter_basic_auth_username }}"
+    password: "{{ postgres_exporter_basic_auth_password }}"
 
 - name: Copy {{ role_name }} nginx config
   ansible.builtin.template:

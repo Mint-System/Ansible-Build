@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- BREAKING!: Renamed variables with `_proxy_basic_auth_` to `_basic_auth_`.
 - Renamed `clean` to `cleanup`.
 - Updated bash scripts to follow coding conventions from AGENTS.md.
 - Merged `odoo_scripts` into `odoo` role.

@@ -16,8 +16,8 @@
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ restic_exporter_nginx_data_dir }}/restic-exporter.htpasswd"
-    name: "{{ restic_exporter_proxy_basic_auth_username }}"
-    password: "{{ restic_exporter_proxy_basic_auth_password }}"
+    name: "{{ restic_exporter_basic_auth_username }}"
+    password: "{{ restic_exporter_basic_auth_password }}"
 
 - name: Copy {{ role_name }} nginx config
   ansible.builtin.template:

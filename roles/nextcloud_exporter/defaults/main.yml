@@ -1,6 +1,6 @@
 ---
 nextcloud_exporter_requires_package: python3-passlib
 nextcloud_exporter_description: Nextcloud Exporter {{ nextcloud_hostname }}
-nextcloud_exporter_proxy_basic_auth_username: nextcloud-exporter
-nextcloud_exporter_proxy_basic_auth_password: "{{ vault_nextcloud_exporter_proxy_basic_auth_password }}"
+nextcloud_exporter_basic_auth_username: nextcloud-exporter
+nextcloud_exporter_basic_auth_password: "{{ vault_nextcloud_exporter_basic_auth_password }}"
 nextcloud_exporter_nginx_data_dir: "{{ nginx_data_dir }}/proxies"

@@ -16,8 +16,8 @@
 - name: Configure user access for {{ role_name }}
   community.general.htpasswd:
     path: "{{ cadvisor_nginx_data_dir }}/cadvisor.htpasswd"
-    name: "{{ cadvisor_proxy_basic_auth_username }}"
-    password: "{{ cadvisor_proxy_basic_auth_password }}"
+    name: "{{ cadvisor_basic_auth_username }}"
+    password: "{{ cadvisor_basic_auth_password }}"
 
 - name: Copy {{ role_name }} nginx config
   ansible.builtin.template:

@@ -15,8 +15,8 @@ cadvisor_hostname: cadvisor01
 cadvisor_description: docker monitoring for server1 # default: "cAdvisor {{ inventory_hostname_short }}"
 cadvisor_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 cadvisor_requires_package: python2-passlib # default: python3-passlib
-cadvisor_proxy_basic_auth_username: exporter # default: cadvisor
-cadvisor_proxy_basic_auth_password: # default: "{{ vault_cadvisor_proxy_basic_auth_password }}"
+cadvisor_basic_auth_username: exporter # default: cadvisor
+cadvisor_basic_auth_password: # default: "{{ vault_cadvisor_basic_auth_password }}"
 ```
 
 Ensure the nginx proxy includes the cadvisor config:
