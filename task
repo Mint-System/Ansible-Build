@@ -748,7 +748,6 @@ if [[ "$1" == *","* ]]; then
         fi
     done
 elif declare -f "$1" > /dev/null; then
-    activate-venv
     "$1" "${@:2}"
 else
     case "$1" in
