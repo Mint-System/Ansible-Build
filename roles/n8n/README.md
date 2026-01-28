@@ -10,7 +10,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/r/n8nio/n8n
-n8n_image: n8nio/n8n:1.123.4
+n8n_image: n8nio/n8n:2.6.1
 n8n_build_image: true # default: false
 n8n_hostname: n8n01
 n8n_description: Workflow Automation # default: N8N
