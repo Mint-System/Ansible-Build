@@ -733,14 +733,25 @@ serve-vuepress() {
     pnpx serve
 }
 
-if declare -f "$1" > /dev/null; then
-    activate-venv 2>/dev/null || true
+if [[ "$1" == *","* ]]; then
+    # Split comma-separated commands
+    IFS=',' read -ra COMMANDS <<< "$1"
+    for cmd in "${COMMANDS[@]}"; do
+        # Trim whitespace
+        cmd=$(echo "$cmd" | xargs)
+        if declare -f "$cmd" > /dev/null; then
+            "$cmd"
+        else
+            echo "Unknown command: $cmd"
+            help
+            exit 1
+        fi
+    done
+elif declare -f "$1" > /dev/null; then
+    activate-venv
     "$1" "${@:2}"
 else
     case "$1" in
-        source)
-            activate-venv
-            ;;
         *)
             echo "Unknown command: $1"
             help
