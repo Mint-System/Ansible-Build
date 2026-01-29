@@ -167,7 +167,6 @@ connect-host() {
     $ssh_command
 }
 
-
 decrypt-file() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     echo "Decrypt file $1."
@@ -298,6 +297,16 @@ show-vault-file() {
 }
 
 # Env
+
+activate-venv() {
+    if [[ -f  ".venv/bin/activate" ]]; then
+        source ".venv/bin/activate"
+    else
+        echo "Could not find .venv/bin/active"
+        echo "Init venv with $(uv --version)"
+        uv venv
+    fi
+}
 
 install() {
     echo "Ensure Python version $(cat .python-version) is installed."
