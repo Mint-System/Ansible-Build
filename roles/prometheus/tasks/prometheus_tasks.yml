@@ -34,7 +34,7 @@
     - name: Copy {{ role_name }} rules
       ansible.builtin.copy:
         dest: "{{ prometheus_data_dir }}/rules/"
-        src: "{{ inventory_dir }}/prometheus_rules/{{ inventory_hostname }}/"
+        src: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/rules.yml"
       notify: Restart {{ role_name }} container
 
   rescue:
@@ -42,9 +42,9 @@
       ansible.builtin.debug:
         msg: |
           Could not copy prometheus rules.
-          There is probably no rules directory on the ansible controll node.
-          If you would likt to copy rules, create them in the directory
-          {{ inventory_dir }}/prometheus_rules/{{ inventory_hostname }}/.
+          There is probably no rules.yml file on the ansible controll node.
+          If you would likt to copy rules, create this file:
+          {{ inventory_dir }}/host_vars/{{ inventory_hostname }}/rules.yml.
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
