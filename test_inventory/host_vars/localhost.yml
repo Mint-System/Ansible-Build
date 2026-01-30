@@ -161,6 +161,7 @@ node_exporter_nginx_enabled: false
 # https://hub.docker.com/r/prom/prometheus
 prometheus_image: prom/prometheus:v2.54.1
 prometheus_hostname: prom01
+prometheus_basic_auth_password: test
 
 # https://hub.docker.com/r/grafana/loki/
 loki_image: grafana/loki:3.3.2
