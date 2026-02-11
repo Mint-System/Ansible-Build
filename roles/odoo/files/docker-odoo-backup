@@ -72,7 +72,8 @@ docker cp "$container_id:/var/lib/odoo/filestore/$database" "$dir/filestore"
 docker_exec_bash="docker exec $container_id /bin/bash -c"
 
 echo 'Dump database.'
-$docker_exec_bash "PGPASSWORD=\"\$PASSWORD\" pg_dump -h \"\$HOST\" -U \"\$USER\" $database" > "$dir/dump.sql"
+rm -f "$filepath"
+$docker_exec_bash "PGPASSWORD=\"$PASSWORD\" pg_dump -h \"$HOST\" -U \"$USER\" $database" > "$dir/dump.sql"
 
 echo "Zip filestore and dump to $file."
 rm -f "$filepath"

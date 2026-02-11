@@ -74,11 +74,13 @@ for database in "${database_list[@]}"
 do
   if [[ "$image" =~ 'mariadb' ]]; then
     echo "Run Docker MariaDB backup for $database"
+    rm -f "${dir}/${container}/${database}.sql"
     docker exec $container /bin/bash -c "mysqldump -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
         $database" > "${dir}/${container}/${database}.sql"
   fi
   if [[ "$image" =~ 'mysql' ]]; then
     echo "Run Docker MySQL backup for $database"
+    rm -f "${dir}/${container}/${database}.sql"
     docker exec $container /bin/bash -c "mysqldump -p\$MYSQL_ROOT_PASSWORD \
         $database" > "${dir}/${container}/${database}.sql"
   fi

@@ -574,11 +574,9 @@ test-localhost() {
             echo "Show Docker container logs..."
             containers=$(docker ps -a --format "{{.Names}}:{{.Status}}")
             while IFS= read -r container; do
-                for container in "${failed_containers[@]}"; do
-                    echo "<<< $container >>>"
-                    docker logs "$container" 2>/dev/null
-                    echo ""
-                done
+                echo "<<< $container >>>"
+                docker logs "$container" 2>/dev/null
+                echo ""
             done <<< "$containers"
         fi
         exit $fail

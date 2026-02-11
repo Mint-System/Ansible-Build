@@ -25,3 +25,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set Python version to `3.10`.
 - Remove version check in `requirements.txt`.
 - Renamed `ssl` to `tls`
+- Optimized backup scripts to delete destination files before creating new dumps to save disk space.
+- Fixed `test-localhost` task to correctly display logs for all containers instead of only failed ones.

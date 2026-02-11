@@ -66,6 +66,7 @@ for database in "${database_list[@]}"
 do
     output="${dir}/${container}/${database}.sql"
     echo "Dump $database database to $output..."
+    rm -f "$output"
     docker exec $container /bin/bash -c "pg_dump -U \$POSTGRES_USER $database" > "$output"
 done
 

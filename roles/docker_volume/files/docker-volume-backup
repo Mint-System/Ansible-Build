@@ -75,9 +75,11 @@ echo "Make sure to stop the container $container before creating a backup."
 for volume in "${volume_list[@]}"; do
     if [[ -n "$exclude" ]]; then
         echo "Run backup for Docker volume $volume with the exclude option."
+        rm -f "${dir}/${container}/${volume}.tar"
         docker run --rm -v "$volume:/_data" -v "${dir}/${container}:/backup" ubuntu tar --exclude="$exclude" --warning=no-file-changed -cf "/backup/$volume.tar" /_data
     else
         echo "Run backup for Docker volume $volume."
+        rm -f "${dir}/${container}/${volume}.tar"
         docker run --rm -v "$volume:/_data" -v "${dir}/${container}:/backup" ubuntu tar --warning=no-file-changed -cf "/backup/$volume.tar" /_data
     fi
 done
