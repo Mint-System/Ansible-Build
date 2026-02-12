@@ -574,8 +574,13 @@ test-localhost() {
             echo "Show Docker container logs..."
             containers=$(docker ps -a --format "{{.Names}}:{{.Status}}")
             while IFS= read -r container; do
+                name="${container%%:*}"
                 echo "<<< $container >>>"
-                docker logs "$container" 2>/dev/null
+                if docker logs --tail 50 --timestamps "$name" 2>/dev/null | grep -q .; then
+                    docker logs --tail 50 --timestamps "$name" 2>/dev/null
+                else
+                    echo "No logs available for $name"
+                fi
                 echo ""
             done <<< "$containers"
         fi

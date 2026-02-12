@@ -9,7 +9,7 @@
     state: "{{ metabase_state }}"
     env:
       MB_DB_TYPE: "{{ metabase_db_type }}"
-      MB_DB_DBNAME: "{ item.hostname }}"
+      MB_DB_DBNAME: "{{ item.hostname }}"
       MB_DB_PORT: "{{ metabase_db_port }}"
       MB_DB_USER: "{{ metabase_db_user }}"
       MB_DB_PASS: "{{ metabase_db_pass }}"
