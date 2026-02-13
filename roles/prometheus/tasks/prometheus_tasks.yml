@@ -29,22 +29,16 @@
   ansible.builtin.debug:
     msg: "{{ targets }}"
 
-- name: Copy {{ role_name }} rules block
-  block:
-    - name: Copy {{ role_name }} rules
-      ansible.builtin.copy:
-        dest: "{{ prometheus_data_dir }}/rules/"
-        src: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/rules.yml"
-      notify: Restart {{ role_name }} container
+- name: Check if rules.yml exists
+  ansible.builtin.stat:
+    path: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/rules.yml"
+  register: rules_file_stat
 
-  rescue:
-    - name: Show warning
-      ansible.builtin.debug:
-        msg: |
-          Could not copy prometheus rules.
-          There is probably no rules.yml file on the ansible controll node.
-          If you would likt to copy rules, create this file:
-          {{ inventory_dir }}/host_vars/{{ inventory_hostname }}/rules.yml.
+- name: Copy {{ role_name }} rules
+  ansible.builtin.copy:
+    src: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/rules.yml"
+    dest: "{{ prometheus_data_dir }}/rules/rules.yml"
+  when: rules_file_stat.stat.exists
 
 - name: Copy {{ role_name }} conf
   ansible.builtin.template:
