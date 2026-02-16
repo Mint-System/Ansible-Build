@@ -8,6 +8,7 @@ postgres_volume_name: "{{ postgres_hostname }}"
 nginx_data_dir: "/usr/share/{{ nginx_hostname }}"
 metabase_configmap: [hostname: metabase01-prod]
 loki_data_dir: /usr/share/{{ loki_hostname }}
+node_exporter_data_dir: /usr/share/{{ node_exporter_hostname }}
 pgadmin_data_dir: /usr/share/{{ pgadmin_hostname }}
 promtail_data_dir: /usr/share/{{ promtail_hostname }}
 grafana_data_dir: /usr/share/{{ grafana_hostname }}

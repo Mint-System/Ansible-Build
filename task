@@ -538,7 +538,7 @@ test-project() {
             meilisearch,meilisearch_data,meilisearch_volume,\
             pgadmin,pgadmin_data,pgadmin_volume,\
             n8n,n8n_data,n8n_volume,\
-            node_exporter,node_exporter_data\
+            node_exporter,node_exporter_data,\
             nginx,nginx_data,nginx_volume,\
             metabase,metabase_data,metabase_volume,\
             prometheus,prometheus_data,prometheus_volume,\

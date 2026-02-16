@@ -1,5 +1,9 @@
 Read the AGENTS.md and README.md to get an understanding of the project.
 
+Add a new section "## completion" to the `scripts.md` file.
+
+Add instruction to setup this z-shell completion scripts:
+
 ```zsh
 #compdef task
 
@@ -19,3 +23,5 @@ if (( ${#scripts[@]} > 0 )); then
     done
 fi
 ```
+
+Create a completion script for bash. Also provide instructions on how to setup for bash.
