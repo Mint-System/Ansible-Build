@@ -3,7 +3,7 @@ ansible_become: true
 ufw_enabled: false
 etc_hosts:
   - ip: 127.0.0.1
-    name: n8n.local odoo.local metabase.local grafana.local chatgpt.local login.local
+    name: n8n.local odoo.local grafana.local chatgpt.local login.local # metabase.local
 
 iam_groups:
   - name: wheel
@@ -25,7 +25,7 @@ postgres_image: postgres:17-alpine
 postgres_hostname: postgres01
 postgres_user: example
 postgres_configmap:
-  - db: metabase-prod
+  # - db: metabase-prod
   - db: n8n-prod
   - db: odoo-prod
   - db: odoo-int
@@ -101,9 +101,9 @@ nginx_http_options: |
 nginx_ports:
   - 8080:80
 nginx_proxies:
-  - src_hostname: metabase.local
-    dest_hostname: metabase01-prod
-    dest_port: 3000
+  # - src_hostname: metabase.local
+  #   dest_hostname: metabase01-prod
+  #   dest_port: 3000
   - src_hostname: n8n.local
     dest_hostname: n8n01-prod
     dest_port: 5678
@@ -147,11 +147,11 @@ odoo_addons_git_repos: https://github.com/OCA/partner-contact.git#18.0
 odoo_postgres_hostname: "{{ postgres_hostname }}"
 
 # https://hub.docker.com/r/metabase/metabase
-metabase_image: metabase/metabase:v0.51.12.1
-metabase_hostname: metabase01
-metabase_db_host: postgres01
-metabase_db_user: example
-metabase_db_pass: test
+# metabase_image: metabase/metabase:v0.51.12.1
+# metabase_hostname: metabase01
+# metabase_db_host: postgres01
+# metabase_db_user: example
+# metabase_db_pass: test
 
 # https://hub.docker.com/r/prom/node-exporter
 node_exporter_image: prom/node-exporter:v1.0.1
