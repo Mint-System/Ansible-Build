@@ -56,7 +56,7 @@ help-table() {
     printf "$column" 'run' '' 'Run ansible command.'
     printf "$column" 'connect-host' '[host]' 'Connect to host with configs.'
     # Test
-    printf "$column" 'test-localhost' '[cleanup]' 'Deploy to localhost. Pass option '\''cleanup'\'' to reset test env.'
+    printf "$column" 'test-project' '[cleanup]' 'Deploy to localhost. Pass option '\''cleanup'\'' to reset test env.'
     printf "$column" 'test-scripts' '[cleanup]' 'Install and test scripts. Pass option '\''cleanup'\'' to reset test env.'
 }
 
@@ -529,7 +529,7 @@ publish-galaxy() {
 
 # Test commands
 
-test-localhost() {
+test-project() {
     version
     if [[ "$1" = "cleanup" ]]; then
         echo "Cleanup localhost"

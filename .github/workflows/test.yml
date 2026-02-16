@@ -20,15 +20,15 @@ jobs:
         uses: astral-sh/setup-uv@v5
       - name: Clone taskfile
         run: ./task clone-taskfile
-      - name: Run task install
+      - name: Install
         run: ./task install
       - name: Copy ansible config
         run: cp ansible.cfg.template ansible.cfg
       - name: Login docker
         run: ./task login-docker ${{ secrets.CONTAINER_REGISTRY_USERNAME }} ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-      - name: Run task test-localhost
-        run: ./task test-localhost
-      - name: Run task test-scripts
+      - name: Test project
+        run: ./task test-project
+      - name: Test scripts
         run: ./task test-scripts
         env:
           ODOO_ENTERPRISE_CODE: ${{ secrets.ODOO_ENTERPRISE_CODE }}
