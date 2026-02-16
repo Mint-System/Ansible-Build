@@ -104,33 +104,33 @@ nginx_proxies:
   - src_hostname: metabase.local
     dest_hostname: metabase01-prod
     dest_port: 3000
-  # - src_hostname: n8n.local
-  #   dest_hostname: n8n01-prod
-  #   dest_port: 5678
-  # - src_hostname: odoo.local
-  #   dest_hostname: odoo01-prod
-  #   dest_port: 8069
-  #   locations:
-  #     - path: /websocket
-  #       dest_hostname: odoo01-prod
-  #       dest_port: 8072
-  #       options: |
-  #         proxy_set_header Upgrade $http_upgrade;
-  #         proxy_set_header Connection $connection_upgrade;
-  #         include /etc/nginx/conf.d/proxy-params.conf;
-  #     - path: /website/info
-  #       options:
-  #         |
-  #         deny all;
-  # - src_hostname: grafana.local
-  #   dest_hostname: grafana01
-  #   dest_port: 3000
-  # - src_hostname: login.local
-  #   dest_hostname: keycloak01
-  #   dest_port: 8080
-  # - src_hostname: chatgpt.local
-  #   dest_hostname: open_webui01
-  #   dest_port: 8080
+  - src_hostname: n8n.local
+    dest_hostname: n8n01-prod
+    dest_port: 5678
+  - src_hostname: odoo.local
+    dest_hostname: odoo01-prod
+    dest_port: 8069
+    locations:
+      - path: /websocket
+        dest_hostname: odoo01-prod
+        dest_port: 8072
+        options: |
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+          include /etc/nginx/conf.d/proxy-params.conf;
+      - path: /website/info
+        options:
+          |
+          deny all;
+  - src_hostname: grafana.local
+    dest_hostname: grafana01
+    dest_port: 3000
+  - src_hostname: login.local
+    dest_hostname: keycloak01
+    dest_port: 8080
+  - src_hostname: chatgpt.local
+    dest_hostname: open_webui01
+    dest_port: 8080
 
 # https://hub.docker.com/r/mintsystem/odoo/
 odoo_revision: "18.0"

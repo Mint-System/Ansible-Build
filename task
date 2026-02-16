@@ -571,18 +571,20 @@ test-project() {
 
         echo "Exit code is: $fail"
         if [[ $fail -eq 1 ]]; then
-            echo "Show Docker container logs..."
-            containers=$(docker ps -a --format "{{.Names}}:{{.Status}}")
-            while IFS= read -r container; do
-                name="${container%%:*}"
-                echo "<<< $container >>>"
-                if docker logs --tail 50 --timestamps "$name" 2>/dev/null | grep -q .; then
-                    docker logs --tail 50 --timestamps "$name" 2>/dev/null
-                else
-                    echo "No logs available for $name"
-                fi
-                echo ""
-            done <<< "$containers"
+            echo "Show Docker container status..."
+            docker ps
+            # echo "Show Docker container logs..."
+            # containers=$(docker ps -a --format "{{.Names}}:{{.Status}}")
+            # while IFS= read -r container; do
+            #     name="${container%%:*}"
+            #     echo "<<< $container >>>"
+            #     if docker logs --tail 50 --timestamps "$name" 2>/dev/null | grep -q .; then
+            #         docker logs --tail 50 --timestamps "$name" 2>/dev/null
+            #     else
+            #         echo "No logs available for $name"
+            #     fi
+            #     echo ""
+            # done <<< "$containers"
         fi
         exit $fail
     fi
