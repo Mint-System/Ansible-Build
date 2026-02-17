@@ -563,6 +563,7 @@ test-project() {
         local code=$(curl -o /dev/null -s -w "%{http_code}" -L "http://odoo.local:8080/website/info")
         [[ $code -eq 403 ]] || { echo "http://odoo.local:8080/website/info -> $code"; fail=1; }
 
+        #FIXME: Metabase container does not work GitHub Runner env.
         # local code=$(curl -o /dev/null -s -w "%{http_code}" -L "http://metabase.local:8080")
         # [[ $code -eq 200 ]] || { echo "http://metabase.local:8080 -> $code"; fail=1; }
 
