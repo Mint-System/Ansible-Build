@@ -7,5 +7,6 @@
 
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}_check.yml"
+  when: restic_server_image is defined
   tags:
     - restic_server
