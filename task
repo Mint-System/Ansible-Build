@@ -377,6 +377,7 @@ list-hosts() {
             local aliases=$(yq e '.all.children.*.hosts' "$hosts_file" | grep '^[a-zA-Z]' | cut -d: -f1)
             local hosts=$(yq e '.all.children.*.hosts | .[] | .ansible_host' "$hosts_file")
             local customers=$(yq e '.all.children.*.hosts | .[] | .customer' "$hosts_file")
+            local providers=$(yq e '.all.children.*.hosts | .[] | .hosting_provider' "$hosts_file")
 
             if [[ -z "$aliases" || -z "$hosts" ]]; then
                 echo "No hosts found in $hosts_file"
@@ -385,12 +386,13 @@ list-hosts() {
 
             local alias_width=15
             local host_width=25
-            local cust_width=35
-            local column="| %-${alias_width}s | %-${host_width}s | %-${cust_width}s |\n"
-            printf "$column" 'Alias' 'Host' 'Customer'
-            echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((cust_width + 2)) '' | tr ' ' '-')|"
-            paste <(echo "$aliases") <(echo "$hosts") <(echo "$customers") | sort -u | while read -r alias host customer; do
-                printf "$column" "$alias" "$host" "$customer"
+            local cust_width=53
+            local prov_width=20
+            local column="| %-${alias_width}s | %-${host_width}s | %-${cust_width}s | %-${prov_width}s |\n"
+            printf "$column" 'Alias' 'Host' 'Customer' 'Provider'
+            echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((cust_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((prov_width + 2)) '' | tr ' ' '-')|"
+            paste <(echo "$aliases") <(echo "$hosts") <(echo "$customers") <(echo "$providers") | sort -u | while IFS=$'\t' read -r alias host customer provider; do
+                printf "$column" "$alias" "$host" "$customer" "$provider"
             done
         else
             # Regular inventory without customer field
@@ -407,7 +409,7 @@ list-hosts() {
             local column="| %-${alias_width}s | %-${host_width}s |\n"
             printf "$column" 'Alias' 'Host'
             echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')|"
-            paste <(echo "$aliases") <(echo "$hosts") | while read -r alias host; do
+            paste <(echo "$aliases") <(echo "$hosts") | while IFS=$'\t' read -r alias host; do
                 printf "$column" "$alias" "$host"
             done
         fi

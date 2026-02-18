@@ -1,3 +1,7 @@
+---
+title: Docker Odoo completion script
+---
+
 Read the AGENTS.md and README.md to get an understanding of the project.
 
 Add a new section "## completion" to the `scripts.md` file.

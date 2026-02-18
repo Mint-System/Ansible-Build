@@ -1,3 +1,7 @@
+---
+title: Format all versioned bash scripts
+---
+
 This documents provides instructions for an LLM agent.
 
 Read the AGENTS.md.

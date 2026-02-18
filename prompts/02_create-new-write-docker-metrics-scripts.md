@@ -1,3 +1,7 @@
+---
+title: Create new write Docker metrics scripts
+---
+
 Read the `AGENTS.md` to get a general understanding of the project.
 
 Have a look at `roles/node_exporter/templates/write-docker-volume-metric`. I want you to create three new scripts:

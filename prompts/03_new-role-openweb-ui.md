@@ -1,3 +1,7 @@
+---
+title: New role Open WebUI
+---
+
 Read the `AGENTS.md` and `README.md` to get an understanding of the project.
 
 I want you to create new role "Open WebUI". Use the `posgres` role as template. 
