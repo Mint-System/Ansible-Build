@@ -16,7 +16,7 @@ help() {
     echo '  -d    Database name.'
     echo '  -p    Python code as string.'
     echo '  -f    Commit changes to database.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

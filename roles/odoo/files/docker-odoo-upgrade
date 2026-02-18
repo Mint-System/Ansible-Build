@@ -20,7 +20,7 @@ help() {
     echo '  -t    Target Odoo version.'
     echo '  -l    Optional Odoo subscription code.'
     echo '  -m    Upgrade mode. Options are '\''test'\'' or '\''production'\''. Defaults to '\''test'\''.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

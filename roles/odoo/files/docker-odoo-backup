@@ -73,7 +73,7 @@ docker_exec_bash="docker exec $container_id /bin/bash -c"
 
 echo 'Dump database.'
 rm -f "$filepath"
-$docker_exec_bash "PGPASSWORD=\"$PASSWORD\" pg_dump -h \"$HOST\" -U \"$USER\" $database" > "$dir/dump.sql"
+$docker_exec_bash "pg_dump -h \"\$PGHOST\" -U \"\$PGUSER\" $database" > "$dir/dump.sql"
 
 echo "Zip filestore and dump to $file."
 rm -f "$filepath"

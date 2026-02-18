@@ -18,7 +18,7 @@ help() {
     echo '  -i    Inventory name.'
     echo '  -l    Ansible hostname.'
     echo '  -k    Vault key variable to grep.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

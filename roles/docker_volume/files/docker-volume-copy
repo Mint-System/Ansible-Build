@@ -16,7 +16,7 @@ help() {
     echo '  -t    Target Docker volume name and path.'
     echo '  -f    Remove target path before copy.'
     echo '  -r    Replace existing target volume.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

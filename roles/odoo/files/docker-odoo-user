@@ -16,7 +16,7 @@ help() {
     echo '  -d    Database name. Defaults to '\''odoo'\''.'
     echo '  -a    Action to perform. Options: enable, disable, list, reset'
     echo '  -i    User account login id.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

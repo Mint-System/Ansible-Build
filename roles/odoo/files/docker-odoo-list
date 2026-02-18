@@ -13,7 +13,7 @@ help() {
     echo 'Example: $script -c odoo01'
     echo 'options:'
     echo '  -c    Docker container. Defaults to '\''odoo'\''.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

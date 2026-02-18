@@ -14,7 +14,7 @@ help() {
     echo 'options:'
     echo '  -c    Docker container. Defaults to '\''odoo'\''.'
     echo '  -d    Database name.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

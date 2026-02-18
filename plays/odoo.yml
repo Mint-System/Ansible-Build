@@ -2,6 +2,8 @@
 - name: Odoo play
   hosts: all
   roles:
+    - role: packages
+      tags: packages
     - role: odoo
       tags: odoo
     - role: odoo_apps

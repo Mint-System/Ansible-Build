@@ -18,7 +18,7 @@ help() {
     echo '  -d    Database name.'
     echo '  -u    List of odoo modules to update.'
     echo '  -o    Overwrite tranlsations.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

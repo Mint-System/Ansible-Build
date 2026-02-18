@@ -16,7 +16,7 @@ help() {
     echo '  -s    Source image version.'
     echo '  -t    Target image version.'
     echo '  -i    Skip export and run import for dump only.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }

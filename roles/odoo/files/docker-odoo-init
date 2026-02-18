@@ -17,7 +17,7 @@ help() {
     echo '  -i    List of odoo modules to install.'
     echo '  -l    Odoo language. Defaults to '\''en_US'\''.'
     echo '  -w    With demo data.'
-    echo '  -V    Show $script version.'
+    echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }
