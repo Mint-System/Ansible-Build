@@ -41,16 +41,16 @@ while getopts ':c: :d: :V' opt; do
 done
 
 echo "Archive views with prefix 'mint_system'."
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"SELECT id,name from ir_ui_view WHERE name like '%mint_system%';\""
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"UPDATE ir_ui_view SET active=false WHERE name like '%mint_system%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"SELECT id,name from ir_ui_view WHERE name like '%mint_system%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"UPDATE ir_ui_view SET active=false WHERE name like '%mint_system%';\""
 
 echo "Archive views with prefix 'Odoo Studio:'."
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"SELECT id,name from ir_ui_view WHERE name like '%Odoo Studio:%';\""
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"UPDATE ir_ui_view SET active=false WHERE name like '%Odoo Studio:%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"SELECT id,name from ir_ui_view WHERE name like '%Odoo Studio:%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"UPDATE ir_ui_view SET active=false WHERE name like '%Odoo Studio:%';\""
 
 echo "Delete all active views for $database in $container :"
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"DELETE FROM report_layout WHERE view_id IN (SELECT id FROM ir_ui_view WHERE active = TRUE);\""
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"WITH RECURSIVE views_to_delete AS (SELECT id, inherit_id FROM ir_ui_view WHERE active = TRUE AND inherit_id IS NULL UNION ALL SELECT v.id, v.inherit_id FROM ir_ui_view v JOIN views_to_delete p ON v.inherit_id = p.id) DELETE FROM ir_ui_view WHERE id IN (SELECT id FROM views_to_delete);\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"DELETE FROM report_layout WHERE view_id IN (SELECT id FROM ir_ui_view WHERE active = TRUE);\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"WITH RECURSIVE views_to_delete AS (SELECT id, inherit_id FROM ir_ui_view WHERE active = TRUE AND inherit_id IS NULL UNION ALL SELECT v.id, v.inherit_id FROM ir_ui_view v JOIN views_to_delete p ON v.inherit_id = p.id) DELETE FROM ir_ui_view WHERE id IN (SELECT id FROM views_to_delete);\""
 
 echo "Update all modules with: docker-odoo-update -c $container -d $database -u base"
 echo "Then unarchive views with prefix 'mint_system' and 'Odoo Studio:'."

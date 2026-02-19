@@ -54,6 +54,6 @@ container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
 echo "Initializing modules $modules with langague $odoo_language on database $database."
-docker exec $container_id /bin/bash -c "odoo -i $modules -d $database --db_host=\$HOST --db_user=\$USER --db_password=\$PASSWORD $without_demo --load-language $odoo_language --stop-after-init --no-http"
+docker exec $container_id /bin/bash -c "odoo -i $modules -d $database --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD $without_demo --load-language $odoo_language --stop-after-init --no-http"
 
 echo 'Modules initialized. Please restart the Odoo container/process.'

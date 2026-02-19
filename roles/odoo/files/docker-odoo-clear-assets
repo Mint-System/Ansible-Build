@@ -41,8 +41,8 @@ while getopts ':c: :d: :V' opt; do
 done
 
 echo "Delete these assets on $container for $database:"
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"SELECT id,name FROM ir_asset WHERE bundle='web.assets_backend';\""
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"SELECT id,name FROM ir_attachment WHERE res_model='ir.ui.view' and name like '%assets_%';\""
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"DELETE FROM ir_attachment WHERE res_model='ir.ui.view' and name like '%assets_%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"SELECT id,name FROM ir_asset WHERE bundle='web.assets_backend';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"SELECT id,name FROM ir_attachment WHERE res_model='ir.ui.view' and name like '%assets_%';\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"DELETE FROM ir_attachment WHERE res_model='ir.ui.view' and name like '%assets_%';\""
 
 echo 'Assets cleared. Please restart the Odoo container/process.'

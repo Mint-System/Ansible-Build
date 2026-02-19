@@ -49,11 +49,11 @@ docker_exec_root_bash="docker exec --user root $container_id /bin/bash -c"
 
 echo "Kill database connections on $database"
 query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$database';"
-$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\""
+$docker_exec_bash "psql postgres://\$PGUSER:\$PGPASSWORD@\$PGHOST:5432/postgres -c \"$query\""
 
 echo "Drop database $database"
 query="DROP DATABASE \\\"$database\\\";"
-$docker_exec_bash "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/postgres -c \"$query\"" || true
+$docker_exec_bash "psql postgres://\$PGUSER:\$PGPASSWORD@\$PGHOST:5432/postgres -c \"$query\"" || true
 
 echo "Remove filestore $database"
 $docker_exec_root_bash "rm -rf /var/lib/odoo/filestore/$database"

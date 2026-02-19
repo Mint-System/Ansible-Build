@@ -54,9 +54,9 @@ installed_modules_list=$(docker exec "$container_id" /bin/bash -c "
     echo \"
 print(','.join([m.name for m in env['ir.module.module'].search(['|',('state', '=', 'installed'),('state','=','to upgrade')])]))
 \" | odoo shell -d '$database' \
-        --db_host=\$HOST \
-        --db_user=\$USER \
-        --db_password=\$PASSWORD \
+        --db_host=\$PGHOST \
+        --db_user=\$PGUSER \
+        --db_password=\$PGPASSWORD \
         --no-http 2>/dev/null
 ")
 
@@ -88,9 +88,9 @@ for module in "${uninstall_modules[@]}"; do
     else:
         print('Module already uninstalled or not found.')
 uninstall_module()\" | odoo shell -d '$database' \
-                    --db_host=\$HOST \
-                    --db_user=\$USER \
-                    --db_password=\$PASSWORD \
+                    --db_host=\$PGHOST \
+                    --db_user=\$PGUSER \
+                    --db_password=\$PGPASSWORD \
                     --no-http
         "
     else

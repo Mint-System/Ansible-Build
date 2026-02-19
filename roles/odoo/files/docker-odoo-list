@@ -37,4 +37,4 @@ while getopts ':c: :V' opt; do
     esac
 done
 
-docker exec "$container" /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/postgres -tAc \"SELECT datname FROM pg_database WHERE datistemplate = false AND datname NOT IN ('postgres', 'template0', 'template1');\""
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/postgres -tAc \"SELECT datname FROM pg_database WHERE datistemplate = false AND datname NOT IN ('postgres', 'template0', 'template1');\""

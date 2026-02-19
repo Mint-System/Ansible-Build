@@ -48,23 +48,23 @@ done
 
 if [[ $action == 'enable' ]]; then
     [[ -z "$id" ]] && { echo 'Parameter -i|id is empty.' ; exit 1; }
-    docker exec -i $container /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"UPDATE res_users SET active=true WHERE login='$id';\""
+    docker exec -i $container /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"UPDATE res_users SET active=true WHERE login='$id';\""
     echo "Enabled user $id on database $database."
 fi
 
 if [[ $action == 'disable' ]]; then
     [[ -z "$id" ]] && { echo 'Parameter -i|id is empty.' ; exit 1; }
-    docker exec -i $container /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c \"UPDATE res_users SET active=false WHERE login='$id';\""
+    docker exec -i $container /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"UPDATE res_users SET active=false WHERE login='$id';\""
     echo "Disabled user $id on database $database."
 fi
 
 if [[ $action == 'list' ]]; then
-    docker exec -i $container /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c 'SELECT id,login,active FROM res_users;'"
+    docker exec -i $container /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c 'SELECT id,login,active FROM res_users;'"
 fi
 
 if [[ $action == 'reset' ]]; then
     [[ -z "$id" ]] && { echo 'Parameter -i|id is empty.' ; exit 1; }
     query="\"UPDATE res_users SET active=true,password='odoo' WHERE id='$id';\""
-    docker exec -i $container /bin/bash -c "psql postgresql://\$USER:\$PASSWORD@\$HOST/$database -c $query"
+    docker exec -i $container /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c $query"
     echo "Set password 'odoo' to user with id $id on database $database."
 fi

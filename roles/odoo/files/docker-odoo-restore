@@ -67,10 +67,10 @@ echo 'Copy filestore.'
 docker cp filestore/ "$container:/var/lib/odoo/filestore/$database"
 
 echo "Create database $database."
-docker exec $container /bin/bash -c "PGPASSWORD=\"\$PASSWORD\" createdb -h \$HOST -U \$USER -T template0 $database"
+docker exec $container /bin/bash -c "PGPASSWORD=\"\$PGPASSWORD\" createdb -h \$PGHOST -U \$PGUSER -T template0 $database"
 
 echo "Restore database from $database."
-cat ./dump.sql | docker exec -i $container /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$database"
+cat ./dump.sql | docker exec -i $container /bin/bash -c "psql postgres://\$PGUSER:\$PGPASSWORD@\$PGHOST:5432/$database"
 
 echo 'Cleanup source files.'
 rm -rf dump.sql filestore
@@ -81,7 +81,7 @@ if $update; then
     uuid=$(uuidgen)
     echo 'Update database uuid.'
     query="UPDATE ir_config_parameter SET value = '$uuid' WHERE key = 'database.uuid';"
-    docker exec $container /bin/bash -c "psql postgres://\$USER:\$PASSWORD@\$HOST:5432/$database -c \"$query\""
+    docker exec $container /bin/bash -c "psql postgres://\$PGUSER:\$PGPASSWORD@\$PGHOST:5432/$database -c \"$query\""
 fi
 
 echo "The restore for Odoo database $database has finished."

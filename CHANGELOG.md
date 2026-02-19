@@ -32,3 +32,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optimized backup scripts to delete destination files before creating new dumps to save disk space.
 - Fixed `test-localhost` task to correctly display logs for all containers instead of only failed ones.
 - Updated `list-hosts` command to display `hosting_provider` field, increased customer column width, and fixed IFS handling for proper field separation.
+- Updated Odoo scripts to use standard PostgreSQL environment variables (`PGHOST`, `PGUSER`, `PGPASSWORD`) instead of legacy variables (`HOST`, `USER`, `PASSWORD`).
