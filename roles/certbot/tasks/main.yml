@@ -42,12 +42,6 @@
   tags:
     - certbot
 
-- name: Include {{ role_name }} renew tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_renew.yml"
-  when: certbot_hostname is defined
-  tags:
-    - certbot
-
 - name: Include {{ role_name }} cleanup tasks
   ansible.builtin.include_tasks: "{{ role_name }}_cleanup.yml"
   when: certbot_hostname is defined

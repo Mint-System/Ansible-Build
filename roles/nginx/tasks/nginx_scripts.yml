@@ -8,3 +8,11 @@
     - docker-nginx-reload
     - docker-nginx-enable
     - get-public-ip
+
+- name: Copy {{ nginx_hostname }} templated scripts
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /usr/local/bin/{{ item }}
+    mode: +x
+  loop:
+    - nginx-maintance-redirect

@@ -35,4 +35,4 @@ while getopts ":c: :V" opt; do
     esac
 done
 
-curl -4 ifconfig.co
+curl -4 icanhazip.com

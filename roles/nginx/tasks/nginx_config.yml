@@ -4,6 +4,11 @@
     path: "{{ nginx_data_dir }}/proxies"
     state: directory
 
+- name: Ensure {{ role_name }} static dir exists
+  ansible.builtin.file:
+    path: "{{ nginx_data_dir }}/static"
+    state: directory
+
 - name: Copy nginx conf files
   ansible.builtin.copy:
     src: "{{ item }}"
@@ -17,6 +22,11 @@
   ansible.builtin.template:
     src: default.conf
     dest: "{{ nginx_data_dir }}/default.conf"
+
+- name: Copy nginx static files
+  ansible.builtin.copy:
+    src: "maintenance.html"
+    dest: "{{ nginx_data_dir }}/static/maintenance.html"
 
 - name: Get list of running container names
   ansible.builtin.command: docker ps --format "{% raw %}{{.Names}}{% endraw %}"

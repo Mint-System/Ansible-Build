@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+set -e
+script=$(basename "$0")
+version="1.0.1"
+
+help() {
+    echo
+    echo "$script v$version"
+    echo
+    echo 'Description: Enable or disable maintenance mode for an Nginx-hosted domain.'
+    echo "Syntax: $script <hostname> <enable|disable>"
+    echo "Example: $script odoo.example.com enable"
+    echo 'Options:'
+    echo "  help  Show $script manual."
+    echo
+}
+
+if [[ "$1" == 'help' ]]; then
+    help
+    exit 0
+fi
+
+if [[ $# -ne 2 ]]; then
+    echo "Error: Missing arguments. Use '$script help' for usage."
+    exit 1
+fi
+
+nginx_data_dir="{{ nginx_data_dir }}"
+proxies_dir="$nginx_data_dir/proxies"
+conf_file="$proxies_dir/${1}.conf"
+
+hostname="$1"
+action="$2"
+
+if [[ ! -f "$conf_file" ]]; then
+    echo "Error: Config file not found: $conf_file"
+    exit 1
+fi
+
+if [[ "$action" == "enable" ]]; then
+    mv "$conf_file" "$conf_file.bak"
+    cat > "$conf_file" << EOF
+server {
+    listen 80;
+    server_name $hostname;
+    location / {
+        return 302 /maintenance.html;
+    }
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name $hostname;
+    ssl_certificate /etc/letsencrypt/live/$hostname/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$hostname/privkey.pem;
+    include /etc/nginx/conf.d/options-ssl-nginx.conf;
+    ssl_dhparam /etc/nginx/conf.d/ssl-dhparams.pem;
+
+    location = /maintenance.html {
+        root /etc/nginx/conf.d/static;
+    }
+
+    location / {
+        return 302 /maintenance.html;
+    }
+}
+EOF
+    docker exec "{{ nginx_hostname }}" nginx -t && docker exec "{{ nginx_hostname }}" nginx -s reload
+    echo "Maintenance enabled for $hostname"
+
+elif [[ "$action" == "disable" ]]; then
+    if [[ -f "$conf_file.bak" ]]; then
+        mv "$conf_file.bak" "$conf_file"
+        docker exec "{{ nginx_hostname }}" nginx -t && docker exec "{{ nginx_hostname }}" nginx -s reload
+        echo "Maintenance disabled for $hostname"
+    else
+        echo "Error: No backup found for $conf_file"
+        exit 1
+    fi
+
+else
+    echo "Error: Unknown action '$action'. Use 'enable' or 'disable'."
+    exit 1
+fi
