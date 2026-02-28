@@ -24,44 +24,16 @@
     privs: SELECT
     objs: ALL_IN_SCHEMA
     role: "{{ item.0.name }}"
-  loop: "{{ postgres_users | subelements('grant_databases') }}"
-  when: postgres_users | selectattr('grant_databases', 'defined') | list | length > 0
+  loop: "{{ postgres_users | subelements('grant_databases', skip_missing=True) }}"
 
-# - name: Revoke privilieges to users.
-#   community.postgresql.postgresql_privs:
-#     login_host: "{{ ip_address.stdout }}"
-#     login_user: "{{ postgres_user }}"
-#     login_password: "{{ postgres_password }}"
-#     db: "{{ item.1.database }}"
-#     state: absent
-#     privs: SELECT
-#     objs: "{{ item.1.name }}"
-#     role: "{{ item.0.name }}"
-#   loop: "{{ postgres_users | subelements('revoke_tables') }}"
-#   when: postgres_users | selectattr('revoke_tables', 'defined') | list | length > 0
-
-# - name: Copy {{ role_name }} conf
-#   ansible.builtin.template:
-#     src: "{{ item }}"
-#     dest: "{{ postgres_data_dir }}/{{ item }}"
-#   loop:
-#     - pg_hba.conf
-
-# - name: Setup connection rules for users.
-#   community.postgresql.postgresql_pg_hba:
-#     dest: "{{ postgres_data_dir }}/pg_hba.conf"
-#     contype: host
-#     databases: "{{ item.1.database }}"
-#     users: "{{ item.0.name }}"
-#     source: "{{ item.1.source }}"
-#     method: trust
-#   loop: "{{ postgres_users | subelements('connection_rules', skip_missing=True) }}"
-#   notify: Restart {{ role_name }} container
-
-# # FIXME: Mount the pg_hba.conf -> Change the path outside of volume
-# - name: Copy data files
-#   ansible.builtin.command: docker cp {{ postgres_data_dir }}/{{ item }} {{ postgres_hostname }}:/var/lib/postgresql/data/{{ item }}
-#   ignore_errors: true
-#   changed_when: false
-#   loop:
-#     - pg_hba.conf
+- name: Revoke privilieges to users.
+  community.postgresql.postgresql_privs:
+    login_host: "{{ ip_address.stdout }}"
+    login_user: "{{ postgres_user }}"
+    login_password: "{{ postgres_password }}"
+    db: "{{ item.1.database }}"
+    state: absent
+    privs: SELECT
+    objs: "{{ item.1.name }}"
+    role: "{{ item.0.name }}"
+  loop: "{{ postgres_users | subelements('revoke_tables', skip_missing=True) }}"

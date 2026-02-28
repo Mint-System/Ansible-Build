@@ -35,11 +35,6 @@ postgres_users:
      - odoo-prod
      - odoo-int
      - odoo-dev
-    connection_rules:
-      - source: 95.15.213.106/24
-        database: odoo-prod
-      - source: 95.15.213.106/24
-        database: odoo-int
     revoke_tables:
       - name: hr_employee
         database: odoo-prod
