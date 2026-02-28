@@ -13,6 +13,7 @@
       description: "{{ postgres_description }}"
     image: "{{ postgres_image }}"
     restart_policy: unless-stopped
+    shm_size: "1G"
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
