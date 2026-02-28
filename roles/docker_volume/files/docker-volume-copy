@@ -75,7 +75,7 @@ if $force; then
         alpine ash -c "rm -rf /to$target_path"
 fi
 
-echo "Copy Docker volume content from $source to $target."
+echo "Copy Docker volume content from $source to $target"
 docker container run --rm \
     -v "$source_volume":/from \
     -v "$target_volume":/to \
