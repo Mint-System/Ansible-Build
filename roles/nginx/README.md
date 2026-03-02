@@ -96,6 +96,7 @@ nginx_proxies:
     dest_port: 8069 # default: 80
     tls: true  # default: false
     monitor: / # default: false
+    maintenance_redirect: true # default: false
     exporter: odoo
     upstreams:
       - name: odoo
@@ -152,3 +153,7 @@ To generate tls certificates with Certbot define the `certbot_data_dir`.
 ### Use with Acme.sh
 
 To generate tls certificates with Acme.sh define the `acme_sh_data_dir`.
+
+### Maintenance mode
+
+The role includes a maintenance redirect that can be activated for a proxy entry. Set `maintenance_redirect: true` and every request will be answered with a 302 and the `maintenance.html` document.

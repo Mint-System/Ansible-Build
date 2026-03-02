@@ -39,6 +39,7 @@
   ansible.builtin.command: docker-postgres-list -c "{{ postgres_hostname }}"
   when: postgres_configmap|length > 0
   register: postgres_databases
+  changed_when: false
 
 - name: Create {{ role_name }} databases
   ansible.builtin.command: docker-postgres-create -c "{{ postgres_hostname }}" -d "{{ item.db }}"

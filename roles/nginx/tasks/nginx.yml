@@ -24,6 +24,24 @@
     nginx_volumes: "{{ nginx_volumes + [acme_sh_data_dir + '/:/etc/nginx/certs/'] }}"
   when: acme_sh_data_dir is defined
 
+- name: Build docker run command with network and volumes
+  ansible.builtin.set_fact:
+    nginx_test_cmd: >
+      docker run --rm
+      {% for vol in nginx_volumes %}
+      -v {{ vol }} {% endfor %}
+      --network {{ docker_network_name }}
+      {{ nginx_image }}
+      nginx -t
+
+- name: Test nginx config in temporary container
+  ansible.builtin.command: "{{ nginx_test_cmd }}"
+  register: nginx_test_result
+  failed_when: nginx_test_result.rc != 0
+  changed_when: false
+  tags:
+    - check
+
 - name: Start {{ role_name }} container {{ nginx_hostname }}
   community.docker.docker_container:
     name: "{{ nginx_hostname }}"

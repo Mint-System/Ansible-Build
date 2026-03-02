@@ -108,6 +108,7 @@ nginx_proxies:
     dest_hostname: n8n01-prod
     dest_port: 5678
   - src_hostname: odoo.local
+    # maintenance_redirect: true
     dest_hostname: odoo01-prod
     dest_port: 8069
     locations:
