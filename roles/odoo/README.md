@@ -31,6 +31,7 @@ odoo_addons_git_repos: https://github.com/OCA/partner-contact.git#18.0
 odoo_dbfilter: .* # default: "^%d$"
 odoo_list_db: "true" # default: "false"
 odoo_proxy_mode: "false" # default: "true"
+odoo_log_level: debug # default: info
 odoo_python_install: prometheus_client
 odoo_server_wide_modules: dbfilter_from_header
 odoo_workers: 0 # default: 4

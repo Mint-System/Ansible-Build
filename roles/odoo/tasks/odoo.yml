@@ -44,6 +44,7 @@
       DB_FILTER: "{{ odoo_dbfilter }}"
       LIST_DB: "{{ odoo_list_db }}"
       PROXY_MODE: "{{ odoo_proxy_mode }}"
+      LOG_LEVEL: "{{ odoo_log_level }}"
       SERVER_WIDE_MODULES: "{{ odoo_server_wide_modules | default('') }}"
       PYTHON_INSTALL: "{{ odoo_python_install | default('') }}"
       WORKERS: "{{ odoo_workers | int }}"

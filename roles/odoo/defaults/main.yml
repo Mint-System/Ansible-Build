@@ -19,6 +19,7 @@ odoo_master_password: "{{ vault_odoo_master_password | default('') }}"
 odoo_dbfilter: "^%d$"
 odoo_list_db: "false"
 odoo_proxy_mode: "true"
+odoo_log_level: info
 odoo_etc_hosts: {}
 odoo_sysctls_disable_ipv6: 1
 odoo_conf_limit_request: 8192
