@@ -13,6 +13,7 @@
     - docker-odoo-backup
     - docker-odoo-clear-assets
     - docker-odoo-clear-views
+    - docker-odoo-clear-rules
     - docker-odoo-cloc
     - docker-odoo-drop
     - docker-odoo-duplicate

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.0.1"
+
+help() {
+  echo
+  echo "$script"
+  echo
+  echo 'Description: Clear all security rules of Odoo database.'
+  echo "Syntax: $script [-c|-d|-V|help]"
+  echo 'Example: $script -c odoo01 -d erp'
+  echo 'options:'
+  echo '  -c    Docker container. Defaults to '\''odoo'\''.'
+  echo '  -d    Database name. Defaults to '\''odoo'\''.'
+  echo '  -v    Show $script version.'
+  echo "  help  Show $script manual."
+  echo
+}
+
+if [[ "$1" == 'help' ]]; then
+  help
+  exit
+fi
+
+container=odoo
+database=odoo
+
+while getopts ':c: :d: :V' opt; do
+    case $opt in
+        c) container="$OPTARG" ;;
+        d) database="$OPTARG" ;;
+        V) echo "$script version $version"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit;;
+    esac
+done
+
+echo "Delete all noupdate security rules for $database in $container :"
+docker exec "$container" /bin/bash -c "psql postgresql://\$PGUSER:\$PGPASSWORD@\$PGHOST/$database -c \"DELETE FROM ir_rule
+WHERE id IN (
+    SELECT res_id
+    FROM ir_model_data
+    WHERE model = 'ir.rule'
+      AND noupdate = TRUE
+);\""
+
+echo "Update all modules with: docker-odoo-update -c $container -d $database -u all"
