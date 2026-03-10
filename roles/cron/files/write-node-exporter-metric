@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
 
+script=$(basename "$0")
+version="1.0.0"
+
 help() {
     echo
-    echo 'write-node-exporter-metric'
-    echo '##########################'
+    echo "$script"
     echo
     echo 'Description: Write node-exporter metric.'
-    echo 'Syntax: write-node-exporter-metric [-n|-c|-V|help]'
+    echo 'Syntax: write-node-exporter-metric [-n|-c|-v|-V|help]'
     echo 'Example: write-node-exporter-metric -n cron_job -c "Renew certs for nginx01" -v 0'
     echo 'options:'
     echo '  -n    Reference of custom metric type. Defaults to '\''cron_job'\''.'
     echo '  -c    Code for metric value.'
-    echo '  -V    Value of metric.'
-    echo '  help  Show write-node-exporter-metric help.'
+    echo '  -v    Metric value.'
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
     echo
 }
 
@@ -23,13 +26,16 @@ fi
 
 type=cron_job
 
-while getopts ':n :c: :v:' opt; do
+while getopts ':n :c: :v: :V' opt; do
   case $opt in
     n) type="$OPTARG"
     ;;
     c) code="$OPTARG"
     ;;
     v) value="$OPTARG"
+    ;;
+    V) echo "$script version $version"
+    exit 0
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     help
