@@ -58,8 +58,6 @@
       tags: git
     - role: php_fpm
       tags: php_fpm
-    - role: blackbox_exporter
-      tags: blackbox_exporter
     - role: prometheus
       tags: prometheus
     - role: promtail
