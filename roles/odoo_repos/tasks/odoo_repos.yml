@@ -131,28 +131,25 @@
 - name: Shallow http clone with sparse checkout
   shell: |
     set -e
-    if [ -d "{{ odoo_data_dir }}/{{ item.path }}/.git" ]; then
-      cd "{{ odoo_data_dir }}/{{ item.path }}"
-      CURRENT_URL=$(git config --get remote.origin.url || echo "")
+    REPO_PATH="{{ odoo_data_dir }}/{{ item.path }}"
+    if [ -d "$REPO_PATH/.git" ]; then
+      CURRENT_URL=$(git -C "$REPO_PATH" config --get remote.origin.url || echo "")
       if [ "$CURRENT_URL" != "{{ item.url }}" ]; then
-        cd ..
-        rm -rf "{{ item.path }}"
-        git init "{{ item.path }}"
-        cd "{{ item.path }}"
-        git config core.sparseCheckout true
-        echo "{{ item.sparse_dirs | join('\n') }}" > .git/info/sparse-checkout
-        git remote add origin "{{ item.url }}"
+        rm -rf "$REPO_PATH"
+        git init "$REPO_PATH"
+        git -C "$REPO_PATH" config core.sparseCheckout true
+        echo "{{ item.sparse_dirs | join('\n') }}" > "$REPO_PATH/.git/info/sparse-checkout"
+        git -C "$REPO_PATH" remote add origin "{{ item.url }}"
       fi
-      git fetch --depth=1 origin {% if item.branch is defined %}"{{ item.branch }}"{% elif item.commit is defined %}"{{ item.commit }}"{% else %}"{{ odoo_version }}"{% endif %}
-      git checkout -f FETCH_HEAD
+      git -C "$REPO_PATH" fetch --depth=1 origin "{{ item.branch }}"
+      git -C "$REPO_PATH" checkout -f FETCH_HEAD
     else
-      git init "{{ odoo_data_dir }}/{{ item.path }}"
-      cd "{{ odoo_data_dir }}/{{ item.path }}"
-      git config core.sparseCheckout true
-      echo "{{ item.sparse_dirs | join('\n') }}" > .git/info/sparse-checkout
-      git remote add origin "{{ item.url }}"
-      git fetch --depth=1 origin {% if item.branch is defined %}"{{ item.branch }}"{% elif item.commit is defined %}"{{ item.commit }}"{% else %}"{{ odoo_version }}"{% endif %}
-      git checkout FETCH_HEAD
+      git init "$REPO_PATH"
+      git -C "$REPO_PATH" config core.sparseCheckout true
+      echo "{{ item.sparse_dirs | join('\n') }}" > "$REPO_PATH/.git/info/sparse-checkout"
+      git -C "$REPO_PATH" remote add origin "{{ item.url }}"
+      git -C "$REPO_PATH" fetch --depth=1 origin "{{ item.branch }}"
+      git -C "$REPO_PATH" checkout FETCH_HEAD
     fi
   when:
     - item.url is regex('https://')
