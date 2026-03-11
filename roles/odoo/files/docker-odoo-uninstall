@@ -81,7 +81,9 @@ for module in "${uninstall_modules[@]}"; do
     if [[ ${installed_modules_map[$module]:-} ]]; then
         echo -e "\033[38;5;76mUninstalling\033[0m $module module on $database database in $container container..."
         docker exec "$container_id" /bin/bash -c "
-            echo \"def uninstall_module():
+unset ODOO_ADDONS_PATH
+unset ADDONS_PATH
+echo \"def uninstall_module():
     module = env['ir.module.module'].search([('name', '=', '$module')])
     if module and module.state != 'uninstalled':
         module.button_immediate_uninstall()
@@ -92,7 +94,7 @@ uninstall_module()\" | odoo shell -d '$database' \
                     --db_user=\$PGUSER \
                     --db_password=\$PGPASSWORD \
                     --no-http
-        "
+"
     else
         echo -e "\033[38;5;214mSkipping\033[0m module '$module': Not installed."
     fi
