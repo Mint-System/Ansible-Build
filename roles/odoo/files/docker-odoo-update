@@ -61,4 +61,8 @@ container_id=$(docker ps -f "name=$container" --format '{{.ID}}' | head -n1)
 
 # Update with Docker exec
 echo "Update modules $modules on database $database."
-docker exec "$container_id" /bin/bash -c "odoo -c /etc/odoo/odoo.conf -d $database -u $modules --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD --stop-after-init --no-http $overwrite_translations"
+docker exec "$container_id" /bin/bash -c "
+unset ODOO_ADDONS_PATH
+unset ADDONS_PATH
+odoo -d $database -u $modules --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD --stop-after-init --no-http $overwrite_translations
+"
