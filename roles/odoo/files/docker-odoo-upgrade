@@ -10,10 +10,11 @@ help() {
     echo "$script"
     echo
     echo 'Description: Run Odoo upgrade scripts for target PostgreSQL database.'
-    echo "Syntax: $script [-c|-s|-t|-r|-u|-V|help]"
-    echo 'Example: $script -c postgres01 -h localhost -d erp -s 16.0 -n upgrade -t 17.0 -m test -l MXXXXXXXXX'
+    echo "Syntax: $script [-c|-p|-s|-t|-r|-u|-V|help]"
+    echo 'Example: $script -c postgres01 -p 16 -h localhost -d erp -s 16.0 -n upgrade -t 17.0 -m test -l MXXXXXXXXX'
     echo 'options:'
     echo '  -c    PostgreSQL container. Defaults to '\''postgres'\''.'
+    echo '  -p    Postgres version.'
     echo '  -d    Current database name.'
     echo '  -s    Current Odoo version.'
     echo '  -n    Target database name.'
@@ -32,9 +33,10 @@ if [[ "$1" == 'help' ]]; then
 fi
 
 # Process params
-while getopts ':c: :d: :s: :n: :t: :m: :l: :V' opt; do
+while getopts ':c: :p: :d: :s: :n: :t: :m: :l: :V' opt; do
     case $opt in
         c) container="$OPTARG";;
+        p) postgres_version="$OPTARG";;
         d) database="$OPTARG";;
         s) odoo_version="$OPTARG";;
         n) target_database="$OPTARG";;
@@ -55,6 +57,7 @@ done
 : "${mode:=test}"
 
 # Verify variables
+[[ -z "$postgres_version" ]] && { echo 'Parameter -p|postgres version is empty.' ; exit 1; }
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
 [[ -z "$odoo_version" ]] && { echo 'Parameter -s|current version is empty.' ; exit 1; }
 [[ -z "$target_database" ]] && { echo 'Parameter -n|new database is empty.' ; exit 1; }
@@ -73,7 +76,7 @@ export pgpassword
 
 odoo-upgrade() {
     docker run -e PGHOST="$pghost" -e PGUSER="$pguser" -e PGPASSWORD="$pgpassword" \
-        --network="$network" mintsystem/odoo-upgrade "$@"
+        --network="$network" "mintsystem/odoo-upgrade:$postgres_version" "$@"
 }
 
 echo "Run upgrade script for database $database in $mode mode."

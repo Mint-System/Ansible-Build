@@ -1,6 +1,7 @@
 ---
 - name: Include {{ role_name }} scripts tasks
   ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
+  when: certbot_hostname is defined
   tags:
     - certbot
 
