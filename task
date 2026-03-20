@@ -30,7 +30,7 @@ help-table() {
     printf "$column" 'convert-vault-file' '[vault_id] [path]' 'Re-encrypt vault file as single strings.'
     printf "$column" 'decrypt-file' '[path]' 'Decrypt Ansible Vault file.'
     printf "$column" 'encrypt-file' '[vault_id] [path]' 'Encrypt file with Ansible Vault.'
-    printf "$column" 'encrypt-string' '[vault_id] [key:value] -q' 'Generate encrypted string with Ansible Vault.'
+    printf "$column" 'encrypt-string' '[vault_id] [key] [value] -q' 'Generate encrypted string with Ansible Vault.'
     printf "$column" 'generate-encrypted-string' '[vault_id] [key] -q' 'Generate encrypted string for key with Ansible Vault.'
     printf "$column" 'generate-vault-password' '[vault_id] [password]' 'Generate a password file for Ansible Vault.'
     printf "$column" 'show-vault-file' '[vault_id] [path]' 'Show content of encrypted strings or fully encrypted vault file.'
@@ -201,14 +201,13 @@ generate-vault-password() {
 encrypt-string() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
+    if [[ -z "$3" ]]; then echo '$3 is empty'; exit; fi
+    local string_key="$2"
+    local string_value="$3"
+    # string_key=$(echo "$2" | cut -d ':' -f 1)
+    # string_value=$(echo "$2" | cut -d ':' -f 2 | sed 's/^ *//')
 
-    # Split multiline
-    local string_key
-    local string_value
-    string_key=$(echo "$2" | cut -d ':' -f 1)
-    string_value=$(echo "$2" | cut -d ':' -f 2 | sed 's/^ *//')
-
-    if [[ "$3" != "-q" ]]; then
+    if [[ "$4" != "-q" ]]; then
         echo "Found key: $string_key"
         echo "Encrypting value: $string_value"
     fi
@@ -221,7 +220,7 @@ generate-encrypted-string() {
     local string_key="$2"
     local string_value="$(pwgen -c 20 1)"
     
-    encrypt-string "$1" "${string_key}: $string_value"
+    encrypt-string "$1" "$string_key" "$string_value"
 }
 
 convert-vault-file() {
