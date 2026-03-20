@@ -31,7 +31,8 @@ help-table() {
     printf "$column" 'decrypt-file' '[path]' 'Decrypt Ansible Vault file.'
     printf "$column" 'encrypt-file' '[vault_id] [path]' 'Encrypt file with Ansible Vault.'
     printf "$column" 'encrypt-string' '[vault_id] [key:value] -q' 'Generate encrypted string with Ansible Vault.'
-    printf "$column" 'generate-vault-password' '[vault_id] [password]' 'Generate a password file for Ansible vault.'
+    printf "$column" 'generate-encrypted-string' '[vault_id] [key] -q' 'Generate encrypted string for key with Ansible Vault.'
+    printf "$column" 'generate-vault-password' '[vault_id] [password]' 'Generate a password file for Ansible Vault.'
     printf "$column" 'show-vault-file' '[vault_id] [path]' 'Show content of encrypted strings or fully encrypted vault file.'
     # Setup
     printf "$column" 'install' '' 'Install Ansible and dependencies with uv.'
@@ -212,6 +213,15 @@ encrypt-string() {
         echo "Encrypting value: $string_value"
     fi
     ansible-vault encrypt_string --encrypt-vault-id="$1"  --name "$string_key" "$string_value"
+}
+
+generate-encrypted-string() {
+    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
+    if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
+    local string_key="$2"
+    local string_value="$(pwgen -c 20 1)"
+    
+    encrypt-string "$1" "${string_key}: $string_value"
 }
 
 convert-vault-file() {
