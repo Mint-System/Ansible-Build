@@ -21,7 +21,7 @@ odoo_description: Odoo 16 # default: Odoo
 odoo_state: stopped # default: started
 odoo_ports: # default: []
  - "127.0.0.1:8069:8069"
-odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
+odoo_data_dir: "/mnt/sdb/data/{{ odoo_hostname }}" # default: "/usr/share/{{ odoo_hostname }}"
 odoo_volume_name: odoo_data01 # default: "{{ odoo_hostname}}"
 odoo_postgres_hostname: postgres01
 odoo_postgres_user: odoo # default: {{ postgres_user }}"
