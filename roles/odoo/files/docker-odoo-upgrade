@@ -11,10 +11,9 @@ help() {
     echo
     echo 'Description: Run Odoo upgrade scripts for target PostgreSQL database.'
     echo "Syntax: $script [-c|-p|-s|-t|-r|-u|-V|help]"
-    echo 'Example: $script -c postgres01 -p 16 -h localhost -d erp -s 16.0 -n upgrade -t 17.0 -m test -l MXXXXXXXXX'
+    echo 'Example: $script -c postgres01 -h localhost -d erp -s 16.0 -n upgrade -t 17.0 -m test -l MXXXXXXXXX'
     echo 'options:'
     echo '  -c    PostgreSQL container. Defaults to '\''postgres'\''.'
-    echo '  -p    Postgres version.'
     echo '  -d    Current database name.'
     echo '  -s    Current Odoo version.'
     echo '  -n    Target database name.'
@@ -57,7 +56,6 @@ done
 : "${mode:=test}"
 
 # Verify variables
-[[ -z "$postgres_version" ]] && { echo 'Parameter -p|postgres version is empty.' ; exit 1; }
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
 [[ -z "$odoo_version" ]] && { echo 'Parameter -s|current version is empty.' ; exit 1; }
 [[ -z "$target_database" ]] && { echo 'Parameter -n|new database is empty.' ; exit 1; }
@@ -69,10 +67,12 @@ network=$(docker network inspect --format '{{.Name}}' "$network_id")
 pghost="$container"
 pguser=$(docker exec "$container" /bin/bash -c "echo \$POSTGRES_USER")
 pgpassword=$(docker exec "$container" /bin/bash -c "echo \$POSTGRES_PASSWORD")
+postgres_version=$(docker exec "$container" postgres --version | awk '{print $3}' | sed 's/^\(.*\)\..*$/\1/')
 export network
 export pghost
 export pguser
 export pgpassword
+export postgres_version
 
 odoo-upgrade() {
     docker run -e PGHOST="$pghost" -e PGUSER="$pguser" -e PGPASSWORD="$pgpassword" \
