@@ -125,6 +125,6 @@ Get the amount of CPUs on all hosts:
 ansible -i inventories/setup all -m shell -a "grep -c ^processor /proc/cpuinfo"
 ```
 
-Use rule of thumb: (#CPU * 2) + 1
+Odoo's official formula is: workers = (CPUs × 2) + 1
 
-In case of 4 CPUs it is 8 workers and 1 cron worker.
+In case of 4 CPUs it is 9 workers.
