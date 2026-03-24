@@ -1,4 +1,14 @@
 ---
+- name: Wait for Meilisearch API to be ready
+  uri:
+    url: "{{ meilisearch_url }}/health"
+    method: GET
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 15
+  delay: 2
+
 - name: Create API Keys
   uri:
     url: "{{ meilisearch_url }}/keys"
