@@ -54,6 +54,15 @@
     - OAUTH_DOMAIN: "{{ dribdat_oauth_domain | default('') }}"
   when: dribdat_oauth_type is defined
 
+- name: Append LLM config to {{ role_name }} env vars
+  ansible.builtin.set_fact:
+    dribdat_env: "{{ dribdat_env | combine(item) }}"
+  with_items:
+    - LLM_BASE_URL: "{{  dribdat_llm_base_url }}"
+    - LLM_MODEL: "{{ dribdat_llm_model }}"
+    - LLM_API_KEY: "{{ dribdat_llm_api_key }}"
+  when: dribdat_oauth_type is defined
+
 - name: Start {{ role_name }} container {{ dribdat_hostname }}
   community.docker.docker_container:
     name: "{{ dribdat_hostname }}"

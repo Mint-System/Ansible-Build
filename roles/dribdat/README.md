@@ -37,6 +37,9 @@ dribdat_s3_bucket: hack.example.com
 dribdat_s3_region: ch-dk-2
 dribdat_s3_https: https://sos-ch-dk-2.exo.io/hack.example.com
 dribdat_s3_endpoint: https://sos-ch-dk-2.exo.io
+dribdat_llm_base_url: https://api.publicai.co/v1
+dribdat_llm_model: swiss-ai/apertus-8b-instruc
+dribdat_llm_api_key: # default: "{{ vault_dribdat_llm_api_key }}"
 dribdat_volume_backup_set: # See restic_backup_set var in role restic
 ```
 
