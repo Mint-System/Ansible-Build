@@ -61,7 +61,7 @@
     - LLM_BASE_URL: "{{  dribdat_llm_base_url }}"
     - LLM_MODEL: "{{ dribdat_llm_model }}"
     - LLM_API_KEY: "{{ dribdat_llm_api_key }}"
-  when: dribdat_oauth_type is defined
+  when: dribdat_llm_base_url is defined
 
 - name: Start {{ role_name }} container {{ dribdat_hostname }}
   community.docker.docker_container:
