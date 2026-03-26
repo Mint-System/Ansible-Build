@@ -16,6 +16,8 @@ s3cmd_secret_key: # default: "{{ vault_s3cmd_secret_key }}"
 s3cmd_backup_set:
   - id: "disk2"
     src: /mnt/sdb/
+    exclude:
+      - docker/
     target: kronos
     hour: "5"
   - id: "disk"
