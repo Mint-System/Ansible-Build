@@ -22,6 +22,7 @@ open_webui_proivder_name: "Login Example" # default: SSO
 open_webui_oauth_client_id: "chatgpt.example.com"
 open_webui_oauth_client_secret: # default: "{{ vault_open_webui_oauth_client_secret }}"
 open_webui_openid_provider_url: "https://login.example.com/realms/example.com/.well-known/openid-configuration"
+open_webui_web_search_enabled: true # default: false
 ```
 
 And include it in your playbook.

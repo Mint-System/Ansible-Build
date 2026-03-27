@@ -14,6 +14,8 @@
     image: "{{ open_webui_image }}"
     restart_policy: unless-stopped
     env:
+      ENABLE_WEB_SEARCH: "{{ open_webui_web_search_enabled | string }}"
+      WEB_SEARCH_PROVIDER: "ddgs"
       OAUTH_PROVIDER_NAME: "{{ open_webui_proivder_name }}"
       OAUTH_CLIENT_ID: "{{ open_webui_oauth_client_id }}"
       OAUTH_CLIENT_SECRET: "{{ open_webui_oauth_client_secret }}"
