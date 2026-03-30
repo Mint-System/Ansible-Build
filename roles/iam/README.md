@@ -25,7 +25,7 @@ iam_users:
     ssh_public_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups:
       all: wheel,docker
-      selene: operators
+      server1: operators
     shell: /bin/zsh
     zshrc: |
       PROMPT="$fg[cyan]%}$USER@%{$fg[blue]%}%m ${PROMPT}"
