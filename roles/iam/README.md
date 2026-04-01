@@ -14,7 +14,7 @@ iam_groups:
   - name: wheel
     sudoers_commands: ALL
   - name: guests
-  - name: operators
+  - name: operator
     sudoers_commands: /usr/bin/docker ps, /usr/bin/docker start *,  /usr/bin/docker stop *, /usr/bin/docker restart *
 host_iam_groups:
   - name: backup
@@ -25,27 +25,23 @@ iam_users:
     ssh_public_key: "ssh-rsa ANzaC1yc2EA...KHgKLVcBaeKQ== admin@example.com"
     groups:
       all: wheel,docker
-      server1: operators
+      server1: operator
     shell: /bin/zsh
     zshrc: |
       PROMPT="$fg[cyan]%}$USER@%{$fg[blue]%}%m ${PROMPT}"
     hosts:
       - server1
       - server2
-  - username: operator
-    state: present
-    groups: operators
-    hosts: "{{ groups.all }}"
   - username: bot
     state: present
     comment: "Bot Example"
     ssh_public_key: "ssh-ed25519 ANzaC1yc2EA...KHgKLVcBaeKQ== bot@example.com"
     ssh_private_key: "{{ vault_bot_ssh_private_key }}"
-    hosts:
-      - server1
+    hosts: "{{ groups.all }}"
 host_iam_users:
   - username: bobmeyer
     state: present
+    groups: operator
     comment: "Bob Meyer"
     passwort: "{{ vault_iam_users_bobmeyer_password }}"
     hosts:

@@ -115,6 +115,27 @@ nginx_proxies:
           deny all;
 ```
 
+## Nginx CORS config
+
+Add this config to the proxy `options` to enable API access from other domains: 
+
+```
+      if ($request_method = OPTIONS) {
+        add_header Access-Control-Allow-Origin "$http_origin";
+        add_header Access-Control-Allow-Credentials true;
+        add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS";
+        add_header Access-Control-Allow-Headers "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With";
+        add_header Access-Control-Max-Age 1728000;
+        add_header Content-Type "text/plain charset=UTF-8";
+        add_header Content-Length 0;
+        return 204;
+      }
+      add_header 'Access-Control-Allow-Origin' "$http_origin";
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+      add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With,X-API-Key';
+```
+
 ### Calculate workers
 
 The amount of workers to be set depends the amount CPUs available on the host.
