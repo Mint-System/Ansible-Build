@@ -1,7 +1,10 @@
 ---
-- name: Create {{ role_name }} volume
-  community.docker.docker_volume:
-    name: "{{ grafana_volume_name }}"
+- name: Include docker volume role
+  ansible.builtin.include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ grafana_volume_name }}"
+  when: grafana_volume_name is defined
 
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
