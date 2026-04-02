@@ -25,6 +25,8 @@
       OAUTH_ROLES_CLAIM: roles
       OAUTH_ALLOWED_ROLES: access
       OAUTH_ADMIN_ROLES: admin
+      OPENAI_API_BASE_URL: "{{ open_webui_openapi_url }}"
+      OPENAI_API_KEY: "{{ open_webui_openapi_secret }}"
     volumes: "{{ open_webui_volumes }}"
     ports: "{{ open_webui_ports }}"
     networks:
