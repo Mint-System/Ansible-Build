@@ -34,7 +34,7 @@ odoo_proxy_mode: "false" # default: "true"
 odoo_log_level: debug # default: info
 odoo_python_install: prometheus_client
 odoo_server_wide_modules: dbfilter_from_header
-odoo_workers: 0 # default: 4
+odoo_workers: 0 # default: 5
 odoo_conf_limit_request: 4096 # default: 8192
 odoo_conf_limit_time_cpu: 300 # default: 600
 odoo_conf_limit_time_real: 600 # default: 1200
