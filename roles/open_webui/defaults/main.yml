@@ -10,5 +10,4 @@ open_webui_ports:
 open_webui_oauth_client_secret: "{{ vault_open_webui_oauth_client_secret }}"
 open_webui_proivder_name: SSO
 open_webui_web_search_enabled: false
-open_webui_openapi_url: "https://api.infomaniak.com/1/ai/105852/openai"
 open_webui_openapi_secret: "{{ vault_open_webui_openapi_secret }}"
