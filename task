@@ -450,8 +450,8 @@ get-last-hostname() {
 
     echo "Search inventories folder for '${role}_hostname: $role'"
     local all_hostnames
-    all_hostnames=$(rg -I "^${role}_hostname: $role" inventories | cut -d' ' -f2 | sort -u)
-
+    all_hostnames=$(rg -I --no-ignore "^${role}_hostname: ${role}.+" inventories | cut -d' ' -f2 | sort -u)
+    
     local highest
     highest=$(echo "$all_hostnames" | sed "s/${role}//g" | sort -n | tail -1)
     echo "Highest hostname: ${role}$highest"
