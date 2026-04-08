@@ -6,14 +6,9 @@
     docker_volume_name: "{{ open_webui_volume_name }}"
   when: open_webui_volume_name is defined
 
-- name: Start {{ role_name }} container {{ open_webui_hostname }}
-  community.docker.docker_container:
-    name: "{{ open_webui_hostname }}"
-    labels:
-      description: "{{ open_webui_description }}"
-    image: "{{ open_webui_image }}"
-    restart_policy: unless-stopped
-    env:
+- name: Init {{ role_name }} env vars
+  ansible.builtin.set_fact:
+    open_webui_env:
       ENABLE_WEB_SEARCH: "{{ open_webui_web_search_enabled | string }}"
       WEB_SEARCH_PROVIDER: "ddgs"
       OAUTH_PROVIDER_NAME: "{{ open_webui_proivder_name }}"
@@ -25,8 +20,23 @@
       OAUTH_ROLES_CLAIM: roles
       OAUTH_ALLOWED_ROLES: access
       OAUTH_ADMIN_ROLES: admin
-      OPENAI_API_BASE_URL: "{{ open_webui_openapi_url }}"
-      OPENAI_API_KEY: "{{ open_webui_openapi_secret }}"
+
+- name: Append OpenAPI env vars
+  ansible.builtin.set_fact:
+    open_webui_env: "{{ open_webui_env | combine(item) }}"
+  with_items:
+    - OPENAI_API_BASE_URL: "{{ open_webui_openapi_url }}"
+    - OPENAI_API_KEY: "{{ open_webui_openapi_secret }}"
+  when: open_webui_openapi_url is defined
+
+- name: Start {{ role_name }} container {{ open_webui_hostname }}
+  community.docker.docker_container:
+    name: "{{ open_webui_hostname }}"
+    labels:
+      description: "{{ open_webui_description }}"
+    image: "{{ open_webui_image }}"
+    restart_policy: unless-stopped
+    env: "{{ open_webui_env }}"
     volumes: "{{ open_webui_volumes }}"
     ports: "{{ open_webui_ports }}"
     networks:
