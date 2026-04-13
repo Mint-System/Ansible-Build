@@ -13,6 +13,7 @@ Configure the role.
 loki_image: grafana/loki:3.3.2
 loki_hostname: loki01
 loki_description: log index for grafana # default: Loki
+loki_volume_name: loki_data01 # default: "{{ loki_hostname }}"
 loki_nginx_data_dir: /usr/share/nginx/proxies # default: "{{ nginx_data_dir }}/proxies"
 loki_data_dir: /usr/share/loki # default: "/usr/share/{{ loki_hostname }}"
 loki_requires_package: python2-passlib # default: python3-passlib

@@ -1,4 +1,11 @@
 ---
+- name: Include docker volume role
+  ansible.builtin.include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ loki_volume_name }}"
+  when: loki_volume_name is defined
+
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
     path: "{{ loki_data_dir }}"
@@ -21,6 +28,7 @@
     restart_policy: unless-stopped
     volumes:
       - "{{ loki_data_dir }}:/etc/loki"
+      - "{{ loki_volume_name }}:/loki"
     command: -config.file=/etc/loki/local-config.yml -config.expand-env=true
     networks:
       - name: "{{ docker_network_name }}"

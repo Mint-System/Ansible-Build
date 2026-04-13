@@ -1,6 +1,7 @@
 ---
 loki_requires_package: python3-passlib
 loki_description: Loki
+loki_volume_name: "{{ loki_hostname }}"
 loki_data_dir: /usr/share/{{ loki_hostname }}
 loki_nginx_data_dir: "{{ nginx_data_dir }}/proxies"
 loki_basic_auth_username: loki
