@@ -1,12 +1,12 @@
 {
     "name": "{{ item.display_name }}",
     "summary": """
-        Generated module to configure {{ item.model }}.
+        Generated module with data for {{ item.model }}.
     """,
-    "author": "Mint System GmbH, Odoo Community Association (OCA)",
-    "website": "https://www.mint-system.ch",
+    "author": "Mint System GmbH",
+    "website": "https://www.mint-system.ch/",
     "category": "Technical",
-    "version": "1.0",
+    "version": "{{ item.version }}",
     "license": "AGPL-3",
     "depends": ["{{ item.depends | default('base') }}"],
     "data": [
@@ -14,4 +14,5 @@
     ],
     "installable": True,
     "application": False,
+    "auto_install": False,
 }

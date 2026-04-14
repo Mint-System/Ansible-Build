@@ -13,13 +13,7 @@
     depends: "{{ item.depends | default('base') }}"
   loop: "{{ odoo_data }}"
 
-- name: Copy data file
-  ansible.builtin.template:
-    src: data.xml
-    dest: "{{ odoo_data_dir }}/addons/data/{{ item.module_name }}/data/{{ item.model }}.data.xml"
-  loop: "{{ odoo_data }}"
-
-- name: Ensure {{ role_name }} description dir exists
+- name: Ensure description dir exists
   ansible.builtin.file:
     path: "{{ odoo_data_dir }}/addons/data/{{ item.module_name }}/static/description/"
     state: directory
@@ -29,4 +23,16 @@
   ansible.builtin.copy:
     src: icon.png
     dest: "{{ odoo_data_dir }}/addons/data/{{ item.module_name }}/static/description/icon.png"
+  loop: "{{ odoo_data }}"
+
+- name: Copy init file
+  ansible.builtin.copy:
+    src: __init__.py
+    dest: "{{ odoo_data_dir }}/addons/data/{{ item.module_name }}/__init__.py"
+  loop: "{{ odoo_data }}"
+
+- name: Copy data file
+  ansible.builtin.template:
+    src: data.xml
+    dest: "{{ odoo_data_dir }}/addons/data/{{ item.module_name }}/data/{{ item.model }}.data.xml"
   loop: "{{ odoo_data }}"

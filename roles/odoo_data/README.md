@@ -14,6 +14,7 @@ odoo_data:
   - id: ir_mail_server_1
     module_name: ir_mail_server_data
     display_name: "Mail Server Example"
+    version: 19.0.1.0.0
     model: ir.mail_server
     fields:
       name: Infomaniak Outgoing
@@ -28,6 +29,7 @@ odoo_data:
   - id: provider_mint_system
     module_name: auth_oauth_provider_data
     display_name: "Login Mint System"
+    version: 18.0.1.0.0
     model: auth.oauth.provider
     depends: auth_oauth_keycloak
     fields:
