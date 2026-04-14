@@ -34,5 +34,5 @@
 - name: Copy data file
   ansible.builtin.template:
     src: data.xml
-    dest: "{{ odoo_data_dir }}/addons/data/{{ item.module_name }}/data/{{ item.model }}.data.xml"
+    dest: "{{ odoo_data_dir }}/addons/data/{{ item.module_name }}/data/data.xml"
   loop: "{{ odoo_data }}"

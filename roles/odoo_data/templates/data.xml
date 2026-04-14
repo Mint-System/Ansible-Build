@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="{{ item.noupdate | default(1) }}">
-
-  <record id="{{ item.id }}" model="{{ item.model }}">
-  {% for item in (item.fields | dict2items) %}
-
-    {% if item.value is mapping %}
-      <field name="{{ item.key }}" eval="{{ item.value.value }}"/>
-    {% else %}
-    <field name="{{ item.key }}">{{ item.value }}</field>
-    {% endif %}
-
-  {% endfor %}
+  {% for record in item.records -%}
+  <record id="{{ record.id }}" model="{{ record.model }}">
+    {% for field in (record.fields | dict2items) -%}
+    {% if field.value is mapping -%}
+    <field name="{{ field.key }}" {{ field.value.attribute }}="{{ field.value.value }}"/>
+    {% else -%}
+    <field name="{{ field.key }}">{{ field.value }}</field>
+    {% endif -%}
+    {% endfor -%}
   </record>
-
+  {% endfor -%}
 </odoo>
