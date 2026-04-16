@@ -72,3 +72,35 @@
 - name: Fix file permission after copy back
   ansible.builtin.command: docker exec -u root {{ collabora_code_hostname }} chown cool:cool /etc/coolwsd/coolwsd.xml
   notify: Restart {{ role_name }} container
+
+# - name: Set remote_font_config.url
+#   ansible.builtin.command: >
+#     docker exec {{ collabora_code_hostname }} coolconfig set remote_font_config.url "{{ collabora_code_remote_font_config_url }}"
+#   when: collabora_code_remote_font_config_url is defined
+#   changed_when: false
+
+# - name: Set alias_groups.mode to "groups"
+#   ansible.builtin.command: >
+#     docker exec {{ collabora_code_hostname }} coolconfig set alias_groups.mode "groups"
+#   changed_when: false
+
+# - name: Set alias_groups.group.host to {{ collabora_code_host }}
+#   ansible.builtin.command: >
+#     docker exec {{ collabora_code_hostname }} coolconfig set alias_groups.group.host "{{ collabora_code_host }}"
+#   changed_when: false
+
+# - name: Set alias_groups.group.host.allow to "true"
+#   ansible.builtin.command: >
+#     docker exec {{ collabora_code_hostname }} coolconfig set alias_groups.group.host.allow "true"
+#   changed_when: false
+
+# - name: Set alias_groups.group.alias to {{ collabora_code_alias1 }}
+#   ansible.builtin.command: >
+#     docker exec {{ collabora_code_hostname }} coolconfig set alias_groups.group.alias "{{ collabora_code_alias1 }}"
+#   when: collabora_code_alias1 is defined and collabora_code_alias1 | trim != ''
+#   changed_when: false
+
+# - name: Restart {{ role_name }} container
+#   community.docker.docker_container:
+#     name: "{{ collabora_code_hostname }}"
+#     restart: true
