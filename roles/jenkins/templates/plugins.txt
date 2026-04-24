@@ -17,4 +17,5 @@ mailer:latest
 docker-plugin:latest
 docker-workflow:latest
 ssh-agent:latest
+oic-auth:latest
 {{ jenkins_plugins }}
