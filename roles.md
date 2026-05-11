@@ -46,6 +46,7 @@
 | ![innernet logo](/logos/innernet.png)  | [innernet](roles/innernet/README.md) | system | Setup WireGuard based internal network. |
 | ![jenkins logo](/logos/jenkins.png)  | [jenkins](roles/jenkins/README.md) | application | Deploy Jenkins container. |
 | ![k3s logo](/logos/k3s.png)  | [k3s](roles/k3s/README.md) | system | Deploy Kubernetes cluster with K3s. |
+| ![kernel logo](/logos/kernel.png)  | [kernel](roles/kernel/README.md) | system | Manage kernel module blacklisting. |
 | ![keycloak_client logo](/logos/keycloak_client.png)  | [keycloak_client](roles/keycloak_client/README.md) | service | Configure Keycloak client. |
 | ![keycloak logo](/logos/keycloak.png)  | [keycloak](roles/keycloak/README.md) | service | Deploy Keycloak container. |
 | ![locale logo](/logos/locale.png)  | [locale](roles/locale/README.md) | environment | Set system locale. |

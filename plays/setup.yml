@@ -24,6 +24,8 @@
       tags: locale
     - role: cargo
       tags: cargo
+    - role: kernel
+      tags: kernel
     - role: docker
       tags: docker
     - role: iam

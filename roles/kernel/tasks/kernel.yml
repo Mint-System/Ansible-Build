@@ -1,0 +1,32 @@
+---
+- name: Create modprobe.d configuration
+  ansible.builtin.copy:
+    dest: /etc/modprobe.d/{{ item.name }}.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      blacklist {{ item.name }}
+      install {{ item.name }} /bin/true
+  loop: "{{ kernel_blacklist }}"
+  when: kernel_blacklist is defined
+
+- name: Update module dependencies
+  ansible.builtin.command:
+    cmd: depmod -a
+  changed_when: true
+  become: true
+
+- name: Update initramfs on Debian/Ubuntu
+  ansible.builtin.command:
+    cmd: update-initramfs -u
+  when: ansible_os_family == 'Debian'
+  changed_when: true
+  become: true
+
+- name: Update initramfs on RHEL/Fedora
+  ansible.builtin.command:
+    cmd: dracut -f
+  when: ansible_os_family in ['RedHat', 'CentOS', 'Fedora', 'Rocky', 'AlmaLinux']
+  changed_when: true
+  become: true
