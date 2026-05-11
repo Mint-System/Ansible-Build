@@ -1,3 +1,7 @@
+---
+kind: system
+---
+
 <img src="/logos/resolv.png" alt="resolv logo" width="100" height="100">
 
 # resolv role

@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/nextcloud_apps.png" alt="nextcloud_apps logo" width="100" height="100">
 
 # Nextcloud apps role

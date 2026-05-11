@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/onlyoffice_documentserver.png" alt="onlyoffice_documentserver logo" width="100" height="100">
 
 # OnlyOffice Document Server role

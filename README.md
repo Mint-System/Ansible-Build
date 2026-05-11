@@ -52,6 +52,13 @@ Create an inventory folder and configure a role.
 
 ### Roles
 
+All Ansible roles are separted into 
+
+- **system**: OS runtime (docker, network, internet-related)
+- **environment**: OS config (motd, packages, timezone, locale, etc.)
+- **service**: Middleware/supporting services
+- **application**: End-user applications
+
 See [roles](./roles.md) for details or list the roles with:
 
 ```bash

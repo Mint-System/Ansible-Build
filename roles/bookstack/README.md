@@ -1,4 +1,9 @@
+---
+kind: application
+---
+
 <img src="/logos/bookstack.png" alt="bookstack logo" width="100" height="100">
+
 
 # BookStack role
 

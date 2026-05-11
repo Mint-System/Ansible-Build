@@ -1,4 +1,9 @@
+---
+kind: system
+---
+
 <img src="/logos/certbot.png" alt="certbot logo" width="100" height="100">
+
 
 # Certbot role
 

@@ -1,3 +1,7 @@
+---
+kind: system
+---
+
 <img src="/logos/infomaniak.png" alt="infomaniak logo" width="100" height="100">
 
 # Infomaniak role

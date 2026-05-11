@@ -1,4 +1,8 @@
-<img src="/logos/open_webui.png" alt="open-webui logo" width="100" height="100">
+---
+kind: application
+---
+
+<img src="/logos/open_webui.png" alt="open_webui logo" width="100" height="100">
 
 # Open WebUI role
 

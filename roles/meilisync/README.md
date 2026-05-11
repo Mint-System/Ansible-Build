@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/meilisync.png" alt="meilisync logo" width="100" height="100">
 
 # Meilisync role

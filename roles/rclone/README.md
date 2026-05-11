@@ -1,3 +1,7 @@
+---
+kind: environment
+---
+
 <img src="/logos/rclone.png" alt="rclone logo" width="100" height="100">
 
 # RClone role

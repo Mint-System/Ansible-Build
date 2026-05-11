@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/pgbouncer.png" alt="pgbouncer logo" width="100" height="100">
 
 # PgBouncer role

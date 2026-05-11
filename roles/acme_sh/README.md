@@ -1,6 +1,10 @@
+---
+kind: system
+---
+
 <img src="/logos/acme_sh.png" alt="acme_sh logo" width="100" height="100">
 
-# Acme.sh role
+
 
 Issue & renew the free certificates.
 

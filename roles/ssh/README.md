@@ -1,3 +1,7 @@
+---
+kind: environment
+---
+
 <img src="/logos/ssh.png" alt="ssh logo" width="100" height="100">
 
 # SSH role

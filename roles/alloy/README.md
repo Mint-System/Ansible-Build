@@ -1,6 +1,10 @@
+---
+kind: service
+---
+
 <img src="/logos/alloy.png" alt="alloy logo" width="100" height="100">
 
-# Alloy role
+
 
 Deploy Alloy container.
 

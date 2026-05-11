@@ -1,4 +1,9 @@
+---
+kind: service
+---
+
 <img src="/logos/caddy.png" alt="caddy logo" width="100" height="100">
+
 
 # Caddy role
 

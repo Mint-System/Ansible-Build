@@ -426,21 +426,24 @@ list-hosts() {
 }
 
 list-roles() {
-    local role_width=30
-    local description_width=70
-    local column="| %-${role_width}s | %-${description_width}s |\n"
-    printf "$column" 'Role' 'Description'
-    echo "|$(printf '%*s' $((role_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((description_width + 2)) '' | tr ' ' '-')|"
+    local role_width=25
+    local kind_width=15
+    local description_width=50
+    local column="| %-${role_width}s | %-${kind_width}s | %-${description_width}s |\n"
+    printf "$column" 'Role' 'Kind' 'Description'
+    echo "|$(printf '%*s' $((role_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((kind_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((description_width + 2)) '' | tr ' ' '-')|"
 
     local md_files
     md_files=$(find roles -name 'README.md' | sort)
     local readme
     for readme in $md_files; do
         local role
-        role=$(basename $(dirname "$readme"))
+        role=$(basename "$(dirname "$readme")")
+        local kind
+        kind=$(grep "^kind:" "$readme" | sed 's/kind: //')
         local description
-        description=$(sed '5q;d' "$readme")
-        printf "$column" "$role" "$description"
+        description=$(sed -n '5,$p' "$readme" | grep -v '^$' | grep -v '<img' | grep -v '^#' | head -1)
+        printf "$column" "$role" "$kind" "$description"
     done
 }
 
@@ -679,16 +682,18 @@ docs() {
     echo "Update roles.md"
     echo "# Roles" > "roles.md"
     echo "" >> "roles.md"
-    echo "| Logo | Role | Description |" >> "roles.md"
-    echo "| --- | --- | --- |" >> "roles.md"
+    echo "| Logo | Role | Kind | Description |" >> "roles.md"
+    echo "| --- | --- | --- | --- |" >> "roles.md"
 
     local md_files=$(find roles -name 'README.md' | sort)
     for readme in $md_files; do
         local role
-        role=$(basename $(dirname "$readme"))
+        role=$(basename "$(dirname "$readme")")
+        local kind
+        kind=$(grep "^kind:" "$readme" | sed 's/kind: //')
         local description
-        description=$(sed '5q;d' "$readme")
-        echo "| ![$role logo](/logos/$role.png)  | [$role]($readme) | $description |" >> "roles.md"
+        description=$(sed -n '5,$p' "$readme" | grep -v '^$' | grep -v '<img' | grep -v '^#' | head -1)
+        echo "| ![$role logo](/logos/$role.png)  | [$role]($readme) | $kind | $description |" >> "roles.md"
     done
 }
 
@@ -700,14 +705,38 @@ update-roles-doc() {
 
         echo "Update README of $role role."
 
+        local kind
+        kind=$(grep "^kind:" "$readme" | sed 's/kind: //')
         local logo_line="<img src=\"/logos/$role.png\" alt=\"$role logo\" width=\"100\" height=\"100\">"
         local tmpfile
         tmpfile=$(mktemp)
-        {
-            echo "$logo_line"
-            echo ""
-            cat "$readme"
-        } > "$tmpfile" && mv "$tmpfile" "$readme"
+        
+        # Check if README already starts with frontmatter
+        if head -1 "$readme" | grep -q "^---$"; then
+            # Already has frontmatter at top, rebuild with single logo
+            {
+                echo "---"
+                echo "kind: $kind"
+                echo "---"
+                echo ""
+                echo "$logo_line"
+                echo ""
+                # Get content after frontmatter (skip first 5 lines), remove duplicate logo
+                tail -n +6 "$readme" | grep -v "^<img src"
+            } > "$tmpfile" && mv "$tmpfile" "$readme"
+        else
+            # No frontmatter at top, add it and remove duplicates
+            {
+                echo "---"
+                echo "kind: $kind"
+                echo "---"
+                echo ""
+                echo "$logo_line"
+                echo ""
+                # Skip first 8 lines (logo, blank, frontmatter 3 lines, blank, logo, blank)
+                tail -n +9 "$readme"
+            } > "$tmpfile" && mv "$tmpfile" "$readme"
+        fi
     done
 }
 

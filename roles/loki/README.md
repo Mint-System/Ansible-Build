@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/loki.png" alt="loki logo" width="100" height="100">
 
 # Loki role

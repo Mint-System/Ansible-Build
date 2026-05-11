@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/odoo_repos.png" alt="odoo_repos logo" width="100" height="100">
 
 # Odoo Repos role

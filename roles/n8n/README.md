@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/n8n.png" alt="n8n logo" width="100" height="100">
 
 # N8N role

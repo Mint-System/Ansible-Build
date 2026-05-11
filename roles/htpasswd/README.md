@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/htpasswd.png" alt="htpasswd logo" width="100" height="100">
 
 # .htpasswd role

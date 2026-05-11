@@ -1,3 +1,7 @@
+---
+kind: environment
+---
+
 <img src="/logos/restic.png" alt="restic logo" width="100" height="100">
 
 # Restic role

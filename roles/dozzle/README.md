@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/dozzle.png" alt="dozzle logo" width="100" height="100">
 
 # Dozzle role

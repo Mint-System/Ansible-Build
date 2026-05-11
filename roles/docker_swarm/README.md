@@ -1,3 +1,7 @@
+---
+kind: system
+---
+
 <img src="/logos/docker_swarm.png" alt="docker_swarm logo" width="100" height="100">
 
 # Docker Swarm role

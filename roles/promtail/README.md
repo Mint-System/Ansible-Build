@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/promtail.png" alt="promtail logo" width="100" height="100">
 
 # Promtail role

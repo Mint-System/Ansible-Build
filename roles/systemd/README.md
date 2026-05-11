@@ -1,3 +1,7 @@
+---
+kind: environment
+---
+
 <img src="/logos/systemd.png" alt="systemd logo" width="100" height="100">
 
 # systemd role

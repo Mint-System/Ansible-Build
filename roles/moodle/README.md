@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/moodle.png" alt="moodle logo" width="100" height="100">
 
 # Moodle role

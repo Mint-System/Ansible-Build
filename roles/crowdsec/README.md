@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/crowdsec.png" alt="crowdsec logo" width="100" height="100">
 
 # CrowdSec role

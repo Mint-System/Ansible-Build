@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/pushgateway.png" alt="pushgateway logo" width="100" height="100">
 
 # Pushgateway role

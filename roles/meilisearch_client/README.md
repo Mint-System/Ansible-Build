@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/meilisearch_client.png" alt="meilisearch_client logo" width="100" height="100">
 
 # Meilisearch Client role

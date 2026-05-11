@@ -1,3 +1,7 @@
+---
+kind: environment
+---
+
 <img src="/logos/timezone.png" alt="timezone logo" width="100" height="100">
 
 # Timezone role

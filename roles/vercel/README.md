@@ -1,3 +1,7 @@
+---
+kind: system
+---
+
 <img src="/logos/vercel.png" alt="vercel logo" width="100" height="100">
 
 # Vercel role

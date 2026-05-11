@@ -1,6 +1,10 @@
-<img src="/logos/autossh.png" alt="ssh logo" width="100" height="100">
+---
+kind: system
+---
 
-# Autossh role
+<img src="/logos/autossh.png" alt="autossh logo" width="100" height="100">
+
+
 
 Configure Autossh tunnels.
 

@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/gitea.png" alt="gitea logo" width="100" height="100">
 
 # Gitea role

@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/nginx_waf.png" alt="nginx_waf logo" width="100" height="100">
 
 # Nginx WAF role

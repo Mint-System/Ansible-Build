@@ -1,3 +1,7 @@
+---
+kind: environment
+---
+
 <img src="/logos/etc_hosts.png" alt="etc_hosts logo" width="100" height="100">
 
 # etc Hosts role

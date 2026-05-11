@@ -1,3 +1,7 @@
+---
+kind: environment
+---
+
 <img src="/logos/iam.png" alt="iam logo" width="100" height="100">
 
 # IAM role

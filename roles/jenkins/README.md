@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/jenkins.png" alt="jenkins logo" width="100" height="100">
 
 # Jenkins role

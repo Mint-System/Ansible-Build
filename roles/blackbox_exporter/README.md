@@ -1,4 +1,9 @@
+---
+kind: service
+---
+
 <img src="/logos/blackbox_exporter.png" alt="blackbox_exporter logo" width="100" height="100">
+
 
 # Blackbox exporter role
 

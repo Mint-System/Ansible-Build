@@ -1,3 +1,7 @@
+---
+kind: system
+---
+
 <img src="/logos/docker_network.png" alt="docker_network logo" width="100" height="100">
 
 # Docker Network role

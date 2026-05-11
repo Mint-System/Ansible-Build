@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/node_exporter.png" alt="node_exporter logo" width="100" height="100">
 
 # Node Exporter role

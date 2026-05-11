@@ -1,4 +1,9 @@
-<img src="/logos/cleanup.png" alt="clean logo" width="100" height="100">
+---
+kind: environment
+---
+
+<img src="/logos/cleanup.png" alt="cleanup logo" width="100" height="100">
+
 
 # Cleanup role
 

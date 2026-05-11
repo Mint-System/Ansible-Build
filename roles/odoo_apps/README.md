@@ -1,3 +1,7 @@
+---
+kind: application
+---
+
 <img src="/logos/odoo_apps.png" alt="odoo_apps logo" width="100" height="100">
 
 # Odoo Apps role

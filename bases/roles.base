@@ -1,0 +1,13 @@
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.path.startsWith("roles")
+        - file.name == "README"
+    order:
+      - file.name
+      - file.path
+      - kind
+    columnSize:
+      file.name: 555

@@ -1,3 +1,7 @@
+---
+kind: service
+---
+
 <img src="/logos/keycloak_client.png" alt="keycloak_client logo" width="100" height="100">
 
 # Keycloak Client role
