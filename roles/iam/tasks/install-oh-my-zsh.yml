@@ -22,6 +22,7 @@
     repo: https://github.com/ohmyzsh/ohmyzsh
     dest: /home/{{ item.username }}/.oh-my-zsh
     version: master
+    force: true
   become: true
   become_user: "{{ item.username }}"
   when: item.shell is defined and item.shell == '/bin/zsh' and item.hosts is defined and inventory_hostname_short in item.hosts
