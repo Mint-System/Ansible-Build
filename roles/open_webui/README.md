@@ -51,3 +51,11 @@ By default the Keycloak client roles are mapped to the Open WebUI groups:
 
 - access: User
 - admin: Admin
+
+### Model Parameters
+
+Go to _Admin Panel > Settings > Models_. Then click on the top right on _Settings_.
+
+Unfold the _Model Parameters_ list. It is recommended to set these options:
+
+- Function Calling: Native
