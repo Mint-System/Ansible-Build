@@ -20,6 +20,7 @@
       OAUTH_ROLES_CLAIM: roles
       OAUTH_ALLOWED_ROLES: access
       OAUTH_ADMIN_ROLES: admin
+      USER_PERMISSIONS_CHAT_ALLOW_PUBLIC_SHARING: "true"
 
 - name: Append OpenAPI env vars
   ansible.builtin.set_fact:
