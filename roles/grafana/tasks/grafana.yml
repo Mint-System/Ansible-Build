@@ -91,5 +91,3 @@
       - "{{ grafana_data_dir }}/dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ grafana_hostname }}|{{ role_name }}"

@@ -69,5 +69,3 @@
       - "{{ crowdsec_data_dir }}/parsers:/etc/crowdsec/parsers/"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ crowdsec_hostname }}|{{ role_name }}"

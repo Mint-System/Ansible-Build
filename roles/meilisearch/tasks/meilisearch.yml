@@ -17,6 +17,4 @@
       - "{{ meilisearch_volume_name }}:/meili_data"
     ports: "{{ meilisearch_ports }}"
     network_mode: "{{ meilisearch_network_mode }}"
-    log_options:
-      tag: "{{ meilisearch_hostname }}|{{ role_name }}"
     etc_hosts: "{{ meilisearch_etc_hosts }}"

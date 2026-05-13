@@ -1,6 +1,4 @@
 ---
-galaxy_info:
-  kind: environment
 dependencies:
   - role: docker_volume
     tags:

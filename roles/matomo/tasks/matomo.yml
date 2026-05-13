@@ -24,8 +24,6 @@
       - "{{ matomo_volume_name }}:/var/www/html"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ matomo_hostname }}|{{ role_name }}"
 
 - name: Cron job to run {{ role_name }} background jobs
   ansible.builtin.cron:

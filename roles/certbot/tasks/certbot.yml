@@ -62,8 +62,6 @@
       - "{{ certbot_data_dir }}/www/:/var/www/certbot/"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ nginx_hostname }}|{{ role_name }}"
   when: not nginx_container.exists and certbot_missing_certs is defined
 
 - name: Wait for proxy container

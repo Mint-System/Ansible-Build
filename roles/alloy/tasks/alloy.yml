@@ -29,5 +29,3 @@
     command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ alloy_hostname }}|{{ role_name }}"

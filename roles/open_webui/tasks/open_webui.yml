@@ -42,6 +42,4 @@
     ports: "{{ open_webui_ports }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ open_webui_hostname }}|{{ role_name }}"
     memory: "2048m"

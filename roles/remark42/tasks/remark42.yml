@@ -42,5 +42,3 @@
       - "{{ remark42_volume_name }}:/srv/var"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ remark42_hostname }}|{{ role_name }}"

@@ -25,5 +25,3 @@
       - 49160-49200:49160-49200/udp
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ coturn_hostname }}|{{ role_name }}"

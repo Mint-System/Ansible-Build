@@ -55,5 +55,3 @@
     networks:
       - name: "{{ docker_network_name }}"
     network_mode: bridge
-    log_options:
-      tag: "{{ nginx_hostname }}|{{ role_name }}"

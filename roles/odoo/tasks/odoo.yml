@@ -55,8 +55,6 @@
     volumes: "{{ odoo_volumes }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ odoo_hostname }}|{{ role_name }}"
     network_mode: bridge
     etc_hosts: "{{ odoo_etc_hosts }}"
     sysctls:

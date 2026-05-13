@@ -16,8 +16,6 @@
       - "{{ superset_volume_name }}:/app/superset_home"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ superset_hostname }}|{{ role_name }}"
 
 # - name: "Create {{ role_name }} users"
 #   command: docker exec "{{ superset_hostname }}" \

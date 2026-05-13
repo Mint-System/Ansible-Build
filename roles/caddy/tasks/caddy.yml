@@ -22,5 +22,3 @@
       - "{{ caddy_data_dir }}/Caddyfile:/etc/caddy/Caddyfile"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ caddy_hostname }}|{{ role_name }}"

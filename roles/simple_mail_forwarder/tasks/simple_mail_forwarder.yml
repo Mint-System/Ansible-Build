@@ -12,5 +12,3 @@
       - "25:25"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ simple_mail_forwarder_hostname }}|{{ role_name }}"

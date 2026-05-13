@@ -30,5 +30,3 @@
       - "{{ restic_server_backup_dir }}:/data"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ restic_server_hostname }}|{{ role_name }}"

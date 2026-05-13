@@ -41,5 +41,3 @@
       - "{{ moodle_volume_name }}:/bitnami/moodledata"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ moodle_hostname }}|{{ role_name }}"

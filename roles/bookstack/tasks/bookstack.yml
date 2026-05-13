@@ -29,5 +29,3 @@
       - "{{ bookstack_data_dir }}/storage:/var/www/bookstack/storage/uploads"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ bookstack_hostname }}|{{ role_name }}"

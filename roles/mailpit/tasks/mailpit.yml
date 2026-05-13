@@ -22,5 +22,3 @@
       - "{{ mailpit_data_dir }}/auth:/etc/mailpit/auth"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ mailpit_hostname }}|{{ role_name }}"

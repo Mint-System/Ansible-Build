@@ -30,5 +30,3 @@
     networks:
       - name: "{{ docker_network_name }}"
     etc_hosts: "{{ alertmanager_etc_hosts }}"
-    log_options:
-      tag: "{{ alertmanager_hostname }}|{{ role_name }}"

@@ -12,8 +12,6 @@
     command: --collector.textfile.directory=/host/var/tmp --path.rootfs=/host --collector.systemd
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ node_exporter_hostname }}|{{ role_name }}"
 
 - name: Copy {{ role_name }} scripts
   ansible.builtin.copy:

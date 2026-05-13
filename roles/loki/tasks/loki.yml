@@ -32,5 +32,3 @@
     command: -config.file=/etc/loki/local-config.yml -config.expand-env=true
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ loki_hostname }}|{{ role_name }}"

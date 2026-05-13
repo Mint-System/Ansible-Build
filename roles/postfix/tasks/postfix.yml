@@ -43,8 +43,6 @@
     ports: "{{ postfix_ports | default([]) }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ postfix_hostname }}|{{ role_name }}"
 
 - name: Get DKIM public key content
   ansible.builtin.command: cat {{ postfix_data_dir }}/{{ postfix_allowed_sender_domains }}.txt

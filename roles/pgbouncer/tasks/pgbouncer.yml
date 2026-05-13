@@ -28,5 +28,3 @@
     ports: "{{ pgbouncer_ports }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ pgbouncer_hostname }}|{{ role_name }}"

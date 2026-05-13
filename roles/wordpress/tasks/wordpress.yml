@@ -43,5 +43,3 @@
       - "{{ wordpress_data_dir }}/upload.ini:/usr/local/etc/php/conf.d/upload.ini"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ wordpress_hostname }}|{{ role_name }}"

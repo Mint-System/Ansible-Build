@@ -17,6 +17,4 @@
       TZ: "{{ metabase_timezone }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ item.hostname }}|{{ role_name }}"
   loop: "{{ metabase_configmap }}"

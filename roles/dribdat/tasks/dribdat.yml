@@ -75,5 +75,3 @@
       - "{{ dribdat_volume_name }}:/data"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ dribdat_hostname }}|{{ role_name }}"

@@ -20,8 +20,6 @@
       - "{{ mariadb_volume_name }}:/var/lib/mysql"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ mariadb_hostname }}|{{ role_name }}"
   when: mariadb_volume_name is defined
 
 - name: Copy backup scripts

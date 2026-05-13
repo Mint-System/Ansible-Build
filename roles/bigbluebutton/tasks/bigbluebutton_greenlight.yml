@@ -40,8 +40,6 @@
       - "{{ greenlight_port }}:80"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ greenlight_hostname }}|{{ role_name }}"
   register: start_greenlight_contaner
 
 - name: Copy greenlight nginx conf

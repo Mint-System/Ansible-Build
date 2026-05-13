@@ -11,5 +11,3 @@
     ports: "{{ ollama_ports | default([]) }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ ollama_hostname }}|{{ role_name }}"

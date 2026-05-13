@@ -36,5 +36,3 @@
       - "{{ jenkins_data_dir }}/jenkins.yml:/usr/share/jenkins/ref/jenkins.yml"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ jenkins_hostname }}|{{ role_name }}"

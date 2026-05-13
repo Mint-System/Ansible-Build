@@ -19,5 +19,3 @@
       COMMENTO_FORBID_NEW_OWNERS: "{{ commento_deny_signups }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ commento_hostname }}|{{ role_name }}"

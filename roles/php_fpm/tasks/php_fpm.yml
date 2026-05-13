@@ -17,5 +17,3 @@
     volumes: "{{ php_fpm_volumes }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ php_fpm_hostname }}|{{ role_name }}"

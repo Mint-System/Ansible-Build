@@ -11,5 +11,3 @@
     volumes: "{{ dind_volumes | default([]) }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ dind_hostname }}|{{ role_name }}"

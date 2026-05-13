@@ -1,6 +1,4 @@
 ---
-galaxy_info:
-  kind: service
 dependencies:
   - role: keycloak
     tags:

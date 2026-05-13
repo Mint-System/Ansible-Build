@@ -37,5 +37,3 @@
       HOSTNAME: "{{ nginx_waf_hostname }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ nginx_waf_hostname }}|{{ role_name }}"

@@ -31,8 +31,6 @@
       - "{{ mysql_data_dir }}/my.cnf:/etc/mysql/conf.d/my.cnf"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ mysql_hostname }}|{{ role_name }}"
     memory: "{{ mysql_memory_limit }}"
     memory_swap: "{{ mysql_memory_limit * 2 }}"
   when: mysql_volume_name is defined

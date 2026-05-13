@@ -28,5 +28,3 @@
     command: start
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ keycloak_hostname }}|{{ role_name }}"

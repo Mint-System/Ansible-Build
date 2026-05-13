@@ -24,5 +24,3 @@
       - "{{ blackbox_exporter_data_dir }}:/etc/blackbox_exporter"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ blackbox_exporter_hostname }}|{{ role_name }}"

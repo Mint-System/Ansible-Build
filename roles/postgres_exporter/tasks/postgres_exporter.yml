@@ -19,5 +19,3 @@
       - "{{ postgres_exporter_data_dir }}:/data"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ postgres_exporter_hostname }}|{{ role_name }}"

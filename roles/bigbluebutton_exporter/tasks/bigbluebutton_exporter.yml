@@ -24,5 +24,3 @@
       - /var/bigbluebutton:/var/bigbluebutton:ro
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ bigbluebutton_exporter_hostname }}|{{ role_name }}"

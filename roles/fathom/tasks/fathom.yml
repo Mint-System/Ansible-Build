@@ -14,5 +14,3 @@
       - "{{ fathom_volume_name }}:/app"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ fathom_hostname }}|{{ role_name }}"

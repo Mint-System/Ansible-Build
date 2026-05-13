@@ -21,5 +21,3 @@
       - "{{ openldap_data_dir }}/ldif:/usr/share/openldap/ldif"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ openldap_hostname }}|{{ role_name }}"

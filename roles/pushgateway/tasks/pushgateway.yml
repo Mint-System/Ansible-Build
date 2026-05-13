@@ -24,5 +24,3 @@
       - name: "{{ docker_network_name }}"
     network_mode: bridge
     etc_hosts: "{{ pushgateway_etc_hosts }}"
-    log_options:
-      tag: "{{ pushgateway_hostname }}|{{ role_name }}"

@@ -40,5 +40,3 @@
       - /etc/localtime:/etc/localtime:ro
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ gitea_hostname }}|{{ role_name }}"

@@ -18,5 +18,3 @@
       - "{{ clamav_port }}:3310"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ clamav_hostname }}|{{ role_name }}"

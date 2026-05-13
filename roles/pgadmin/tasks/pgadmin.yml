@@ -32,5 +32,3 @@
       - "{{ pgadmin_volume_name }}:/var/lib/pgadmin"
       - "{{ pgadmin_data_dir }}/servers.json:/pgadmin4/servers.json"
     network_mode: "{{ pgadmin_network_mode }}"
-    log_options:
-      tag: "{{ pgadmin_hostname }}|{{ role_name }}"

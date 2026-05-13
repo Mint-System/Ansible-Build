@@ -74,8 +74,6 @@
     networks:
       - name: "{{ docker_network_name }}"
     etc_hosts: "{{ nextcloud_etc_hosts }}"
-    log_options:
-      tag: "{{ nextcloud_hostname }}|{{ role_name }}"
   register: start_nextcloud_container
 
 - name: Info about upgrades

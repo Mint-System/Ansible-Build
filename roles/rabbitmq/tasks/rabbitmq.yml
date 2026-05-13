@@ -23,5 +23,3 @@
     ports: "{{ rabbitmq_ports | default([]) }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ rabbitmq_hostname }}|{{ role_name }}"

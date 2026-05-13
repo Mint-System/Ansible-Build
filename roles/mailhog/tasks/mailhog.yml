@@ -21,5 +21,3 @@
       - "{{ mailhog_data_dir }}/auth:/etc/mailhog/auth"
     networks:
       - name: "{{ docker_network_name }}"
-    log_options:
-      tag: "{{ mailhog_hostname }}|{{ role_name }}"
