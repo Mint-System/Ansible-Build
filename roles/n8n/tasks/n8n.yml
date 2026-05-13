@@ -42,9 +42,6 @@
       - "{{ item.hostname }}:/home/node/"
       - "/usr/share/{{ item.hostname }}:/mnt/data/"
     network_mode: "{{ n8n_network_mode }}"
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ n8n_hostname }}|{{ role_name }}"
   loop: "{{ n8n_configmap }}"

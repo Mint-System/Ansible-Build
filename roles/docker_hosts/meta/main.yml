@@ -1,4 +1,5 @@
 ---
+kind: environment
 dependencies:
   - role: docker
     tags:

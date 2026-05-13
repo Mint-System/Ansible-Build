@@ -31,10 +31,7 @@
       - "{{ mysql_data_dir }}/my.cnf:/etc/mysql/conf.d/my.cnf"
     networks:
       - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ mysql_hostname }}|{{ role_name }}"
     memory: "{{ mysql_memory_limit }}"
     memory_swap: "{{ mysql_memory_limit * 2 }}"

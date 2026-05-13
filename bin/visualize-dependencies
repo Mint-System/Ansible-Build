@@ -22,22 +22,34 @@ def find_meta_files(base_path):
     print(f"Found {len(meta_files)} main.yml files")
     return meta_files
 
+def extract_role_kind(meta_path):
+    """Extract the kind from meta/main.yml file."""
+    try:
+        with open(meta_path, 'r', encoding='utf-8') as f:
+            meta_dict = yaml.safe_load(f)
+            if meta_dict and 'kind' in meta_dict:
+                return meta_dict['kind']
+    except Exception as e:
+        print(f"Error reading kind from {meta_path}: {str(e)}")
+    return None
+
 def extract_dependencies(meta_path):
     try:
         with open(meta_path, 'r', encoding='utf-8') as f:
             meta_dict = yaml.safe_load(f)
             role_name = os.path.basename(os.path.dirname(os.path.dirname(meta_path)))
             dependencies = []
+            kind = extract_role_kind(meta_path)
             if meta_dict and 'dependencies' in meta_dict:
                 for dep in meta_dict['dependencies']:
                     if isinstance(dep, dict):
                         dependencies.append(dep.get('role', ''))
                     elif isinstance(dep, str):
                         dependencies.append(dep)
-            return role_name, dependencies
+            return role_name, dependencies, kind
     except Exception as e:
         print(f"Error parsing {meta_path}: {str(e)}")
-        return None, []
+        return None, [], None
 
 def find_all_roles(roles_path):
     roles = []
@@ -60,9 +72,11 @@ def build_graph(roles_path):
     for role in all_roles:
         G.add_node(role)
     
+    # Store kind information in node attributes
     for meta_file in meta_files:
-        role_name, depends = extract_dependencies(meta_file)
+        role_name, depends, kind = extract_dependencies(meta_file)
         if role_name:
+            G.nodes[role_name]['kind'] = kind
             for dep in depends:
                 if dep:
                     G.add_edge(role_name, dep)
@@ -72,16 +86,27 @@ def build_graph(roles_path):
 
 def generate_visjs_html(G, output_file='tmp/ansible-role-dependencies.html'):
     """Generate a self-contained HTML with Vis.js visualization."""
+    # Color mapping for kinds
+    kind_colors = {
+        'system': '#4CAF50',       # Green
+        'service': '#2196F3',      # Blue
+        'application': '#FF9800',  # Orange
+        'environment': '#A1887F',  # Light brown/beige for black text
+    }
+    
     nodes = []
     for node in G.nodes():
-        has_dependencies = G.out_degree(node) > 0
+        kind = G.nodes[node].get('kind', None)
+        color = kind_colors.get(kind, '#9E9E9E')  # Default gray if no kind
+        
         nodes.append({
             'id': node,
             'label': node,
-            'color': '#4CAF50' if has_dependencies else '#9E9E9E',
+            'color': color,
             'shape': 'box',
             'margin': 10,
-            'font': {'size': 14}
+            'font': {'size': 14, 'color': '#000000'},
+            'kind': kind or 'unknown'
         })
     
     edges = [{'from': u, 'to': v, 'arrows': 'to'} for u, v in G.edges()]
@@ -148,6 +173,37 @@ def generate_visjs_html(G, output_file='tmp/ansible-role-dependencies.html'):
             margin-bottom: 8px;
             min-height: 16px;
         }
+        #legend-panel {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        #legend-panel h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #333;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
     </style>
 </head>
 <body>
@@ -160,6 +216,16 @@ def generate_visjs_html(G, output_file='tmp/ansible-role-dependencies.html'):
         </div>
         <div id="search-results"></div>
         <div id="node-info">Click on any role</div>
+    </div>
+    <div id="legend-panel">
+        <h4>Role Kind</h4>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background:#4CAF50"></div>system</div>
+            <div class="legend-item"><div class="legend-color" style="background:#2196F3"></div>service</div>
+            <div class="legend-item"><div class="legend-color" style="background:#FF9800"></div>application</div>
+            <div class="legend-item"><div class="legend-color" style="background:#A1887F"></div>environment</div>
+            <div class="legend-item"><div class="legend-color" style="background:#9E9E9E"></div>other</div>
+        </div>
     </div>
     <div id="network"></div>
     <script>
@@ -248,11 +314,14 @@ def generate_visjs_html(G, output_file='tmp/ansible-role-dependencies.html'):
         network.on('click', function(params) {
             if (params.nodes.length) {
                 const nodeId = params.nodes[0];
+                const nodeData = allNodes.find(n => n.id === nodeId);
+                const kind = nodeData ? nodeData.kind : 'unknown';
                 const dependents = network.getConnectedNodes(nodeId, 'to');
                 const dependencies = network.getConnectedNodes(nodeId, 'from');
                 
                 document.getElementById('node-info').innerHTML = `
                     <strong>${nodeId}</strong><br><br>
+                    <strong>Kind:</strong> ${kind}<br><br>
                     <strong>Depends on:</strong> ${dependents.length} roles<br>
                     ${dependents.join(', ') || 'None'}<br><br>
                     <strong>Required by:</strong> ${dependencies.length} roles<br>
@@ -270,9 +339,36 @@ def generate_visjs_html(G, output_file='tmp/ansible-role-dependencies.html'):
 
 def generate_mermaid_file(G, output_file='tmp/ansible-role-dependencies.mmd'):
     """Generate a Mermaid file from the dependency graph."""
+    # Color mapping for kinds
+    kind_colors = {
+        'system': '#4CAF50',       # Green
+        'service': '#2196F3',      # Blue
+        'application': '#FF9800',  # Orange
+        'environment': '#9C27B0',  # Purple
+    }
+    
     lines = ["graph TD"]
+    
+    # Add nodes with kind labels and colors
+    for node in G.nodes():
+        kind = G.nodes[node].get('kind', None)
+        if kind:
+            lines.append(f"    {node}[\"{node}\\n({kind})\"]:::{kind}")
+        else:
+            lines.append(f"    {node}[\"{node}\"]")
+    
+    # Add edges
     for u, v in G.edges():
         lines.append(f"    {u} --> {v}")
+    
+    # Add class definitions for colors
+    lines.append("")
+    lines.append("    classDef system fill:#4CAF50,stroke:#2E7D32,color:#000;")
+    lines.append("    classDef service fill:#2196F3,stroke:#1565C0,color:#000;")
+    lines.append("    classDef application fill:#FF9800,stroke:#E65100,color:#000;")
+    lines.append("    classDef environment fill:#A1887F,stroke:#795548,color:#000;")
+    lines.append("    classDef other fill:#9E9E9E,stroke:#616161,color:#000;")
+    
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
     print(f"Mermaid diagram saved to {os.path.abspath(output_file)}")

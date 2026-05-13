@@ -1,9 +1,6 @@
 ---
+kind: environment
 dependencies:
-  - role: docker_network
-    tags:
-      - docker_network
-      - depends
   - role: docker_volume
     tags:
       - docker_volume

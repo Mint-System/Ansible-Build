@@ -21,10 +21,7 @@
       - "{{ collabora_code_port }}:9980"
     networks:
       - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ collabora_code_hostname }}|{{ role_name }}"
 
 # FIXME: It was not possible to mount /etc/coolwsd/coolwsd.xml from the container to the host

@@ -29,8 +29,5 @@
     command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
     networks:
       - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ alloy_hostname }}|{{ role_name }}"

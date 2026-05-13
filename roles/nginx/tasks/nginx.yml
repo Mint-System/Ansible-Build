@@ -55,8 +55,5 @@
     networks:
       - name: "{{ docker_network_name }}"
     network_mode: bridge
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ nginx_hostname }}|{{ role_name }}"

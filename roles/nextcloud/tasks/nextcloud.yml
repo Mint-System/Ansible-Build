@@ -74,10 +74,7 @@
     networks:
       - name: "{{ docker_network_name }}"
     etc_hosts: "{{ nextcloud_etc_hosts }}"
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ nextcloud_hostname }}|{{ role_name }}"
   register: start_nextcloud_container
 

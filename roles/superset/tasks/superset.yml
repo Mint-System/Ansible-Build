@@ -16,10 +16,7 @@
       - "{{ superset_volume_name }}:/app/superset_home"
     networks:
       - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ superset_hostname }}|{{ role_name }}"
 
 # - name: "Create {{ role_name }} users"

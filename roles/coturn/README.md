@@ -1,5 +1,5 @@
 ---
-kind: application
+kind: service
 ---
 
 <img src="/logos/coturn.png" alt="coturn logo" width="100" height="100">

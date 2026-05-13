@@ -1,4 +1,5 @@
 ---
+kind: service
 dependencies:
   - role: prometheus
     tags:

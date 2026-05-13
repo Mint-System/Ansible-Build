@@ -1,6 +1,3 @@
 ---
-dependencies:
-  - role: docker_network
-    tags:
-      - docker_network
-      - depends
+kind: system
+dependencies: []

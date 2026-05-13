@@ -1,4 +1,5 @@
 ---
+kind: application
 dependencies:
   - role: mysql
     tags:

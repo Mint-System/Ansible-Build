@@ -42,9 +42,6 @@
     ports: "{{ open_webui_ports }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ open_webui_hostname }}|{{ role_name }}"
     memory: "2048m"

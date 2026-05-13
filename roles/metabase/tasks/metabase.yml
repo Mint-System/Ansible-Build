@@ -17,9 +17,6 @@
       TZ: "{{ metabase_timezone }}"
     networks:
       - name: "{{ docker_network_name }}"
-    log_driver: "{{ docker_log_driver }}"
     log_options:
-      max-size: "{{ docker_log_max_size }}"
-      max-file: "{{ docker_log_max_file }}"
       tag: "{{ item.hostname }}|{{ role_name }}"
   loop: "{{ metabase_configmap }}"
