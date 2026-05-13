@@ -8,7 +8,7 @@
   when: item.content is defined
 
 - name: Copy scripts from path
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: +x
