@@ -1,3 +1,4 @@
 ---
-kind: service
+galaxy_info:
+  kind: service
 dependencies: []

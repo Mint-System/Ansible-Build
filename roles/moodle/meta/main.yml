@@ -1,5 +1,6 @@
 ---
-kind: application
+galaxy_info:
+  kind: application
 dependencies:
   - role: mariadb
     tags:

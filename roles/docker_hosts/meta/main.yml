@@ -1,5 +1,6 @@
 ---
-kind: environment
+galaxy_info:
+  kind: environment
 dependencies:
   - role: docker
     tags:

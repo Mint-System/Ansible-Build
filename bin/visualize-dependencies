@@ -27,8 +27,11 @@ def extract_role_kind(meta_path):
     try:
         with open(meta_path, 'r', encoding='utf-8') as f:
             meta_dict = yaml.safe_load(f)
-            if meta_dict and 'kind' in meta_dict:
-                return meta_dict['kind']
+            if meta_dict:
+                if 'galaxy_info' in meta_dict and 'kind' in meta_dict['galaxy_info']:
+                    return meta_dict['galaxy_info']['kind']
+                if 'kind' in meta_dict:
+                    return meta_dict['kind']
     except Exception as e:
         print(f"Error reading kind from {meta_path}: {str(e)}")
     return None

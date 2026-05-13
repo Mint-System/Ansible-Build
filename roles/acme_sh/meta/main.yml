@@ -1,3 +1,4 @@
 ---
-kind: system
+galaxy_info:
+  kind: system
 dependencies: []
