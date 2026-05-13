@@ -11,6 +11,8 @@ help-table() {
     echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
     # Env
     printf "$column" 'version' '' 'Show tool versions.'
+    # Visualization
+    printf "$column" 'visualize-dependencies' '' 'Visualize Ansible role dependencies.'
     # Galaxy
     printf "$column" 'build-galaxy' '' 'Create tarball of collection.'
     printf "$column" 'publish-galaxy' '' 'Publish tarball to Ansible Galaxy.'
@@ -333,6 +335,12 @@ install() {
 
 install-exo() {
     curl -fsSL https://raw.githubusercontent.com/exoscale/cli/master/install-latest.sh | sh
+}
+
+visualize-dependencies() {
+    mkdir -p tmp
+    ./bin/visualize-dependencies ./roles
+    open-with-os tmp/ansible-role-dependencies.html
 }
 
 version() {

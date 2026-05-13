@@ -4,7 +4,6 @@ kind: system
 
 <img src="/logos/docker.png" alt="docker logo" width="100" height="100">
 
-
 # Docker role
 
 Install Docker.

@@ -1,0 +1,289 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = [
+#   "networkx",
+#   "jinja2",
+#   "pyyaml",
+# ]
+# ///
+
+import os
+import sys
+import json
+import yaml
+import networkx as nx
+from jinja2 import Template
+
+def find_meta_files(base_path):
+    meta_files = []
+    for root, _, files in os.walk(base_path):
+        if 'main.yml' in files and 'meta' in root:
+            meta_files.append(os.path.join(root, 'main.yml'))
+    print(f"Found {len(meta_files)} main.yml files")
+    return meta_files
+
+def extract_dependencies(meta_path):
+    try:
+        with open(meta_path, 'r', encoding='utf-8') as f:
+            meta_dict = yaml.safe_load(f)
+            role_name = os.path.basename(os.path.dirname(os.path.dirname(meta_path)))
+            dependencies = []
+            if meta_dict and 'dependencies' in meta_dict:
+                for dep in meta_dict['dependencies']:
+                    if isinstance(dep, dict):
+                        dependencies.append(dep.get('role', ''))
+                    elif isinstance(dep, str):
+                        dependencies.append(dep)
+            return role_name, dependencies
+    except Exception as e:
+        print(f"Error parsing {meta_path}: {str(e)}")
+        return None, []
+
+def find_all_roles(roles_path):
+    roles = []
+    for item in os.listdir(roles_path):
+        item_path = os.path.join(roles_path, item)
+        if os.path.isdir(item_path):
+            roles.append(item)
+    print(f"Found {len(roles)} roles in total")
+    return roles
+
+def build_graph(roles_path):
+    G = nx.DiGraph()
+    meta_files = find_meta_files(roles_path)
+    all_roles = find_all_roles(roles_path)
+    
+    if not meta_files:
+        print("Error: No main.yml files found")
+        sys.exit(1)
+    
+    for role in all_roles:
+        G.add_node(role)
+    
+    for meta_file in meta_files:
+        role_name, depends = extract_dependencies(meta_file)
+        if role_name:
+            for dep in depends:
+                if dep:
+                    G.add_edge(role_name, dep)
+    
+    print(f"Graph built with {len(G.nodes())} roles and {len(G.edges())} dependencies")
+    return G
+
+def generate_visjs_html(G, output_file='tmp/ansible-role-dependencies.html'):
+    """Generate a self-contained HTML with Vis.js visualization."""
+    nodes = []
+    for node in G.nodes():
+        has_dependencies = G.out_degree(node) > 0
+        nodes.append({
+            'id': node,
+            'label': node,
+            'color': '#4CAF50' if has_dependencies else '#9E9E9E',
+            'shape': 'box',
+            'margin': 10,
+            'font': {'size': 14}
+        })
+    
+    edges = [{'from': u, 'to': v, 'arrows': 'to'} for u, v in G.edges()]
+
+    template = Template('''<!DOCTYPE html>
+<html>
+<head>
+    <title>Ansible Role Dependencies</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body { margin: 0; font-family: sans-serif; }
+        #network {
+            width: 100%;
+            height: 100vh;
+            border: 1px solid #eee;
+        }
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            max-width: 300px;
+        }
+        #search-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        #search-input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            outline: none;
+        }
+        #search-input:focus { border-color: #2196F3; }
+        #search-btn {
+            padding: 6px 10px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        #search-btn:hover { background: #1976D2; }
+        #clear-btn {
+            padding: 6px 8px;
+            background: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        #clear-btn:hover { background: #ddd; }
+        #search-results {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 8px;
+            min-height: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="info-panel">
+        <h3 style="margin:0 0 10px">Ansible Role Dependencies</h3>
+        <div id="search-bar">
+            <input id="search-input" type="text" placeholder="Search roles..." />
+            <button id="search-btn">Find</button>
+            <button id="clear-btn">✕</button>
+        </div>
+        <div id="search-results"></div>
+        <div id="node-info">Click on any role</div>
+    </div>
+    <div id="network"></div>
+    <script>
+        const allNodes = {{ nodes|tojson }};
+        const allEdges = {{ edges|tojson }};
+
+        const originalColors = {};
+        allNodes.forEach(n => { originalColors[n.id] = n.color; });
+
+        const nodes = new vis.DataSet(allNodes);
+        const edges = new vis.DataSet(allEdges);
+        
+        const container = document.getElementById('network');
+        const data = { nodes, edges };
+        const options = {
+            physics: {
+                stabilization: { iterations: 200 },
+                solver: 'forceAtlas2Based',
+                forceAtlas2Based: {
+                    gravitationalConstant: -50,
+                    centralGravity: 0.01,
+                    springLength: 100
+                }
+            },
+            layout: { improvedLayout: true },
+            nodes: {
+                widthConstraint: { maximum: 150 },
+                shadow: true
+            },
+            edges: {
+                smooth: true,
+                color: '#848484'
+            }
+        };
+        
+        const network = new vis.Network(container, data, options);
+
+        // --- Search ---
+        function doSearch() {
+            const query = document.getElementById('search-input').value.trim().toLowerCase();
+            const resultsEl = document.getElementById('search-results');
+
+            // Reset all colors
+            const resetUpdates = allNodes.map(n => ({ id: n.id, color: originalColors[n.id], opacity: 1.0 }));
+            nodes.update(resetUpdates);
+
+            if (!query) { resultsEl.textContent = ''; return; }
+
+            const matches = allNodes.filter(n => n.id.toLowerCase().includes(query));
+
+            if (matches.length === 0) {
+                resultsEl.textContent = 'No roles found.';
+                return;
+            }
+
+            resultsEl.textContent = `${matches.length} match${matches.length > 1 ? 'es' : ''} found`;
+
+            const matchIds = new Set(matches.map(n => n.id));
+
+            // Dim non-matching nodes, highlight matches
+            const updates = allNodes.map(n => matchIds.has(n.id)
+                ? { id: n.id, color: { background: '#FF9800', border: '#E65100' }, opacity: 1.0 }
+                : { id: n.id, color: { background: '#ccc', border: '#aaa' }, opacity: 0.4 }
+            );
+            nodes.update(updates);
+
+            // Focus on matched nodes
+            network.fit({ nodes: [...matchIds], animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
+        }
+
+        function clearSearch() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('search-results').textContent = '';
+            const resetUpdates = allNodes.map(n => ({ id: n.id, color: originalColors[n.id], opacity: 1.0 }));
+            nodes.update(resetUpdates);
+        }
+
+        document.getElementById('search-btn').addEventListener('click', doSearch);
+        document.getElementById('clear-btn').addEventListener('click', clearSearch);
+        document.getElementById('search-input').addEventListener('keydown', e => {
+            if (e.key === 'Enter') doSearch();
+            if (e.key === 'Escape') clearSearch();
+        });
+
+        // --- Node click info ---
+        network.on('click', function(params) {
+            if (params.nodes.length) {
+                const nodeId = params.nodes[0];
+                const dependents = network.getConnectedNodes(nodeId, 'to');
+                const dependencies = network.getConnectedNodes(nodeId, 'from');
+                
+                document.getElementById('node-info').innerHTML = `
+                    <strong>${nodeId}</strong><br><br>
+                    <strong>Depends on:</strong> ${dependents.length} roles<br>
+                    ${dependents.join(', ') || 'None'}<br><br>
+                    <strong>Required by:</strong> ${dependencies.length} roles<br>
+                    ${dependencies.join(', ') || 'None'}
+                `;
+            }
+        });
+    </script>
+</body>
+</html>''')
+
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write(template.render(nodes=nodes, edges=edges))
+    print(f"Visualization saved to {os.path.abspath(output_file)}")
+
+def generate_mermaid_file(G, output_file='tmp/ansible-role-dependencies.mmd'):
+    """Generate a Mermaid file from the dependency graph."""
+    lines = ["graph TD"]
+    for u, v in G.edges():
+        lines.append(f"    {u} --> {v}")
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(lines))
+    print(f"Mermaid diagram saved to {os.path.abspath(output_file)}")
+
+def main():
+    roles_path = sys.argv[1] if len(sys.argv) > 1 else './roles'
+    print(f"Analyzing roles in: {roles_path}")
+    
+    G = build_graph(roles_path)
+    generate_visjs_html(G)
+    generate_mermaid_file(G)
+
+if __name__ == '__main__':
+    main()

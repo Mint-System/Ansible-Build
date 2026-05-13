@@ -28,7 +28,7 @@ meilisync_config: |
   sync:
     - table: POSTGRES_TABLE_NAME_1
       index: MEILISEARCH_INDEX_NAME_1
-      pk: id 
+      pk: id
       full: true
     - table: POSTGRES_TABLE_NAME_2
       index: MEILISEARCH_INDEX_NAME_2
@@ -43,7 +43,6 @@ And include it in your playbook.
   - role: meilisync
 ```
 
-
 ## Docs
 
 ### Setup demo database
@@ -52,7 +51,7 @@ Run this SQL in `postgres01`.
 
 ``` sql
 CREATE TABLE users (
-  id int, 
+  id int,
   login varchar(255)
 );
 ```
@@ -64,7 +63,7 @@ INSERT INTO users (id, login) VALUES (1, 'user1');
 INSERT INTO users (id, login) VALUES (2, 'user2');
 ```
 
-Check search index. 
+Check search index.
 
 ``` bash
 curl \

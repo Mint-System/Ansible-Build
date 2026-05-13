@@ -4,7 +4,6 @@ kind: environment
 
 <img src="/logos/cargo.png" alt="cargo logo" width="100" height="100">
 
-
 # cargo role
 
 Setup Rust toolchain and cargo package manager.

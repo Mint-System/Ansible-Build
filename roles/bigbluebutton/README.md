@@ -4,7 +4,6 @@ kind: application
 
 <img src="/logos/bigbluebutton.png" alt="bigbluebutton logo" width="100" height="100">
 
-
 # BigBlueButton role
 
 Configures an installed BigBlueButton instance.

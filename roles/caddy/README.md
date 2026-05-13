@@ -4,7 +4,6 @@ kind: service
 
 <img src="/logos/caddy.png" alt="caddy logo" width="100" height="100">
 
-
 # Caddy role
 
 Deploy Caddy container.
@@ -27,8 +26,8 @@ caddy_ports:
   - 8443:443 # default: 443:443
   - 8443:443/udp # default: 443:443/udp
 caddy_proxies:
-  - address: 
-    upstream: 
+  - address:
+    upstream:
 ```
 
 And include it in your playbook.

@@ -4,7 +4,6 @@ kind: service
 
 <img src="/logos/clamav.png" alt="clamav logo" width="100" height="100">
 
-
 # ClamAV role
 
 Deploy ClamAV container for antivirus scanning.
@@ -36,7 +35,7 @@ Install the app <https://apps.nextcloud.com/apps/files_antivirus> then open *Set
 
 * **Mode**: ClamAV-Demon
 * **Host**: clamav01
-* **Port**: 3310 
+* **Port**: 3310
 
 Test Antivirus with with <https://secure.eicar.org/eicar.com.txt>. Check the `clamav01` log for a message like:
 
