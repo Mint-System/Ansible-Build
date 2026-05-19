@@ -22,6 +22,7 @@
   tags:
     - docker
     - docker-ubuntu
+    - depends
 
 - name: Include {{ role_name }} centos tasks
   ansible.builtin.include_tasks: "{{ role_name }}-centos.yml"
@@ -29,6 +30,7 @@
   tags:
     - docker
     - docker-centos
+    - depends
 
 - name: Include {{ role_name }} debian tasks
   ansible.builtin.include_tasks: "{{ role_name }}-debian.yml"
@@ -36,6 +38,7 @@
   tags:
     - docker
     - docker-debian
+    - depends
 
 - name: Include {{ role_name }} debian tasks
   ansible.builtin.include_tasks: "{{ role_name }}-rocky.yml"
@@ -43,6 +46,7 @@
   tags:
     - docker
     - docker-rocky
+    - depends
 
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"

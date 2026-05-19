@@ -1,6 +1,6 @@
 {
     "data-root": "{{ docker_data_dir }}",
-    "log-driver": "json-file",
+    "log-driver": "{{ docker_log_driver }}",
     "log-opts": {
         "max-size": "{{ docker_log_max_size }}",
         "max-file": "{{ docker_log_max_file }}"
