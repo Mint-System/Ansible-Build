@@ -4,7 +4,7 @@ kind: system
 
 <img src="/logos/acme_sh.png" alt="acme_sh logo" width="100" height="100">
 
-
+# acme.sh
 
 Issue & renew the free certificates.
 
@@ -16,7 +16,7 @@ Configure the role.
 # https://hub.docker.com/r/neilpang/acme.sh
 acme_sh_image: neilpang/acme.sh
 acme_sh_hostname: acme01
-acme_sh_description: FreeDNS # default: Accme.sh
+acme_sh_description: FreeDNS # default: Acme.sh
 acme_sh_mail: info@example.com
 acme_sh_data_dir: /usr/share/cert # default: "/usr/share/{{ acme_sh_hostname }}"
 nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"

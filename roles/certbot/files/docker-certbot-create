@@ -83,6 +83,8 @@ else
     docker_ports="-p 80:80"
 fi
 
+echo "Issue certficiate with options: $email_option --non-interactive --agree-tos $challenge_options -d $certificate $server_option $option $verbose"
+
 docker run --rm --name "${certificate}-tmp" \
 $docker_ports \
 -v /var/log/letsencrypt/:/var/log/letsencrypt/ \
