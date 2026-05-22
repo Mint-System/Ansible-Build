@@ -3,6 +3,8 @@
   hosts: localhost
   connection: local
   roles:
+    - role: docker_network
+      tags: docker_network
     - role: resolv
       tags: resolv
     - role: odoo
