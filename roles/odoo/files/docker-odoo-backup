@@ -2,20 +2,21 @@
 set -e
 
 script=$(basename "$0")
-version="1.1.0"
+version="1.2.0"
 
 help() {
     echo
     echo "$script"
     echo
     echo 'Description: Backup Odoo database from container.'
-    echo "Syntax: $script [-d|-c|-o|-V|help]"
-    echo 'Example: $script -d erp -c odoo06 -o tmp/erp.zip'
-    echo 'options:'
+    echo "Syntax: $script [-d|-c|-o|-f|-V|help]"
+    echo 'Example: $script -d erp -c odoo06 -o tmp -f'
+    echo 'Options:'
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -o    Output directory with or without filename. Defaults to '/var/tmp'."
-    echo "        Use .zip extension for a zip archive, .tar for a rsyncable tar archive."
+    echo "  -f    Archive format: zip or tar. Defaults to 'zip'."
+    echo "        Overridden by the file extension in -o if provided."
     echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
@@ -31,23 +32,26 @@ command -v zip >/dev/null 2>&1 || { echo >&2 'zip command not found'; exit 1; }
 database='odoo'
 container='odoo'
 output='/var/tmp'
+format='zip'
 
-while getopts ":d: :c: :o: :V" opt; do
+while getopts ':d: :c: :o: :f: :V' opt; do
     case $opt in
         c) container="$OPTARG";;
         d) database="$OPTARG";;
         o) output="$OPTARG";;
-        V) echo "$script version $version"
-        exit 0
-        ;;
-        \?) echo "Invalid option -$OPTARG" >&2
-        help
-        exit;;
+        f) format="$OPTARG";;
+        V) echo "$script version $version"; exit 0;;
+        \?) echo >&2 "Invalid option -$OPTARG"; help; exit 1;;
     esac
 done
 
-# Determine archive format from output extension
-ext="${output##*.}"
+# Validate format flag
+if [[ "$format" != 'zip' && "$format" != 'tar' ]]; then
+    echo >&2 "Invalid format '$format'. Use 'zip' or 'tar'"
+    exit 1
+fi
+
+# Extension in -o overrides -f
 if [[ "${output: -4}" == '.zip' ]]; then
     backup_dir=$(dirname "$output")
     backup_file=$(basename "$output")
@@ -57,30 +61,27 @@ elif [[ "${output: -4}" == '.tar' ]]; then
     backup_file=$(basename "$output")
     format='tar'
 else
-    backup_dir=$output
-    format='zip'
+    backup_dir="$output"
 fi
 
 mkdir -p "$backup_dir"
 if [[ -z "$backup_file" ]]; then
-    backup_file="$database.${format}"
+    backup_file="$database.$format"
 fi
 filepath="${backup_dir}/${backup_file}"
 
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
-[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
+[[ -z "$container_id" ]] && { echo >&2 "Container id for $container not found"; exit 1; }
 
 echo "Backup database $database to $filepath"
 
-echo "Copy filestore from container $container_id"
+echo 'Copy filestore from container'
 rm -rf "$backup_dir/filestore"
 docker cp "$container_id:/var/lib/odoo/filestore/$database" "$backup_dir/filestore"
 
-docker_exec_bash="docker exec $container_id /bin/bash -c"
-
 echo 'Dump database'
 rm -f "$backup_dir/dump.sql"
-$docker_exec_bash "pg_dump -h \"\$PGHOST\" -U \"\$PGUSER\" $database" > "$backup_dir/dump.sql"
+docker exec "$container_id" sh -c "pg_dump -h \"\$PGHOST\" -U \"\$PGUSER\" $database" > "$backup_dir/dump.sql"
 
 echo "Archive filestore and dump to $backup_file"
 rm -f "$filepath"
@@ -95,4 +96,4 @@ fi
 echo 'Cleanup source files'
 rm -rf dump.sql filestore
 
-echo "The Odoo backup $filepath has finished."
+echo "The Odoo backup $filepath has finished"
