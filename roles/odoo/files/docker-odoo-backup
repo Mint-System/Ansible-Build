@@ -2,7 +2,7 @@
 set -e
 
 script=$(basename "$0")
-version="1.0.1"
+version="1.1.0"
 
 help() {
     echo
@@ -15,6 +15,7 @@ help() {
     echo "  -d    Database name. Defaults to 'odoo'."
     echo "  -c    Docker container. Defaults to 'odoo'."
     echo "  -o    Output directory with or without filename. Defaults to '/var/tmp'."
+    echo "        Use .zip extension for a zip archive, .tar for a rsyncable tar archive."
     echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
@@ -45,42 +46,53 @@ while getopts ":d: :c: :o: :V" opt; do
     esac
 done
 
-if [[ "${output: -4}" == '.zip' ]];then
-    dir=$(dirname "$output")
-    file=$(basename "$output")
+# Determine archive format from output extension
+ext="${output##*.}"
+if [[ "${output: -4}" == '.zip' ]]; then
+    backup_dir=$(dirname "$output")
+    backup_file=$(basename "$output")
+    format='zip'
+elif [[ "${output: -4}" == '.tar' ]]; then
+    backup_dir=$(dirname "$output")
+    backup_file=$(basename "$output")
+    format='tar'
 else
-    dir=$output
+    backup_dir=$output
+    format='zip'
 fi
 
-mkdir -p $dir
-
-if [[ -z "$file" ]];then
-  file="$database.zip"
+mkdir -p "$backup_dir"
+if [[ -z "$backup_file" ]]; then
+    backup_file="$database.${format}"
 fi
-
-filepath="${dir}/${file}"
+filepath="${backup_dir}/${backup_file}"
 
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-echo "Backup database $database to $filepath ..."
+echo "Backup database $database to $filepath"
 
-echo "Copy filestore from container $container_id."
-rm -rf "$dir/filestore"
-docker cp "$container_id:/var/lib/odoo/filestore/$database" "$dir/filestore"
+echo "Copy filestore from container $container_id"
+rm -rf "$backup_dir/filestore"
+docker cp "$container_id:/var/lib/odoo/filestore/$database" "$backup_dir/filestore"
 
 docker_exec_bash="docker exec $container_id /bin/bash -c"
 
-echo 'Dump database.'
-rm -f "$filepath"
-$docker_exec_bash "pg_dump -h \"\$PGHOST\" -U \"\$PGUSER\" $database" > "$dir/dump.sql"
+echo 'Dump database'
+rm -f "$backup_dir/dump.sql"
+$docker_exec_bash "pg_dump -h \"\$PGHOST\" -U \"\$PGUSER\" $database" > "$backup_dir/dump.sql"
 
-echo "Zip filestore and dump to $file."
+echo "Archive filestore and dump to $backup_file"
 rm -f "$filepath"
-cd "$dir"
-zip -q -r "$file" ./dump.sql ./filestore
+cd "$backup_dir"
 
-echo 'Cleanup source files.'
+if [[ "$format" == 'tar' ]]; then
+    tar -cf "$backup_file" ./dump.sql ./filestore
+else
+    zip -q -r "$backup_file" ./dump.sql ./filestore
+fi
+
+echo 'Cleanup source files'
 rm -rf dump.sql filestore
 
-echo "The Odoo backup has finished: $filepath"
+echo "The Odoo backup $filepath has finished."
