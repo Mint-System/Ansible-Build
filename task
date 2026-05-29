@@ -57,7 +57,7 @@ help-table() {
     printf "$column" 'play' '[params]' 'Run ansible-playbook command.'
     printf "$column" 'list-tags' '[path]' 'List tags of playbook.'
     printf "$column" 'run' '' 'Run ansible command.'
-    printf "$column" 'connect-host' '[host]' 'Connect to host with configs.'
+    printf "$column" 'connect-host' '[host][username]' 'Connect to host with configs.'
     # Test
     printf "$column" 'test-project' '[cleanup]' 'Deploy to localhost. Pass option '\''cleanup'\'' to reset test env.'
     printf "$column" 'test-scripts' '[cleanup]' 'Install and test scripts. Pass option '\''cleanup'\'' to reset test env.'
@@ -114,6 +114,7 @@ connect-host() {
         return 1
     fi
     local search_host="$1"
+    local override_user="$2"
 
     # Find hosts.yaml file in inventories folder
     local hosts_files
@@ -160,8 +161,11 @@ connect-host() {
     if [[ "$ansible_common_args" != "null" ]] && [[ -n "$ansible_common_args" ]]; then
         ssh_command+=" $ansible_common_args"
     fi
-    if [[ "$ansible_user" != "null" ]] && [[ -n "$ansible_user" ]]; then
-        ssh_command+=" $ansible_user@$ansible_host"
+
+    # Use override user if provided, else fall back to ansible_user
+    local effective_user="${override_user:-$ansible_user}"
+    if [[ "$effective_user" != "null" ]] && [[ -n "$effective_user" ]]; then
+        ssh_command+=" $effective_user@$ansible_host"
     else
         ssh_command+=" $ansible_host"
     fi
