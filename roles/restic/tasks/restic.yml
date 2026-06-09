@@ -8,13 +8,19 @@
     msg: Package restic not installed
   when: "'restic' not in ansible_facts.packages"
 
+- name: Ensure {{ restic_group }} group exists
+  ansible.builtin.group:
+    name: "{{ restic_group }}"
+    state: present
+
 - name: Ensure {{ role_name }} backup dir exists
   ansible.builtin.file:
     path: "{{ restic_backup_dir }}"
     state: directory
     owner: "{{ restic_owner }}"
     group: "{{ restic_group }}"
-    mode: "0750"
+    mode: "2750"
+    recurse: true
 
 - name: Set {{ role_name }} rest env
   ansible.builtin.set_fact:
