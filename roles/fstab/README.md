@@ -32,3 +32,21 @@ And include it in your playbook.
   roles:
   - role: fstab
 ```
+
+## Docs
+
+### Unmount drive
+
+Run this command:
+
+```bash
+sudo umount /mnt/data
+```
+
+### Mount manually
+
+Run this command:
+
+```bash
+sudo mount /dev/sdb1 /mnt/data
+```
