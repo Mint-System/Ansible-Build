@@ -25,12 +25,12 @@ fi
 container='mysql'
 
 while getopts ":c:" opt; do
-  case $opt in
-    c) container="$OPTARG";;
-    \?) echo "Invalid option -$OPTARG" >&2
-    help
-    exit 1;;
-  esac
+    case $opt in
+        c) container="$OPTARG";;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit 1;;
+    esac
 done
 
 image=$(docker inspect "$container" --format='{{.Config.Image}}')

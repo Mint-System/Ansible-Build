@@ -5,19 +5,19 @@ script=$(basename "$0")
 version="1.0.1"
 
 help() {
-  echo
-  echo "$script"
-  echo
-  echo 'Description: Backup MySQL/MariaDB Docker database.'
-  echo "Syntax: $script [-d|-o|-c|help]"
-  echo 'Example: $script -d mysql,moodle -o /tmp -c mysql01'
-  echo 'options:'
-  echo '  -d    Comma-separated list of database names.'
-  echo '  -a    Backup all databases'
-  echo '  -o    Output directory. Defaults to '\''/var/tmp'\''.'
-  echo '  -c    Docker container name. Defaults to '\''mysql'\''.'
-  echo "  help  Show $script manual."
-  echo
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Backup MySQL/MariaDB Docker database.'
+    echo "Syntax: $script [-d|-o|-c|help]"
+    echo "Example: $script -d mysql,moodle -o /tmp -c mysql01"
+    echo 'options:'
+    echo '  -d    Comma-separated list of database names.'
+    echo '  -a    Backup all databases'
+    echo '  -o    Output directory. Defaults to '\''/var/tmp'\''.'
+    echo '  -c    Docker container name. Defaults to '\''mysql'\''.'
+    echo "  help  Show $script manual."
+    echo
 }
 
 if [[ "$1" == 'help' ]]; then
@@ -30,19 +30,19 @@ dir=/var/tmp
 container=mysql
 
 while getopts ':a :c: :d: :o:' opt; do
-  case $opt in
-    a) all='true'
-    ;;
-    c) container="$OPTARG"
-    ;;
-    d) databases="$OPTARG"
-    ;;
-    o) dir="$OPTARG"
-    ;;
-    \?) echo "Invalid option -$OPTARG" >&2
-    help
-    exit 1;;
-  esac
+    case $opt in
+        a) all='true'
+        ;;
+        c) container="$OPTARG"
+        ;;
+        d) databases="$OPTARG"
+        ;;
+        o) dir="$OPTARG"
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit 1;;
+    esac
 done
 
 [[ -z "$databases" ]] && [[ -z "$all" ]] && { echo 'Parameter -d or -a|databases or all must be set' ; exit 1; }
@@ -50,16 +50,16 @@ done
 image=$(docker inspect $container --format='{{.Config.Image}}')
 
 if $all; then
-  if [[ "$image" =~ 'mariadb' ]]; then
-    database_list=($(docker exec $container /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
+    if [[ "$image" =~ 'mariadb' ]]; then
+        database_list=($(docker exec $container /bin/bash -c "mysql -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
       -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
-  fi
-  if [[ "$image" =~ 'mysql' ]]; then
-    database_list=($(docker exec $container /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD \
+    fi
+    if [[ "$image" =~ 'mysql' ]]; then
+        database_list=($(docker exec $container /bin/bash -c "mysql -p\$MYSQL_ROOT_PASSWORD \
       -Bse 'SHOW DATABASES' | grep -v -E '^(sys|information_schema|mysql|performance_schema)$'"))
-  fi
-  printf -v databases '%s,' "${database_list[@]}"
-  databases="${databases%,}"
+    fi
+    printf -v databases '%s,' "${database_list[@]}"
+    databases="${databases%,}"
 fi
 
 if [[ -n $databases ]] ; then
@@ -72,18 +72,18 @@ rm -rf "${dir:?}/${container}"/*
 
 for database in "${database_list[@]}"
 do
-  if [[ "$image" =~ 'mariadb' ]]; then
-    echo "Run Docker MariaDB backup for $database"
-    rm -f "${dir}/${container}/${database}.sql"
-    docker exec $container /bin/bash -c "mysqldump -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
-        $database" > "${dir}/${container}/${database}.sql"
-  fi
-  if [[ "$image" =~ 'mysql' ]]; then
-    echo "Run Docker MySQL backup for $database"
-    rm -f "${dir}/${container}/${database}.sql"
-    docker exec $container /bin/bash -c "mysqldump -p\$MYSQL_ROOT_PASSWORD \
-        $database" > "${dir}/${container}/${database}.sql"
-  fi
+    if [[ "$image" =~ 'mariadb' ]]; then
+        echo "Run Docker MariaDB backup for $database"
+        rm -f "${dir}/${container}/${database}.sql"
+        docker exec $container /bin/bash -c "mysqldump -u \$MARIADB_USER --password=\$MARIADB_PASSWORD \
+            $database" > "${dir}/${container}/${database}.sql"
+    fi
+    if [[ "$image" =~ 'mysql' ]]; then
+        echo "Run Docker MySQL backup for $database"
+        rm -f "${dir}/${container}/${database}.sql"
+        docker exec $container /bin/bash -c "mysqldump -p\$MYSQL_ROOT_PASSWORD \
+            $database" > "${dir}/${container}/${database}.sql"
+    fi
 done
 
 echo "The Docker mysql backup has finished: ${dir}/${container}/{$databases}.sql"
