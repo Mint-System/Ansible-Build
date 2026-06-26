@@ -1,32 +1,31 @@
 #!/bin/bash
 
-{% if acme_sh_freedns_user is defined and acme_sh_freedns_password is defined %}
-docker run --rm --name {{ acme_sh_hostname }}-tmp \
+overall_exit_code=0
+
+{% for item in acme_sh_certs %}
+{% if item.dns == 'dns_freedns' %}
+docker run --rm --name {{ item.src_hostname | replace('*.', 'wildcard.') }}-tmp \
 --volume "{{ acme_sh_data_dir }}:/acme.sh" \
 --env "FREEDNS_User={{ acme_sh_freedns_user }}" \
 --env "FREEDNS_Password={{ acme_sh_freedns_password }}" \
 {{ acme_sh_image }} \
---renew --dns dns_freedns {% for item in acme_sh_certs %}-d {{ item.src_hostname }} {% endfor %}
+--renew --dns dns_freedns -d {{ item.src_hostname }}
 
 exit_code=$?
-{% endif %}
-
-{% if acme_sh_infomaniak_api_token is defined %}
-docker run --rm --name {{ acme_sh_hostname }}-tmp \
+{% elif item.dns == 'dns_infomaniak' %}
+docker run --rm --name {{ item.src_hostname | replace('*.', 'wildcard.') }}-tmp \
 --volume "{{ acme_sh_data_dir }}:/acme.sh" \
 --env "INFOMANIAK_API_TOKEN={{ acme_sh_infomaniak_api_token }}" \
 {{ acme_sh_image }} \
---renew --dns dns_infomaniak {% for item in acme_sh_certs %}-d {{ item.src_hostname }} {% endfor %}
+--renew --dns dns_infomaniak -d {{ item.src_hostname }}
 
 exit_code=$?
-{% endif %}
-
-{% if acme_sh_vercel_token is defined %}
-docker run --rm --name {{ acme_sh_hostname }}-tmp \
+{% elif item.dns == 'dns_vercel' %}
+docker run --rm --name {{ item.src_hostname | replace('*.', 'wildcard.') }}-tmp \
 --volume "{{ acme_sh_data_dir }}:/acme.sh" \
 --env "VERCEL_TOKEN={{ acme_sh_vercel_token }}" \
 {{ acme_sh_image }} \
---renew --dns dns_vercel {% for item in acme_sh_certs %}-d {{ item.src_hostname }} {% endfor %}
+--renew --dns dns_vercel -d {{ item.src_hostname }}
 
 exit_code=$?
 {% endif %}
@@ -34,5 +33,9 @@ exit_code=$?
 if [[ $exit_code -eq 2 ]]; then
     exit_code=0
 fi
+if [[ $exit_code -ne 0 ]]; then
+    overall_exit_code=$exit_code
+fi
+{% endfor %}
 
-exit $exit_code
+exit $overall_exit_code

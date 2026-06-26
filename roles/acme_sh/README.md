@@ -42,7 +42,7 @@ To use the FreeDNS set `dns: dns_freedns` in the proxy config and define these v
 
 ### Use Infomaniak API
 
-To use the Infomaniak API set `dns: dns_infomaniak` in the proxy config and define the `vault_dns_vercel_token` var.
+To use the Infomaniak API set `dns: dns_infomaniak` in the proxy config and define the `vault_dns_infomaniak_token` var.
 
 ### Use Vercel API
 
