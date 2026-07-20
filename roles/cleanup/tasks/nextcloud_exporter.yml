@@ -1,0 +1,5 @@
+---
+- name: Remove nextcloud_exporter container {{ nextcloud_exporter_hostname }}
+  community.docker.docker_container:
+    name: "{{ nextcloud_exporter_hostname }}"
+    state: absent

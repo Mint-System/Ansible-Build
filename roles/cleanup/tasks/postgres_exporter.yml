@@ -1,0 +1,5 @@
+---
+- name: Remove postgres_exporter container {{ postgres_exporter_hostname }}
+  community.docker.docker_container:
+    name: "{{ postgres_exporter_hostname }}"
+    state: absent

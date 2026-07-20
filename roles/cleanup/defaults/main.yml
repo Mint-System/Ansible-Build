@@ -5,6 +5,7 @@ odoo_configmap:
   - hostname: odoo01-prod
 odoo_volume_name: "{{ odoo_hostname }}"
 postgres_volume_name: "{{ postgres_hostname }}"
+nextcloud_volume_name: "{{ nextcloud_hostname }}"
 nginx_data_dir: "/usr/share/{{ nginx_hostname }}"
 metabase_configmap: [hostname: metabase01-prod]
 loki_data_dir: /usr/share/{{ loki_hostname }}

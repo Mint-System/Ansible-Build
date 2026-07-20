@@ -32,6 +32,7 @@
       - mysql
       - n8n
       - nextcloud
+      - nextcloud_exporter
       - nginx
       - node_exporter
       - odoo
