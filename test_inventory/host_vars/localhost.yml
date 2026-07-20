@@ -48,7 +48,6 @@ meilisearch_network_mode: host
 meilisearch_task_webhook: http://host.docker.internal:8069/meilisearch/task-webhook
 meilisearch_etc_hosts:
   "host.docker.internal": host-gateway
-
 meilisearch_url: http://localhost:7700
 meilisearch_base_path: "{{ inventory_dir}}/host_vars/"
 meilisearch_api_keys:
@@ -89,49 +88,6 @@ keycloak_db_url_host: postgres01
 keycloak_db_username: example
 keycloak_db_password: test
 keycloak_proxy_hostname: http://login.local
-
-# https://hub.docker.com/_/nginx/
-nginx_image: nginx:1.26.2-alpine
-nginx_hostname: nginx01
-nginx_http_options: |
-  map $http_upgrade $connection_upgrade {
-    default upgrade;
-    '' close;
-  }
-nginx_ports:
-  - 8080:80
-nginx_proxies:
-  # - src_hostname: metabase.local
-  #   dest_hostname: metabase01-prod
-  #   dest_port: 3000
-  - src_hostname: n8n.local
-    dest_hostname: n8n01-prod
-    dest_port: 5678
-  - src_hostname: odoo.local
-    # maintenance_redirect: true
-    dest_hostname: odoo01-prod
-    dest_port: 8069
-    locations:
-      - path: /websocket
-        dest_hostname: odoo01-prod
-        dest_port: 8072
-        options: |
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection $connection_upgrade;
-          include /etc/nginx/conf.d/proxy-params.conf;
-      - path: /website/info
-        options:
-          |
-          deny all;
-  - src_hostname: grafana.local
-    dest_hostname: grafana01
-    dest_port: 3000
-  - src_hostname: login.local
-    dest_hostname: keycloak01
-    dest_port: 8080
-  - src_hostname: chatgpt.local
-    dest_hostname: open_webui01
-    dest_port: 8080
 
 # https://hub.docker.com/r/mintsystem/odoo/
 odoo_revision: "18.0"
@@ -214,3 +170,53 @@ docker_compose_definition:
         - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       depends_on:
         - db
+
+# https://hub.docker.com/r/onlyoffice/documentserver
+onlyoffice_documentserver_image: onlyoffice/documentserver:9.4
+onlyoffice_documentserver_hostname: doc01
+onlyoffice_documentserver_jwt_secret: iethu8looda2oaf2fooC
+onlyoffice_documentserver_ports:
+  - 127.0.0.1:80:80
+
+# https://hub.docker.com/_/nginx/
+nginx_image: nginx:1.26.2-alpine
+nginx_hostname: nginx01
+nginx_http_options: |
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }
+nginx_ports:
+  - 8080:80
+nginx_proxies:
+  # - src_hostname: metabase.local
+  #   dest_hostname: metabase01-prod
+  #   dest_port: 3000
+  - src_hostname: n8n.local
+    dest_hostname: n8n01-prod
+    dest_port: 5678
+  - src_hostname: odoo.local
+    # maintenance_redirect: true
+    dest_hostname: odoo01-prod
+    dest_port: 8069
+    locations:
+      - path: /websocket
+        dest_hostname: odoo01-prod
+        dest_port: 8072
+        options: |
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+          include /etc/nginx/conf.d/proxy-params.conf;
+      - path: /website/info
+        options:
+          |
+          deny all;
+  - src_hostname: grafana.local
+    dest_hostname: grafana01
+    dest_port: 3000
+  - src_hostname: login.local
+    dest_hostname: keycloak01
+    dest_port: 8080
+  - src_hostname: chatgpt.local
+    dest_hostname: open_webui01
+    dest_port: 8080

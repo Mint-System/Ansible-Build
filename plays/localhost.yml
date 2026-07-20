@@ -75,3 +75,5 @@
       tags: open_webui
     - role: pgbouncer
       tags: pgbouncer
+    - role: onlyoffice_documentserver
+      tags: onlyoffice_documentserver
