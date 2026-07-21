@@ -100,7 +100,7 @@ odoo_postgres_password: test
 odoo_configmap:
   - hostname: odoo01-prod
   - hostname: odoo01-int
-odoo_addons_git_repos: https://github.com/OCA/partner-contact.git#18.0
+odoo_addons_git_repos: https://github.com/OCA/partner-contact.git
 odoo_postgres_hostname: "{{ postgres_hostname }}"
 
 # https://hub.docker.com/r/metabase/metabase
