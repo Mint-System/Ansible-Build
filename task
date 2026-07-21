@@ -326,7 +326,6 @@ activate-venv() {
 install() {
     echo "Ensure Python version $(cat .python-version) is installed."
     uv python install
-    remove-venv
     activate-venv
 
     echo "Setup Ansible log file"
