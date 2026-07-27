@@ -21,11 +21,22 @@
     body:
       source: "{{ record.source if record.source != '' else '.' }}"
       type: "{{ record.type }}"
-      target: "{{ record.target }}"
+      target: "{{ _record_target }}"
       ttl: "{{ record.ttl | default(3600) }}"
     status_code: [200, 201]
     return_content: true
   register: create_result
+  vars:
+    _record_target: >-
+      {{
+        record.target
+        if record.type != 'MX'
+        else (
+          record.target
+          if record.target is string and record.target.startswith('10 ')
+          else ('10 ' ~ record.target)
+        )
+      }}
   loop: "{{ zone_records }}"
   loop_control:
     loop_var: record
@@ -45,14 +56,25 @@
     body:
       source: "{{ record.source if record.source != '' else '.' }}"
       type: "{{ record.type }}"
-      target: "{{ record.target }}"
+      target: "{{ _record_target }}"
       ttl: "{{ record.ttl | default(existing_record.ttl) }}"
     status_code: [200, 201]
     return_content: true
   register: update_result
   vars:
     normalized_source: "{{ record.source if record.source != '' else '.' }}"
-    _matched_list: "{{ current_records | selectattr('source', 'equalto', normalized_source) | selectattr('type', 'equalto', record.type) | list }}"
+    _record_target: >-
+      {{
+        record.target
+        if record.type != 'MX'
+        else (
+          record.target
+          if record.target is string and record.target.startswith('10 ')
+          else ('10 ' ~ record.target)
+        )
+      }}
+    _matched_list: "{{ current_records | selectattr('source', 'equalto', normalized_source) | selectattr('type', 'equalto', record.type) | selectattr('target', 'equalto',
+      _record_target) | list }}"
     existing_record: "{{ _matched_list[0] if _matched_list | length > 0 else {} }}"
   loop: "{{ zone_records }}"
   loop_control:
@@ -62,7 +84,7 @@
     - record.state == 'present'
     - _matched_list | length > 0
     - normalized_source + '-' + record.type in (infomaniak_dns_present | default([]))
-    - existing_record.target != record.target or (record.ttl is defined and existing_record.ttl != record.ttl)
+    - existing_record.target != _record_target or (record.ttl is defined and existing_record.ttl != record.ttl)
 
 - name: Delete DNS records for {{ zone_name }}
   ansible.builtin.uri:
@@ -75,7 +97,18 @@
   register: delete_result
   vars:
     normalized_source: "{{ record.source if record.source != '' else '.' }}"
-    _matched_list: "{{ current_records | selectattr('source', 'equalto', normalized_source) | selectattr('type', 'equalto', record.type) | list }}"
+    _record_target: >-
+      {{
+        record.target
+        if record.type != 'MX'
+        else (
+          record.target
+          if record.target is string and record.target.startswith('10 ')
+          else ('10 ' ~ record.target)
+        )
+      }}
+    _matched_list: "{{ current_records | selectattr('source', 'equalto', normalized_source) | selectattr('type', 'equalto', record.type) | selectattr('target', 'equalto',
+      _record_target) | list }}"
     existing_record: "{{ _matched_list[0] if _matched_list | length > 0 else {} }}"
   loop: "{{ zone_records }}"
   loop_control:
