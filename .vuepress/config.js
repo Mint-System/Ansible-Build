@@ -22,21 +22,19 @@ export default defineUserConfig({
         docsBranch: 'main',
         editLink: true,
         navbar: [
-            { text: 'Home', link: '/' },
             { text: 'Roles', link: '/roles' },
             { text: 'Scripts', link: '/scripts' },
-            { text: 'Mint System', link: 'https://www.mint-system.ch' },
             { text: 'Chat', link: 'https://matrix.to/#/!BgzMVlwDExHDQPPdKJ:mint-system.ch?via=mint-system.ch' }
         ],
     }),
     plugins: [
-        // slimsearchPlugin({
-        //     indexContent: true,
-        //     suggestion: false
-        // }),
-        searchPlugin({
-          maxSuggestions: 10,
+        slimsearchPlugin({
+            indexContent: true,
+            suggestion: false
         }),
+        // searchPlugin({
+        //   maxSuggestions: 10,
+        // }),
         plausiblePlugin({
             'domain': 'ansible.build'
         }),

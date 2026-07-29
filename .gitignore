@@ -18,3 +18,4 @@ __pycache__
 ansible.cfg
 .vuepress/public/logos
 .vercel
+pnpm-workspace.yaml
