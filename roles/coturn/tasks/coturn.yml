@@ -4,13 +4,13 @@
     path: "{{ coturn_data_dir }}"
     state: directory
 
-- name: Copy {{ role_name }} conf
-  ansible.builtin.template:
-    src: "{{ item }}"
-    dest: "{{ coturn_data_dir }}/{{ item }}"
-  loop:
-    - turnserver.conf
-  notify: Restart {{ role_name }} container
+# - name: Copy {{ role_name }} conf
+#   ansible.builtin.template:
+#     src: "{{ item }}"
+#     dest: "{{ coturn_data_dir }}/{{ item }}"
+#   loop:
+#     - turnserver.conf
+#   notify: Restart {{ role_name }} container
 
 - name: Start {{ role_name }} container {{ coturn_hostname }}
   community.docker.docker_container:
@@ -20,8 +20,10 @@
     image: "{{ coturn_image }}"
     restart_policy: unless-stopped
     ports:
-      - 443:443
       - 3478:3478
-      - 49160-49200:49160-49200/udp
+      - 3478:3478/udp
+      - 5349:5349
+      - 5349:5349/udp
+      - 49152-65535:49152-65535/udp
     networks:
       - name: "{{ docker_network_name }}"
