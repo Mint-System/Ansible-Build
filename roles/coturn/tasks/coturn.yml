@@ -1,17 +1,4 @@
 ---
-- name: Ensure {{ role_name }} data dir exists
-  ansible.builtin.file:
-    path: "{{ coturn_data_dir }}"
-    state: directory
-
-# - name: Copy {{ role_name }} conf
-#   ansible.builtin.template:
-#     src: "{{ item }}"
-#     dest: "{{ coturn_data_dir }}/{{ item }}"
-#   loop:
-#     - turnserver.conf
-#   notify: Restart {{ role_name }} container
-
 - name: Start {{ role_name }} container {{ coturn_hostname }}
   community.docker.docker_container:
     name: "{{ coturn_hostname }}"
@@ -19,11 +6,14 @@
       description: "{{ coturn_description }}"
     image: "{{ coturn_image }}"
     restart_policy: unless-stopped
-    ports:
-      - 3478:3478
-      - 3478:3478/udp
-      - 5349:5349
-      - 5349:5349/udp
-      - 49152-65535:49152-65535/udp
-    networks:
-      - name: "{{ docker_network_name }}"
+    network_mode: host
+    env:
+      STATIC_AUTH_SECRET: "{{ coturn_static_auth_secret }}"
+      DETECT_EXTERNAL_IP: "yes"
+      DETECT_RELAY_IP: "yes"
+    command:
+      - "--log-file=stdout"
+      - "--realm={{ coturn_realm }}"
+      - "--use-auth-secret"
+      - "--static-auth-secret=$STATIC_AUTH_SECRET"
+      - "--fingerprint"
