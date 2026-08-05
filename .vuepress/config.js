@@ -24,6 +24,10 @@ export default defineUserConfig({
         navbar: [
             { text: 'Roles', link: '/roles' },
             { text: 'Scripts', link: '/scripts' },
+            {
+                text: 'Upgrade Odoo',
+                link: '/upgrade-odoo',
+            },
             { text: 'Chat', link: 'https://matrix.to/#/!BgzMVlwDExHDQPPdKJ:mint-system.ch?via=mint-system.ch' }
         ],
     }),

@@ -1,0 +1,317 @@
+#!/bin/bash
+
+upgrade-odoo() {
+    if [[ -z "$1" ]]; then
+        echo '$1 is empty.'
+        exit
+    fi
+    if [[ "$1" =~ "list" ]]; then
+        echo "info"
+        echo "dump-database"
+        echo "drop-filestore"
+        echo "drop-database"
+        echo "upgrade-test"
+        echo "upgrade-production"
+        echo "clear-assets"
+        echo "init"
+        echo "uninstall"
+        echo "auto-update"
+        echo "update"
+        echo "configure-test"
+        echo "configure-production"
+        echo "restart"
+        echo "list-databases"
+        echo "logs"
+        echo "shell"
+        echo "psql"
+        echo "rename-database"
+        echo "restore-database"
+        echo "restore-filestore"
+        echo "stop-container"
+        echo "browse"
+        exit
+    fi
+    if [[ -z "$2" ]]; then
+        echo '$2 is empty.'
+        exit
+    fi
+    load-dotenv "$1"
+
+    temp_folder="/var/tmp"
+    if [[ -n "$TEMP_FOLDER" ]]; then
+        temp_folder="$TEMP_FOLDER"
+    fi
+
+    # Setup ssh aliases
+    ssh_server="ssh -p $PORT ${USERNAME}@${SERVER}"
+    ssh_target_server="ssh -t -p $TARGET_PORT ${TARGET_USERNAME:-$USERNAME}@${TARGET_SERVER}"
+
+    scp_exec="scp"
+    if [[ -n "$JUMP_HOST" ]]; then
+        log-warning "Source connection uses jump host: $JUMP_HOST"
+        ssh_server="ssh -p $PORT -J $JUMP_HOST ${USERNAME}@${SERVER}"
+        scp_exec="scp -o ProxyJump=$JUMP_HOST"
+    fi
+    if [[ -n "$TARGET_JUMP_HOST" ]]; then
+        log-warning "Target connection uses jump host: $JUMP_HOST"
+        ssh_target_server="ssh -t -p $TARGET_PORT -J $TARGET_JUMP_HOST $TARGET_SERVER"
+    fi
+
+    if [[ "$2" =~ "info" ]]; then
+        echo ""
+        echo "Source Enviroment"
+        echo "-----------------"
+        echo "Host: $HOST"
+        echo "Server: $SERVER:$PORT"
+        echo "Username: $USERNAME"
+        echo "Jump Host: $JUMP_HOST"
+        echo "Odoo Container: $ODOO_CONTAINER"
+        echo "Odoo Version: $ODOO_VERSION"
+        echo "Postgres Container: $POSTGRES_CONTAINER"
+        echo "Database: $DATABASE"
+        echo "Temp Folder: $temp_folder"
+        echo ""
+        echo "Target Enviroment"
+        echo "-----------------"
+        echo "Host: $TARGET_HOST"
+        echo "Server: $TARGET_SERVER:$TARGET_PORT"
+        echo "Username: ${TARGET_USERNAME:-$USERNAME}"
+        echo "Jump Host: $TARGET_JUMP_HOST"
+        echo "Odoo Container: $TARGET_ODOO_CONTAINER"
+        echo "Odoo Version: $TARGET_ODOO_VERSION"
+        echo "Postgres Container: $TARGET_POSTGRES_CONTAINER"
+        echo "Database: $TARGET_DATABASE"
+        echo ""
+        echo "Upgrade Configuration"
+        echo "---------------------"
+        echo "Init Addons: $ODOO_ADDONS_INIT"
+        echo "Uninstall Addons: $ODOO_ADDONS_UNINSTALL"
+        echo ""
+        echo "Test Config: $ODOO_CONFIGURE_TEST"
+        echo "Production Config: $ODOO_CONFIGURE_PRODUCTION"
+        echo ""
+    fi
+
+    if [[ "$2" =~ "dump-database" ]]; then
+        log-warning "Run step '$2' on $SERVER."
+
+        echo "Dump $DATABASE on $POSTGRES_CONTAINER..."
+        $ssh_server sudo docker-postgres-backup -c "$POSTGRES_CONTAINER" -d "$DATABASE" -o "$temp_folder"
+
+        if [[ "$SERVER" != "$TARGET_SERVER" ]]; then
+            log-warning "Source and target host are different."
+
+            echo "Downloading dump from $SERVER..."
+            rsync -avz -e "ssh -p $PORT" "$SERVER:$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql" "tmp/$DATABASE.sql"
+            
+            echo "Uploading dump to $TARGET_SERVER..."
+            $ssh_target_server mkdir -p "$temp_folder/$POSTGRES_CONTAINER"
+            rsync -avz -e "ssh -p $TARGET_PORT" "tmp/$DATABASE.sql" "$TARGET_SERVER:$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql"
+            rm "tmp/$DATABASE.sql"
+        fi
+
+        echo "Restore dump $DATABASE to $TARGET_POSTGRES_CONTAINER..."
+        $ssh_target_server docker-postgres-restore -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -f "$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql" -r
+    fi
+
+    if [[ "$2" =~ "dump-filestore" ]]; then
+        log-warning "Run step '$2' on $SERVER."
+
+        echo "Export $DATABASE filestore on $ODOO_CONTAINER..."
+        $ssh_server docker-export -c "$ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$DATABASE" -o "$temp_folder"
+
+        if [[ "$SERVER" != "$TARGET_SERVER" ]]; then
+            log-warning "Source and target host are different."
+
+            echo "Downloading filestore from $SERVER..."
+            rsync -avz -e "ssh -p $PORT" "$SERVER:$temp_folder/$ODOO_CONTAINER.tar" "tmp/$ODOO_CONTAINER.tar"
+            
+            echo "Uploading filestore to $TARGET_SERVER..."
+            $ssh_target_server mkdir -p "$temp_folder/$TARGET_POSTGRES_CONTAINER"
+            rsync -avz -e "ssh -p $TARGET_PORT" "tmp/$ODOO_CONTAINER.tar" "$TARGET_SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar"
+            rm "tmp/$ODOO_CONTAINER.tar"
+        fi
+        
+        echo "Restore $TARGET_DATABASE filestore to $TARGET_ODOO_CONTAINER..."
+        $ssh_target_server docker-import -c "$TARGET_ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$TARGET_DATABASE" -f "$temp_folder/$ODOO_CONTAINER.tar" -r
+    fi
+
+    if [[ "$2" = "drop-database" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker-postgres-drop -c "$TARGET_POSTGRES_CONTAINER" -d "$TARGET_DATABASE"
+    fi
+
+    if [[ "$2" = "upgrade-test" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker-odoo-upgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -s "$ODOO_VERSION" -n "$TARGET_DATABASE" -t "$TARGET_ODOO_VERSION"
+    fi
+
+    if [[ "$2" = "upgrade-production" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker-odoo-upgrade -m production -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -s "$ODOO_VERSION" -n "$TARGET_DATABASE" -t "$TARGET_ODOO_VERSION"
+    fi
+
+    if [[ "$2" = "clear-assets" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker-odoo-clear-assets -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE"
+    fi
+
+    if [[ "$2" = "init" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        if [[ -n "$ODOO_ADDONS_INIT" ]]; then
+            $ssh_target_server docker-odoo-init -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE" -i "$ODOO_ADDONS_INIT"
+        else
+            echo "Nothing to do."
+        fi
+    fi
+
+    if [[ "$2" = "uninstall" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        if [[ -n "$ODOO_ADDONS_UNINSTALL" ]]; then
+            $ssh_target_server docker-odoo-uninstall -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE" -u "$ODOO_ADDONS_UNINSTALL"
+        else
+            echo "Nothing to do."
+        fi
+    fi
+
+    if [[ "$2" = "auto-update" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker-odoo-shell -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE" -f -p "env['ir.module.module'].upgrade_changed_checksum()"
+    fi
+
+    if [[ "$2" = "update" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker-odoo-update -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE" -u all
+    fi
+
+    if [[ "$2" = "configure-test" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        if [[ -n "$ODOO_CONFIGURE_TEST" ]]; then
+            $ssh_target_server  docker-odoo-shell -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE" -f -p "\"$ODOO_CONFIGURE_TEST\""
+        else
+            echo "Nothing to do."
+        fi
+    fi
+
+    if [[ "$2" = "configure-production" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        if [[ -n "$ODOO_CONFIGURE_PRODUCTION" ]]; then
+            $ssh_target_server  docker-odoo-shell -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE" -f -p "\"$ODOO_CONFIGURE_PRODUCTION\""
+        else
+            echo "Nothing to do."
+        fi
+    fi
+
+    if [[ "$2" = "restart" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker restart "$TARGET_ODOO_CONTAINER" "$TARGET_POSTGRES_CONTAINER"
+    fi
+
+    if [[ "$2" = "logs" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        containe_id=$($ssh_target_server docker ps -f "name=$TARGET_ODOO_CONTAINER" --format '{{.ID}}' | head -n1)
+        $ssh_target_server docker logs -f "$containe_id" --tail 10
+    fi
+
+    if [[ "$2" = "shell" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker-odoo-shell -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE"
+    fi
+
+    if [[ "$2" = "list-databases" ]]; then
+        log-warning "Run step '$2' on $SERVER."
+        echo "${POSTGRES_CONTAINER}:"
+        $ssh_server docker-postgres-list -c "$POSTGRES_CONTAINER"
+
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        echo "${TARGET_POSTGRES_CONTAINER}:"
+        $ssh_target_server docker-postgres-list -c "$TARGET_POSTGRES_CONTAINER"
+    fi
+
+    if [[ "$2" = "psql" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_target_server docker-postgres-shell -c "$TARGET_POSTGRES_CONTAINER" -d "$TARGET_DATABASE"
+    fi
+
+    if [[ "$2" = "env" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        containe_id=$($ssh_target_server docker ps -f "name=$TARGET_ODOO_CONTAINER" --format '{{.ID}}' | head -n1)
+        $ssh_target_server docker exec "$containe_id" env
+    fi
+
+    if [[ "$2" = "conf" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        containe_id=$($ssh_target_server docker ps -f "name=$TARGET_ODOO_CONTAINER" --format '{{.ID}}' | head -n1)
+        $ssh_target_server docker exec "$containe_id" cat /etc/odoo/odoo.conf
+    fi
+
+    if [[ "$2" = "stop-container" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        $ssh_server docker stop "$ODOO_CONTAINER"
+    fi
+
+    if [[ "$2" = "rename-database" ]]; then
+        log-warning "Run step '$2' on $SERVER."
+
+        #FIXME: Ensure this works if source and target server are different.
+
+        if [[ "$POSTGRES_CONTAINER" != "$TARGET_POSTGRES_CONTAINER" ]]; then
+            # The database is running in a new container
+            if [[ "$DATABASE" = "odoo" ]]; then
+                # Rename odoo database in the target container
+                echo "Rename database '$DATABASE' to '${DATABASE}-old'"
+                $ssh_server docker-postgres-rename -c "$TARGET_POSTGRES_CONTAINER" -s "$DATABASE" -t "${DATABASE}-old"
+            fi
+
+            # Rename database in source container
+            echo "Rename database '$DATABASE' to '${DATABASE}-old'"
+            $ssh_server docker-postgres-rename -c "$POSTGRES_CONTAINER" -s "$DATABASE" -t "${DATABASE}-old"
+
+            # Rename upgrade to production database in target container
+            echo "Rename database '$TARGET_DATABASE' to '$DATABASE'"
+            $ssh_server docker-postgres-rename -c "$TARGET_POSTGRES_CONTAINER" -s "$TARGET_DATABASE" -t "$DATABASE"
+        else
+            # Rename upgrade to production database in target container
+            echo "Rename database '$DATABASE' to '${DATABASE}-old'"
+            $ssh_server docker-postgres-rename -c "$TARGET_POSTGRES_CONTAINER" -s "$DATABASE" -t "${DATABASE}-old"
+            echo "Rename database '$TARGET_DATABASE' to '${DATABASE}-old'"
+            $ssh_server docker-postgres-rename -c "$TARGET_POSTGRES_CONTAINER" -s "$TARGET_DATABASE" -t "$DATABASE"
+        fi
+    fi
+
+    if [[ "$2" = "restore-database" ]]; then
+        log-warning "Run step '$2' on $SERVER."
+
+        #FIXME: Dump and copy filestore from target server to source server
+    fi
+
+    if [[ "$2" = "restore-filestore" ]]; then
+        log-warning "Run step '$2' on $SERVER."
+
+        #FIXME: Dump and copy filestore from target server to source server
+
+        if [[ "$ODOO_CONTAINER" != "$TARGET_ODOO_CONTAINER" ]]; then
+            # Rename production filestore in source container
+            echo "Rename filestore '$DATABASE' to '${DATABASE}-old'"
+            $ssh_server docker exec "$ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$DATABASE" "/var/lib/odoo/filestore/${DATABASE}-old"
+
+            # Copy filestore from source container
+            echo "Copy filestore '$TARGET_DATABASE' to '$DATABASE'"
+            $ssh_server docker-volume-copy -s "${TARGET_ODOO_CONTAINER}:/filestore/$TARGET_DATABASE" -t "${ODOO_CONTAINER}:/filestore/$DATABASE"
+        else
+            if [[ "$DATABASE" = "odoo" ]]; then
+                echo "Rename filestore '$DATABASE' to '${DATABASE}-old'"
+                $ssh_server docker exec "$TARGET_ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$DATABASE" "/var/lib/odoo/filestore/${DATABASE}-old"
+            fi
+
+            # Rename filestore in target container
+            echo "Rename filestore '$TARGET_DATABASE' to '${DATABASE}'"
+            $ssh_server docker exec "$TARGET_ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$TARGET_DATABASE" "/var/lib/odoo/filestore/$DATABASE"
+        fi
+    fi
+
+    if [[ "$2" = "browse" ]]; then
+        log-warning "Run step '$2' on $TARGET_SERVER."
+        open-url-with-delay "https://$TARGET_HOST" 0
+    fi
+}

@@ -8,6 +8,15 @@ help-table() {
     rows+=("Command|Option|Description")
     rows+=("===ENV===| | ")
     rows+=("version||Show tool versions.")
+    rows+=("copy-dotenv|[env][env]|Copy .env file.")
+    rows+=("create-dotenv|[env][type]|Create .env file of type nextcloud, odoo, upgrade.")
+    rows+=("edit-dotenv|[env]|Open .env file in default editor.")
+    rows+=("list-dotenv||List .env files.")
+    rows+=("load-dotenv|[env]|Load and export .env file.")
+    rows+=("remove-dotenv|[env]|Remove environment config.")
+    rows+=("rename-dotenv|[env][env]|Rename .env file.")
+    rows+=("restore-dotenv-files|[path]|Extract and copy .env files from backup file.")
+    rows+=("show-dotenv|[env]|Output content of the .env file.")
     rows+=("===VISUALIZATION===| | ")
     rows+=("visualize-dependencies||Visualize Ansible role dependencies.")
     rows+=("===GALAXY===| | ")
@@ -55,6 +64,7 @@ help-table() {
     rows+=("list-tags|[path]|List tags of playbook.")
     rows+=("run||Run ansible command.")
     rows+=("connect-host|[host][username]|Connect to host with configs.")
+    rows+=("upgrade-odoo|[env][step]|Run the Odoo upgrade for a target environment.")
     rows+=("===TEST===| | ")
     rows+=("test-project|[cleanup]|Deploy to localhost. Pass option 'cleanup' to reset test env.")
     rows+=("test-scripts|[cleanup]|Install and test scripts. Pass option 'cleanup' to reset test env.")
@@ -131,6 +141,7 @@ help() {
 
 # Dynamic env vars
 
+TASK_DOTENV_DIR="$PWD/inventories/dotenv"
 GIT_BRANCH=$(git symbolic-ref --short -q HEAD)
 LLM_MODEL=${LLM_MODEL:="llama"}
 
@@ -431,6 +442,11 @@ upgrade() {
 
 lint() {
     ansible-lint --fix --offline roles/*
+}
+
+upgrade-odoo() {
+    source ./bin/upgrade-odoo
+    upgrade-odoo "$@"
 }
 
 # Report
@@ -834,7 +850,8 @@ dev-vuepress() {
     echo "Copy logos folder to vuepress public folder."
     cp -r logos .vuepress/public/
 
-    pnpm run dev
+    open-url-with-delay http://localhost:8080 1 & \
+        pnpm run dev
 }
 
 build-vuepress() {
