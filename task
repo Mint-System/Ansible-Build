@@ -2,65 +2,117 @@
 set -e
 
 help-table() {
-    local cmd_width=30
-    local opt_width=26
-    local desc_width=70
-    local column="| %-${cmd_width}s | %-${opt_width}s | %-${desc_width}s |\n"
+    local -a rows
+    local max_cmd=7 max_opt=6 max_desc=11
 
-    printf "$column" 'Command' 'Option' 'Description'
-    echo "|$(printf '%*s' $((cmd_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((opt_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((desc_width + 2)) '' | tr ' ' '-')|"
-    # Env
-    printf "$column" 'version' '' 'Show tool versions.'
-    # Visualization
-    printf "$column" 'visualize-dependencies' '' 'Visualize Ansible role dependencies.'
-    # Galaxy
-    printf "$column" 'build-galaxy' '' 'Create tarball of collection.'
-    printf "$column" 'publish-galaxy' '' 'Publish tarball to Ansible Galaxy.'
-    # Docs
-    printf "$column" 'build-vuepress' '' 'Create vuepress build.'
-    printf "$column" 'dev-vuepress' '' 'Start vuepress development server.'
-    printf "$column" 'docs' '' 'Update docs.'
-    printf "$column" 'install-vuepress' '' 'Install build dependencies.'
-    printf "$column" 'serve-vuepress' '' 'Serve vuepress build.'
-    printf "$column" 'update-roles-doc' '' 'Update readme files in roles folder.'
-    # LLM
-    printf "$column" 'commit-with-llm' '' 'Commit with llm generated commit message.'
-    printf "$column" 'update-with-llm' '[glob][prompt]' 'Feed files matching glob with prompt to LLM and apply file changes.'
-    # Docker
-    printf "$column" "login-docker" "[user][token]" "Run Docker login and create docker config."
-    # Vault
-    printf "$column" 'convert-vault-file' '[vault_id] [path]' 'Re-encrypt vault file as single strings.'
-    printf "$column" 'decrypt-file' '[path]' 'Decrypt Ansible Vault file.'
-    printf "$column" 'encrypt-file' '[vault_id] [path]' 'Encrypt file with Ansible Vault.'
-    printf "$column" 'encrypt-string' '[vault_id] [key] [value] -q' 'Generate encrypted string with Ansible Vault.'
-    printf "$column" 'generate-encrypted-string' '[vault_id] [key] -q' 'Generate encrypted string for key with Ansible Vault.'
-    printf "$column" 'generate-vault-password' '[vault_id] [password]' 'Generate a password file for Ansible Vault.'
-    printf "$column" 'show-vault-file' '[vault_id] [path]' 'Show content of encrypted strings or fully encrypted vault file.'
-    # Setup
-    printf "$column" 'install' '' 'Install Ansible and dependencies with uv.'
-    printf "$column" 'install-ansible-build-scripts' '[role]' 'Install scripts of the specified Ansbile role.'
-    printf "$column" 'install-exo' '' 'Install Exoscale CLI.'
-    printf "$column" 'show-passwordless-sudo' '[username]' 'Give instructions to setup passwordless sudo.'
-    printf "$column" 'upgrade' '' 'Upgrade Ansible and dependencies with uv.'
-    # Development
-    printf "$column" 'lint' '' 'Lint Ansible roles and playbooks.'
-    printf "$column" 'source' '' 'Source the Python virtual env.'
-    # Report
-    printf "$column" 'get-last-hostname' '[role]' 'Search inventory for $ROLE_hostname entries.'
-    printf "$column" 'list-hosts' '[path] [grep]' 'Lists all hosts of an inventory.'
-    printf "$column" 'list-roles' '' 'Lists all roles.'
-    printf "$column" 'list-vault' '' 'Lists vault identities.'
-    printf "$column" 'list-deployments-odoo' '[path]' 'List Odoo deplyments.'
-    # Git
-    printf "$column" 'pull-repos' '' 'Pull git repos in inventories folder.'
-    # Run
-    printf "$column" 'play' '[params]' 'Run ansible-playbook command.'
-    printf "$column" 'list-tags' '[path]' 'List tags of playbook.'
-    printf "$column" 'run' '' 'Run ansible command.'
-    printf "$column" 'connect-host' '[host][username]' 'Connect to host with configs.'
-    # Test
-    printf "$column" 'test-project' '[cleanup]' 'Deploy to localhost. Pass option '\''cleanup'\'' to reset test env.'
-    printf "$column" 'test-scripts' '[cleanup]' 'Install and test scripts. Pass option '\''cleanup'\'' to reset test env.'
+    rows+=("Command|Option|Description")
+    rows+=("===ENV===| | ")
+    rows+=("version||Show tool versions.")
+    rows+=("===VISUALIZATION===| | ")
+    rows+=("visualize-dependencies||Visualize Ansible role dependencies.")
+    rows+=("===GALAXY===| | ")
+    rows+=("build-galaxy||Create tarball of collection.")
+    rows+=("publish-galaxy||Publish tarball to Ansible Galaxy.")
+    rows+=("===DOCS===| | ")
+    rows+=("build-vuepress||Create vuepress build.")
+    rows+=("dev-vuepress||Start vuepress development server.")
+    rows+=("docs||Update docs.")
+    rows+=("install-vuepress||Install build dependencies.")
+    rows+=("serve-vuepress||Serve vuepress build.")
+    rows+=("update-roles-doc||Update readme files in roles folder.")
+    rows+=("===LLM===| | ")
+    rows+=("commit-with-llm||Commit with llm generated commit message.")
+    rows+=("update-with-llm|[glob][prompt]|Feed files matching glob with prompt to LLM and apply file changes.")
+    rows+=("===DOCKER===| | ")
+    rows+=("login-docker|[user][token]|Run Docker login and create docker config.")
+    rows+=("===VAULT===| | ")
+    rows+=("convert-vault-file|[vault_id] [path]|Re-encrypt vault file as single strings.")
+    rows+=("decrypt-file|[path]|Decrypt Ansible Vault file.")
+    rows+=("encrypt-file|[vault_id] [path]|Encrypt file with Ansible Vault.")
+    rows+=("encrypt-string|[vault_id] [key] [value] -q|Generate encrypted string with Ansible Vault.")
+    rows+=("generate-encrypted-string|[vault_id] [key] -q|Generate encrypted string for key with Ansible Vault.")
+    rows+=("generate-vault-password|[vault_id] [password]|Generate a password file for Ansible Vault.")
+    rows+=("show-vault-file|[vault_id] [path]|Show content of encrypted strings or fully encrypted vault file.")
+    rows+=("===SETUP===| | ")
+    rows+=("install||Install Ansible and dependencies with uv.")
+    rows+=("install-ansible-build-scripts|[role]|Install scripts of the specified Ansbile role.")
+    rows+=("install-exo||Install Exoscale CLI.")
+    rows+=("show-passwordless-sudo|[username]|Give instructions to setup passwordless sudo.")
+    rows+=("upgrade||Upgrade Ansible and dependencies with uv.")
+    rows+=("===DEVELOPMENT===| | ")
+    rows+=("lint||Lint Ansible roles and playbooks.")
+    rows+=("source||Source the Python virtual env.")
+    rows+=("===REPORT===| | ")
+    rows+=("get-last-hostname|[role]|Search inventory for \$ROLE_hostname entries.")
+    rows+=("list-hosts|[path] [grep]|Lists all hosts of an inventory.")
+    rows+=("list-roles||Lists all roles.")
+    rows+=("list-vault||Lists vault identities.")
+    rows+=("list-deployments-odoo|[path]|List Odoo deplyments.")
+    rows+=("===GIT===| | ")
+    rows+=("pull-repos||Pull git repos in inventories folder.")
+    rows+=("===RUN===| | ")
+    rows+=("play|[params]|Run ansible-playbook command.")
+    rows+=("list-tags|[path]|List tags of playbook.")
+    rows+=("run||Run ansible command.")
+    rows+=("connect-host|[host][username]|Connect to host with configs.")
+    rows+=("===TEST===| | ")
+    rows+=("test-project|[cleanup]|Deploy to localhost. Pass option 'cleanup' to reset test env.")
+    rows+=("test-scripts|[cleanup]|Install and test scripts. Pass option 'cleanup' to reset test env.")
+
+    for row in "${rows[@]}"; do
+        IFS='|' read -r cmd opt desc <<< "$row"
+        (( ${#cmd} > max_cmd )) && max_cmd=${#cmd}
+        (( ${#opt} > max_opt )) && max_opt=${#opt}
+        (( ${#desc} > max_desc )) && max_desc=${#desc}
+    done
+
+    printf '| %-*s | %-*s | %-*s |\n' \
+        "$max_cmd" "Command" \
+        "$max_opt" "Option" \
+        "$max_desc" "Description"
+
+    printf '|-%*s-|-%*s-|-%*s-|\n' \
+        "$max_cmd" "$(printf '%*s' "$max_cmd" '' | tr ' ' '-')" \
+        "$max_opt" "$(printf '%*s' "$max_opt" '' | tr ' ' '-')" \
+        "$max_desc" "$(printf '%*s' "$max_desc" '' | tr ' ' '-')"
+
+    local first_row=true
+    for row in "${rows[@]:1}"; do
+        IFS='|' read -r cmd opt desc <<< "$row"
+        if [[ "$cmd" =~ ^===.*===$ ]]; then
+            group_name="${cmd/===/}"
+            group_name="${group_name/===/}"
+            
+            if [ "$first_row" = true ]; then
+                first_row=false
+            else
+                printf '|-%*s-|-%*s-|-%*s-|\n' \
+                    "$max_cmd" "$(printf '%*s' "$max_cmd" '' | tr ' ' '-')" \
+                    "$max_opt" "$(printf '%*s' "$max_opt" '' | tr ' ' '-')" \
+                    "$max_desc" "$(printf '%*s' "$max_desc" '' | tr ' ' '-')"
+            fi
+            
+            local left_pad=$(( (max_cmd - ${#group_name}) / 2 ))
+            local right_pad=$(( max_cmd - left_pad - ${#group_name} ))
+            printf '| %*s%s%*s | %*s | %*s |\n' \
+                "$left_pad" "" \
+                "$group_name" \
+                "$right_pad" "" \
+                "$max_opt" "" \
+                "$max_desc" ""
+            
+            printf '|-%*s-|-%*s-|-%*s-|\n' \
+                "$max_cmd" "$(printf '%*s' "$max_cmd" '' | tr ' ' '-')" \
+                "$max_opt" "$(printf '%*s' "$max_opt" '' | tr ' ' '-')" \
+                "$max_desc" "$(printf '%*s' "$max_desc" '' | tr ' ' '-')"
+        else
+            first_row=false
+            printf '| %-*s | %-*s | %-*s |\n' \
+                "$max_cmd" "$cmd" \
+                "$max_opt" "$opt" \
+                "$max_desc" "$desc"
+        fi
+    done
 }
 
 help() {
