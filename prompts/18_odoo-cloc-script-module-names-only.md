@@ -1,7 +1,7 @@
 ---
 title: "Odoo cloc script module names only"
-state: draft
-model: 
+state: completed
+model: infomaniak/moonshotai/Kimi-K2.6
 input_tokens: 
 ---
 
@@ -78,6 +78,6 @@ The `odoo/studio` is removed.
 
 ## Worklog
 
-@Clanker Add a summary here once the task has been completed.
+Added the `-s` (short) option to `roles/odoo/files/docker-odoo-cloc`. When enabled, `stderr` is suppressed and `stdout` is piped through an `awk` filter that prints lines between the two `---` separator boundaries (i.e., the table body, excluding header and totals), skipping empty lines and any line starting with `odoo/studio`. Only the first column (module name) is printed.
 
 @Clanker Set frontmatter state to completed and update info about model and token usage.
