@@ -52,6 +52,12 @@ iptables v1.8.4 (nf_tables): Chain 'FIREHOL_BLACKLIST' does not exist
 Try `iptables -h' or 'iptables --help' for more information.
 ```
 
+or this error:
+
+```
+iptables: No chain/target/match by that name.
+```
+
 You have to create the table manually
 
 ```bash
