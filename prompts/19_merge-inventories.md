@@ -21,7 +21,7 @@ Note: @Clanker refers to the "ai agent" (you) who is working on this task.
 
 ## Task
 
-This task requires you to build a script that merges the inventories `odoo` and `nextcloud` into `setup`.
+This task requires you to build a script that merges the inventories `odoo` and `nextcloud` into `mint_system`.
 
 See the `inventories` folder for details.
 
@@ -36,14 +36,14 @@ First prepare the inventories like this:
 
 Then once the "scoping" is finished do this:
 
-- In `inventories/setup/hosts.yml` move all groups of `all` to a new child-group `setup`
-- Content of `inventories/odoo/hosts.yml` goes into `inventories/setup/hosts.yml` under a new group `odoo`.
-- Content of `inventories/nextcloud/hosts.yml` goes into `inventories/setup/hosts.yml` under a new group `nextcloud`.
-- Move folders from `inventories/nextcloud/host_vars` to `inventories/setup/host_vars`
-- Move folders from `inventories/odoo/host_vars` to `inventories/setup/host_vars`
-- Rename `inventories/setup/group_vars/all` to `inventories/setup/group_vars/setup`
-- Move `inventories/odoo/group_vars/odoo` to `inventories/setup/group_vars/odoo`
-- Move `inventories/nextcloud/group_vars/nextcloud` to `inventories/setup/group_vars/nextcloud`
+- In `inventories/mint_system/hosts.yml` move all groups of `all` to a new child-group `setup`
+- Content of `inventories/odoo/hosts.yml` goes into `inventories/mint_system/hosts.yml` under a new group `odoo`.
+- Content of `inventories/nextcloud/hosts.yml` goes into `inventories/mint_system/hosts.yml` under a new group `nextcloud`.
+- Move folders from `inventories/nextcloud/host_vars` to `inventories/mint_system/host_vars`
+- Move folders from `inventories/odoo/host_vars` to `inventories/mint_system/host_vars`
+- Rename `inventories/mint_system/group_vars/all` to `inventories/mint_system/group_vars/setup`
+- Move `inventories/odoo/group_vars/odoo` to `inventories/mint_system/group_vars/odoo`
+- Move `inventories/nextcloud/group_vars/nextcloud` to `inventories/mint_system/group_vars/nextcloud`
 
 Then I want you to update the playbooks in `plays`.
 
@@ -52,11 +52,7 @@ Then I want you to update the playbooks in `plays`.
 - Make sure that setup playbook only targets the setup group
 - Make sure that all playbook only targets the setup group
 
-At then end of these process there should be only three folders in `inventories`: `opsone`, `sozialinfo`, `setup`.
-
-The last step is to rename the `inventories/setup` folder to `inventories/mint_system`.
-
-Update the `README.md` to reflect these changes.
+At then end of these process there should be only three folders in `inventories`: `opsone`, `sozialinfo`, `mint_system`.
 
 ## Worklog
 
