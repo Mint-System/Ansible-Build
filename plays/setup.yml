@@ -26,8 +26,6 @@
       tags: cargo
     - role: kernel
       tags: kernel
-    - role: docker
-      tags: docker
     - role: iam
       tags: iam
     - role: maintenance
@@ -40,8 +38,8 @@
       tags: innernet
     - role: rclone
       tags: rclone
-    - role: docker_hosts
-      tags: docker_hosts
+    - role: docker_network
+      tags: docker_network
     - role: docker_compose
       tags: docker_compose
     - role: k3s

@@ -95,10 +95,10 @@ Alternatively you can configure the `--vault-id` parameter of the Ansible playbo
 task play --vault-id mint_system@.vault_pass_mint_system ...
 ```
 
-To decrypt single strings run this command:
+You can generate a secret with this command:
 
 ```bash
-task encrypt-string sozialinfo "vault_rolename_varname: secret"
+task encrypt-string mint_system "vault_postgres_password" "$(pwgen -c 20 1)"
 ```
 
 ### Deploy
