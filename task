@@ -192,6 +192,11 @@ connect-host() {
         host_config=$(eval "$command" | sed '/null/d' | head -5)
 
         if [[ -z "$host_config" ]]; then
+            command="yq e '.all.children.*.children.*.hosts.$search_host' $hosts_file"
+            host_config=$(eval "$command" | sed '/null/d' | head -5)
+        fi
+
+        if [[ -z "$host_config" ]]; then
             command="yq e '.all.hosts.$search_host' $hosts_file"
             host_config=$(eval "$command" | sed '/null/d' | head -5)
         fi

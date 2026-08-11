@@ -42,6 +42,9 @@ Then once the "scoping" is finished do this:
 - Move folders from `inventories/nextcloud/host_vars` to `inventories/setup/host_vars`
 - Move folders from `inventories/odoo/host_vars` to `inventories/setup/host_vars`
 - Rename `inventories/setup/group_vars/all` to `inventories/setup/group_vars/setup`
+- Move `inventories/odoo/group_vars/odoo` to `inventories/setup/group_vars/odoo`
+- Move `inventories/nextcloud/group_vars/nextcloud` to `inventories/setup/group_vars/nextcloud`
+
 Then I want you to update the playbooks in `plays`.
 
 - Make sure the odoo playbook only targets the odoo group

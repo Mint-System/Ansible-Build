@@ -108,7 +108,7 @@ Deploy the roles to the target hosts with the following commands.
 List hosts in inventory.
 
 ```bash
-task list-hosts inventories/setup
+task list-hosts inventories/mint_system
 ```
 
 Load virtualenv.
@@ -120,67 +120,67 @@ source task source
 Test connection.
 
 ```bash
-ansible all -m ping -i inventories/odoo
+ansible all -m ping -i inventories/mint_system
 ```
 
 Deploy multiple inventories.
 
 ```bash
-task play -i inventories/setup -i inventories/odoo plays/odoo.yml
+task play -i inventories/mint_system plays/odoo.yml
 ```
 
 Deploy Odoo stack.
 
 ```bash
-task play -i inventories/odoo plays/odoo.yml
+task play -i inventories/mint_system plays/odoo.yml
 ```
 
 Deploy role only.
 
 ```bash
-task play -i inventories/odoo plays/odoo.yml -t postgres
+task play -i inventories/mint_system plays/odoo.yml -t postgres
 ```
 
 Deploy without dependencies.
 
 ```bash
-task play -i inventories/setup plays/setup.yml --skip-tags depends
+task play -i inventories/mint_system plays/setup.yml --skip-tags depends
 ```
 
 Deploy role to specific host.
 
 ```bash
-task play -i inventories/setup plays/setup.yml -t docker -l server1
+task play -i inventories/mint_system plays/setup.yml -t docker -l server1
 ```
 
 Deploy role to specific group with non-default user.
 
 ```bash
-task play -i inventories/setup plays/setup.yml -t docker -l server1 -u username
+task play -i inventories/mint_system plays/setup.yml -t docker -l server1 -u username
 ```
 
 Cleanup Odoo stack.
 
 ```bash
-task play -i inventories/odoo plays/cleanup.yml.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
+task play -i inventories/mint_system plays/cleanup.yml -t odoo,odoo_volume,odoo_data,postgres,postgres_volume
 ```
 
 Cleanup role only.
 
 ```bash
-task play -i inventories/setup plays/cleanup.yml.yml -t docker_network
+task play -i inventories/mint_system plays/cleanup.yml -t docker_network
 ```
 
 Cleanup dry run.
 
 ```bash
-task play -i inventories/odoo plays/odoo.yml -t odoo --check
+task play -i inventories/mint_system plays/odoo.yml -t odoo --check
 ```
 
 List all Odoo databases.
 
 ```bash
-ansible all -i inventories/odoo -a "docker-postgres-list -c {{ postgres_hostname }}"
+ansible all -i inventories/mint_system -a "docker-postgres-list -c {{ postgres_hostname }}"
 ```
 
 ## Development
