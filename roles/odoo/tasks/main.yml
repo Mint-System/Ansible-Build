@@ -1,9 +1,4 @@
 ---
-- name: Include {{ role_name }} scripts tasks
-  ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
-  tags:
-    - odoo
-
 - name: On build set new image tag {{ role_name }}:{{ odoo_hostname }}
   ansible.builtin.set_fact:
     odoo_image: "odoo:{{ odoo_hostname }}"
@@ -28,7 +23,7 @@
 
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: odoo_image is defined and odoo_configmap is undefined
+  when: odoo_image is defined and odoo_configmap|length == 1
   tags:
     - odoo
 
@@ -37,6 +32,11 @@
 - name: Include {{ role_name }} configmap tasks
   ansible.builtin.include_tasks: "{{ role_name }}_configmap.yml"
   when: odoo_configmap is defined and odoo_configmap|length > 1
+  tags:
+    - odoo
+
+- name: Include {{ role_name }} scripts tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
   tags:
     - odoo
 

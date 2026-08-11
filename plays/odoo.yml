@@ -2,13 +2,5 @@
 - name: Odoo play
   hosts: all
   roles:
-    - role: packages
-      tags: packages
-    - role: odoo_apps
-      tags: odoo_apps
-    - role: odoo_repos
-      tags: odoo_repos
-    - role: odoo_enterprise
-      tags: odoo_enterprise
-    - role: odoo_data
-      tags: odoo_data
+    - role: odoo
+      tags: odoo
