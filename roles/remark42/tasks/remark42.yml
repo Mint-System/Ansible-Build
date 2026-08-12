@@ -37,7 +37,13 @@
       NOTIFY_EMAIL_ADMIN: "true"
       BACKUP_PATH: /srv/var/backup
       AUTH_SAME_SITE: none
-      # DEBUG: "true"
+      AUTH_CUSTOM_NAME: "{{ remark42_auth_custom_name }}"
+      AUTH_CUSTOM_CID: "{{ remark42_auth_custom_cid }}"
+      AUTH_CUSTOM_CSEC: "{{ remark42_auth_custom_csec }}"
+      AUTH_CUSTOM_AUTH_URL: "{{ remark42_auth_custom_auth_url }}"
+      AUTH_CUSTOM_TOKEN_URL: "{{ remark42_auth_custom_token_url }}"
+      AUTH_CUSTOM_INFO_URL: "{{ remark42_auth_custom_info_url }}"
+      AUTH_CUSTOM_SCOPES: "{{ remark42_auth_custom_scopes }}"
     volumes:
       - "{{ remark42_volume_name }}:/srv/var"
     networks:

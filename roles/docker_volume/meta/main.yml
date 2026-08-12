@@ -1,6 +1,2 @@
 ---
-dependencies:
-  - role: docker
-    tags:
-      - docker
-      - depends
+dependencies: []
