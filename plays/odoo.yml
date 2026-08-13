@@ -4,3 +4,5 @@
   roles:
     - role: odoo
       tags: odoo
+    - role: odoo_repos
+      tags: odoo_repos
