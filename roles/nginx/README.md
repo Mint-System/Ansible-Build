@@ -14,7 +14,7 @@ Configure the role.
 
 ```yml
 # https://hub.docker.com/_/nginx/
-nginx_image: nginx:1.25.2-alpine
+nginx_image: nginx:1.31.3-alpine
 nginx_hostname: nginx01
 nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"
 nginx_ports:
