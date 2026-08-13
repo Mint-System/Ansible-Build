@@ -2,6 +2,14 @@
 
 The Odoo Build project assists you in running upgrades for any Odoo project. This document provides a highly opinionated way to connect Odoo Build with an existing Odoo enviroment and execute the upgrade.
 
+### Requirements
+
+Running the upgrade requires scripts on the servers. Ensure that the following scripts are installed on the server:
+
+- <https://ansible.build/scripts.html#docker> provides generic Docker container commands
+- <https://ansible.build/scripts.html#odoo> helps managing the Odoo container
+- <https://ansible.build/scripts.html#postgres> supports managing the Postgres container
+
 ## Setup
 
 Odoo Build provies task file commands that take `env` as an argument. The `env` is reference to the name of a dotenv file (`inventories/dotenv/.env.$NAME`). These files are managed with `*-dotenv` commands.
@@ -80,20 +88,6 @@ TARGET_DATABASE='upgrade'
 Note that the `HOST` and `TARGET_HOST` is a reference to another dotenv file.
 
 You can show the upgrade information with `task upgrade-odoo amce info`.
-
-### Helper Scripts
-
-Running the upgrade requires scripts on the servers. Ensure that the following scripts are installed on the server:
-
-- <https://ansible.build/scripts.html#docker> provides generic Docker container commands
-- <https://ansible.build/scripts.html#odoo> helps managing the Odoo container
-- <https://ansible.build/scripts.html#postgres> supports managing the Postgres container
-
-You probably have become aware that this project and especially the upgrade process uses scripts from different projects. Here is a list of the projects involved:
-
-- <https://taskfile.build> provides the basic commands to manage dotfiles
-- <https://odoo.build> is this project and provides the commands to run the upgrade steps
-- <https://ansible.build> this repo has the scripts to manage containers on the server
 
 ## Test Run
 
