@@ -25,6 +25,7 @@ upgrade-odoo() {
         echo "shell"
         echo "psql"
         echo "rename-database"
+        echo "rename-filestore"
         echo "restore-database"
         echo "restore-filestore"
         echo "stop-container"
@@ -253,9 +254,22 @@ upgrade-odoo() {
     if [[ "$2" = "rename-database" ]]; then
         log-warning "Run step '$2' on $SERVER."
 
-        #FIXME: Ensure this works if source and target server are different.
+        if [[ "$SERVER" != "$TARGET_SERVER" ]]; then
+            log-warning "Source and target host are different."
 
-        if [[ "$POSTGRES_CONTAINER" != "$TARGET_POSTGRES_CONTAINER" ]]; then
+            # Rename database in source container on source server
+            echo "Rename database '$DATABASE' to '${DATABASE}-old'"
+            $ssh_server docker-postgres-rename -c "$POSTGRES_CONTAINER" -s "$DATABASE" -t "${DATABASE}-old"
+
+            # Rename copied database in target container on target server
+            echo "Rename database '$DATABASE' to '${DATABASE}-old'"
+            $ssh_target_server docker-postgres-rename -c "$TARGET_POSTGRES_CONTAINER" -s "$DATABASE" -t "${DATABASE}-old"
+
+            # Rename upgrade to production database in target container on target server
+            echo "Rename database '$TARGET_DATABASE' to '$DATABASE'"
+            $ssh_target_server docker-postgres-rename -c "$TARGET_POSTGRES_CONTAINER" -s "$TARGET_DATABASE" -t "$DATABASE"
+
+        elif [[ "$POSTGRES_CONTAINER" != "$TARGET_POSTGRES_CONTAINER" ]]; then
             # The database is running in a new container
             if [[ "$DATABASE" = "odoo" ]]; then
                 # Rename odoo database in the target container
@@ -279,18 +293,25 @@ upgrade-odoo() {
         fi
     fi
 
-    if [[ "$2" = "restore-database" ]]; then
+    if [[ "$2" = "rename-filestore" ]]; then
         log-warning "Run step '$2' on $SERVER."
 
-        #FIXME: Dump and copy filestore from target server to source server
-    fi
+        if [[ "$SERVER" != "$TARGET_SERVER" ]]; then
+            log-warning "Source and target host are different."
 
-    if [[ "$2" = "restore-filestore" ]]; then
-        log-warning "Run step '$2' on $SERVER."
+            # Rename production filestore in source container on source server
+            echo "Rename filestore '$DATABASE' to '${DATABASE}-old'"
+            $ssh_server docker exec "$ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$DATABASE" "/var/lib/odoo/filestore/${DATABASE}-old"
 
-        #FIXME: Dump and copy filestore from target server to source server
+            # Rename copied filestore in target container on target server
+            echo "Copy filestore '$TARGET_DATABASE' to '$DATABASE'"
+            $ssh_target_server docker exec "$TARGET_ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$DATABASE" "/var/lib/odoo/filestore/${DATABASE}-old"
 
-        if [[ "$ODOO_CONTAINER" != "$TARGET_ODOO_CONTAINER" ]]; then
+            # Rename filestore in target container on source server
+            echo "Copy filestore '$TARGET_DATABASE' to '$DATABASE'"
+            $ssh_target_server docker exec "$TARGET_ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$TARGET_DATABASE" "/var/lib/odoo/filestore/$DATABASE"
+
+        elif [[ "$ODOO_CONTAINER" != "$TARGET_ODOO_CONTAINER" ]]; then
             # Rename production filestore in source container
             echo "Rename filestore '$DATABASE' to '${DATABASE}-old'"
             $ssh_server docker exec "$ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$DATABASE" "/var/lib/odoo/filestore/${DATABASE}-old"
@@ -308,6 +329,18 @@ upgrade-odoo() {
             echo "Rename filestore '$TARGET_DATABASE' to '${DATABASE}'"
             $ssh_server docker exec "$TARGET_ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$TARGET_DATABASE" "/var/lib/odoo/filestore/$DATABASE"
         fi
+    fi
+
+    if [[ "$2" = "restore-database" ]]; then
+        log-warning "Run step '$2' on $SERVER."
+
+        #FIXME: Dump and copy filestore from target server to source server
+    fi
+
+    if [[ "$2" = "restore-filestore" ]]; then
+        log-warning "Run step '$2' on $SERVER."
+
+        #FIXME: Dump and copy filestore from target server to source server
     fi
 
     if [[ "$2" = "browse" ]]; then
