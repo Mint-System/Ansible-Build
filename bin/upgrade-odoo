@@ -118,22 +118,22 @@ upgrade-odoo() {
         log-warning "Run step '$2' on $SERVER."
 
         echo "Export $DATABASE filestore on $ODOO_CONTAINER..."
-        $ssh_server docker-export -c "$ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$DATABASE" -o "$temp_folder"
+        $ssh_server docker-export -c "$ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$DATABASE" -o "$temp_folder/$TARGET_ODOO_CONTAINER.tar"
 
         if [[ "$SERVER" != "$TARGET_SERVER" ]]; then
             log-warning "Source and target host are different."
 
             echo "Downloading filestore from $SERVER..."
-            rsync -avz -e "ssh -p $PORT" "$SERVER:$temp_folder/$ODOO_CONTAINER.tar" "tmp/$ODOO_CONTAINER.tar"
+            rsync -avz -e "ssh -p $PORT" "$SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar" "tmp/$TARGET_ODOO_CONTAINER.tar"
             
             echo "Uploading filestore to $TARGET_SERVER..."
             $ssh_target_server mkdir -p "$temp_folder/$TARGET_POSTGRES_CONTAINER"
-            rsync -avz -e "ssh -p $TARGET_PORT" "tmp/$ODOO_CONTAINER.tar" "$TARGET_SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar"
+            rsync -avz -e "ssh -p $TARGET_PORT" "tmp/$TARGET_ODOO_CONTAINER.tar" "$TARGET_SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar"
             rm "tmp/$ODOO_CONTAINER.tar"
         fi
         
         echo "Restore $TARGET_DATABASE filestore to $TARGET_ODOO_CONTAINER..."
-        $ssh_target_server docker-import -c "$TARGET_ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$TARGET_DATABASE" -f "$temp_folder/$ODOO_CONTAINER.tar" -r
+        $ssh_target_server docker-import -c "$TARGET_ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$TARGET_DATABASE" -f "$temp_folder/$TARGET_ODOO_CONTAINER.tar" -r
     fi
 
     if [[ "$2" = "drop-database" ]]; then
