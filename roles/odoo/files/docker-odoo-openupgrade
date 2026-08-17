@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.0.0"
+
+# Display Help
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Run Odoo OpenUpgrade for multiple versions.'
+    echo "Syntax: $script [-c|-d|-s|-t|-m|-V|help]"
+    echo 'Example: $script -c postgres01 -d upgrade -s 14.0 -t 15.0 -m test'
+    echo 'options:'
+    echo '  -c    PostgreSQL container. Defaults to '\''postgres'\''.'
+    echo '  -d    Database name.'
+    echo '  -s    Current Odoo version.'
+    echo '  -t    Target Odoo version.'
+    echo '  -m    Upgrade mode. Options are '\''test'\'' or '\''production'\''. Defaults to '\''test'\''.'
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
+    echo
+}
+
+# Show help and exit
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+# Process params
+while getopts ':c: :d: :s: :t: :m: :V' opt; do
+    case $opt in
+        c) container="$OPTARG";;
+        d) database="$OPTARG";;
+        s) odoo_version="$OPTARG";;
+        t) target_odoo_version="$OPTARG";;
+        m) mode="$OPTARG";;
+        V) echo "$script version $version"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit;;
+    esac
+done
+
+# Fallback to environment vars and default values
+: "${container:=postgres}"
+: "${mode:=test}"
+
+# Verify variables
+[[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
+[[ -z "$odoo_version" ]] && { echo 'Parameter -s|current version is empty.' ; exit 1; }
+[[ -z "$target_odoo_version" ]] && { echo 'Parameter -t|target version is empty.' ; exit 1; }
+
+# Retrieve container info
+network_id=$(docker inspect --format '{{range .NetworkSettings.Networks}}{{.NetworkID}}{{end}}' "$container")
+network=$(docker network inspect --format '{{.Name}}' "$network_id")
+pghost="$container"
+pguser=$(docker exec "$container" /bin/bash -c "echo \$POSTGRES_USER")
+pgpassword=$(docker exec "$container" /bin/bash -c "echo \$POSTGRES_PASSWORD")
+postgres_version=$(docker exec "$container" postgres --version | awk '{print $3}' | sed 's/^\(.*\)\..*$/\1/')
+export network
+export pghost
+export pguser
+export pgpassword
+export postgres_version
+
+
+# Create a list of versions and start loop
+
+    # Pull mintsystem/odoo:$odoo_version
+
+    # Download openupgrade: docker exec $temp_container download-odoo-openupgrade
+
+    # Install openupgrade lib: docker exec $temp_container uv pip install git+https://github.com/OCA/openupgradelib.git@master#egg=openupgradelib
+
+    # Exec openupgrade command: docker exec $temp_container odoo --update all --stop-after-init --load=base,web,openupgrade_framework
