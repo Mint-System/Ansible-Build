@@ -10,48 +10,48 @@ help() {
     echo "$script"
     echo
     echo 'Description: Run Odoo OpenUpgrade for multiple versions.'
-    echo "Syntax: $script [-c|-d|-s|-t|-m|-V|help]"
-    echo 'Example: $script -c postgres01 -d upgrade -s 14.0 -t 15.0 -m test'
+    echo "Syntax: $script [-c|-d|-v|-s|-t|-m|-V|help]"
+    echo 'Example: $script -c postgres01 -v odoo01 -d upgrade -s 14.0 -t 15.0'
     echo 'options:'
     echo '  -c    PostgreSQL container. Defaults to '\''postgres'\''.'
     echo '  -d    Database name.'
+    echo '  -v    Odoo volume.'
     echo '  -s    Current Odoo version.'
     echo '  -t    Target Odoo version.'
-    echo '  -m    Upgrade mode. Options are '\''test'\'' or '\''production'\''. Defaults to '\''test'\''.'
     echo "  -V    Show $script version."
     echo "  help  Show $script manual."
     echo
 }
 
 # Show help and exit
-if [[ "$1" == 'help' ]]; then
+if [[ "${1:-}" == 'help' ]]; then
     help
     exit
 fi
 
 # Process params
-while getopts ':c: :d: :s: :t: :m: :V' opt; do
+while getopts ':c:d:v:s:t:V' opt; do
     case $opt in
         c) container="$OPTARG";;
         d) database="$OPTARG";;
+        v) odoo_volume="$OPTARG";;
         s) odoo_version="$OPTARG";;
         t) target_odoo_version="$OPTARG";;
-        m) mode="$OPTARG";;
         V) echo "$script version $version"
-        exit 0
-        ;;
+           exit 0
+           ;;
         \?) echo "Invalid option -$OPTARG" >&2
-        help
-        exit;;
+            help
+            exit 1;;
     esac
 done
 
 # Fallback to environment vars and default values
 : "${container:=postgres}"
-: "${mode:=test}"
 
 # Verify variables
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
+[[ -z "$odoo_volume" ]] && { echo 'Parameter -v|volume is empty.' ; exit 1; }
 [[ -z "$odoo_version" ]] && { echo 'Parameter -s|current version is empty.' ; exit 1; }
 [[ -z "$target_odoo_version" ]] && { echo 'Parameter -t|target version is empty.' ; exit 1; }
 
@@ -68,13 +68,49 @@ export pguser
 export pgpassword
 export postgres_version
 
-
 # Create a list of versions and start loop
+current_major=${odoo_version%%.*}
+target_major=${target_odoo_version%%.*}
 
-    # Pull mintsystem/odoo:$odoo_version
+if [[ "$current_major" -ge "$target_major" ]]; then
+    echo "Error: Target version ($target_odoo_version) must be greater than source version ($odoo_version)." >&2
+    exit 1
+fi
 
-    # Download openupgrade: docker exec $temp_container download-odoo-openupgrade
+odoo_versions=()
+for (( v=current_major; v<target_major; v++ )); do
+    odoo_versions+=("$v.0")
+done
 
-    # Install openupgrade lib: docker exec $temp_container uv pip install git+https://github.com/OCA/openupgradelib.git@master#egg=openupgradelib
+for current_version in "${odoo_versions[@]}"; do
+    current_major=${current_version%%.*}
+    next_major=$((current_major + 1))
+    next_version="$next_major.0"
+    
+    echo "=== OpenUpgrade: Upgrading $current_version -> $next_version ==="
 
-    # Exec openupgrade command: docker exec $temp_container odoo --update all --stop-after-init --load=base,web,openupgrade_framework
+    docker pull "mintsystem/odoo:$next_version"
+    
+    docker run --rm \
+        -v "$odoo_volume:/var/lib/odoo" \
+        "mintsystem/odoo:$next_version" \
+        download-odoo-openupgrade
+
+    docker run --rm \
+        --name "odoo-${next_version}-tmp" \
+        --network="$network" \
+        -v "$odoo_volume:/var/lib/odoo" \
+        -e "PYTHON_INSTALL=git+https://github.com/OCA/openupgradelib.git@master#egg=openupgradelib" \
+        -e "OPENUPGRADE_TARGET_VERSION=$next_version" \
+        -e "SERVER_WIDE_MODULES=openupgrade_framework" \
+        -e "ODOO_ADDONS_PATH=/var/lib/odoo/openupgrade/$next_version" \
+        -e "PGHOST=$pghost" \
+        -e "PGUSER=$pguser" \
+        -e "PGPASSWORD=$pgpassword" \
+        -e "DB_NAME=$database" \
+        "mintsystem/odoo:$next_version" \
+        --database "$database" --update "all" --stop-after-init --no-http
+
+    echo "=== OpenUpgrade: $current_version -> $next_version complete ==="
+done
+
