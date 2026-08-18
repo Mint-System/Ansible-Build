@@ -19,6 +19,7 @@
     - docker-odoo-duplicate
     - docker-odoo-init
     - docker-odoo-list
+    - docker-odoo-openupgrade
     - docker-odoo-patch
     - docker-odoo-restore
     - docker-odoo-shell

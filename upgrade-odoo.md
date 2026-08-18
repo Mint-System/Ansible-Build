@@ -91,7 +91,7 @@ You can show the upgrade information with `task upgrade-odoo amce info`.
 
 ## Test Run
 
-Before going live with an upgraded Odoo database, the new enviroments needs to be tested thoroughly . An upgrade run copies the production database and runs the Odoo Enterprise Upgrade script or Odoo OpenUpgrade scripts in test mode. On sucess a neutralized and upgraded database will be ready for testing.
+Before going live with an upgraded Odoo database, the new enviroments needs to be tested thoroughly . An upgrade run copies the production database and runs the Odoo Enterprise Upgrade or the Odoo OpenUpgrade scripts in test mode. On sucess a neutralized and upgraded database will be ready for testing.
 
 ### Execute
 

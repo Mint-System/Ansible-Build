@@ -98,6 +98,7 @@ curl -L https://ansible.build/odoo/install | bash -s -- --user
 - [docker-odoo-duplicate](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/docker-odoo-duplicate)
 - [docker-odoo-init](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/docker-odoo-init)
 - [docker-odoo-list](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/docker-odoo-list)
+- [docker-odoo-openupgrade](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/docker-odoo-openupgrade)
 - [docker-odoo-patch](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/docker-odoo-patch)
 - [docker-odoo-restore](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/docker-odoo-restore)
 - [docker-odoo-shell](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/docker-odoo-shell)
