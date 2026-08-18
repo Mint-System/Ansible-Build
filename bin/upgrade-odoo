@@ -90,6 +90,7 @@ upgrade-odoo() {
         echo "Odoo Version: $TARGET_ODOO_VERSION"
         echo "Postgres Container: $TARGET_POSTGRES_CONTAINER"
         echo "Database: $TARGET_DATABASE"
+        echo "Temp Folder: $temp_folder"
         echo ""
         echo "Upgrade Configuration"
         echo "---------------------"
