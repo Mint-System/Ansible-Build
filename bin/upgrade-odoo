@@ -166,7 +166,7 @@ upgrade-odoo() {
 
     if [[ "$2" = "upgrade-production" ]]; then
         log-warning "Run step '$2' on $TARGET_SERVER."
-        if [[ "USE_OPENUPGRADE" = "True" ]]; then
+        if [[ "$USE_OPENUPGRADE" = "True" ]]; then
             $ssh_target_server docker-odoo-openupgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -v "$TARGET_ODOO_CONTAINER" -s "$ODOO_VERSION" -t "$TARGET_ODOO_VERSION"
         else
             $ssh_target_server docker-odoo-upgrade -m production -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -s "$ODOO_VERSION" -n "$TARGET_DATABASE" -t "$TARGET_ODOO_VERSION"
@@ -203,7 +203,11 @@ upgrade-odoo() {
 
     if [[ "$2" = "update" ]]; then
         log-warning "Run step '$2' on $TARGET_SERVER."
-        $ssh_target_server docker-odoo-update -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE" -u all
+        if [[ "$USE_OPENUPGRADE" = "True" ]]; then
+            echo "Update all modules not required for OpenUpgrade."
+        else
+            $ssh_target_server docker-odoo-update -c "$TARGET_ODOO_CONTAINER" -d "$TARGET_DATABASE" -u all
+        fi
     fi
 
     if [[ "$2" = "configure-test" ]]; then
