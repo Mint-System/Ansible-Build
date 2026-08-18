@@ -19,7 +19,7 @@
 | ![cleanup logo](/logos/cleanup.png)  | [cleanup](roles/cleanup/README.md) | environment | Cleanup Ansible roles. |
 | ![collabora_code logo](/logos/collabora_code.png)  | [collabora_code](roles/collabora_code/README.md) | application | Deploy Collabora Online Development Edition (CODE) container. |
 | ![commento logo](/logos/commento.png)  | [commento](roles/commento/README.md) | application | Deploy Commento container |
-| ![coturn logo](/logos/coturn.png)  | [coturn](roles/coturn/README.md) | application | Deploy Coturn cotainer. |
+| ![coturn logo](/logos/coturn.png)  | [coturn](roles/coturn/README.md) | service | Deploy Coturn cotainer. |
 | ![cron logo](/logos/cron.png)  | [cron](roles/cron/README.md) | environment | Setup cron jobs. |
 | ![crowdsec_firewall_bouncer logo](/logos/crowdsec_firewall_bouncer.png)  | [crowdsec_firewall_bouncer](roles/crowdsec_firewall_bouncer/README.md) | system | Deploy CrowdSec Firewall Bouncer. |
 | ![crowdsec logo](/logos/crowdsec.png)  | [crowdsec](roles/crowdsec/README.md) | service | Deploy CrowdSec container. |
@@ -40,6 +40,7 @@
 | ![gitea logo](/logos/gitea.png)  | [gitea](roles/gitea/README.md) | application | Deploy Gitea container. |
 | ![git logo](/logos/git.png)  | [git](roles/git/README.md) | environment | Checkout Git repositories. |
 | ![grafana logo](/logos/grafana.png)  | [grafana](roles/grafana/README.md) | service | Deploy Grafana container. |
+| ![greenlight logo](/logos/greenlight.png)  | [greenlight](roles/greenlight/README.md) | application | Greenlight is a simple front-end application for BigBlueButton |
 | ![htpasswd logo](/logos/htpasswd.png)  | [htpasswd](roles/htpasswd/README.md) | service | Configure .htpasswd basic auth file. |
 | ![iam logo](/logos/iam.png)  | [iam](roles/iam/README.md) | environment | Identity and Access Management. Configure user and groups. |
 | ![infomaniak logo](/logos/infomaniak.png)  | [infomaniak](roles/infomaniak/README.md) | system | Manage Infomaniak domain and dns entries. |

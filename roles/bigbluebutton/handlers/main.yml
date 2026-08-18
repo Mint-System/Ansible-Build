@@ -8,8 +8,3 @@
   register: bigbluebutton_status
   failed_when: bigbluebutton_status.rc != 0
   changed_when: false
-
-- name: Restart Nginx service
-  ansible.builtin.service:
-    name: nginx
-    state: restarted

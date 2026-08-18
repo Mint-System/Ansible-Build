@@ -1,0 +1,4 @@
+---
+- name: Restart BigBlueButton services
+  ansible.builtin.command: bbb-conf --restart
+  notify: Check BigBlueButton services

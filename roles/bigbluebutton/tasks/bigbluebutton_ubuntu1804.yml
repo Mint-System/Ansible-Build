@@ -1,6 +1,4 @@
 ---
-# https://docs.bigbluebutton.org/2.3/install.html#install
-
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
@@ -68,7 +66,7 @@
 
 - name: Check BigBlueButton repo is present
   ansible.builtin.apt_repository:
-    repo: deb {{ bigbluebutton_apt_repo_url }} bigbluebutton-bionic main
+    repo: deb https://ubuntu.bigbluebutton.org/bionic-230/ bigbluebutton-bionic main
     state: present
   register: bigbluebutton_repo_is_present
 
