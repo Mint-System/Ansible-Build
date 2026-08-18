@@ -268,7 +268,7 @@ upgrade-odoo() {
     fi
 
     if [[ "$2" = "stop-container" ]]; then
-        log-warning "Run step '$2' on $TARGET_SERVER."
+        log-warning "Run step '$2' on $\ERVER."
         $ssh_server docker stop "$ODOO_CONTAINER"
     fi
 
