@@ -2,6 +2,9 @@
 - name: Odoo play
   hosts: all
   roles:
+    - role: postgres
+      tags: 
+        - odoo
     - role: odoo
       tags: 
         - odoo
