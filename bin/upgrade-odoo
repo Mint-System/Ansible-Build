@@ -35,7 +35,7 @@ upgrade-odoo() {
         echo "rename-database"
         echo "rename-filestore"
         echo ""
-        
+
         exit
     fi
     if [[ -z "$2" ]]; then
@@ -52,16 +52,18 @@ upgrade-odoo() {
     # Setup ssh aliases
     ssh_server="ssh -p $PORT ${USERNAME}@${SERVER}"
     ssh_target_server="ssh -t -p $TARGET_PORT ${TARGET_USERNAME:-$USERNAME}@${TARGET_SERVER}"
+    rsync_server="ssh -p $PORT"
+    rsync_target_server="ssh -p $TARGET_PORT"
 
-    scp_exec="scp"
     if [[ -n "$JUMP_HOST" ]]; then
         log-warning "Source connection uses jump host: $JUMP_HOST"
         ssh_server="ssh -p $PORT -J $JUMP_HOST ${USERNAME}@${SERVER}"
-        scp_exec="scp -o ProxyJump=$JUMP_HOST"
+        rsync_server="ssh -J $JUMP_HOST -p $PORT "
     fi
     if [[ -n "$TARGET_JUMP_HOST" ]]; then
         log-warning "Target connection uses jump host: $JUMP_HOST"
         ssh_target_server="ssh -t -p $TARGET_PORT -J $TARGET_JUMP_HOST $TARGET_SERVER"
+        rsync_target_server="ssh -J $TARGET_JUMP_HOST -p $TARGET_PORT"
     fi
 
     if [[ "$2" =~ "info" ]]; then
@@ -111,11 +113,11 @@ upgrade-odoo() {
             log-warning "Source and target host are different."
 
             echo "Downloading dump from $SERVER..."
-            rsync -avz -e "ssh -p $PORT" "$SERVER:$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql" "tmp/$DATABASE.sql"
+            rsync -avz -e "$rsync_server" "$SERVER:$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql" "tmp/$DATABASE.sql"
             
             echo "Uploading dump to $TARGET_SERVER..."
             $ssh_target_server mkdir -p "$temp_folder/$POSTGRES_CONTAINER"
-            rsync -avz -e "ssh -p $TARGET_PORT" "tmp/$DATABASE.sql" "$TARGET_SERVER:$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql"
+            rsync -avz -e "$rsync_target_server" "tmp/$DATABASE.sql" "$TARGET_SERVER:$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql"
             rm "tmp/$DATABASE.sql"
         fi
 
@@ -127,17 +129,18 @@ upgrade-odoo() {
         log-warning "Run step '$2' on $SERVER."
 
         echo "Export $DATABASE filestore on $ODOO_CONTAINER..."
-        $ssh_server docker-export -c "$ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$DATABASE" -o "$temp_folder/$TARGET_ODOO_CONTAINER.tar"
+        $ssh_server docker-export -c "$ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$DATABASE" -o "$temp_folder"
+        $ssh_server mv "$temp_folder/$ODOO_CONTAINER.tar" "$temp_folder/$TARGET_ODOO_CONTAINER.tar"
 
         if [[ "$SERVER" != "$TARGET_SERVER" ]]; then
             log-warning "Source and target host are different."
 
             echo "Downloading filestore from $SERVER..."
-            rsync -avz -e "ssh -p $PORT" "$SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar" "tmp/$TARGET_ODOO_CONTAINER.tar"
+            rsync -avz -e "$rsync_server" "$SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar" "tmp/$TARGET_ODOO_CONTAINER.tar"
             
             echo "Uploading filestore to $TARGET_SERVER..."
             $ssh_target_server mkdir -p "$temp_folder/$TARGET_POSTGRES_CONTAINER"
-            rsync -avz -e "ssh -p $TARGET_PORT" "tmp/$TARGET_ODOO_CONTAINER.tar" "$TARGET_SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar"
+            rsync -avz -e "$rsync_target_server" "tmp/$TARGET_ODOO_CONTAINER.tar" "$TARGET_SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar"
             rm "tmp/$ODOO_CONTAINER.tar"
         fi
         
