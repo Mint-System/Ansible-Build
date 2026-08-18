@@ -109,7 +109,7 @@ for current_version in "${odoo_versions[@]}"; do
         -e "PGPASSWORD=$pgpassword" \
         -e "DB_NAME=$database" \
         "mintsystem/odoo:$next_version" \
-        --database "$database" --update "all" --stop-after-init --no-http
+        --update "all" --stop-after-init --no-http
 
     echo "=== OpenUpgrade: $current_version -> $next_version complete ==="
 done
