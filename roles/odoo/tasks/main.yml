@@ -39,6 +39,7 @@
   ansible.builtin.include_tasks: "{{ role_name }}_scripts.yml"
   tags:
     - odoo
+    - odoo_scripts
 
 - name: Include {{ role_name }} data tasks
   ansible.builtin.include_tasks: "{{ role_name }}_data.yml"

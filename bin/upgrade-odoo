@@ -141,7 +141,7 @@ upgrade-odoo() {
             echo "Uploading filestore to $TARGET_SERVER..."
             $ssh_target_server mkdir -p "$temp_folder/$TARGET_POSTGRES_CONTAINER"
             rsync -avz -e "$rsync_target_server" "tmp/$TARGET_ODOO_CONTAINER.tar" "$TARGET_SERVER:$temp_folder/$TARGET_ODOO_CONTAINER.tar"
-            rm "tmp/$ODOO_CONTAINER.tar"
+            rm "tmp/$TARGET_ODOO_CONTAINER.tar"
         fi
         
         echo "Restore $TARGET_DATABASE filestore to $TARGET_ODOO_CONTAINER..."
@@ -155,8 +155,9 @@ upgrade-odoo() {
 
     if [[ "$2" = "upgrade-test" ]]; then
         log-warning "Run step '$2' on $TARGET_SERVER."
-        if [[ "USE_OPENUPGRADE" = "True" ]]; then
-            $ssh_target_server docker-odoo-openupgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -v "$TARGET_ODOO_CONTAINER" -s "$ODOO_VERSION" -t "$TARGET_ODOO_VERSION"
+        if [[ "$USE_OPENUPGRADE" = "True" ]]; then
+            $ssh_target_server docker-postgres-duplicate -c "$TARGET_POSTGRES_CONTAINER" -s "$DATABASE" -t "$TARGET_DATABASE"
+            $ssh_target_server docker-odoo-openupgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$TARGET_DATABASE" -v "$TARGET_ODOO_CONTAINER" -s "$ODOO_VERSION" -t "$TARGET_ODOO_VERSION"
         else
             $ssh_target_server docker-odoo-upgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -s "$ODOO_VERSION" -n "$TARGET_DATABASE" -t "$TARGET_ODOO_VERSION"
         fi

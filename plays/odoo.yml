@@ -3,6 +3,8 @@
   hosts: all
   roles:
     - role: odoo
-      tags: odoo
+      tags: 
+        - odoo
+        - odoo_scripts
     - role: odoo_repos
       tags: odoo_repos
