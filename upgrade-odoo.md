@@ -91,7 +91,7 @@ You can show the upgrade information with `task upgrade-odoo amce info`.
 
 ## Test Run
 
-Before going live with an upgraded Odoo database, the new enviroments needs to be tested thoroughly . An upgrade run copies the production database and runs the Odoo Enterprise upgrade script in test mode. On sucess a neutralized and upgraded database will be ready for testing.
+Before going live with an upgraded Odoo database, the new enviroments needs to be tested thoroughly . An upgrade run copies the production database and runs the Odoo Enterprise Upgrade script or Odoo OpenUpgrade scripts in test mode. On sucess a neutralized and upgraded database will be ready for testing.
 
 ### Execute
 
@@ -123,10 +123,18 @@ task upgrade-odoo acme drop-database
 
 **upgrade-test**
 
-Run the Odoo upgrade scripts in test mode. This will neutralize the database after an upgrade.
+Run the Odoo Enterprise Upgrade scripts in test mode. This will neutralize the database after an upgrade.
 
 ```bash
 task upgrade-odoo acme upgrade-test
+```
+
+**openupgrade-test**
+
+Run the Odoo OpenUpgrade scripts. This will neutralize the database after an upgrade.
+
+```bash
+task upgrade-odoo acme openupgrade-test
 ```
 
 **clear-assets**
@@ -263,12 +271,20 @@ The goals is that production url `https://odoo.example.com` points to the contai
 
 ### Execute
 
-**production**
+**upgrade-production**
 
-Run the Odoo upgrade scripts in production mode. This will **not** neutralize the database after an upgrade.
+Run the Odoo Enterprise Upgrade scripts in production mode. This will **not** neutralize the database after an upgrade.
 
 ```bash
 task upgrade-odoo acme upgrade-production
+```
+
+**openupgrade-production**
+
+Run the Odoo OpenUpgrade scripts. This will **not** neutralize the database after an upgrade.
+
+```bash
+task upgrade-odoo acme openupgrade-test
 ```
 
 **configure-production**
