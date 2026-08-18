@@ -95,7 +95,7 @@ Before going live with an upgraded Odoo database, the new enviroments needs to b
 
 ### Execute
 
-List the steps with `task upgrade-odoo list`. Here are the details for each step:
+List the steps with `task upgrade-odoo help`. Here are the details for each step:
 
 **dump-database**
 
@@ -123,18 +123,10 @@ task upgrade-odoo acme drop-database
 
 **upgrade-test**
 
-Run the Odoo Enterprise Upgrade scripts in test mode. This will neutralize the database after an upgrade.
+Run the Odoo Enterprise Upgrade or OpenUpgrade scripts in test mode. This will neutralize the database after an upgrade.
 
 ```bash
 task upgrade-odoo acme upgrade-test
-```
-
-**openupgrade-test**
-
-Run the Odoo OpenUpgrade scripts. This will neutralize the database after an upgrade.
-
-```bash
-task upgrade-odoo acme openupgrade-test
 ```
 
 **clear-assets**
@@ -273,18 +265,10 @@ The goals is that production url `https://odoo.example.com` points to the contai
 
 **upgrade-production**
 
-Run the Odoo Enterprise Upgrade scripts in production mode. This will **not** neutralize the database after an upgrade.
+Run the Odoo Enterprise Upgrade or OpenUpgrade scripts in production mode. This will **not** neutralize the database after an upgrade.
 
 ```bash
 task upgrade-odoo acme upgrade-production
-```
-
-**openupgrade-production**
-
-Run the Odoo OpenUpgrade scripts. This will **not** neutralize the database after an upgrade.
-
-```bash
-task upgrade-odoo acme openupgrade-test
 ```
 
 **configure-production**
@@ -317,9 +301,17 @@ Rename target database to source name.
 task upgrade-odoo acme rename-database
 ```
 
+**rename-filestore**
+
+Rename target database to source name.
+
+```bash
+task upgrade-odoo acme rename-database
+```
+
 As the final step, update DNS records and/or proxy configuration so that `https://odoo.example.com` points to `host2.example.com`.
 
-### Restore
+### Replace
 
 Insead of renaming the target database, you can also restore the database and filestore into the source enviroment. This makes sense if you want to deploy the upgraded database to `host1.example.com`. And instead of updating the DNS records and/or proxy configuration, you replace the Odoo production instance with the definitions of the uprade instance.
 
@@ -328,7 +320,7 @@ Insead of renaming the target database, you can also restore the database and fi
 Restore source database from target databases.
 
 ```bash
-task upgrade-odoo acme restore-database
+task upgrade-odoo acme replace-database
 ```
 
 The existing source database will be renamed to `${DATABASE}-old`.
@@ -338,7 +330,7 @@ The existing source database will be renamed to `${DATABASE}-old`.
 Restore source filestore from target filestore.
 
 ```bash
-task upgrade-odoo acme restore-filestore
+task upgrade-odoo acme replace-filestore
 ```
 
 The existing source filestore will be renamed to `${DATABASE}-old`.

@@ -5,12 +5,14 @@ upgrade-odoo() {
         echo '$1 is empty.'
         exit
     fi
-    if [[ "$1" =~ "list" ]]; then
-        echo "info"
+    if [[ "$1" =~ "help" ]]; then
+        echo ""
+        echo "Execute:"
         echo "dump-database"
-        echo "drop-filestore"
+        echo "dump-filestore"
         echo "drop-database"
         echo "upgrade-test"
+        echo "stop-container"
         echo "upgrade-production"
         echo "clear-assets"
         echo "init"
@@ -20,16 +22,20 @@ upgrade-odoo() {
         echo "configure-test"
         echo "configure-production"
         echo "restart"
+        echo ""
+        echo "Debug:"
+        echo "info"
         echo "list-databases"
         echo "logs"
         echo "shell"
         echo "psql"
+        echo "browse"
+        echo ""
+        echo "Rename:"
         echo "rename-database"
         echo "rename-filestore"
-        echo "restore-database"
-        echo "restore-filestore"
-        echo "stop-container"
-        echo "browse"
+        echo ""
+        
         exit
     fi
     if [[ -z "$2" ]]; then
@@ -85,6 +91,8 @@ upgrade-odoo() {
         echo ""
         echo "Upgrade Configuration"
         echo "---------------------"
+        echo "Use OpenUpgrade: ${USE_OPENUPGRADE:-False}"
+        echo ""
         echo "Init Addons: $ODOO_ADDONS_INIT"
         echo "Uninstall Addons: $ODOO_ADDONS_UNINSTALL"
         echo ""
@@ -144,12 +152,20 @@ upgrade-odoo() {
 
     if [[ "$2" = "upgrade-test" ]]; then
         log-warning "Run step '$2' on $TARGET_SERVER."
-        $ssh_target_server docker-odoo-upgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -s "$ODOO_VERSION" -n "$TARGET_DATABASE" -t "$TARGET_ODOO_VERSION"
+        if [[ "USE_OPENUPGRADE" = "True" ]]; then
+            $ssh_target_server docker-odoo-openupgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -v "$TARGET_ODOO_CONTAINER" -s "$ODOO_VERSION" -t "$TARGET_ODOO_VERSION"
+        else
+            $ssh_target_server docker-odoo-upgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -s "$ODOO_VERSION" -n "$TARGET_DATABASE" -t "$TARGET_ODOO_VERSION"
+        fi
     fi
 
     if [[ "$2" = "upgrade-production" ]]; then
         log-warning "Run step '$2' on $TARGET_SERVER."
-        $ssh_target_server docker-odoo-upgrade -m production -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -s "$ODOO_VERSION" -n "$TARGET_DATABASE" -t "$TARGET_ODOO_VERSION"
+        if [[ "USE_OPENUPGRADE" = "True" ]]; then
+            $ssh_target_server docker-odoo-openupgrade -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -v "$TARGET_ODOO_CONTAINER" -s "$ODOO_VERSION" -t "$TARGET_ODOO_VERSION"
+        else
+            $ssh_target_server docker-odoo-upgrade -m production -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -s "$ODOO_VERSION" -n "$TARGET_DATABASE" -t "$TARGET_ODOO_VERSION"
+        fi
     fi
 
     if [[ "$2" = "clear-assets" ]]; then
@@ -329,18 +345,6 @@ upgrade-odoo() {
             echo "Rename filestore '$TARGET_DATABASE' to '${DATABASE}'"
             $ssh_server docker exec "$TARGET_ODOO_CONTAINER" mv "/var/lib/odoo/filestore/$TARGET_DATABASE" "/var/lib/odoo/filestore/$DATABASE"
         fi
-    fi
-
-    if [[ "$2" = "restore-database" ]]; then
-        log-warning "Run step '$2' on $SERVER."
-
-        #FIXME: Dump and copy filestore from target server to source server
-    fi
-
-    if [[ "$2" = "restore-filestore" ]]; then
-        log-warning "Run step '$2' on $SERVER."
-
-        #FIXME: Dump and copy filestore from target server to source server
     fi
 
     if [[ "$2" = "browse" ]]; then
