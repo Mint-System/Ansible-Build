@@ -5,8 +5,8 @@
 
 - name: Run inital installation with script as root
   ansible.builtin.fail:
-    msg: wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -v bionic-230 -s {{ bigbluebutton_hostname }} -e {{ bigbluebutton_certbot_email
-      }}  -a -w
+    msg: wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -v bionic-230 -s {{ bbb_install_hostname }} -e {{ bbb_install_certbot_email }}
+      -a -w
   when: "'bigbluebutton' not in ansible_facts.packages"
 
 # https://github.com/bigbluebutton/bbb-install/blob/5575cd87afc2b24b48d0ad26f18d2c542003fffe/bbb-install.sh#L267
@@ -68,14 +68,14 @@
   ansible.builtin.apt_repository:
     repo: deb https://ubuntu.bigbluebutton.org/bionic-230/ bigbluebutton-bionic main
     state: present
-  register: bigbluebutton_repo_is_present
+  register: bbb_install_repo_is_present
 
 - name: Update apt-get repo and cache
   ansible.builtin.apt:
     update_cache: true
     force_apt_get: true
     cache_valid_time: 3600
-  when: bigbluebutton_repo_is_present.changed
+  when: bbb_install_repo_is_present.changed
 
 - name: Install dependencies
   ansible.builtin.apt:
@@ -103,12 +103,12 @@
     state: present
 
 - name: Get BigBlueButton API url
-  ansible.builtin.shell: bbb-conf --secret | grep {{ bigbluebutton_hostname }}
-  register: bigbluebutton_api_status
+  ansible.builtin.shell: bbb-conf --secret | grep {{ bbb_install_hostname }}
+  register: bbb_install_api_status
   ignore_errors: true
   changed_when: false
 
 - name: Set BigBlueButton server name
-  ansible.builtin.command: bbb-conf --setip "{{ bigbluebutton_hostname }}"
-  when: bigbluebutton_api_status.rc != 0
+  ansible.builtin.command: bbb-conf --setip "{{ bbb_install_hostname }}"
+  when: bbb_install_api_status.rc != 0
   notify: Restart BigBlueButton services

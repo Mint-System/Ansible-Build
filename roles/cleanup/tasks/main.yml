@@ -5,7 +5,7 @@
   loop: "{{ ansible_run_tags }}"
   vars:
     ansible_tags:
-      - bigbluebutton
+      - bbb_install
       - bookstack
       - cadvisor
       - certbot

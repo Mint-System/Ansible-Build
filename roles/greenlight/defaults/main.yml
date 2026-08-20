@@ -1,7 +1,7 @@
 ---
 greenlight_port: 127.0.0.1:5000
 greenlight_description: Greenlight
-greenlight_safe_hosts: "{{ bigbluebutton_hostname }}"
+greenlight_safe_hosts: "{{ bbb_install_hostname }}"
 greenlight_db_port: "5432"
 
 greenlight_default_registration: open

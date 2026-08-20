@@ -6,4 +6,4 @@
 - name: Run inital installation with script as root
   ansible.builtin.fail:
     msg: wget -qO- https://raw.githubusercontent.com/bigbluebutton/bbb-install/v3.0.x-release/bbb-install.sh | bash -s -- -w -v jammy-300 -s {{
-      bigbluebutton_hostname }} -e {{ bigbluebutton_certbot_email }}
+      bbb_install_hostname }} -e {{ bbb_install_certbot_email }}

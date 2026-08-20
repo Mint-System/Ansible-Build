@@ -1,7 +1,7 @@
 ---
 - name: Get BigBlueButton API secret
   ansible.builtin.shell: "bbb-conf --secret | grep 'Secret: ' | sed 's/^ *Secret:\\s//g'"
-  register: bigbluebutton_api_secret
+  register: bbb_install_api_secret
   changed_when: false
 
 - name: Start greenlight container {{ greenlight_hostname }}
@@ -13,8 +13,8 @@
     restart_policy: unless-stopped
     env:
       SECRET_KEY_BASE: "{{ vault_greenlight_secret_key_base }}"
-      BIGBLUEBUTTON_ENDPOINT: "{{ bigbluebutton_api_url }}"
-      BIGBLUEBUTTON_SECRET: "{{ bigbluebutton_api_secret.stdout }}"
+      BIGBLUEBUTTON_ENDPOINT: "{{ bbb_install_api_url }}"
+      BIGBLUEBUTTON_SECRET: "{{ bbb_install_api_secret.stdout }}"
       SAFE_HOSTS: "{{ greenlight_safe_hosts }}"
       DB_ADAPTER: "{{ greenlight_db_adapter }}"
       DB_HOST: "{{ greenlight_db_host }}"

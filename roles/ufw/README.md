@@ -20,7 +20,7 @@ host_ufw_rules_sets:
       port: "46022"
       proto: tcp
 ufw_active_rules: # default: - default
-  - bigbluebutton
+  - bbb_install
   - wireguard
   - k3s
   - custom

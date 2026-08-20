@@ -30,7 +30,7 @@ So to remove everything you would run `task play -i inventories/odoo plays/clean
 
 ### Available tags for cleanup
 
-- bigbluebutton
+- bbb_install
 - bookstack
 - cadvisor
 - certbot

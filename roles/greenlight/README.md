@@ -19,7 +19,7 @@ greenlight_hostname: green01
 greenlight_description: BBB-GUI # default: Greenlight
 greenlight_port: 127.0.0.1:4000  # default: 127.0.0.1:5000
 greenlight_secret_key_base: "{{ vault_greenlight_secret_key_base }}"
-greenlight_safe_hosts: bbb.example.com,meet.example.com # default: "{{ bigbluebutton_hostname }}"
+greenlight_safe_hosts: bbb.example.com,meet.example.com # default: "{{ bbb_install_hostname }}"
 
 greenlight_db_adapter: postgresql
 greenlight_db_host: postgres01

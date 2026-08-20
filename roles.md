@@ -7,8 +7,8 @@
 | ![alloy logo](/logos/alloy.png)  | [alloy](roles/alloy/README.md) | service | Deploy Alloy container. |
 | ![ansible_scripts logo](/logos/ansible_scripts.png)  | [ansible_scripts](roles/ansible_scripts/README.md) | environment | Install Ansible scripts. |
 | ![autossh logo](/logos/autossh.png)  | [autossh](roles/autossh/README.md) | system | Configure Autossh tunnels. |
+| ![bbb_install logo](/logos/bbb_install.png)  | [bbb_install](roles/bbb_install/README.md) | application | Runs the bbb-install script. |
 | ![bigbluebutton_exporter logo](/logos/bigbluebutton_exporter.png)  | [bigbluebutton_exporter](roles/bigbluebutton_exporter/README.md) | service | Deploy BigBlueButton exporter container. |
-| ![bigbluebutton logo](/logos/bigbluebutton.png)  | [bigbluebutton](roles/bigbluebutton/README.md) | application | Configures an installed BigBlueButton instance. |
 | ![blackbox_exporter logo](/logos/blackbox_exporter.png)  | [blackbox_exporter](roles/blackbox_exporter/README.md) | service | Deploy Blackbox exporter container. |
 | ![bookstack logo](/logos/bookstack.png)  | [bookstack](roles/bookstack/README.md) | application | Deploy BookStack container. |
 | ![caddy logo](/logos/caddy.png)  | [caddy](roles/caddy/README.md) | service | Deploy Caddy container. |

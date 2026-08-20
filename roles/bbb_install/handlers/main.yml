@@ -5,6 +5,6 @@
 
 - name: Check BigBlueButton services
   ansible.builtin.command: bbb-conf --status | grep inactive
-  register: bigbluebutton_status
-  failed_when: bigbluebutton_status.rc != 0
+  register: bbb_install_status
+  failed_when: bbb_install_status.rc != 0
   changed_when: false

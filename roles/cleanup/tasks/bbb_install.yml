@@ -4,18 +4,18 @@
     name: "{{ greenlight_hostname }}"
     state: absent
 
-- name: Register bigbluebutton packages
+- name: Register bbb_install packages
   ansible.builtin.shell: dpkg -l | grep bbb | cut -d' ' -f3
   changed_when: false
   register: bbb_packages
 
-- name: Uninstall bigbluebutton
+- name: Uninstall bbb_install
   ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
   loop: "{{ bbb_packages.stdout_lines }}"
 
-- name: Uninstall bigbluebutton dependencies
+- name: Uninstall bbb_install dependencies
   ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
@@ -26,12 +26,12 @@
   ansible.builtin.apt:
     autoremove: true
 
-- name: Remove bigbluebutton files and folders
+- name: Remove bbb_install files and folders
   ansible.builtin.file:
     path: "{{ item }}"
     state: absent
   loop:
-    - /etc/bigbluebutton/ # bigbluebutton
+    - /etc/bigbluebutton/ # bbb_install
     - /usr/local/bigbluebutton
     - /usr/share/bbb-web
     - /etc/red5/ # red5

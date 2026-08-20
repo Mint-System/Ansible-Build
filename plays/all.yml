@@ -98,3 +98,5 @@
       tags: open_webui
     - role: pgbouncer
       tags: pgbouncer
+    - role: bbb_install
+      tags: bbb_install

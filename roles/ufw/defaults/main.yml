@@ -13,7 +13,7 @@ ufw_rule_sets:
     - rule: allow
       port: "443"
       proto: tcp
-  bigbluebutton:
+  bbb_install:
     - rule: allow
       port: "8080"
       proto: tcp
