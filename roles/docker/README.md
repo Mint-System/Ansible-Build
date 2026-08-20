@@ -74,3 +74,19 @@ Show logs for selected unit:
 ```bash
 journalctl -u docker -f
 ```
+
+## Troubleshooting
+
+### Public key not available
+
+**Problem**
+
+```
+
+TASK [docker : Add docker repo] ***********************************************************************************************
+fatal: [host]: FAILED! => changed=false
+  msg: 'Failed to update apt cache: W:GPG error: https://download.docker.com/linux/ubuntu jammy InRelease: The following signatures couldn''t be verified because the public key is not available: NO_PUBKEY 7EA0A9C3F273FCD8, E:The repository ''https://download.docker.com/linux/ubuntu jammy InRelease'' is not signed.'
+```
+
+**Solution**
+

@@ -26,8 +26,6 @@
       tags: cargo
     - role: kernel
       tags: kernel
-    - role: iam
-      tags: iam
     - role: maintenance
       tags: maintenance
     - role: firehol
@@ -44,9 +42,7 @@
       tags: docker_compose
     - role: k3s
       tags: k3s
-    - role: restic_server
-      tags: restic_server
     - role: ufw
       tags: ufw
-    - role: dozzle
-      tags: dozzle
+    - role: iam
+      tags: iam
