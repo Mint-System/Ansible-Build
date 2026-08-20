@@ -1,10 +1,2 @@
 ---
-dependencies:
-  - role: postgres
-    tags:
-      - postgres
-      - depends
-  - role: mariadb
-    tags:
-      - mariadb
-      - depends
+dependencies: []

@@ -1,6 +1,6 @@
 ---
 - name: Server setup
-  hosts: all
+  hosts: setup
   roles:
     - role: update
       tags:

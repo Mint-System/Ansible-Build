@@ -1,7 +1,7 @@
 ---
 title: "Merge inventories"
-state: draft
-model: 
+state: completed
+model: infomaniak/moonshotai/Kimi-K2.6
 input_tokens: 
 ---
 
@@ -56,6 +56,30 @@ At then end of these process there should be only three folders in `inventories`
 
 ## Worklog
 
-@Clanker Add a summary here once the task has been completed.
+Merged the `odoo` and `nextcloud` inventories into `mint_system`.
 
-@Clanker Set frontmatter state to completed and update info about model and token usage.
+Scoping:
+- Renamed all folders in `inventories/odoo/host_vars` with `_odoo` suffix (e.g. `notus` -> `notus_odoo`, `rhea_upgrade` -> `rhea_upgrade_odoo`).
+- Renamed all folders in `inventories/nextcloud/host_vars` with `_nextcloud` suffix (e.g. `eos` -> `eos_nextcloud`).
+- Applied the `_odoo` suffix to all hosts in `inventories/odoo/hosts.yml`.
+- Applied the `_nextcloud` suffix to all hosts in `inventories/nextcloud/hosts.yml`.
+- Renamed `inventories/odoo/group_vars/all` to `inventories/odoo/group_vars/odoo`.
+- Renamed `inventories/nextcloud/group_vars/all` to `inventories/nextcloud/group_vars/nextcloud`.
+
+Merging:
+- Restructured `inventories/mint_system/hosts.yml`: moved all existing groups under a new `setup` child-group and added `odoo` and `nextcloud` child-groups with the scoped hosts.
+- Moved scoped `host_vars` folders from both inventories into `inventories/mint_system/host_vars`.
+- Renamed `inventories/mint_system/group_vars/all` to `inventories/mint_system/group_vars/setup`.
+- Moved `inventories/odoo/group_vars/odoo` to `inventories/mint_system/group_vars/odoo`.
+- Moved `inventories/nextcloud/group_vars/nextcloud` to `inventories/mint_system/group_vars/nextcloud`.
+
+Playbook updates:
+- `plays/odoo.yml`: changed target from `all` to `odoo`.
+- `plays/nextcloud.yml`: changed target from `all` to `nextcloud`.
+- `plays/setup.yml`: changed target from `all` to `setup`.
+- `plays/all.yml`: changed target from `all` to `setup`.
+
+Cleanup:
+- Removed `inventories/odoo` and `inventories/nextcloud` folders.
+- Verified `inventories` now contains only: `opsone`, `sozialinfo`, `mint_system`.
+- Validated the merged inventory with `ansible-inventory`.

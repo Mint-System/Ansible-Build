@@ -1,6 +1,6 @@
 ---
 - name: All services
-  hosts: all
+  hosts: setup
   roles:
     - role: docker_network
       tags: docker_network

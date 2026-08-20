@@ -1,13 +1,14 @@
 ---
 - name: Odoo play
-  hosts: all
+  hosts: odoo
   roles:
     - role: postgres
-      tags: 
-        - odoo
+      tags: odoo
     - role: odoo
       tags: 
         - odoo
         - odoo_scripts
     - role: odoo_repos
       tags: odoo_repos
+    - role: odoo_data
+      tags: odoo_data

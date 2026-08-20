@@ -464,71 +464,37 @@ list-hosts() {
     find "$1" -name 'hosts.yml' | sort | while read -r hosts_file; do
         echo -e "\n<<< $hosts_file >>>\n"
 
-        # Check if any host has a 'customer' field
-        local has_customers
-        has_customers=$(yq e '.all.children.*.hosts | .[] | has("customer")' "$hosts_file" | grep -m1 true || true)
+        local aliases
+        aliases=$(yq e '.. | select(has("ansible_host")) | (path | .[-1])' "$hosts_file")
+        local hosts
+        hosts=$(yq e '.. | select(has("ansible_host")) | .ansible_host' "$hosts_file")
+        local functions
+        functions=$(yq e '.. | select(has("ansible_host")) | .function // ""' "$hosts_file")
+        local customers
+        customers=$(yq e '.. | select(has("ansible_host")) | .customer // ""' "$hosts_file")
+        local providers
+        providers=$(yq e '.. | select(has("ansible_host")) | .hosting_provider // ""' "$hosts_file")
 
-        if [[ -n "$has_customers" ]]; then
-            # Handle inventories with customer info
-            local aliases
-            aliases=$(yq e '.all.children.*.hosts' "$hosts_file" | grep '^[a-zA-Z]' | cut -d: -f1)
-            local hosts
-            hosts=$(yq e '.all.children.*.hosts | .[] | .ansible_host' "$hosts_file")
-            local functions
-            functions=$(yq e '.all.children.*.hosts | .[] | .function' "$hosts_file")
-            local customers
-            customers=$(yq e '.all.children.*.hosts | .[] | .customer' "$hosts_file")
-            local providers
-            providers=$(yq e '.all.children.*.hosts | .[] | .hosting_provider' "$hosts_file")
-
-            if [[ -z "$aliases" || -z "$hosts" ]]; then
-                echo "No hosts found in $hosts_file"
-                continue
-            fi
-
-            local alias_width=15
-            local host_width=25
-            local func_width=20
-            local cust_width=33
-            local prov_width=20
-            local column="| %-${alias_width}s | %-${host_width}s | %-${func_width}s | %-${cust_width}s | %-${prov_width}s |\n"
-            printf "$column" 'Alias' 'Host' 'Function' 'Customer' 'Provider'
-            echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((func_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((cust_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((prov_width + 2)) '' | tr ' ' '-')|"
-            paste <(echo "$aliases") <(echo "$hosts") <(echo "$functions") <(echo "$customers") <(echo "$providers") | sort -u | while IFS=$'\t' read -r alias host function customer provider; do
-                local row
-                row=$(printf "$column" "$alias" "$host" "$function" "$customer" "$provider")
-                if [[ -z "$grep_filter" ]] || echo "$row" | grep -qi "$grep_filter"; then
-                    echo "$row"
-                fi
-            done
-        else
-            # Regular inventory without customer field
-            local aliases
-            aliases=$(yq e '.all.hosts' "$hosts_file" | grep '^[a-zA-Z]' | cut -d: -f1)
-            local hosts
-            hosts=$(yq e '.all.hosts | .[] | .ansible_host' "$hosts_file")
-            local functions
-            functions=$(yq e '.all.hosts | .[] | .function' "$hosts_file")
-
-            if [[ -z "$aliases" || -z "$hosts" ]]; then
-                echo "No hosts found in $hosts_file"
-                continue
-            fi
-
-            local alias_width=15
-            local host_width=25
-            local func_width=20
-            local column="| %-${alias_width}s | %-${host_width}s | %-${func_width}s |\n"
-            printf "$column" 'Alias' 'Host' 'Function'
-            echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')+$(printf '%*s' $((func_width + 2)) '' | tr ' ' '-')|"
-            paste <(echo "$aliases") <(echo "$hosts") <(echo "$functions") | while IFS=$'\t' read -r alias host function; do
-                local row
-                row=$(printf "$column" "$alias" "$host" "$function")
-                if [[ -z "$grep_filter" ]] || echo "$row" | grep -qi "$grep_filter"; then
-                    echo "$row"
-                fi
-            done
+        if [[ -z "$aliases" || -z "$hosts" ]]; then
+            echo "No hosts found in $hosts_file"
+            continue
         fi
+
+        local alias_width=25
+        local host_width=30
+        local func_width=25
+        local cust_width=33
+        local prov_width=20
+        local column="| %-${alias_width}s | %-${host_width}s | %-${func_width}s | %-${cust_width}s | %-${prov_width}s |\n"
+        printf "$column" 'Alias' 'Host' 'Function' 'Customer' 'Provider'
+        echo "|$(printf '%*s' $((alias_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((host_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((func_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((cust_width + 2)) '' | tr ' ' '-')|$(printf '%*s' $((prov_width + 2)) '' | tr ' ' '-')|"
+        paste <(echo "$aliases") <(echo "$hosts") <(echo "$functions") <(echo "$customers") <(echo "$providers") | sort -t$'\t' -k1,1 -k4,4r | awk -F'\t' '!seen[$1]++' | while IFS=$'\t' read -r alias host function customer provider; do
+            local row
+            row=$(printf "$column" "$alias" "$host" "$function" "$customer" "$provider")
+            if [[ -z "$grep_filter" ]] || echo "$row" | grep -qi "$grep_filter"; then
+                echo "$row"
+            fi
+        done
     done
 }
 

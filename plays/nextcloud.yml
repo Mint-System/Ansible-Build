@@ -1,7 +1,11 @@
 ---
 - name: Nextcloud play
-  hosts: all
+  hosts: nextcloud
   roles:
+    - role: postgres
+      tags: nextcloud
+    - role: mariadb
+      tags: nextcloud
     - role: redis
       tags: redis
     - role: nextcloud
