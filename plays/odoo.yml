@@ -8,7 +8,10 @@
       tags: 
         - odoo
         - odoo_scripts
+        - restic
     - role: odoo_repos
       tags: odoo_repos
     - role: odoo_data
       tags: odoo_data
+    - role: packages
+      tags: packages
