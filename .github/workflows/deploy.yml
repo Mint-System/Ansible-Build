@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  deploy:
+    name: Deploy to Kubernetes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+      - name: Create Kubeconfig for Deployment
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_DEPLOY }}" > $HOME/.kube/config
+      - name: Verify kubectl version
+        run: ./kubectl version --client
+      - name: Deploy to Kubernetes
+        run: ./kubectl delete pods -l app=taskfile-build -n ansible-build

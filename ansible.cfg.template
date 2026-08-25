@@ -1,7 +1,7 @@
 [defaults]
 host_key_checking = False
 roles_path = ./roles
-log_path = /var/log/ansible.log
+log_path = /var/tmp/ansible.log
 callback_whitelist = profile_tasks
 stdout_callback = yaml
 display_skipped_hosts = false

@@ -396,10 +396,6 @@ install() {
     uv python install
     activate-venv
 
-    echo "Setup Ansible log file"
-    sudo touch /var/log/ansible.log
-    sudo chown $USER: /var/log/ansible.log
-
     echo "Install Ansible and Python dependencies"
     uv pip install -r requirements.txt
 }
