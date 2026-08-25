@@ -840,16 +840,16 @@ build-vuepress() {
     mkdir -p .vuepress/dist/postgres
 
     echo "Copy script files to vuepress folder."
-    cp roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts
-    cp roles/cron/files/* .vuepress/dist/cron
-    cp roles/certbot/files/* .vuepress/dist/certbot
-    cp roles/docker/files/* .vuepress/dist/docker
-    cp roles/docker_volume/files/* .vuepress/dist/docker_volume
-    cp roles/grafana/files/* .vuepress/dist/grafana
-    cp roles/mysql/files/* .vuepress/dist/mysql
-    cp roles/nginx/files/* .vuepress/dist/nginx
-    cp roles/odoo/files/* .vuepress/dist/odoo
-    cp roles/postgres/files/* .vuepress/dist/postgres
+    cp -r roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts
+    cp -r roles/cron/files/* .vuepress/dist/cron
+    cp -r roles/certbot/files/* .vuepress/dist/certbot
+    cp -r roles/docker/files/* .vuepress/dist/docker
+    cp -r roles/docker_volume/files/* .vuepress/dist/docker_volume
+    cp -r roles/grafana/files/* .vuepress/dist/grafana
+    cp -r roles/mysql/files/* .vuepress/dist/mysql
+    cp -r roles/nginx/files/* .vuepress/dist/nginx
+    cp -r roles/odoo/files/* .vuepress/dist/odoo
+    cp -r roles/postgres/files/* .vuepress/dist/postgres
 
 }
 

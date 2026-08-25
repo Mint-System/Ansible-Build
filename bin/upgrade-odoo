@@ -44,17 +44,19 @@ upgrade-odoo() {
     fi
     load-dotenv "$1"
 
+    # Set defaults
     temp_folder="/var/tmp"
     if [[ -n "$TEMP_FOLDER" ]]; then
         temp_folder="$TEMP_FOLDER"
     fi
+    PORT=${PORT:-22}
+    TARGET_PORT=${TARGET_PORT:-22}
 
     # Setup ssh aliases
     ssh_server="ssh -p $PORT ${USERNAME}@${SERVER}"
     ssh_target_server="ssh -t -p $TARGET_PORT ${TARGET_USERNAME:-$USERNAME}@${TARGET_SERVER}"
     rsync_server="ssh -p $PORT"
     rsync_target_server="ssh -p $TARGET_PORT"
-
     if [[ -n "$JUMP_HOST" ]]; then
         log-warning "Source connection uses jump host: $JUMP_HOST"
         ssh_server="ssh -p $PORT -J $JUMP_HOST ${USERNAME}@${SERVER}"
