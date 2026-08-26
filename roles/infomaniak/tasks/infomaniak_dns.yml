@@ -1,7 +1,11 @@
 ---
+- name: Reset infomaniak DNS present fact for {{ zone_name }}
+  ansible.builtin.set_fact:
+    infomaniak_dns_present: []
+
 - name: Set infomaniak DNS present fact for {{ zone_name }}
   ansible.builtin.set_fact:
-    infomaniak_dns_present: "{{ infomaniak_dns_present | default([]) + [(record.source if record.source != '' else '.') + '-' + record.type ] }}"
+    infomaniak_dns_present: "{{ infomaniak_dns_present + [(record.source if record.source != '' else '.') + '-' + record.type ] }}"
   loop: "{{ current_records }}"
   loop_control:
     loop_var: record
