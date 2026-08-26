@@ -1,9 +1,5 @@
 ---
-- name: Gather package facts
-  ansible.builtin.package_facts:
-    manager: auto
-
-- name: Run inital installation with script as root
+- name: Execute this command as root
   ansible.builtin.fail:
-    msg: wget -qO- https://raw.githubusercontent.com/bigbluebutton/bbb-install/v3.0.x-release/bbb-install.sh | bash -s -- -w -v jammy-300 -s {{
+    msg: wget -qO- https://raw.githubusercontent.com/bigbluebutton/bbb-install/v3.0.x-release/bbb-install.sh | bash -s -- -w -v jammy-300 -g -s {{
       bbb_install_hostname }} -e {{ bbb_install_certbot_email }}
