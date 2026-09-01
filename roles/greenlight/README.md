@@ -51,3 +51,15 @@ And include it in your playbook.
   roles:
   - role: greenlight
 ```
+
+## Docs
+
+### Create admin account
+
+If you want to generate an admin account then run:
+
+```bash
+docker exec greenlight-v3 bundle exec rake admin:create
+```
+
+The command will return the credentials. Login with this account and you can access the admin panel.
