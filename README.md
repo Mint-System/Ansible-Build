@@ -18,7 +18,7 @@ Clone this repository.
 git clone git@github.com:Mint-System/Ansible-Build.git
 ```
 
-See `task help` or [task](./task.md) for details about the project commands.
+See `task help` for details about the project commands.
 
 ### Setup
 
