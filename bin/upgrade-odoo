@@ -360,6 +360,6 @@ upgrade-odoo() {
 
     if [[ "$2" = "browse" ]]; then
         log-warning "Run step '$2' on $TARGET_SERVER."
-        open-url-with-delay "https://$TARGET_HOST" 0
+        open-url "https://$TARGET_HOST"
     fi
 }

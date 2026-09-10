@@ -817,8 +817,8 @@ dev-vuepress() {
     echo "Copy logos folder to vuepress public folder."
     cp -r logos .vuepress/public/
 
-    open-url-with-delay http://localhost:8080 1 & \
-        pnpm run dev
+    open-url http://localhost:8080
+    pnpm run dev
 }
 
 build-vuepress() {
