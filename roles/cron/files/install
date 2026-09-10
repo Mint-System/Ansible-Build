@@ -9,8 +9,16 @@ scripts=(
     write-node-exporter-metric
 )
 
+install_dir='/usr/local/bin'
+
+if [[ "$1" == '--user' ]]; then
+    install_dir="$HOME/.local/bin"
+    mkdir -p "$install_dir"
+    echo "Installing scripts in $install_dir"
+fi
+
 for script in "${scripts[@]}"; do
-    echo "Install $script script ..."
-    sudo curl -L "$repository/cron/$script" -o "/usr/local/bin/$script"
-    sudo chmod +x "/usr/local/bin/$script"
+    echo "Installing $script ..."
+    curl -L "$repository/postgres/$script" -o "$install_dir/$script"
+    chmod +x "$install_dir/$script"
 done
