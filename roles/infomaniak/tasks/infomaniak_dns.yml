@@ -5,7 +5,8 @@
 
 - name: Set infomaniak DNS present fact for {{ zone_name }}
   ansible.builtin.set_fact:
-    infomaniak_dns_present: "{{ infomaniak_dns_present + [{'key': (record.source if record.source != '' else '.') + '-' + record.type + '-' + record.target, 'id': record.id, 'source': (record.source if record.source != '' else '.'), 'type': record.type, 'target': record.target, 'ttl': record.ttl}] }}"
+    infomaniak_dns_present: "{{ infomaniak_dns_present + [{'key': (record.source if record.source != '' else '.') + '-' + record.type + '-' + record.target, 'id':
+      record.id, 'source': (record.source if record.source != '' else '.'), 'type': record.type, 'target': record.target, 'ttl': record.ttl}] }}"
   loop: "{{ current_records }}"
   loop_control:
     loop_var: record
@@ -14,29 +15,39 @@
   debug:
     var: infomaniak_dns_present
 
-- name: Compute desired record keys for {{ zone_name }}
-  ansible.builtin.set_fact:
-    infomaniak_desired_keys: []
+# --- Normalize the desired records ONCE, so every task below is plain -------
+# The Infomaniak API stores/returns targets in type-specific formats:
+#   - MX:  priority is prefixed onto the target, e.g. "10 mxa.eu.mailgun.org"
+#   - TXT: the value is wrapped in literal double quotes
+# Everything else is passed through unchanged. This is the ONLY place that
+# formatting logic lives; nothing below needs to know about it.
 
-- name: Build desired record keys for {{ zone_name }}
+- name: Reset normalized desired records for {{ zone_name }}
   ansible.builtin.set_fact:
-    infomaniak_desired_keys: "{{ infomaniak_desired_keys + [_key] }}"
-  loop: "{{ zone_records | selectattr('state', 'equalto', 'present') | list }}"
+    infomaniak_desired_records: []
+
+- name: Normalize desired records for {{ zone_name }}
+  ansible.builtin.set_fact:
+    infomaniak_desired_records: "{{ infomaniak_desired_records + [record | combine({'source': _source, 'target': _target, 'key': _source + '-' + record.type + '-'
+      + _target})] }}"
+  loop: "{{ zone_records }}"
   loop_control:
     loop_var: record
     label: "{{ record.source if record.source != '' else '.' }} ({{ record.type }})"
   vars:
-    _record_target: >-
-      {{
-        record.target
-        if record.type != 'MX'
-        else (
-          record.target
-          if record.target is string and record.target.startswith('10 ')
-          else ('10 ' ~ record.target)
-        )
-      }}
-    _key: "{{ (record.source if record.source != '' else '.') }}-{{ record.type }}-{{ _record_target }}"
+    _source: "{{ record.source if record.source != '' else '.' }}"
+    _target: >-
+      {%- if record.type == 'MX' -%}
+        {{ record.target if (record.target is string and record.target.startswith('10 ')) else '10 ' + record.target }}
+      {%- elif record.type == 'TXT' -%}
+        {{ record.target if (record.target is string and record.target.startswith('"') and record.target.endswith('"')) else '"' + record.target + '"' }}
+      {%- else -%}
+        {{ record.target }}
+      {%- endif -%}
+
+# --- From here on, every task just reads plain fields off the normalized ---
+# --- list: record.key, record.source, record.type, record.target, ---------
+# --- record.ttl, record.state. No per-type logic anywhere below. ----------
 
 - name: Create new DNS records for {{ zone_name }}
   ansible.builtin.uri:
@@ -47,32 +58,20 @@
       Content-Type: "application/json"
     body_format: json
     body:
-      source: "{{ record.source if record.source != '' else '.' }}"
+      source: "{{ record.source }}"
       type: "{{ record.type }}"
-      target: "{{ _record_target }}"
+      target: "{{ record.target }}"
       ttl: "{{ record.ttl | default(3600) }}"
     status_code: [200, 201]
     return_content: true
   register: create_result
-  vars:
-    _record_target: >-
-      {{
-        record.target
-        if record.type != 'MX'
-        else (
-          record.target
-          if record.target is string and record.target.startswith('10 ')
-          else ('10 ' ~ record.target)
-        )
-      }}
-    _key: "{{ (record.source if record.source != '' else '.') }}-{{ record.type }}-{{ _record_target }}"
-  loop: "{{ zone_records }}"
+  loop: "{{ infomaniak_desired_records }}"
   loop_control:
     loop_var: record
-    label: "{{ record.source if record.source != '' else '.' }} ({{ record.type }})"
+    label: "{{ record.source }} ({{ record.type }})"
   when:
     - record.state == 'present'
-    - _key not in (infomaniak_dns_present | map(attribute='key') | list)
+    - record.key not in (infomaniak_dns_present | map(attribute='key') | list)
 
 - name: Update TTL on unchanged DNS records for {{ zone_name }}
   ansible.builtin.uri:
@@ -83,31 +82,20 @@
       Content-Type: "application/json"
     body_format: json
     body:
-      source: "{{ record.source if record.source != '' else '.' }}"
+      source: "{{ record.source }}"
       type: "{{ record.type }}"
-      target: "{{ _record_target }}"
+      target: "{{ record.target }}"
       ttl: "{{ record.ttl }}"
     status_code: [200, 201]
     return_content: true
   register: update_result
-  vars:
-    _record_target: >-
-      {{
-        record.target
-        if record.type != 'MX'
-        else (
-          record.target
-          if record.target is string and record.target.startswith('10 ')
-          else ('10 ' ~ record.target)
-        )
-      }}
-    _key: "{{ (record.source if record.source != '' else '.') }}-{{ record.type }}-{{ _record_target }}"
-    _matched: "{{ infomaniak_dns_present | selectattr('key', 'equalto', _key) | list }}"
-    existing_entry: "{{ _matched[0] if _matched | length > 0 else {} }}"
-  loop: "{{ zone_records }}"
+  loop: "{{ infomaniak_desired_records }}"
   loop_control:
     loop_var: record
-    label: "{{ record.source if record.source != '' else '.' }} ({{ record.type }})"
+    label: "{{ record.source }} ({{ record.type }})"
+  vars:
+    _matched: "{{ infomaniak_dns_present | selectattr('key', 'equalto', record.key) | list }}"
+    existing_entry: "{{ _matched[0] if _matched | length > 0 else {} }}"
   when:
     - record.state == 'present'
     - record.ttl is defined
@@ -123,23 +111,12 @@
     status_code: [200, 204]
     return_content: true
   register: delete_result
-  vars:
-    _record_target: >-
-      {{
-        record.target
-        if record.type != 'MX'
-        else (
-          record.target
-          if record.target is string and record.target.startswith('10 ')
-          else ('10 ' ~ record.target)
-        )
-      }}
-    _key: "{{ (record.source if record.source != '' else '.') }}-{{ record.type }}-{{ _record_target }}"
-    _matched: "{{ infomaniak_dns_present | selectattr('key', 'equalto', _key) | list }}"
-    existing_entry: "{{ _matched[0] if _matched | length > 0 else {} }}"
-  loop: "{{ zone_records | selectattr('state', 'equalto', 'absent') | list }}"
+  loop: "{{ infomaniak_desired_records | selectattr('state', 'equalto', 'absent') | list }}"
   loop_control:
     loop_var: record
-    label: "{{ (record.source if record.source != '' else '.') }} ({{ record.type }})"
+    label: "{{ record.source }} ({{ record.type }})"
+  vars:
+    _matched: "{{ infomaniak_dns_present | selectattr('key', 'equalto', record.key) | list }}"
+    existing_entry: "{{ _matched[0] if _matched | length > 0 else {} }}"
   when:
     - _matched | length > 0
