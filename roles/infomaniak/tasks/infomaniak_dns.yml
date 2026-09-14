@@ -15,13 +15,6 @@
   debug:
     var: infomaniak_dns_present
 
-# --- Normalize the desired records ONCE, so every task below is plain -------
-# The Infomaniak API stores/returns targets in type-specific formats:
-#   - MX:  priority is prefixed onto the target, e.g. "10 mxa.eu.mailgun.org"
-#   - TXT: the value is wrapped in literal double quotes
-# Everything else is passed through unchanged. This is the ONLY place that
-# formatting logic lives; nothing below needs to know about it.
-
 - name: Reset normalized desired records for {{ zone_name }}
   ansible.builtin.set_fact:
     infomaniak_desired_records: []
@@ -44,10 +37,6 @@
       {%- else -%}
         {{ record.target }}
       {%- endif -%}
-
-# --- From here on, every task just reads plain fields off the normalized ---
-# --- list: record.key, record.source, record.type, record.target, ---------
-# --- record.ttl, record.state. No per-type logic anywhere below. ----------
 
 - name: Create new DNS records for {{ zone_name }}
   ansible.builtin.uri:
