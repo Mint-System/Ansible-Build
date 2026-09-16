@@ -15,3 +15,5 @@
       tags: odoo_data
     - role: packages
       tags: packages
+    - role: odoo_apps
+      tags: odoo_apps
