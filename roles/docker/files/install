@@ -18,6 +18,6 @@ fi
 
 for script in "${scripts[@]}"; do
     echo "Installing $script ..."
-    curl -L "$repository/docker_volume/$script" -o "$install_dir/$script"
+    curl -L "$repository/docker/$script" -o "$install_dir/$script"
     chmod +x "$install_dir/$script"
 done
