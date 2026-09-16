@@ -8,7 +8,14 @@ import { defineUserConfig } from 'vuepress'
 import { searchPlugin } from '@vuepress/plugin-search'
 
 export default defineUserConfig({
-    bundler: viteBundler(),
+    bundler: viteBundler({
+        viteOptions: {
+            build: {
+                sourcemap: false,
+                reportCompressedSize: false,
+            },
+        },
+    }),
     lang: 'en-US',
     title: 'Ansible Build',
     description: 'Collection of Ansible playbooks and roles.',
