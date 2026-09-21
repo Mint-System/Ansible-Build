@@ -41,7 +41,7 @@ export default defineUserConfig({
                 text: 'Upgrade Odoo',
                 link: '/upgrade-odoo',
             },
-            { text: 'Chat', link: 'https://matrix.to/#/!BgzMVlwDExHDQPPdKJ:mint-system.ch?via=mint-system.ch' }
+            { text: 'Chat', link: 'https://matrix.to/#/#ansible-build:mint-system.ch' }
         ],
     }),
     plugins: [
