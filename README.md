@@ -81,13 +81,13 @@ If you encrypt secrets with multiple vault identities, you can specificy the vau
 
 ```toml
 [defaults]
-vault_identity_list = mint_system@.vault_pass_mint_system, sozialinfo@.vault_pass_sozialinfo
+vault_identity_list = mint_system@.vault_pass_mint_system, example@.vault_pass_example
 ```
 
 Or as an environment variable:
 
 ```bash
-export ANSIBLE_VAULT_IDENTITY_LIST="mint_system@.vault_pass_mint_system, sozialinfo@.vault_pass_sozialinfo"
+export ANSIBLE_VAULT_IDENTITY_LIST="mint_system@.vault_pass_mint_system, example@.vault_pass_example"
 ```
 
 Alternatively you can configure the `--vault-id` parameter of the Ansible playbook command:
