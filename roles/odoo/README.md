@@ -147,7 +147,7 @@ The amount of workers to be set depends the amount CPUs available on the host.
 Get the amount of CPUs on all hosts:
 
 ```bash
-ansible -i inventories/setup all -m shell -a "grep -c ^processor /proc/cpuinfo"
+ansible -i inventories/mint_system all -m shell -a "grep -c ^processor /proc/cpuinfo"
 ```
 
 Odoo's official formula is: workers = (CPUs × 2) + 1

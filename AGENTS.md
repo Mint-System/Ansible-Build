@@ -34,6 +34,10 @@ The `./task` file is a bash script that provides all functions necessary to work
 
 **Execute**: Always try to run a command with the `./task` file script.
 
+### Session Info (pi harness)
+
+Inside the **pi** harness, the model ID is in `$PI_MODEL` (e.g. `moonshotai/Kimi-K2.6`), and the session log is at `$PI_SESSION_FILE`. That JSONL file contains token usage in the `message.usage` fields (`input` and `output`). When completing a prompt file, extract the model and cumulative token counts from these sources.
+
 ## Coding conventions
 
 ### Bash
