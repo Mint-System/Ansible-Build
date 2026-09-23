@@ -233,7 +233,7 @@ Mount the folder without subfolder.
 
 ```yml
 volumes:
-  - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
+  - "{{ postgres_volume_name }}:/var/lib/postgresql"
 ```
 
 For Ansible config files use file mounts.

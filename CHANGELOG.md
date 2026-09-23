@@ -38,3 +38,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `list-hosts` command to display `hosting_provider` field, increased customer column width, and fixed IFS handling for proper field separation.
 - Updated Odoo scripts to use standard PostgreSQL environment variables (`PGHOST`, `PGUSER`, `PGPASSWORD`) instead of legacy variables (`HOST`, `USER`, `PASSWORD`).
 - Updated `dev-vuepress` task to automatically open the browser after starting the development server.
+- Updated PostgreSQL volume mount path from `/var/lib/postgresql/data` to `/var/lib/postgresql` in `README.md`, `roles/docker_compose/README.md`, `roles/postgres/README.md`, and `roles/postgres/defaults/main.yml`.
+- Updated default PostgreSQL image version from `postgres:14-alpine` to `postgres:18-alpine` in `roles/postgres/README.md`.

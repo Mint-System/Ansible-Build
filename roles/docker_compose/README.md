@@ -25,7 +25,7 @@ docker_compose_definition:
     db:
       image: postgres
       volumes:
-        - ./data/db:/var/lib/postgresql/data
+        - ./data/db:/var/lib/postgresql
       environment:
         - POSTGRES_DB=postgres
         - POSTGRES_USER=postgres
