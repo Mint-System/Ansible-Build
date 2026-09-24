@@ -128,6 +128,9 @@ upgrade-odoo() {
 
         echo "Restore dump $DATABASE to $TARGET_POSTGRES_CONTAINER..."
         $ssh_target_server docker-postgres-restore -c "$TARGET_POSTGRES_CONTAINER" -d "$DATABASE" -f "$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql" -r
+
+        echo "Delete source dump"
+        $ssh_target_server rm "$temp_folder/$POSTGRES_CONTAINER/$DATABASE.sql"
     fi
 
     if [[ "$2" =~ "dump-filestore" ]]; then
@@ -151,6 +154,9 @@ upgrade-odoo() {
         
         echo "Restore $TARGET_DATABASE filestore to $TARGET_ODOO_CONTAINER..."
         $ssh_target_server docker-import -c "$TARGET_ODOO_CONTAINER" -p "/var/lib/odoo/filestore/$TARGET_DATABASE" -f "$temp_folder/$TARGET_ODOO_CONTAINER.tar" -r
+
+        echo "Delete source filestore"
+        $ssh_target_server rm "$temp_folder/$TARGET_ODOO_CONTAINER.tar"
     fi
 
     if [[ "$2" = "drop-database" ]]; then
