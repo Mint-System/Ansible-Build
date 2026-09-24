@@ -58,7 +58,7 @@ if [[ "$replace" == true ]]; then
     docker exec "$container_id" rm -rf "$path"
 fi
 
-echo "Importing content to $path in $container container..."
+echo "Stream content to $path in $container container..."
 docker exec "$container_id" mkdir -p "$path"
 docker exec -i -w "$path" "$container_id" tar xf - --strip-components=1 < "$file"
 
