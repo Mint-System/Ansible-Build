@@ -53,13 +53,13 @@ upgrade-odoo() {
     TARGET_PORT=${TARGET_PORT:-22}
 
     # Setup ssh aliases
-    ssh_server="ssh -p $PORT ${USERNAME}@${SERVER}"
-    ssh_target_server="ssh -t -p $TARGET_PORT ${TARGET_USERNAME:-$USERNAME}@${TARGET_SERVER}"
+    ssh_server="ssh -p $PORT ${USER}@${SERVER}"
+    ssh_target_server="ssh -t -p $TARGET_PORT ${TARGET_USER:-$USER}@${TARGET_SERVER}"
     rsync_server="ssh -p $PORT"
     rsync_target_server="ssh -p $TARGET_PORT"
     if [[ -n "$JUMP_HOST" ]]; then
         log-warning "Source connection uses jump host: $JUMP_HOST"
-        ssh_server="ssh -p $PORT -J $JUMP_HOST ${USERNAME}@${SERVER}"
+        ssh_server="ssh -p $PORT -J $JUMP_HOST ${USER}@${SERVER}"
         rsync_server="ssh -J $JUMP_HOST -p $PORT "
     fi
     if [[ -n "$TARGET_JUMP_HOST" ]]; then
@@ -74,7 +74,7 @@ upgrade-odoo() {
         echo "-----------------"
         echo "Host: $HOST"
         echo "Server: $SERVER:$PORT"
-        echo "Username: $USERNAME"
+        echo "USER: $USER"
         echo "Jump Host: $JUMP_HOST"
         echo "Odoo Container: $ODOO_CONTAINER"
         echo "Odoo Version: $ODOO_VERSION"
@@ -87,7 +87,7 @@ upgrade-odoo() {
         echo "-----------------"
         echo "Host: $TARGET_HOST"
         echo "Server: $TARGET_SERVER:$TARGET_PORT"
-        echo "Username: ${TARGET_USERNAME:-$USERNAME}"
+        echo "USER: ${TARGET_USER:-$USER}"
         echo "Jump Host: $TARGET_JUMP_HOST"
         echo "Odoo Container: $TARGET_ODOO_CONTAINER"
         echo "Odoo Version: $TARGET_ODOO_VERSION"

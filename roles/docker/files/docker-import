@@ -59,9 +59,7 @@ if [[ "$replace" == true ]]; then
 fi
 
 echo "Importing content to $path in $container container..."
-docker cp "$file" "${container_id}:/var/tmp/${container}.tar"
 docker exec "$container_id" mkdir -p "$path"
-docker exec -w "$path" "$container_id" tar xf "/var/tmp/${container}.tar" --strip-components=1
-docker exec "$container_id" rm "/var/tmp/${container}.tar"
+docker exec -i -w "$path" "$container_id" tar xf - --strip-components=1 < "$file"
 
 echo "Docker container import has finished."

@@ -49,9 +49,7 @@ done
 container_id=$(docker ps -f "name=${container}" -q | head -n1)
 [[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
 
-echo "Export content from $path path from $container container..."
-docker exec "$container_id" tar -cf "/var/tmp/${container}.tar" -C "$path" .
-docker cp "${container}:/var/tmp/${container}.tar" "${dir}/${container}.tar"
-docker exec "$container_id" rm "/var/tmp/$container.tar"
+echo "Stream content from '$path' path of $container container..."
+docker exec "$container_id" tar -cf - -C "$path" . > "${dir}/${container}.tar"
 
 echo "Docker container export has finished: ${dir}/${container}.tar"
