@@ -6,6 +6,10 @@ import { mermaidPlugin } from './mermaid'
 import { plausiblePlugin } from './plausible'
 import { defineUserConfig } from 'vuepress'
 import { searchPlugin } from '@vuepress/plugin-search'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineUserConfig({
     bundler: viteBundler({
@@ -29,6 +33,10 @@ export default defineUserConfig({
         'scripts.md',
         'upgrade-odoo.md',
     ],
+    dest: path.resolve(__dirname, 'dist'),
+    public: path.resolve(__dirname, 'public'),
+    temp: path.resolve(__dirname, '.temp'),
+    cache: path.resolve(__dirname, '.cache'),
     theme: defaultTheme({
         logo: '/icon.png',
         repo: 'mint-system/ansible-build',

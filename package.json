@@ -4,8 +4,8 @@
   "description": "The Mint System collection of Ansible playbooks and roles.",
   "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev .",
-    "build": "NODE_OPTIONS='--max-old-space-size=768' vuepress build ."
+    "dev": "vuepress dev docs --config ./.vuepress/config.js",
+    "build": "NODE_OPTIONS='--max-old-space-size=768' vuepress build docs --config ./.vuepress/config.js"
   },
   "repository": {
     "type": "git",

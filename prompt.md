@@ -1,11 +1,11 @@
 ---
 title: "Move Vuepress pages into docs folder"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
-state: draft
-date_completed: YYYY-MM-DD
-model:
-input_tokens:
-output_tokens:
+state: completed
+date_completed: 2026-10-06
+model: moonshotai/Kimi-K2.6
+input_tokens: 1235049
+output_tokens: 16602
 ---
 
 # Move Vuepress pages into docs folder
@@ -42,6 +42,15 @@ Let me know if this possible and then proceed with the update.
 
 ## Worklog
 
-@Clanker Add a summary here once the task has been completed.
+Yes, it is possible to symlink the root-level docs and build the VuePress site from a `docs` folder.
 
-@Clanker Set frontmatter state to completed and update date and model. If you have access to session info also add token count.
+The following changes were made:
+
+- Created `docs/` as the new VuePress source directory.
+- Moved `roles.md`, `scripts.md`, and `upgrade-odoo.md` into `docs/`.
+- Added symlinks inside `docs/` pointing to the root `README.md` and `roles/` folder.
+- Added a root symlink `roles.md -> docs/roles.md` to keep the GitHub README link and the `task docs` command working.
+- Updated `.vuepress/config.js` to explicitly set `dest`, `public`, `temp`, and `cache` to absolute paths under the root `.vuepress/` directory, so the build output and public assets stay where the existing `task` script expects them.
+- Updated `package.json` scripts to invoke `vuepress dev docs --config ./.vuepress/config.js` and `vuepress build docs --config ./.vuepress/config.js`.
+
+With these changes VuePress builds correctly from `docs/` while the original `README.md`, `roles/`, and `.vuepress/` configuration remain in place.
