@@ -1,0 +1,82 @@
+---
+- name: Ensure {{ restic_group }} group exists
+  ansible.builtin.group:
+    name: "{{ restic_group }}"
+    state: present
+
+- name: Ensure {{ role_name }} config and cache dirs exist
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "{{ item.mode }}"
+  loop:
+    - { path: /etc/restic, mode: "0700" }
+    - { path: /var/cache/restic, mode: "0700" }
+
+- name: Deploy {{ role_name }} credentials env file
+  ansible.builtin.template:
+    src: restic.env
+    dest: /etc/restic/restic.env
+    owner: root
+    group: root
+    mode: "0600"
+  no_log: true
+
+- name: Setup {{ role_name }} wrapper script
+  ansible.builtin.template:
+    src: restic-docker
+    dest: /usr/local/bin/restic-docker
+    owner: root
+    group: "{{ restic_group }}"
+    mode: "0750"
+
+- name: Check if repo is initialized
+  ansible.builtin.command: restic-docker cat config
+  register: repo_check
+  changed_when: false
+  failed_when: false
+
+- name: Fail on unexpected repo check error
+  ansible.builtin.fail:
+    msg: "{{ repo_check.stderr }}"
+  when:
+    - repo_check.rc != 0
+    - "'does not exist' not in repo_check.stderr and 'Is there a repository' not in repo_check.stderr"
+
+- name: Init {{ role_name }} repository
+  ansible.builtin.command: restic-docker init
+  when:
+    - repo_check.rc != 0
+    - "'does not exist' in repo_check.stderr or 'Is there a repository' in repo_check.stderr"
+
+- name: Setup {{ role_name }} docker backup script
+  ansible.builtin.template:
+    src: docker-restic-backup
+    dest: /usr/local/bin/docker-restic-backup
+    owner: root
+    group: root
+    mode: "0750"
+
+- name: Setup {{ role_name }} docker restore script
+  ansible.builtin.template:
+    src: docker-restic-restore
+    dest: /usr/local/bin/docker-restic-restore
+    owner: root
+    group: root
+    mode: "0750"
+
+- name: Register backup rotation job
+  ansible.builtin.cron:
+    name: Backup rotation job
+    user: root
+    hour: "23"
+    minute: "{{ 59 | random(seed=inventory_hostname) }}"
+    job: >-
+      restic-docker forget
+      --keep-last {{ restic_backup_rotation.last }}
+      --keep-daily {{ restic_backup_rotation.daily }}
+      --keep-weekly {{ restic_backup_rotation.weekly }}
+      --keep-monthly {{ restic_backup_rotation.monthly }}
+      --prune; write-node-exporter-metric -c "Backup rotation job" -v $?

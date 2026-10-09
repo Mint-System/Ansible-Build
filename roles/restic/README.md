@@ -137,6 +137,34 @@ restic_repo_type: local # default: rest
 restic_repo: /home/backup
 ```
 
+### Setup an S3 repository
+
+Restic runs in a Docker container for S3 repositories. The credentials are
+stored in `/etc/restic/restic.env` (`0600`, root only) and passed to the
+container with `--env-file`. The wrapper script `/usr/local/bin/restic-docker`
+contains no secrets.
+
+Set these vars:
+
+```yaml
+# https://hub.docker.com/r/restic/restic
+restic_image: restic/restic:0.19.1
+restic_repo_type: s3 # default: rest
+restic_s3_endpoint: https://s3.swiss-backup02.infomaniak.com
+restic_s3_bucket: my-restic-bucket
+restic_s3_region: us-east-1 # default: us-east-1
+restic_s3_access_key: # default: "{{ vault_restic_s3_access_key }}"
+restic_s3_secret_key: # default: "{{ vault_restic_s3_secret_key }}"
+```
+
+Store the secrets in the vault:
+
+```yaml
+vault_restic_repo_password: "..."
+vault_restic_s3_access_key: "..."
+vault_restic_s3_secret_key: "..."
+```
+
 ### Delete all snaphots
 
 Run these commands to remove all snapshots:
@@ -157,6 +185,7 @@ These backup types are available:
 * docker-odoo-backup
 * odoo-backup
 * file
+* docker-restic-backup
 
 ## Docs
 

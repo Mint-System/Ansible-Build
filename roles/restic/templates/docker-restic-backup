@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.0.0"
+
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Backup a docker volume to the restic repository with a restic container.'
+    echo "Syntax: $script [-v|-t|-V|help]"
+    echo "Example: $script -v nextcloud01 -t nextcloud -t nextcloud01"
+    echo 'options:'
+    echo '  -v    Docker volume name (required).'
+    echo '  -t    Restic tag. Can be used multiple times.'
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
+    echo
+}
+
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+volume=''
+tags=()
+
+while getopts ":v:t:V" opt; do
+    case $opt in
+        v) volume="$OPTARG" ;;
+        t) tags+=(--tag "$OPTARG") ;;
+        V) echo "$script version $version"
+           exit 0 ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+            help
+            exit 1 ;;
+        :) echo "Option -$OPTARG requires an argument." >&2
+           exit 1 ;;
+    esac
+done
+
+[[ -z "$volume" ]] && { echo 'Parameter -v|volume must be set.' >&2; exit 1; }
+
+if ! docker volume inspect "$volume" >/dev/null 2>&1; then
+    echo "Docker volume $volume does not exist." >&2
+    exit 1
+fi
+
+echo "Make sure the containers using volume $volume are stopped, or the backup may be inconsistent."
+echo "Run restic backup for Docker volume $volume."
+
+exec docker run --rm \
+    --name "restic-backup-${volume}" \
+    --hostname {{ inventory_hostname }} \
+    --env-file /etc/restic/restic.env \
+    -v "${volume}:/data/${volume}:ro" \
+    -v /var/cache/restic:/root/.cache/restic \
+    restic/restic:{{ restic_image_tag | default('0.17.3') }} \
+    backup "/data/${volume}" ${tags[@]+"${tags[@]}"}

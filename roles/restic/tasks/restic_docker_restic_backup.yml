@@ -1,0 +1,15 @@
+---
+- name: Register docker restic backup jobs
+  ansible.builtin.cron:
+    name: "{{ item.id }}"
+    user: root
+    hour: "{{ item.hour }}"
+    minute: "{{ 59 | random(seed=item.id) }}"
+    job: >-
+      /usr/local/bin/docker-restic-backup -v {{ item.volume }}
+      {{ ('-t ' + (item.tags | join(' -t '))) if item.tags is defined else '' }};
+      write-node-exporter-metric -c '{{ item.id }}' -v $?
+    disabled: "{{ item.disabled | default(false) }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ restic_backup_set }}"
+  when: item.type == "docker-restic-backup" and item.volume is defined

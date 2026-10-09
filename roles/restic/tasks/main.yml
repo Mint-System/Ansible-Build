@@ -1,7 +1,13 @@
 ---
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
-  when: restic_repo is defined and restic_repo
+  when: restic_repo_type is defined and restic_repo_type in ['rest', 'local']
+  tags:
+    - restic
+
+- name: Include {{ role_name }} s3 tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_s3.yml"
+  when: restic_repo_type is defined and restic_repo_type == 's3'
   tags:
     - restic
 

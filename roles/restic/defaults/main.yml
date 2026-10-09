@@ -4,6 +4,10 @@ restic_owner: root
 restic_group: backup
 restic_repo_type: rest
 restic_rest_user: restic
+restic_rest_password: "{{ vault_restic_rest_password }}"
+restic_repo_password: "{{ vault_restic_repo_password }}"
+restic_s3_access_key: "{{ vault_restic_s3_access_key }}"
+restic_s3_secret_key: "{{ vault_restic_s3_secret_key }}"
 restic_backup_rotation:
   last: 14
   daily: 14

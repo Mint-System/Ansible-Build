@@ -1,0 +1,6 @@
+#!/bin/bash
+exec docker run --rm \
+  --env-file /etc/restic/restic.env \
+  -v {{ restic_backup_dir }}:/data:ro \
+  -v /var/cache/restic:/root/.cache/restic \
+  restic/restic:{{ restic_image_tag }} "$@"

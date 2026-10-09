@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.1.0"
+
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Restore a docker volume from the restic repository with a restic container.'
+    echo "Syntax: $script [-v|-s|-T|-d|-n|-f|-V|help]"
+    echo "Example: $script -v nextcloud01"
+    echo "Example: $script -v nextcloud01 -s 1a2b3c4d -T nextcloud01_test"
+    echo 'options:'
+    echo '  -v    Docker volume name the snapshot was taken from (required).'
+    echo "  -s    Snapshot id. Defaults to the latest snapshot of this host and volume."
+    echo '  -T    Restore into this volume instead of the original one. Created if missing.'
+    echo '  -d    Delete files in the target that are not in the snapshot.'
+    echo '  -n    Dry run. Nothing is written.'
+    echo '  -f    Skip confirmation and allow restoring into a volume in use.'
+    echo "  -V    Show $script version."
+    echo "  help  Show $script manual."
+    echo
+}
+
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+volume=''
+snapshot='latest'
+target=''
+extra=()
+dry_run='false'
+force='false'
+
+while getopts ":v:s:T:dnfV" opt; do
+    case $opt in
+        v) volume="$OPTARG" ;;
+        s) snapshot="$OPTARG" ;;
+        T) target="$OPTARG" ;;
+        d) extra+=(--delete) ;;
+        n) dry_run='true'
+           extra+=(--dry-run) ;;
+        f) force='true' ;;
+        V) echo "$script version $version"
+           exit 0 ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+            help
+            exit 1 ;;
+        :) echo "Option -$OPTARG requires an argument." >&2
+           exit 1 ;;
+    esac
+done
+
+[[ -z "$volume" ]] && { echo 'Parameter -v|volume must be set.' >&2; exit 1; }
+
+target="${target:-$volume}"
+
+users=$(docker ps -q --filter "volume=${target}")
+if [[ -n "$users" && "$force" != 'true' ]]; then
+    echo "Volume $target is used by running containers:" >&2
+    {% raw %}docker ps --filter "volume=${target}" --format '  {{.Names}}' >&2{% endraw %}
+    echo 'Stop them first, or use -f to restore anyway.' >&2
+    exit 1
+fi
+
+if [[ "$dry_run" != 'true' && "$force" != 'true' ]]; then
+    if [[ ! -t 0 ]]; then
+        echo 'No terminal available, use -f to confirm the restore.' >&2
+        exit 1
+    fi
+    read -r -p "Restore $snapshot of $volume into volume $target? [y/N] " answer
+    [[ "$answer" == 'y' ]] || { echo 'Aborted.' >&2; exit 1; }
+fi
+
+mode='rw'
+[[ "$dry_run" == 'true' ]] && mode='ro'
+
+echo "Run restic restore for Docker volume $volume into $target."
+
+exec docker run --rm \
+    --name "restic-restore-${target}" \
+    --hostname {{ inventory_hostname }} \
+    --env-file /etc/restic/restic.env \
+    -v "${target}:/data/${volume}:${mode}" \
+    -v /var/cache/restic:/root/.cache/restic \
+    restic/restic:{{ restic_image_tag | default('0.17.3') }} \
+    restore "$snapshot" \
+    --host {{ inventory_hostname }} \
+    --path "/data/${volume}" \
+    --target / \
+    --verify \
+    ${extra[@]+"${extra[@]}"}

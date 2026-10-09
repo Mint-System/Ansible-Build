@@ -34,7 +34,7 @@
     restic_repository: "{{ restic_repo }}"
   when: restic_repo_type == 'local'
 
-- name: Setup {{ role_name }} wrapper script for main repo
+- name: Setup {{ role_name }} wrapper script
   ansible.builtin.template:
     dest: /usr/local/bin/restic-main
     src: restic-main
