@@ -25,13 +25,13 @@ help-table() {
     rows+=("===DOCS===| | ")
     rows+=("build-vuepress||Create vuepress build.")
     rows+=("dev-vuepress||Start vuepress development server.")
-    rows+=("docs||Update docs.")
+    rows+=("update-docs||Update docs.")
     rows+=("install-vuepress||Install build dependencies.")
     rows+=("serve-vuepress||Serve vuepress build.")
-    rows+=("update-roles-doc||Update readme files in roles folder.")
+    rows+=("format-role-readmes||Update readme files in roles folder.")
     rows+=("===LLM===| | ")
     rows+=("commit-with-llm||Commit with llm generated commit message.")
-    rows+=("update-with-llm|[glob][prompt]|Feed files matching glob with prompt to LLM and apply file changes.")
+    rows+=("update-with-llm|[glob][prompt]|Feed files matching and prompt to LLM and apply file changes.")
     rows+=("===DOCKER===| | ")
     rows+=("login-docker|[user][token]|Run Docker login and create docker config.")
     rows+=("===VAULT===| | ")
@@ -41,7 +41,7 @@ help-table() {
     rows+=("encrypt-string|[vault_id] [key] [value] -q|Generate encrypted string with Ansible Vault.")
     rows+=("generate-encrypted-string|[vault_id] [key] -q|Generate encrypted string for key with Ansible Vault.")
     rows+=("generate-vault-password|[vault_id] [password]|Generate a password file for Ansible Vault.")
-    rows+=("show-vault-file|[vault_id] [path]|Show content of encrypted strings or fully encrypted vault file.")
+    rows+=("show-vault-file|[vault_id] [path]|Show content of encrypted strings or encrypted vault file.")
     rows+=("===SETUP===| | ")
     rows+=("install||Install Ansible and dependencies with uv.")
     rows+=("install-ansible-build-scripts|[role]|Install scripts of the specified Ansbile role.")
@@ -67,7 +67,7 @@ help-table() {
     rows+=("upgrade-odoo|[env][step]|Run the Odoo upgrade for a target environment.")
     rows+=("===TEST===| | ")
     rows+=("test-project|[cleanup]|Deploy to localhost. Pass option 'cleanup' to reset test env.")
-    rows+=("test-scripts|[cleanup]|Install and test scripts. Pass option 'cleanup' to reset test env.")
+    rows+=("test-scripts|[cleanup]|Install and test scripts. Pass option 'cleanup' to reset env.")
 
     for row in "${rows[@]}"; do
         IFS='|' read -r cmd opt desc <<< "$row"
@@ -747,12 +747,12 @@ test-scripts() {
 
 # Docs
 
-docs() {
+update-docs() {
     echo "Update roles.md"
-    echo "# Roles" > "roles.md"
-    echo "" >> "roles.md"
-    echo "| Logo | Role | Kind | Description |" >> "roles.md"
-    echo "| --- | --- | --- | --- |" >> "roles.md"
+    echo "# Roles" > "docs/roles.md"
+    echo "" >> "docs/roles.md"
+    echo "| Logo | Role | Kind | Description |" >> "docs/roles.md"
+    echo "| --- | --- | --- | --- |" >> "docs/roles.md"
 
     local md_files=$(find roles -name 'README.md' | sort)
     for readme in $md_files; do
@@ -762,11 +762,11 @@ docs() {
         kind=$(grep "^kind:" "$readme" | sed 's/kind: //')
         local description
         description=$(sed -n '5,$p' "$readme" | grep -v '^$' | grep -v '<img' | grep -v '^#' | head -1)
-        echo "| ![$role logo](/logos/$role.png)  | [$role]($readme) | $kind | $description |" >> "roles.md"
+        echo "| ![$role logo](/logos/$role.png)  | [$role]($readme) | $kind | $description |" >> "docs/roles.md"
     done
 }
 
-update-roles-doc() {
+format-role-readmes() {
     local md_files=$(find roles -name 'README.md' | sort)
     for readme in $md_files; do
         local role
@@ -850,7 +850,6 @@ build-vuepress() {
     cp -r roles/nginx/files/* .vuepress/dist/nginx
     cp -r roles/odoo/files/* .vuepress/dist/odoo
     cp -r roles/postgres/files/* .vuepress/dist/postgres
-
 }
 
 serve-vuepress() {

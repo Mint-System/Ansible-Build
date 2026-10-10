@@ -1,4 +1,10 @@
 ---
+- name: Verify docker-volume-backup command exists
+  ansible.builtin.command: command -v docker-volume-backup
+  changed_when: false
+  loop: "{{ restic_backup_set }}"
+  when: item.type == "docker-volume"
+
 - name: Register docker multi volume backup jobs
   ansible.builtin.cron:
     name: "{{ item.id }}"

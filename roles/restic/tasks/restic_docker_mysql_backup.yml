@@ -1,4 +1,10 @@
 ---
+- name: Verify docker-mysql-backup command exists
+  ansible.builtin.command: command -v docker-mysql-backup
+  changed_when: false
+  loop: "{{ restic_backup_set }}"
+  when: item.type == "docker-mysql-backup"
+
 - name: Register selective docker mysql backup jobs
   ansible.builtin.cron:
     name: "{{ item.id }}"
@@ -9,7 +15,7 @@
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
-  when: item.type == "mysql-dump" and item.databases is defined
+  when: item.type == "docker-mysql-dump" and item.databases is defined
 
 - name: Register docker mysql backup jobs
   ansible.builtin.cron:
@@ -21,4 +27,4 @@
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
-  when: item.type == "mysql-dump" and item.databases is undefined
+  when: item.type == "docker-mysql-dump" and item.databases is undefined

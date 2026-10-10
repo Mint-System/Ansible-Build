@@ -1,10 +1,4 @@
 ---
-- name: Verify file path exists
-  ansible.builtin.command: ls {{ item.path }}
-  changed_when: false
-  loop: "{{ restic_backup_set }}"
-  when: item.type == "file"
-
 - name: Register file backup jobs
   ansible.builtin.cron:
     name: "{{ item.id }}"
@@ -15,4 +9,4 @@
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
-  when: item.type == "file"
+  when: item.type == "file-backup"

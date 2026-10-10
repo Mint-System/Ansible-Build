@@ -28,6 +28,7 @@
 | ![docker_hosts logo](/logos/docker_hosts.png)  | [docker_hosts](roles/docker_hosts/README.md) | system | Docker hostname resolver. |
 | ![docker_network logo](/logos/docker_network.png)  | [docker_network](roles/docker_network/README.md) | system | Configures a Docker network. |
 | ![docker logo](/logos/docker.png)  | [docker](roles/docker/README.md) | system | Install Docker. |
+| ![docker_restic logo](/logos/docker_restic.png)  | [docker_restic](roles/docker_restic/README.md) | environment | Runs Restic in Docker container. |
 | ![docker_swarm logo](/logos/docker_swarm.png)  | [docker_swarm](roles/docker_swarm/README.md) | system | Configures Docker Swarm. |
 | ![docker_volume logo](/logos/docker_volume.png)  | [docker_volume](roles/docker_volume/README.md) | system | Configures a Docker volume. |
 | ![dozzle logo](/logos/dozzle.png)  | [dozzle](roles/dozzle/README.md) | application | Deploy Dozzle container. |
@@ -99,7 +100,7 @@
 | ![remark42 logo](/logos/remark42.png)  | [remark42](roles/remark42/README.md) | application | Deploy Remark42 container |
 | ![resolv logo](/logos/resolv.png)  | [resolv](roles/resolv/README.md) | system | Manage DNS configuration. |
 | ![restic_exporter logo](/logos/restic_exporter.png)  | [restic_exporter](roles/restic_exporter/README.md) | service | Add nginx config for Restic exporter path. |
-| ![restic logo](/logos/restic.png)  | [restic](roles/restic/README.md) | environment | Configures Restic backup jobs. |
+| ![restic logo](/logos/restic.png)  | [restic](roles/restic/README.md) | environment | Configure restic and backup jobs. |
 | ![restic_server logo](/logos/restic_server.png)  | [restic_server](roles/restic_server/README.md) | service | Deploy Restic server container. |
 | ![s3cmd logo](/logos/s3cmd.png)  | [s3cmd](roles/s3cmd/README.md) | environment | Install and configure s3cmd. |
 | ![simple_mail_forwarder logo](/logos/simple_mail_forwarder.png)  | [simple_mail_forwarder](roles/simple_mail_forwarder/README.md) | service | Deploy Simple Mail Forwarder container. |

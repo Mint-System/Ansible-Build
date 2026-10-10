@@ -4,9 +4,10 @@ kind: environment
 
 <img src="/logos/restic.png" alt="restic logo" width="100" height="100">
 
+
 # Restic role
 
-Configures Restic backup jobs.
+Configure restic and backup jobs.
 
 ## Usage
 
@@ -16,10 +17,10 @@ Configure the role.
 restic_backup_dir: /srv/backup # default: /var/backup
 restic_owner: admin # default: root
 restic_group: wheel # default: backup
-restic_repo: "restic.example.com/{{ inventory_hostname }}"
-restic_repo_password: # default: "{{ vault_restic_repo_password }}"
 restic_rest_user: rest-user # default: restic
 restic_rest_password: # default "{{ vault_restic_rest_password }}"
+restic_repo: "restic.example.com/{{ inventory_hostname }}"
+restic_repo_password: # default: "{{ vault_restic_repo_password }}"
 restic_backup_set:
 
   - id: "Backup Jenkins volume"
@@ -42,7 +43,7 @@ restic_backup_set:
     hour: "1"
 
   - id: "Backup Bookstack files"
-    type: file
+    type: file-backup
     path: /usr/share/bookstack01
     tags:
       - bookstack
@@ -60,7 +61,7 @@ restic_backup_set:
     hour: "2"
 
   - id: "Backup Postgres database"
-    type: postgres-dump
+    type: docker-postgres-dump
     container: postgres01
     databases: odoo
     tags:
@@ -70,7 +71,7 @@ restic_backup_set:
     disabled: true
 
   - id: "Backup Postgres databases"
-    type: postgres-dump
+    type: docker-postgres-dump
     container: postgres01
     tags:
       - postgres
@@ -96,7 +97,7 @@ restic_backup_set:
     hour: "1"
 
   - id: "Backup MariaDB database"
-    type: mariadb-dump
+    type: docker-mariadb-dump
     container: mariadb01
     databases: frappe
     tags:
@@ -120,6 +121,18 @@ And include it in your playbook.
 
 ## Docs
 
+### Backup types
+
+These backup types are available:
+
+* docker-mariadb-dump
+* dokcer-mysql-dump
+* docker-odoo-backup
+* docker-postgres-dump
+* docker-volume
+* file-backup
+* odoo-backup
+
 ### Show restic version
 
 Show restic version for alls hosts.
@@ -137,34 +150,6 @@ restic_repo_type: local # default: rest
 restic_repo: /home/backup
 ```
 
-### Setup an S3 repository
-
-Restic runs in a Docker container for S3 repositories. The credentials are
-stored in `/etc/restic/restic.env` (`0600`, root only) and passed to the
-container with `--env-file`. The wrapper script `/usr/local/bin/restic-docker`
-contains no secrets.
-
-Set these vars:
-
-```yaml
-# https://hub.docker.com/r/restic/restic
-restic_image: restic/restic:0.19.1
-restic_repo_type: s3 # default: rest
-restic_s3_endpoint: https://s3.swiss-backup02.infomaniak.com
-restic_s3_bucket: my-restic-bucket
-restic_s3_region: us-east-1 # default: us-east-1
-restic_s3_access_key: # default: "{{ vault_restic_s3_access_key }}"
-restic_s3_secret_key: # default: "{{ vault_restic_s3_secret_key }}"
-```
-
-Store the secrets in the vault:
-
-```yaml
-vault_restic_repo_password: "..."
-vault_restic_s3_access_key: "..."
-vault_restic_s3_secret_key: "..."
-```
-
 ### Delete all snaphots
 
 Run these commands to remove all snapshots:
@@ -173,21 +158,6 @@ Run these commands to remove all snapshots:
 restic forget --keep-last 1 --prune
 restic forget --prune latest
 ```
-
-### Backup types
-
-These backup types are available:
-
-* mariadb-dump
-* mysql-dump
-* postges-dump
-* docker-volume
-* docker-odoo-backup
-* odoo-backup
-* file
-* docker-restic-backup
-
-## Docs
 
 ### Change backup path
 

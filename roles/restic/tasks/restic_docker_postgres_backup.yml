@@ -1,4 +1,10 @@
 ---
+- name: Verify docker-postgres-backup command exists
+  ansible.builtin.command: command -v docker-postgres-backup
+  changed_when: false
+  loop: "{{ restic_backup_set }}"
+  when: item.type == "docker-postgres-dump"
+
 - name: Register selective docker postgres backup jobs
   ansible.builtin.cron:
     name: "{{ item.id }}"
@@ -10,7 +16,7 @@
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
-  when: item.type == "postgres-dump" and item.databases is defined
+  when: item.type == "docker-postgres-dump" and item.databases is defined
 
 - name: Register docker postgres backup jobs
   ansible.builtin.cron:
@@ -22,4 +28,4 @@
     disabled: "{{ item.disabled | default(false) }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ restic_backup_set }}"
-  when: item.type == "postgres-dump" and item.databases is undefined
+  when: item.type == "docker-postgres-dump" and item.databases is undefined
