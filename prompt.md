@@ -73,4 +73,9 @@ Fixed the `test-project` CI failure by addressing bugs in the docker volume scri
 - The tar command inside `docker run ... bash -c "..."` was vulnerable to word splitting if `$filename` contained spaces, because the outer shell expanded the variable before the inner shell parsed the command string.
 - Fixed by passing the filename via the `-e RESTORE_FILE` environment variable and using single quotes around the `bash -c` argument so the inner shell performs the variable expansion safely.
 
+### `roles/postgres/defaults/main.yml` & `README.md`
+- The postgres Docker image declares `VOLUME /var/lib/postgresql/data`. Mounting a named volume at the parent directory `/var/lib/postgresql` does **not** override that declaration. Docker auto-creates an anonymous volume for `/var/lib/postgresql/data`, and the actual database files end up there instead of the named volume.
+- As a result, `docker-volume-backup -v postgres01` was backing up an essentially empty named volume, and after restore the data was gone.
+- Fixed by changing the default mount path from `/var/lib/postgresql` to `/var/lib/postgresql/data` so the named volume directly contains the database files.
+
 @Clanker Set frontmatter state to completed and update date and model. If you have access to session info also add token count.
