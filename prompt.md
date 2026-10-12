@@ -1,11 +1,11 @@
 ---
 title: "Create task commands for logo scripts."
 author: "Janik von Rotz <login@janikvonrotz.ch>"
-state: draft
-date_completed: YYYY-MM-DD
-model:
-input_tokens:
-output_tokens:
+state: completed
+date_completed: 2026-10-12
+model: moonshotai/Kimi-K2.6
+input_tokens: 33379
+output_tokens: 7388
 ---
 
 # Create task commands for logo scripts.
@@ -34,6 +34,9 @@ I will test the new commands by running `./task resize-logos` and `task convert-
 
 ## Worklog
 
-@Clanker Add a summary here once the task has been completed.
-
-@Clanker Set frontmatter state to completed and update date and model. If you have access to session info also add token count.
+- Read `AGENTS.md` and `README.md` to understand the project and coding conventions.
+- Added `resize-logos` and `convert-logos` functions to `./task` with a new `LOGOS` help section.
+- Functions `cd` into the `logos/` directory before operating, unlike the original standalone scripts.
+- Added `[[ -e "$file" ]]` guard to `convert-logos` for consistency with `resize-logos` and to avoid errors when no `.jpg` files exist.
+- Removed `logos/resize-logos` and `logos/convert-logos`.
+- Tested both commands: `./task resize-logos` resized all PNGs successfully; `./task convert-logos` exits cleanly when no JPGs are present.

@@ -19,6 +19,9 @@ help-table() {
     rows+=("show-dotenv|[env]|Output content of the .env file.")
     rows+=("===VISUALIZATION===| | ")
     rows+=("visualize-dependencies||Visualize Ansible role dependencies.")
+    rows+=("===LOGOS===| | ")
+    rows+=("resize-logos|[path]|Resize logos to 200x200.")
+    rows+=("convert-logos||Convert all .jpg logos to .png.")
     rows+=("===GALAXY===| | ")
     rows+=("build-galaxy||Create tarball of collection.")
     rows+=("publish-galaxy||Publish tarball to Ansible Galaxy.")
@@ -855,6 +858,32 @@ build-vuepress() {
 serve-vuepress() {
     cd .vuepress/dist
     pnpx serve
+}
+
+resize-logos() {
+    cd logos || return 1
+    if [[ -n "$1" ]] && [[ -f "$1" ]]; then
+        magick "$1" -resize 200x200\! "$1"
+        echo "Resized: $1"
+    else
+        local file
+        for file in *.png; do
+            [[ -e "$file" ]] && magick "$file" -resize 200x200\! "$file" && echo "Resized: $file"
+        done
+    fi
+}
+
+convert-logos() {
+    cd logos || return 1
+    local file
+    local base
+    for file in *.jpg; do
+        if [[ -e "$file" ]]; then
+            base="${file%.jpg}"
+            magick "$file" "${base}.png"
+            echo "Converted: $file -> ${base}.png"
+        fi
+    done
 }
 
 if [[ "$1" == *","* ]]; then
