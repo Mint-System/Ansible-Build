@@ -56,14 +56,11 @@ done
 [[ -z "$container" ]] && { echo 'Parameter -c|container is empty.' ; exit 1; }
 
 if $all; then
-    volume_list=$(docker inspect -f '{{ range .Mounts }}{{ .Name }}{{ end }}' "$container")
-
-    printf -v volumes '%s,' "${volume_list[@]}"
-    volumes="${volumes%,}"
+    mapfile -t volume_list < <(docker inspect -f '{{ range .Mounts }}{{ if eq .Type "volume" }}{{ .Name }}{{ "\n" }}{{ end }}{{ end }}' "$container" | sed '/^$/d')
 fi
 
-if [[ -n $volumes ]] ; then
-    volume_list=($(echo $volumes | tr ',' '\n'))
+if [[ -n "$volumes" ]] ; then
+    IFS=',' read -r -a volume_list <<< "$volumes"
 fi
 
 mkdir -p "${dir}/${container}"

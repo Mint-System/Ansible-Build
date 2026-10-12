@@ -47,7 +47,7 @@ volume=${volume:="${filename%%.*}"}
 echo 'Make sure to stop the attached containers before running the restore.'
 
 echo "Run restore $dir/$filename to Docker volume $volume ..."
-docker run --rm -v "$volume:/_data" -v "$dir:/restore" ubuntu /bin/bash -c "
-    shopt -s dotglob && cd /_data && rm -rf -- * || true && tar xf /restore/$filename --strip 1"
+docker run --rm -v "$volume:/_data" -v "$dir:/restore" -e "RESTORE_FILE=$filename" ubuntu /bin/bash -c '
+    shopt -s dotglob && cd /_data && rm -rf -- * || true && tar xf /restore/"$RESTORE_FILE" --strip 1'
 
 echo 'Docker volume restore has finished.'
