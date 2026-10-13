@@ -43,10 +43,10 @@ while getopts ":v:s:t:dnfV" opt; do
         t) target="$OPTARG" ;;
         d) extra+=(--delete) ;;
         n) dry_run='true'
-           extra+=(--dry-run) ;;
+            extra+=(--dry-run) ;;
         f) force='true' ;;
         V) echo "$script version $version"
-           exit 0 ;;
+            exit 0 ;;
         \?) echo "Invalid option -$OPTARG" >&2
             help
             exit 1 ;;
