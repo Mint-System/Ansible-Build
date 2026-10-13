@@ -5,22 +5,22 @@ script=$(basename "$0")
 version="1.0.1"
 
 help() {
-  echo
-  echo "$script"
-  echo
-  echo 'Description: Backup Odoo database.'
-  echo "Syntax: $script [-p|-d|-o|-h|-t|-s|-V|help]"
-  echo 'Example: $script -p password -d odoo -o /tmp -h https://odoo.example.com' -t token -s
-  echo 'options:'
-  echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var.'
-  echo '  -d    Database name.'
-  echo '  -o    Output directory. Defaults to '\''/var/tmp'\''.'
-  echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
-  echo '  -t    Pass a bearer auth token.'
-  echo '  -s    Download SQL dump only.'
-  echo '  -v    Show $script version.'
-  echo "  help  Show $script manual."
-  echo
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Backup Odoo database.'
+    echo "Syntax: $script [-p|-d|-o|-h|-t|-s|-V|help]"
+    echo 'Example: $script -p password -d odoo -o /tmp -h https://odoo.example.com' -t token -s
+    echo 'options:'
+    echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var.'
+    echo '  -d    Database name.'
+    echo '  -o    Output directory. Defaults to '\''/var/tmp'\''.'
+    echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
+    echo '  -t    Pass a bearer auth token.'
+    echo '  -s    Download SQL dump only.'
+    echo '  -v    Show $script version.'
+    echo "  help  Show $script manual."
+    echo
 }
 
 if [[ $1 == 'help' ]]; then

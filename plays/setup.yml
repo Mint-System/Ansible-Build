@@ -32,6 +32,8 @@
       tags: firehol
     - role: restic
       tags: restic
+    - role: docker_restic
+      tags: docker_restic
     - role: innernet
       tags: innernet
     - role: rclone

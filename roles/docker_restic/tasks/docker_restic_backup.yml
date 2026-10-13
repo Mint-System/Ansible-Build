@@ -6,7 +6,7 @@
     hour: "{{ item.hour }}"
     minute: "{{ 59 | random(seed=item.id) }}"
     job: >-
-      /usr/local/bin/docker-restic-backup -v {{ item.volume }}
+      docker-restic-backup -v {{ item.volume }}
       {{ ('-t ' + (item.tags | join(' -t '))) if item.tags is defined else '' }};
       write-node-exporter-metric -c '{{ item.id }}' -v $?
     disabled: "{{ item.disabled | default(false) }}"

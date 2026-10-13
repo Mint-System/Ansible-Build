@@ -41,11 +41,6 @@ And include it in your playbook.
 Setup this PHP-FPM configuration for the `php01` host:
 
 ```yaml
-nginx_http_options: |
-  map $http_upgrade $connection_upgrade {
-    default upgrade;
-    '' close;
-  }
 nginx_proxies:
   - src_hostname: moodle.example.com
     dest_hostname: php01

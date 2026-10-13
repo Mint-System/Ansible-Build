@@ -5,3 +5,8 @@ nginx_ports:
 nginx_description: Nginx
 nginx_data_dir: "/usr/share/{{ nginx_hostname }}"
 nginx_cache_enabled: false
+nginx_http_options: |
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }

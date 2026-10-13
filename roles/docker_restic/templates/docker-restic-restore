@@ -9,13 +9,13 @@ help() {
     echo "$script"
     echo
     echo 'Description: Restore a docker volume from the restic repository with a restic container.'
-    echo "Syntax: $script [-v|-s|-T|-d|-n|-f|-V|help]"
+    echo "Syntax: $script [-v|-s|-t|-d|-n|-f|-V|help]"
     echo "Example: $script -v nextcloud01"
-    echo "Example: $script -v nextcloud01 -s 1a2b3c4d -T nextcloud01_test"
+    echo "Example: $script -v nextcloud01 -s 2ec9d49d -t nextcloud01_test"
     echo 'options:'
     echo '  -v    Docker volume name the snapshot was taken from (required).'
     echo "  -s    Snapshot id. Defaults to the latest snapshot of this host and volume."
-    echo '  -T    Restore into this volume instead of the original one. Created if missing.'
+    echo '  -t    Restore into this volume instead of the original one. Created if missing.'
     echo '  -d    Delete files in the target that are not in the snapshot.'
     echo '  -n    Dry run. Nothing is written.'
     echo '  -f    Skip confirmation and allow restoring into a volume in use.'
@@ -36,11 +36,11 @@ extra=()
 dry_run='false'
 force='false'
 
-while getopts ":v:s:T:dnfV" opt; do
+while getopts ":v:s:t:dnfV" opt; do
     case $opt in
         v) volume="$OPTARG" ;;
         s) snapshot="$OPTARG" ;;
-        T) target="$OPTARG" ;;
+        t) target="$OPTARG" ;;
         d) extra+=(--delete) ;;
         n) dry_run='true'
            extra+=(--dry-run) ;;
@@ -62,7 +62,7 @@ target="${target:-$volume}"
 users=$(docker ps -q --filter "volume=${target}")
 if [[ -n "$users" && "$force" != 'true' ]]; then
     echo "Volume $target is used by running containers:" >&2
-    {% raw %}docker ps --filter "volume=${target}" --format '  {{.Names}}' >&2{% endraw %}
+    docker ps --filter "volume=${target}" --format '  {{ "{{.Names}}" }}' >&2
     echo 'Stop them first, or use -f to restore anyway.' >&2
     exit 1
 fi
@@ -87,7 +87,7 @@ exec docker run --rm \
     --env-file /etc/restic/restic.env \
     -v "${target}:/data/${volume}:${mode}" \
     -v /var/cache/restic:/root/.cache/restic \
-    restic/restic:{{ restic_image_tag | default('0.17.3') }} \
+    {{ restic_image }} \
     restore "$snapshot" \
     --host {{ inventory_hostname }} \
     --path "/data/${volume}" \

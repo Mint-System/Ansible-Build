@@ -5,23 +5,23 @@ script=$(basename "$0")
 version="1.0.1"
 
 help() {
-  echo
-  echo "$script"
-  echo
-  echo 'Description: Restore Odoo database.'
-  echo "Syntax: $script [-p|-d|-f|-h|-r|-n|-m|-V|help]"
-  echo 'Example: $script -p secret -d odoo -f /tmp/odoo.sql -h https://odoo.example.com -r -m -n'
-  echo 'options:'
-  echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and '\''admin'\''.'
-  echo '  -d    Database name. Defaults to filename.'
-  echo '  -f    Odoo database backup file. Defaults to '\''/var/tmp/odoo.zip'\''.'
-  echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
-  echo '  -r    Replace existing database.'
-  echo '  -n    Neutralize database after restore.'
-  echo '  -m    Database was moved.'
-  echo '  -v    Show $script version.'
-  echo "  help  Show $script manual."
-  echo
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Restore Odoo database.'
+    echo "Syntax: $script [-p|-d|-f|-h|-r|-n|-m|-V|help]"
+    echo 'Example: $script -p secret -d odoo -f /tmp/odoo.sql -h https://odoo.example.com -r -m -n'
+    echo 'options:'
+    echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and '\''admin'\''.'
+    echo '  -d    Database name. Defaults to filename.'
+    echo '  -f    Odoo database backup file. Defaults to '\''/var/tmp/odoo.zip'\''.'
+    echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
+    echo '  -r    Replace existing database.'
+    echo '  -n    Neutralize database after restore.'
+    echo '  -m    Database was moved.'
+    echo '  -v    Show $script version.'
+    echo "  help  Show $script manual."
+    echo
 }
 
 if [[ "$1" == 'help' ]]; then
@@ -64,7 +64,7 @@ if [[ "${file: -3}" =~ "zip" ]]; then
 fi
 
 if $replace; then
-  odoo-drop -p "$ODOO_MASTER_PASSWORD" -d "$database" -h "$odoo_host"
+    odoo-drop -p "$ODOO_MASTER_PASSWORD" -d "$database" -h "$odoo_host"
 fi
 
 echo "Requesting restore for Odoo database from $file to $database ..."

@@ -3,9 +3,9 @@
   hosts: nextcloud
   roles:
     - role: postgres
-      tags: nextcloud
+      tags: postgres
     - role: mariadb
-      tags: nextcloud
+      tags: mariadb
     - role: redis
       tags: redis
     - role: nextcloud

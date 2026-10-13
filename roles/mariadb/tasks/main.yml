@@ -5,15 +5,10 @@
   tags:
     - mariadb
 
-- name: Include docker {{ role_name }} backup from restic client role
+- name: Include docker {{ role_name }} backup from restic
   ansible.builtin.include_role:
     name: restic
-    apply:
-      tags:
-        - mariadb_backup
+    tasks_from: restic_docker_mysql_backup.yml
   vars:
     restic_backup_set: "{{ mariadb_backup_set }}"
-  when: mariadb_backup_set is defined
-  tags:
-    - restic
-    - mariadb_backup
+  when: mariadb_backup_set is defined and mariadb_backup_set | length > 0

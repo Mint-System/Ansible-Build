@@ -57,5 +57,5 @@ exec docker run --rm \
     --env-file /etc/restic/restic.env \
     -v "${volume}:/data/${volume}:ro" \
     -v /var/cache/restic:/root/.cache/restic \
-    restic/restic:{{ restic_image_tag | default('0.17.3') }} \
+    {{ restic_image }} \
     backup "/data/${volume}" ${tags[@]+"${tags[@]}"}

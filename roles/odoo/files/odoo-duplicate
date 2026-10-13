@@ -8,20 +8,20 @@ version="1.0.0"
 
 # Display Help
 help() {
-  echo
-  echo "$script"
-  echo
-  echo 'Description: Duplicate Odoo database.'
-  echo "Syntax: $script [-p|-d|-h|-n|-V|help]"
-  echo 'Example: $script -p secret -d odoo -h https://odoo.example.com' -n odoo2
-  echo 'options:'
-  echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and '\''admin'\''.'
-  echo '  -d    Database name.'
-  echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
-  echo '  -n    New database name.'
-  echo '  -v    Show $script version.'
-  echo "  help  Show $script manual."
-  echo
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Duplicate Odoo database.'
+    echo "Syntax: $script [-p|-d|-h|-n|-V|help]"
+    echo 'Example: $script -p secret -d odoo -h https://odoo.example.com' -n odoo2
+    echo 'options:'
+    echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and '\''admin'\''.'
+    echo '  -d    Database name.'
+    echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
+    echo '  -n    New database name.'
+    echo '  -v    Show $script version.'
+    echo "  help  Show $script manual."
+    echo
 }
 
 # Show help and exit

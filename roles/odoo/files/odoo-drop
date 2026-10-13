@@ -5,19 +5,19 @@ script=$(basename "$0")
 version="1.0.1"
 
 help() {
-  echo
-  echo "$script"
-  echo
-  echo 'Description: Drop Odoo database.'
-  echo "Syntax: $script [-p|-d|-h|-V|help]"
-  echo 'Example: $script -p secret -d odoo -h https://odoo.example.com'
-  echo 'options:'
-  echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and '\''admin'\''.'
-  echo '  -d    Database name.'
-  echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
-  echo '  -v    Show $script version.'
-  echo "  help  Show $script manual."
-  echo
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Drop Odoo database.'
+    echo "Syntax: $script [-p|-d|-h|-V|help]"
+    echo 'Example: $script -p secret -d odoo -h https://odoo.example.com'
+    echo 'options:'
+    echo '  -p    Odoo master password. Defaults to \$ODOO_MASTER_PASSWORD env var and '\''admin'\''.'
+    echo '  -d    Database name.'
+    echo '  -h    Odoo host. Defaults to '\''http://localhost:8069'\''.'
+    echo '  -v    Show $script version.'
+    echo "  help  Show $script manual."
+    echo
 }
 
 if [[ "$1" == 'help' ]]; then

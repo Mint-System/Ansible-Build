@@ -4,8 +4,15 @@
     name: docker_volume
   vars:
     docker_volume_name: "{{ dribdat_volume_name }}"
-    docker_volume_backup_set: "{{ dribdat_volume_backup_set | default([]) }}"
   when: dribdat_volume_name is defined
+
+- name: Include docker {{ role_name }} backup from restic
+  ansible.builtin.include_role:
+    name: restic
+    tasks_from: restic_docker_volume_backup.yml
+  vars:
+    restic_backup_set: "{{ dribdat_volume_name }}"
+  when: dribdat_volume_name is defined and dribdat_volume_name | length > 0
 
 - name: Init {{ role_name }} env vars
   ansible.builtin.set_fact:

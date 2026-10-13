@@ -5,7 +5,7 @@
   tags:
     - docker_compose
 
-- name: Include {{ role_name }} backup from restic client role
+- name: Include docker {{ role_name }} backup from restic
   ansible.builtin.include_role:
     name: restic
     apply:

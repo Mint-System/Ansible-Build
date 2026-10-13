@@ -22,7 +22,7 @@ nginx_ports:
   - "0.0.0.0:8443:443" # default: "0.0.0.0:443:443"
   - "[::]:80:80"
   - "[::]:443:443"
-nginx_http_options: |
+nginx_http_options: | # default:
   map $http_upgrade $connection_upgrade {
     default upgrade;
     '' close;
@@ -32,7 +32,6 @@ nginx_limit_req_zones:
     size: 20m # default 10m
     rate: 10r/s
 nginx_cache_enabled: true # default: false
-
 nginx_proxies:
 
   - src_hostname: www.example.com

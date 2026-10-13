@@ -4,8 +4,15 @@
     name: docker_volume
   vars:
     docker_volume_name: "{{ nextcloud_volume_name }}"
-    docker_volume_backup_set: "{{ nextcloud_volume_backup_set | default([]) }}"
   when: nextcloud_volume_name is defined
+
+- name: Include docker {{ role_name }} backup from restic
+  ansible.builtin.include_role:
+    name: restic
+    tasks_from: restic_docker_volume_backup.yml
+  vars:
+    restic_backup_set: "{{ nextcloud_volume_backup_set }}"
+  when: nextcloud_volume_backup_set is defined and nextcloud_volume_backup_set | length > 0
 
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:

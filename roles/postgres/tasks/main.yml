@@ -30,15 +30,18 @@
   tags:
     - postgres
 
-- name: Include docker {{ role_name }} backup from restic client role
+- name: Include docker {{ role_name }} backup from restic
   ansible.builtin.include_role:
     name: restic
-    apply:
-      tags:
-        - postgres_backup
+    tasks_from: restic_docker_postgres_backup.yml
   vars:
     restic_backup_set: "{{ postgres_backup_set }}"
-  when: postgres_backup_set is defined
-  tags:
-    - restic
-    - postgres_backup
+  when: postgres_backup_set is defined and postgres_backup_set | length > 0
+
+- name: Include docker restic backup from docker restic
+  ansible.builtin.include_role:
+    name: docker_restic
+    tasks_from: docker_restic_backup.yml
+  vars:
+    restic_backup_set: "{{ postgres_backup_set }}"
+  when: postgres_backup_set is defined and postgres_backup_set | length > 0

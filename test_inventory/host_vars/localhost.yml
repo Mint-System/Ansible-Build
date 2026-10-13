@@ -181,11 +181,6 @@ onlyoffice_documentserver_ports:
 # https://hub.docker.com/_/nginx/
 nginx_image: nginx:1.26.2-alpine
 nginx_hostname: nginx01
-nginx_http_options: |
-  map $http_upgrade $connection_upgrade {
-    default upgrade;
-    '' close;
-  }
 nginx_ports:
   - 8080:80
 nginx_proxies:

@@ -37,7 +37,7 @@ nextcloud_mail_domain: example.com # default: nextcloud_mail_username.split('@')
 nextcloud_mail_username: bot@example.com
 nextcloud_mail_password: "{{ vault_nextcloud_mail_password }}"
 nextcloud_redis_hostname: redis01
-nextcloud_redis_password: "{{ vault_nextcloud_redis_password }}"
+nextcloud_redis_password: "{{ vault_redis_password }}"
 nextcloud_etc_hosts: # defaults: {}
   "doc.example.com": 10.42.5.2
 ```

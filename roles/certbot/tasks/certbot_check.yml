@@ -1,22 +1,25 @@
 ---
-- name: Dig src DNS record
-  ansible.builtin.debug:
-    msg: "{{ lookup('dig', item.src_hostname) }}"
-  loop: "{{ nginx_proxies }}"
-  when: item.tls is defined and item.tls
-  register: dig_src
+- name: Determine IP address(es) of proxy host
+  ansible.builtin.set_fact:
+    proxy_host_ips: >-
+      {{ [ansible_host]
+         if (ansible_host is match('^[0-9]{1,3}([.][0-9]{1,3}){3}$') or ':' in ansible_host)
+         else lookup('dig', ansible_host).split(',') | map('trim') | list }}
   tags:
     - check
 
-- name: Dig host DNS record
-  ansible.builtin.debug:
-    msg: "{{ lookup('dig', ansible_host) }}"
-  register: dig_host
-
-- name: Fail if src IP is not resolved correctly
+- name: Fail if src hostname does not point to proxy host
   ansible.builtin.fail:
-    msg: DNS record for {{ item.item.src_hostname }} does not point to proxy host.
-  when: item.msg is defined and item.msg != dig_host.msg and item.msg != 'NXDOMAIN'
-  loop: "{{ dig_src.results }}"
+    msg: >-
+      DNS record for {{ item.src_hostname }} ({{ src_ips | join(', ') }})
+      does not point to proxy host ({{ proxy_host_ips | join(', ') }}).
+  vars:
+    src_ips: "{{ lookup('dig', item.src_hostname).split(',') | map('trim') | list }}"
+  loop: "{{ nginx_proxies | selectattr('tls', 'defined') | selectattr('tls') | list }}"
+  loop_control:
+    label: "{{ item.src_hostname }}"
+  when:
+    - src_ips != ['NXDOMAIN']
+    - src_ips | intersect(proxy_host_ips) | length == 0
   tags:
     - check
