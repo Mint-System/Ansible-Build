@@ -10,8 +10,6 @@ node_modules
 .cache
 dist
 tmp
-.obsidian/appearance.json
-.obsidian/graph.json
 .obsidian/workspace.json
 .env
 __pycache__
