@@ -27,7 +27,7 @@ if [[ "$1" == 'help' ]]; then
     exit
 fi
 
-without_demo='--without-demo=all'
+with_demo='--without-demo=all'
 container=odoo
 odoo_language=en_US
 
@@ -37,7 +37,7 @@ while getopts ':c: :d: :i: :l: :w :V' opt; do
         d) database="$OPTARG";;
         i) modules="$OPTARG";;
         l) odoo_language="$OPTARG";;
-        w) without_demo='';;
+        w) with_demo='--with-demo';;
         V) echo "$script version $version"
         exit 0
         ;;
@@ -57,7 +57,7 @@ echo "Initializing modules $modules with langague $odoo_language on database $da
 docker exec $container_id /bin/bash -c "
 unset ODOO_ADDONS_PATH
 unset ADDONS_PATH
-odoo -i $modules -d $database --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD $without_demo --load-language $odoo_language --stop-after-init --no-http
+odoo -i $modules -d $database --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD $with_demo --load-language $odoo_language --stop-after-init --no-http
 "
 
 echo 'Modules initialized. Please restart the Odoo container/process.'
