@@ -6,6 +6,14 @@
     docker_volume_name: "{{ odoo_volume_name }}"
   when: odoo_volume_name is defined
 
+- name: Include docker {{ role_name }} backup from restic
+  ansible.builtin.include_role:
+    name: restic
+    tasks_from: restic_docker_odoo_backup.yml
+  vars:
+    restic_backup_set: "{{ odoo_backup_set }}"
+  when: odoo_backup_set is defined and odoo_backup_set | length > 0
+
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
     path: "{{ odoo_data_dir }}/enterprise"

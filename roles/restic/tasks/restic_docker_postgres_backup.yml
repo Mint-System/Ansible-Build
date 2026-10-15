@@ -1,9 +1,11 @@
 ---
 - name: Verify docker-postgres-backup command exists
-  ansible.builtin.command: command -v docker-postgres-backup
-  changed_when: false
+  ansible.builtin.stat:
+    path: /usr/local/bin/docker-postgres-backup
+  register: backup_stat
+  failed_when: not backup_stat.stat.exists
   loop: "{{ restic_backup_set }}"
-  when: item.type == "docker-postgres-dump"
+  when: item.type == "docker-postgres-backup"
 
 - name: Register selective docker postgres backup jobs
   ansible.builtin.cron:

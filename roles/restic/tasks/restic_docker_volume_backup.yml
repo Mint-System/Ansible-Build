@@ -1,9 +1,11 @@
 ---
 - name: Verify docker-volume-backup command exists
-  ansible.builtin.command: command -v docker-volume-backup
-  changed_when: false
+  ansible.builtin.stat:
+    path: /usr/local/bin/docker-volume-backup
+  register: backup_stat
+  failed_when: not backup_stat.stat.exists
   loop: "{{ restic_backup_set }}"
-  when: item.type == "docker-volume"
+  when: item.type == "docker-volume-backup"
 
 - name: Register docker multi volume backup jobs
   ansible.builtin.cron:
