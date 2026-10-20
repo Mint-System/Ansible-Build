@@ -1,13 +1,14 @@
 ---
+commit_ref:
 title: "Fix test project"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
 state: review
 date_completed: 2026-10-20
 harness: pi
-model: moonshotai/Kimi-K2.6
-input_tokens: 38726
-output_tokens: 5333
+model: deepseek-v4-flash-0731
+input_tokens: 539977
+output_tokens: 21396
 ---
 
 # Fix test project
@@ -259,6 +260,49 @@ Error response from daemon: No such container: "postgres01"
 Error: Process completed with exit code 1.
 ```
 
+New test:
+
+```
+: [localhost] => (item=docker-volume-copy)
+
+TASK [docker_volume : Include docker_volume tasks] *****************************
+included: /home/runner/work/Ansible-Build/Ansible-Build/roles/docker_volume/tasks/docker_volume.yml for localhost
+
+TASK [docker_volume : Create docker volume] ************************************
+ok: [localhost]
+
+TASK [postgres : Start postgres container postgres01] **************************
+changed: [localhost]
+Pausing for 5 seconds
+
+TASK [postgres : Wait for postgres container] **********************************
+ok: [localhost]
+
+TASK [postgres : List postgres databases] **************************************
+ok: [localhost]
+
+TASK [postgres : Create postgres databases] ************************************
+changed: [localhost] => (item={'db': 'odoo-prod'})
+changed: [localhost] => (item={'db': 'odoo-int'})
+changed: [localhost] => (item={'db': 'keycloak'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=15   changed=2    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+
+ASSERTION FAILED: Expected 'example' in output.
+Output was:
+n8n-prod
+odoo-prod
+odoo-int
+keycloak
+
+```
+
+Just as hint. The postgres 18.0 + wants to mount at /var/lib/postgres and no longer at /var/lib/postgres/data. This
+was a breaking change and required me update the role and mount the old folder for postgres < 18.0.
+
+Do not change the role. Simply add the corrent mount for the test environment.
+
 @Clanker When task is completed set frontmatter state to review. Prompt the author to verify the results.
 
 ## Worklog
@@ -276,5 +320,18 @@ Error: Process completed with exit code 1.
 - `roles/odoo/files/docker-odoo-drop` — same fix for `docker_exec` and `docker_exec_root`
 
 **Verification:** A quick bash reproduction confirmed that removing the escaped quotes yields the correct word-splitting (`postgres01` instead of `"postgres01"`).
+
+### 2026-10-20 (follow-up)
+
+**Issue:** After fixing the quote issue, the `test-scripts` job failed with `ASSERTION FAILED: Expected 'example' in output.` The `docker-postgres-list -c postgres01` output only showed the default databases (`n8n-prod`, `odoo-prod`, `odoo-int`, `keycloak`) and not the `example` database that was created during the test.
+
+**Root cause:** Postgres < 18.0 images declare `VOLUME /var/lib/postgresql/data` in their Dockerfile. Mounting the named volume at the parent directory `/var/lib/postgresql` makes Docker create an anonymous volume at `/var/lib/postgresql/data` that overlays the `data/` subdirectory of the named volume. All postgres data ends up in the anonymous volume while the named volume `postgres01` stays empty. `docker-volume-backup -c postgres01 -v postgres01` therefore backs up an empty volume; after restore and container recreation, postgres initializes a fresh cluster and the `example` database is lost.
+
+**Files changed:**
+- `test_inventory/host_vars/localhost.yml` — Override `postgres_volumes` to mount the named volume at `/var/lib/postgresql/data`, since the test environment runs `postgres:17-alpine` (< 18.0). The role itself (`roles/postgres/defaults/main.yml`) is left unchanged: its default keeps mounting at `/var/lib/postgresql`, which is correct for postgres >= 18.0 (the postgres 18 breaking change).
+
+Note: An earlier attempt added version-aware mount logic to `roles/postgres/defaults/main.yml`. Per review the role must not be changed; the mount override belongs only in the test environment.
+
+**Verification:** Ran the postgres backup/restore cycle from `test-scripts` against `test_inventory` locally: created `test` DB, added a table, duplicated to `example`, dropped `test`, `docker-volume-backup -c postgres01 -v postgres01`, removed container and volume, `docker-volume-restore`, re-ran the postgres playbook. `docker inspect postgres01` confirms the volume mounts at `/var/lib/postgresql/data`, the backup tar now contains real postgres data (`pg_hba.conf`, `base/1/...`), and `docker-postgres-list -c postgres01` correctly shows `example` along with the default databases.
 
 @Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness and model. If you have access to session info also add token count.

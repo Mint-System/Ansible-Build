@@ -23,6 +23,9 @@ iam_users:
 # https://hub.docker.com/_/postgres
 postgres_image: postgres:17-alpine
 postgres_hostname: postgres01
+# postgres < 18.0 declares VOLUME /var/lib/postgresql/data in its image.
+postgres_volumes:
+  - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
 postgres_user: example
 postgres_configmap:
   # - db: metabase-prod
