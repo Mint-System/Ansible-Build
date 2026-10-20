@@ -27,29 +27,43 @@ Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file
 
 ## Task
 
-In `bin/upgrade-odoo` I would like to add a new task to delete `ir.ui.view` rows in the upgraded Odoo database for a list of thirdparty modules.
+I want to get rid of `docker_volume` replce. It is an unnecessary wrapper for the builtin role.
 
-Introduce a new env var `ODOO_ADDONS_RESET`. The content is show with `info` command before `Init Addons:` as `Reset Addons`.
+Replace:
 
-Create a new step `reset-views`. This commands pipes a Python script into the Odoo shell connected to target Odoo instance.
+```
+- name: Include docker volume role
+  ansible.builtin.include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ matomo_volume_name }}"
+  when: matomo_volume_name is defined
+```
 
-### docker-odoo-delete-views
+With this:
 
-Create a bash script in `roles/odoo/files`. 
+```
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ matomo_volume_name }}"
+```
 
-The script looks up the `ir.ui.view` entries in `ir.module.data` based on the `module` name.
+Check all roles / task not only `matomo`.
 
-See `docker-odoo-clear-views` for reference.
+### scripts
 
-It support `-m` for a list of modules.
+The `docker_volume` role also has scripts. Move the scripts into the `docker` role.
 
-Then it deletes the view records and shows how many records have been deleted.
+Update `install` scripts and `docs/scripts.md`.
 
-### other
+### inventory
 
-Delete the `docker-odoo-clear-views`, `docker-odoo-clear-rules`, `docker-odoo-localhost-restore` abnd `docker-odoo-patch` scripts.
+Replace `docker_volume_scripts_dir` with `docker_scripts_dir`.
 
-Rename `docker-odoo-clear-assets` to `docker-odoo-delete-assets`
+```
+-docker_volume_scripts_dir: /home/odoo/bin
++docker_scripts_dir: /home/odoo/bin
+```
 
 @Clanker When task is completed set frontmatter state to review. Prompt the author to verify the results.
 
