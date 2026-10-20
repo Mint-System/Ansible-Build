@@ -3,12 +3,12 @@ commit_ref:
 title: "Fix test project"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
-state: review
+state: completed
 date_completed: 2026-10-20
 harness: pi
 model: deepseek-v4-flash-0731
-input_tokens: 539977
-output_tokens: 21396
+input_tokens: 781372
+output_tokens: 29587
 ---
 
 # Fix test project

@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+if [[ -f ".env" ]]; then
+    # shellcheck source=/dev/null
+    source ".env"
+fi
+
 help-table() {
     local -a rows
     local max_cmd=7 max_opt=6 max_desc=11
@@ -127,15 +132,16 @@ help-table() {
         fi
     done
 }
-
 help() {
+    local grep_pattern
     echo
     if [[ -n "$1" ]]; then
-        help-table | grep -i "$1" | column -t -s'|'
+        grep_pattern="$1"
+        help-table | grep -i "$grep_pattern" | column -t -s'|'
     else
-        echo 'task <command> [options]'
+        echo "task <command> [options]"
         echo
-        echo 'commands:'
+        echo "commands:"
         echo
         help-table
     fi
@@ -907,18 +913,20 @@ if [[ "$1" == *","* ]]; then
             "$cmd"
         else
             echo "Unknown command: $cmd"
-            help
+            help "$@"
             exit 1
         fi
     done
 elif declare -f "$1" > /dev/null; then
-    activate-venv || true
-    "$1" "${@:2}"
+    if [[ "${2:-}" == "help" ]]; then
+        help "$1"
+    else
+        "$1" "${@:2}"
+    fi
 else
     case "$1" in
         *)
             echo "Unknown command: $1"
-            help
             exit 1
             ;;
     esac
