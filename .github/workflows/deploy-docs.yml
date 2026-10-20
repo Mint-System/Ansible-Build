@@ -3,7 +3,8 @@ on:
     branches:
       - "main"
     paths:
-      - "**.md"
+      - "docs/**.md"
+      - "roles/**.md"
 jobs:
   deploy:
     name: Deploy Docs
