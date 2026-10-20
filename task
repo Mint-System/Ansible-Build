@@ -927,7 +927,7 @@ if [[ "$1" == *","* ]]; then
         fi
     done
 elif declare -f "$1" > /dev/null; then
-    if [[ "${2:-}" == "help" ]]; then
+    if [[ "${2:-}" == "tfhelp" ]]; then
         help "$1"
     else
         "$1" "${@:2}"
