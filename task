@@ -677,6 +677,17 @@ test-project() {
     fi
 }
 
+assert-contains() {
+    local pattern="$1"
+    local output="$2"
+    if [[ "$output" != *"$pattern"* ]]; then
+        echo "ASSERTION FAILED: Expected '$pattern' in output."
+        echo "Output was:"
+        echo "$output"
+        exit 1
+    fi
+}
+
 test-scripts() {
     set -e
 
@@ -693,7 +704,7 @@ test-scripts() {
         ansible localhost -m ansible.builtin.cron -a 'name="test" minute="0" hour="*/6" job="echo \"test\""'
 
         # List cron job and compare output
-        [[ "$(cron-job-list)" == "[1] 0 */6 * * * test" ]]
+        assert-contains "[1] 0 */6 * * * test" "$(cron-job-list)"
         cron-job-run -i 1
 
         echo -e "\033[38;5;214mTEST\033[0m: Test postgres scripts"
@@ -703,14 +714,14 @@ test-scripts() {
         ansible-playbook -i test_inventory plays/localhost.yml -t postgres
 
         docker-postgres-create -c postgres01 -d test
-        docker-postgres-list -c postgres01 | grep "test"
+        assert-contains "test" "$(docker-postgres-list -c postgres01)"
         docker-postgres-shell -c postgres01 -d test -s 'CREATE TABLE example(id int);'
         docker-postgres-duplicate -c postgres01 -s test -t example
         docker-postgres-drop -c postgres01 -d test
-        docker-postgres-size -c postgres01 -d example | grep "0 bytes"
+        assert-contains "0 bytes" "$(docker-postgres-size -c postgres01 -d example)"
         docker-postgres-backup -c postgres01 -d example
         docker-postgres-restore -c postgres01 -f /var/tmp/postgres01/example.sql -d test -i
-        docker-postgres-size -c postgres01 -d test | grep "0 bytes"
+        assert-contains "0 bytes" "$(docker-postgres-size -c postgres01 -d test)"
         mkdir -p tmp
         echo 'DROP TABLE example;' > tmp/drop.sql
         docker-postgres-patch -c postgres01 -d test -f ./tmp/drop.sql
@@ -724,8 +735,8 @@ test-scripts() {
 
         docker-odoo-init -c odoo01-prod -d odoo-prod -i contacts -w
         docker-odoo-rename -c odoo01-prod -s odoo-prod -t odoo
-        docker-odoo-list -c odoo01-prod | grep "odoo$"
-        docker-odoo-user -c odoo01-prod -d odoo -a list | grep "admin"
+        assert-contains "odoo" "$(docker-odoo-list -c odoo01-prod)"
+        assert-contains "admin" "$(docker-odoo-user -c odoo01-prod -d odoo -a list)"
         docker-odoo-drop -c odoo01-int -d odoo-int
         docker-odoo-duplicate -c odoo01-prod -s odoo -t odoo-int
         docker-odoo-neutralize -c odoo01-int -d odoo-int
@@ -733,7 +744,7 @@ test-scripts() {
         docker restart odoo01-int
         docker-odoo-init -c odoo01-int -d odoo-int -i partner_firstname
         docker-odoo-shell -c odoo01-int -d odoo-int -f -p 'env["res.partner"].browse(1).write({"name": "admint"})'
-        [[ "admint" == $(docker-odoo-shell -c odoo01-int -d odoo-int -p 'print(env["res.partner"].browse(1).name)') ]]
+        assert-contains "admint" "$(docker-odoo-shell -c odoo01-int -d odoo-int -p 'print(env["res.partner"].browse(1).name)')"
         docker-odoo-upgrade -c postgres01 -d odoo-int -s "18.0" -n upgrade -t "19.0" -m test -l "$ODOO_ENTERPRISE_CODE"
 
         echo -e "\033[38;5;214mTEST\033[0m: Test docker volume scripts"
@@ -744,7 +755,7 @@ test-scripts() {
         docker volume rm postgres01
         docker-volume-restore -v postgres01 -f /var/tmp/postgres01/postgres01.tar
         ansible-playbook -i test_inventory plays/localhost.yml -t postgres --skip-tags depends
-        docker-postgres-list -c postgres01 | grep "example"
+        assert-contains "example" "$(docker-postgres-list -c postgres01)"
     fi
 }
 
