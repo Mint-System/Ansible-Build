@@ -37,8 +37,8 @@ done
 
 [[ -z "$database" ]] && { echo >&2 'Parameter -d|database is empty'; exit 1; }
 
-docker_exec="docker exec \"$container\""
-docker_exec_root="docker exec --user root \"$container\""
+docker_exec="docker exec $container"
+docker_exec_root="docker exec --user root $container"
 
 echo "Kill database connections on $database"
 query="SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$database';"

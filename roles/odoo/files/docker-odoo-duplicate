@@ -66,8 +66,8 @@ done
 
 # Switch container name with id
 # Set alias
-docker_exec_bash="docker exec \"$container\" /bin/bash -c"
-docker_exec_root_bash="docker exec --user root \"$container\" /bin/bash -c"
+docker_exec_bash="docker exec $container /bin/bash -c"
+docker_exec_root_bash="docker exec --user root $container /bin/bash -c"
 
 # Clear database
 if $replace; then
