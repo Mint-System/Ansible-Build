@@ -254,6 +254,7 @@ connect-host() {
 decrypt-file() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     echo "Decrypt file $1."
+    activate-venv
     ansible-vault decrypt --output="$1" "$1"
 }
 
@@ -261,6 +262,7 @@ encrypt-file() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
     if [[ -z "$2" ]]; then echo '$2 is empty'; exit; fi
     echo "Encrypt file $2 with vault id $1."
+    activate-venv
     ansible-vault encrypt --encrypt-vault-id="$1" "$2"
 }
 
@@ -294,6 +296,7 @@ encrypt-string() {
         echo "Found key: $string_key"
         echo "Encrypting value: $string_value"
     fi
+    activate-venv
     ansible-vault encrypt_string --encrypt-vault-id="$1"  --name "$string_key" "$string_value"
 }
 
@@ -420,6 +423,7 @@ visualize-dependencies() {
 }
 
 version() {
+    activate-venv
     uv --version
     echo "python $(cat .python-version)"
     ansible --version
@@ -433,24 +437,29 @@ show-passwordless-sudo() {
 # Run
 
 play() {
+    activate-venv
     ansible-playbook "$@"
 }
 
 list-tags() {
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit 1; fi
+    activate-venv
     ansible-playbook "$1" --list-tags
 }
 
 run() {
+    activate-venv
     ansible "$@"
 }
 
 upgrade() {
     echo "Update Ansible"
+    activate-venv
     uv pip install --upgrade ansible
 }
 
 lint() {
+    activate-venv
     ansible-lint --fix --offline roles/*
 }
 
