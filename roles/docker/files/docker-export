@@ -46,10 +46,7 @@ while getopts ":c: :p: :o: :V" opt; do
 done
 
 [[ -z "$container" ]] && { echo 'Parameter -c|container' ; exit 1; }
-container_id=$(docker ps -f "name=${container}" -q | head -n1)
-[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
-
 echo "Stream content from '$path' path of $container container..."
-docker exec "$container_id" tar -cf - -C "$path" . > "${dir}/${container}.tar"
+docker exec "$container" tar -cf - -C "$path" . > "${dir}/${container}.tar"
 
 echo "Docker container export has finished: ${dir}/${container}.tar"

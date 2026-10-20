@@ -46,11 +46,8 @@ if [[ -z "${modules:-}" ]]; then
     exit 1
 fi
 
-container_id=$(docker ps -f "name=$container" --format '{{.ID}}' | head -n1)
-[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
-
 echo "Fetching list of installed modules for $database database in $container container..."
-installed_modules_list=$(docker exec "$container_id" /bin/bash -c "
+installed_modules_list=$(docker exec "$container" /bin/bash -c "
     echo \"
 print(','.join([m.name for m in env['ir.module.module'].search(['|',('state', '=', 'installed'),('state','=','to upgrade')])]))
 \" | odoo shell -d '$database' \
@@ -80,7 +77,7 @@ for module in "${uninstall_modules[@]}"; do
     [[ -z "$module" ]] && continue
     if [[ ${installed_modules_map[$module]:-} ]]; then
         echo -e "\033[38;5;76mUninstalling\033[0m $module module on $database database in $container container..."
-        docker exec "$container_id" /bin/bash -c "
+        docker exec "$container" /bin/bash -c "
 unset ODOO_ADDONS_PATH
 unset ADDONS_PATH
 echo \"def uninstall_module():

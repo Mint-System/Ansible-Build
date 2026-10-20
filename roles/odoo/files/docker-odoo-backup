@@ -70,18 +70,15 @@ if [[ -z "$backup_file" ]]; then
 fi
 filepath="${backup_dir}/${backup_file}"
 
-container_id=$(docker ps -f "name=${container}" -q | head -n1)
-[[ -z "$container_id" ]] && { echo >&2 "Container id for $container not found"; exit 1; }
-
 echo "Backup database $database to $filepath"
 
 echo 'Copy filestore from container'
 rm -rf "$backup_dir/filestore"
-docker cp "$container_id:/var/lib/odoo/filestore/$database" "$backup_dir/filestore"
+docker cp "$container:/var/lib/odoo/filestore/$database" "$backup_dir/filestore"
 
 echo 'Dump database'
 rm -f "$backup_dir/dump.sql"
-docker exec "$container_id" sh -c "pg_dump -h \"\$PGHOST\" -U \"\$PGUSER\" $database" > "$backup_dir/dump.sql"
+docker exec "$container" sh -c "pg_dump -h \"\$PGHOST\" -U \"\$PGUSER\" $database" > "$backup_dir/dump.sql"
 
 echo "Archive filestore and dump to $backup_file"
 rm -f "$filepath"

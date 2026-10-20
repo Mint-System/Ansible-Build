@@ -56,12 +56,9 @@ done
 [[ -z "$modules" ]] && { echo 'Parameter -u|update is empty.' ; exit 1; }
 
 # Switch container name with id
-container_id=$(docker ps -f "name=$container" --format '{{.ID}}' | head -n1)
-[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
-
 # Update with Docker exec
 echo "Update modules $modules on database $database."
-docker exec "$container_id" /bin/bash -c "
+docker exec "$container" /bin/bash -c "
 unset ODOO_ADDONS_PATH
 unset ADDONS_PATH
 odoo -d $database -u $modules --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD --stop-after-init --no-http $overwrite_translations

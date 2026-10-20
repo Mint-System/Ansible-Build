@@ -50,13 +50,10 @@ done
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
 [[ -z "$modules" ]] && { echo 'Parameter -i|init is empty.' ; exit 1; }
 
-container_id=$(docker ps -f "name=${container}" -q | head -n1)
-[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
-
 echo "Initializing modules $modules with langague $odoo_language on database $database."
 
 # Detect Odoo major version to choose the correct demo flag.
-odoo_version=$(docker exec "$container_id" /bin/bash -c 'echo "${ODOO_VERSION}"' || true)
+odoo_version=$(docker exec "$container" /bin/bash -c 'echo "${ODOO_VERSION}"' || true)
 odoo_major_version=${odoo_version%%.*}
 
 if [[ "$demo_data" == true ]]; then
@@ -73,7 +70,7 @@ else
     fi
 fi
 
-docker exec "$container_id" /bin/bash -c "
+docker exec "$container" /bin/bash -c "
 unset ODOO_ADDONS_PATH
 unset ADDONS_PATH
 odoo -i $modules -d $database --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD $with_demo --load-language $odoo_language --stop-after-init --no-http

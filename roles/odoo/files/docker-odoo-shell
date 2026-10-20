@@ -46,9 +46,6 @@ done
 
 [[ -z "$database" ]] && { echo 'Parameter -d|database is empty.' ; exit 1; }
 
-container_id=$(docker ps -f "name=${container}" -q | head -n1)
-[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
-
 code=$(echo "$code" | sed 's/"/\\"/g' | sed "s/'/\\'/g")
 
 if $force; then
@@ -57,10 +54,10 @@ fi
 
 if [[ -n $code ]]; then
     echo "Execute code in container $container on database $database." >&2
-    docker exec $container_id /bin/bash -c "echo \"$code\" | odoo shell -d $database --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD --no-http"
+    docker exec "$container" /bin/bash -c "echo \"$code\" | odoo shell -d $database --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD --no-http"
 else
     echo "Start odoo shell in container $container on database $database."
-    docker exec -it $container_id /bin/bash -c "odoo shell -d $database --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD --no-http"
+    docker exec -it "$container" /bin/bash -c "odoo shell -d $database --db_host=\$PGHOST --db_user=\$PGUSER --db_password=\$PGPASSWORD --no-http"
 fi
 
 if $force; then

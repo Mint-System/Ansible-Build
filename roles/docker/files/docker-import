@@ -50,16 +50,13 @@ while getopts ":c:p:f:rV" opt; do
 done
 
 [[ -z "$container" ]] && { echo 'Parameter -c|container' ; exit 1; }
-container_id=$(docker ps -f "name=${container}" -q | head -n1)
-[[ -z "$container_id" ]] && { echo "Container id for $container not found." ; exit 1; }
-
 if [[ "$replace" == true ]]; then
     echo "Clearing $path folder in $container container..."
-    docker exec "$container_id" rm -rf "$path"
+    docker exec "$container" rm -rf "$path"
 fi
 
 echo "Stream content to $path in $container container..."
-docker exec "$container_id" mkdir -p "$path"
-docker exec -i -w "$path" "$container_id" tar xf - --strip-components=1 < "$file"
+docker exec "$container" mkdir -p "$path"
+docker exec -i -w "$path" "$container" tar xf - --strip-components=1 < "$file"
 
 echo "Docker container import has finished."
