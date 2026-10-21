@@ -34,5 +34,5 @@ And include it in your playbook.
 Show OpenSSH version for alls hosts.
 
 ```bash
-task run all -i inventories/setup -a "ssh -V"
+task run all -i inventories/mint_system -a "ssh -V"
 ```

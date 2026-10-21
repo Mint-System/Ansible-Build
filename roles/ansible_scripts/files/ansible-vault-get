@@ -13,7 +13,7 @@ help() {
     echo
     echo 'Description: Retrieve secret from Ansible Vault.'
     echo "Syntax: $script [-i inventory] [-l host] [-k key] [-V|help]"
-    echo "Example: $script -i inventories/odoo -l zeus_erp -k vault_odoo_master_password"
+    echo "Example: $script -i inventory -l server1 -k vault_master_password"
     echo 'options:'
     echo '  -i    Inventory name.'
     echo '  -l    Ansible hostname.'

@@ -141,7 +141,7 @@ prometheus_custom_scrapers: |
 Select multiple inventories when deploying.
 
 ```bash
-task play -i inventories/odoo -i inventories/nextcloud -i inventories/setup plays/setup.yml -l prometheus -t prometheus
+task play -i inventories/mint_system plays/setup.yml -l prometheus -t prometheus
 ```
 
 ### Clear Prometheus data

@@ -63,5 +63,5 @@ Pushgateway is used to monitor cronjobs
 Select multiple inventories when deploying.
 
 ```bash
-task play -i inventories/odoo -i inventories/nextcloud -i inventories/setup plays/setup.yml -l pushgateway -t pushgateway
+task play -i inventories/mint_system plays/setup.yml -l pushgateway -t pushgateway
 ```

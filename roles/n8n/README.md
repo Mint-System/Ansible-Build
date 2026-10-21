@@ -85,5 +85,5 @@ nginx_proxies:
 Run `ansible-playbook` with extra variables and set the `configmap_filter` (config map name) with the hostname of the config map.
 
 ```bash
-task play -i inventories/setup plays/all.yml -t n8n -e "configmap_filter=n8n01-int"
+task play -i inventories/mint_system plays/all.yml -t n8n -e "configmap_filter=n8n01-int"
 ```

@@ -85,7 +85,7 @@ odoo_configmap: # default: - hostname: {{ odoo_hostname }}-main
 Run `ansible-playbook` with extra variables and set the `configmap_filter` (config map name) with the hostname of the config map.
 
 ```bash
-task play -i inventories/odoo plays/odoo.yml -t odoo -e "configmap_filter=odoo01-staging"
+task play -i inventories/mint_system plays/odoo.yml -t odoo -e "configmap_filter=odoo01-staging"
 ```
 
 ### Nginx config

@@ -138,7 +138,7 @@ These backup types are available:
 Show restic version for alls hosts.
 
 ```bash
-ansible all -i inventories/setup -a "restic version"
+ansible all -i inventories/mint_system -a "restic version"
 ```
 
 ### Setup a local repository
@@ -215,11 +215,11 @@ In this example the pattern ` restic ` is replaced with ` restic-main ` in all c
 Run this command to get an overview of all cron jobs that match the pattern:
 
 ```bash
-task run all -i inventories/setup -b -m shell -a 'if [ -f /var/spool/cron/root ] && grep -q " restic " /var/spool/cron/root; then echo "<<< $(hostname) >>>"; grep " restic " /var/spool/cron/root; fi; if [ -f /var/spool/cron/crontabs/root ] && grep -q " restic " /var/spool/cron/crontabs/root; then echo "<<< $(hostname) >>>"; grep " restic " /var/spool/cron/crontabs/root; fi'
+task run all -i inventories/mint_system -b -m shell -a 'if [ -f /var/spool/cron/root ] && grep -q " restic " /var/spool/cron/root; then echo "<<< $(hostname) >>>"; grep " restic " /var/spool/cron/root; fi; if [ -f /var/spool/cron/crontabs/root ] && grep -q " restic " /var/spool/cron/crontabs/root; then echo "<<< $(hostname) >>>"; grep " restic " /var/spool/cron/crontabs/root; fi'
 ```
 
 If your confident and did a test with a single host, run this command to replace the pattern:
 
 ```bash
-task run all -i inventories/setup -b -m shell -a 'if [ -f /var/spool/cron/root ] && grep -q " restic " /var/spool/cron/root; then sed -i "s/ restic / restic-main /g" /var/spool/cron/root; fi; if [ -f /var/spool/cron/crontabs/root ] && grep -q " restic " /var/spool/cron/crontabs/root; then sed -i "s/ restic / restic-main /g" /var/spool/cron/crontabs/root; fi'
+task run all -i inventories/mint_system -b -m shell -a 'if [ -f /var/spool/cron/root ] && grep -q " restic " /var/spool/cron/root; then sed -i "s/ restic / restic-main /g" /var/spool/cron/root; fi; if [ -f /var/spool/cron/crontabs/root ] && grep -q " restic " /var/spool/cron/crontabs/root; then sed -i "s/ restic / restic-main /g" /var/spool/cron/crontabs/root; fi'
 ```

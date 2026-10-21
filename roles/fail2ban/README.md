@@ -38,7 +38,7 @@ Run `fail2ban-client status sshd` to get the status of the fail2ban service.
 Show status for alls hosts.
 
 ```bash
-ansible all -i inventories/setup -a "sudo fail2ban-client status sshd"
+ansible all -i inventories/mint_system -a "sudo fail2ban-client status sshd"
 ```
 
 ### Stop fail2ban service

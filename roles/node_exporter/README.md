@@ -60,7 +60,7 @@ Show the metrics output for a selected `host` with this command:
 
 ```bash
 host=server1
-task run $host -i inventories/setup -m shell -a "curl -s 'https://node-exporter:{{ hostvars[inventory_hostname]['vault_node_exporter_basic_auth_password'] }}@{{ hostvars[inventory_hostname]['ansible_host'] }}/node-exporter/metrics'"
+task run $host -i inventories/mint_system -m shell -a "curl -s 'https://node-exporter:{{ hostvars[inventory_hostname]['vault_node_exporter_basic_auth_password'] }}@{{ hostvars[inventory_hostname]['ansible_host'] }}/node-exporter/metrics'"
 ```
 
 ### Show metrics locally
