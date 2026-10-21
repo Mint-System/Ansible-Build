@@ -37,6 +37,7 @@
 | ![fail2ban logo](/logos/fail2ban.png)  | [fail2ban](roles/fail2ban/README.md) | environment | Install and configure fail2ban. |
 | ![fathom logo](/logos/fathom.png)  | [fathom](roles/fathom/README.md) | application | Deploy Fathom container. |
 | ![firehol logo](/logos/firehol.png)  | [firehol](roles/firehol/README.md) | system | Setup FireHOL ip blacklists. |
+| ![forgejo-runner logo](/logos/forgejo-runner.png)  | [forgejo-runner](roles/forgejo-runner/README.md) | service | Deploy Forgejo runner container. The runner uses the host Docker daemon to spawn jobs. |
 | ![fstab logo](/logos/fstab.png)  | [fstab](roles/fstab/README.md) | environment | Configure the fstab file. |
 | ![gitea logo](/logos/gitea.png)  | [gitea](roles/gitea/README.md) | application | Deploy Gitea container. |
 | ![git logo](/logos/git.png)  | [git](roles/git/README.md) | environment | Checkout Git repositories. |

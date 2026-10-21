@@ -1,0 +1,13 @@
+log:
+  level: info
+
+server:
+  connections:
+    forgejo:
+      url: "{{ forgejo_runner_instance_url }}"
+      uuid: "{{ forgejo_runner_instance_uuid }}"
+      token: "{{ forgejo_runner_instance_token }}"
+      labels:
+{% for label in forgejo_runner_labels %}
+        - "{{ label }}"
+{% endfor %}

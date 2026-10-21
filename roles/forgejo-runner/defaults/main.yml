@@ -1,0 +1,11 @@
+---
+forgejo_runner_description: Forgejo Runner
+forgejo_runner_image: code.forgejo.org/forgejo/runner:13.2.0
+forgejo_runner_hostname: forgejo-runner
+forgejo_runner_instance_url: "https://codeberg.org/"
+forgejo_runner_instance_uuid:
+forgejo_runner_instance_token: "{{ vault_forgejo_runner_instance_token }}"
+forgejo_runner_labels:
+  - "docker:docker://node:lts"
+forgejo_runner_volume_name: "{{ forgejo_runner_hostname }}"
+forgejo_runner_data_dir: "/usr/share/{{ forgejo_runner_hostname }}"

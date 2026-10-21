@@ -1,0 +1,40 @@
+---
+- name: Include docker volume role
+  ansible.builtin.include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ forgejo_runner_volume_name }}"
+  when: forgejo_runner_volume_name is defined
+
+- name: Ensure {{ role_name }} data dir exists
+  ansible.builtin.file:
+    path: "{{ forgejo_runner_data_dir }}"
+    state: directory
+    mode: "0750"
+
+- name: Copy {{ role_name }} config
+  ansible.builtin.template:
+    src: config.yaml
+    dest: "{{ forgejo_runner_data_dir }}/config.yaml"
+    mode: "0600"
+  notify: Restart {{ role_name }} container
+
+- name: Start {{ role_name }} container {{ forgejo_runner_hostname }}
+  community.docker.docker_container:
+    name: "{{ forgejo_runner_hostname }}"
+    labels:
+      description: "{{ forgejo_runner_description }}"
+    image: "{{ forgejo_runner_image }}"
+    restart_policy: unless-stopped
+    user: "0:0"
+    command:
+      - forgejo-runner
+      - --config
+      - /config/config.yaml
+      - daemon
+    volumes:
+      - "{{ forgejo_runner_data_dir }}/config.yaml:/config/config.yaml:ro"
+      - "{{ forgejo_runner_volume_name }}:/data"
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - name: "{{ docker_network_name }}"
