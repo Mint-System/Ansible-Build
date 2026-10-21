@@ -1,16 +1,16 @@
 ---
-title: "Create Forgejo Runner role"
+title: "Analyse PHP2Shell vulnerability for Nextcloud instances"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
-action: implemented
-state: wip
-date_completed: 2026-10-20
-harness: pi
-model: deepseek-v4-flash-0731
-input_tokens: 908011
-output_tokens: 26637
+action: implement
+state: draft
+date_completed: YYYY-MM-DD
+harness:
+model:
+input_tokens:
+output_tokens:
 ---
 
-# Create Forgejo Runner role
+# Analyse PHP2Shell vulnerability for Nextcloud instances
 
 Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file.
 
@@ -26,64 +26,34 @@ Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file
 
 ## Task
 
-I would like to deploy a forgejo runner container that can spawn job with docker. Docker in Docker (DinD) or access to the host docker driver.
+A critical vulnerability for PHP has been found: https://en.wikipedia.org/wiki/PHP2Shell
 
-I already created Kubernetes Helm chart `~/Kubernetes-Build/forgejo-runner`. Compared to this the Ansible role is simple.
+Every PHP-based application is affected. I want you to give a status report for Nextcloud.
 
-Make a copy of the `coturn` role. Create a env var `forgejo_runner_instance_token` with default `vault_forgejo_runner_instance_token`.
+Please create the Ansible commands that retrieve the PHP version in the Nextcloud containers on selected hosts.
 
-Otherwise not further non-default vars are required.
+In the Ansible inventory the Nextcloud host vars have the alias `$ALIAS_nextcloud`. For example `inventories/mint_system/host_vars/zeus_nextcloud/vars.yml`.
 
-Run `update-docs`.
+The container name is `nextcloud_hostname` var.
 
-I will add a logo.
+You can run commands like this:
 
-### Testing
+```
+ansible nextcloud -i inventories/mint_system -a "docker exec  {{ nextcloud_hostname }} php version"
+```
 
-I will deploy the runner to the `dione` server. You can prepare the vars (hostname, description, ...).
+I am not sure if this is correct.
 
-Then I will generate the secret with with `task generate-encrypted-string` and deploy the runner.
+Create table with rows host, container, php version and affected. I want to know which instances are affected by the issue.
+
+### Resolution
+
+In second step I will start updating the container images. Do not take any action. 
 
 @Clanker When task is completed set frontmatter state to review. Prompt the author to verify the results.
 
 ## Worklog
 
-Created the new `forgejo-runner` role by copying the `coturn` role:
-
-- `roles/forgejo-runner/`: default vars, tasks, handler, meta and README.
-- Deploys `code.forgejo.org/forgejo/runner:9` container that uses the host Docker daemon (`/var/run/docker.sock` mount) to spawn jobs.
-- First start registers the runner (guard on `/data/.runner`), then runs `forgejo-runner daemon`.
-- Vars: `forgejo_runner_instance_token` defaults to `vault_forgejo_runner_instance_token`. All other vars have defaults (image, hostname, description, instance_url, labels, name, volume).
-- Added role to `plays/all.yml` (tag `forgejo-runner`).
-- Prepared dione vars (`forgejo_runner_hostname: forgejo-runner01`, description, instance url) in `inventories/mint_system/host_vars/dione/vars.yaml`. The vault secret `vault_forgejo_runner_instance_token` still has to be generated.
-- Ran `update-docs` (added entry to `docs/roles.md`) and `lint` (no findings for the new role).
-- Logo not added (author will add).
-
-### Runner connection setup
-
-The author created a runner on Codeberg and the role was updated to the new Forgejo Runner connection model (v13):
-
-- Image changed to `code.forgejo.org/forgejo/runner:13.2.0`; replaced the deprecated `register` + registration-token flow with the modern `daemon --config` connection model.
-- New `templates/config.yaml` defines `server.connections.forgejo` with `url`, `uuid`, `token` and `labels`.
-- Added vars `forgejo_runner_instance_uuid`, `forgejo_runner_labels` (default `docker:docker://node:lts`), `forgejo_runner_data_dir` (default `/usr/share/{hostname}`); config is rendered mode 0600 and mounted read-only into the container.
-- dione vars: `forgejo_runner_instance_uuid: 3e027763-5262-4781-8d60-def47f6a9afd`, instance url with trailing slash.
-- Encrypted the Codeberg runner token into the dione vault: `vault_forgejo_runner_instance_token` (replaced the previously generated random value).
+@Clanker Add a summary here once the task has been completed.
 
 @Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness and model. If you have access to session info also add token count.
-
-## WIP
-
-Saved on author request (`save wip`). State set to `wip`. Progress:
-
-- Role `forgejo-runner` is implemented and updated to the Forgejo Runner v13 connection model with `templates/config.yaml` (server.connections.forgejo: url/uuid/token/labels).
-- Logo added by author, resized to 200x200 via `./task resize-logos` and renamed to `logos/forgejo-runner.png` (matches docs reference `/logos/forgejo-runner.png`).
-- dione vars prepared (`forgejo_runner_hostname: forgejo-runner01`, description, instance url, uuid).
-- Vault updated: `vault_forgejo_runner_instance_token` encrypted with the Codeberg runner token `34548c979bd024a429df2f54fb9b8eb987b20096` (replaced previously generated random value).
-- `update-docs` and `lint` run, `plays/all.yml` syntax check passes.
-
-Next steps (author):
-- Deploy to dione: `task play -i inventories/mint_system plays/all.yml -t forgejo-runner -l dione`.
-- Verify runner appears on Codeberg: https://codeberg.org/org/Mint-System/settings/actions/runners
-- Then set state to `completed` (or `aborted`) and update token counts from `$PI_SESSION_FILE`.
-
-Nothing committed (only author commits).
