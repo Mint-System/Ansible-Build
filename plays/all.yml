@@ -57,7 +57,7 @@
     - role: coturn
       tags: coturn
     - role: forgejo-runner
-      tags: forgejo-runner
+      tags: forgejo_runner
     - role: git
       tags: git
     - role: php_fpm

@@ -3,4 +3,4 @@
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: forgejo_runner_image is defined
   tags:
-    - forgejo-runner
+    - forgejo_runner

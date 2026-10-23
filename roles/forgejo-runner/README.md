@@ -15,14 +15,14 @@ Configure the role.
 ```yml
 # https://code.forgejo.org/forgejo/runner/pkgs/container/runner
 forgejo_runner_image: code.forgejo.org/forgejo/runner:13.2.0 # default
-forgejo_runner_hostname: forgejo-runner01 # default: forgejo-runner
+forgejo_runner_hostname: runner01 # default: runner
 forgejo_runner_description: Forgejo Runner # default: Forgejo Runner
 forgejo_runner_instance_url: https://codeberg.org/ # default
 forgejo_runner_instance_uuid: 3e027763-5262-4781-8d60-def47f6a9afd
 forgejo_runner_instance_token: # default: "{{ vault_forgejo_runner_instance_token }}"
 forgejo_runner_labels: ["docker:docker://node:lts"] # default
-forgejo_runner_volume_name: forgejo-runner01 # default: "{{ forgejo_runner_hostname }}"
-forgejo_runner_data_dir: /usr/share/forgejo-runner01 # default: "/usr/share/{{ forgejo_runner_hostname }}"
+forgejo_runner_volume_name: runner01 # default: "{{ forgejo_runner_hostname }}"
+forgejo_runner_data_dir: /usr/share/runner01 # default: "/usr/share/{{ forgejo_runner_hostname }}"
 ```
 
 And include it in your playbook.
