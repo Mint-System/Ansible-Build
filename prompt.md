@@ -3,12 +3,12 @@ commit_ref:
 title: "Create Forgejo Runner role"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implemented
-state: wip
-date_completed: 2026-10-20
+state: completed
+date_completed: 2026-10-23
 harness: pi
 model: deepseek-v4-flash-0731
-input_tokens: 908011
-output_tokens: 26637
+input_tokens: 1830014
+output_tokens: 55557
 ---
 
 # Create Forgejo Runner role
@@ -49,42 +49,28 @@ Then I will generate the secret with with `task generate-encrypted-string` and d
 
 ## Worklog
 
-Created the new `forgejo-runner` role by copying the `coturn` role:
+### Role implementation
 
-- `roles/forgejo-runner/`: default vars, tasks, handler, meta and README.
-- Deploys `code.forgejo.org/forgejo/runner:9` container that uses the host Docker daemon (`/var/run/docker.sock` mount) to spawn jobs.
-- First start registers the runner (guard on `/data/.runner`), then runs `forgejo-runner daemon`.
-- Vars: `forgejo_runner_instance_token` defaults to `vault_forgejo_runner_instance_token`. All other vars have defaults (image, hostname, description, instance_url, labels, name, volume).
-- Added role to `plays/all.yml` (tag `forgejo-runner`).
-- Prepared dione vars (`forgejo_runner_hostname: forgejo-runner01`, description, instance url) in `inventories/mint_system/host_vars/dione/vars.yaml`. The vault secret `vault_forgejo_runner_instance_token` still has to be generated.
-- Ran `update-docs` (added entry to `docs/roles.md`) and `lint` (no findings for the new role).
-- Logo not added (author will add).
+Created the `forgejo_runner` role by copying the `coturn` role (commits `af49548c`, `a36729c5`, `d03c9506`):
 
-### Runner connection setup
+- `roles/forgejo_runner/`: default vars, tasks, handler, meta and README.
+- Deploys `code.forgejo.org/forgejo/runner:13.2.0` container that uses the host Docker daemon (`/var/run/docker.sock` mount) to spawn jobs.
+- Vars: `forgejo_runner_instance_token` defaults to `vault_forgejo_runner_instance_token`; all other vars have defaults (image, hostname `runner`, description, instance_url, labels, volume, data_dir).
+- Added role to `plays/all.yml` with tag `forgejo_runner` and to `docs/roles.md` via `update-docs`.
+- Logo `logos/forgejo_runner.png` added by author (matches docs reference).
 
-The author created a runner on Codeberg and the role was updated to the new Forgejo Runner connection model (v13):
+### Runner connection setup (Forgejo Runner v13)
 
-- Image changed to `code.forgejo.org/forgejo/runner:13.2.0`; replaced the deprecated `register` + registration-token flow with the modern `daemon --config` connection model.
-- New `templates/config.yaml` defines `server.connections.forgejo` with `url`, `uuid`, `token` and `labels`.
-- Added vars `forgejo_runner_instance_uuid`, `forgejo_runner_labels` (default `docker:docker://node:lts`), `forgejo_runner_data_dir` (default `/usr/share/{hostname}`); config is rendered mode 0600 and mounted read-only into the container.
-- dione vars: `forgejo_runner_instance_uuid: 3e027763-5262-4781-8d60-def47f6a9afd`, instance url with trailing slash.
-- Encrypted the Codeberg runner token into the dione vault: `vault_forgejo_runner_instance_token` (replaced the previously generated random value).
+- New `templates/config.yaml` uses the modern connection model: `server.connections.forgejo` with `url`, `uuid`, `token`, `labels` (default `docker:docker://node:lts`).
+- Config rendered mode 0600, mounted read-only into the container; data dir default `/usr/share/{{ forgejo_runner_hostname }}`.
+- Naming standardized to snake_case: role dir `forgejo_runner`, tag `forgejo_runner`, logo `forgejo_runner.png`, hostname `runner` (dione: `runner01`, dashes not allowed in hostnames).
 
-@Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness and model. If you have access to session info also add token count.
+### Deployment to dione
 
-## WIP
+- Prepared dione vars (`forgejo_runner_hostname: runner01`, description, instance url `https://codeberg.org/`, uuid).
+- Encrypted the Codeberg runner token into the dione vault (`vault_forgejo_runner_instance_token`).
+- Runner requires the `mint-system.com` docker network (created by the `docker_network` role, tagged separately). Deployed with both tags:
+  `task play -i inventories/mint_system plays/all.yml -l dione -t docker_network,forgejo_runner`
+- Verified: container `runner01` (code.forgejo.org/forgejo/runner:13.2.0) is up and actively executing jobs (e.g. `Mint-System/taskfile.build`: Deploy Docs, Run Tests) reported to https://codeberg.org/org/Mint-System/settings/actions/runners.
 
-Saved on author request (`save wip`). State set to `wip`. Progress:
-
-- Role `forgejo-runner` is implemented and updated to the Forgejo Runner v13 connection model with `templates/config.yaml` (server.connections.forgejo: url/uuid/token/labels).
-- Logo added by author, resized to 200x200 via `./task resize-logos` and renamed to `logos/forgejo-runner.png` (matches docs reference `/logos/forgejo-runner.png`).
-- dione vars prepared (`forgejo_runner_hostname: forgejo-runner01`, description, instance url, uuid).
-- Vault updated: `vault_forgejo_runner_instance_token` encrypted with the Codeberg runner token `34548c979bd024a429df2f54fb9b8eb987b20096` (replaced previously generated random value).
-- `update-docs` and `lint` run, `plays/all.yml` syntax check passes.
-
-Next steps (author):
-- Deploy to dione: `task play -i inventories/mint_system plays/all.yml -t forgejo-runner -l dione`.
-- Verify runner appears on Codeberg: https://codeberg.org/org/Mint-System/settings/actions/runners
-- Then set state to `completed` (or `aborted`) and update token counts from `$PI_SESSION_FILE`.
-
-Nothing committed (only author commits).
+Author verifies the results on Codeberg; if not OK, set state to `aborted` instead. Token counts are cumulative: prior sessions (input 908011 / output 26637) + finalization session (input 922003 / output 28920).

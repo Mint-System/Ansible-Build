@@ -56,7 +56,7 @@
       tags: pgadmin
     - role: coturn
       tags: coturn
-    - role: forgejo-runner
+    - role: forgejo_runner
       tags: forgejo_runner
     - role: git
       tags: git

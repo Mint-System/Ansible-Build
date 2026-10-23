@@ -2,7 +2,7 @@
 kind: service
 ---
 
-<img src="/logos/forgejo-runner.png" alt="forgejo-runner logo" width="100" height="100">
+<img src="/logos/forgejo_runner.png" alt="forgejo_runner logo" width="100" height="100">
 
 # Forgejo Runner role
 
@@ -30,7 +30,7 @@ And include it in your playbook.
 ```yml
 - hosts: setup
   roles:
-  - role: forgejo-runner
+  - role: forgejo_runner
 ```
 
 ## Docs
