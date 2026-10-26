@@ -30,6 +30,9 @@ limits_config:
   metric_aggregation_enabled: true
   retention_period: {{ loki_retention_period }}
 
+compactor:
+  retention_enabled: true
+
 schema_config:
   configs:
     - from: 2020-10-24
