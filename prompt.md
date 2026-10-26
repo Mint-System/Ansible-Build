@@ -2,12 +2,12 @@
 title: "Loki log retention"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
-state: review
-date_completed: YYYY-MM-DD
+state: completed
+date_completed: 2026-10-26
 harness: pi
 model: moonshotai/Kimi-K2.6
-input_tokens:
-output_tokens:
+input_tokens: 53107
+output_tokens: 10578
 ---
 
 # Loki log retention
@@ -75,8 +75,18 @@ compactor:
 
 Then redeploy the Loki role to atlas (`task play ... -t loki -l atlas`). After the container restarts with the new config, the compactor will begin deleting chunks older than 14 days. Disk usage should drop automatically over the next compaction cycle.
 
-### Note
+### Deployment
 
-Direct SSH to atlas was not possible from this environment due to missing authorized key, so the analysis is based entirely on the repository configuration and the author's `du` output.
+The fix was deployed to atlas with:
+
+```bash
+task play -i inventories/mint_system plays/all.yml -t loki -l atlas
+```
+
+After adding `delete_request_store: filesystem`, the container started successfully and the compactor is now active.
+
+### Result
+
+The Loki container is stable and ingesting logs. The compactor will begin deleting chunks older than 14 days on its next cycle. Disk usage in `/mnt/sdb/docker/volumes/loki01/_data/chunks` should decrease over time.
 
 @Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness and model. If you have access to session info also add token count.
