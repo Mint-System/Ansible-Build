@@ -1,5 +1,5 @@
 ---
-commit_ref: d03c9506b7c49405adb48907cadf59b2014fe518
+commit_ref: 594fd321f93d0068218c26d8a110d8d9ec86ddc1
 title: "Create Forgejo Runner role"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implemented
