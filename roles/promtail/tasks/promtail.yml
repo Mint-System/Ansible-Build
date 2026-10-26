@@ -1,4 +1,13 @@
 ---
+- name: Get {{ role_name }} docker data dir
+  ansible.builtin.command: "docker info -f '{{ '{{' }} .DockerRootDir {{ '}}' }}'"
+  register: _result
+  changed_when: false
+
+- name: Set {{ role_name }} docker data dir
+  ansible.builtin.set_fact:
+    docker_data_dir: "{{ _result.stdout }}"
+
 - name: Ensure {{ role_name }} data dir exists
   ansible.builtin.file:
     path: "{{ promtail_data_dir }}"

@@ -1,4 +1,13 @@
 ---
+- name: Get {{ role_name }} docker data dir
+  ansible.builtin.command: "docker info -f '{{ '{{' }} .DockerRootDir {{ '}}' }}'"
+  register: _result
+  changed_when: false
+
+- name: Set {{ role_name }} docker data dir
+  ansible.builtin.set_fact:
+    docker_data_dir: "{{ _result.stdout }}"
+
 - name: Start {{ role_name }} container {{ cadvisor_hostname }}
   community.docker.docker_container:
     name: "{{ cadvisor_hostname }}"
