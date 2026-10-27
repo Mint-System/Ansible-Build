@@ -341,6 +341,7 @@ convert-vault-file() {
 }
 
 show-vault-file() {
+    activate-venv
     if [[ -z "$1" ]]; then echo '$1 is empty'; exit 1; fi
     if [[ -z "$2" ]]; then echo '$2 is empty'; exit 1; fi
     local vault_id="$1"
