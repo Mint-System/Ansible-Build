@@ -2,12 +2,12 @@
 title: "Fix test project ci"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
-state: review
-date_completed: YYYY-MM-DD
-harness:
-model:
-input_tokens:
-output_tokens:
+state: completed
+date_completed: 2026-11-02
+harness: pi
+model: moonshotai/Kimi-K2.6
+input_tokens: 60248
+output_tokens: 8228
 ---
 
 # Fix test project ci
