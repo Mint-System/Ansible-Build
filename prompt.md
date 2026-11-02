@@ -1,92 +1,116 @@
 ---
-title: "Loki log retention"
+title: "Fix test project ci"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
-state: completed
-date_completed: 2026-10-26
-harness: pi
-model: moonshotai/Kimi-K2.6
-input_tokens: 53107
-output_tokens: 10578
+state: review
+date_completed: YYYY-MM-DD
+harness:
+model:
+input_tokens:
+output_tokens:
 ---
 
-# Loki log retention
+# Fix test project ci
 
 Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file.
 
 @Clanker when working on this prompt file, make sure to:
 
-- Read context and task section first
-- Prepare a list of todos
+- Read the `AGENTS.md` and `README.md` to get an understanding of the project
+- Read entire task section and prepare a list of todos
 - Update the todo list while working on task
-
-## Context
-
-@Clanker Read the `AGENTS.md` and `README.md` to get an understanding of the project.
 
 ## Task
 
-On my server `atlas` the loki server stores log data:
-
 ```
-root@atlas:/mnt/sdb/docker/volumes/loki01/_data# du -hs ./* | sort -h
-4.0K	./compactor
-4.0K	./rules
-4.0K	./rules-temp
-884K	./tsdb-shipper-active
-1.7M	./tsdb-shipper-cache
-47M	./wal
-36G	./chunks
-```
+TEST: Test postgres scripts
+Installing docker-postgres-backup ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
 
-Check if the retention policies of loki are configured correctly.
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1860    0  1860    0     0   3643      0 --:--:-- --:--:-- --:--:--  3647
+Installing docker-postgres-create ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
 
-You are allowed to access the atlas host, but only to read stuff.
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1151    0  1151    0     0   1635      0 --:--:-- --:--:-- --:--:--  1634
+Installing docker-postgres-list ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
 
-Share the analysis in this file and I will decide what to do.
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1027    0  1027    0     0   2155      0 --:--:-- --:--:-- --:--:--  2157
+Installing docker-postgres-restore ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1770    0  1770    0     0   2559      0 --:--:-- --:--:-- --:--:--  2557
+Installing docker-postgres-drop ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1682    0  1682    0     0   2403      0 --:--:-- --:--:-- --:--:--  2402
+Installing docker-postgres-patch ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1162    0  1162    0     0   1647      0 --:--:-- --:--:-- --:--:--  1645
+Installing docker-postgres-duplicate ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  2102    0  2102    0     0   2987      0 --:--:-- --:--:-- --:--:--  2990
+Installing docker-postgres-size ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1208    0  1208    0     0   1759      0 --:--:-- --:--:-- --:--:--  1758
+Installing docker-postgres-shell ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1450    0  1450    0     0   2895      0 --:--:-- --:--:-- --:--:--  2900
+Installing docker-postgres-upgrade ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  3313    0  3313    0     0   4763      0 --:--:-- --:--:-- --:--:--  4766
+Installing docker-postgres-rename ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1952    0  1952    0     0   1913      0 --:--:--  0:00:01 --:--:--  1913
+[WARNING]: Deprecation warnings can be disabled by setting `deprecation_warnings=False` in ansible.cfg.
+[DEPRECATION WARNING]: DEFAULT_MANAGED_STR option. Reason: The `ansible_managed` variable can be set just like any other variable, or a different variable can be used.
+Alternatives: Set the `ansible_managed` variable, or use any custom variable in templates. This feature will be removed from ansible-core version 2.23.
+
+[ERROR]: The 'community.general.yaml' callback plugin has been removed. The plugin has been superseded by the option `result_format=yaml` in callback plugin ansible.builtin.default from ansible-core 2.13 onwards. This feature was removed from collection 'community.general' version 12.0.0.
+Error: Process completed with exit code 1.
+
+````
 
 @Clanker When task is completed set frontmatter state to review. Prompt the author to verify the results.
 
 ## Worklog
 
-### Findings
+Fixed the CI failure by updating `ansible.cfg.template` (and matching `ansible.cfg`) to use `stdout_callback = default` with `callback_result_format = yaml`. The previous setting `stdout_callback = yaml` was redirecting to the `community.general.yaml` callback plugin, which was removed in `community.general` version 12.0.0. Using the built-in `default` callback with `result_format=yaml` achieves the same YAML-formatted output without the removed plugin.
 
-**Retention period configured**: `14d` via `loki_retention_period` (`roles/loki/defaults/main.yml`). This is NOT overridden in `inventories/mint_system/host_vars/atlas/vars.yml`.
-
-**Critical issue**: The `local-config.yml` template (`roles/loki/templates/local-config.yml`) defines `limits_config.retention_period: 14d` but **omits the `compactor` section entirely**.
-
-In Loki 3.x with TSDB + filesystem storage, `limits_config.retention_period` only restricts query range. The actual deletion of expired chunks is performed by the compactor which requires `retention_enabled: true`. Without it, old chunks accumulate indefinitely even though they cannot be queried beyond 14 days.
-
-**Evidence from atlas** (provided by author):
-- `./chunks` = 36G
-- `./compactor` = 4.0K (inactive)
-
-This distribution strongly suggests the compactor is NOT removing old chunks.
-
-### Recommendation
-
-Add the following section to `roles/loki/templates/local-config.yml`:
-
-```yaml
-compactor:
-  retention_enabled: true
-```
-
-Then redeploy the Loki role to atlas (`task play ... -t loki -l atlas`). After the container restarts with the new config, the compactor will begin deleting chunks older than 14 days. Disk usage should drop automatically over the next compaction cycle.
-
-### Deployment
-
-The fix was deployed to atlas with:
-
-```bash
-task play -i inventories/mint_system plays/all.yml -t loki -l atlas
-```
-
-After adding `delete_request_store: filesystem`, the container started successfully and the compactor is now active.
-
-### Result
-
-The Loki container is stable and ingesting logs. The compactor will begin deleting chunks older than 14 days on its next cycle. Disk usage in `/mnt/sdb/docker/volumes/loki01/_data/chunks` should decrease over time.
+Please verify by triggering the CI run or running `./task test-scripts` locally. Update frontmatter state to completed once confirmed.
 
 @Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness and model. If you have access to session info also add token count.
