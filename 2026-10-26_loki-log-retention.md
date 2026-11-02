@@ -1,5 +1,5 @@
 ---
-commit_ref: 9a1e67e0a5fde762a7300bbf6d6f303612fc4d6c
+commit_ref: 291a8ca59fce85d591d43e1273b41df8bb6ec893
 title: "Loki log retention"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
