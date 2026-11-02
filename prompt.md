@@ -109,7 +109,11 @@ Error: Process completed with exit code 1.
 
 ## Worklog
 
-Fixed the CI failure by updating `ansible.cfg.template` (and matching `ansible.cfg`) to use `stdout_callback = default` with `callback_result_format = yaml`. The previous setting `stdout_callback = yaml` was redirecting to the `community.general.yaml` callback plugin, which was removed in `community.general` version 12.0.0. Using the built-in `default` callback with `result_format=yaml` achieves the same YAML-formatted output without the removed plugin.
+1. Fixed the CI failure by updating `ansible.cfg.template` (and matching `ansible.cfg`) to use `stdout_callback = default` with `callback_result_format = yaml`. The previous setting `stdout_callback = yaml` was redirecting to the `community.general.yaml` callback plugin, which was removed in `community.general` version 12.0.0. Using the built-in `default` callback with `result_format=yaml` achieves the same YAML-formatted output without the removed plugin.
+
+2. Fixed `Non-string value found for env option. Ambiguous env options must be wrapped in quotes` error by replacing `| int` with `| string` for `WORKERS`, `LIMIT_REQUEST`, `LIMIT_TIME_CPU`, and `LIMIT_TIME_REAL` environment variables in:
+   - `roles/odoo/tasks/odoo.yml`
+   - `roles/odoo/tasks/odoo_configmap.yml`
 
 Please verify by triggering the CI run or running `./task test-scripts` locally. Update frontmatter state to completed once confirmed.
 
