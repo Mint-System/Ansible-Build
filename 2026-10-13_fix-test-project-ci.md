@@ -1,12 +1,14 @@
 ---
-commit_ref: fbfbc50bfa935427c36e9bb427b28a512bbce93d
+commit_ref: b2e8c7f10769c2b198b87993489d7d29d2548ac2
 title: "Fix test project ci"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
+action: implement
 state: completed
-date_completed: 2026-10-12
+date_completed: 2026-11-02
+harness: pi
 model: moonshotai/Kimi-K2.6
-input_tokens: 29851
-output_tokens: 13795
+input_tokens: 60248
+output_tokens: 8228
 ---
 
 # Fix test project ci
@@ -15,68 +17,105 @@ Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file
 
 @Clanker when working on this prompt file, make sure to:
 
-- Read context and task section first
-- Prepare a list of todos
+- Read the `AGENTS.md` and `README.md` to get an understanding of the project
+- Read entire task section and prepare a list of todos
 - Update the todo list while working on task
-
-## Context
-
-@Clanker Read the `AGENTS.md` and `README.md` to get an understanding of the project.
 
 ## Task
 
-My ci workflow `test-project` fails with this message:
-
-``
-TEST: Test docker volume scripts
-postgres01
-Make sure to stop the container postgres01 before creating a backup.
-Run backup for Docker volume postgres01.
-Unable to find image 'ubuntu:latest' locally
-latest: Pulling from library/ubuntu
-4e07a0f12b2c: Pulling fs layer
-06ad70e463aa: Pulling fs layer
-06ad70e463aa: Verifying Checksum
-06ad70e463aa: Download complete
-4e07a0f12b2c: Verifying Checksum
-4e07a0f12b2c: Download complete
-4e07a0f12b2c: Pull complete
-06ad70e463aa: Pull complete
-Digest: sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7
-Status: Downloaded newer image for ubuntu:latest
-tar: Removing leading `/' from member names
-Docker volume backup has finished: /var/tmp/postgres01/{postgres01}.tar
-Make sure to stop the container postgres01 before creating a backup.
-Run backup for Docker volume postgres0148a7c0a486a14eb0de22215a3659962dff79cbdfd84b26724c31058f388d5550.
-tar: Removing leading `/' from member names
-Docker volume backup has finished: /var/tmp/postgres01/{postgres0148a7c0a486a14eb0de22215a3659962dff79cbdfd84b26724c31058f388d5550}.tar
-postgres01
-postgres01
-Make sure to stop the attached containers before running the restore.
-Run restore /var/tmp/postgres01/postgres01.tar to Docker volume postgres01 ...
-tar: /restore/postgres01.tar: Cannot open: No such file or directory
-tar: Error is not recoverable: exiting now
-Error: Process completed with exit code 2.
 ```
+TEST: Test postgres scripts
+Installing docker-postgres-backup ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
 
-Check the `docker-volume-backup` and `docker-volume-restore` scripts.
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1860    0  1860    0     0   3643      0 --:--:-- --:--:-- --:--:--  3647
+Installing docker-postgres-create ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1151    0  1151    0     0   1635      0 --:--:-- --:--:-- --:--:--  1634
+Installing docker-postgres-list ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1027    0  1027    0     0   2155      0 --:--:-- --:--:-- --:--:--  2157
+Installing docker-postgres-restore ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1770    0  1770    0     0   2559      0 --:--:-- --:--:-- --:--:--  2557
+Installing docker-postgres-drop ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1682    0  1682    0     0   2403      0 --:--:-- --:--:-- --:--:--  2402
+Installing docker-postgres-patch ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1162    0  1162    0     0   1647      0 --:--:-- --:--:-- --:--:--  1645
+Installing docker-postgres-duplicate ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  2102    0  2102    0     0   2987      0 --:--:-- --:--:-- --:--:--  2990
+Installing docker-postgres-size ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1208    0  1208    0     0   1759      0 --:--:-- --:--:-- --:--:--  1758
+Installing docker-postgres-shell ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1450    0  1450    0     0   2895      0 --:--:-- --:--:-- --:--:--  2900
+Installing docker-postgres-upgrade ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  3313    0  3313    0     0   4763      0 --:--:-- --:--:-- --:--:--  4766
+Installing docker-postgres-rename ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1952    0  1952    0     0   1913      0 --:--:--  0:00:01 --:--:--  1913
+[WARNING]: Deprecation warnings can be disabled by setting `deprecation_warnings=False` in ansible.cfg.
+[DEPRECATION WARNING]: DEFAULT_MANAGED_STR option. Reason: The `ansible_managed` variable can be set just like any other variable, or a different variable can be used.
+Alternatives: Set the `ansible_managed` variable, or use any custom variable in templates. This feature will be removed from ansible-core version 2.23.
+
+[ERROR]: The 'community.general.yaml' callback plugin has been removed. The plugin has been superseded by the option `result_format=yaml` in callback plugin ansible.builtin.default from ansible-core 2.13 onwards. This feature was removed from collection 'community.general' version 12.0.0.
+Error: Process completed with exit code 1.
+
+````
+
+@Clanker When task is completed set frontmatter state to review. Prompt the author to verify the results.
 
 ## Worklog
 
-Fixed the `test-project` CI failure by addressing bugs in the docker volume scripts:
+1. Fixed the CI failure by updating `ansible.cfg.template` (and matching `ansible.cfg`) to use `stdout_callback = default` with `callback_result_format = yaml`. The previous setting `stdout_callback = yaml` was redirecting to the `community.general.yaml` callback plugin, which was removed in `community.general` version 12.0.0. Using the built-in `default` callback with `result_format=yaml` achieves the same YAML-formatted output without the removed plugin.
 
-### `roles/docker_volume/files/docker-volume-backup`
-- The `docker inspect` Go template `{{ range .Mounts }}{{ .Name }}{{ end }}` concatenated all mount names without separators, causing multiple volume names to be merged into a single invalid filename (e.g. `postgres01<hash>`).
-- Fixed by filtering for `Type == "volume"` and outputting each name on a separate line with `{{ "\n" }}`.
-- Replaced the broken manual array conversion (`printf -v volumes ...` + `volume_list=($(echo ... | tr ',' '\n'))`) with proper Bash array handling using `mapfile -t` for `-a` and `IFS=',' read -r -a` for `-v`.
+2. Fixed `Non-string value found for env option. Ambiguous env options must be wrapped in quotes` error by replacing `| int` with `| string` for `WORKERS`, `LIMIT_REQUEST`, `LIMIT_TIME_CPU`, and `LIMIT_TIME_REAL` environment variables in:
+   - `roles/odoo/tasks/odoo.yml`
+   - `roles/odoo/tasks/odoo_configmap.yml`
 
-### `roles/docker_volume/files/docker-volume-restore`
-- The tar command inside `docker run ... bash -c "..."` was vulnerable to word splitting if `$filename` contained spaces, because the outer shell expanded the variable before the inner shell parsed the command string.
-- Fixed by passing the filename via the `-e RESTORE_FILE` environment variable and using single quotes around the `bash -c` argument so the inner shell performs the variable expansion safely.
+Please verify by triggering the CI run or running `./task test-scripts` locally. Update frontmatter state to completed once confirmed.
 
-### `roles/postgres/defaults/main.yml` & `README.md`
-- The postgres Docker image declares `VOLUME /var/lib/postgresql/data`. Mounting a named volume at the parent directory `/var/lib/postgresql` does **not** override that declaration. Docker auto-creates an anonymous volume for `/var/lib/postgresql/data`, and the actual database files end up there instead of the named volume.
-- As a result, `docker-volume-backup -v postgres01` was backing up an essentially empty named volume, and after restore the data was gone.
-- Fixed by changing the default mount path from `/var/lib/postgresql` to `/var/lib/postgresql/data` so the named volume directly contains the database files.
-
-@Clanker Set frontmatter state to completed and update date and model. If you have access to session info also add token count.
+@Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness and model. If you have access to session info also add token count.
