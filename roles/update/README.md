@@ -49,12 +49,14 @@ msg: 'Failed to update apt cache: E:Release file for http://security.debian.org/
 Use the archive repo.
 
 ```bash
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-sudo sed -i 's|deb http://security.debian.org/debian-security|#deb http://security.debian.org/debian-security|' /etc/apt/sources.list
-sudo echo "deb http://archive.debian.org/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list
-sudo echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/10no-check-valid-until
-sudo apt-get update
-sudo apt-get upgrade
+sudo su
+cp /etc/apt/sources.list /etc/apt/sources.list.bak
+sed -i 's|deb http://security.debian.org/debian-security|#deb http://security.debian.org/debian-security|' /etc/apt/sources.list
+echo "deb http://archive.debian.org/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list
+echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/10no-check-valid-until
+apt update
+apt upgrade
+apt autoremove
 ```
 
 **Solution**
@@ -75,12 +77,14 @@ When running the update task it fails with this message:
 
 Use the archive repo.
 
-```
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-sudo sed -i 's|http://security.debian.org/|http://archive.debian.org/debian-security|g' /etc/apt/sources.list
-sudo echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/10no-check-valid-until
-sudo apt-get update
-sudo apt-get upgrade
+```bash
+sudo su
+cp /etc/apt/sources.list /etc/apt/sources.list.bak
+sed -i 's|http://security.debian.org/|http://archive.debian.org/debian-security|g' /etc/apt/sources.list
+echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/10no-check-valid-until
+apt update
+apt upgrade
+apt autoremove
 ```
 
 **Solution**
