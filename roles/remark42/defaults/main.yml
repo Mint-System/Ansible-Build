@@ -2,4 +2,5 @@
 remark42_description: Remark42
 remark42_auth_anonymous: "false"
 remark42_auth_email_enabled: "false"
+remark42_auth_github_secret: "{{ vault_remark42_auth_github_secret }}"
 remark42_auth_custom_csec: "{{ vault_remark42_auth_custom_csec }}"
