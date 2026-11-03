@@ -1,5 +1,5 @@
 ---
-commit_ref: b2e8c7f10769c2b198b87993489d7d29d2548ac2
+commit_ref: 7e0fd22b5a3a21b46b94bd92c415fba35813604d
 title: "Fix test project ci"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
