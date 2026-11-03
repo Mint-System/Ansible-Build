@@ -24,6 +24,14 @@ update: true
 reboot_allowed: true
 ```
 
+Optionally move the apt package cache to another directory. This is useful if `/var/cache/apt/archives` is on a small partition.
+
+```yml
+update_apt_cache_dir: /mnt/sdb/tmp/apt
+```
+
+The role creates the directory and writes the `Dir::Cache::archives` setting to `/etc/apt/apt.conf.d/99cache-dir`. Set the var to `""` (default) to remove this config.
+
 And include it in your playbook.
 
 ```yml
@@ -33,6 +41,24 @@ And include it in your playbook.
 ```
 
 ## Troubleshooting
+
+### Not enough free space in apt cache
+
+**Problem**
+
+When running the update task it fails with this message:
+
+```
+msg: '/usr/bin/apt-get upgrade --with-new-pkgs ' failed: E: You don't have enough free space in /var/cache/apt/archives/.
+```
+
+**Solution**
+
+Set `update_apt_cache_dir` to a directory on a partition with enough free space.
+
+```yml
+update_apt_cache_dir: /mnt/sdb/tmp/apt
+```
 
 ### InRelease repo expired
 

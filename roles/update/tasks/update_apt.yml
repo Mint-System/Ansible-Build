@@ -1,4 +1,29 @@
 ---
+- name: Create apt cache dir
+  ansible.builtin.file:
+    path: "{{ update_apt_cache_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: update_apt_cache_dir | length > 0
+
+- name: Configure apt cache dir
+  ansible.builtin.copy:
+    content: |
+      Dir::Cache::archives "{{ update_apt_cache_dir }}";
+    dest: /etc/apt/apt.conf.d/99cache-dir
+    owner: root
+    group: root
+    mode: "0644"
+  when: update_apt_cache_dir | length > 0
+
+- name: Remove apt cache dir config
+  ansible.builtin.file:
+    path: /etc/apt/apt.conf.d/99cache-dir
+    state: absent
+  when: update_apt_cache_dir | length == 0
+
 - name: Update apt-get repo and cache
   ansible.builtin.apt:
     update_cache: true
