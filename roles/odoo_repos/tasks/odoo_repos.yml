@@ -208,3 +208,20 @@
     add_mode: add
     value: "{{ odoo_data_dir }}/{{ item.path }}"
   loop: "{{ odoo_repos }}"
+
+- name: Register {{ role_name }} repo directories
+  ansible.builtin.shell: "find {{ odoo_data_dir }} -mindepth 1 -maxdepth 1 -type d -printf '%f\n'"
+  changed_when: false
+  register: odoo_repo_dirs
+
+- name: Create managed repo list from repo list
+  ansible.builtin.set_fact:
+    odoo_managed_repo_dirs: "{{ odoo_repos | map(attribute='path') | map('regex_replace', '^(.*)/.*$', '\\1') | unique | list }}"
+
+- name: Remove unmanaged {{ role_name }} repo directories
+  ansible.builtin.file:
+    path: "{{ odoo_data_dir }}/{{ item }}"
+    state: absent
+  loop: "{{ odoo_repo_dirs.stdout_lines }}"
+  when: item not in odoo_managed_repo_dirs
+  notify: Restart odoo container
