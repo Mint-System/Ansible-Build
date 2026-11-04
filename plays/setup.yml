@@ -48,3 +48,5 @@
       tags: ufw
     - role: iam
       tags: iam
+    - role: crowdsec
+      tags: crowdsec

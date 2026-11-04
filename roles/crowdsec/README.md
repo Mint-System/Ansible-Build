@@ -44,11 +44,15 @@ docker exec crowdsec01 cscli metrics show
 
 ### Show CrowdSec bouncers
 
+This shows all rigesterd bouncers:
+
 ```bash
 docker exec crowdsec01 cscli bouncers list
 ```
 
 ### Test whitelist rules
+
+This simulates a check for a log excerpt:
 
 ```bash
 LOGS=$(docker logs nginx01 2>&1 | grep "172.19.0.1" | tail -n 1)
@@ -57,10 +61,19 @@ docker exec crowdsec01 /bin/bash -c "echo $LOGS | cscli explain -f- --type nginx
 
 ### Trigger an alert
 
+wapiti is vulnerability scanner and should be blocked by CrowdSec.
+
 ```bash
 pip install wapiti3
 ```
 
 ```bash
 wapiti -u http://odoo.local/
+```
+
+### List and delete decisions
+
+```bash
+docker exec crowdsec01 cscli decisions list --ip 151.248.188.14   # get the decision id
+docker exec crowdsec01 cscli decisions delete <decision-id>
 ```
