@@ -1,5 +1,5 @@
 ---
-commit_ref: b1d7e0253c8d283dc6a758cd4f612b7ef4f018a0
+commit_ref: 61309e9d9e3b114b8287378d4d5206307efce347
 title: "Remove docker volume role"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 state: completed
