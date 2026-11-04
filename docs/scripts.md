@@ -29,21 +29,13 @@ curl -L https://ansible.build/docker/install | bash -s -- --user
 
 - [docker-export](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-export)
 - [docker-import](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-import)
-
-## [docker_volume](roles/docker_volume/)
-
-```bash
-curl -L https://ansible.build/docker_volume/install | bash -s -- --user
-```
-
-- [docker-disk-usage](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker_volume/files/docker-disk-usage)
-- [docker-volume-backup](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker_volume/files/docker-volume-backup)
-- [docker-volume-export](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker_volume/files/docker-volume-export)
-- [docker-volume-import](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker_volume/files/docker-volume-import)
-- [docker-volume-list](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker_volume/files/docker-volume-list)
-- [docker-volume-restore](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker_volume/files/docker-volume-restore)
-- [docker-volume-copy](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker_volume/files/docker-volume-copy)
-
+- [docker-disk-usage](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-disk-usage)
+- [docker-volume-backup](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-volume-backup)
+- [docker-volume-export](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-volume-export)
+- [docker-volume-import](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-volume-import)
+- [docker-volume-list](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-volume-list)
+- [docker-volume-restore](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-volume-restore)
+- [docker-volume-copy](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-volume-copy)
 
 ## [grafana](roles/grafana/)
 

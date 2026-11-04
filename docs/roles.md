@@ -29,7 +29,6 @@
 | ![docker logo](/logos/docker.png)  | [docker](roles/docker/) | system | Install Docker. |
 | ![docker_restic logo](/logos/docker_restic.png)  | [docker_restic](roles/docker_restic/) | environment | Runs Restic in Docker container. |
 | ![docker_swarm logo](/logos/docker_swarm.png)  | [docker_swarm](roles/docker_swarm/) | system | Configures Docker Swarm. |
-| ![docker_volume logo](/logos/docker_volume.png)  | [docker_volume](roles/docker_volume/) | system | Configures a Docker volume. |
 | ![dozzle logo](/logos/dozzle.png)  | [dozzle](roles/dozzle/) | application | Deploy Dozzle container. |
 | ![dribdat logo](/logos/dribdat.png)  | [dribdat](roles/dribdat/) | application | Deploy dribdat container. |
 | ![etc_hosts logo](/logos/etc_hosts.png)  | [etc_hosts](roles/etc_hosts/) | environment | Add entries to /etc/hosts files. |

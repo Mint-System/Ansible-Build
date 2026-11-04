@@ -25,6 +25,7 @@ docker_login_username: example
 docker_login_password: # default: "{{ vault_docker_login_password }}"
 docker_login_users: # default: root
   - git-bot
+docker_scripts_dir: /home/odoo/bin # default: /usr/local/bin
 
 # apt package manager
 docker_apt_url: "https://download.docker.com/linux/debian/gpg"

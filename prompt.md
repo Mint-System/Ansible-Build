@@ -1,124 +1,111 @@
 ---
-title: "Migrate from Vuepress to Zensical"
+commit_ref:
+title: "Remove docker volume role"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
-action: implement
 state: completed
 date_completed: 2026-11-04
 harness: pi
-provider: mistral
-model: glm-5-2
-input_tokens: 996478
-output_tokens: 21823
+model: deepseek-v4-1-flash-1017
+input_tokens: 439628
+output_tokens: 25331
 ---
 
-# Migrate from Vuepress to Zensical
+# Remove docker volume role
 
 Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file.
 
 @Clanker when working on this prompt file, make sure to:
 
-- Read the `AGENTS.md` and `README.md` to get an understanding of the project
-- Read entire task section and prepare a list of todos
+- Read context and task section first
+- Prepare a list of todos
 - Update the todo list while working on task
+
+## Context
+
+@Clanker Read the `AGENTS.md` and `README.md` to get an understanding of the project.
 
 ## Task
 
-I want to replace Vuepress with Zensical.
+I want to get rid of `docker_volume` replce. It is an unnecessary wrapper for the builtin role.
 
-### Reference
+Replace:
 
-This task has also been completed for `~/Odoo-Build`.
+```
+- name: Include docker volume role
+  ansible.builtin.include_role:
+    name: docker_volume
+  vars:
+    docker_volume_name: "{{ matomo_volume_name }}"
+  when: matomo_volume_name is defined
+```
 
-The prompt file is `~/Odoo-Build/tmp/prompt-log/2026-11-04_migrate-from-vuepress-to-zensical.md`
+With this:
 
-### Remove Vuepress
+```
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ matomo_volume_name }}"
+```
 
-Remove everything related to Vuepress:
-
-- `.vuepress` config dir
-- `package.json` packge file
-- `pnpm-lock.yaml` pnpm lock file
-
-In `task` remove the help rows.
-
-### Prepare docs command
-
-Rename `update-docs` to `prepare-docs`.
-
-### Install Zensical
-
-The Taskfile alreay provides the command to install, preview and build with Zensical.
-
-Copy the help rows only.
-
-Run `init-zensical-docs` and update task help rows.
-
-Then Zensical should build from `docs`.
-
-### File naming
-
-In `docs` rename `README.md` to `index.md`.
-
-Use clean urls like `/roles/` instead of `/roles.html`.
-
-### Add plausible
-
-The Vupress project injected plausible.js code. Do the same with extra.js in Zensical. Use the same domain.
-
-### Mint System link
-
-The Vuepress site shows a styled button `[Mint System GmbH](https://www.mint-system.ch/)` in the nav.
-
-Replicate this for Zensical. See `Odoo-Build` on how it was done.
-
-### Footer
-
-Configure Zensical to link Mint System GmbH in the footer <https://zensical.org/docs/setup/footer/>.
-
-### Top navigation
-
-Ensure the main navigation is on the top.
-
-Remove "Chat" from navigation.
+Check all roles / task not only `matomo`.
 
 @Clanker When task is completed set frontmatter state to review. Prompt the author to verify the results.
 
 ## Worklog
 
-Summary of the Vuepress → Zensical migration:
+Removed the `docker_volume` role. Volume creation is now a direct `community.docker.docker_volume` task in every role that used the wrapper (16 task blocks across 16 roles, plus `docker_compose`).
 
-**Remove Vuepress**
-- Deleted `.vuepress/` (config, layouts, plugins, public assets), `package.json` and `pnpm-lock.yaml`.
-- Removed the `build-vuepress`, `dev-vuepress`, `install-vuepress` and `serve-vuepress` help rows and functions from `task`.
-- Cleaned `.gitignore` (removed `.vuepress/public/logos`, added `docs/roles` and `site`).
+**Volume creation replaced**
 
-**Prepare docs command**
-- Renamed `update-docs` → `prepare-docs`. It now links `docs/index.md` → `../README.md`, links `docs/logos` → `../logos`, generates real `docs/roles/<name>/index.md` file symlinks to the role READMEs, and regenerates `docs/roles.md` with clean-URL links (`roles/<name>/`).
+- `matomo`, `nextcloud`, `moodle`, `dribdat`, `gitea`, `remark42`, `odoo`, `odoo_configmap`, `grafana`, `jenkins`, `loki`, `open_webui`, `php_fpm`, `postgres`, `wordpress`, `forgejo_runner`: `include_role: docker_volume` replaced with a `Create {{ role_name }} volume` task. The `when: <role>_volume_name is defined` guard is preserved.
+- `docker_compose`: `include_role` with `docker_volumes` replaced by a loop over `docker_compose_volumes`. The `docker_volume` dependency was dropped from `roles/docker_compose/meta/main.yml`.
 
-**Zensical**
-- Added the `init-zensical-docs`, `dev-zensical-docs`, `build-zensical-docs` and `serve-zensical-docs` help rows; ran `./task init-zensical-docs` (zensical 0.0.67).
-- `zensical.toml` builds from `docs` into `site` with `navigation.tabs` (top navigation), nav: Home, Roles, Scripts, Upgrade Odoo, Mint System GmbH — no Chat.
-- Favicon/logo restored as `docs/assets/icon.png|svg` (recovered from git history).
+**Scripts kept, moved to `docker` role**
 
-**File naming / clean URLs**
-- `docs/README.md` symlink replaced by `docs/index.md` → `../README.md`.
-- Updated `docs/scripts.md` role links and `docs/upgrade-odoo.md` (`scripts.html#…` → `scripts/#…`) to clean URLs.
-- Fixed README.md and `odoo_apps`/`odoo_enterprise` README links to clean role URLs.
-- Note: Zensical ignores the `docs/roles` directory symlink, so role pages are real `docs/roles/<name>/index.md` file symlinks (gitignored, regenerated by `prepare-docs`).
+The role also deployed CLI tools (`docker-volume-backup`, `docker-volume-export`, ...) that `roles/restic/tasks/restic_docker_volume_backup.yml` requires. These moved into the `docker` role, which already ships `docker-export`/`docker-import` via `docker_scripts_dir`:
 
-**Plausible**
-- `docs/javascripts/extra.js` injects `https://plausible.io/js/script.js` with `data-domain = ansible.build` (same domain as the Vuepress plugin).
+- 7 scripts moved to `roles/docker/files/` (byte-identical, executable bits kept).
+- `roles/docker/tasks/docker_scripts.yml` and `roles/docker/files/install` extended with the volume scripts.
+- `docker_scripts_dir` documented in `roles/docker/README.md`.
 
-**Mint System button & footer**
-- `docs/stylesheets/style.css` styles the nav tab `[href="https://www.mint-system.ch/"]` as the teal button (right aligned, dark-mode variant).
-- `zensical.toml` `copyright` links Mint System GmbH in the footer.
+All inventory hosts set `docker_volume_scripts_dir` to the same value as `docker_scripts_dir`, so behavior is unchanged.
 
-**Workflow**
-- `.github/workflows/docs.yml` runs `./task prepare-docs` before `zensical build --clean`.
+**Inventories**
 
-**Verified**
-- `./task prepare-docs && ./task build-zensical-docs` → “No issues found”, 116 pages, sitemap contains only clean URLs (`https://ansible.build/roles/<name>/`).
+Removed the now-dead `docker_volume_scripts_dir` var from 7 host_vars files (`barys`, `barys_odoo`, `barys_odoo_staging`, `clio`, `clio_odoo`, `clio_odoo_development`, `clio_odoo_staging`). `docker_scripts_dir` was kept — it is the var the `docker` role reads. Note `inventories/` is gitignored, so these edits are on-disk only and do not appear in the commit.
 
-@Clanker Please verify the migration: run `./task prepare-docs`, then `./task dev-zensical-docs` and check the top navigation tabs, the Mint System GmbH button (light and dark mode), the footer link and the Plausible script.
+The scripts still deploy on those hosts: `plays/setup.yml` → `maintenance`/`docker_network` → `docker` role → `docker_scripts.yml`.
 
-@Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness, provider and model. If you have access to session info also add token count.
+**Docs and assets**
+
+- Deleted `roles/docker_volume/` and `logos/docker_volume.png`.
+- `docs/roles.md` regenerated with `./task prepare-docs`.
+- `docs/scripts.md` updated: `docker_volume` section removed, volume scripts listed under `docker`.
+
+**Verification**
+
+- `ansible-playbook --syntax-check` passes for `plays/localhost.yml` and `plays/cleanup.yml`.
+- `./task lint` reports no new issues (baseline diff is line-number shifts only).
+- `./task test-project` passes: `ok=180 failed=0`, all service endpoints return HTTP 200, volumes created by the new tasks.
+- Volume scripts executed from their new location and validated; `docker-volume-*` files confirmed byte-identical to the originals.
+
+**Follow-up: removed hardcoded binary paths in `restic`**
+
+The `restic` role verified backup commands via `stat` on `/usr/local/bin/<command>`, which breaks when `docker_scripts_dir` points elsewhere (e.g. `/home/odoo/bin`). All six verification tasks now resolve the command on `PATH`:
+
+```yml
+- name: Verify docker-volume-backup command exists
+  ansible.builtin.set_fact:
+    backup_stat: "{{ lookup('ansible.builtin.pipe', 'command -v docker-volume-backup || true') }}"
+  failed_when: backup_stat | length == 0
+```
+
+Applied to `restic_docker_volume_backup.yml`, `restic_docker_mysql_backup.yml`, `restic_docker_mariadb_backup.yml`, `restic_docker_odoo_backup.yml`, `restic_docker_postgres_backup.yml` and `restic_odoo_backup.yml`.
+
+Note: `ansible.builtin.command: command -v ...` does **not** work, because `command -v` is a shell builtin and the module cannot exec it (fails with rc=2). The `pipe` lookup is used instead. The existing `command: which cron` in `roles/node_exporter` has the same latent problem but was left untouched.
+
+Two pre-existing task-name/condition bugs were also corrected: `restic_docker_mysql_backup.yml` was named `Verify docker-odoo-backup`, and `restic_docker_mariadb_backup.yml` guarded its verify task on `item.type == "docker-mysql-backup"` instead of `docker-mariadb-dump` (so the check never ran for mariadb).
+
+Verified: syntax check passes, no new lint issues, `./task test-project` passes (`ok=180 failed=0`), and the lookup resolves a present binary and fails on a missing one.
+
+@Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness and model. If you have access to session info also add token count.

@@ -1,9 +1,7 @@
 ---
-- name: Include docker volume role
-  ansible.builtin.include_role:
-    name: docker_volume
-  vars:
-    docker_volume_name: "{{ open_webui_volume_name }}"
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ open_webui_volume_name }}"
   when: open_webui_volume_name is defined
 
 - name: Init {{ role_name }} env vars

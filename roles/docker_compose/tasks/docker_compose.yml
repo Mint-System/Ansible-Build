@@ -19,11 +19,10 @@
   notify: Restart {{ role_name }} project
   when: docker_compose_definition is defined
 
-- name: Include docker volume role
-  ansible.builtin.include_role:
-    name: docker_volume
-  vars:
-    docker_volumes: "{{ docker_compose_volumes }}"
+- name: Create {{ role_name }} volumes
+  community.docker.docker_volume:
+    name: "{{ item.name }}"
+  loop: "{{ docker_compose_volumes }}"
   when: docker_compose_volumes is defined
 
 - name: Start {{ role_name }} project

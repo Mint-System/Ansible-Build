@@ -1,9 +1,8 @@
 ---
 - name: Verify odoo-backup command exists
-  ansible.builtin.stat:
-    path: /usr/local/bin/odoo-backup
-  register: backup_stat
-  failed_when: not backup_stat.stat.exists
+  ansible.builtin.set_fact:
+    backup_stat: "{{ lookup('ansible.builtin.pipe', 'command -v odoo-backup || true') }}"
+  failed_when: backup_stat | length == 0
   loop: "{{ restic_backup_set }}"
   when: item.type == "odoo-backup"
 

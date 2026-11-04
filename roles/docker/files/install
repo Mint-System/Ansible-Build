@@ -6,6 +6,13 @@ repository='https://ansible.build'
 scripts=(
     docker-export
     docker-import
+    docker-disk-usage
+    docker-volume-backup
+    docker-volume-copy
+    docker-volume-export
+    docker-volume-import
+    docker-volume-list
+    docker-volume-restore
 )
 
 install_dir='/usr/local/bin'
