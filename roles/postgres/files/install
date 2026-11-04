@@ -25,8 +25,15 @@ if [[ "$1" == '--user' ]]; then
     echo "Installing scripts in $install_dir"
 fi
 
+script_dir=$(dirname "$(readlink -f "$0")")
+
 for script in "${scripts[@]}"; do
-    echo "Installing $script ..."
-    curl -L "$repository/postgres/$script" -o "$install_dir/$script"
+    if [[ -f "$script_dir/$script" ]]; then
+        echo "Installing $script from $script_dir ..."
+        cp "$script_dir/$script" "$install_dir/$script"
+    else
+        echo "Installing $script from $repository ..."
+        curl -fsSL "$repository/postgres/$script" -o "$install_dir/$script"
+    fi
     chmod +x "$install_dir/$script"
 done

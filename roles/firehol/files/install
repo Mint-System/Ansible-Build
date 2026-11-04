@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-repository=https://ansible.build
+repository='https://ansible.build'
 
 scripts=(
     firehol-pull
@@ -9,15 +9,23 @@ scripts=(
     firehol-remove
 )
 
-script_dir=$(dirname "$0")
-for script in "${scripts[@]}"; do
+install_dir='/usr/local/bin'
 
-    if test -f "$script_dir/$script"; then
-        echo "Copy $script script ..."
-        cp "$script_dir/$script" "/usr/local/bin/$script"
+if [[ "$1" == '--user' ]]; then
+    install_dir="$HOME/.local/bin"
+    mkdir -p "$install_dir"
+    echo "Installing scripts in $install_dir"
+fi
+
+script_dir=$(dirname "$(readlink -f "$0")")
+
+for script in "${scripts[@]}"; do
+    if [[ -f "$script_dir/$script" ]]; then
+        echo "Installing $script from $script_dir ..."
+        cp "$script_dir/$script" "$install_dir/$script"
     else
-        echo "Download $script script ..."
-        sudo curl -L "$repository/firehol/$script" -o "/usr/local/bin/$script"
+        echo "Installing $script from $repository ..."
+        curl -fsSL "$repository/firehol/$script" -o "$install_dir/$script"
     fi
-    sudo chmod +x "/usr/local/bin/$script"
+    chmod +x "$install_dir/$script"
 done
