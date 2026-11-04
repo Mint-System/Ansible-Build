@@ -1,17 +1,17 @@
 ---
-title: "Support ansible -e for connect host"
+title: "Migrate from Vuepress to Zensical"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
-state: cancelled
-date_completed: 2026-11-03
+state: completed
+date_completed: 2026-11-04
 harness: pi
-provider: deepseek
-model: deepseek-v4-1-flash-1017
-input_tokens: 35484
-output_tokens: 3624
+provider: mistral
+model: glm-5-2
+input_tokens: 996478
+output_tokens: 21823
 ---
 
-# Support ansible -e for connect host
+# Migrate from Vuepress to Zensical
 
 Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file.
 
@@ -23,35 +23,102 @@ Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file
 
 ## Task
 
-I would like to login with a different user with `connect-host` command.
+I want to replace Vuepress with Zensical.
 
-```bash
-task connect-host clio_odoo_staging -u odoo-development
-````
+### Reference
 
-Implment `-u/--user` param similar to `ansible-playbook` command. Keep the flag check to a minimum. Here is an example:
+This task has also been completed for `~/Odoo-Build`.
 
-```
-local global=false
-if [[ "${1:-}" == "-g" || "${1:-}" == "--global" ]]; then
-    global=true
-fi
-```
+The prompt file is `~/Odoo-Build/tmp/prompt-log/2026-11-04_migrate-from-vuepress-to-zensical.md`
+
+### Remove Vuepress
+
+Remove everything related to Vuepress:
+
+- `.vuepress` config dir
+- `package.json` packge file
+- `pnpm-lock.yaml` pnpm lock file
+
+In `task` remove the help rows.
+
+### Prepare docs command
+
+Rename `update-docs` to `prepare-docs`.
+
+### Install Zensical
+
+The Taskfile alreay provides the command to install, preview and build with Zensical.
+
+Copy the help rows only.
+
+Run `init-zensical-docs` and update task help rows.
+
+Then Zensical should build from `docs`.
+
+### File naming
+
+In `docs` rename `README.md` to `index.md`.
+
+Use clean urls like `/roles/` instead of `/roles.html`.
+
+### Add plausible
+
+The Vupress project injected plausible.js code. Do the same with extra.js in Zensical. Use the same domain.
+
+### Mint System link
+
+The Vuepress site shows a styled button `[Mint System GmbH](https://www.mint-system.ch/)` in the nav.
+
+Replicate this for Zensical. See `Odoo-Build` on how it was done.
+
+### Footer
+
+Configure Zensical to link Mint System GmbH in the footer <https://zensical.org/docs/setup/footer/>.
+
+### Top navigation
+
+Ensure the main navigation is on the top.
+
+Remove "Chat" from navigation.
 
 @Clanker When task is completed set frontmatter state to review. Prompt the author to verify the results.
 
 ## Worklog
 
-Implemented `-u/--user` support for `connect-host` in `./task`, mirroring `ansible-playbook`:
+Summary of the Vuepress → Zensical migration:
 
-- Added minimal flag parsing to the `connect-host` function. Accepted forms: `-u <user>`, `--user <user>`, `-u<user>`, `--user=<user>`. The flag may appear before or after the host.
-- Removed the implicit positional user argument (`connect-host <host> <user>`); the user must now be passed with `-u/--user`.
-- Falls back to the inventory `ansible_user` when no flag is given.
-- Missing flag value (`connect-host <host> -u`) no longer hangs; it falls back to `ansible_user`.
-- Updated the help table row to `connect-host|[host] [-u user]|Connect to host with configs.`
+**Remove Vuepress**
+- Deleted `.vuepress/` (config, layouts, plugins, public assets), `package.json` and `pnpm-lock.yaml`.
+- Removed the `build-vuepress`, `dev-vuepress`, `install-vuepress` and `serve-vuepress` help rows and functions from `task`.
+- Cleaned `.gitignore` (removed `.vuepress/public/logos`, added `docs/roles` and `site`).
 
-Verified with a stubbed `ssh` against `inventories/mint_system/hosts.yml` (host `aeolus`, which has `ansible_port` and `ansible_ssh_common_args`): all four flag forms produced `ssh -p 48022 -J jump.mint-system.com <user>@odoo.aerolite.ch`; omitting the flag fell back to the inventory user; a missing host returns `Host name cannot be empty` with exit 1.
+**Prepare docs command**
+- Renamed `update-docs` → `prepare-docs`. It now links `docs/index.md` → `../README.md`, links `docs/logos` → `../logos`, generates real `docs/roles/<name>/index.md` file symlinks to the role READMEs, and regenerates `docs/roles.md` with clean-URL links (`roles/<name>/`).
 
-Note: `connect-host` itself was not executed against a real host during testing (author request).
+**Zensical**
+- Added the `init-zensical-docs`, `dev-zensical-docs`, `build-zensical-docs` and `serve-zensical-docs` help rows; ran `./task init-zensical-docs` (zensical 0.0.67).
+- `zensical.toml` builds from `docs` into `site` with `navigation.tabs` (top navigation), nav: Home, Roles, Scripts, Upgrade Odoo, Mint System GmbH — no Chat.
+- Favicon/logo restored as `docs/assets/icon.png|svg` (recovered from git history).
+
+**File naming / clean URLs**
+- `docs/README.md` symlink replaced by `docs/index.md` → `../README.md`.
+- Updated `docs/scripts.md` role links and `docs/upgrade-odoo.md` (`scripts.html#…` → `scripts/#…`) to clean URLs.
+- Fixed README.md and `odoo_apps`/`odoo_enterprise` README links to clean role URLs.
+- Note: Zensical ignores the `docs/roles` directory symlink, so role pages are real `docs/roles/<name>/index.md` file symlinks (gitignored, regenerated by `prepare-docs`).
+
+**Plausible**
+- `docs/javascripts/extra.js` injects `https://plausible.io/js/script.js` with `data-domain = ansible.build` (same domain as the Vuepress plugin).
+
+**Mint System button & footer**
+- `docs/stylesheets/style.css` styles the nav tab `[href="https://www.mint-system.ch/"]` as the teal button (right aligned, dark-mode variant).
+- `zensical.toml` `copyright` links Mint System GmbH in the footer.
+
+**Workflow**
+- `.github/workflows/docs.yml` runs `./task prepare-docs` before `zensical build --clean`.
+
+**Verified**
+- `./task prepare-docs && ./task build-zensical-docs` → “No issues found”, 116 pages, sitemap contains only clean URLs (`https://ansible.build/roles/<name>/`).
+
+@Clanker Please verify the migration: run `./task prepare-docs`, then `./task dev-zensical-docs` and check the top navigation tabs, the Mint System GmbH button (light and dark mode), the footer link and the Plausible script.
 
 @Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness, provider and model. If you have access to session info also add token count.

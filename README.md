@@ -268,7 +268,7 @@ rolename_data_dir: "/usr/share/{{ rolename_hostname }}"
 rolename_password: "{{ vault_rolename_password }}"
 ```
 
-The reference roles are [postgres](roles/postgres/README.md) and [odoo](roles/odoo/README.md).
+The reference roles are [postgres](roles/postgres/) and [odoo](roles/odoo/).
 
 ### Roles and tags
 

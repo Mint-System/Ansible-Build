@@ -31,11 +31,11 @@ help-table() {
     rows+=("build-galaxy||Create tarball of collection.")
     rows+=("publish-galaxy||Publish tarball to Ansible Galaxy.")
     rows+=("===DOCS===| | ")
-    rows+=("build-vuepress||Create vuepress build.")
-    rows+=("dev-vuepress||Start vuepress development server.")
-    rows+=("update-docs||Update docs.")
-    rows+=("install-vuepress||Install build dependencies.")
-    rows+=("serve-vuepress||Serve vuepress build.")
+    rows+=("build-zensical-docs||Build the Zensical docs site.")
+    rows+=("dev-zensical-docs||Run Zensical documentation dev server.")
+    rows+=("init-zensical-docs||Initialize Zensical documentation build deps.")
+    rows+=("prepare-docs||Prepare docs files for the Zensical build.")
+    rows+=("serve-zensical-docs||Serve the Zensical documentation build.")
     rows+=("format-role-readmes||Update readme files in roles folder.")
     rows+=("===LLM===| | ")
     rows+=("commit-with-llm||Commit with llm generated commit message.")
@@ -777,14 +777,37 @@ test-scripts() {
 
 # Docs
 
-update-docs() {
-    echo "Update roles.md"
-    echo "# Roles" > "docs/roles.md"
-    echo "" >> "docs/roles.md"
-    echo "| Logo | Role | Kind | Description |" >> "docs/roles.md"
-    echo "| --- | --- | --- | --- |" >> "docs/roles.md"
+prepare-docs() {
+    echo 'Link docs files.'
+    ensure-directory docs
+    [[ -L docs/index.md ]] || ln -s ../README.md docs/index.md
 
-    local md_files=$(find roles -name 'README.md' | sort)
+    echo 'Link logos.'
+    rm -rf docs/logos
+    ensure-directory docs/logos
+    local logo
+    for logo in logos/*.png; do
+        [[ -e "$logo" ]] || continue
+        ln -sf "../../logos/$(basename "$logo")" "docs/logos/$(basename "$logo")"
+    done
+
+    echo 'Link role pages.'
+    rm -rf docs/roles
+    ensure-directory docs/roles
+    local md_files
+    md_files=$(find roles -name 'README.md' | sort)
+    for readme in $md_files; do
+        local role
+        role=$(basename "$(dirname "$readme")")
+        ensure-directory "docs/roles/$role"
+        ln -sf "../../../roles/$role/README.md" "docs/roles/$role/index.md"
+    done
+
+    echo 'Update roles.md'
+    echo '# Roles' > 'docs/roles.md'
+    echo '' >> 'docs/roles.md'
+    echo '| Logo | Role | Kind | Description |' >> 'docs/roles.md'
+    echo '| --- | --- | --- | --- |' >> 'docs/roles.md'
     for readme in $md_files; do
         local role
         role=$(basename "$(dirname "$readme")")
@@ -792,7 +815,7 @@ update-docs() {
         kind=$(grep "^kind:" "$readme" | sed 's/kind: //')
         local description
         description=$(sed -n '5,$p' "$readme" | grep -v '^$' | grep -v '<img' | grep -v '^#' | head -1)
-        echo "| ![$role logo](/logos/$role.png)  | [$role]($readme) | $kind | $description |" >> "docs/roles.md"
+        echo "| ![$role logo](/logos/$role.png)  | [$role](roles/$role/) | $kind | $description |" >> 'docs/roles.md'
     done
 }
 
@@ -837,54 +860,6 @@ format-role-readmes() {
             } > "$tmpfile" && mv "$tmpfile" "$readme"
         fi
     done
-}
-
-install-vuepress() {
-    pnpm install
-}
-
-dev-vuepress() {
-    echo "Copy logos folder to vuepress public folder."
-    cp -r logos .vuepress/public/
-
-    open-url http://localhost:8080
-    pnpm run dev
-}
-
-build-vuepress() {
-    echo "Copy logos folder to vuepress public folder."
-    cp -r logos .vuepress/public/
-
-    pnpm run build
-
-    echo "Create vuepress script folders."
-    mkdir -p .vuepress/dist/ansible_scripts
-    mkdir -p .vuepress/dist/cron
-    mkdir -p .vuepress/dist/certbot
-    mkdir -p .vuepress/dist/docker
-    mkdir -p .vuepress/dist/docker_volume
-    mkdir -p .vuepress/dist/grafana
-    mkdir -p .vuepress/dist/mysql
-    mkdir -p .vuepress/dist/nginx
-    mkdir -p .vuepress/dist/odoo
-    mkdir -p .vuepress/dist/postgres
-
-    echo "Copy script files to vuepress folder."
-    cp -r roles/ansible_scripts/files/* .vuepress/dist/ansible_scripts
-    cp -r roles/cron/files/* .vuepress/dist/cron
-    cp -r roles/certbot/files/* .vuepress/dist/certbot
-    cp -r roles/docker/files/* .vuepress/dist/docker
-    cp -r roles/docker_volume/files/* .vuepress/dist/docker_volume
-    cp -r roles/grafana/files/* .vuepress/dist/grafana
-    cp -r roles/mysql/files/* .vuepress/dist/mysql
-    cp -r roles/nginx/files/* .vuepress/dist/nginx
-    cp -r roles/odoo/files/* .vuepress/dist/odoo
-    cp -r roles/postgres/files/* .vuepress/dist/postgres
-}
-
-serve-vuepress() {
-    cd .vuepress/dist
-    pnpx serve
 }
 
 resize-logos() {

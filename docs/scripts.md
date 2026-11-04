@@ -2,15 +2,7 @@
 
 The following Ansible roles contain command line tools that can be used independent of Ansible.
 
-## [ansible_scripts](roles/ansible_scripts/README.md)
-
-```bash
-curl -L https://ansible.build/ansible_scripts/install | bash -s -- --user
-```
-
-- [ansible-vault-get](https://github.com/Mint-System/Ansible-Build/blob/main/roles/ansible_scripts/files/ansible-vault-get)
-
-## [cron](roles/cron/README.md)
+## [cron](roles/cron/)
 
 ```bash
 curl -L https://ansible.build/cron/install | bash -s -- --user
@@ -20,7 +12,7 @@ curl -L https://ansible.build/cron/install | bash -s -- --user
 - [cron-job-list](https://github.com/Mint-System/Ansible-Build/blob/main/roles/cron/files/cron-job-list)
 - [write-node-exporter-metric](https://github.com/Mint-System/Ansible-Build/blob/main/roles/cron/files/write-node-exporter-metric)
 
-## [certbot](roles/certbot/README.md)
+## [certbot](roles/certbot/)
 
 ```bash
 curl -L https://ansible.build/certbot/install | bash -s -- --user
@@ -29,7 +21,7 @@ curl -L https://ansible.build/certbot/install | bash -s -- --user
 - [docker-certbot-delete](https://github.com/Mint-System/Ansible-Build/blob/main/roles/certbot/files/docker-certbot-delete)
 - [docker-certbot-create](https://github.com/Mint-System/Ansible-Build/blob/main/roles/certbot/files/docker-certbot-create)
 
-## [docker](roles/docker/README.md)
+## [docker](roles/docker/)
 
 ```bash
 curl -L https://ansible.build/docker/install | bash -s -- --user
@@ -38,7 +30,7 @@ curl -L https://ansible.build/docker/install | bash -s -- --user
 - [docker-export](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-export)
 - [docker-import](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-import)
 
-## [docker_volume](roles/docker_volume/README.md)
+## [docker_volume](roles/docker_volume/)
 
 ```bash
 curl -L https://ansible.build/docker_volume/install | bash -s -- --user
@@ -53,7 +45,7 @@ curl -L https://ansible.build/docker_volume/install | bash -s -- --user
 - [docker-volume-copy](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker_volume/files/docker-volume-copy)
 
 
-## [grafana](roles/grafana/README.md)
+## [grafana](roles/grafana/)
 
 ```bash
 curl -L https://ansible.build/grafana/install | bash -s -- --user
@@ -62,7 +54,7 @@ curl -L https://ansible.build/grafana/install | bash -s -- --user
 - [grafana-backup](https://github.com/Mint-System/Ansible-Build/blob/main/roles/grafana/files/grafana-backup)
 
 
-## [mysql](roles/mysql/README.md)
+## [mysql](roles/mysql/)
 
 ```bash
 curl -L https://ansible.build/mysql/install | bash -s -- --user
@@ -74,7 +66,7 @@ curl -L https://ansible.build/mysql/install | bash -s -- --user
 - [docker-mysql-drop](https://github.com/Mint-System/Ansible-Build/blob/main/roles/mysql/files/docker-mysql-drop)
 
 
-## [nginx](roles/nginx/README.md)
+## [nginx](roles/nginx/)
 
 ```bash
 curl -L https://ansible.build/nginx/install | bash -s -- --user
@@ -84,7 +76,7 @@ curl -L https://ansible.build/nginx/install | bash -s -- --user
 - [docker-nginx-reload](https://github.com/Mint-System/Ansible-Build/blob/main/roles/nginx/files/docker-nginx-reload)
 - [get-public-ip](https://github.com/Mint-System/Ansible-Build/blob/main/roles/nginx/files/get-public-ip)
 
-## [odoo](roles/odoo/README.md)
+## [odoo](roles/odoo/)
 
 ```bash
 curl -L https://ansible.build/odoo/install | bash -s -- --user
@@ -113,7 +105,7 @@ curl -L https://ansible.build/odoo/install | bash -s -- --user
 - [odoo-duplicate](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/odoo-duplicate)
 - [odoo-restore](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/odoo-restore)
 
-## [postgres](roles/postgres/README.md)
+## [postgres](roles/postgres/)
 
 ```bash
 curl -L https://ansible.build/postgres/install | bash -s -- --user

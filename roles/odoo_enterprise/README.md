@@ -8,7 +8,7 @@ kind: application
 
 Checkout the Odoo Enterprise git repository.
 
-#DEPRECATED: Use the [Odoo Repos](../odoo_repos/README.md) role instead.
+#DEPRECATED: Use the [Odoo Repos](../odoo_repos/) role instead.
 
 ## Usage
 

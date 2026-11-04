@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: '.*\.y(a)?ml$'
+    age: "age1s32yt74eg7kysrxntdx87rmh056qz98e65aw42zn7mkv0ccle53qkdz7ds"

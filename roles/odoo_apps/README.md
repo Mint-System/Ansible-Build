@@ -8,7 +8,7 @@ kind: application
 
 Install Odoo apps from file or url.
 
-#DEPRECATED: Use the [Odoo Repos](../odoo_repos/README.md) role instead.
+#DEPRECATED: Use the [Odoo Repos](../odoo_repos/) role instead.
 
 ## Usage
 

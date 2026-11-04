@@ -1,0 +1,80 @@
+[project]
+site_url = "https://ansible.build/"
+site_name = "Ansible Build"
+site_description = "The Mint System collection of Ansible playbooks and roles."
+site_author = "Mint System GmbH"
+
+copyright = '© 2026 <a href="https://www.mint-system.ch/">Mint System GmbH</a>'
+
+repo_url = "https://github.com/Mint-System/Ansible-Build"
+repo_name = "Mint-System/Ansible-Build"
+edit_uri = "edit/main/"
+
+docs_dir = "docs"
+site_dir = "site"
+
+nav = [
+  { "Home" = "index.md" },
+  { "Roles" = "roles.md" },
+  { "Scripts" = "scripts.md" },
+  { "Upgrade Odoo" = "upgrade-odoo.md" },
+  { "Mint System GmbH" = "https://www.mint-system.ch/" },
+]
+
+extra_css = ["stylesheets/style.css"]
+extra_javascript = ["javascripts/extra.js"]
+
+[project.theme]
+name = "material"
+language = "en"
+favicon = "assets/icon.png"
+logo = "assets/icon.png"
+palette = [
+  { scheme = "default", primary = "indigo", accent = "indigo", media = "(prefers-color-scheme: light)", toggle = { icon = "material/brightness-7", name = "Switch to dark mode" } },
+  { scheme = "slate", primary = "indigo", accent = "indigo", media = "(prefers-color-scheme: dark)", toggle = { icon = "material/brightness-4", name = "Switch to light mode" } },
+]
+features = [
+  "navigation.tabs",
+  "navigation.sections",
+  "navigation.expand",
+  "navigation.footer",
+  "navigation.indexes",
+  "navigation.instant",
+  "navigation.path",
+  "navigation.top",
+  "navigation.tracking",
+  "search.suggest",
+  "search.highlight",
+  "content.code.copy",
+  "content.tooltips",
+]
+
+[project.markdown_extensions]
+abbr = {}
+admonition = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+md_in_html = {}
+toc.permalink = true
+pymdownx.arithmatex.generic = true
+pymdownx.betterem = {}
+pymdownx.caret = {}
+pymdownx.details = {}
+pymdownx.emoji.emoji_generator = "zensical.extensions.emoji.to_svg"
+pymdownx.emoji.emoji_index = "zensical.extensions.emoji.twemoji"
+pymdownx.highlight.anchor_linenums = true
+pymdownx.highlight.line_spans = "__span"
+pymdownx.highlight.pygments_lang_class = true
+pymdownx.inlinehilite = {}
+pymdownx.keys = {}
+pymdownx.magiclink = {}
+pymdownx.mark = {}
+pymdownx.smartsymbols = {}
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed.alternate_style = true
+pymdownx.tabbed.combine_header_slug = true
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.tilde = {}

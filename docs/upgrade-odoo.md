@@ -6,9 +6,9 @@ The Odoo Build project assists you in running upgrades for any Odoo project. Thi
 
 Running the upgrade requires scripts on the servers. Ensure that the following scripts are installed on the server:
 
-- <https://ansible.build/scripts.html#docker> provides generic Docker container commands
-- <https://ansible.build/scripts.html#odoo> helps managing the Odoo container
-- <https://ansible.build/scripts.html#postgres> supports managing the Postgres container
+- [../scripts/#docker](../scripts/#docker) provides generic Docker container commands
+- [../scripts/#odoo](../scripts/#odoo) helps managing the Odoo container
+- [../scripts/#postgres](../scripts/#postgres) supports managing the Postgres container
 
 ## Setup
 

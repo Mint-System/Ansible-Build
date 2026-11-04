@@ -1,0 +1,61 @@
+/* Mint System GmbH button in the navigation.
+   Replicates the old Vuepress navbar button, sized to fit the Material
+   header tabs. Applies to both the sidebar link and the top navigation tab. */
+.md-nav__link[href="https://www.mint-system.ch/"],
+.md-tabs__link[href="https://www.mint-system.ch/"] {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  background-color: #14d6c4;
+  color: #fff !important;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* Sidebar variant (kept for completeness; the nav currently uses tabs) */
+.md-nav__link[href="https://www.mint-system.ch/"] {
+  margin: 0.4rem 0;
+  padding: 0.25rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+/* Top navigation tab variant: keep the button at the same size as the other
+   tabs (tab item is 2.4rem tall, links are 0.7rem) and center it vertically */
+.md-tabs__link[href="https://www.mint-system.ch/"] {
+  height: 1.7rem;
+  margin-top: 0.35rem;
+  padding: 0 0.65rem;
+  font-size: 0.7rem;
+  opacity: 1;
+}
+
+/* Push the Mint System GmbH tab to the right edge of the navigation bar */
+.md-tabs__item:has(.md-tabs__link[href="https://www.mint-system.ch/"]) {
+  margin-left: auto;
+}
+
+/* On small screens the navigation tabs scroll horizontally; keep a small
+   margin on the right so the button does not touch the screen edge */
+@media screen and (max-width: 1219px) {
+  .md-tabs__item:has(.md-tabs__link[href="https://www.mint-system.ch/"]) {
+    margin-right: 0.6rem;
+  }
+}
+
+.md-nav__link[href="https://www.mint-system.ch/"]:hover,
+.md-tabs__link[href="https://www.mint-system.ch/"]:hover {
+  background-color: #0b9fa3;
+  color: #fff !important;
+}
+
+/* Dark mode: use a deeper teal that sits well on the dark header */
+[data-md-color-scheme="slate"] .md-nav__link[href="https://www.mint-system.ch/"],
+[data-md-color-scheme="slate"] .md-tabs__link[href="https://www.mint-system.ch/"] {
+  background-color: #087f74;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link[href="https://www.mint-system.ch/"]:hover,
+[data-md-color-scheme="slate"] .md-tabs__link[href="https://www.mint-system.ch/"]:hover {
+  background-color: #0b9fa3;
+}
