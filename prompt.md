@@ -1,8 +1,8 @@
 ---
-title: "Fix ci job command not found"
+title: "multiple connections for forgejo runner"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
-state: review
+state: draft
 date_completed: YYYY-MM-DD
 harness:
 provider:
@@ -11,7 +11,7 @@ input_tokens:
 output_tokens:
 ---
 
-# Fix ci job command not found
+# multiple connections for forgejo runner
 
 Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file.
 
@@ -23,99 +23,23 @@ Note: @Clanker refers to the "ai agent" (you) who is working on this prompt file
 
 ## Task
 
-The current `test-scripts` workflow fails on GitHub action. Here is the log:
 
-```
-3
-TEST: Test restic scripts
-Installing cron-job-run ...
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
+I want to support multiple registrations for the `forgejo_runner` role.
 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100    11  100    11    0     0     17      0 --:--:-- --:--:-- --:--:--    17
-Installing cron-job-list ...
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
+This requires refactoring `roles/forgejo_runner/templates/config.yaml`.
 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100    11  100    11    0     0     14      0 --:--:-- --:--:-- --:--:--    14
-Installing write-node-exporter-metric ...
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
+Instead of having `forgejo_runner_instance_url`, `forgejo_runner_instance_uuid` and `forgejo_runner_instance_token` vars I want one `forgejo_runner_connections` var.
 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100    20  100    20    0     0     32      0 --:--:-- --:--:-- --:--:--    32
-[WARNING]: Deprecation warnings can be disabled by setting `deprecation_warnings=False` in ansible.cfg.
-[DEPRECATION WARNING]: DEFAULT_MANAGED_STR option. Reason: The `ansible_managed` variable can be set just like any other variable, or a different variable can be used.
-Alternatives: Set the `ansible_managed` variable, or use any custom variable in templates. This feature will be removed from ansible-core version 2.23.
+Update the role to support this var. Setup a default `forgejo_runner_connections: "{{ vault_forgejo_runner_connections }}"`.
 
-[WARNING]: No inventory was parsed, only implicit localhost is available
-localhost | CHANGED => 
-    changed: true
-    envs: []
-    jobs:
-    - test
-/usr/local/bin/cron-job-list: line 1: Bad: command not found
-ASSERTION FAILED: Expected '[1] 0 */6 * * * test' in output.
-Output was:
-```
+Update the existing host vars `inventories/mint_system/host_vars/dione/vars.yaml` by moving the existing connection into `inventories/mint_system/host_vars/dione/vault.yaml`.
 
-What could be the problem?
+Use `decrypt-file` to edit the vault file.
 
 @Clanker When task is completed set frontmatter state to review. Prompt the author to verify the results.
 
 ## Worklog
 
-### Diagnosis
-
-The `curl` output in the log downloads **11 bytes** per script. Those bytes are not the script but the body of an HTTP error response. A direct check confirms the endpoint is down:
-
-```bash
-$ curl -sL -o /dev/null -w 'HTTP %{http_code} size %{size_download}\n' https://ansible.build/cron/cron-job-list
-HTTP 503 size 20
-```
-
-So `/usr/local/bin/cron-job-list` contained a line like `Bad Gateway` or `no available server`. Bash then reports `line 1: Bad: command not found`, `cron-job-list` produces no output and `assert-contains` fails. The test itself is correct; the installer was silently writing error pages as executables.
-
-Two defects combined:
-
-1. `curl -L` without `-f` treats HTTP 4xx/5xx as success and writes the error body to the output file.
-2. Commit `d9bb418a` removed the local-file branch from `roles/cron/files/install`, so the CI run no longer used the checked-out scripts and hard-depended on the `ansible.build` endpoint.
-
-### Fix
-
-All nine `roles/*/files/install` scripts now:
-
-- resolve `script_dir` via `dirname "$(readlink -f "$0")"` and install from the sibling file when present (the normal case in a checkout and in CI)
-- fall back to the download only when the local file is missing, using `curl -fsSL` so a non-2xx response aborts with exit code 22 instead of installing an error page
-- honour `--user` consistently (`install_dir`, no `sudo`), which `firehol`, `certbot`, `grafana`, `mysql` and `nginx` did not support before
-
-### Verification
-
-```bash
-# all roles install real scripts
-for r in postgres odoo docker certbot grafana mysql nginx firehol; do
-    HOME=$PWD/tmp/install-test ./roles/$r/files/install --user
-done
-
-# the failing assertion now passes
-PATH="$PWD/tmp:$PWD/tmp/install-test/.local/bin:$PATH" cron-job-list
-[1] 0 */6 * * * test
-
-# download path fails loudly instead of silently
-curl: (22) The requested URL returned error: 503
-exit code: 22
-```
-
-`bash -n` and `shellcheck -S warning` are clean on all install scripts.
-
-### Follow-up for the author
-
-The `ansible.build` endpoint returns 503 for every path (`cron/install`, `postgres/install`, `odoo/install`). The `install-ansible-build-scripts` task documented in the help table has no implementation in `task`. Both are out of scope here but should be looked at, since the documented
-`curl -L https://ansible.build/cron/install | bash -s -- --user`
-flow in `docs/scripts.md` is still broken for external users.
+@Clanker Add a summary here once the task has been completed.
 
 @Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness, provider and model. If you have access to session info also add token count.
