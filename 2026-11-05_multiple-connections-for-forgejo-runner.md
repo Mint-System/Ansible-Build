@@ -1,5 +1,5 @@
 ---
-commit_ref: b88e16f7600cd96fb54fc8aee8f47071220dd5c4
+commit_ref: e6aa1acb07daaa20b5929cb7d318cc3caf61e22c
 title: "multiple connections for forgejo runner"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
