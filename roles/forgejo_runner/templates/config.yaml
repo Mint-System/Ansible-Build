@@ -1,6 +1,9 @@
 log:
   level: info
 
+container:
+  force_pull: {{ forgejo_runner_force_pull | bool | lower }}
+
 server:
   connections:
 {% for connection in forgejo_runner_connections %}

@@ -24,6 +24,7 @@ forgejo_runner_connections: # default: "{{ vault_forgejo_runner_connections }}"
     token: <runner token>
     labels: ["docker:docker://node:lts"] # optional, default: "{{ forgejo_runner_labels }}"
 forgejo_runner_labels: ["docker:docker://node:lts"] # default
+forgejo_runner_force_pull: false # default
 forgejo_runner_volume_name: runner01 # default: "{{ forgejo_runner_hostname }}"
 forgejo_runner_data_dir: /usr/share/runner01 # default: "/usr/share/{{ forgejo_runner_hostname }}"
 ```
@@ -59,3 +60,5 @@ Each entry in `forgejo_runner_connections` registers the runner on another insta
 ### Jobs with Docker
 
 The runner connects to the host Docker daemon over `/var/run/docker.sock`. Workflows declare a label, e.g. `runs-on: docker`, to run jobs in containers.
+
+Set `forgejo_runner_force_pull: true` to pull job images even when a local copy of the tag exists. Without it the runner reuses a stale `latest` image indefinitely.
