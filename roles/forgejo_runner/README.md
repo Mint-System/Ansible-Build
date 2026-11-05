@@ -17,9 +17,12 @@ Configure the role.
 forgejo_runner_image: code.forgejo.org/forgejo/runner:13.2.0 # default
 forgejo_runner_hostname: runner01 # default: runner
 forgejo_runner_description: Forgejo Runner # default: Forgejo Runner
-forgejo_runner_instance_url: https://codeberg.org/ # default
-forgejo_runner_instance_uuid: 3e027763-5262-4781-8d60-def47f6a9afd
-forgejo_runner_instance_token: # default: "{{ vault_forgejo_runner_instance_token }}"
+forgejo_runner_connections: # default: "{{ vault_forgejo_runner_connections }}"
+  - name: forgejo
+    url: https://codeberg.org/
+    uuid: 3e027763-5262-4781-8d60-def47f6a9afd
+    token: <runner token>
+    labels: ["docker:docker://node:lts"] # optional, default: "{{ forgejo_runner_labels }}"
 forgejo_runner_labels: ["docker:docker://node:lts"] # default
 forgejo_runner_volume_name: runner01 # default: "{{ forgejo_runner_hostname }}"
 forgejo_runner_data_dir: /usr/share/runner01 # default: "/usr/share/{{ forgejo_runner_hostname }}"
@@ -39,13 +42,19 @@ And include it in your playbook.
 
 Create a runner on the Forgejo instance: https://codeberg.org/org/Mint-System/settings/actions/runners/new
 
-Set the connection details.
+Add the connection to the encrypted vault variable.
 
-```bash
-task encrypt-string mint_system "vault_forgejo_runner_instance_token" "<runner token>"
+```yml
+vault_forgejo_runner_connections:
+  - name: forgejo
+    url: https://codeberg.org/
+    uuid: 3e027763-5262-4781-8d60-def47f6a9afd
+    token: <runner token>
 ```
 
-The runner token and UUID are shown only once when the runner is created.
+Encrypt the value with `ansible-vault encrypt_string` and store it in the host `vault.yml`. The runner token and UUID are shown only once when the runner is created.
+
+Each entry in `forgejo_runner_connections` registers the runner on another instance or organization.
 
 ### Jobs with Docker
 

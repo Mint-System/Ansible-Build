@@ -252,7 +252,7 @@ connect-host() {
 }
 
 decrypt-file() {
-    if [[ -z "$1" ]]; then echo '$1 is empty'; exit; fi
+    if [[ -z "$1" ]]; then echo '$1/path is empty'; exit; fi
     echo "Decrypt file $1."
     activate-venv
     ansible-vault decrypt --output="$1" "$1"

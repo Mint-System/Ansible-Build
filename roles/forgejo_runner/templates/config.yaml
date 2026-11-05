@@ -3,11 +3,13 @@ log:
 
 server:
   connections:
-    forgejo:
-      url: "{{ forgejo_runner_instance_url }}"
-      uuid: "{{ forgejo_runner_instance_uuid }}"
-      token: "{{ forgejo_runner_instance_token }}"
+{% for connection in forgejo_runner_connections %}
+    {{ connection.name }}:
+      url: "{{ connection.url }}"
+      uuid: "{{ connection.uuid }}"
+      token: "{{ connection.token }}"
       labels:
-{% for label in forgejo_runner_labels %}
+{% for label in connection.labels | default(forgejo_runner_labels) %}
         - "{{ label }}"
+{% endfor %}
 {% endfor %}
