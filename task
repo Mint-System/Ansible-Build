@@ -648,6 +648,19 @@ test-project() {
             loki,loki_data,loki_volume,\
             promtail,promtail_data,promatil_volume,\
             docker_compose,docker_compose_data"
+
+        echo "Remove iam users and groups"
+        local host_vars=$(ansible-inventory -i test_inventory --host localhost)
+        for user in $(jq -r '.iam_users[].username' <<< "$host_vars"); do
+            ansible localhost -i test_inventory -m ansible.builtin.user \
+                -a "name=$user state=absent remove=yes force=yes" \
+                -e "ansible_python_interpreter=$PWD/.venv/bin/python"
+        done
+        for group in $(jq -r '.iam_groups[].name' <<< "$host_vars"); do
+            ansible localhost -i test_inventory -m ansible.builtin.group \
+                -a "name=$group state=absent" \
+                -e "ansible_python_interpreter=$PWD/.venv/bin/python"
+        done
     else
         echo "Setup localhost"
         ansible-playbook -i test_inventory plays/localhost.yml --skip-tags check
