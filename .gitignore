@@ -1,19 +1,26 @@
-.vault_pass*
-default.vim
-.DS_Store
-*.swp
-run.sh
-venv*
-inventories
-node_modules
-.tmp
-.cache
+# Taskfile
 tmp
-.obsidian/workspace.json
+prompt.md
 .env
+
+# Zensical
+.venv
+site
+
+# Python
+.venv
 __pycache__
+
+# pnpm
+node_modules
+pnpm-workspace.yaml
+
+# Obsidian
+.obsidian/workspace.json
+
+# Project
+.vault_pass*
+inventories
 ansible.cfg
 docs/roles
 docs/logos
-site
-.vercel

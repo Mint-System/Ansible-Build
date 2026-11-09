@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Usage: https://taskfile.build/usage/
 set -e
 
 if [[ -f ".env" ]]; then
