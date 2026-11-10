@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- When the `nextcloud` container image is updated, the `occ` config tasks are skipped in that run while the entrypoint upgrade runs and applied on the next deployment; fresh deployments (no existing container) are still configured immediately.
 - BREAKING!: Renamed variables with `_proxy_basic_auth_` to `_basic_auth_`.
 - Renamed `clean` to `cleanup`.
 - Updated bash scripts to follow coding conventions from AGENTS.md.

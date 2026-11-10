@@ -66,6 +66,11 @@
     - MYSQL_DATABASE: "{{ nextcloud_mysql_db }}"
   when: nextcloud_mysql_hostname is defined
 
+- name: Get current {{ role_name }} container state
+  community.docker.docker_container_info:
+    name: "{{ nextcloud_hostname }}"
+  register: nextcloud_container_before
+
 - name: Start {{ role_name }} container {{ nextcloud_hostname }}
   community.docker.docker_container:
     name: "{{ nextcloud_hostname }}"
@@ -80,15 +85,6 @@
       - name: "{{ docker_network_name }}"
     etc_hosts: "{{ nextcloud_etc_hosts }}"
   register: start_nextcloud_container
-
-- name: Info about upgrades
-  debug:
-    msg: When Nextlcoud upgrade is running, abort the task. The upgrade process will most likely take more time than 30 seconds.
-
-- name: Wait for {{ role_name }} container
-  ansible.builtin.pause:
-    seconds: "30"
-  when: start_nextcloud_container.changed
 
 - name: Cron job to run {{ role_name }} background jobs
   ansible.builtin.cron:

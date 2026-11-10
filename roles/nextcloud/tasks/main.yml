@@ -19,8 +19,12 @@
   tags:
     - nextcloud
 
+# Apply the occ config unless the container image was just upgraded: then the
+# entrypoint is still running the upgrade and the config tasks are deferred to the
+# next deployment. Fresh deployments (no existing container) are configured right away.
+# Compare the tag (Config.Image), not the raw inspect Image which is the image ID.
 - name: Include {{ role_name }} config tasks
   ansible.builtin.include_tasks: "{{ role_name }}_config.yml"
-  when: nextcloud_image is defined
+  when: nextcloud_image is defined and (not nextcloud_container_before.exists | default(false) or (nextcloud_container_before.container.Config.Image | default('') | split('/') | last == nextcloud_image | split('/') | last))
   tags:
     - nextcloud
