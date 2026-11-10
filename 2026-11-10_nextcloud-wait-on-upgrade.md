@@ -1,15 +1,15 @@
 ---
-commit_ref:
+commit_ref: 2b52542a72629df94ff98a86b2388f2d07ab9d5c
 title: "Nextcloud wait on upgrade"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 action: implement
-state: draft
-date_completed: YYYY-MM-DD
-harness:
-provider:
-model:
-input_tokens:
-output_tokens:
+state: completed
+date_completed: 2026-11-10
+harness: pi
+provider: deepseek
+model: deepseek-v4-flash-0731
+input_tokens: 1474651
+output_tokens: 74890
 ---
 
 # Nextcloud wait on upgrade
@@ -187,6 +187,11 @@ I will test it myself by running the nextcloud update for `hades_nextcloud`.
 
 ## Worklog
 
-@Clanker Add a summary here once the task has been completed.
+- Author's real test on `zeus_nextcloud` (32 -> 33) showed the wait loop passed instantly: right after container recreate, the entrypoint has not started the upgrade yet, so `occ status` still reports `maintenance: false` while the old code is on disk. The subsequent `occ config` tasks then hit the mid-upgrade file-swap race.
+- Per author's direction, dropped the wait/polling approach entirely (no maintenance mode checks) and instead skip the occ `_config` tasks in the run that just (re)created the container:
+  - Removed the fixed `pause`/debug abort hint and the `occ status` wait loop from `roles/nextcloud/tasks/nextcloud.yml`.
+  - Gated `Include nextcloud config tasks` in `roles/nextcloud/tasks/main.yml` on the container image having changed: a `docker_container_info` snapshot before the container start (`nextcloud_container_before`) is compared to `nextcloud_image`. Config is applied unless an existing container runs a different image (upgrade running); fresh deployments (no container) are configured immediately.
+  - Author's normal run on `eris_nextcloud` (no image change) showed config was skipped: the raw inspect `container.Image` is the image ID hash, never equal to the tag. Fixed by comparing `container.Config.Image` (the tag, registry-prefix-stripped with `split('/') | last`) instead. Verified all five scenarios with a real Ansible templating test: fresh->apply, no-op->apply, upgrade->skip, recreate same image->apply, registry-prefixed->apply.
+  - Removed the `nextcloud_upgrade_wait_*` vars from `roles/nextcloud/defaults/main.yml`, the README and the CHANGELOG entries now describe the skip-on-recreate behaviour.
 
 @Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness, provider and model. If you have access to session info also add token count. Finally, update the changelog with the most important changes.
