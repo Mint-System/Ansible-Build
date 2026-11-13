@@ -10,9 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Removed `snap_packages` from `packages` role.
+- Removed `grafana-backup` script from `grafana` role.
 
 ### Added
 
+- New `odoo_repos` scripts `odoo-repos-list`, `odoo-repos-clone` and `odoo-repos-pull` including an install script and role tasks.
+- New "Guides" documentation section with `Guides.md` overview, "Deploy Odoo module repo" guide and relocated "Upgrade Odoo" guide.
 - Do a port knocking in `certbot_check.yml` task.
 - Command `run` to execute Ansible commands.
 - New role "Open WebUI" created using `postgres` role as template.
@@ -41,3 +44,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `dev-vuepress` task to automatically open the browser after starting the development server.
 - Updated PostgreSQL volume mount path from `/var/lib/postgresql/data` to `/var/lib/postgresql` in `README.md`, `roles/docker_compose/README.md`, `roles/postgres/README.md`, and `roles/postgres/defaults/main.yml`.
 - Updated default PostgreSQL image version from `postgres:14-alpine` to `postgres:18-alpine` in `roles/postgres/README.md`.
+- `odoo_repos` role creates repo directories with mode `2775` and grants the Odoo group write access, so group members can clone and pull.
+- `certbot` role skips certificates that have a `dns` attribute, as those are issued by `acme_sh`, and sanitizes wildcard container names.
+- Moved `docs/upgrade-odoo.md` to `docs/Guides/upgrade-odoo.md`.
