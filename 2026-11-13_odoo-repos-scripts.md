@@ -1,5 +1,5 @@
 ---
-commit_ref: d998d56737d99e824d71c2f0a27e126627402411
+commit_ref: 1998f68e647f87378eff87cde7e242bb57284187
 title: "Odoo Repos scripts"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 session_id: 01a1d423-fc38-74d5-8e30-13a9e6ccbc6c
