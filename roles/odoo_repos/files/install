@@ -4,7 +4,9 @@ set -e
 repository='https://ansible.build'
 
 scripts=(
-    grafana-backup
+    odoo-repos-list
+    odoo-repos-clone
+    odoo-repos-pull
 )
 
 install_dir='/usr/local/bin'
@@ -23,7 +25,7 @@ for script in "${scripts[@]}"; do
         cp "$script_dir/$script" "$install_dir/$script"
     else
         echo "Installing $script from $repository ..."
-        curl -fsSL "$repository/grafana/$script" -o "$install_dir/$script"
+        curl -fsSL "$repository/odoo_repos/$script" -o "$install_dir/$script"
     fi
     chmod +x "$install_dir/$script"
 done

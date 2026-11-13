@@ -13,6 +13,7 @@
     state: directory
     owner: "{{ odoo_owner }}"
     group: "{{ odoo_group }}"
+    mode: "{{ odoo_repos_dir_mode }}"
   loop: "{{ odoo_repos }}"
 
 - name: Pull repo branch with ssh
@@ -207,6 +208,14 @@
     scope: global
     add_mode: add
     value: "{{ odoo_data_dir }}/{{ item.path }}"
+  loop: "{{ odoo_repos }}"
+
+- name: Allow {{ odoo_group }} group to manage the repos
+  ansible.builtin.shell: |
+    set -e
+    chmod -R g+rwX "{{ odoo_data_dir }}/{{ item.path }}"
+    find "{{ odoo_data_dir }}/{{ item.path }}" -type d -exec chmod g+s {} +
+  changed_when: false
   loop: "{{ odoo_repos }}"
 
 - name: Register {{ role_name }} repo directories

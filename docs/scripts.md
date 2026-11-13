@@ -37,15 +37,6 @@ curl -L https://ansible.build/docker/install | bash -s -- --user
 - [docker-volume-restore](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-volume-restore)
 - [docker-volume-copy](https://github.com/Mint-System/Ansible-Build/blob/main/roles/docker/files/docker-volume-copy)
 
-## [grafana](roles/grafana/)
-
-```bash
-curl -L https://ansible.build/grafana/install | bash -s -- --user
-```
-
-- [grafana-backup](https://github.com/Mint-System/Ansible-Build/blob/main/roles/grafana/files/grafana-backup)
-
-
 ## [mysql](roles/mysql/)
 
 ```bash
@@ -96,6 +87,16 @@ curl -L https://ansible.build/odoo/install | bash -s -- --user
 - [odoo-drop](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/odoo-drop)
 - [odoo-duplicate](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/odoo-duplicate)
 - [odoo-restore](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo/files/odoo-restore)
+
+## [odoo_repos](roles/odoo_repos/)
+
+```bash
+curl -L https://ansible.build/odoo_repos/install | bash -s -- --user
+```
+
+- [odoo-repos-list](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo_repos/files/odoo-repos-list)
+- [odoo-repos-clone](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo_repos/files/odoo-repos-clone)
+- [odoo-repos-pull](https://github.com/Mint-System/Ansible-Build/blob/main/roles/odoo_repos/files/odoo-repos-pull)
 
 ## [postgres](roles/postgres/)
 

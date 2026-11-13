@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.0.0"
+
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: Clone a git repo into an Odoo addons directory.'
+    echo "Syntax: $script [-p|-r|-b|-t|-V|help]"
+    echo 'Example: $script -p /usr/share/odoo01/addons -r https://github.com/OCA/partner-contact.git -b 19.0 -t oca-partner-contact'
+    echo 'options:'
+    echo '  -p    Odoo addons path. Defaults to '\''/usr/share/odoo/addons'\''.'
+    echo '  -r    Git repo url.'
+    echo '  -b    Git branch.'
+    echo '  -t    Target path relative to the addons path.'
+    echo '  -V    Show $script version.'
+    echo "  help  Show $script manual."
+    echo
+}
+
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+path=/usr/share/odoo/addons
+
+while getopts ':p:r:b:t:V' opt; do
+    case $opt in
+        p) path="$OPTARG";;
+        r) repo="$OPTARG";;
+        b) branch="$OPTARG";;
+        t) target="$OPTARG";;
+        V) echo "$script version $version"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit 1;;
+    esac
+done
+
+[[ -z "$repo" ]] && { echo 'Parameter -r|repo is empty.'; exit 1; }
+[[ -z "$branch" ]] && { echo 'Parameter -b|branch is empty.'; exit 1; }
+[[ -z "$target" ]] && { echo 'Parameter -t|target is empty.'; exit 1; }
+[[ -d "$path" ]] || { echo "Path $path does not exist."; exit 1; }
+
+path="${path%/}"
+repo_path="$path/$target"
+
+[[ -e "$repo_path" ]] && { echo "Path $repo_path already exists."; exit 1; }
+
+echo "Clone $repo branch $branch into $repo_path ..."
+
+mkdir -p "$(dirname "$repo_path")"
+git clone --branch "$branch" "$repo" "$repo_path"
+
+# Apply group of the addons path
+chgrp -R "$(stat -c '%g' "$path")" "$repo_path"
+
+echo "The repo has been cloned to $repo_path."

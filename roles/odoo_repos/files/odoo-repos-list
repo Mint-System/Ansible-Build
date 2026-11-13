@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -e
+
+script=$(basename "$0")
+version="1.0.0"
+max_depth=3
+
+help() {
+    echo
+    echo "$script"
+    echo
+    echo 'Description: List git repos of an Odoo addons directory.'
+    echo "Syntax: $script [-p|-d|-V|help]"
+    echo 'Example: $script -p /usr/share/odoo01/addons'
+    echo 'options:'
+    echo '  -p    Odoo addons path. Defaults to '\''/usr/share/odoo/addons'\''.'
+    echo '  -d    Maximum search depth for git repos. Defaults to '\''3'\''.'
+    echo '  -V    Show $script version.'
+    echo "  help  Show $script manual."
+    echo
+}
+
+if [[ "$1" == 'help' ]]; then
+    help
+    exit
+fi
+
+path=/usr/share/odoo/addons
+
+while getopts ':p:d:V' opt; do
+    case $opt in
+        p) path="$OPTARG";;
+        d) max_depth="$OPTARG";;
+        V) echo "$script version $version"
+        exit 0
+        ;;
+        \?) echo "Invalid option -$OPTARG" >&2
+        help
+        exit 1;;
+    esac
+done
+
+[[ -d "$path" ]] || { echo "Path $path does not exist."; exit 1; }
+
+path=$(realpath "${path%/}")
+
+echo 'odoo_repos:'
+
+git_dir=''
+while read -r git_dir; do
+    repo_path=$(dirname "$git_dir")
+    # Repos owned by another user are rejected by git
+    git config --global --add safe.directory "$repo_path" 2>/dev/null || true
+    url=$(git -C "$repo_path" config --get remote.origin.url || true)
+    # Detached HEAD has no branch, fall back to the checked out commit
+    branch=$(git -C "$repo_path" rev-parse --abbrev-ref HEAD 2>/dev/null || true)
+    [[ "$branch" == 'HEAD' ]] && branch=$(git -C "$repo_path" rev-parse --short HEAD 2>/dev/null || true)
+    echo "  - path: ${repo_path#"$path"/}"
+    echo "    url: $url"
+    echo "    branch: $branch"
+done < <(find "$path" -maxdepth "$max_depth" -name '.git' -type d | sort)

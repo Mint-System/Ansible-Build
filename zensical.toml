@@ -17,7 +17,11 @@ nav = [
   { "Home" = "index.md" },
   { "Roles" = "roles.md" },
   { "Scripts" = "scripts.md" },
-  { "Upgrade Odoo" = "upgrade-odoo.md" },
+  { "Guides" = [
+    { "Guides" = "Guides.md" },
+    { "Deploy Odoo module repo" = "Guides/deploy-odoo-module-repo.md" },
+    { "Upgrade Odoo" = "Guides/upgrade-odoo.md" },
+  ] },
   { "Mint System GmbH" = "https://www.mint-system.ch/" },
 ]
 

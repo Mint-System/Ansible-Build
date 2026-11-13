@@ -1,4 +1,6 @@
 ---
+odoo_repos_scripts_dir: /usr/local/bin
+odoo_repos_dir_mode: "2775"
 odoo_data_dir: /usr/share/{{ odoo_hostname }}
 github_pat: "{{ vault_github_pat }}"
 odoo_owner: root

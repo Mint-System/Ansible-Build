@@ -777,6 +777,21 @@ test-scripts() {
         assert-contains "admint" "$(docker-odoo-shell -c odoo01-int -d odoo-int -p 'print(env["res.partner"].browse(1).name)')"
         docker-odoo-upgrade -c postgres01 -d odoo-int -s "18.0" -n upgrade -t "19.0" -m test -l "$ODOO_ENTERPRISE_CODE"
 
+        echo -e "\033[38;5;214mTEST\033[0m: Test odoo repos scripts"
+        sudo ./roles/odoo_repos/files/install
+
+        local repos_path="/var/tmp/odoo-repos-test"
+        sudo rm -rf "$repos_path"
+        sudo mkdir -p "$repos_path"
+        sudo chown "$USER" "$repos_path"
+        odoo-repos-clone -p "$repos_path" -r https://github.com/OCA/partner-contact.git -b 19.0 -t oca-partner-contact
+        odoo-repos-clone -p "$repos_path" -r https://github.com/OCA/server-backend.git -b 19.0 -t addons/oca-server-backend
+        assert-contains "path: oca-partner-contact" "$(odoo-repos-list -p "$repos_path")"
+        assert-contains "path: addons/oca-server-backend" "$(odoo-repos-list -p "$repos_path")"
+        odoo-repos-pull -p "$repos_path"
+        assert-contains "Already up to date" "$(odoo-repos-pull -p "$repos_path/oca-partner-contact")"
+        sudo rm -rf "$repos_path"
+
         echo -e "\033[38;5;214mTEST\033[0m: Test docker volume scripts"
         docker stop postgres01
         docker-volume-backup -c postgres01 -v postgres01

@@ -9,7 +9,10 @@
     path: "{{ certbot_data_dir }}/live/{{ item.src_hostname | replace('*.', '') }}"
   loop: "{{ nginx_proxies }}"
   register: certbot_certs
-  when: item.tls is defined and item.tls
+  # Certs with dns attribute are issued by acme_sh
+  when:
+    - item.tls is defined and item.tls
+    - item.dns is not defined
 
 - name: Create list of missing certs
   ansible.builtin.set_fact:
@@ -71,7 +74,7 @@
 
 - name: Issue certificate with {{ role_name }}
   ansible.builtin.command: >-
-    docker run --rm --name {{ item }}
+    docker run --rm --name {{ item | replace('*.', 'wildcard.') }}
     -v {{ certbot_data_dir }}/:/etc/letsencrypt/
     -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }}
     certonly --webroot --email {{ certbot_email }} --agree-tos --webroot-path=/var/www/certbot/ -d {{ item }}
@@ -83,7 +86,7 @@
 
 - name: Issue certificate with dns-freends authenticator
   ansible.builtin.command: >-
-    docker run --rm --name {{ item }}
+    docker run --rm --name {{ item | replace('*.', 'wildcard.') }}
     -v {{ certbot_data_dir }}/:/etc/letsencrypt/
     -v {{ certbot_data_dir }}/www/:/var/www/certbot/ {{ certbot_image }} certonly
     --authenticator dns-freedns --dns-freedns-propagation-seconds 60
