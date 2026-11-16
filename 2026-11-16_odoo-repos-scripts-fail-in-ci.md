@@ -1,5 +1,5 @@
 ---
-commit_ref: a4183e5e88bc97c32c7043e44512613b450ed0d8
+commit_ref: ba3944e8558833c2202371e03a62d62ccdf8be30
 title: "odoo repos scripts fail in ci"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
 session_id: 01a1e31b-56cf-7486-a988-c5f68b331c1e
