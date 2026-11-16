@@ -48,4 +48,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `certbot` role skips certificates that have a `dns` attribute, as those are issued by `acme_sh`, and sanitizes wildcard container names.
 - Moved `docs/upgrade-odoo.md` to `docs/Guides/upgrade-odoo.md`.
 - `odoo-repos-clone` only changes the repo group when it differs from the addons path group and warns instead of failing when the change is not permitted.
-- `odoo_repos` role asks for confirmation `(Y/n)` before removing unmanaged repo directories; disable with `odoo_repos_confirm_removal: false`.
+- `odoo_repos` role lists unmanaged repo directories instead of prompting for their removal, so deployments run unattended and never delete unmanaged repos.
