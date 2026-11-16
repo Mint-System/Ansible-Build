@@ -235,20 +235,8 @@
   ansible.builtin.set_fact:
     odoo_unmanaged_repo_dirs: "{{ odoo_repo_git_dirs.files | map(attribute='path') | map('dirname') | map('relpath', odoo_data_dir) | difference(odoo_managed_repo_dirs) }}"
 
-- name: Confirm removal of unmanaged {{ role_name }} repo directories
-  ansible.builtin.pause:
-    prompt: |-
-      Remove these unmanaged git repos in {{ odoo_data_dir }}?
-      {% for dir in odoo_unmanaged_repo_dirs %}{{ dir }}
-      {% endfor %}(Y/n)
-  register: odoo_repos_remove_confirmation
+- name: List unmanaged {{ role_name }} repo directories
+  ansible.builtin.debug:
+    msg: "Unmanaged git repos in {{ odoo_data_dir }}: {{ odoo_unmanaged_repo_dirs | join(', ') }}"
   when:
     - odoo_unmanaged_repo_dirs | length > 0
-
-- name: Remove unmanaged {{ role_name }} repo directories
-  ansible.builtin.file:
-    path: "{{ odoo_data_dir }}/{{ item }}"
-    state: absent
-  loop: "{{ odoo_unmanaged_repo_dirs }}"
-  when: odoo_repos_remove_confirmation.user_input | default('n', true) | lower in ['y', 'yes']
-  notify: Restart odoo container
