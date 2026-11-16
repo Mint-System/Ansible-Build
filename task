@@ -783,6 +783,7 @@ test-scripts() {
         local repos_path="/var/tmp/odoo-repos-test"
         sudo rm -rf "$repos_path"
         sudo mkdir -p "$repos_path"
+        # Keep the root group to test cloning without permission to change the group
         sudo chown "$USER" "$repos_path"
         odoo-repos-clone -p "$repos_path" -r https://github.com/OCA/partner-contact.git -b 19.0 -t oca-partner-contact
         odoo-repos-clone -p "$repos_path" -r https://github.com/OCA/server-backend.git -b 19.0 -t addons/oca-server-backend

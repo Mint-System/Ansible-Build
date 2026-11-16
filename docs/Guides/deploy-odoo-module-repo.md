@@ -18,19 +18,6 @@ Check that the scripts are available.
 odoo-repos-list help
 ```
 
-## Prepare the addons directory
-
-Ensure the addons directory exists and is owned by the Odoo owner and group. The user running the scripts must be a member of the Odoo group.
-
-```bash
-sudo mkdir -p /usr/share/odoo01/addons
-sudo chown root:odoo /usr/share/odoo01/addons
-sudo usermod -aG odoo "$USER"
-```
-
-!!! note
-    The `odoo-repos-clone` script applies the group of the addons path to the cloned repo. Set the group before cloning.
-
 ## Add the repo
 
 Clone the `partner-contact` repo on branch `19.0` into the addons directory.
@@ -109,4 +96,4 @@ odoo_repos:
 ```
 
 !!! warning
-    The role removes directories in the addons path that are not listed in `odoo_repos`. Add all manually cloned repos to the var before running the role.
+    The role removes directories in the addons path that are not listed in `odoo_repos`. Add all manually cloned repos to the var before running the role. The role asks for confirmation before removing directories; set `odoo_repos_confirm_removal: false` to skip the prompt.

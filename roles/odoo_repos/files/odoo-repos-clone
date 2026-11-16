@@ -59,6 +59,11 @@ mkdir -p "$(dirname "$repo_path")"
 git clone --branch "$branch" "$repo" "$repo_path"
 
 # Apply group of the addons path
-chgrp -R "$(stat -c '%g' "$path")" "$repo_path"
+path_gid=$(stat -c '%g' "$path")
+if [[ "$(stat -c '%g' "$repo_path")" == "$path_gid" ]]; then
+    :
+elif ! chgrp -R "$path_gid" "$repo_path"; then
+    echo "Cannot change group of $repo_path to $path_gid, skipping group change."
+fi
 
 echo "The repo has been cloned to $repo_path."
