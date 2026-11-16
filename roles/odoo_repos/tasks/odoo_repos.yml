@@ -218,34 +218,37 @@
   changed_when: false
   loop: "{{ odoo_repos }}"
 
-- name: Register {{ role_name }} repo directories
-  ansible.builtin.shell: "find {{ odoo_data_dir }} -mindepth 1 -maxdepth 1 -type d -printf '%f\n'"
-  changed_when: false
-  register: odoo_repo_dirs
+- name: Register {{ role_name }} git directories
+  ansible.builtin.find:
+    paths: "{{ odoo_data_dir }}"
+    patterns: .git
+    file_type: directory
+    recurse: true
+    hidden: true
+  register: odoo_repo_git_dirs
 
 - name: Create managed repo list from repo list
   ansible.builtin.set_fact:
-    odoo_managed_repo_dirs: "{{ odoo_repos | map(attribute='path') | map('regex_replace', '^(.*)/.*$', '\\1') | unique | list }}"
+    odoo_managed_repo_dirs: "{{ odoo_repos | map(attribute='path') | list }}"
 
 - name: Create unmanaged repo list
   ansible.builtin.set_fact:
-    odoo_unmanaged_repo_dirs: "{{ odoo_repo_dirs.stdout_lines | difference(odoo_managed_repo_dirs) }}"
+    odoo_unmanaged_repo_dirs: "{{ odoo_repo_git_dirs.files | map(attribute='path') | map('dirname') | map('relpath', odoo_data_dir) | difference(odoo_managed_repo_dirs) }}"
 
 - name: Confirm removal of unmanaged {{ role_name }} repo directories
   ansible.builtin.pause:
     prompt: |-
-      Remove these unmanaged directories in {{ odoo_data_dir }}?
+      Remove these unmanaged git repos in {{ odoo_data_dir }}?
       {% for dir in odoo_unmanaged_repo_dirs %}{{ dir }}
       {% endfor %}(Y/n)
   register: odoo_repos_remove_confirmation
   when:
     - odoo_unmanaged_repo_dirs | length > 0
-    - odoo_repos_confirm_removal
 
 - name: Remove unmanaged {{ role_name }} repo directories
   ansible.builtin.file:
     path: "{{ odoo_data_dir }}/{{ item }}"
     state: absent
   loop: "{{ odoo_unmanaged_repo_dirs }}"
-  when: not odoo_repos_confirm_removal or odoo_repos_remove_confirmation.user_input | default('y') | lower in ['y', 'yes']
+  when: odoo_repos_remove_confirmation.user_input | default('n', true) | lower in ['y', 'yes']
   notify: Restart odoo container

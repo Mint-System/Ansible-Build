@@ -5,4 +5,3 @@ odoo_data_dir: /usr/share/{{ odoo_hostname }}
 github_pat: "{{ vault_github_pat }}"
 odoo_owner: root
 odoo_group: root
-odoo_repos_confirm_removal: true

@@ -17,7 +17,6 @@ odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_revision: "18.0.20250725"
 odoo_repo_key_file: /home/bot/.ssh/id_ed25519
 github_pat: # default: "{{ vault_github_pat }}"
-odoo_repos_confirm_removal: true # default: true
 odoo_repos:
   - path: enterprise
     url: https://bot-mintsys:{{ github_pat | urlencode() }}@github.com/odoo/enterprise

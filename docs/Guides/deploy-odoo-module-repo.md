@@ -96,4 +96,4 @@ odoo_repos:
 ```
 
 !!! warning
-    The role removes directories in the addons path that are not listed in `odoo_repos`. Add all manually cloned repos to the var before running the role. The role asks for confirmation before removing directories; set `odoo_repos_confirm_removal: false` to skip the prompt.
+    The role removes directories in the addons path that are not listed in `odoo_repos`. Add all manually cloned repos to the var before running the role. The role always asks for confirmation before removing directories.
