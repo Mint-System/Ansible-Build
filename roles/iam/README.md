@@ -52,6 +52,16 @@ host_iam_users:
       - server1
 ```
 
+Configure a user's `~/.ssh/config`.
+
+```yml
+iam_ssh_configs:
+  - username: bot
+    content: |
+      Host jump.example.com
+          StrictHostKeyChecking no
+```
+
 And include it in your playbook.
 
 ```yml

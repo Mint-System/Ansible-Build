@@ -3,7 +3,9 @@
   ansible.builtin.copy:
     content: "{{ item.script }}"
     dest: "{{ cron_data_dir }}/{{ item.script_name }}"
-    mode: +x
+    owner: "{{ item.user | default('root') }}"
+    group: "{{ item.user | default('root') }}"
+    mode: "0700"
   loop: "{{ cron_jobs }}"
   when: item.command == "script"
 

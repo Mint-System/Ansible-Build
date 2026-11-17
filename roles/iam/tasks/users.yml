@@ -39,3 +39,41 @@
     mode: "0700"
   loop: "{{ iam_users }}"
   when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_private_key is defined
+
+- name: Ensure ssh dir exists
+  ansible.builtin.file:
+    path: /home/{{ item.username }}/.ssh
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0700"
+  loop: "{{ iam_users }}"
+  when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_config is defined
+
+- name: Setup ssh config
+  ansible.builtin.copy:
+    content: "{{ item.ssh_config }}"
+    dest: /home/{{ item.username }}/.ssh/config
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0600"
+  loop: "{{ iam_users }}"
+  when: item.hosts is defined and inventory_hostname_short in item.hosts and item.ssh_config is defined
+
+- name: Ensure ssh config dirs exist
+  ansible.builtin.file:
+    path: /home/{{ item.username }}/.ssh
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0700"
+  loop: "{{ iam_ssh_configs | default([]) }}"
+
+- name: Setup ssh configs
+  ansible.builtin.copy:
+    content: "{{ item.content }}"
+    dest: /home/{{ item.username }}/.ssh/config
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: "0600"
+  loop: "{{ iam_ssh_configs | default([]) }}"

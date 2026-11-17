@@ -2,7 +2,10 @@
 - name: Include nginx role and apply nginx_config tasks
   ansible.builtin.include_role:
     name: nginx
-    tasks_from: nginx_config
+    tasks_from: nginx_config.yml
+  tags:
+    - nginx
+    - nginx_config
 
 - name: Copy rule tuning conf
   ansible.builtin.template:
