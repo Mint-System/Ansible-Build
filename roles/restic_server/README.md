@@ -30,3 +30,18 @@ And include it in your playbook.
   roles:
   - role: restic_server
 ```
+
+The following tags are available:
+
+* restic_server
+* restic_server_check
+
+## Docs
+
+### Check backup repos
+
+Detect orphaned backup folders in `restic_server_backup_dir` by comparing folder names against inventory hostnames. Use the `restic_server_check` tag to run only the check tasks:
+
+```bash
+task play -i inventories/mint_system plays/all.yml -l restic01 -t restic_server_check
+```

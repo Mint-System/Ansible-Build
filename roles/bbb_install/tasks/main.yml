@@ -1,10 +1,4 @@
 ---
-- name: Show applied tags
-  ansible.builtin.debug:
-    var: ansible_run_tags
-  tags:
-    - always
-
 - name: Check OS and Version
   ansible.builtin.fail:
     msg: This is not Ubuntu 18.04 / 22.04
