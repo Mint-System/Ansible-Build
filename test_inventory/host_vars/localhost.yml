@@ -90,7 +90,8 @@ keycloak_admin_password: admin
 keycloak_db_url_host: postgres01
 keycloak_db_username: example
 keycloak_db_password: test
-keycloak_proxy_hostname: http://login.local
+keycloak_proxy_scheme: http
+keycloak_proxy_hostname: login.local
 
 # https://hub.docker.com/r/mintsystem/odoo/
 odoo_revision: "18.0"

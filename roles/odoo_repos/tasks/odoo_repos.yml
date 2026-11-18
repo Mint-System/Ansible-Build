@@ -233,7 +233,8 @@
 
 - name: Create unmanaged repo list
   ansible.builtin.set_fact:
-    odoo_unmanaged_repo_dirs: "{{ odoo_repo_git_dirs.files | map(attribute='path') | map('dirname') | map('relpath', odoo_data_dir) | difference(odoo_managed_repo_dirs) }}"
+    odoo_unmanaged_repo_dirs: "{{ odoo_repo_git_dirs.files | map(attribute='path') | map('dirname') | map('relpath', odoo_data_dir) | difference(odoo_managed_repo_dirs)
+      }}"
 
 - name: List unmanaged {{ role_name }} repo directories
   ansible.builtin.debug:

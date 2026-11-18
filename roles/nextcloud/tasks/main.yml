@@ -25,6 +25,7 @@
 # Compare the tag (Config.Image), not the raw inspect Image which is the image ID.
 - name: Include {{ role_name }} config tasks
   ansible.builtin.include_tasks: "{{ role_name }}_config.yml"
-  when: nextcloud_image is defined and (not nextcloud_container_before.exists | default(false) or (nextcloud_container_before.container.Config.Image | default('') | split('/') | last == nextcloud_image | split('/') | last))
+  when: nextcloud_image is defined and (not nextcloud_container_before.exists | default(false) or (nextcloud_container_before.container.Config.Image |
+    default('') | split('/') | last == nextcloud_image | split('/') | last))
   tags:
     - nextcloud

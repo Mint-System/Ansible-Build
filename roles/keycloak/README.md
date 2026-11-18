@@ -33,7 +33,12 @@ keycloak_db_url_database: kc # default: keycloak
 keycloak_db_username: keycloak
 keycloak_db_password: # default: "{{ vault_keycloak_db_password }}"
 keycloak_proxy_hostname: login.example.com
+keycloak_proxy_scheme: https # default: https
 ```
+
+Keycloak is configured with `KC_HOSTNAME={{ keycloak_proxy_scheme }}://{{ keycloak_proxy_hostname }}` and `KC_PROXY_HEADERS=xforwarded`. The proxy must forward `X-Forwarded-Proto` and `X-Forwarded-Host` (see `proxy-params.conf`).
+
+Note: On Keycloak 26 the hostname v1 option `KC_PROXY` is deprecated. Using it makes Keycloak resolve the public URL as `http` and the admin console fails with `invalid_redirect_uri`.
 
 And include it in your playbook.
 
