@@ -94,6 +94,3 @@ odoo_repos:
     url: https://github.com/OCA/partner-contact.git
     branch: 19.0
 ```
-
-!!! warning
-    The role removes directories in the addons path that are not listed in `odoo_repos`. Add all manually cloned repos to the var before running the role. The role always asks for confirmation before removing directories.
