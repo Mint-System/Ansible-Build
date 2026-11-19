@@ -21,7 +21,7 @@ certbot_data_dir: /usr/share/cert # default: "/usr/share/{{ certbot_hostname }}"
 certbot_email: info@example.com
 
 # https://hub.docker.com/_/nginx/
-nginx_image: nginx:1.25.2-alpine
+nginx_image: nginx:1.31.9-alpine
 nginx_hostname: nginx01
 nginx_data_dir: /usr/share/nginx # default: "/usr/share/{{ nginx_hostname }}"
 nginx_proxies: # See nginx role for reference
