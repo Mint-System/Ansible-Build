@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- Updated the `nginx` image from `nginx:1.31.3-alpine` to `nginx:1.31.9-alpine`. Versions `1.9.5` through `1.31.8` are affected by [nginx2root](https://nginx2root.com/) (CVE-2026-123007, CVE-2026-123634, CVE-2026-123633, CVE-2026-121810, CVE-2026-113425).
+
 ### Removed
 
 - Removed `snap_packages` from `packages` role.
@@ -29,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Aligned the `nginx_image` version in `nginx` and `certbot` role documentation and in the test inventory to a single fixed tag.
 - `keycloak` role uses hostname v2 options (`KC_HOSTNAME` with scheme, `KC_PROXY_HEADERS`, `KC_HTTP_ENABLED`) instead of the deprecated v1 option `KC_PROXY`, fixing `invalid_redirect_uri` on the admin console with Keycloak 26. New variable `keycloak_proxy_scheme` (default `https`).
 - When the `nextcloud` container image is updated, the `occ` config tasks are skipped in that run while the entrypoint upgrade runs and applied on the next deployment; fresh deployments (no existing container) are still configured immediately.
 - BREAKING!: Renamed variables with `_proxy_basic_auth_` to `_basic_auth_`.
