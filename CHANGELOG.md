@@ -55,3 +55,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved `docs/upgrade-odoo.md` to `docs/Guides/upgrade-odoo.md`.
 - `odoo-repos-clone` only changes the repo group when it differs from the addons path group and warns instead of failing when the change is not permitted.
 - `odoo_repos` role lists unmanaged repo directories instead of prompting for their removal, so deployments run unattended and never delete unmanaged repos.
+- `cron` role sets script job files to `0700` and owned by the job user, since scripts may contain secrets.
+- `iam` role supports `iam_ssh_configs` to manage a user's `~/.ssh/config`.
+- `restic` role ensures the backup directory exists with `0750` and `restic_owner:restic_group`, so group members can read the backups.
+- Fixed `cron` role failing on hosts without `/etc/rsyslog.d/50-default.conf`.
+- Fixed `odoo` role backup tag not matching the docker odoo backup tasks.
+- Fixed `nginx_waf` role `tasks_from` referencing a task file without the `.yml` extension.
