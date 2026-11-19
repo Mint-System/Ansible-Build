@@ -1,4 +1,15 @@
 ---
+- name: Ensure {{ role_name }} backup dir exists
+  ansible.builtin.file:
+    path: "{{ restic_backup_dir }}"
+    state: directory
+    owner: "{{ restic_owner }}"
+    group: "{{ restic_group }}"
+    mode: "0750"
+  when: restic_backup_set is defined
+  tags:
+    - restic
+
 - name: Include {{ role_name }} tasks
   ansible.builtin.include_tasks: "{{ role_name }}.yml"
   when: restic_repo_type is defined and restic_repo_type in ['rest', 'local']
