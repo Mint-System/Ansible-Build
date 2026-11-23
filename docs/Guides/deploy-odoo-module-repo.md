@@ -39,6 +39,29 @@ The parameters are:
 
 The repo is cloned to `/usr/share/odoo01/addons/oca-partner-contact`.
 
+## Clone a private repo
+
+For a private repo, pass the ssh url with `-r` and the deploy key with `-k`.
+
+```bash
+odoo-repos-clone \
+    -p /usr/share/odoo01/addons \
+    -r ssh://git@github.com/Mint-System/Odoo-Apps-Swift-Link.git \
+    -b 19.0 \
+    -t mint-system-swift-link \
+    -k ~/.ssh/odoo-apps-swift-link
+```
+
+`-r` accepts `ssh://`, `https://` and the scp-like `git@host:path` form. The key is detected for both ssh variants, `https://` ignores `-k`.
+
+`-k` persists the key in the repo config, so later pulls work without the parameter.
+
+```bash
+odoo-repos-pull -p /usr/share/odoo01/addons/mint-system-swift-link
+```
+
+See the [ssh](../../roles/ssh/) role for generating and deploying the deploy key.
+
 ## Verify the repo
 
 List the repos in the addons directory.
@@ -53,6 +76,15 @@ The output is a YAML list that can be copied into the `odoo_repos` var of the ro
 odoo_repos:
   - path: oca-partner-contact
     url: https://github.com/OCA/partner-contact.git
+    branch: 19.0
+```
+
+A private repo records the ssh url instead.
+
+```yaml
+odoo_repos:
+  - path: mint-system-swift-link
+    url: ssh://git@github.com/Mint-System/Odoo-Apps-Swift-Link.git
     branch: 19.0
 ```
 

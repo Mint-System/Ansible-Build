@@ -48,5 +48,7 @@
       tags: ufw
     - role: iam
       tags: iam
+    - role: ssh
+      tags: ssh
     - role: crowdsec
       tags: crowdsec

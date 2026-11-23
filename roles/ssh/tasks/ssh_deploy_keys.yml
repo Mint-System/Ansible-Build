@@ -1,0 +1,56 @@
+---
+- name: Ensure deploy key ssh dirs exist
+  ansible.builtin.file:
+    path: "/home/{{ item.1 }}/.ssh"
+    state: directory
+    owner: "{{ item.1 }}"
+    group: "{{ item.1 }}"
+    mode: "0700"
+  loop: "{{ ssh_deploy_keys | subelements('users') }}"
+  loop_control:
+    label: "{{ item.0.name }} -> {{ item.1 }}"
+
+- name: Deploy ssh private keys
+  ansible.builtin.copy:
+    # lookup resolves absolute paths and decrypts vault encrypted key files
+    # ssh rejects keys without a trailing newline, so append one
+    content: "{{ lookup('file', item.0.ssh_private_key) | trim('\n') }}\n"
+    dest: "/home/{{ item.1 }}/.ssh/{{ item.0.name | lower }}"
+    owner: "{{ item.1 }}"
+    group: "{{ item.1 }}"
+    mode: "0600"
+  loop: "{{ ssh_deploy_keys | subelements('users') }}"
+  loop_control:
+    label: "{{ item.0.name }} -> {{ item.1 }}"
+  no_log: "{{ item.0.no_log | default(true) }}"
+
+- name: Deploy ssh public keys
+  ansible.builtin.copy:
+    content: "{{ item.0.ssh_public_key }}\n"
+    dest: "/home/{{ item.1 }}/.ssh/{{ item.0.name | lower }}.pub"
+    owner: "{{ item.1 }}"
+    group: "{{ item.1 }}"
+    mode: "0644"
+  loop: "{{ ssh_deploy_keys | subelements('users') }}"
+  loop_control:
+    label: "{{ item.0.name }} -> {{ item.1 }}"
+  when: item.0.ssh_public_key is defined
+
+- name: Configure ssh hosts for deploy keys
+  ansible.builtin.blockinfile:
+    path: "/home/{{ item.1 }}/.ssh/config"
+    create: true
+    owner: "{{ item.1 }}"
+    group: "{{ item.1 }}"
+    mode: "0600"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.0.name }}"
+    block: |
+      Host {{ item.0.host | default('github.com') }}-{{ item.0.name | lower }}
+        HostName {{ item.0.host | default('github.com') }}
+        User git
+        IdentityFile ~/.ssh/{{ item.0.name | lower }}
+        IdentitiesOnly yes
+  loop: "{{ ssh_deploy_keys | subelements('users') }}"
+  loop_control:
+    label: "{{ item.0.name }} -> {{ item.1 }}"
+  when: item.0.ssh_config | default(true)

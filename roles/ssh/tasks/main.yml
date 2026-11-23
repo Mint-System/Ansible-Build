@@ -4,3 +4,12 @@
   when: ssh_enabled
   tags:
     - ssh
+
+- name: Include {{ role_name }} deploy key tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_deploy_keys.yml"
+  when:
+    - ssh_enabled
+    - ssh_deploy_keys | length > 0
+  tags:
+    - ssh
+    - ssh_deploy_keys
