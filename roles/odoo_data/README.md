@@ -15,12 +15,13 @@ Configure the role.
 ```yml
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
 odoo_data:
-  - id: ir_mail_server_1
+  - 
     module_name: ir_mail_server_data
     display_name: "Mail Server Example"
     version: 19.0.1.0.0
     records:
-      - model: ir.mail_server
+      - id: ir_mail_server_1
+        model: ir.mail_server
         fields:
           name: Infomaniak Outgoing
           smtp_host: mail.infomaniak.com
