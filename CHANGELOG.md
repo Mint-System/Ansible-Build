@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - New `taskfile_build` role that deploys the `mintsystem/taskfile.build` container to clone, build and serve a git repo. Supports deploy keys (`taskfile_build_ssh_public_key`, `taskfile_build_ssh_private_key`), a sops age key (`taskfile_build_sops_age_key`), Taskfile commands, a container command override and cron jobs running `docker exec` in the container.
+- `taskfile_build` role options `taskfile_build_etc_hosts` for extra `/etc/hosts` entries and `taskfile_build_extra_env` for additional container env vars.
+- `taskfile_build_cron_jobs` supports `chdir` to set the working directory of the `docker exec` call.
 - New `odoo_repos` scripts `odoo-repos-list`, `odoo-repos-clone` and `odoo-repos-pull` including an install script and role tasks.
 - New "Guides" documentation section with `Guides.md` overview, "Deploy Odoo module repo" guide and relocated "Upgrade Odoo" guide.
 - Do a port knocking in `certbot_check.yml` task.
