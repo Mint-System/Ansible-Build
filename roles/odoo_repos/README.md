@@ -14,6 +14,7 @@ Configure the role.
 
 ```yml
 odoo_data_dir: /usr/share/odoo # default: "/usr/share/{{ odoo_hostname }}"
+odoo_repos_scripts_dir: /home/odoo/bin # default: "/home/{{ odoo_owner }}/bin"
 odoo_revision: "18.0.20250725"
 odoo_repo_key_file: /home/bot/.ssh/id_ed25519
 github_pat: # default: "{{ vault_github_pat }}"
