@@ -15,4 +15,6 @@ taskfile_build_volume_name: "{{ taskfile_build_hostname }}"
 taskfile_build_volumes:
   - "{{ taskfile_build_volume_name }}:/app"
 taskfile_build_ports: []
+taskfile_build_etc_hosts: {} # host: ip
+taskfile_build_extra_env: {} # extra container env vars
 taskfile_build_cron_jobs: [] # - name, command, hour, minute, disabled, state

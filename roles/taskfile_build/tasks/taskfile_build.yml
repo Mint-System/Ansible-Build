@@ -23,6 +23,11 @@
       GIT_SSH_CONFIG: "{{ taskfile_build_ssh_config | default('', true) }}"
   no_log: true
 
+- name: Merge extra env vars for {{ role_name }} container
+  ansible.builtin.set_fact:
+    taskfile_build_env: "{{ taskfile_build_env | combine(taskfile_build_extra_env) }}"
+  no_log: true
+
 - name: Create {{ role_name }} volume
   community.docker.docker_volume:
     name: "{{ taskfile_build_volume_name }}"
@@ -41,5 +46,6 @@
     env: "{{ taskfile_build_env | dict2items | rejectattr('value', 'equalto', '') | items2dict }}"
     volumes: "{{ taskfile_build_volumes }}"
     ports: "{{ taskfile_build_ports }}"
+    etc_hosts: "{{ taskfile_build_etc_hosts }}"
     networks:
       - name: "{{ docker_network_name }}"
