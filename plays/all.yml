@@ -102,3 +102,5 @@
       tags: pgbouncer
     - role: bbb_install
       tags: bbb_install
+    - role: taskfile_build
+      tags: taskfile_build

@@ -1,0 +1,45 @@
+---
+- name: Set {{ role_name }} deploy key flag
+  ansible.builtin.set_fact:
+    taskfile_build_deploy_key: "{{ taskfile_build_ssh_private_key | default('', true) | length > 0 }}"
+
+- name: Read {{ role_name }} ssh private key
+  ansible.builtin.set_fact:
+    taskfile_build_ssh_private_key_base64: "{{ lookup('file', taskfile_build_ssh_private_key) | b64encode }}"
+  no_log: true
+  when: taskfile_build_deploy_key
+
+- name: Set {{ role_name }} container env
+  ansible.builtin.set_fact:
+    taskfile_build_env:
+      GIT_URL: "{{ taskfile_build_git_url }}"
+      TASK_COMMANDS: "{{ taskfile_build_task_commands }}"
+      CADDY_ROOT: "{{ taskfile_build_caddy_root }}"
+      SOPS_AGE_KEY: "{{ taskfile_build_sops_age_key | default('', true) }}"
+      GIT_SSH_PUBLIC_KEY: "{{ taskfile_build_ssh_public_key | default('', true) }}"
+      GIT_SSH_PRIVATE_KEY: "{{ taskfile_build_ssh_private_key_base64 | default('') }}"
+      SSH_ID_ALGORITHM: "{{ taskfile_build_ssh_id_algorithm }}"
+      GIT_SSH_HOST: "{{ taskfile_build_ssh_host }}"
+      GIT_SSH_CONFIG: "{{ taskfile_build_ssh_config | default('', true) }}"
+  no_log: true
+
+- name: Create {{ role_name }} volume
+  community.docker.docker_volume:
+    name: "{{ taskfile_build_volume_name }}"
+
+- name: Start {{ role_name }} container {{ taskfile_build_hostname }}
+  community.docker.docker_container:
+    name: "{{ taskfile_build_hostname }}"
+    hostname: "{{ taskfile_build_hostname }}"
+    labels:
+      description: "{{ taskfile_build_description }}"
+    image: "{{ taskfile_build_image }}"
+    restart_policy: unless-stopped
+    command: "{{ taskfile_build_command }}"
+    state: started
+    # drop unset vars so the image falls back to its defaults
+    env: "{{ taskfile_build_env | dict2items | rejectattr('value', 'equalto', '') | items2dict }}"
+    volumes: "{{ taskfile_build_volumes }}"
+    ports: "{{ taskfile_build_ports }}"
+    networks:
+      - name: "{{ docker_network_name }}"

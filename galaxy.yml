@@ -27,6 +27,7 @@ tags:
   - keycloak
   - promtail
   - ufw
+  - taskfile_build
 repository: "https://github.com/mint-system/ansible-build"
 build_ignore:
   - .vault_pass

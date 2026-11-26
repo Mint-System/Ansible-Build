@@ -1,0 +1,18 @@
+---
+taskfile_build_image: mintsystem/taskfile.build:latest
+taskfile_build_description: Taskfile Build
+taskfile_build_git_url:
+taskfile_build_ssh_public_key:
+taskfile_build_ssh_private_key:
+taskfile_build_ssh_id_algorithm: id_ed25519
+taskfile_build_ssh_host: github.com
+taskfile_build_ssh_config:
+taskfile_build_task_commands: build
+taskfile_build_command: caddy
+taskfile_build_caddy_root: public
+taskfile_build_sops_age_key: "{{ vault_taskfile_build_sops_age_key }}"
+taskfile_build_volume_name: "{{ taskfile_build_hostname }}"
+taskfile_build_volumes:
+  - "{{ taskfile_build_volume_name }}:/app"
+taskfile_build_ports: []
+taskfile_build_cron_jobs: [] # - name, command, hour, minute, disabled, state

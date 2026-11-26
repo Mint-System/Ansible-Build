@@ -1,0 +1,14 @@
+---
+- name: Include {{ role_name }} tasks
+  ansible.builtin.include_tasks: "{{ role_name }}.yml"
+  when: taskfile_build_git_url is defined
+  tags:
+    - taskfile_build
+
+- name: Include {{ role_name }} cron tasks
+  ansible.builtin.include_tasks: "{{ role_name }}_cron.yml"
+  when:
+    - taskfile_build_git_url is defined
+    - taskfile_build_cron_jobs | length > 0
+  tags:
+    - taskfile_build

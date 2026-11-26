@@ -1,0 +1,12 @@
+---
+- name: Setup {{ role_name }} cron jobs
+  ansible.builtin.cron:
+    name: "{{ item.name }}"
+    hour: "{{ item.hour | default('*') }}"
+    minute: "{{ item.minute | default('*') }}"
+    job: "docker exec {{ taskfile_build_hostname }} {{ item.command }}"
+    disabled: "{{ item.disabled | default(false) }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ taskfile_build_cron_jobs }}"
+  loop_control:
+    label: "{{ item.name }}"

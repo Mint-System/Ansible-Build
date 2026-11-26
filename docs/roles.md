@@ -106,6 +106,7 @@
 | ![ssh logo](/logos/ssh.png)  | [ssh](roles/ssh/) | environment | Configure SSH client and server. |
 | ![superset logo](/logos/superset.png)  | [superset](roles/superset/) | application | Deploy Apache Superset container. |
 | ![systemd logo](/logos/systemd.png)  | [systemd](roles/systemd/) | environment | Setup systemd service. |
+| ![taskfile_build logo](/logos/taskfile_build.png)  | [taskfile_build](roles/taskfile_build/) | service | Deploy a container that builds and serves a git repo with <https://taskfile.build/>. |
 | ![timezone logo](/logos/timezone.png)  | [timezone](roles/timezone/) | environment | Define timezone. |
 | ![ufw logo](/logos/ufw.png)  | [ufw](roles/ufw/) | system | Configures UFW rules. |
 | ![update logo](/logos/update.png)  | [update](roles/update/) | environment | Install system and package updates. |
