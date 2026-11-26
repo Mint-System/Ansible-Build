@@ -1,16 +1,16 @@
 ---
-commit_ref:
+commit_ref: 0cab7b26720b990f02377a6911d32f7bfcfa2366
 title: "New role Taskfile Build"
 author: "Janik von Rotz <login@janikvonrotz.ch>"
-session_id:
+session_id: 01a217d9-d1a1-715f-bd71-1231a95d1739
 action: execute
-state: draft
-date_completed: YYYY-MM-DD
-harness:
-provider:
-model:
-input_tokens:
-output_tokens:
+state: completed
+date_completed: 2026-11-26
+harness: pi
+provider: mistral
+model: deepseek-v4-1-flash-1017
+input_tokens: 188566
+output_tokens: 39445
 ---
 
 # New role Taskfile Build
@@ -73,6 +73,25 @@ In addition I will setup a cron job that runs the command in the container.
 
 ## Worklog
 
-@Clanker Add a summary here once the task has been completed.
+New role `roles/taskfile_build` created using `roles/postgres` as template, plus a new `add-ssh-key` command in the taskfile.build project.
 
-@Clanker If author confirms results set frontmatter state to completed, otherwise to aborted. Update date, harness, provider and model. If you have access to session info update token count. Finally, update the changelog with the most important changes.
+### Image (`~/taskfile.build`)
+
+- `bin/add-ssh-key`: new command that creates `~/.ssh`, writes `GIT_SSH_PUBLIC_KEY`, the base64 decoded `GIT_SSH_PRIVATE_KEY`, `GIT_SSH_CONFIG`, scans the host into `known_hosts` and starts an ssh-agent. Uses `source ~/.ssh/agent.env` instead of `eval`. Scans the `Hostname` from the ssh config so port-443 rewrites are trusted. Appends the trailing newline ssh requires.
+- `image/Dockerfile`: installs `openssh-client` and adds `/root/taskfile.build/bin` to `PATH`.
+- `image/entrypoint.sh`: sources `bin/add-ssh-key` and runs it before the git clone.
+- `task` / `task.template` / `docs/library.md`: command registered, new "Git SSH deploy key" env var section (`GIT_SSH_PUBLIC_KEY`, `GIT_SSH_PRIVATE_KEY`, `SSH_ID_ALGORITHM`, `GIT_SSH_HOST`, `GIT_SSH_CONFIG`).
+- `docs/image.md`: "SSH deploy keys" section. CHANGELOG updated.
+
+### Role (`roles/taskfile_build`)
+
+- `defaults/main.yml`: `taskfile_build_image`, `taskfile_build_hostname`, `taskfile_build_git_url`, `taskfile_build_task_commands` (`TASK_COMMANDS`), `taskfile_build_command`, `taskfile_build_caddy_root`, `taskfile_build_sops_age_key` (default `vault_taskfile_build_sops_age_key`), deploy key vars, volume, ports, `taskfile_build_cron_jobs`.
+- Deploy keys are passed as env vars, no data dir and no `.ssh` mount. The private key is read with `lookup('file', ...)` (vault friendly) and base64 encoded into `GIT_SSH_PRIVATE_KEY`. Empty vars are dropped from the container env.
+- `tasks/taskfile_build_cron.yml`: cron jobs running `docker exec <hostname> <command>`.
+- `plays/all.yml` tag, `galaxy.yml` tag, `logos/taskfile_build.png`, `docs/roles.md`, CHANGELOG and README (vars, deploy key example, port-443 config).
+
+### Testing
+
+Local `test_inventory` against a locally built image `mintsystem/taskfile.build:test`, cleaned up afterwards: verified the container env, the absence of an `.ssh` mount, `Identity added` on start and the ssh clone attempt reaching GitHub. The throwaway key is not a deploy key on that repo, so auth was refused as expected. `shellcheck bin/add-ssh-key`, `./task lint` and `./task list-tags plays/all.yml` pass.
+
+Not tested: the `clio` deployment and sops decryption with a real age key.
